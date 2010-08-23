@@ -29,26 +29,21 @@
     ;; (2) then, (a) either send off the current compilation of keyboard events
     ;;               in terms of their effect on control and reset the timer,
     ;;           (b) or keep reading events until the timer goes off
-    [(sink) (call/cc
-             (lambda (k) 
-               (let loop ((xdir 0.0)
-                          (ydir 0.0)
-                          (a (alarm-evt (+ (delta) (current-inexact-milliseconds)))))
-                 (receive/match [(list (? thread? source) 'event-keyboard #\d)
-                                 (set! ydir (add1 ydir))]
-                                [(list (? thread? source) 'event-keyboard #\a)
-                                 (set! ydir (sub1 ydir))]
-                                [(list (? thread? source) 'event-keyboard #\w)
-                                 (set! xdir (sub1 xdir))]
-                                [(list (? thread? source) 'shutdown)
-                                 (printf "control shutting down~n")
-                                 (k #f)]
-                                [after 0])
-                 (let ((makealarm? (sync/timeout 0 a)))
-                   (cond [makealarm?
-                          ((send-out) sink xdir ydir)
-                          (loop 0.0 0.0 (alarm-evt (+ (delta) (current-inexact-milliseconds))))]
-                         [else (loop xdir ydir a)])))))]))
+    [(sink) (let loop ((xdir 0.0)
+                       (ydir 0.0)
+                       (a (alarm-evt (+ (delta) (current-inexact-milliseconds)))))
+              (receive/match [(list (? thread? source) 'event-keyboard #\d)
+                              (set! ydir (add1 ydir))]
+                             [(list (? thread? source) 'event-keyboard #\a)
+                              (set! ydir (sub1 ydir))]
+                             [(list (? thread? source) 'event-keyboard #\w)
+                              (set! xdir (sub1 xdir))]
+                             [after 0])
+              (let ((makealarm? (sync/timeout 0 a)))
+                (cond [makealarm?
+                       ((send-out) sink xdir ydir)
+                       (loop 0.0 0.0 (alarm-evt (+ (delta) (current-inexact-milliseconds))))]
+                      [else (loop xdir ydir a)])))]))
 
 ; should always print (-1, 0)
 (define (test)

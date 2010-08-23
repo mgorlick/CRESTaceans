@@ -42,19 +42,7 @@
     (start/link sim-instance rul-instance (list gfx-instance))
     (start/link con-instance sim-instance)
     (start/link kbd-instance con-instance)
-    (wait-for-shutdown-signal gfx-instance
-                              rul-instance
-                              sim-instance
-                              con-instance
-                              kbd-instance) ; change to control or kbd
-    )
-  (void))
-
-(define (wait-for-shutdown-signal expected-sender . rest)
-  (receive/match
-   [(list expected-sender 'shutdown)
-    (for/list ([t rest])
-      (thread-send t (list (current-thread) 'shutdown)))]))
+    ))
 
 ; computation-spawn: thread any ... -> thread
 ; spawn a computation off from the parent computation, using the common spawn interface
