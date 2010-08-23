@@ -29,6 +29,11 @@
                                    (allow-vert? (get-fuel state) ydir) 
                                    ))
          (loop)]
+        
+        [(list (? thread? source) 'shutdown)
+         (for/list ([e extensions])
+           (thread-send e (list (current-thread) 'shutdown)))
+         (printf "rules shutting down~n")]
         ))
      ]))
 

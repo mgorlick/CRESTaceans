@@ -22,6 +22,7 @@
        (thread-send sender (list (current-thread) 'start-notification))
        (init width height rules sinks)])]
     
+    ; rules is ONE THREAD, while sinks is a list of threads
     [(width height rules sinks) 
      
      ; ENVIRONMENT SETUP
@@ -41,7 +42,9 @@
      (define (make-ground-shape v1 v2 space staticBody height width)
        (let* ([real-v1 (cpv (cpVect-x v1) (+ (cpVect-y v1) 100))]
               [real-v2 (cpv (cpVect-x v2) (+ (cpVect-y v2) 100))]
-              [shape (cpSpaceAddStaticShape space (cpSegmentShapeNew staticBody real-v1 real-v2 100.0))])
+              [shape (cpSpaceAddStaticShape space 
+                                            (cpSegmentShapeNew staticBody 
+                                                               real-v1 real-v2 100.0))])
          (set-cpShape-e! shape 1.0)
          (set-cpShape-u! shape 1.0)))
      
@@ -62,7 +65,8 @@
                       [v2 (cpv end-width end-height)])
                  (make-ground-shape last v2 space staticBody height width)
                  (cons (vector end-width (+ end-height 0))
-                       (make-ground width height space staticBody (cpv end-width end-height)))
+                       (make-ground width height space staticBody 
+                                    (cpv end-width end-height)))
                  )]
          ))
      
@@ -97,11 +101,15 @@
        (dict-set! state "ship" (make-ship width height space))
        (dict-set! state "player" nfuel)
        (dict-set! state "game" 'active)
-       (dict-set! state "ground" (cons (vector 0.0 height-factor)
-                                       (make-ground width height space staticBody (cpv 0.0 height-factor))))
+       (dict-set! state "ground" 
+                  (cons (vector 0.0 height-factor)
+                        (make-ground width height space staticBody (cpv 0.0 height-factor))))
        (manage-update state width height 0.0 0.0 sinks)
        (set-simple-form! state)
-       (update-loop state width height rules sinks))]))
+       (update-loop state width height rules sinks)
+       (printf "simulation freeing and shutting down~n")
+       (cpSpaceFreeChildren space)
+       (cpSpaceFree space))]))
 
 ; update-loop: dict? rational? rational? listof-thread? -> void
 ; respond to control signal if there is one, else update with no control signal
@@ -117,6 +125,10 @@
     (request-update-permission state xdir ydir rules)
     (update-loop state width height rules sinks)]
    
+   [(list (? thread? sender) 'shutdown)
+    #f
+    ]
+   
    [after (delta)
           (manage-update state width height 0.0 0.0 sinks)
           (update-loop state width height rules sinks)]
@@ -128,8 +140,8 @@
 (define (manage-update state width height xdir ydir sinks)
   (update state width height xdir ydir)
   (set-simple-form! state)
-  (for/list [(s sinks)]
-    (thread-send s (list (current-thread) 'event-state state))))
+  (for/list ([s sinks])
+    (thread-send s (list (current-thread) 'event-state state) void)))
 
 ; update: dict? rational? rational? integer? integer? -> void
 (define (update state width height xdir ydir)
