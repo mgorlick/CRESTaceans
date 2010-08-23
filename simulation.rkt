@@ -152,8 +152,8 @@
          [fuel (dict-ref state "player")])
     (for [(i (in-range steps))]
       (cpSpaceStep space dt)
-      (cpBodyApplyImpulse ship (cpv 0.0 (* ydir -20.0)) cpvzero)
-      (cpBodyApplyImpulse ship (cpv (* xdir -20.0) 0.0) cpvzero)
+      (cpBodyApplyImpulse ship (cpv 0.0 (* ydir -5.0)) cpvzero)
+      (cpBodyApplyImpulse ship (cpv (* xdir -5.0) 0.0) cpvzero)
       )
     ;(printf "NEW POSITION: ~s, ~s~n" (xpos ship) (ypos ship))
     (cond ; wrap the ship around if it ventures offscreen

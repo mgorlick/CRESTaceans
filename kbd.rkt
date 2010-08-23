@@ -23,7 +23,7 @@
     ; 3. goto 1
     [(sink) 
      (let loop ()
-       (let ((key (read-char)))
+       (let ([key (read-char)])
          (cond [(or (eq? key #\d) (eq? key #\a) (eq? key #\w))
                 (thread-send sink (list (current-thread) 'event-keyboardx key))]
                )

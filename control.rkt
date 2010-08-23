@@ -31,9 +31,9 @@
     ;;           (b) or keep reading events until the timer goes off
     [(sink) (call/cc
              (lambda (k) 
-               (let loop ((xdir 0.0)
-                          (ydir 0.0)
-                          (a (alarm-evt (+ (delta) (current-inexact-milliseconds)))))
+               (let loop ([xdir 0.0]
+                          [ydir 0.0]
+                          [a (alarm-evt (+ (delta) (current-inexact-milliseconds)))])
                  (receive/match [(list (? thread? source) 'event-keyboard #\d)
                                  (set! ydir (add1 ydir))]
                                 [(list (? thread? source) 'event-keyboard #\a)
@@ -55,7 +55,7 @@
   (parameterize ([send-out (lambda (sink xdir ydir)
                              (printf "(~s, ~s) ~n" xdir ydir))]
                  [delta 0])
-    (let ((t (thread (lambda () (init #f)))))
+    (let ([t (thread (lambda () (init #f)))])
       (let loop ()
         (sleep 0)
         (thread-send t (list (current-thread) 'event-keyboard #\w))

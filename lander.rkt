@@ -7,8 +7,8 @@
          (prefix-in sim- "simulation.rkt")
          (prefix-in con- "control.rkt")
          (prefix-in kbd- "kbd.rkt"))
-(provide/contract [make-game ((and/c rational? (not/c exact-integer?))
-                              (and/c rational? (not/c exact-integer?))
+(provide/contract [make-game ([and/c rational? (not/c exact-integer?)]
+                              [and/c rational? (not/c exact-integer?)]
                               exact-integer? . -> . void?)]
                   [go (-> void?)])
 

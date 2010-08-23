@@ -23,10 +23,10 @@
   (easy-init width height depth)
   (let ((buffer (image-create screen-x screen-y))
         (init-state #f))
-    (let loop ((state init-state))
-      (let ((new-state 
+    (let loop ([state init-state])
+      (let ([new-state 
              (receive/match [(list (? thread? source) 'event-state w) w] 
-                            [after 0 state])))
+                            [after 0 state])])
         (cond
           [(not (eq? new-state #f))
            (draw-world buffer new-state)
