@@ -101,20 +101,29 @@
                                        (make-ground width height space staticBody (cpv 0.0 height-factor))))
        (manage-update state width height 0.0 0.0 sinks)
        (set-simple-form! state)
-       (update-loop state width height sinks))]))
+       (update-loop state width height rules sinks))]))
 
 ; update-loop: dict? rational? rational? listof-thread? -> void
 ; respond to control signal if there is one, else update with no control signal
-(define (update-loop state width height sinks)
+(define (update-loop state width height rules sinks)
   (receive/match
-   [(list (? thread? sender) 'event-control (? integer? xdir) (? integer? ydir))
-    (update state width height xdir ydir)
+   [(list (? thread? sender) 'permit-update!
+          (? boolean? horz?) xdir
+          (? boolean? vert?) ydir)
     (manage-update state width height xdir ydir sinks)
-    (update-loop state width height sinks)]
+    (update-loop state width height rules sinks)]
+   
+   [(list (? thread? sender) 'event-control (? integer? xdir) (? integer? ydir))
+    (request-update-permission state xdir ydir rules)
+    (update-loop state width height rules sinks)]
+   
    [after (delta)
           (manage-update state width height 0.0 0.0 sinks)
-          (update-loop state width height sinks)]
+          (update-loop state width height rules sinks)]
    ))
+
+(define (request-update-permission state xdir ydir rules)
+  (thread-send rules (list (current-thread) 'permit-update? state xdir ydir)))
 
 (define (manage-update state width height xdir ydir sinks)
   (update state width height xdir ydir)

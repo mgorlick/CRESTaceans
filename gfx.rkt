@@ -78,7 +78,9 @@
 
 (define (draw-ground buffer ground-points)
   (cond
-    [(empty? (cddr ground-points)) (draw-ground-segment buffer (car ground-points) (cadr ground-points))]
+    [(empty? (cddr ground-points)) (draw-ground-segment buffer 
+                                                        (car ground-points) 
+                                                        (cadr ground-points))]
     [else (draw-ground-segment buffer (car ground-points) (cadr ground-points))
           (draw-ground buffer (cdr ground-points))]))
 

@@ -20,11 +20,14 @@
     [(extensions) 
      (let loop ()
        (receive/match
-        [(list (? thread? source) 'permit-update? (? dict? state) 
-               (? boolean? vert?) (? boolean? horz?))
-         (thread-send source (list (current-thread) 'permit-update
-                                   (allow-vert? (get-fuel state) vert?)
-                                   (allow-horz? (get-fuel state) horz?)))
+        [(list (? thread? source) 'permit-update?
+               (? dict? state) 
+               (? integer? xdir)
+               (? integer? ydir))
+         (thread-send source (list (current-thread) 'permit-update!
+                                   (allow-horz? (get-fuel state) xdir)
+                                   (allow-vert? (get-fuel state) ydir) 
+                                   ))
          (loop)]
         ))
      ]))
@@ -32,12 +35,12 @@
 (define (get-fuel state)
   (dict-ref state "player"))
 
-(define (allow-vert? fuel vert?)
+(define (allow-vert? fuel ydir)
   (cond
-    [vert? (> fuel 5)]
-    [else #f]))
+    [(> fuel (* 5 ydir)) ydir]
+    [else 0.0]))
 
-(define (allow-horz? fuel horz?)
+(define (allow-horz? fuel xdir)
   (cond
-    [horz? (> fuel 1)]
-    [else #f]))
+    [(> fuel xdir) xdir]
+    [else 0.0]))
