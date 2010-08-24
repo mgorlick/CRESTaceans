@@ -1,5 +1,6 @@
 #lang racket
 
+(require ffi/unsafe)
 (provide (prefix-out _Allegro- (all-defined-out)))
 
 (define Windowed (arithmetic-shift 1 0))
@@ -14,9 +15,10 @@
 (define Fullscreen-Window (arithmetic-shift 1 9))
 (define Minimized (arithmetic-shift 1 10))
 
-(define Dontcare 0)
-(define Require 1)
-(define Suggest 2)
+(define Importance
+  (_enum '('Allegro-Require
+           'Allegro-Suggest
+           'Allegro-Dontcare)))
 
 (define Display-Options
   (_enum '('Allegro-Red-Size

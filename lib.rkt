@@ -27,7 +27,7 @@
 (define-cpointer-type _Allegro-Bitmap-pointer)
 (define-cstruct _Allegro-Color ([r _float] [g _float] [b _float] [a _float]))
 (define-cpointer-type _Allegro-Display-pointer)
-(defne-cstruct _Allegro-Display-Mode
+(define-cstruct _Allegro-Display-Mode
   ([width _int] [height _int] [format _int] [refresh-rate _int]))
 
 (define-cstruct _Allegro-Monitor-Info ([x1 _int] [y1 _int] [x2 _int] [y2 _int]))

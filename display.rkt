@@ -1,7 +1,8 @@
 #lang racket
 
 (require ffi/unsafe
-         "lib.rkt")
+         "lib.rkt"
+         "display-options.rkt")
 (provide (all-defined-out))
 
 ; Display creation

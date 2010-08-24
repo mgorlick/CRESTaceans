@@ -1,6 +1,6 @@
 #lang racket
 
-(provide (prefix-out _Allegro- (all-defined-out)))
+(provide (prefix-out Allegro- (all-defined-out)))
 
 (define Key-A 1)
 (define Key-B 2)
