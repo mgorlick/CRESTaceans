@@ -39,6 +39,7 @@
     (start/link gfx-instance)
     (start/link rul-instance)
     (start/link sim-instance rul-instance (list gfx-instance))
+    ;(start/link sim-instance rul-instance '())
     (start/link con-instance sim-instance)
     (start/link kbd-instance con-instance)
     (wait-for-shutdown-signal gfx-instance ; change to control or kbd

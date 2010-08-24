@@ -49,17 +49,11 @@
                                                                real-v1 real-v2 100.0))])
          (cpSpaceAddCollisionHandler
           space (cpShape-collision_type ship) (cpShape-collision_type shape)
-          (newCollisionHandler (lambda (arb space ptr)
-                                 (printf "callback 1~n")
-                                 1))
-          #;(newCollisionHandler (lambda (arb space ptr)
-                                 (printf "callback 2~n")
-                                 1))
-          #;(newCollisionHandler2 (lambda (arb space ptr)
-                                  (printf "callback 3~n")))
-          #;(newCollisionHandler2 (lambda (arb space ptr)
-                                  (printf "callback 4~n"))) 
-          #f #f #f #f)
+          first-callback
+          second-callback
+          third-callback
+          fourth-callback
+          #f)
          (set-cpShape-e! shape 1.0)
          (set-cpShape-u! shape 1.0)))
      
@@ -127,6 +121,26 @@
        (printf "simulation freeing and shutting down~n")
        (cpSpaceFreeChildren space)
        (cpSpaceFree space))]))
+
+(define first-callback
+  (newCollisionHandler (lambda (a b c) 
+                         (printf "callback 1~n")
+                         1)))
+
+(define second-callback
+  (newCollisionHandler (lambda (a b c)
+                         (printf "callback 2~n")
+                         1)))
+
+(define third-callback
+  (newCollisionHandler2 (lambda (a b c)
+                         (printf "callback 3~n")
+                         (void))))
+
+(define fourth-callback
+  (newCollisionHandler2 (lambda (a b c)
+                         (printf "callback 4~n")
+                         (void))))
 
 ; update-loop: dict? rational? rational? listof-thread? -> void
 ; respond to control signal if there is one, else update with no control signal
