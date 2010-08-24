@@ -16,41 +16,41 @@
 (define Minimized (arithmetic-shift 1 10))
 
 (define Importance
-  (_enum '('Allegro-Require
-           'Allegro-Suggest
-           'Allegro-Dontcare)))
+  (_enum '(Allegro-Require
+           Allegro-Suggest
+           Allegro-Dontcare)))
 
 (define Display-Options
-  (_enum '('Allegro-Red-Size
-           'Allegro-Green-Size
-           'Allegro-Blue-Size
-           'Allegro-Alpha-Size
-           'Allegro-Red-Shift
-           'Allegro-Green-Shift
-           'Allegro-Blue-Shift
-           'Allegro-Alpha-Shift
-           'Allegro-ACC-Red-Size
-           'Allegro-ACC-Green-Size
-           'Allegro-ACC-Blue-Size
-           'Allegro-ACC-Alpha-Size
-           'Allegro-Stereo
-           'Allegro-Aux-Buffers
-           'Allegro-Color-Size
-           'Allegro-Depth-Size
-           'Allegro-Stencil-Size
-           'Allegro-Sample-Buffers
-           'Allegro-Samples
-           'Allegro-Render-Method
-           'Allegro-Float-Color
-           'Allegro-Float-Depth
-           'Allegro-Single-Buffer
-           'Allegro-Swap-Method
-           'Allegro-Compatible-Display
-           'Allegro-Update-Display-Region
-           'Allegro-Vsync
-           'Allegro-Max-Bitmap-Size
-           'Allegro-Support-NPot-Bitmap
-           'Allegro-Can-Draw-Into-Bitmap
-           'Allegro-Support-Separate-Alpha
-           'Allegro-Display-Options-Count)))
+  (_enum '(Allegro-Red-Size
+           Allegro-Green-Size
+           Allegro-Blue-Size
+           Allegro-Alpha-Size
+           Allegro-Red-Shift
+           Allegro-Green-Shift
+           Allegro-Blue-Shift
+           Allegro-Alpha-Shift
+           Allegro-ACC-Red-Size
+           Allegro-ACC-Green-Size
+           Allegro-ACC-Blue-Size
+           Allegro-ACC-Alpha-Size
+           Allegro-Stereo
+           Allegro-Aux-Buffers
+           Allegro-Color-Size
+           Allegro-Depth-Size
+           Allegro-Stencil-Size
+           Allegro-Sample-Buffers
+           Allegro-Samples
+           Allegro-Render-Method
+           Allegro-Float-Color
+           Allegro-Float-Depth
+           Allegro-Single-Buffer
+           Allegro-Swap-Method
+           Allegro-Compatible-Display
+           Allegro-Update-Display-Region
+           Allegro-Vsync
+           Allegro-Max-Bitmap-Size
+           Allegro-Support-NPot-Bitmap
+           Allegro-Can-Draw-Into-Bitmap
+           Allegro-Support-Separate-Alpha
+           Allegro-Display-Options-Count)))
 
