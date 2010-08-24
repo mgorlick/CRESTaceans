@@ -49,7 +49,17 @@
                                                                real-v1 real-v2 100.0))])
          (cpSpaceAddCollisionHandler
           space (cpShape-collision_type ship) (cpShape-collision_type shape)
-          #f #f #f #f #f)
+          (newCollisionHandler (lambda (arb space ptr)
+                                 (printf "callback 1~n")
+                                 1))
+          #;(newCollisionHandler (lambda (arb space ptr)
+                                 (printf "callback 2~n")
+                                 1))
+          #;(newCollisionHandler2 (lambda (arb space ptr)
+                                  (printf "callback 3~n")))
+          #;(newCollisionHandler2 (lambda (arb space ptr)
+                                  (printf "callback 4~n"))) 
+          #f #f #f #f)
          (set-cpShape-e! shape 1.0)
          (set-cpShape-u! shape 1.0)))
      
