@@ -51,8 +51,6 @@
            'Allegro-Filemode-Isfile
            'Allegro-Filemode-Isdir)))
 
-(define-cpointer-type _Allegro-Keyboard-State-pointer)
-
 (define-cpointer-type _Allegro-Mouse-pointer)
 (define-cpointer-type _Allegro-Mouse-Cursor-pointer)
 (define-cstruct _Allegro-Mouse-State
@@ -121,3 +119,5 @@
 (define-cpointer-type _Allegro-Timer-pointer)
 (define-cpointer-type _Allegro-Transform-pointer)
 (define-cpointer-type _Allegro-Ustr-pointer)
+
+(define-cpointer-type _Allegro-Keyboard-State-pointer)
