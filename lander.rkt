@@ -1,7 +1,6 @@
 #lang racket
 
-(require racket/contract
-         (planet bzlib/thread)
+(require (planet bzlib/thread)
          (prefix-in gfx- "gfx.rkt")
          (prefix-in rul- "base-rules.rkt")
          (prefix-in sim- "simulation.rkt")
@@ -42,11 +41,11 @@
     (start/link sim-instance rul-instance (list gfx-instance))
     (start/link con-instance sim-instance)
     (start/link kbd-instance con-instance)
-    (wait-for-shutdown-signal gfx-instance
+    (wait-for-shutdown-signal gfx-instance ; change to control or kbd
                               rul-instance
                               sim-instance
                               con-instance
-                              kbd-instance) ; change to control or kbd
+                              kbd-instance)
     )
   (void))
 

@@ -28,46 +28,52 @@
      ; ENVIRONMENT SETUP
      
      ; required to call this before first update
-     (define (setup space)
+     (define (newspace)
+       (define space (cpSpaceNew))
        (set-cpSpace-iterations! space 5)
        (set-cpSpace-gravity! space (cpv 0.0 100.0))
        (cpSpaceResizeStaticHash space 40.0 999)
-       (cpSpaceResizeActiveHash space 30.0 2999))
+       (cpSpaceResizeActiveHash space 30.0 2999)
+       space)
      
      (define height-factor ; the point on the y-axis where we start generating land 
        (/ (* 8.0 height) 10))
      
      ; make-ground-shape: cpv cpv cpSpace cpStaticBody rational rational -> void
      ; add the actual ground object to the simulation
-     (define (make-ground-shape v1 v2 space staticBody height width)
+     (define (make-ground-shape v1 v2 space staticBody height width ship)
        (let* ([real-v1 (cpv (cpVect-x v1) (+ (cpVect-y v1) 100))]
               [real-v2 (cpv (cpVect-x v2) (+ (cpVect-y v2) 100))]
               [shape (cpSpaceAddStaticShape space 
                                             (cpSegmentShapeNew staticBody 
                                                                real-v1 real-v2 100.0))])
+         (cpSpaceAddCollisionHandler
+          space (cpShape-collision_type ship) (cpShape-collision_type shape)
+          #f #f #f #f #f)
          (set-cpShape-e! shape 1.0)
          (set-cpShape-u! shape 1.0)))
      
      ; make-ground: rational rational cpSpace cpStaticBody cpv -> listof-vector
      ; make data for one ground object, add to simulation, and
      ; save the point locations
-     (define (make-ground width height space staticBody last)
+     (define (make-ground width height space staticBody ship last)
        (cond
          [(> (cpVect-x last) (- width 80))
           (let* ([v2 (cpv (sub1 width) height-factor)])
-            (make-ground-shape last v2 space staticBody height width)
+            (make-ground-shape last v2 space staticBody height width ship)
             (cons (vector (sub1 width) (+ height-factor 0)) empty))]
          
-         [else (let* ([x (+ (random 40) 40)]
-                      [y (- (random 40) 20)]
-                      [end-width (+ (cpVect-x last) x)]
-                      [end-height (- (cpVect-y last) y)]
-                      [v2 (cpv end-width end-height)])
-                 (make-ground-shape last v2 space staticBody height width)
-                 (cons (vector end-width (+ end-height 0))
-                       (make-ground width height space staticBody 
-                                    (cpv end-width end-height)))
-                 )]
+         [else 
+          (let* ([x (+ (random 40) 40)]
+                 [y (- (random 40) 20)]
+                 [end-width (+ (cpVect-x last) x)]
+                 [end-height (- (cpVect-y last) y)]
+                 [v2 (cpv end-width end-height)])
+            (make-ground-shape last v2 space staticBody height width ship)
+            (cons (vector end-width (+ end-height 0))
+                  (make-ground width height space staticBody ship
+                               (cpv end-width end-height)))
+            )]
          ))
      
      ; SHIP SETUP
@@ -83,27 +89,28 @@
                                   (exact->inexact (/ height 10))))
          (cpSpaceAddBody space body)
          (let ([shape (cpPolyShapeNew body 3 tris cpvzero)])
-           (set-cpShape-e! shape 0.0)
-           (set-cpShape-u! shape 0.0)
+           (set-cpShape-e! shape 1.0)
+           (set-cpShape-u! shape 1.0)
            (cpSpaceAddShape space shape)
-           )
-         body))
+           (cons body shape))
+         ))
      
      ; SIMULATION START
      
      (cpInitChipmunk)
      (cpResetShapeIdCounter)
-     (let* ([space (cpSpaceNew)]
+     (let* ([space (newspace)]
+            [ship (make-ship width height space)]
             [staticBody (cpBodyNew +inf.0 +inf.0)]
             [state (make-hash)])
-       (setup space)
        (dict-set! state "space" space)
-       (dict-set! state "ship" (make-ship width height space))
+       (dict-set! state "ship" (car ship))
        (dict-set! state "player" nfuel)
        (dict-set! state "game" 'active)
        (dict-set! state "ground" 
                   (cons (vector 0.0 height-factor)
-                        (make-ground width height space staticBody (cpv 0.0 height-factor))))
+                        (make-ground width height space staticBody (cdr ship) 
+                                     (cpv 0.0 height-factor))))
        (manage-update state width height 0.0 0.0 sinks)
        (set-simple-form! state)
        (update-loop state width height rules sinks)
@@ -155,7 +162,6 @@
       (cpBodyApplyImpulse ship (cpv 0.0 (* ydir -5.0)) cpvzero)
       (cpBodyApplyImpulse ship (cpv (* xdir -5.0) 0.0) cpvzero)
       )
-    ;(printf "NEW POSITION: ~s, ~s~n" (xpos ship) (ypos ship))
     (cond ; wrap the ship around if it ventures offscreen
       [(>= (xpos ship) width) 
        (set-xpos! ship (- (xpos ship) width))]
