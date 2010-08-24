@@ -31,13 +31,13 @@
      (define (newspace)
        (define space (cpSpaceNew))
        (set-cpSpace-iterations! space 5)
-       (set-cpSpace-gravity! space (cpv 0.0 100.0))
+       (set-cpSpace-gravity! space (cpv 0.0 125.0))
        (cpSpaceResizeStaticHash space 40.0 999)
        (cpSpaceResizeActiveHash space 30.0 2999)
        space)
      
      (define height-factor ; the point on the y-axis where we start generating land 
-       (/ (* 8.0 height) 10))
+       (/ (* 7.0 height) 10))
      
      ; make-ground-shape: cpv cpv cpSpace cpStaticBody rational rational -> void
      ; add the actual ground object to the simulation
@@ -88,7 +88,7 @@
      
      ; make-ship: rational rational cpSpace -> cpBody
      (define (make-ship width height space)
-       (let ([body (cpBodyNew 30.0 (cpMomentForPoly 1.0 3 tris cpvzero))])
+       (let ([body (cpBodyNew 50.0 (cpMomentForPoly 1.0 3 tris cpvzero))])
          (set-cpBody-p! body (cpv (exact->inexact (/ width 2)) 
                                   (exact->inexact (/ height 10))))
          (cpSpaceAddBody space body)
