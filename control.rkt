@@ -14,9 +14,10 @@
 ; to log messages instead of actually sending them
 (define send-out 
   (make-parameter (lambda (sink xdir ydir) 
+                    (printf "sending ~s ~s ~n" xdir ydir)
                     (thread-send sink (list (current-thread) 'event-control xdir ydir)))))
 (define delta
-  (make-parameter (1000 . / . 60)))
+  (make-parameter 1))
 
 (define init
   (case-lambda

@@ -18,9 +18,28 @@
     (start-peer)]))
 
 (define (init-instance main width height depth)
-  (receive/match [(list (? thread? source) 'start-request)
-                  (thread-send source (list (current-thread) 'start-notification))])
+  (receive/match [(list (? thread? source) 'start-request (? thread? sink))
+                  (thread-send source (list (current-thread) 'start-notification))
+                  (io-loop main width height depth sink)])
+  )
+
+(define (get-current-xdir)
+  (if (keyboard-keypressed? 'A) 
+      -1.0
+      (if (keyboard-keypressed? 'D)
+          1.0
+          0.0)))
+
+(define (get-current-ydir)
+  (if (keyboard-keypressed? 'W)
+      1.0
+      0.0))
+
+(define (io-loop main width height depth sink)
   (easy-init width height depth)
+  (thread (lambda () (let loop () 
+                       
+                       (loop))))
   (let ((buffer (image-create screen-x screen-y))
         (init-state #f))
     (let loop ([state init-state])
@@ -32,6 +51,7 @@
            (draw-world buffer new-state)
            (image-copy-screen buffer)
            (image-clear buffer)])
+        (thread-send sink (list (current-thread) 'event-control (get-current-xdir) (get-current-ydir)))
         (if (keyboard-keypressed? 'ESC) ; change this to read the game state
             (begin 
               (printf "gfx shutting down~n")

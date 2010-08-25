@@ -24,6 +24,7 @@
                (? dict? state) 
                (? integer? xdir)
                (? integer? ydir))
+         (printf "update?: ~s ~s ~n" xdir ydir)
          (thread-send source (list (current-thread) 'permit-update!
                                    (allow-horz? (get-fuel state) xdir)
                                    (allow-vert? (get-fuel state) ydir) 

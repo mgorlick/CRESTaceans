@@ -11,9 +11,6 @@
                               (thread (lambda () (init width height)))))
     (start-peer)]))
 
-(define delta
-  (make-parameter (1.0 . / . 60.0)))
-
 (define init
   (case-lambda
     [(width height)
@@ -31,7 +28,7 @@
      (define (newspace)
        (define space (cpSpaceNew))
        (set-cpSpace-iterations! space 5)
-       (set-cpSpace-gravity! space (cpv 0.0 125.0))
+       (set-cpSpace-gravity! space (cpv 0.0 100.0))
        (cpSpaceResizeStaticHash space 40.0 999)
        (cpSpaceResizeActiveHash space 30.0 2999)
        space)
@@ -88,7 +85,7 @@
      
      ; make-ship: rational rational cpSpace -> cpBody
      (define (make-ship width height space)
-       (let ([body (cpBodyNew 50.0 (cpMomentForPoly 1.0 3 tris cpvzero))])
+       (let ([body (cpBodyNew 30.0 (cpMomentForPoly 1.0 3 tris cpvzero))])
          (set-cpBody-p! body (cpv (exact->inexact (/ width 2)) 
                                   (exact->inexact (/ height 10))))
          (cpSpaceAddBody space body)
@@ -124,51 +121,50 @@
 
 (define first-callback
   (newCollisionHandler (lambda (a b c) 
-                         (printf "callback 1~n")
+                         ;(printf "callback 1~n")
                          1)))
 
 (define second-callback
   (newCollisionHandler (lambda (a b c)
-                         (printf "callback 2~n")
+                         ;(printf "callback 2~n")
                          1)))
 
 (define third-callback
   (newCollisionHandler2 (lambda (a b c)
-                         (printf "callback 3~n")
-                         (void))))
+                          ;(printf "callback 3~n")
+                          (void))))
 
 (define fourth-callback
   (newCollisionHandler2 (lambda (a b c)
-                         (printf "callback 4~n")
-                         (void))))
+                          ;(printf "callback 4~n")
+                          (void))))
 
 ; update-loop: dict? rational? rational? listof-thread? -> void
 ; respond to control signal if there is one, else update with no control signal
 (define (update-loop state width height rules sinks)
   (receive/match
-   [(list (? thread? sender) 'permit-update!
-          (? boolean? horz?) xdir
-          (? boolean? vert?) ydir)
+   [(list (? thread? sender) 'permit-update! xdir ydir)
     (manage-update state width height xdir ydir sinks)
     (update-loop state width height rules sinks)]
    
    [(list (? thread? sender) 'event-control (? integer? xdir) (? integer? ydir))
-    (request-update-permission state xdir ydir rules)
+    (manage-update state width height xdir ydir sinks)
     (update-loop state width height rules sinks)]
+   ;(request-update-permission state xdir ydir rules)
+   ;(update-loop state width height rules sinks)]
    
    [(list (? thread? sender) 'shutdown)
     #f
     ]
    
-   [after (delta)
-          (manage-update state width height 0.0 0.0 sinks)
-          (update-loop state width height rules sinks)]
+   
    ))
 
 (define (request-update-permission state xdir ydir rules)
   (thread-send rules (list (current-thread) 'permit-update? state xdir ydir)))
 
 (define (manage-update state width height xdir ydir sinks)
+  ;(sleep 0.005)
   (update state width height xdir ydir)
   (set-simple-form! state)
   (for/list ([s sinks])
@@ -176,16 +172,17 @@
 
 ; update: dict? rational? rational? integer? integer? -> void
 (define (update state width height xdir ydir)
-  (let* ([steps 5]
-         [dt (/ (delta) steps)]
+  (let* ([steps 3]
+         [dt (/ (1.0 . / . 60.0) steps)]
          [space (dict-ref state "space")]
          [ship (dict-ref state "ship")]
          [fuel (dict-ref state "player")])
     (for [(i (in-range steps))]
       (cpSpaceStep space dt)
-      (cpBodyApplyImpulse ship (cpv 0.0 (* ydir -5.0)) cpvzero)
-      (cpBodyApplyImpulse ship (cpv (* xdir -5.0) 0.0) cpvzero)
       )
+    
+    (cpBodyApplyImpulse ship (cpv 0.0 (* -100.0 ydir)) cpvzero)
+    (cpBodyApplyImpulse ship (cpv (* 100.0 xdir) 0.0) cpvzero)
     (cond ; wrap the ship around if it ventures offscreen
       [(>= (xpos ship) width) 
        (set-xpos! ship (- (xpos ship) width))]

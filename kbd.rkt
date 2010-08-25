@@ -25,7 +25,7 @@
      (let loop ()
        (let ([key (read-char)])
          (cond [(or (eq? key #\d) (eq? key #\a) (eq? key #\w))
-                (thread-send sink (list (current-thread) 'event-keyboardx key))]
+                (thread-send sink (list (current-thread) 'event-keyboard key))]
                )
          (receive/match
           [(list (? thread? source) 'shutdown)

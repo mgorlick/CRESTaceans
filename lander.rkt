@@ -15,7 +15,7 @@
 (define rul-parent-thread (thread rul-start-peer))
 (define sim-parent-thread (thread sim-start-peer))
 (define con-parent-thread (thread con-start-peer))
-(define kbd-parent-thread (thread kbd-start-peer))
+;(define kbd-parent-thread (thread kbd-start-peer))
 
 (define (number->integer n)
   (inexact->exact (round n)))
@@ -35,18 +35,20 @@
         [rul-instance (computation-spawn rul-parent-thread)]
         [sim-instance (computation-spawn sim-parent-thread width height)]
         [con-instance (computation-spawn con-parent-thread)]
-        [kbd-instance (computation-spawn kbd-parent-thread)])
-    (start/link gfx-instance)
+        ;[kbd-instance (computation-spawn kbd-parent-thread)]
+        )
+    (start/link gfx-instance sim-instance)
     (start/link rul-instance)
     (start/link sim-instance rul-instance (list gfx-instance))
     ;(start/link sim-instance rul-instance '())
-    (start/link con-instance sim-instance)
-    (start/link kbd-instance con-instance)
+    ;(start/link con-instance sim-instance)
+    ;(start/link kbd-instance con-instance)
     (wait-for-shutdown-signal gfx-instance ; change to control or kbd
                               rul-instance
                               sim-instance
                               con-instance
-                              kbd-instance)
+                              ;kbd-instance
+                              )
     )
   (void))
 
