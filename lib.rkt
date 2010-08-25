@@ -80,35 +80,6 @@
            Allegro-System-Mouse-Cursor-Unavailable)))
 
 (define-cpointer-type _Allegro-Locked-Region-pointer)
-(define _Allegro-Pixel-Format
-  (_enum '(Allegro-Pixel-Format-Any
-           Allegro-Pixel-Format-Any-No-Alpha
-           Allegro-Pixel-Format-Any-With-Alpha
-           Allegro-Pixel-Format-Any-15-No-Alpha
-           Allegro-Pixel-Format-Any-15-With-Alpha
-           Allegro-Pixel-Format-Any-16-No-Alpha
-           Allegro-Pixel-Format-Any-16-With-Alpha
-           Allegro-Pixel-Format-Any-24-No-Alpha
-           Allegro-Pixel-Format-Any-24-With-Alpha
-           Allegro-Pixel-Format-Any-32-No-Alpha
-           Allegro-Pixel-Format-Any-32-With-Alpha
-           Allegro-Pixel-Format-ARGB-8888
-           Allegro-Pixel-Format-RGBA-8888
-           Allegro-Pixel-Format-ARGB-4444
-           Allegro-Pixel-Format-RGB-888
-           Allegro-Pixel-Format-RGB-565
-           Allegro-Pixel-Format-RGB-555
-           Allegro-Pixel-Format-RGBA-5551
-           Allegro-Pixel-Format-ARGB-1555
-           Allegro-Pixel-Format-ABGR-8888
-           Allegro-Pixel-Format-XBGR-8888
-           Allegro-Pixel-Format-BGR-888
-           Allegro-Pixel-Format-BGR-565
-           Allegro-Pixel-Format-BGR-555
-           Allegro-Pixel-Format-RGBX-8888
-           Allegro-Pixel-Format-XRGB-8888
-           Allegro-Pixel-Format-ABGR-F32
-           Allegro-Pixel-Format-ABGR-8888-LE)))
 
 (define-cpointer-type _Allegro-State-pointer)
 (define-cpointer-type _Allegro-System-pointer)

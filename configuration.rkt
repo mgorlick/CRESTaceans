@@ -24,5 +24,5 @@
 (defallegro al-get-next-config-entry : (_ptr io _pointer) -> _string)
 (defallegro al-merge-config :
   _Allegro-Config-pointer _Allegro-Config-pointer -> _Allegro-Config-pointer)
-(defallegro al-merge-config-info : 
+#;(defallegro al-merge-config-info : 
   _Allegro-Config-pointer _Allegro-Config-pointer -> _void)

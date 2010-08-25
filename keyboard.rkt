@@ -1,8 +1,10 @@
 #lang racket
 
 (require ffi/unsafe
-         "lib.rkt")
-(provide (all-defined-out))
+         "lib.rkt"
+         "keycodes.rkt")
+(provide (all-defined-out)
+         (all-from-out "keycodes.rkt"))
 
 (defallegro al-install-keyboard : -> _bool)
 (defallegro al-is-keyboard-installed : -> _bool)
