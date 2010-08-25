@@ -21,7 +21,7 @@
   (inexact->exact (round n)))
 
 (define (go)
-  (make-game 1680.0 1050.0 24))
+  (make-game 1600.0 1000.0 24))
 
 ; make-game: double double integer -> void
 ; spawn a new instance of the game by spawning individual computations

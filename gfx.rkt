@@ -3,6 +3,12 @@
 (require (prefix-in keyboard- "../../allegro/keyboard.ss")
          (prefix-in image- "../../allegro/image.ss")
          "../../allegro/util.ss"
+         (only-in "../../allegro/private/allegro.ss" 
+                  vsync
+                  create-video-bitmap
+                  request-video-bitmap
+                  clear-bitmap
+                  triangle)
          (planet bzlib/thread))
 (provide/contract [start-peer (-> void?)])
 
@@ -37,21 +43,25 @@
 
 (define (io-loop main width height depth sink)
   (easy-init width height depth)
-  (thread (lambda () (let loop () 
-                       
-                       (loop))))
-  (let ((buffer (image-create screen-x screen-y))
+  (printf "did init~n")
+  (printf "did one video bitmap~n")
+  (let ((buffer1 (image-create width height))
         (init-state #f))
+    (printf "starting io-loop~n")
     (let loop ([state init-state])
       (let ([new-state 
              (receive/match [(list (? thread? source) 'event-state w) w] 
                             [after 0 state])])
+        
         (cond
           [(not (eq? new-state #f))
-           (draw-world buffer new-state)
-           (image-copy-screen buffer)
-           (image-clear buffer)])
-        (thread-send sink (list (current-thread) 'event-control (get-current-xdir) (get-current-ydir)))
+           (draw-world buffer1 new-state)
+           (image-copy-screen buffer1)
+           (image-clear buffer1)
+           ])
+        
+        (thread (lambda () (thread-send sink (list (current-thread) 'event-control (get-current-xdir) (get-current-ydir)))))
+        
         (if (keyboard-keypressed? 'ESC) ; change this to read the game state
             (begin 
               (printf "gfx shutting down~n")
@@ -77,23 +87,53 @@
          [fuel (number->integer (dict-ref state "player"))]
          [ground-points (dict-ref state "ground")])
     (draw-tile buffer xpos ypos fuel xvel yvel angl)
-    (draw-ground buffer ground-points)))
+    (draw-ground buffer ground-points)
+    ))
 
 ; draw-tile: buffer int int int int int int -> void
 ; draw a ship on the screen
 (define (draw-tile buffer xp yp fuel xv yv angl) 
-  (let ([x1 (+ xp 15)]
-        [y1 (+ yp 15)]
-        [x2 xp]
-        [y2 (- yp 15)]
-        [x3 (- xp 15)]
-        [y3 (+ yp 15)])
-    (image-triangle buffer x1 y1 x2 y2 x3 y3 (image-color 128 200 23))
+  (let* ([x1 (+ xp 15)]
+         [y1 (+ yp 15)]
+         [x2 xp]
+         [y2 (- yp 15)]
+         [x3 (- xp 15)]
+         [y3 (+ yp 15)]
+         [a (let loop ([an angl])
+              (cond [(> an 359) (modulo an 359)]
+                    [(< an 0) (loop (+ an 360))]
+                    [else an]))]
+         [x1* (x* xp yp x1 y1 angl)]
+         [y1* (y* xp yp x1 y1 angl)]
+         [x2* (x* xp yp x2 y2 angl)]
+         [y2* (y* xp yp x2 y2 angl)]
+         [x3* (x* xp yp x3 y3 angl)]
+         [y3* (y* xp yp x3 y3 angl)])
+    (image-triangle buffer x1* y1* x2* y2* x3* y3* (image-color 128 200 23))
     (print buffer 20 20 (format "position: [~s ~s]" xp yp))
     (print buffer 20 40 (format "velocity: [~s ~s]" xv yv))
     (print buffer 20 60 (format "fuel: ~s" fuel))
     (print buffer 20 80 (format "angle: ~s" angl))
     ))
+
+; http://www.siggraph.org/education/materials/HyperGraph/modeling/mod_tran/2drota.htm
+; x' = x cos theta - y sin theta
+; translate to origin, rotate, translate back
+(define (x* cx cy px py a)
+  (let ((x (- px cx))
+        (y (- py cy)))
+    (inexact->exact (round (+ cx (- (* x (cos (/ a 360))) 
+                                    (* y (sin (/ a 360))))))))
+  )
+
+; y' = y cos theta - x sin theta
+; translate to origin, rotate, translate back
+(define (y* cx cy px py a)
+  (let ((x (- px cx))
+        (y (- py cy)))
+    (inexact->exact (round (+ cy (- (* y (cos (/ a 360))) 
+                                    (* x (sin (/ a 360))))))))
+  )
 
 (define (print buffer x y msg)
   (image-print buffer x y (image-color 255 255 255) (image-color 0 0 0) msg))

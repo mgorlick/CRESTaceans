@@ -62,7 +62,7 @@
          [(> (cpVect-x last) (- width 80))
           (let* ([v2 (cpv (sub1 width) height-factor)])
             (make-ground-shape last v2 space staticBody height width ship)
-            (cons (vector (sub1 width) (+ height-factor 0)) empty))]
+            (cons (vector (sub1 width) (+ height-factor 5)) empty))]
          
          [else 
           (let* ([x (+ (random 40) 40)]
@@ -71,7 +71,7 @@
                  [end-height (- (cpVect-y last) y)]
                  [v2 (cpv end-width end-height)])
             (make-ground-shape last v2 space staticBody height width ship)
-            (cons (vector end-width (+ end-height 0))
+            (cons (vector end-width (+ end-height 5))
                   (make-ground width height space staticBody ship
                                (cpv end-width end-height)))
             )]
