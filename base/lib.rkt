@@ -94,3 +94,6 @@
 (define-cpointer-type _Allegro-Ustr-pointer)
 
 (define-cpointer-type _Allegro-Keyboard-State-pointer)
+
+(define-cpointer-type _Allegro-OGL-EXT-List-pointer)
+(define _gluint _uint)
