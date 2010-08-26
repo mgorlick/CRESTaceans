@@ -143,15 +143,15 @@
 ; respond to control signal if there is one, else update with no control signal
 (define (update-loop state width height rules sinks)
   (receive/match
-   [(list (? thread? sender) 'permit-update! xdir ydir)
-    (manage-update state width height xdir ydir sinks)
-    (update-loop state width height rules sinks)]
+   [(list (? thread? sender) 'permit-update! xdir ydir newstate)
+    (manage-update newstate width height xdir ydir sinks)
+    (update-loop newstate width height rules sinks)]
    
    [(list (? thread? sender) 'event-control (? integer? xdir) (? integer? ydir))
-    (manage-update state width height xdir ydir sinks)
-    (update-loop state width height rules sinks)]
-   ;(request-update-permission state xdir ydir rules)
-   ;(update-loop state width height rules sinks)]
+    ;(manage-update state width height xdir ydir sinks)
+    ;(update-loop state width height rules sinks)]
+   (request-update-permission state xdir ydir rules)
+   (update-loop state width height rules sinks)]
    
    [(list (? thread? sender) 'shutdown)
     #f

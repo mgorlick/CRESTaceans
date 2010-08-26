@@ -20,33 +20,44 @@
     [(extensions) 
      (let loop ()
        (receive/match
-        [(list (? thread? source) 'permit-update?
-               (? dict? state) 
-               (? integer? xdir)
-               (? integer? ydir))
-         (printf "update?: ~s ~s ~n" xdir ydir)
-         (thread-send source (list (current-thread) 'permit-update!
-                                   (allow-horz? (get-fuel state) xdir)
-                                   (allow-vert? (get-fuel state) ydir) 
-                                   ))
-         (loop)]
-        
         [(list (? thread? source) 'shutdown)
          (for/list ([e extensions])
            (thread-send e (list (current-thread) 'shutdown)))
          (printf "rules shutting down~n")]
-        ))
-     ]))
+        
+        [(list (? thread? source) 'permit-update?
+               (? dict? state) 
+               (? integer? xdir)
+               (? integer? ydir))
+         (let ((allow-horz (allow-horz? (get-fuel state) xdir)))
+           (if (not (allow-horz . = . 0.0)) (subt-fuel! state allow-horz 0.0) (void))
+           (let ((allow-vert (allow-vert? (get-fuel state) ydir)))
+             (if (not (allow-vert . = . 0.0)) (subt-fuel! state 0.0 allow-vert) (void))
+             (thread-send source (list (current-thread) 'permit-update!
+                                       allow-horz
+                                       allow-vert
+                                       state
+                                       ))))
+             (loop)]
+))
+]))
 
 (define (get-fuel state)
   (dict-ref state "player"))
 
+(define horz-price 1)
+(define vert-price 5)
+
 (define (allow-vert? fuel ydir)
   (cond
-    [(> fuel (* 5 ydir)) ydir]
+    [(>= fuel (* vert-price (abs ydir))) ydir]
     [else 0.0]))
 
 (define (allow-horz? fuel xdir)
   (cond
-    [(> fuel xdir) xdir]
+    [(>= fuel (* horz-price (abs xdir))) xdir]
     [else 0.0]))
+
+(define (subt-fuel! state xdir ydir)
+  (dict-set! state "player" (- (get-fuel state) (* vert-price (abs ydir)) (* horz-price (abs xdir))))
+  state)
