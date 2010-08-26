@@ -14,9 +14,20 @@
            Allegro-Dest-Minus-Src = 2
            Allegro-Num-Blend-Operations)))
 
-(define _Allegro-Lock-Readwrite 0)
-(define _Allegro-Lock-Readonly 1)
-(define _Allegro-Lock-Writeonly 2)
+(define Allegro-Video-Bitmap #x0000)
+(define Allegro-Memory-Bitmap #x0001)
+(define Allegro-Keep-Bitmap-Format #x0002)
+(define Allegro-Force-Locking #x0004)
+(define Allegro-No-Preserve-Texture #x0008)
+(define Allegro-Alpha-Test #x0010)
+(define Allegro-Internal-OpenGL #x0020)
+
+(define Allegro-Flip-Horizontal #x00001)
+(define Allegro-Flip-Vertical #x00002)
+
+(define Allegro-Lock-Readwrite 0)
+(define Allegro-Lock-Readonly 1)
+(define Allegro-Lock-Writeonly 2)
 
 (define _Allegro-Pixel-Format
   (_enum '(Allegro-Pixel-Format-Any
