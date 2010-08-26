@@ -3,12 +3,6 @@
 (require (prefix-in keyboard- "../../allegro/keyboard.ss")
          (prefix-in image- "../../allegro/image.ss")
          "../../allegro/util.ss"
-         (only-in "../../allegro/private/allegro.ss" 
-                  vsync
-                  create-video-bitmap
-                  request-video-bitmap
-                  clear-bitmap
-                  triangle)
          (planet bzlib/thread))
 (provide/contract [start-peer (-> void?)])
 
@@ -29,39 +23,20 @@
                   (io-loop main width height depth sink)])
   )
 
-(define (get-current-xdir)
-  (if (keyboard-keypressed? 'A) 
-      -1.0
-      (if (keyboard-keypressed? 'D)
-          1.0
-          0.0)))
-
-(define (get-current-ydir)
-  (if (keyboard-keypressed? 'W)
-      1.0
-      0.0))
-
 (define (io-loop main width height depth sink)
-  (easy-init width height depth)
-  (printf "did init~n")
-  (printf "did one video bitmap~n")
+  (easy-init width height depth )
   (let ((buffer1 (image-create width height))
         (init-state #f))
-    (printf "starting io-loop~n")
     (let loop ([state init-state])
       (let ([new-state 
              (receive/match [(list (? thread? source) 'event-state w) w] 
                             [after 0 state])])
-        
         (cond
           [(not (eq? new-state #f))
            (draw-world buffer1 new-state)
            (image-copy-screen buffer1)
-           (image-clear buffer1)
-           ])
-        
-        (thread (lambda () (thread-send sink (list (current-thread) 'event-control (get-current-xdir) (get-current-ydir)))))
-        
+           (image-clear buffer1)])
+        (thread-send sink (list (current-thread) 'event-control (get-current-xdir) (get-current-ydir)))
         (if (keyboard-keypressed? 'ESC) ; change this to read the game state
             (begin 
               (printf "gfx shutting down~n")
@@ -75,6 +50,18 @@
 
 (define (number->integer n)
   (inexact->exact (round n)))
+
+(define (get-current-xdir)
+  (if (keyboard-keypressed? 'A) 
+      -1.0
+      (if (keyboard-keypressed? 'D)
+          1.0
+          0.0)))
+
+(define (get-current-ydir)
+  (if (keyboard-keypressed? 'W)
+      1.0
+      0.0))
 
 ; draw-world: buffer dict -> void
 (define (draw-world buffer state)

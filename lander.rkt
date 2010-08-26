@@ -3,9 +3,7 @@
 (require (planet bzlib/thread)
          (prefix-in gfx- "gfx.rkt")
          (prefix-in rul- "base-rules.rkt")
-         (prefix-in sim- "simulation.rkt")
-         (prefix-in con- "control.rkt")
-         (prefix-in kbd- "kbd.rkt"))
+         (prefix-in sim- "simulation.rkt"))
 (provide/contract [make-game ([and/c rational? (not/c exact-integer?)]
                               [and/c rational? (not/c exact-integer?)]
                               exact-integer? . -> . void?)]
@@ -14,8 +12,6 @@
 (define gfx-parent-thread (thread gfx-start-peer))
 (define rul-parent-thread (thread rul-start-peer))
 (define sim-parent-thread (thread sim-start-peer))
-(define con-parent-thread (thread con-start-peer))
-;(define kbd-parent-thread (thread kbd-start-peer))
 
 (define (number->integer n)
   (inexact->exact (round n)))
@@ -34,24 +30,20 @@
                                          (number->integer height) depth)]
         [rul-instance (computation-spawn rul-parent-thread)]
         [sim-instance (computation-spawn sim-parent-thread width height)]
-        [con-instance (computation-spawn con-parent-thread)]
-        ;[kbd-instance (computation-spawn kbd-parent-thread)]
         )
     (start/link gfx-instance sim-instance)
     (start/link rul-instance)
     (start/link sim-instance rul-instance (list gfx-instance))
-    ;(start/link sim-instance rul-instance '())
-    ;(start/link con-instance sim-instance)
-    ;(start/link kbd-instance con-instance)
-    (wait-for-shutdown-signal gfx-instance ; change to control or kbd
-                              rul-instance
-                              sim-instance
-                              con-instance
-                              ;kbd-instance
+    (wait-for-shutdown-signal gfx-instance
+                              ;rul-instance
+                              ;sim-instance
                               )
     )
   (void))
 
+; wait-for-shutdown-signal : thread thread ... -> void
+; wait for a shutdown signal from the first thread.
+; then, relay the shutdown signal to all the other thrads.
 (define (wait-for-shutdown-signal expected-sender . rest)
   (receive/match
    [(list expected-sender 'shutdown)

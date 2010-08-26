@@ -30,13 +30,11 @@
                (? integer? xdir)
                (? integer? ydir))
          (let ((allow-horz (allow-horz? (get-fuel state) xdir)))
-           (if (not (allow-horz . = . 0.0)) (subt-fuel! state allow-horz 0.0) (void))
+           (if (not (= allow-horz 0.0)) (subt-fuel! state allow-horz 0.0) #f)
            (let ((allow-vert (allow-vert? (get-fuel state) ydir)))
-             (if (not (allow-vert . = . 0.0)) (subt-fuel! state 0.0 allow-vert) (void))
+             (if (not (= allow-vert 0.0)) (subt-fuel! state 0.0 allow-vert) #f)
              (thread-send source (list (current-thread) 'permit-update!
-                                       allow-horz
-                                       allow-vert
-                                       state
+                                       allow-horz allow-vert state
                                        ))))
              (loop)]
 ))
