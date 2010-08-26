@@ -2,8 +2,9 @@
 
 (require ffi/unsafe
          "lib.rkt")
+(provide (all-defined-out))
 
-(defallegro al-install-system : (_int = 0) (_pointer = #f) -> _bool)
+(defallegro al-install-system : (_int = Allegro-Version-Int) (_pointer = #f) -> _bool)
 (defallegro al-uninstall-system : -> _void)
 (defallegro al-get-allegro-version : -> _uint32)
 (defallegro al-get-standard-path : _int -> _Allegro-Path-pointer)

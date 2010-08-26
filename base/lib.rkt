@@ -5,6 +5,17 @@
 
 (define liballegro (ffi-lib "liballegro" "4.9"))
 
+(define Allegro-Version 4)
+(define Allegro-Sub-Version 9)
+(define Allegro-WIP-Version 21)
+(define Allegro-Release-Number 1)
+
+(define Allegro-Version-Int (bitwise-ior
+                             (arithmetic-shift Allegro-Version 24)
+                             (arithmetic-shift Allegro-Sub-Version 16)
+                             (arithmetic-shift Allegro-WIP-Version 8)
+                             Allegro-Release-Number))
+
 (define-syntax allegro-func
   (syntax-rules (:)
     [(_ id : x ...)

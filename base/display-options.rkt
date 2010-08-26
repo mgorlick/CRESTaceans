@@ -1,26 +1,26 @@
 #lang racket
 
 (require ffi/unsafe)
-(provide (prefix-out _Allegro- (all-defined-out)))
+(provide (all-defined-out))
 
-(define Windowed (arithmetic-shift 1 0))
-(define Fullscreen (arithmetic-shift 1 1))
-(define OpenGL (arithmetic-shift 1 2))
-(define Direct3D-Internal (arithmetic-shift 1 3))
-(define Resizable (arithmetic-shift 1 4))
-(define Noframe (arithmetic-shift 1 5))
-(define Generate-Expose-Events (arithmetic-shift 1 6))
-(define OpenGL-3-0 (arithmetic-shift 1 7))
-(define OpenGL-Forward-Compatible (arithmetic-shift 1 8))
-(define Fullscreen-Window (arithmetic-shift 1 9))
-(define Minimized (arithmetic-shift 1 10))
+(define Allegro-Windowed (arithmetic-shift 1 0))
+(define Allegro-Fullscreen (arithmetic-shift 1 1))
+(define Allegro-OpenGL (arithmetic-shift 1 2))
+(define Allegro-Direct3D-Internal (arithmetic-shift 1 3))
+(define Allegro-Resizable (arithmetic-shift 1 4))
+(define Allegro-Noframe (arithmetic-shift 1 5))
+(define Allegro-Generate-Expose-Events (arithmetic-shift 1 6))
+(define Allegro-OpenGL-3-0 (arithmetic-shift 1 7))
+(define Allegro-OpenGL-Forward-Compatible (arithmetic-shift 1 8))
+(define Allegro-Fullscreen-Window (arithmetic-shift 1 9))
+(define Allegro-Minimized (arithmetic-shift 1 10))
 
-(define Importance
+(define _Allegro-Importance
   (_enum '(Allegro-Require
            Allegro-Suggest
            Allegro-Dontcare)))
 
-(define Display-Options
+(define _Allegro-Display-Options
   (_enum '(Allegro-Red-Size
            Allegro-Green-Size
            Allegro-Blue-Size

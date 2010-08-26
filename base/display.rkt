@@ -3,7 +3,8 @@
 (require ffi/unsafe
          "lib.rkt"
          "display-options.rkt")
-(provide (all-defined-out))
+(provide (all-defined-out)
+         (all-from-out "display-options.rkt"))
 
 ; Display creation
 (defallegro al-create-display : _int _int -> _Allegro-Display-pointer)

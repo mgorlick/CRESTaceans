@@ -37,4 +37,23 @@
                        "base/time.rkt"
                        "base/timer.rkt"
                        "base/transformations.rkt"
-                       "addons/primitives.rkt"))
+                       "addons/primitives.rkt")
+         (all-defined-out))
+
+(define easy-init
+  (case-lambda 
+    [(width height depth)
+     (easy-init width height depth Allegro-Windowed)]
+    
+    [(width height depth mode)
+     (al-install-system)
+     (al-install-keyboard)
+     (al-install-mouse)
+     ;(al-install-audio ...)
+     (al-set-new-display-flags mode)
+     (al-create-display width height)
+    ]
+    ))
+
+(define (easy-exit)
+  (al-uninstall-system))
