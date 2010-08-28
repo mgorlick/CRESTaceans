@@ -8,6 +8,11 @@
            Allegro-Alpha = 2
            Allegro-Inverse-Alpha = 3)))
 
+(define Allegro-Zero 0)
+(define Allegro-One 1)
+(define Allegro-Alpha 2)
+(define Allegro-Inverse-Alpha 3)
+
 (define _Allegro-Blend-Operations
   (_enum '(Allegro-Add = 0
            Allegro-Src-Minus-Dest = 1

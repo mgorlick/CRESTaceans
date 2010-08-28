@@ -132,6 +132,8 @@
 (define Key-Numlock 225)
 (define Key-Capslock 226)
 
+(define Key-Max 227)
+
 (define Keymod-Shift #x00001)
 (define Keymod-Ctrl #x00002)
 (define Keymod-Alt #x00004)

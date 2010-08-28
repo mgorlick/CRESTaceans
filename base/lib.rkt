@@ -1,20 +1,10 @@
 #lang racket
 
-(require ffi/unsafe)
+(require ffi/unsafe
+         ffi/unsafe/cvector)
 (provide (except-out (all-defined-out) allegro-func))
 
 (define liballegro (ffi-lib "liballegro" "4.9"))
-
-(define Allegro-Version 4)
-(define Allegro-Sub-Version 9)
-(define Allegro-WIP-Version 21)
-(define Allegro-Release-Number 1)
-
-(define Allegro-Version-Int (bitwise-ior
-                             (arithmetic-shift Allegro-Version 24)
-                             (arithmetic-shift Allegro-Sub-Version 16)
-                             (arithmetic-shift Allegro-WIP-Version 8)
-                             Allegro-Release-Number))
 
 (define-syntax allegro-func
   (syntax-rules (:)
@@ -33,6 +23,19 @@
 (define _size-t _int)
 (define _intptr-t (_ptr io _int))
 
+(define & bitwise-and)
+(define || bitwise-ior)
+(define << arithmetic-shift)
+
+(define Allegro-Version 4)
+(define Allegro-Sub-Version 9)
+(define Allegro-WIP-Version 21)
+(define Allegro-Release-Number 1)
+(define Allegro-Version-Int (|| (Allegro-Version . << . 24)
+                                (Allegro-Sub-Version . << . 16)
+                                (Allegro-WIP-Version . << . 8)
+                                Allegro-Release-Number))
+
 (define Allegro-Pi 3.14159265358979323846)
 
 (define-cpointer-type _Allegro-Bitmap-pointer)
@@ -42,11 +45,7 @@
   ([width _int] [height _int] [format _int] [refresh-rate _int]))
 
 (define-cstruct _Allegro-Monitor-Info ([x1 _int] [y1 _int] [x2 _int] [y2 _int]))
-(define-cpointer-type _Allegro-Event-pointer)
-(define-cpointer-type _Allegro-User-Event-pointer)
-(define-cpointer-type _Allegro-Event-Queue-pointer)
-(define-cpointer-type _Allegro-Event-Source-pointer)
-(define _Allegro-Event-Type _uint)
+
 (define-cpointer-type _Allegro-File-pointer)
 (define-cpointer-type _Allegro-File-Interface-pointer)
 
@@ -68,7 +67,7 @@
 (define-cpointer-type _Allegro-Mouse-Cursor-pointer)
 (define-cstruct _Allegro-Mouse-State
   ([x _int] [y _int] [z _int] [w _int] [more-axes (_list i _int)]
-   [buttons _int] [pressure _float] [display _Allegro-Display-pointer]))
+            [buttons _int] [pressure _float] [display _Allegro-Display-pointer]))
 (define _Allegro-System-Mouse-Cursor
   (_enum '(Allegro-System-Mouse-Cursor-Default
            Allegro-System-Mouse-Cursor-Arrow
@@ -104,7 +103,19 @@
 (define-cpointer-type _Allegro-Transform-pointer)
 (define-cpointer-type _Allegro-Ustr-pointer)
 
-(define-cpointer-type _Allegro-Keyboard-State-pointer)
+(define AKM 227)
+
+(define-cpointer-type _Allegro-Keyboard-pointer)
+(define-cstruct _Allegro-Keyboard-State
+  ([display _Allegro-Display-pointer]
+   [key-down-internal (_cvector o _uint ((AKM . + . 31) . / . 32))]))
 
 (define-cpointer-type _Allegro-OGL-EXT-List-pointer)
 (define _gluint _uint)
+
+
+(define-cpointer-type _Allegro-Event-pointer)
+(define-cpointer-type _Allegro-User-Event-pointer)
+(define-cpointer-type _Allegro-Event-Queue-pointer)
+(define-cpointer-type _Allegro-Event-Source-pointer)
+(define _Allegro-Event-Type _uint)

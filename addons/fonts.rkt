@@ -67,6 +67,6 @@
 
 (df2 al-init-ttf-addon : -> _void)
 ; (df2 al-shutdown-ttf-addon : -> _void) ; ???
-(df2 al-load-ttf-font : _string _int _int -> _Allegro-Font-pointer)
+(df2 al-load-ttf-font : _string _int (_int = 0) -> _Allegro-Font-pointer)
 (df2 al-load-ttf-font-f : _Allegro-File-pointer _string _int _int -> _Allegro-Font-pointer)
 (df2 al-get-allegro-ttf-version : -> _uint32)
