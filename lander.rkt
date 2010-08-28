@@ -17,7 +17,7 @@
   (inexact->exact (round n)))
 
 (define (go)
-  (make-game 1600.0 1000.0 24))
+  (make-game 1200.0 900.0 24))
 
 ; make-game: double double integer -> void
 ; spawn a new instance of the game by spawning individual computations
@@ -25,8 +25,7 @@
 ; and then link them together in a source/sink pattern, then start them
 ; (from the last sink, backward, to the first source)
 (define (make-game width height depth)
-  (let ([gfx-instance (computation-spawn gfx-parent-thread
-                                         (number->integer width)
+  (let ([gfx-instance (computation-spawn gfx-parent-thread (number->integer width)
                                          (number->integer height) depth)]
         [rul-instance (computation-spawn rul-parent-thread)]
         [sim-instance (computation-spawn sim-parent-thread width height)]
