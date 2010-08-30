@@ -59,11 +59,17 @@
   (al-install-mouse)
   (al-init-font-addon)
   (al-init-ttf-addon)
-  ;(al-install-audio ...)
+  (al-init-primitives-addon)
   (let* ([window-mode (if (and windowed? fullscreen?) Allegro-Fullscreen-Window
                           (if fullscreen? Allegro-Fullscreen Allegro-Windowed))]
+         ; window-mode: Allegro-Fullscreen-Window if (windowed & fullscreen)
+         ;         else Allegro-Fullscreen if fullscreen
+         ;         else Allegro-Windowed if windowed
          [3dgfx-mode (if (and opengl? (not direct3d?)) Allegro-OpenGL
                          (if (and direct3d? (not opengl?)) Allegro-Direct3D-Internal 0))]
+         ; 3dgfx-mode: Allegro-OpenGL if (opengl & !direct3d)
+         ;        else Allegro-Direct3D-Internal if direct3d
+         ;        else default (0)
          [resize-mode (if (and windowed? resizable?) Allegro-Resizable 0)]
          [frame-mode (if noframe? Allegro-Noframe 0)]
          [event-mode (if generate-expose-events? Allegro-Generate-Expose-Events 0)]
@@ -75,16 +81,23 @@
 
 (define (easy-exit)
   (al-shutdown-font-addon)
+  (al-shutdown-primitives-addon)
   ;(al-shutdown-ttf-addon)
   (al-uninstall-keyboard)
   (al-uninstall-mouse)
   (al-uninstall-system))
 
 (define white (al-map-rgba-f 1.0 1.0 1.0 1.0))
+(define grey (al-map-rgba-f 0.5 0.5 0.5 1.0))
 (define black (al-map-rgba-f 0.0 0.0 0.0 1.0))
+
 (define green (al-map-rgba-f 0.0 1.0 0.0 1.0))
+
 (define red (al-map-rgba-f 1.0 0.0 0.0 1.0))
+(define dark-red (al-map-rgba-f 0.5 0.0 0.0 1.0))
 (define orange (al-map-rgba-f 1.0 0.5 0.0 1.0))
 (define yellow (al-map-rgba-f 1.0 1.0 0.0 1.0))
+
 (define blue (al-map-rgba-f 0.0 0.0 1.0 1.0))
+(define dark-blue (al-map-rgba-f 0.0 0.0 0.5 1.0))
 (define purple (al-map-rgba-f 1.0 0.0 1.0 1.0))
