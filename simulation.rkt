@@ -34,7 +34,7 @@
        space)
      
      (define height-factor ; the point on the y-axis where we start generating land 
-       (/ (* 7.0 height) 10))
+       (/ (* 8.0 height) 10))
      
      ; make-ground-shape: cpv cpv cpSpace cpStaticBody rational rational -> void
      ; add the actual ground object to the simulation

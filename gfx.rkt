@@ -33,35 +33,43 @@
                             [after 0 state])])
         (cond
           [(not (eq? new-state #f))
-           (draw-world new-state)
+           (draw-world new-state width height)
            (al-flip-display)
            (al-clear-to-color black)])
-        (thread-send sink (list (current-thread) 'event-control (get-current-xdir) (get-current-ydir)))
-        (if #f ;(keyboard-keypressed? 'ESC) ; change this to read the game state
-            (begin 
-              (printf "gfx shutting down~n")
-              (thread-send main (list (current-thread) 'shutdown))
-              (easy-exit))
-            (loop new-state))))
+        (let* ((kbd-state (al-get-keyboard-state))
+               (end-game? (end-the-game? kbd-state)))
+          (thread-send sink (list (current-thread) 'event-control 
+                                  (get-current-xdir kbd-state) 
+                                  (get-current-ydir kbd-state)))
+          (al-delete-keyboard-state kbd-state)
+          (if end-game? ; change this to read the game state
+              (begin
+                (printf "gfx shutting down~n")
+                (thread-send main (list (current-thread) 'shutdown))
+                (easy-exit))
+              (loop new-state)))))
     ))
 
 (define (ended? state)
   (eq? 'ended (dict-ref state "game")))
 
-(define (get-current-xdir)
-  (if #f 
-      -1.0
-      (if  #f ;(keyboard-keypressed? 'D)
-           1.0
-           0.0)))
+(define (end-the-game? state)
+  (al-key-down state Allegro-Key-Escape))
 
-(define (get-current-ydir)
-  (if #f ;(keyboard-keypressed? 'W)
+(define (get-current-xdir state)
+  (if (al-key-down state Allegro-Key-A) 
+      -1.0
+      (if (al-key-down state Allegro-Key-D)
+          1.0
+          0.0)))
+
+(define (get-current-ydir state)
+  (if (al-key-down state Allegro-Key-W)
       1.0
       0.0))
 
 ; draw-world: buffer dict -> void
-(define (draw-world state)
+(define (draw-world state width height)
   (let* ([vship (dict-ref state "simple-ship")]
          [xpos (vector-ref vship 0)]
          [ypos (vector-ref vship 1)]
@@ -70,7 +78,7 @@
          [angl (vector-ref vship 4)]
          [fuel (dict-ref state "player")]
          [ground-points (dict-ref state "ground")])
-    (draw-ground ground-points)
+    (draw-ground ground-points width height)
     (draw-tile xpos ypos fuel xvel yvel angl)
     ))
 
@@ -125,15 +133,26 @@
 ; take every adjacent pair of points on the ground, draw lines between them
 ; then do the same thing with the next adjacent pair 
 ; (i.e., on every step through draw-ground, ground-points is shortened by 1)
-(define (draw-ground ground-points)
+(define (draw-ground ground-points width height)
   (cond
-    [(empty? (cddr ground-points)) (draw-ground-segment (car ground-points) 
-                                                        (cadr ground-points))]
-    [else (draw-ground-segment (car ground-points) (cadr ground-points))
-          (draw-ground (cdr ground-points))]))
+    [(empty? (cddr ground-points)) 
+     (draw-ground-segment (car ground-points) (cadr ground-points) width height)]
+    [else 
+     (draw-ground-segment (car ground-points) (cadr ground-points) width height)
+     (draw-ground (cdr ground-points) width height)]))
 
 ; draw line from v1 to v2
-(define (draw-ground-segment v1 v2)
-  (al-draw-line (vector-ref v1 0) (vector-ref v1 1)
-                (vector-ref v2 0) (vector-ref v2 1)
-                white 2.0))
+(define (draw-ground-segment v1 v2 width height)
+  (let* ((x1 (vector-ref v1 0))
+         (y1 (vector-ref v1 1))
+         (x2 (vector-ref v2 0))
+         (y2 (vector-ref v2 1))
+         (y3 (if (y1 . >= . y2) y1 y2))
+         (x3 (if (y1 . >= . y2) x2 x1))
+         (triangle? (not (eq? y1 y2)))
+         )
+    ;(al-draw-line x1 y1 x2 y2 white 2.0)))
+    (if triangle? 
+        (al-draw-filled-triangle x1 y1 x2 y2 x3 y3 grey)
+        (al-draw-line x1 y1 x2 y2 white 2.0))
+    (al-draw-filled-rectangle x1 y3 x2 (exact->inexact height) grey)))
