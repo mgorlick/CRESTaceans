@@ -34,8 +34,8 @@
     (start/link rul-instance)
     (start/link sim-instance rul-instance (list gfx-instance))
     (wait-for-shutdown-signal gfx-instance
-                              ;rul-instance
-                              ;sim-instance
+                              rul-instance
+                              sim-instance
                               )
     )
   (void))

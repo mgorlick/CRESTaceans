@@ -25,8 +25,8 @@
   )
 
 (define (io-loop main width height depth sink)
-  (easy-init width height)
-  (let ((init-state #f))
+  (let ((display (easy-init width height))
+        (init-state #f))
     (let loop ([state init-state])
       (let ([new-state 
              (receive/match [(list (? thread? source) 'event-state w) w] 
@@ -46,7 +46,8 @@
               (begin
                 (printf "gfx shutting down~n")
                 (thread-send main (list (current-thread) 'shutdown))
-                (easy-exit))
+                (easy-exit display)
+                )
               (loop new-state)))))
     ))
 
