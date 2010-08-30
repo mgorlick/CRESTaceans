@@ -70,8 +70,8 @@
          [angl (vector-ref vship 4)]
          [fuel (dict-ref state "player")]
          [ground-points (dict-ref state "ground")])
-    (draw-tile xpos ypos fuel xvel yvel angl)
     (draw-ground ground-points)
+    (draw-tile xpos ypos fuel xvel yvel angl)
     ))
 
 ; draw-tile: buffer int int int int int int -> void
@@ -120,7 +120,7 @@
   )
 
 (define (printmsg x y msg)
-  (al-draw-text font white x (+ 0.0 y) 0 msg))
+  (al-draw-text font green x (+ 0.0 y) 0 msg))
 
 ; take every adjacent pair of points on the ground, draw lines between them
 ; then do the same thing with the next adjacent pair 
