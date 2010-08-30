@@ -58,7 +58,7 @@
   (al-install-keyboard)
   (al-install-mouse)
   (al-init-font-addon)
-  (al-init-ttf-addon)
+  ;(al-init-ttf-addon)
   (al-init-primitives-addon)
   (let* ([window-mode (if (and windowed? fullscreen?) Allegro-Fullscreen-Window
                           (if fullscreen? Allegro-Fullscreen Allegro-Windowed))]
@@ -79,13 +79,15 @@
     ))
 
 
-(define (easy-exit)
+(define (easy-exit display)
   (al-shutdown-font-addon)
   (al-shutdown-primitives-addon)
   ;(al-shutdown-ttf-addon)
   (al-uninstall-keyboard)
   (al-uninstall-mouse)
-  (al-uninstall-system))
+  ;(al-destroy-display display)
+  ;(al-uninstall-system)
+  )
 
 (define white (al-map-rgba-f 1.0 1.0 1.0 1.0))
 (define grey (al-map-rgba-f 0.5 0.5 0.5 1.0))
