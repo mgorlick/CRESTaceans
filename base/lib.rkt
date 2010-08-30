@@ -106,9 +106,11 @@
 (define AKM 227)
 
 (define-cpointer-type _Allegro-Keyboard-pointer)
-(define-cstruct _Allegro-Keyboard-State
-  ([display _Allegro-Display-pointer]
-   [key-down-internal (_cvector o _uint ((AKM . + . 31) . / . 32))]))
+; (define-cstruct _Allegro-Keyboard-State
+;  ([display _Allegro-Display-pointer]
+;   [key-down-internal (_cvector o _uint 8)]))
+(define-cpointer-type _Allegro-Keyboard-State-pointer)
+
 
 (define-cpointer-type _Allegro-OGL-EXT-List-pointer)
 (define _gluint _uint)
