@@ -27,15 +27,12 @@
         
         [(list (? thread? source) 'permit-update?
                (? dict? state) 
-               (? integer? xdir)
-               (? integer? ydir))
-         (let ((allow-horz (allow-horz? (get-fuel state) xdir)))
-           (if (not (= allow-horz 0.0)) (subt-fuel! state allow-horz 0.0) #f)
-           (let ((allow-vert (allow-vert? (get-fuel state) ydir)))
-             (if (not (= allow-vert 0.0)) (subt-fuel! state 0.0 allow-vert) #f)
+               (? integer? mvmt-coef))
+           (let ((allow-mvmt (allow-mvmt? (get-fuel state) mvmt-coef)))
+             (if (not (= allow-mvmt 0.0)) (subt-fuel! state allow-mvmt) #f)
              (thread-send source (list (current-thread) 'permit-update!
-                                       allow-horz allow-vert state
-                                       ))))
+                                       allow-mvmt state
+                                       )))
              (loop)]
 ))
 ]))
@@ -43,19 +40,13 @@
 (define (get-fuel state)
   (dict-ref state "player"))
 
-(define horz-price 1)
-(define vert-price 5)
+(define vert-price 1)
 
-(define (allow-vert? fuel ydir)
+(define (allow-mvmt? fuel ydir)
   (cond
     [(>= fuel (* vert-price (abs ydir))) ydir]
     [else 0.0]))
 
-(define (allow-horz? fuel xdir)
-  (cond
-    [(>= fuel (* horz-price (abs xdir))) xdir]
-    [else 0.0]))
-
-(define (subt-fuel! state xdir ydir)
-  (dict-set! state "player" (- (get-fuel state) (* vert-price (abs ydir)) (* horz-price (abs xdir))))
+(define (subt-fuel! state mvmt-coef)
+  (dict-set! state "player" (- (get-fuel state) (* vert-price (abs mvmt-coef))))
   state)

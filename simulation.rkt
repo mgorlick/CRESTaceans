@@ -112,7 +112,7 @@
                   (cons (vector 0.0 height-factor)
                         (make-ground width height space staticBody (cdr ship) 
                                      (cpv 0.0 height-factor))))
-       (manage-update state width height 0.0 0.0 sinks)
+       (manage-update state width height 0.0 sinks)
        (set-simple-form! state)
        (update-loop state width height rules sinks)
        (printf "simulation freeing and shutting down~n")
@@ -143,14 +143,12 @@
 ; respond to control signal if there is one, else update with no control signal
 (define (update-loop state width height rules sinks)
   (receive/match
-   [(list (? thread? sender) 'permit-update! xdir ydir newstate)
-    (manage-update newstate width height xdir ydir sinks)
+   [(list (? thread? sender) 'permit-update! mvmt-coef newstate)
+    (manage-update newstate width height mvmt-coef sinks)
     (update-loop newstate width height rules sinks)]
    
-   [(list (? thread? sender) 'event-control (? integer? xdir) (? integer? ydir))
-    ;(manage-update state width height xdir ydir sinks)
-    ;(update-loop state width height rules sinks)]
-   (request-update-permission state xdir ydir rules)
+   [(list (? thread? sender) 'event-control (? integer? mvmt-coef))
+   (request-update-permission state mvmt-coef rules)
    (update-loop state width height rules sinks)]
    
    [(list (? thread? sender) 'shutdown)
@@ -160,18 +158,18 @@
    
    ))
 
-(define (request-update-permission state xdir ydir rules)
-  (thread-send rules (list (current-thread) 'permit-update? state xdir ydir)))
+(define (request-update-permission state mvmt-coef rules)
+  (thread-send rules (list (current-thread) 'permit-update? state mvmt-coef)))
 
-(define (manage-update state width height xdir ydir sinks)
+(define (manage-update state width height mvmt-coef sinks)
   ;(sleep 0.005)
-  (update state width height xdir ydir)
+  (update state width height mvmt-coef)
   (set-simple-form! state)
   (for/list ([s sinks])
     (thread-send s (list (current-thread) 'event-state state) void)))
 
 ; update: dict? rational? rational? integer? integer? -> void
-(define (update state width height xdir ydir)
+(define (update state width height mvmt-coef)
   (let* ([steps 3]
          [dt (/ (1.0 . / . 60.0) steps)]
          [space (dict-ref state "space")]
@@ -181,14 +179,23 @@
       (cpSpaceStep space dt)
       )
     
-    (cpBodyApplyImpulse ship (cpv 0.0 (* -100.0 ydir)) cpvzero)
-    (cpBodyApplyImpulse ship (cpv (* 100.0 xdir) 0.0) cpvzero)
+    (cpBodyApplyImpulse ship (cpv (impulse-xcoef ship mvmt-coef)
+                                  (impulse-ycoef ship mvmt-coef)) cpvzero)
     (cond ; wrap the ship around if it ventures offscreen
       [(>= (xpos ship) width) 
        (set-xpos! ship (- (xpos ship) width))]
       [(< (xpos ship) 0.0)
        (set-xpos! ship (+ (xpos ship) width))])
     ))
+
+(define (deg->rad d)
+  (* d ( / pi 180)))
+
+(define (impulse-xcoef ship-body mvmt-coef)
+  (* 100.0 mvmt-coef (sin (deg->rad (angle ship-body)))))
+
+(define (impulse-ycoef ship-body mvmt-coef)
+  (* -100.0 mvmt-coef (cos (deg->rad (angle ship-body)))))
 
 (define (set-simple-form! state)
   (let* ([ship (dict-ref state "ship")]

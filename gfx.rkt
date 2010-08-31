@@ -39,8 +39,7 @@
         (let* ((kbd-state (al-get-keyboard-state))
                (end-game? (end-the-game? kbd-state)))
           (thread-send sink (list (current-thread) 'event-control 
-                                  (get-current-xdir kbd-state) 
-                                  (get-current-ydir kbd-state)))
+                                  (get-mvmt-coef kbd-state)))
           (al-delete-keyboard-state kbd-state)
           (if end-game? ; change this to read the game state
               (begin
@@ -57,14 +56,7 @@
 (define (end-the-game? state)
   (al-key-down state Allegro-Key-Escape))
 
-(define (get-current-xdir state)
-  (if (al-key-down state Allegro-Key-A) 
-      -1.0
-      (if (al-key-down state Allegro-Key-D)
-          1.0
-          0.0)))
-
-(define (get-current-ydir state)
+(define (get-mvmt-coef state)
   (if (al-key-down state Allegro-Key-W)
       1.0
       0.0))
