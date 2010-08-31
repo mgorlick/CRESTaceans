@@ -28,7 +28,7 @@
      (define (newspace)
        (define space (cpSpaceNew))
        (set-cpSpace-iterations! space 5)
-       (set-cpSpace-gravity! space (cpv 0.0 100.0))
+       (set-cpSpace-gravity! space (cpv 50.0 10.0))
        (cpSpaceResizeStaticHash space 40.0 999)
        (cpSpaceResizeActiveHash space 30.0 2999)
        space)
@@ -88,6 +88,7 @@
        (let ([body (cpBodyNew 30.0 (cpMomentForPoly 1.0 3 tris cpvzero))])
          (set-cpBody-p! body (cpv (exact->inexact (/ width 2)) 
                                   (exact->inexact (/ height 10))))
+         (cpBodySetAngle body 235.0)
          (cpSpaceAddBody space body)
          (let ([shape (cpPolyShapeNew body 3 tris cpvzero)])
            (set-cpShape-e! shape 1.0)
@@ -112,7 +113,7 @@
                   (cons (vector 0.0 height-factor)
                         (make-ground width height space staticBody (cdr ship) 
                                      (cpv 0.0 height-factor))))
-       (manage-update state width height 0.0 sinks)
+       (manage-update state width height 0.0 0.0 sinks)
        (set-simple-form! state)
        (update-loop state width height rules sinks)
        (printf "simulation freeing and shutting down~n")
@@ -143,12 +144,12 @@
 ; respond to control signal if there is one, else update with no control signal
 (define (update-loop state width height rules sinks)
   (receive/match
-   [(list (? thread? sender) 'permit-update! mvmt-coef newstate)
-    (manage-update newstate width height mvmt-coef sinks)
+   [(list (? thread? sender) 'permit-update! mvmt-coef rotate-coef newstate)
+    (manage-update newstate width height mvmt-coef rotate-coef sinks)
     (update-loop newstate width height rules sinks)]
    
-   [(list (? thread? sender) 'event-control (? integer? mvmt-coef))
-   (request-update-permission state mvmt-coef rules)
+   [(list (? thread? sender) 'event-control (? integer? mvmt-coef) (? integer? rotate-coef))
+   (request-update-permission state mvmt-coef rotate-coef rules)
    (update-loop state width height rules sinks)]
    
    [(list (? thread? sender) 'shutdown)
@@ -158,18 +159,18 @@
    
    ))
 
-(define (request-update-permission state mvmt-coef rules)
-  (thread-send rules (list (current-thread) 'permit-update? state mvmt-coef)))
+(define (request-update-permission state mvmt-coef rotate-coef rules)
+  (thread-send rules (list (current-thread) 'permit-update? state mvmt-coef rotate-coef)))
 
-(define (manage-update state width height mvmt-coef sinks)
+(define (manage-update state width height mvmt-coef rotate-coef sinks)
   ;(sleep 0.005)
-  (update state width height mvmt-coef)
+  (update state width height mvmt-coef rotate-coef)
   (set-simple-form! state)
   (for/list ([s sinks])
     (thread-send s (list (current-thread) 'event-state state) void)))
 
 ; update: dict? rational? rational? integer? integer? -> void
-(define (update state width height mvmt-coef)
+(define (update state width height mvmt-coef rotate-coef)
   (let* ([steps 3]
          [dt (/ (1.0 . / . 60.0) steps)]
          [space (dict-ref state "space")]
@@ -178,7 +179,7 @@
     (for [(i (in-range steps))]
       (cpSpaceStep space dt)
       )
-    
+    (cpBodySetAngle ship (+ rotate-coef (angle ship)))
     (cpBodyApplyImpulse ship (cpv (impulse-xcoef ship mvmt-coef)
                                   (impulse-ycoef ship mvmt-coef)) cpvzero)
     (cond ; wrap the ship around if it ventures offscreen

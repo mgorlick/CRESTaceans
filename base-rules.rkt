@@ -27,11 +27,12 @@
         
         [(list (? thread? source) 'permit-update?
                (? dict? state) 
-               (? integer? mvmt-coef))
+               (? integer? mvmt-coef)
+               (? integer? rotate-coef))
            (let ((allow-mvmt (allow-mvmt? (get-fuel state) mvmt-coef)))
              (if (not (= allow-mvmt 0.0)) (subt-fuel! state allow-mvmt) #f)
              (thread-send source (list (current-thread) 'permit-update!
-                                       allow-mvmt state
+                                       allow-mvmt rotate-coef state
                                        )))
              (loop)]
 ))

@@ -39,7 +39,8 @@
         (let* ((kbd-state (al-get-keyboard-state))
                (end-game? (end-the-game? kbd-state)))
           (thread-send sink (list (current-thread) 'event-control 
-                                  (get-mvmt-coef kbd-state)))
+                                  (get-mvmt-coef kbd-state)
+                                  (get-rotate-coef kbd-state)))
           (al-delete-keyboard-state kbd-state)
           (if end-game? ; change this to read the game state
               (begin
@@ -60,6 +61,15 @@
   (if (al-key-down state Allegro-Key-W)
       1.0
       0.0))
+
+(define (get-rotate-coef state)
+  (if (al-key-down state Allegro-Key-A)
+      1.0
+      (if (al-key-down state Allegro-Key-D)
+          -1.0
+          0.0))
+  )
+ ; 0.0)
 
 ; draw-world: buffer dict -> void
 (define (draw-world state width height)
@@ -101,14 +111,17 @@
     (printmsg 20.0 80.0 (format "angle: ~s" (i->n angl)))
     ))
 
+(define (deg->rad d)
+  (* d ( / pi 180)))
+
 ; http://www.siggraph.org/education/materials/HyperGraph/modeling/mod_tran/2drota.htm
 ; x' = x cos theta - y sin theta
 ; translate to origin, rotate, translate back
 (define-syntax-rule (x* cx cy px py a)
   (let ((x (- px cx))
         (y (- py cy)))
-    (round (+ cx (- (* x (cos (/ a 360))) 
-                    (* y (sin (/ a 360)))))))
+    (round (+ cx (- (* x (cos (deg->rad a)))
+                    (* y (sin (deg->rad a)))))))
   )
 
 ; y' = y cos theta - x sin theta
@@ -116,8 +129,8 @@
 (define-syntax-rule (y* cx cy px py a)
   (let ((x (- px cx))
         (y (- py cy)))
-    (round (+ cy (- (* y (cos (/ a 360))) 
-                    (* x (sin (/ a 360)))))))
+    (round (+ cy (- (* y (cos (deg->rad a)))
+                    (* x (sin (deg->rad a)))))))
   )
 
 (define (printmsg x y msg)
