@@ -44,7 +44,7 @@
                        "addons/fonts.rkt")
          (all-defined-out))
 
-(define font (al-load-ttf-font "freefont/FreeMonoBold.ttf" 20))
+(define font (al-load-ttf-font "freefont/FreeMono.ttf" 24))
 
 (define (easy-init width height 
                    #:windowed? [windowed? #t]
