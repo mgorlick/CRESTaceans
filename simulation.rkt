@@ -24,7 +24,7 @@
      
      ; ENVIRONMENT SETUP
      
-     (define world-gravity (cpv 10.0 10.0))
+     (define world-gravity (cpv 0.0 20.0))
    
      (define height-factor ; the point on the y-axis where we start generating land 
        (/ (* 8.0 height) 10))
@@ -120,6 +120,7 @@
                         (make-ground width height space staticBody (cdr ship) 
                                      (cpv 0.0 height-factor))))
        (manage-update state width height 0.0 0.0 sinks)
+       (cpBodyApplyImpulse (car ship) (cpv 4000.0 0.0) cpvzero)
        (set-simple-form! state)
        (update-loop state width height rules sinks)
        (printf "simulation freeing and shutting down~n")
@@ -199,10 +200,10 @@
   (* d ( / pi 180)))
 
 (define (impulse-xcoef ship-body mvmt-coef)
-  (* 20.0 mvmt-coef (sin (deg->rad (angle ship-body)))))
+  (* 40.0 mvmt-coef (sin (deg->rad (angle ship-body)))))
 
 (define (impulse-ycoef ship-body mvmt-coef)
-  (* -20.0 mvmt-coef (cos (deg->rad (angle ship-body)))))
+  (* -40.0 mvmt-coef (cos (deg->rad (angle ship-body)))))
 
 (define (set-simple-form! state)
   (let* ([ship (dict-ref state "ship")]

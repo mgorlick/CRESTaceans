@@ -137,7 +137,7 @@
   (let ((x (- point-x center-x))
         (y (- point-y center-y)))
     (round (+ center-y 
-              (- (* y (cos (deg->rad angle)))
+              (+ (* y (cos (deg->rad angle)))
                  (* x (sin (deg->rad angle)))))))
   )
 
