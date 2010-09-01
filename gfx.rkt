@@ -64,12 +64,12 @@
 
 (define (get-rotate-coef state)
   (if (al-key-down state Allegro-Key-A)
-      1.0
+      -1.0
       (if (al-key-down state Allegro-Key-D)
-          -1.0
+          1.0
           0.0))
   )
- ; 0.0)
+; 0.0)
 
 ; draw-world: buffer dict -> void
 (define (draw-world state width height)
@@ -82,12 +82,12 @@
          [fuel (dict-ref state "player")]
          [ground-points (dict-ref state "ground")])
     (draw-ground ground-points width height)
-    (draw-tile xpos ypos fuel xvel yvel angl)
+    (draw-tile xpos ypos fuel xvel yvel angl width height)
     ))
 
 ; draw-tile: buffer int int int int int int -> void
 ; draw a ship on the screen
-(define (draw-tile xp yp fuel xv yv angl) 
+(define (draw-tile xp yp fuel xv yv angl width height) 
   (let* ([x1 (+ xp 15)]
          [y1 (+ yp 15)]
          [x2 xp]
@@ -103,12 +103,18 @@
          [x2* (x* xp yp x2 y2 angl)]
          [y2* (y* xp yp x2 y2 angl)]
          [x3* (x* xp yp x3 y3 angl)]
-         [y3* (y* xp yp x3 y3 angl)])
+         [y3* (y* xp yp x3 y3 angl)]
+         
+         [prpt (- width 350.0)])
     (al-draw-filled-triangle x1* y1* x2* y2* x3* y3* purple)
-    (printmsg 20.0 20.0 (format "position: [~s ~s]" (i->n xp) (i->n yp)))
-    (printmsg 20.0 40.0 (format "velocity: [~s ~s]" (i->n xv) (i->n yv)))
-    (printmsg 20.0 60.0 (format "fuel: ~s" fuel))
-    (printmsg 20.0 80.0 (format "angle: ~s" (i->n angl)))
+    (al-draw-filled-circle x2* y2* 2.0 yellow)
+    (printlmsg 20.0 20.0 (format "POSITION             [~s ~s]" (i->n xp) (i->n yp)))
+    (printlmsg 20.0 60.0 (format "FUEL REMAINING       ~s" fuel))
+    
+
+    (printlmsg prpt 20.0 (format "HORIZONTAL VELOCITY  ~s →" (i->n xv)))
+    (printlmsg prpt 40.0 (format "VERTICAL VELOCITY    ~s ↓" (i->n yv)))
+    (printlmsg prpt 60.0 (format "ANGLE                ~s°" (i->n a)))
     ))
 
 (define (deg->rad d)
@@ -117,24 +123,29 @@
 ; http://www.siggraph.org/education/materials/HyperGraph/modeling/mod_tran/2drota.htm
 ; x' = x cos theta - y sin theta
 ; translate to origin, rotate, translate back
-(define-syntax-rule (x* cx cy px py a)
-  (let ((x (- px cx))
-        (y (- py cy)))
-    (round (+ cx (- (* x (cos (deg->rad a)))
-                    (* y (sin (deg->rad a)))))))
+(define-syntax-rule (x* center-x center-y point-x point-y angle)
+  (let ((x (- point-x center-x))
+        (y (- point-y center-y)))
+    (round (+ center-x 
+              (- (* x (cos (deg->rad angle)))
+                 (* y (sin (deg->rad angle)))))))
   )
 
 ; y' = y cos theta - x sin theta
 ; translate to origin, rotate, translate back
-(define-syntax-rule (y* cx cy px py a)
-  (let ((x (- px cx))
-        (y (- py cy)))
-    (round (+ cy (- (* y (cos (deg->rad a)))
-                    (* x (sin (deg->rad a)))))))
+(define-syntax-rule (y* center-x center-y point-x point-y angle)
+  (let ((x (- point-x center-x))
+        (y (- point-y center-y)))
+    (round (+ center-y 
+              (- (* y (cos (deg->rad angle)))
+                 (* x (sin (deg->rad angle)))))))
   )
 
-(define (printmsg x y msg)
+(define (printlmsg x y msg)
   (al-draw-text font green x (+ 0.0 y) 0 msg))
+
+(define (printrmsg x y msg)
+  (al-draw-text font green x (+ 0.0 y) Allegro-Align-Right msg))
 
 ; take every adjacent pair of points on the ground, draw lines between them
 ; then do the same thing with the next adjacent pair 

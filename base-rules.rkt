@@ -29,25 +29,33 @@
                (? dict? state) 
                (? integer? mvmt-coef)
                (? integer? rotate-coef))
-           (let ((allow-mvmt (allow-mvmt? (get-fuel state) mvmt-coef)))
-             (if (not (= allow-mvmt 0.0)) (subt-fuel! state allow-mvmt) #f)
+         (let ((rotate-amt (allow-rotate? (get-fuel state) rotate-coef)))
+           (subt-fuel! state rotate-amt rotate-price)
+           (let ((mvmt-amt (allow-mvmt? (get-fuel state) mvmt-coef)))
+             (subt-fuel! state mvmt-amt mvmt-price)
              (thread-send source (list (current-thread) 'permit-update!
-                                       allow-mvmt rotate-coef state
-                                       )))
-             (loop)]
+                                       mvmt-amt rotate-amt state
+                                       ))))
+           (loop)]
 ))
 ]))
 
 (define (get-fuel state)
   (dict-ref state "player"))
 
-(define vert-price 1)
+(define mvmt-price 5)
+(define rotate-price 1)
 
-(define (allow-mvmt? fuel ydir)
-  (cond
-    [(>= fuel (* vert-price (abs ydir))) ydir]
-    [else 0.0]))
+(define (allow-rotate? fuel coef)
+  (if (>= fuel (* rotate-price (abs coef)))
+      coef
+      (* coef (/ fuel rotate-price))))
 
-(define (subt-fuel! state mvmt-coef)
-  (dict-set! state "player" (- (get-fuel state) (* vert-price (abs mvmt-coef))))
+(define (allow-mvmt? fuel coef)
+  (if (>= fuel (* mvmt-price (abs coef))) 
+      coef
+      (* coef (/ fuel mvmt-price))))
+
+(define (subt-fuel! state amt price)
+  (dict-set! state "player" (- (get-fuel state) (* price (abs amt))))
   state)

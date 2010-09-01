@@ -24,17 +24,19 @@
      
      ; ENVIRONMENT SETUP
      
+     (define world-gravity (cpv 10.0 10.0))
+   
+     (define height-factor ; the point on the y-axis where we start generating land 
+       (/ (* 8.0 height) 10))
+     
      ; required to call this before first update
      (define (newspace)
        (define space (cpSpaceNew))
        (set-cpSpace-iterations! space 5)
-       (set-cpSpace-gravity! space (cpv 50.0 10.0))
+       (set-cpSpace-gravity! space world-gravity)
        (cpSpaceResizeStaticHash space 40.0 999)
        (cpSpaceResizeActiveHash space 30.0 2999)
        space)
-     
-     (define height-factor ; the point on the y-axis where we start generating land 
-       (/ (* 8.0 height) 10))
      
      ; make-ground-shape: cpv cpv cpSpace cpStaticBody rational rational -> void
      ; add the actual ground object to the simulation
@@ -62,7 +64,7 @@
          [(> (cpVect-x last) (- width 80))
           (let* ([v2 (cpv (sub1 width) height-factor)])
             (make-ground-shape last v2 space staticBody height width ship)
-            (cons (vector (sub1 width) (+ height-factor 5)) empty))]
+            (cons (vector (sub1 width) (+ height-factor 0)) empty))]
          
          [else 
           (let* ([x (+ (random 40) 40)]
@@ -71,7 +73,7 @@
                  [end-height (- (cpVect-y last) y)]
                  [v2 (cpv end-width end-height)])
             (make-ground-shape last v2 space staticBody height width ship)
-            (cons (vector end-width (+ end-height 5))
+            (cons (vector end-width (+ end-height 0))
                   (make-ground width height space staticBody ship
                                (cpv end-width end-height)))
             )]
@@ -83,12 +85,16 @@
      ; location of ship vertices with respect to center
      (define tris (vector (cpv 15.0 15.0) (cpv 0.0 -15.0) (cpv -15.0 15.0)))
      
+     (define starting-point
+       (cpv (exact->inexact (/ width 8)) 
+                                  (exact->inexact (/ height 8))))
+     (define starting-angle 270.0)
+     
      ; make-ship: rational rational cpSpace -> cpBody
      (define (make-ship width height space)
        (let ([body (cpBodyNew 30.0 (cpMomentForPoly 1.0 3 tris cpvzero))])
-         (set-cpBody-p! body (cpv (exact->inexact (/ width 2)) 
-                                  (exact->inexact (/ height 10))))
-         (cpBodySetAngle body 235.0)
+         (set-cpBody-p! body starting-point)
+         (cpBodySetAngle body starting-angle)
          (cpSpaceAddBody space body)
          (let ([shape (cpPolyShapeNew body 3 tris cpvzero)])
            (set-cpShape-e! shape 1.0)
@@ -193,10 +199,10 @@
   (* d ( / pi 180)))
 
 (define (impulse-xcoef ship-body mvmt-coef)
-  (* 100.0 mvmt-coef (sin (deg->rad (angle ship-body)))))
+  (* 20.0 mvmt-coef (sin (deg->rad (angle ship-body)))))
 
 (define (impulse-ycoef ship-body mvmt-coef)
-  (* -100.0 mvmt-coef (cos (deg->rad (angle ship-body)))))
+  (* -20.0 mvmt-coef (cos (deg->rad (angle ship-body)))))
 
 (define (set-simple-form! state)
   (let* ([ship (dict-ref state "ship")]
