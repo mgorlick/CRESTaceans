@@ -1,19 +1,16 @@
 #! /usr/bin/racket
 #lang racket
 
-(require "gstreamer.rkt")
-
+(require "bindings/gstreamer.rkt")
 
 ;gst_init(NULL, NULL);
 (gst_init #f #f)
-
 
 ;GstElement *pipeline = gst_element_factory_make("playbin", "player");
 (let ((pipeline (gst_element_factory_make "playbin" "player")))
   
   ;g_object_set(G_OBJECT(pipeline), "uri", uri, NULL);
-  ;(g_object_set pipeline "uri" '("file:///home/Alegria/Documents/Racket-Gstreamer/GST/song.mp3"))
-  (g_object_set_1 pipeline "uri" "file:///home/kylestrasser/prog/racket/gst/GST/song.mp3")
+  (g_object_set_1 pipeline "uri" "file:///home/kylestrasser/prog/racket/gstreamer/song.mp3")
   
   ;gst_element_set_state(GST_ELEMENT(pipeline), GST_STATE_PLAYING);
   (gst_element_set_state pipeline GST_STATE_PLAYING)
@@ -23,8 +20,6 @@
     
     ;g_main_loop_run(loop);
     (g_main_loop_run loop)
-    
-    
     
     ;gst_element_set_state(GST_ELEMENT(pipeline), GST_STATE_NULL);
     (gst_element_set_state pipeline GST_STATE_NULL)

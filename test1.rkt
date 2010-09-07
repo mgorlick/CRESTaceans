@@ -1,7 +1,7 @@
 #! /usr/bin/racket
 #lang racket
 
-(require "gstreamer.rkt"
+(require "bindings/gstreamer.rkt"
          ffi/unsafe)
 
 (define argc* (malloc _int 'raw))
