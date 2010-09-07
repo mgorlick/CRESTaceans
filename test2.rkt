@@ -13,7 +13,7 @@
   
   ;g_object_set(G_OBJECT(pipeline), "uri", uri, NULL);
   ;(g_object_set pipeline "uri" '("file:///home/Alegria/Documents/Racket-Gstreamer/GST/song.mp3"))
-  (g_object_set pipeline "uri" (list "location" #f))
+  (g_object_set_1 pipeline "uri" "location")
   
   ;gst_element_set_state(GST_ELEMENT(pipeline), GST_STATE_PLAYING);
   (gst_element_set_state pipeline GST_STATE_PLAYING)

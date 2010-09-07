@@ -19,7 +19,7 @@
       (conv (gst_element_factory_make "audioconvert" "converter"))
       (sink (gst_element_factory_make "autoaudiosink" "audio-output")))
   
-  (g_object_set_1 source "location" "sample.ogg")
+  (g_object_set source "location" "sample.ogg")
   (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) source)
   (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) demuxer)
   (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) decoder)
@@ -28,6 +28,9 @@
   
   
   (printf "hello~n"))
+
+(free argc*)
+(free argv**)
                
                
          
