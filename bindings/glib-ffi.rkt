@@ -535,6 +535,13 @@
 ;void                g_main_loop_run                     (GMainLoop *loop);
 (define g_main_loop_run (get-ffi-obj 'g_main_loop_run glib-lib (_fun _GMainLoop-pointer -> _void)))
 
+(define _GCallback (_fun -> _void))
+
+(define g_signal_connect
+  (get-ffi-obj 'g_signal_connect_data glib-lib
+               (_fun _gpointer _string _GCallback _gpointer 
+                     (_pointer = #f) (_int = 0) -> _gulong)))
+
 ;;calling g_type_init
 (g_type_init)
 

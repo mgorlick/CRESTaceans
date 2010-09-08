@@ -96,7 +96,7 @@
 ;void funcName(GstBin *bin, GstElement *element_1,...);
 ;GstBin* GstElement* ... -> void                          ;;;OJO
 (define-gstreamer*
-  (_fun _GstBin-pointer _GstElement-pointer (_list i _GstElement-pointer) -> _void)
+  (_fun _GstBin-pointer _GstElement-pointer (_list i _GstElement-pointer) -> _void) ;XXX
   gst_bin_add_many gst_bin_remove_many)
 
 ;GstBin* GstPadDirection -> GstPad*
