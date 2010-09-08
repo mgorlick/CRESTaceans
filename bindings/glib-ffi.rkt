@@ -514,11 +514,6 @@
 (define g_type_init (get-ffi-obj 'g_type_init glib-lib (_fun -> _void)))
 
 ;void                g_object_set                        (gpointer object, const gchar *first_property_name, ...);
-;(define g_object_set 
-;  (get-ffi-obj 'g_object_set glib-lib 
-;               (_fun _gpointer _string 
-;                     (_list i (_or-null (_ptr io _byte))) ; XXX vararg, use one of several below
-;                     -> _void)))
 
 (define g_object_set
   (lambda (ptr . args)

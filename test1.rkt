@@ -4,37 +4,33 @@
 (require "bindings/gstreamer.rkt"
          ffi/unsafe)
 
-(define argc* (malloc _int 'raw))
-(ptr-set! argc* _int 1)
+;; manual construction of ogg vorbis decode/demux pipeline
 
-(define argv** (malloc (_list i _string) 'raw))
-(ptr-set! argv** (_list i _string) '("sample.ogg"))
+(let ([argc* (malloc _int 'raw)]
+      [argv** (malloc (_list i _string) 'raw)])
+  (ptr-set! argc* _int 1)
+  (ptr-set! argv** (_list i _string) '("sample.ogg"))
+  (gst-init argc* argv**)
+  (let ((pipeline (gst_pipeline_new "audio-player"))
+        (source (gst_element_factory_make "filesrc" "file-source"))
+        (demuxer (gst_element_factory_make "oggdemux" "ogg-demuxer"))
+        (decoder (gst_element_factory_make "vorbisdec" "vorbis-decoder"))
+        (conv (gst_element_factory_make "audioconvert" "converter"))
+        (sink (gst_element_factory_make "autoaudiosink" "audio-output"))
+        [loop (g_main_loop_new #f 0)])
+    (g_object_set source "location" "sample.ogg")
+    (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) source)
+    (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) demuxer)
+    (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) decoder)
+    (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) conv)
+    (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) sink)
+    (gst_element_set_state pipeline GST_STATE_PLAYING)
+    (g_main_loop_run loop)
+    (gst_element_set_state pipeline GST_STATE_NULL)
+    (gst_object_unref pipeline)
+    (free argc*)
+    (free argv**)))
 
-(gst_init argc* argv**)
-
-(let ((pipeline (gst_pipeline_new "audio-player"))
-      (source (gst_element_factory_make "filesrc" "file-source"))
-      (demuxer (gst_element_factory_make "oggdemux" "ogg-demuxer"))
-      (decoder (gst_element_factory_make "vorbisdec" "vorbis-decoder"))
-      (conv (gst_element_factory_make "audioconvert" "converter"))
-      (sink (gst_element_factory_make "autoaudiosink" "audio-output")))
-  
-  (g_object_set source "location" "sample.ogg")
-  (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) source)
-  (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) demuxer)
-  (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) decoder)
-  (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) conv)
-  (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) sink)
-  
-  
-  (printf "hello~n"))
-
-(free argc*)
-(free argv**)
-               
-               
-         
-  
 #|(let ((pipeline (make "pipeline"))
         (filesrc (make "filesrc"))
         (oggdemux (make "oggdemux"))
@@ -57,5 +53,5 @@
     (gst_element_set_state pipeline 'playing)
     (gst_bus_poll (get-bus pipeline) '(eos error) gparameter:uint64-max)
     (gst_element_set_state pipeline 'null))|#
-  
-  
+
+
