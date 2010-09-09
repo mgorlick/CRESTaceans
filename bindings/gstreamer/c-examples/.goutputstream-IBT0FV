@@ -1,0 +1,12 @@
+#include <gst/gst.h>
+int
+main (int
+argc,
+char *argv[])
+{
+gboolean silent = FALSE;
+gchar *savefile = NULL;
+GOptionContext *ctx;
+GError *err = NULL;
+GOptionEntry entries[] = {
+{ "silent", 

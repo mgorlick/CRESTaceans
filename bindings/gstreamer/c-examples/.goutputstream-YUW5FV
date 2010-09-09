@@ -1,0 +1,14 @@
+#include <gst/gst.h>
+int
+main (int
+argc,
+char *argv[])
+{
+gboolean silent = FALSE;
+gchar *savefile = NULL;
+GOptionContext *ctx;
+GError *err = NULL;
+GOptionEntry entries[] = {
+{ "silent", 's', 0, G_OPTION_ARG_NONE, &silent,
+"do not output status information", NULL },
+{ "output", 
