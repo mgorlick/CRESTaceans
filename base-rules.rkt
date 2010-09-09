@@ -29,16 +29,16 @@
                (? dict? state) 
                (? integer? mvmt-coef)
                (? integer? rotate-coef))
-         (let ((rotate-amt (allow-rotate? (get-fuel state) rotate-coef)))
+         (let ((rotate-amt (allow-rotate-amt (get-fuel state) rotate-coef)))
            (subt-fuel! state rotate-amt rotate-price)
-           (let ((mvmt-amt (allow-mvmt? (get-fuel state) mvmt-coef)))
+           (let ((mvmt-amt (allow-mvmt-amt (get-fuel state) mvmt-coef)))
              (subt-fuel! state mvmt-amt mvmt-price)
              (thread-send source (list (current-thread) 'permit-update!
                                        mvmt-amt rotate-amt state
                                        ))))
-           (loop)]
-))
-]))
+         (loop)]
+        ))
+     ]))
 
 (define (get-fuel state)
   (dict-ref state "player"))
@@ -46,12 +46,12 @@
 (define mvmt-price 5)
 (define rotate-price 1)
 
-(define (allow-rotate? fuel coef)
+(define (allow-rotate-amt fuel coef)
   (if (>= fuel (* rotate-price (abs coef)))
-      coef
-      (* coef (/ fuel rotate-price))))
+        coef
+        (* coef (/ fuel rotate-price))))
 
-(define (allow-mvmt? fuel coef)
+(define (allow-mvmt-amt fuel coef)
   (if (>= fuel (* mvmt-price (abs coef))) 
       coef
       (* coef (/ fuel mvmt-price))))

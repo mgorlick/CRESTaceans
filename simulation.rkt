@@ -24,10 +24,13 @@
      
      ; ENVIRONMENT SETUP
      
-     (define world-gravity (cpv 0.0 20.0))
-   
+     (define world-gravity (cpv 0.0 15.0))
+     
      (define height-factor ; the point on the y-axis where we start generating land 
        (/ (* 8.0 height) 10))
+     
+     (define offset-for-display 5) ; used to reconcile discrepancies between the
+     ; gfx display and the phys engine interms of collision and overlap
      
      ; required to call this before first update
      (define (newspace)
@@ -46,6 +49,7 @@
               [shape (cpSpaceAddStaticShape space 
                                             (cpSegmentShapeNew staticBody 
                                                                real-v1 real-v2 100.0))])
+         (printf "Callback is a: ~s~n" first-callback)
          (cpSpaceAddCollisionHandler
           space (cpShape-collision_type ship) (cpShape-collision_type shape)
           first-callback
@@ -64,7 +68,7 @@
          [(> (cpVect-x last) (- width 80))
           (let* ([v2 (cpv (sub1 width) height-factor)])
             (make-ground-shape last v2 space staticBody height width ship)
-            (cons (vector (sub1 width) (+ height-factor 0)) empty))]
+            (cons (vector (sub1 width) (+ height-factor offset-for-display)) empty))]
          
          [else 
           (let* ([x (+ (random 40) 40)]
@@ -73,7 +77,7 @@
                  [end-height (- (cpVect-y last) y)]
                  [v2 (cpv end-width end-height)])
             (make-ground-shape last v2 space staticBody height width ship)
-            (cons (vector end-width (+ end-height 0))
+            (cons (vector end-width (+ end-height offset-for-display))
                   (make-ground width height space staticBody ship
                                (cpv end-width end-height)))
             )]
@@ -87,7 +91,7 @@
      
      (define starting-point
        (cpv (exact->inexact (/ width 8)) 
-                                  (exact->inexact (/ height 8))))
+            (exact->inexact (/ height 8))))
      (define starting-angle 270.0)
      
      ; make-ship: rational rational cpSpace -> cpBody
@@ -120,32 +124,12 @@
                         (make-ground width height space staticBody (cdr ship) 
                                      (cpv 0.0 height-factor))))
        (manage-update state width height 0.0 0.0 sinks)
-       (cpBodyApplyImpulse (car ship) (cpv 4000.0 0.0) cpvzero)
+       (cpBodyApplyImpulse (car ship) (cpv 2500.0 0.0) cpvzero)
        (set-simple-form! state)
        (update-loop state width height rules sinks)
        (printf "simulation freeing and shutting down~n")
        (cpSpaceFreeChildren space)
        (cpSpaceFree space))]))
-
-(define first-callback
-  (newCollisionHandler (lambda (a b c) 
-                         ;(printf "callback 1~n")
-                         1)))
-
-(define second-callback
-  (newCollisionHandler (lambda (a b c)
-                         ;(printf "callback 2~n")
-                         1)))
-
-(define third-callback
-  (newCollisionHandler2 (lambda (a b c)
-                          ;(printf "callback 3~n")
-                          (void))))
-
-(define fourth-callback
-  (newCollisionHandler2 (lambda (a b c)
-                          ;(printf "callback 4~n")
-                          (void))))
 
 ; update-loop: dict? rational? rational? listof-thread? -> void
 ; respond to control signal if there is one, else update with no control signal
@@ -156,8 +140,8 @@
     (update-loop newstate width height rules sinks)]
    
    [(list (? thread? sender) 'event-control (? integer? mvmt-coef) (? integer? rotate-coef))
-   (request-update-permission state mvmt-coef rotate-coef rules)
-   (update-loop state width height rules sinks)]
+    (request-update-permission state mvmt-coef rotate-coef rules)
+    (update-loop state width height rules sinks)]
    
    [(list (? thread? sender) 'shutdown)
     #f
@@ -200,10 +184,10 @@
   (* d ( / pi 180)))
 
 (define (impulse-xcoef ship-body mvmt-coef)
-  (* 40.0 mvmt-coef (sin (deg->rad (angle ship-body)))))
+  (* 30.0 mvmt-coef (sin (deg->rad (angle ship-body)))))
 
 (define (impulse-ycoef ship-body mvmt-coef)
-  (* -40.0 mvmt-coef (cos (deg->rad (angle ship-body)))))
+  (* -30.0 mvmt-coef (cos (deg->rad (angle ship-body)))))
 
 (define (set-simple-form! state)
   (let* ([ship (dict-ref state "ship")]
@@ -237,3 +221,27 @@
 
 (define (set-ypos! ship-body ypos)
   (set-cpVect-y! (cpBody-p ship-body) ypos))
+
+(define first-callback 
+  (newCollisionHandler 
+   (lambda (arbiter space data)
+     ;(printf "callback 1~n")
+     1)))
+
+(define second-callback
+  (newCollisionHandler 
+   (lambda (arbiter space data)
+     ;(printf "callback 2~n")
+     1)))
+
+(define third-callback
+  (newCollisionHandler2 
+   (lambda (arbiter space data)
+     ;(printf "callback 3~n")
+     (void))))
+
+(define fourth-callback
+  (newCollisionHandler2
+   (lambda (a b c)
+     ;(printf "callback 4~n")
+     (void))))
