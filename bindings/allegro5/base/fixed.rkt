@@ -1,0 +1,27 @@
+#lang racket
+
+(require ffi/unsafe
+         "lib.rkt")
+(provide (all-defined-out))
+
+(defallegro al-itofix : _int -> _al-fixed)
+(defallegro al-fixtoi : _al-fixed -> _int)
+(defallegro al-fixfloor : _al-fixed -> _int)
+(defallegro al-fixceil : _al-fixed -> _int)
+(defallegro al-ftofix : _double -> _al-fixed)
+(defallegro al-fixtof : _al-fixed -> _double)
+(defallegro al-fixmul : _al-fixed _al-fixed -> _al-fixed)
+(defallegro al-fixdiv : _al-fixed _al-fixed -> _al-fixed)
+(defallegro al-fixadd : _al-fixed _al-fixed -> _al-fixed)
+(defallegro al-fixsub : _al-fixed _al-fixed -> _al-fixed)
+(define al-fixtorad-r (get-ffi-obj "al_fixtorad_r" liballegro _al-fixed))
+(define al-radtofix-r (get-ffi-obj "al_radtofix_r" liballegro _al-fixed))
+(defallegro al-fixsin : _al-fixed -> _al-fixed)
+(defallegro al-fixcos : _al-fixed -> _al-fixed)
+(defallegro al-fixtan : _al-fixed -> _al-fixed)
+(defallegro al-fixasin : _al-fixed -> _al-fixed)
+(defallegro al-fixacos : _al-fixed -> _al-fixed)
+(defallegro al-fixatan : _al-fixed -> _al-fixed)
+(defallegro al-fixatan2 : _al-fixed -> _al-fixed)
+(defallegro al-fixsqrt : _al-fixed -> _al-fixed)
+(defallegro al-fixhypot : _al-fixed _al-fixed -> _al-fixed)
