@@ -1,6 +1,6 @@
 #lang racket
 
-(require "../../allegro5/allegro5.rkt"
+(require "../../bindings/allegro5/allegro5.rkt"
          (planet bzlib/thread))
 (provide/contract [start-peer (-> void?)])
 

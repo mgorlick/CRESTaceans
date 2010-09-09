@@ -1,6 +1,6 @@
 #lang racket
 
-(require "../../chipmunk/chipmunk.rkt"
+(require "../../bindings/chipmunk/chipmunk.rkt"
          (planet bzlib/thread))
 (provide/contract [start-peer (-> void?)])
 
