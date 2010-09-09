@@ -1,0 +1,5 @@
+#! /usr/bin/racket
+#lang racket
+
+(require "lander.rkt")
+(go)
