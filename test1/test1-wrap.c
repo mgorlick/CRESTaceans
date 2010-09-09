@@ -63,3 +63,7 @@ GCallback cast_proc_to_gcallback (t_on_pad_added proc) {
 void signal_connect (GstElement* e1, GstElement* e2) {
   g_signal_connect (e1, "pad-added", G_CALLBACK (on_pad_added), e2);
 }
+
+guint add_bus (GstBus* bus, gpointer loop) {
+  return gst_bus_add_watch(bus, bus_call, loop);
+}

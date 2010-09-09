@@ -11,7 +11,7 @@
       [argv** (malloc (_list i _string) 'raw)])
   
   (ptr-set! argc* _int 1)
-  (ptr-set! argv** (_list i _string) '("sample.ogg"))
+  (ptr-set! argv** (_list i _string) '("../sample.ogg"))
   (gst_init argc* argv**)
   
   (let* ((pipeline (gst_pipeline_new "audio-player"))
@@ -25,13 +25,13 @@
     
     (if (or (null? pipeline) (null? source) (null? demuxer) (null? decoder)
             (null? conv) (null? sink) (null? loop))
-        (printf "pipeline could not be created~n")
-        (printf "pipeline elements created~n"))
+        (printf "Pipeline could not be created~n")
+        (printf "Pipeline elements created~n"))
     
-    (g_object_set_1 source "location" "sample.ogg")
+    (g_object_set_1 source "location" "../sample.ogg")
     
-    ;(gst_bus_add_watch bus bus_call loop)
-    ;(gst_object_unref bus)
+    (add_bus bus loop)
+    (gst_object_unref bus)
     
     (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) source)
     (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) demuxer)
@@ -56,5 +56,3 @@
     (gst_object_unref pipeline)
     (free argc*)
     (free argv**)))
-
-

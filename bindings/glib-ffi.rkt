@@ -543,6 +543,11 @@
                (_fun _gpointer _string _GCallback _gpointer
                      _gpointer _int -> _gulong)))
 
+(define g_signal_connect
+  (get-ffi-obj 'g_signal_connect_data glib-lib
+               (_fun _gpointer _string _GCallback _gpointer
+                     (_gpointer = #f) (_int = 0) -> _gulong)))
+
 ;; initialize the type system for all users
 (g_type_init)
 
