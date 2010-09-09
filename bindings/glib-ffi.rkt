@@ -1,6 +1,7 @@
 #lang racket
 
-(require ffi/unsafe)
+(require ffi/unsafe
+         (only-in '#%foreign ffi-callback))
 
 (provide (all-defined-out))
 
@@ -537,12 +538,12 @@
 
 (define _GCallback (_fun -> _void))
 
-(define g_signal_connect
+(define g_signal_connect_data
   (get-ffi-obj 'g_signal_connect_data glib-lib
-               (_fun _gpointer _string _GCallback _gpointer 
-                     (_pointer = #f) (_int = 0) -> _gulong)))
+               (_fun _gpointer _string _GCallback _gpointer
+                     _gpointer _int -> _gulong)))
 
-;;calling g_type_init
+;; initialize the type system for all users
 (g_type_init)
 
 
