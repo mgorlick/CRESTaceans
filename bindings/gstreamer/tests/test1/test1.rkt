@@ -1,7 +1,7 @@
 #! /usr/bin/racket
 #lang racket
 
-(require "../../bindings/gstreamer.rkt"
+(require "../../gst/gstreamer.rkt"
          "test1-wrap.rkt"
          ffi/unsafe)
 

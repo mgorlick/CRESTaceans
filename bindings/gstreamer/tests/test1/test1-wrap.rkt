@@ -2,7 +2,7 @@
 
 (require ffi/unsafe
          ffi/unsafe/define
-         "../../bindings/gstreamer.rkt")
+         "../../gst/gstreamer.rkt")
 (provide signal_connect
          add_bus
          )
