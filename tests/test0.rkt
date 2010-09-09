@@ -1,7 +1,7 @@
 #! /usr/bin/racket
 #lang racket
 
-(require "bindings/gstreamer-ffi.rkt")
+(require "../bindings/gstreamer-ffi.rkt")
 
 (gst_init #f #f)
 

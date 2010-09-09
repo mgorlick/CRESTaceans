@@ -1,7 +1,7 @@
 #! /usr/bin/racket
 #lang racket
 
-(require "bindings/gstreamer.rkt")
+(require "../bindings/gstreamer.rkt")
 
 ;; Simple ogg vorbis playback
 
@@ -12,7 +12,7 @@
 (let ((pipeline (gst_element_factory_make "playbin" "player")))
   
   ;g_object_set(G_OBJECT(pipeline), "uri", uri, NULL);
-  (g_object_set_1 pipeline "uri" "file:///home/kylestrasser/prog/racket/gstreamer/sample.ogg")
+  (g_object_set_1 pipeline "uri" "file:///home/kylestrasser/prog/racket/gstreamer/tests/sample.ogg")
   
   ;gst_element_set_state(GST_ELEMENT(pipeline), GST_STATE_PLAYING);
   (gst_element_set_state pipeline GST_STATE_PLAYING)

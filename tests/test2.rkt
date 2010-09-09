@@ -1,7 +1,7 @@
 #! /usr/bin/racket
 #lang racket
 
-(require "bindings/gstreamer.rkt")
+(require "../bindings/gstreamer.rkt")
 
 ;; Simple mp3 playback
 
@@ -12,7 +12,7 @@
 (let ((pipeline (gst_element_factory_make "playbin" "player")))
   
   ;g_object_set(G_OBJECT(pipeline), "uri", uri, NULL);
-  (g_object_set_1 pipeline "uri" "file:///home/kylestrasser/prog/racket/gstreamer/song.mp3")
+  (g_object_set_1 pipeline "uri" "file:///home/kylestrasser/prog/racket/gstreamer/tests/song.mp3")
   
   ;gst_element_set_state(GST_ELEMENT(pipeline), GST_STATE_PLAYING);
   (gst_element_set_state pipeline GST_STATE_PLAYING)
