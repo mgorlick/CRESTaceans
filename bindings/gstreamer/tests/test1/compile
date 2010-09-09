@@ -1,0 +1,7 @@
+#! /bin/bash
+
+gcc -fPIC -c -Wall $(pkg-config --cflags --libs gstreamer-0.10) test1-wrap.c
+ld -shared -soname libgracketgst-test1.so.1 -o libracketgst-test1.so.1.0 -lc test1-wrap.o
+sudo cp libracketgst-test1.so.1.0 /usr/local/lib
+rm libracketgst-test1.so.1.0
+rm test1-wrap.o
