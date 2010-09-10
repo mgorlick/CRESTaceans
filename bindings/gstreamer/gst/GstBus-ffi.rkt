@@ -30,10 +30,10 @@
 
 
 ;gboolean            (*GstBusFunc)                       (GstBus *bus, GstMessage *message, gpointer data); 
-(define GstBusFunc (_cprocedure '(_GstBus-pointer _GstMessage-pointer _gpointer) _gboolean))
+(define GstBusFunc (_cprocedure (list _GstBus-pointer _GstMessage-pointer _gpointer) _gboolean))
 
 ;GstBusSyncReply     (*GstBusSyncHandler)                (GstBus *bus, GstMessage *message, gpointer data); 
-(define GstBusSyncHandler (_cprocedure '(_GstBus-pointer _GstMessage-pointer _gpointer) _GstBusSyncReply))
+(define GstBusSyncHandler (_cprocedure (list _GstBus-pointer _GstMessage-pointer _gpointer) _GstBusSyncReply))
 
 ;GstBus*             gst_bus_new                         (void);
 (define-gstreamer gst_bus_new (_fun -> _GstBus-pointer))
@@ -79,7 +79,10 @@
 ;;GstBus* -> void
 (define-gstreamer*
   (_fun _GstBus-pointer -> _void)
-  gst_bus_disable_sync_message_emission gst_bus_enable_sync_message_emission gst_bus_add_signal_watch gst_bus_remove_signal_watch)
+  gst_bus_disable_sync_message_emission 
+  gst_bus_enable_sync_message_emission 
+  gst_bus_add_signal_watch 
+  gst_bus_remove_signal_watch)
 
 ;gboolean            gst_bus_async_signal_func           (GstBus *bus, GstMessage *message, gpointer data);
 (define-gstreamer gst_bus_async_signal_func (_fun _GstBus-pointer _GstMessage-pointer _gpointer -> _gboolean))

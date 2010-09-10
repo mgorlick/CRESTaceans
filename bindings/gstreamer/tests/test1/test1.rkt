@@ -30,7 +30,8 @@
     
     (g_object_set_1 source "location" "../sample.ogg")
     
-    (add_bus bus loop)
+    ;(add_bus bus loop)
+    (gst_bus_add_watch bus bus_call loop)
     (gst_object_unref bus)
     
     (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) source)
