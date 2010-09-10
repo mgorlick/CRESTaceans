@@ -1,12 +1,15 @@
 #lang racket
 
 (require ffi/unsafe
+         ffi/unsafe/define
          (only-in '#%foreign ffi-callback))
 
 (provide (all-defined-out))
 
 ; FFI
 (define glib-lib (ffi-lib "libgobject-2.0"))
+
+(define-ffi-definer gldf glib-lib )
 
 (define _gcharptr (_ptr io _gchar))
 (define _gintptr (_ptr io _gint))
@@ -531,22 +534,17 @@
                      (_string = #f) -> _void)))
 
 ;GMainLoop *         g_main_loop_new                     (GMainContext *context, gboolean is_running);
-(define g_main_loop_new (get-ffi-obj 'g_main_loop_new glib-lib (_fun (_or-null _GMainContext-pointer) _gboolean -> _GMainLoop-pointer)))
+(gldf g_main_loop_new (_fun (_or-null _GMainContext-pointer) _gboolean -> _GMainLoop-pointer))
 
 ;void                g_main_loop_run                     (GMainLoop *loop);
-(define g_main_loop_run (get-ffi-obj 'g_main_loop_run glib-lib (_fun _GMainLoop-pointer -> _void)))
+(gldf g_main_loop_run (_fun _GMainLoop-pointer -> _void))
+
+(gldf g_main_loop_quit (_fun _GMainLoop-pointer -> _void))
 
 (define _GCallback (_fun -> _void))
 
-(define g_signal_connect_data
-  (get-ffi-obj 'g_signal_connect_data glib-lib
-               (_fun _gpointer _string _GCallback _gpointer
-                     _gpointer _int -> _gulong)))
-
-(define g_signal_connect
-  (get-ffi-obj 'g_signal_connect_data glib-lib
-               (_fun _gpointer _string _GCallback _gpointer
-                     (_gpointer = #f) (_int = 0) -> _gulong)))
+(gldf g_signal_connect_data (_fun _gpointer _string _GCallback _gpointer
+                     (_gpointer = #f) (_int = 0) -> _gulong))
 
 ;; initialize the type system for all users
 (g_type_init)

@@ -7,6 +7,20 @@
 
 ;; manual construction of ogg vorbis decode/demux pipeline
 
+(define (buscall bus* msg* data*)
+  (let ([loop (cast data* _gpointer _GMainLoop-pointer)]
+        [type (gst_message_type msg*)])
+    (cond
+      [(eq? type GST_MESSAGE_EOS) 
+       (printf "End of stream~n") 
+       (g_main_loop_quit loop)]
+      [(eq? type GST_MESSAGE_ERROR)
+       (printf "Unknown error~n")
+       (g_main_loop_quit loop)]
+      [else #f])
+    1))
+        
+
 (let ([argc* (malloc _int 'raw)]
       [argv** (malloc (_list i _string) 'raw)])
   
@@ -31,7 +45,7 @@
     (g_object_set_1 source "location" "../sample.ogg")
     
     ;(add_bus bus loop)
-    (gst_bus_add_watch bus bus_call loop)
+    (gst_bus_add_watch bus buscall loop)
     (gst_object_unref bus)
     
     (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) source)

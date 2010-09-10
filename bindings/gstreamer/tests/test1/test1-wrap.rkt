@@ -4,8 +4,7 @@
          ffi/unsafe/define
          "../../gst/gstreamer.rkt")
 (provide signal_connect
-         add_bus
-         bus_call
+         gst_message_type
          )
 
 (define test1-wrap (ffi-lib "/usr/local/lib/libracketgst-test1" "1.0"))
@@ -13,4 +12,4 @@
 
 (df signal_connect (_fun _GstElement-pointer _GstElement-pointer -> _void))
 
-(df bus_call (_fun _GstBus-pointer _GstMessage-pointer _gpointer -> _guint))
+(df gst_message_type (_fun _GstMessage-pointer -> _int))
