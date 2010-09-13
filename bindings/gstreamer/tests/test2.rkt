@@ -22,7 +22,7 @@
 
 (gst_init #f #f)
 
-(let* ([pipeline (gst_element_factory_make "playbin" "player")]
+(let* ([pipeline (gst_element_factory_make "playbin2" "player")]
        [loop (g_main_loop_new #f 0)]
        [bus (gst_pipeline_get_bus (cast pipeline _GstElement-pointer _GstPipeline-pointer))])
   
