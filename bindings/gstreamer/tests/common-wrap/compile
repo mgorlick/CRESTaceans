@@ -1,0 +1,7 @@
+#! /bin/bash
+
+gcc -fPIC -c -Wall $(pkg-config --cflags --libs gstreamer-0.10) wrap.c
+ld -shared -soname libgracketgst.so.1 -o libracketgst.so.1.0 -lc wrap.o
+sudo cp libracketgst.so.1.0 /usr/local/lib
+rm libracketgst.so.1.0
+rm wrap.o

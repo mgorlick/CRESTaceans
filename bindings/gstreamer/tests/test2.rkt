@@ -2,7 +2,7 @@
 #lang racket
 
 (require "../gst/gstreamer.rkt"
-         "test1/test1-wrap.rkt")
+         "common-wrap/wrap.rkt")
 
 (define path-to-file (string-append "file://" (path->string (current-directory))))
 (define file-name "video.mpe")

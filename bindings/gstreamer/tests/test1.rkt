@@ -1,8 +1,8 @@
 #! /usr/bin/racket
 #lang racket
 
-(require "../../gst/gstreamer.rkt"
-         "test1-wrap.rkt"
+(require "../gst/gstreamer.rkt"
+         "common-wrap/wrap.rkt"
          ffi/unsafe)
 
 ;; manual construction of ogg vorbis decode/demux pipeline
@@ -25,7 +25,7 @@
       [argv** (malloc (_list i _string) 'raw)])
   
   (ptr-set! argc* _int 1)
-  (ptr-set! argv** (_list i _string) '("../sample.ogg"))
+  (ptr-set! argv** (_list i _string) '("sample.ogg"))
   (gst_init argc* argv**)
   
   (let* ((pipeline (gst_pipeline_new "audio-player"))
@@ -42,7 +42,7 @@
         (printf "Pipeline could not be created~n")
         (printf "Pipeline elements created~n"))
     
-    (g_object_set_1 source "location" "../sample.ogg")
+    (g_object_set_1 source "location" "sample.ogg")
     
     ;(add_bus bus loop)
     (gst_bus_add_watch bus buscall loop)
