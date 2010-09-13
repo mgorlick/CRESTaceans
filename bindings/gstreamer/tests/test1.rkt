@@ -12,7 +12,7 @@
         [type (gst_message_type msg*)])
     (cond
       [(eq? type GST_MESSAGE_EOS) 
-       (printf "End of stream~n") 
+       (printf "End of stream~n")
        (g_main_loop_quit loop)]
       [(eq? type GST_MESSAGE_ERROR)
        (printf "Unknown error~n")
