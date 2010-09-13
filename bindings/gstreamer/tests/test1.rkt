@@ -44,7 +44,6 @@
     
     (g_object_set_1 source "location" "sample.ogg")
     
-    ;(add_bus bus loop)
     (gst_bus_add_watch bus buscall loop)
     (gst_object_unref bus)
     
