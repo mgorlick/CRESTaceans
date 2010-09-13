@@ -9,7 +9,7 @@
 ; FFI
 (define glib-lib (ffi-lib "libgobject-2.0"))
 
-(define-ffi-definer gldf glib-lib )
+(define-ffi-definer gldf glib-lib)
 
 (define _gcharptr (_ptr io _gchar))
 (define _gintptr (_ptr io _gint))
@@ -263,7 +263,7 @@
 
 
 ;;gboolean (*GSourceFunc) (gpointer data);
-(define _GSourceFunc-pointer (_ptr io (_fun _gpointer -> _gboolean)))
+(define _GSourceFunc (_fun _gpointer -> _gboolean))
 
 
 ;;typedef struct _GSourceCallbackFuncs	GSourceCallbackFuncs;
@@ -277,7 +277,7 @@
 (define-cstruct _GSourceCallbackFuncs
   ([ref (_ptr io (_fun _gpointer -> _void))]
    [unref (_ptr io (_fun _gpointer -> _void))]
-   [get (_ptr io (_fun _gpointer _GSource-pointer _GSourceFunc-pointer _gpointer -> _void))]))
+   [get (_ptr io (_fun _gpointer _GSource-pointer _GSourceFunc _gpointer -> _void))]))
 
 
 ;typedef struct _GSourceFuncs GSourceFuncs;
@@ -291,7 +291,7 @@
 (define-cstruct _GSourceFuncs
   ([prepare (_ptr io (_fun _GSource-pointer _gintptr -> _gboolean))]
    [check (_ptr io (_fun _GSource-pointer -> _gboolean))]
-   [dispatch (_ptr io (_fun _GSource-pointer _GSourceFunc-pointer _gpointer -> _gboolean))]
+   [dispatch (_ptr io (_fun _GSource-pointer _GSourceFunc _gpointer -> _gboolean))]
    [finalize (_or-null (_ptr io (_fun _GSource-pointer -> _void)))]))
 
 
@@ -544,6 +544,8 @@
 
 (gldf g_signal_connect_data (_fun _gpointer _string _GCallback _gpointer
                      (_gpointer = #f) (_int = 0) -> _gulong))
+
+(gldf g_timeout_add (_fun _guint _GSourceFunc _gpointer -> _guint))
 
 ;; initialize the type system for all users
 (g_type_init)

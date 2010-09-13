@@ -14,8 +14,20 @@
   GST_FORMAT_PERCENT =  5
 } GstFormat;|#
 
-(define _GstFormat
-  (_enum '(GST_FORMAT_UNDEFINED = 0 GST_FORMAT_DEFAULT = 1 GST_FORMAT_BYTES = 2 GST_FORMAT_TIME = 3 GST_FORMAT_BUFFERS = 4 GST_FORMAT_PERCENT = 5)))
+; (define _GstFormat
+;  (_enum '(GST_FORMAT_UNDEFINED = 0 GST_FORMAT_DEFAULT = 1 
+;          GST_FORMAT_BYTES = 2 GST_FORMAT_TIME = 3 
+;          GST_FORMAT_BUFFERS = 4 GST_FORMAT_PERCENT = 5)))
+
+(define _GstFormat _int)
+(define _GstFormat-pointer (_ptr io _int))
+
+(define GST_FORMAT_UNDEFINED 0)
+(define GST_FORMAT_DEFAULT 1)
+(define GST_FORMAT_BYTES 2)
+(define GST_FORMAT_TIME 3)
+(define GST_FORMAT_BUFERS 4)
+(define GST_FORMAT_PERCENT 5)
 
 #|#define             GST_FORMAT_PERCENT_MAX
 #define             GST_FORMAT_PERCENT_SCALE|#

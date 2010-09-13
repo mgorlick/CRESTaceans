@@ -292,9 +292,9 @@ typedef struct {
 ;gboolean            gst_element_query_convert           (GstElement *element, GstFormat src_format, gint64 src_val, GstFormat *dest_format, gint64 *dest_val);
 (define-gstreamer gst_element_query_convert (_fun _GstElement-pointer _GstFormat _gint64 (_ptr io _GstFormat) _gint64 -> _gboolean))
 
-;;GstElement* GstFormat* gint64 -> gboolean
+;;GstElement* GstFormat* gint64* -> gboolean
 (define-gstreamer*
-  (_fun _GstElement-pointer (_ptr io _GstFormat) _gint64 -> _gboolean)
+  (_fun _GstElement-pointer _pointer _pointer -> _gboolean)
   gst_element_query_position gst_element_query_duration)
 
 ;gboolean            gst_element_send_event              (GstElement *element, GstEvent *event);
