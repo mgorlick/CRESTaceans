@@ -29,9 +29,9 @@
 (define GST_ELEMENT_IS_SINK (arithmetic-shift GST_OBJECT_FLAG_LAST 1))
 (define GST_ELEMENT_UNPARENTING (arithmetic-shift GST_OBJECT_FLAG_LAST 2))
 (define GST_ELEMENT_FLAG_LAST (arithmetic-shift GST_OBJECT_FLAG_LAST 16))
-  
 
-  
+
+
 
 #|typedef enum /*< flags=0 >*/
 {
@@ -240,69 +240,74 @@ typedef struct {
 (define-gstreamer gst_element_set_state (_fun _GstElement-pointer _int -> _GstStateChangeReturn))
 
 ;GstStateChangeReturn  gst_element_get_state             (GstElement *element, GstState *state, GstState *pending, GstClockTime timeout);
-(define-gstreamer gst_element_get_state (_fun _GstElement-pointer (_ptr io _int) (_ptr io _int) _GstClockTime -> _GstStateChangeReturn))
-
-;gboolean            gst_element_set_locked_state        (GstElement *element, gboolean locked_state);
-(define-gstreamer gst_element_set_locked_state (_fun _GstElement-pointer _gboolean -> _gboolean))
-
-;;GstElement* -> gboolean
-(define-gstreamer*
-  (_fun _GstElement-pointer -> _gboolean)
-  gst_element_is_indexable gst_element_requires_clock gst_element_provides_clock gst_element_is_locked_state gst_element_sync_state_with_parent)
-
-;;GstElement* -> void
-(define-gstreamer*
-  (_fun _GstElement-pointer -> _void)
-  gst_element_create_all_pads gst_element_no_more_pads gst_element_abort_state gst_element_lost_state)
-
-
-;GstStateChangeReturn  gst_element_continue_state        (GstElement *element, GstStateChangeReturn ret);
-(define-gstreamer gst_element_continue_state (_fun _GstElement-pointer _GstStateChangeReturn -> _GstStateChangeReturn))
-
-;void                gst_element_lost_state_full         (GstElement *element, gboolean new_base_time);
-(define-gstreamer gst_element_lost_state_full (_fun _GstElement-pointer _gboolean -> _void))
-
-;const gchar*        gst_element_state_get_name          (GstState state);
-(define-gstreamer gst_element_state_get_name (_fun _int -> _string))
-
-;const gchar *       gst_element_state_change_return_get_name (GstStateChangeReturn state_ret);
-(define-gstreamer gst_element_state_change_return_get_name (_fun _GstStateChangeReturn -> _string))
-
-;GstStateChangeReturn  gst_element_change_state          (GstElement *element, GstStateChange transition);
-(define-gstreamer gst_element_change_state (_fun _GstElement-pointer _int -> _GstStateChangeReturn))
-
-;void                gst_element_found_tags              (GstElement *element, GstTagList *list);
-(define-gstreamer gst_element_found_tags (_fun _GstElement-pointer _GstTagList-pointer -> _void))
-
-;void                gst_element_found_tags_for_pad      (GstElement *element, GstPad *pad, GstTagList *list);
-(define-gstreamer gst_element_found_tags_for_pad (_fun _GstElement-pointer _GstPad-pointer _GstTagList-pointer -> _void))
-
-;void gst_element_message_full (GstElement *element, GstMessageType type, GQuark domain, gint code, gchar *text, gchar *debug, const gchar *file, const gchar *function, gint line);
-(define-gstreamer gst_element_message_full (_fun _GstElement-pointer _int _GQuark _gint _string _string _string _string _gint -> _void))
-
-;gboolean            gst_element_post_message            (GstElement *element, GstMessage *message);
-(define-gstreamer gst_element_post_message (_fun _GstElement-pointer _GstMessage-pointer -> _gboolean))
-
-;const GstQueryType * gst_element_get_query_types        (GstElement *element);
-(define-gstreamer gst_element_get_query_types (_fun _GstElement-pointer -> (_ptr io _GstQueryType)))
-
-;gboolean            gst_element_query                   (GstElement *element, GstQuery *query);
-(define-gstreamer gst_element_query (_fun _GstElement-pointer _GstQuery-pointer -> _gboolean))
-
-;gboolean            gst_element_query_convert           (GstElement *element, GstFormat src_format, gint64 src_val, GstFormat *dest_format, gint64 *dest_val);
-(define-gstreamer gst_element_query_convert (_fun _GstElement-pointer _GstFormat _gint64 (_ptr io _GstFormat) _gint64 -> _gboolean))
-
-;;GstElement* GstFormat* gint64* -> gboolean
-(define-gstreamer*
-  (_fun _GstElement-pointer _pointer _pointer -> _gboolean)
-  gst_element_query_position gst_element_query_duration)
-
-;gboolean            gst_element_send_event              (GstElement *element, GstEvent *event);
-(define-gstreamer gst_element_send_event (_fun _GstElement-pointer _GstEvent-pointer -> _gboolean))
-
-;gboolean            gst_element_seek_simple             (GstElement *element, GstFormat format, GstSeekFlags seek_flags, gint64 seek_pos);
-(define-gstreamer gst_element_seek_simple (_fun _GstElement-pointer _GstFormat _int _gint64 -> _gboolean))
-
-;gboolean gst_element_seek (GstElement *element, gdouble rate, GstFormat format, GstSeekFlags flags, GstSeekType cur_type, gint64 cur, GstSeekType stop_type, gint64 stop);
-(define-gstreamer gst_element_seek (_fun _GstElement-pointer _gdouble _GstFormat _int _GstSeekType _gint64 _GstSeekType _gint64 -> _gboolean))
-
+(define-gstreamer gst_element_get_state 
+  (_fun _GstElement-pointer 
+        (state : (_ptr o _int)) (pending : (_ptr o _int)) _GstClockTime 
+        -> _GstStateChangeReturn 
+        -> (values state pending)))
+  
+  ;gboolean            gst_element_set_locked_state        (GstElement *element, gboolean locked_state);
+  (define-gstreamer gst_element_set_locked_state (_fun _GstElement-pointer _gboolean -> _gboolean))
+  
+  ;;GstElement* -> gboolean
+  (define-gstreamer*
+    (_fun _GstElement-pointer -> _gboolean)
+    gst_element_is_indexable gst_element_requires_clock gst_element_provides_clock gst_element_is_locked_state gst_element_sync_state_with_parent)
+  
+  ;;GstElement* -> void
+  (define-gstreamer*
+    (_fun _GstElement-pointer -> _void)
+    gst_element_create_all_pads gst_element_no_more_pads gst_element_abort_state gst_element_lost_state)
+  
+  
+  ;GstStateChangeReturn  gst_element_continue_state        (GstElement *element, GstStateChangeReturn ret);
+  (define-gstreamer gst_element_continue_state (_fun _GstElement-pointer _GstStateChangeReturn -> _GstStateChangeReturn))
+  
+  ;void                gst_element_lost_state_full         (GstElement *element, gboolean new_base_time);
+  (define-gstreamer gst_element_lost_state_full (_fun _GstElement-pointer _gboolean -> _void))
+  
+  ;const gchar*        gst_element_state_get_name          (GstState state);
+  (define-gstreamer gst_element_state_get_name (_fun _int -> _string))
+  
+  ;const gchar *       gst_element_state_change_return_get_name (GstStateChangeReturn state_ret);
+  (define-gstreamer gst_element_state_change_return_get_name (_fun _GstStateChangeReturn -> _string))
+  
+  ;GstStateChangeReturn  gst_element_change_state          (GstElement *element, GstStateChange transition);
+  (define-gstreamer gst_element_change_state (_fun _GstElement-pointer _int -> _GstStateChangeReturn))
+  
+  ;void                gst_element_found_tags              (GstElement *element, GstTagList *list);
+  (define-gstreamer gst_element_found_tags (_fun _GstElement-pointer _GstTagList-pointer -> _void))
+  
+  ;void                gst_element_found_tags_for_pad      (GstElement *element, GstPad *pad, GstTagList *list);
+  (define-gstreamer gst_element_found_tags_for_pad (_fun _GstElement-pointer _GstPad-pointer _GstTagList-pointer -> _void))
+  
+  ;void gst_element_message_full (GstElement *element, GstMessageType type, GQuark domain, gint code, gchar *text, gchar *debug, const gchar *file, const gchar *function, gint line);
+  (define-gstreamer gst_element_message_full (_fun _GstElement-pointer _int _GQuark _gint _string _string _string _string _gint -> _void))
+  
+  ;gboolean            gst_element_post_message            (GstElement *element, GstMessage *message);
+  (define-gstreamer gst_element_post_message (_fun _GstElement-pointer _GstMessage-pointer -> _gboolean))
+  
+  ;const GstQueryType * gst_element_get_query_types        (GstElement *element);
+  (define-gstreamer gst_element_get_query_types (_fun _GstElement-pointer -> (_ptr io _GstQueryType)))
+  
+  ;gboolean            gst_element_query                   (GstElement *element, GstQuery *query);
+  (define-gstreamer gst_element_query (_fun _GstElement-pointer _GstQuery-pointer -> _gboolean))
+  
+  ;gboolean            gst_element_query_convert           (GstElement *element, GstFormat src_format, gint64 src_val, GstFormat *dest_format, gint64 *dest_val);
+  (define-gstreamer gst_element_query_convert (_fun _GstElement-pointer _GstFormat _gint64 (_ptr io _GstFormat) _gint64 -> _gboolean))
+  
+  ;;GstElement* GstFormat* gint64* -> gboolean
+  (define-gstreamer*
+    (_fun _GstElement-pointer _pointer (result : (_ptr o _gint64)) -> _gboolean -> result)
+    gst_element_query_position gst_element_query_duration)
+  
+  ;gboolean            gst_element_send_event              (GstElement *element, GstEvent *event);
+  (define-gstreamer gst_element_send_event (_fun _GstElement-pointer _GstEvent-pointer -> _gboolean))
+  
+  ;gboolean            gst_element_seek_simple             (GstElement *element, GstFormat format, GstSeekFlags seek_flags, gint64 seek_pos);
+  (define-gstreamer gst_element_seek_simple (_fun _GstElement-pointer _GstFormat _int _gint64 -> _gboolean))
+  
+  ;gboolean gst_element_seek (GstElement *element, gdouble rate, GstFormat format, GstSeekFlags flags, GstSeekType cur_type, gint64 cur, GstSeekType stop_type, gint64 stop);
+  (define-gstreamer gst_element_seek (_fun _GstElement-pointer _gdouble _GstFormat _int _GstSeekType _gint64 _GstSeekType _gint64 -> _gboolean))
+  
+  
