@@ -298,7 +298,7 @@ typedef struct {
   
   ;;GstElement* GstFormat* gint64* -> gboolean
   (define-gstreamer*
-    (_fun _GstElement-pointer _pointer (result : (_ptr o _gint64)) -> _gboolean -> result)
+    (_fun _GstElement-pointer _pointer (result : (_ptr o _gint64)) -> (succeeded? : _gboolean) -> (values succeeded? result))
     gst_element_query_position gst_element_query_duration)
   
   ;gboolean            gst_element_send_event              (GstElement *element, GstEvent *event);

@@ -94,10 +94,15 @@
 (define-gstreamer gst_bin_recalculate_latency (_fun _GstBin-pointer -> _gboolean))
 
 ;void funcName(GstBin *bin, GstElement *element_1,...);
-;GstBin* GstElement* ... -> void                          ;;;OJO
-(define-gstreamer*
-  (_fun _GstBin-pointer _GstElement-pointer (_list i _GstElement-pointer) -> _void) ;XXX
-  gst_bin_add_many gst_bin_remove_many)
+;GstBin* GstElement* ... -> void
+
+(define (gst_bin_add_many bin . args)
+  (for/list ([e args])
+    (gst_bin_add bin e)))
+
+(define (gst_bin_remove_many bin . args)
+  (for/list ([e args])
+    (gst_bin_remove bin e)))
 
 ;GstBin* GstPadDirection -> GstPad*
 (define-gstreamer*

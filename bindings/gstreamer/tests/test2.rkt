@@ -40,8 +40,8 @@
   (let ([fmt* (malloc _int 'raw)]
         [pipeline* (cast data* _gpointer _GstElement-pointer)])
     (ptr-set! fmt* _int GST_FORMAT_TIME)
-    (let ([pos (gst_element_query_position pipeline* fmt*)]
-          [len (gst_element_query_duration pipeline* fmt*)])
+    (let-values ([(pos-suc pos) (gst_element_query_position pipeline* fmt*)]
+                 [(len-suc len) (gst_element_query_duration pipeline* fmt*)])
       (print_gst_time_format pos len)
       (free fmt*)
       ))
@@ -87,4 +87,5 @@
                      (g_timeout_add 100 play-or-pause pipeline)
                      (g_main_loop_run loop)
                      (gst_element_set_state pipeline GST_STATE_NULL)
+                     (gst_object_unref loop)
                      (gst_object_unref pipeline))))
