@@ -14,6 +14,9 @@
 (defvtx* (_fun _VortexCtx-pointer _axlDestroyFunc -> _void)
   vortex-ctx-install-cleanup)
 
+(defvtx* (_fun -> _VortexCtx-pointer)
+  vortex-ctx-new)
+
 (defvtx* (_fun _VortexCtx-pointer _axl-bool -> _void)
   vortex-ctx-server-name-acquire)
 
@@ -30,7 +33,8 @@
 (defvtx* (_fun _VortexCtx-pointer _axlPointer _axlPointer -> _void)
   vortex-ctx-set-data)
 
-(defvtx* (_fun _VortexCtx-pointer _axlPointer _axlPointer _axlDestroyFunc _axlDestroyFunc -> _void)
+(defvtx* (_fun _VortexCtx-pointer _axlPointer _axlPointer 
+               _axlDestroyFunc _axlDestroyFunc -> _void)
   vortex-ctx-set-data-full)
 
 (defvtx* (_fun _VortexCtx-pointer _VortexOnFrameReceived _axlPointer -> _void)

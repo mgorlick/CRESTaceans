@@ -45,5 +45,8 @@
   vortex-tls-start-negotiation)
 
 (defvtxtl* (_fun _VortexConnection-pointer _string 
-                 _VortexStatus (_ptr io _string) -> _VortexConnection-pointer)
+                 (status : (_ptr o _VortexStatus))
+                 (status-message : (_ptr o _string))
+                 -> (connection : _VortexConnection-pointer)
+                 -> (values connection status status-message))
   vortex-tls-start-negotiation-sync)

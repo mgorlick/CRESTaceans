@@ -14,7 +14,7 @@
 (defvtxtu* (_fun _VortexCtx-pointer _VortexTunnelLocationResolver _axlPointer -> _void)
   vortex-tunnel-set-resolver)
 
-(defvtxtu* (_fun _VortexTunnelSettings-pointer -> _void)
+(defvtxtu* (_fun _VortexTunnelSettings-pointer -> _void) ; XXX
   vortex-tunnel-settings-add-hop)
 
 (defvtxtu* (_fun _VortexTunnelSettings-pointer -> _void)

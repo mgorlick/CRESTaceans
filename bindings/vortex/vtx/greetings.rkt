@@ -5,7 +5,7 @@
 (provide (all-defined-out))
 
 (defvtx* (_fun _VortexConnection-pointer _string _string _string -> _void) 
-  vortex-greetings-error-send) ;; FIXME: really a ... after the 3rd string
+  vortex-greetings-error-send) ;; really a ... after the 3rd string (printf-like)
 
 (defvtx* (_fun _VortexCtx-pointer -> _string)
   vortex-greetings-get-features

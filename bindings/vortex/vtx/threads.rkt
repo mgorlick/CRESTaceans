@@ -21,6 +21,9 @@
 (defvtx* (_fun -> _VortexAsyncQueue-pointer)
   vortex-async-queue-new)
 
+(defvtx* (_fun _VortexAsyncQueue-pointer -> _axlPointer)
+  vortex-async-queue-pop)
+
 (defvtx* (_fun _VortexAsyncQueue-pointer _axlPointer -> _void)
   vortex-async-queue-priority-push
   vortex-async-queue-push
@@ -54,7 +57,7 @@
   vortex-mutex-lock
   vortex-mutex-unlock)
 
-(defvtx* (_fun _VortexThread-pointer _VortexThreadFunc _axlPointer -> _axl-bool) ; FIXME: ...
+(defvtx* (_fun _VortexThread-pointer _VortexThreadFunc _axlPointer -> _axl-bool) ; XXX ...
   vortex-thread-create)
 
 (defvtx* (_fun _VortexThread-pointer _axl-bool -> _axl-bool)

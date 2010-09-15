@@ -123,6 +123,9 @@
 (define _VortexConnectionOnPreRead
   (_fun _VortexConnection-pointer -> _void))
 
+(define _VortexIdleHandler
+  (_fun _VortexCtx-pointer _VortexConnection-pointer _axlPointer _axlPointer -> _void))
+
 (define _VortexIoAddToFdGroup
   (_fun _int _VortexConnection-pointer _axlPointer -> _axl-bool))
 

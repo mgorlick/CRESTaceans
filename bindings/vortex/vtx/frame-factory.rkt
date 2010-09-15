@@ -10,14 +10,17 @@
   vortex-frame-join
   vortex-frame-join-extending)
 
-(defvtx* (_fun _VortexFrameType _int _int _axl-bool _uint _int _int _pointer -> _string)
+(defvtx* (_fun _VortexFrameType _int _int 
+               _axl-bool _uint _int _int _pointer -> _string)
   vortex-frame-build-up-from-params)
 
-(defvtx* (_fun _VortexFrameType _int _int _axl-bool _uint _int _int _string
+(defvtx* (_fun _VortexFrameType _int _int 
+               _axl-bool _uint _int _int _string ; more seqno size ansno content_type
                _string _pointer _int -> _string)
   vortex-frame-build-up-from-params-s)
 
-(defvtx* (_fun _VortexFrameType _int _int _axl-bool _uint _int _int _string 
+(defvtx* (_fun _VortexFrameType _int _int
+               _axl-bool _uint _int _int _string
                _string _pointer _int _string _int -> _string)
   vortex-frame-build-up-from-params-s-buffer)
 

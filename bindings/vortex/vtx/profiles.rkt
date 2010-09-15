@@ -19,13 +19,16 @@
   vortex-profiles-is-defined-close
   vortex-profiles-is-defined-received
   vortex-profiles-is-defined-start
-  vortex-profiles-is-registered)
+  vortex-profiles-is-registered
+  vortex-profiles-unregister)
 
 (defvtx* (_fun _VortexCtx-pointer _string _VortexOnStartChannel _axlPointer
-               _VortexOnCloseChannel _axlPointer _VortexOnFrameReceived _axlPointer -> _axl-bool)
+               _VortexOnCloseChannel _axlPointer _VortexOnFrameReceived _axlPointer
+               -> _axl-bool)
   vortex-profiles-register)
 
-(defvtx* (_fun _VortexCtx-pointer _string _VortexOnStartChannelExtended _axlPointer -> _axl-bool)
+(defvtx* (_fun _VortexCtx-pointer _string _VortexOnStartChannelExtended _axlPointer 
+               -> _axl-bool)
   vortex-profiles-register-extended-start)
 
 (defvtx* (_fun _VortexCtx-pointer -> _int)
@@ -39,6 +42,3 @@
 
 (defvtx* (_fun _VortexCtx-pointer _string _VortexOnFrameReceived _axlPointer -> _axl-bool)
   vortex-profiles-set-received-handler)
-
-(defvtx* (_fun _VortexCtx-pointer _string -> _axl-bool)
-  vortex-profiles-unregister)

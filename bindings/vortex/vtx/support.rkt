@@ -28,13 +28,17 @@
 (defvtx* (_fun _VortexCtx-pointer _string -> _string)
   vortex-support-find-data-file)
 
+(defvtx* (_fun _string -> _int)
+  vortex-support-getenv-int)
+
 (defvtx* (_fun _VortexCtx-pointer _sockaddr-in-pointer -> _string)
   vortex-support-inet-ntoa)
 
 (defvtx* (_fun _string _string -> _axl-bool)
   vortex-support-setenv)
 
-(defvtx* (_fun _string (_ptr io _string) -> _double)
+(defvtx* (_fun _string (error : (_ptr o _string)) -> (result : _double)
+               -> (values result error))
   vortex-support-strtod)
 
 (defvtx* (_fun _string -> _axl-bool)
