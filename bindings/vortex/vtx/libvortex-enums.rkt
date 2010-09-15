@@ -1,7 +1,7 @@
 #lang racket
 
 (require ffi/unsafe)
-(provide (all-defined-out))
+(provide (except-out (all-defined-out) <<))
 
 (define << arithmetic-shift)
 
@@ -189,3 +189,8 @@
 (define _VortexDigestMethod
   (_enum '(sha1 = 1
                 md5 = 2)))
+
+; enum VortexConnectionHandler
+(define _VortexConnectionHandler
+  (_enum '(connection-channel-add-handler = 1
+           connection-channel-remove-handler = 2)))

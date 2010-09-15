@@ -1,7 +1,7 @@
 #lang racket
 
 (require ffi/unsafe
-         "libvortex.rkt")
+         "../libvortex.rkt")
 (provide (all-defined-out))
 
 (defvtxtl* (_fun _VortexCtx-pointer _VortexTlsAcceptQuery _VortexTlsCertificateFileLocator

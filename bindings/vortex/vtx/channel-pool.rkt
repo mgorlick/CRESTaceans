@@ -40,6 +40,6 @@
 
 (defvtx* (_fun _VortexConnection-pointer _string _int _VortexChannelPoolCreate _axlPointer
                _VortexOnCloseChannel _axlPointer
-               _VortexOnFrameReceived _axlpointer _VortexOnChannelPoolCreated _axlPointer
+               _VortexOnFrameReceived _axlPointer _VortexOnChannelPoolCreated _axlPointer
                -> _VortexChannelPool-pointer)
   vortex-channel-pool-new-full)

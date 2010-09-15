@@ -3,13 +3,12 @@
 (require ffi/unsafe)
 (provide (all-defined-out))
 
-(define libvortex (ffi-lib "/usr/local/lib/libvortex-1.1"))
-(define libvortex-http (ffi-lib "/usr/local/lib/libvortex-http-1.1"))
-(define libvortex-pull (ffi-lib "/usr/local/lib/libvortex-pull-1.1"))
-(define libvortex-sasl (ffi-lib "/usr/local/lib/libvortex-sasl-1.1"))
-(define libvortex-tls (ffi-lib "/usr/local/lib/libvortex-tls-1.1"))
-(define libvortex-tunnel (ffi-lib "/usr/local/lib/libvortex-tunnel-1.1"))
-(define libvortex-xml-rpc (ffi-lib "/usr/local/lib/libvortex-xml-rpc-1.1"))
+(define libvortex (ffi-lib "libvortex-1.1"))
+(define libvortex-alive (ffi-lib "/usr/local/lib/libvortex-alive-1.1")) ; XXX find a way to get rid of path
+(define libvortex-pull (ffi-lib "libvortex-pull-1.1"))
+(define libvortex-sasl (ffi-lib "libvortex-sasl-1.1"))
+(define libvortex-tls (ffi-lib "libvortex-tls-1.1"))
+(define libvortex-tunnel (ffi-lib "libvortex-tunnel-1.1"))
 
 ; Produce two macros:
 ; id1: obj typ -> define one object in lib with name obj and type signature typ
@@ -23,9 +22,8 @@
              (... ...)))))
 
 (define-vtx-definer libvortex defvtx defvtx*)
-(define-vtx-definer libvortex-http defvtxh defvtxh*)
+(define-vtx-definer libvortex-alive deftvxa defvtxa*)
 (define-vtx-definer libvortex-pull defvtxp defvtxp*)
 (define-vtx-definer libvortex-sasl defvtxs defvtxs*)
 (define-vtx-definer libvortex-tls defvtxtl defvtxtl*)
 (define-vtx-definer libvortex-tunnel defvtxtu defvtxtu*)
-(define-vtx-definer libvortex-xml-rpc defvtxx defvtxx*)

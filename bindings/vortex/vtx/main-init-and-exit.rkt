@@ -4,10 +4,6 @@
          "libvortex.rkt")
 (provide (all-defined-out))
 
-(defvtx* (_fun _VortexCtx-pointer -> _void)
-  vortex-ctx-unref
-  vortex-ctx-ref)
-
 (defvtx* (_fun _VortexCtx-pointer -> _axl-bool)
   vortex-color-log-is-enabled
   vortex-init-check

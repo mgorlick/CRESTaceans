@@ -56,7 +56,7 @@
 (define Mime-Content-Type "Content-Type")
 (define Mime-Version "MIME-Version")
 
-(define Vortex-Tls-Profile-URI "http://iana.org/beep/TLS")
+(define Vortex-TlS-Profile-URI "http://iana.org/beep/TLS")
 
 
 ; cpointers to opaque structs
@@ -105,7 +105,7 @@
 (define _VortexConnectionAction
   (_fun _VortexCtx-pointer _VortexConnection-pointer
         (_ptr io _VortexConnection-pointer)
-        _VortexConnectionStage ; enum VortexConnectionStage
+        _VortexConnectionStage
         _axlPointer -> _int))
 
 (define _VortexConnectionNew
@@ -120,7 +120,7 @@
 (define _VortexConnectionOnCloseFull
   (_fun _VortexConnection-pointer _axlPointer -> _void))
 
-(define _VortexConectionOnPreRead
+(define _VortexConnectionOnPreRead
   (_fun _VortexConnection-pointer -> _void))
 
 (define _VortexIoAddToFdGroup
@@ -130,14 +130,14 @@
   (_fun _axlPointer -> _void))
 
 (define _VortexIoCreateFdGroup
-  (_fun _VortexCtx-pointer _VortexIoWaitingFor ;; enum VortexIoWaitingFor
+  (_fun _VortexCtx-pointer _VortexIoWaitingFor
         -> _axlPointer))
 
 (define _VortexIoDestroyFdGroup
   (_fun _axlPointer -> _void))
 
 (define _VortexIoDispatchFunc
-  (_fun _int _VortexIoWaitingFor ; enum VortexIoWaitingFor
+  (_fun _int _VortexIoWaitingFor
         _VortexConnection-pointer _axlPointer -> _void))
 
 (define _VortexIoDispatch
@@ -150,20 +150,20 @@
   (_fun _int _axlPointer _axlPointer -> _axl-bool))
 
 (define _VortexIoWaitOnFdGroup
-  (_fun _axlPointer _int _VortexIoWaitingFor ; enum VortexIoWaitingFor
+  (_fun _axlPointer _int _VortexIoWaitingFor
         -> _int))
 
 (define _VortexListenerReady
-  (_fun _string _int _VortexStatus ; enum VortexStatus
+  (_fun _string _int _VortexStatus
         _string _axlPointer -> _void))
 
 (define _VortexListenerReadyFull
-  (_fun _string _int _VortexStatus ; enum VortexStatus
+  (_fun _string _int _VortexStatus
         _string _VortexConnection-pointer _axlPointer
         -> _void))
 
 (define _VortexLogHandler
-  (_fun _string _int _VortexDebugLevel ;; enum VortexDebugLevel
+  (_fun _string _int _VortexDebugLevel
         _string 
         ;(_list i _pointer) ;; XXX va_list
         -> _void))
@@ -200,12 +200,12 @@
 (define _VortexOnStartChannelExtended
   (_fun _string _int _VortexConnection-pointer
         _string _string (_ptr io _string)
-        _VortexEncoding ; enum VortexEncoding
+        _VortexEncoding
         _axlPointer -> _axl-bool))
 
 (define _VortexProfileMaskFunc
   (_fun _VortexConnection-pointer _int _string _string 
-        _VortexEncoding ; enum VortexEncoding
+        _VortexEncoding
         _string _VortexFrame-pointer (_ptr io _string)
         _axlPointer -> _axl-bool))
 

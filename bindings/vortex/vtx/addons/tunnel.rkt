@@ -1,7 +1,7 @@
 #lang racket
 
 (require ffi/unsafe
-         "libvortex.rkt")
+         "../libvortex.rkt")
 (provide (all-defined-out))
 
 (defvtxtu* (_fun _VortexCtx-pointer _VortexOnAcceptedConnection _axlPointer -> _axl-bool)

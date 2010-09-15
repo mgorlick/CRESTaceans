@@ -32,7 +32,7 @@
   vortex-profiles-registered)
 
 (defvtx* (_fun _VortexCtx-pointer _string _int -> _void)
-  vortex-profiles-set-automatic-mime-type)
+  vortex-profiles-set-automatic-mime)
 
 (defvtx* (_fun _VortexCtx-pointer _string _string _string -> _axl-bool)
   vortex-profiles-set-mime-type)
