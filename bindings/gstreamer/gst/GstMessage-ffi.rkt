@@ -131,7 +131,11 @@ typedef struct {
 
 ;;GstMessage* GError** gchar** -> GstMessage*
 (define-gstreamer*
-  (_fun _GstMessage-pointer (_ptr io _GError-pointer) (_ptr io _string) -> _void)
+  (_fun _GstMessage-pointer 
+        (error : (_ptr o _GError-pointer))
+        (debug : _pointer) -> _void
+        -> error)
+;        -> (values error (GError-message error)))
   gst_message_parse_error gst_message_parse_warning gst_message_parse_info)
 
 

@@ -1,4 +1,5 @@
 #include <gst/gst.h>
+#include <gst/gstmessage.h>
 #include <glib.h>
 
 void on_pad_added (GstElement *element, GstPad *pad, gpointer data) {
@@ -16,6 +17,10 @@ void signal_connect (GstElement* e1, GstElement* e2) {
 
 int gst_message_type (GstMessage* m) {
   return GST_MESSAGE_CAST(m)->type;
+}
+
+void gst_message_unref_w (GstMessage* m) {
+  gst_message_unref(m);
 }
 
 void print_gst_time_format (gint64 pos, gint64 len) {

@@ -547,6 +547,10 @@
 
 (gldf g_timeout_add (_fun _guint _GSourceFunc _gpointer -> _guint))
 
+(gldf g_error_free (_fun _GError-pointer -> _void))
+
+(gldf g_free (_fun _gpointer -> _void))
+
 ;; initialize the type system for all users
 (g_type_init)
 

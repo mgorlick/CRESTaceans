@@ -24,7 +24,7 @@
 
 (define _GstParseError
   (_enum '( GST_PARSE_ERROR_SYNTAX GST_PARSE_ERROR_NO_SUCH_ELEMENT GST_PARSE_ERROR_NO_SUCH_PROPERTY GST_PARSE_ERROR_LINK GST_PARSE_ERROR_COULD_NOT_SET_PROPERTY GST_PARSE_ERROR_EMPTY_BIN GST_PARSE_ERROR_EMPTY)))  
-  
+
 ;typedef struct _GstParseContext GstParseContext;
 (define-cpointer-type _GstParseContext-pointer)
 
@@ -38,24 +38,49 @@
 (define GST_PARSE_FLAG_NONE  0)
 (define GST_PARSE_FLAG_FATAL_ERRORS (arithmetic-shift 1 0))
 
-  
-;GstElement *        gst_parse_launch                    (const gchar *pipeline_description, GError **error);
-(define-gstreamer gst_parse_launch (_fun _string (_ptr io _GError-pointer) -> _GstElement-pointer))
 
-;GstElement *        gst_parse_launch_full               (const gchar *pipeline_description, GstParseContext *context, GstParseFlags flags, GError **error);
-(define-gstreamer gst_parse_launch_full (_fun _string _GstParseContext-pointer _int (_ptr io _GError-pointer) -> _GstElement-pointer))
+; GstElement *        gst_parse_launch                   
+; (const gchar *pipeline_description, GError **error);
+(define-gstreamer gst_parse_launch (_fun _string
+                                         (error : (_or-null (_ptr o _GError-pointer)) = #f) 
+                                         -> (pipeline : _GstElement-pointer)
+                                         -> (values pipeline error)))
 
-;GstElement *        gst_parse_launchv                   (const gchar **argv, GError **error);
-(define-gstreamer gst_parse_launchv (_fun (_ptr io _string) (_ptr io _GError-pointer) -> _GstElement-pointer))
+; GstElement *        gst_parse_launch_full               
+; (const gchar *pipeline_description, GstParseContext *context, GstParseFlags flags, GError **error);
+(define-gstreamer gst_parse_launch_full (_fun _string _GstParseContext-pointer _int 
+                                              (error : (_ptr o _GError-pointer))
+                                              -> (pipeline : _GstElement-pointer)
+                                              -> (values pipeline error)))
 
-;GstElement *        gst_parse_launchv_full              (const gchar **argv, GstParseContext *context, GstParseFlags flags, GError **error);
-(define-gstreamer gst_parse_launchv_full (_fun (_ptr io _string) _GstParseContext-pointer _int (_ptr io _GError-pointer) -> _GstElement-pointer))
+; GstElement *        gst_parse_launchv                   
+; (const gchar **argv, GError **error);
+(define-gstreamer gst_parse_launchv (_fun (_ptr io _string) ; XXX
+                                          (error : (_ptr o _GError-pointer)) 
+                                          -> (pipeline : _GstElement-pointer)
+                                          -> (values pipeline error)))
 
-;GstElement *        gst_parse_bin_from_description      (const gchar *bin_description, gboolean ghost_unlinked_pads, GError **err);
-(define-gstreamer gst_parse_bin_from_description (_fun _string _gboolean (_ptr io _GError-pointer) -> _GstElement-pointer))
+;GstElement *        gst_parse_launchv_full              
+; (const gchar **argv, GstParseContext *context, GstParseFlags flags, GError **error);
+(define-gstreamer gst_parse_launchv_full (_fun (_ptr io _string) ; XXX
+                                               _GstParseContext-pointer _int
+                                               (error : (_ptr o _GError-pointer))
+                                               -> (pipeline : _GstElement-pointer)
+                                               -> (values pipeline error)))
 
-;GstElement * gst_parse_bin_from_description_full (const gchar *bin_description, gboolean ghost_unlinked_pads, GstParseContext *context, GstParseFlags flags, GError **err);
-(define-gstreamer gst_parse_bin_from_description_full (_fun _string _gboolean _GstParseContext-pointer _int (_ptr io _GError-pointer) -> _GstElement-pointer))
+;GstElement *        gst_parse_bin_from_description      
+; (const gchar *bin_description, gboolean ghost_unlinked_pads, GError **err);
+(define-gstreamer gst_parse_bin_from_description (_fun _string _gboolean 
+                                                       (error : (_ptr o _GError-pointer)) 
+                                                       -> (pipeline : _GstElement-pointer)
+                                                       -> (values pipeline error)))
+
+;GstElement * gst_parse_bin_from_description_full 
+; (const gchar *bin_description, gboolean ghost_unlinked_pads, GstParseContext *context, GstParseFlags flags, GError **err);
+(define-gstreamer gst_parse_bin_from_description_full (_fun _string _gboolean _GstParseContext-pointer _int 
+                                                            (error : (_ptr o _GError-pointer))
+                                                            -> (pipeline : _GstElement-pointer)
+                                                            -> (values pipeline error)))
 
 ;GstParseContext *   gst_parse_context_new               (void);
 (define-gstreamer gst_parse_context_new (_fun -> _GstParseContext-pointer))
