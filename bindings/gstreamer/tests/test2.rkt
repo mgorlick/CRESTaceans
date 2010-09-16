@@ -1,7 +1,7 @@
 #! /usr/bin/racket
 #lang racket
 
-(require "../gst/gstreamer.rkt"
+(require "../gstreamer.rkt"
          "common-wrap/wrap.rkt")
 (provide (all-defined-out))
 
@@ -71,21 +71,24 @@
       ))
   1)
 
-(gst_init #f #f)
-
-(thread (lambda () (let* ([pipeline (gst_element_factory_make "playbin2" "player")]
-                          [loop (g_main_loop_new #f 0)]
-                          [bus (gst_pipeline_get_bus (cast pipeline 
-                                                           _GstElement-pointer 
-                                                           _GstPipeline-pointer))])
-                     
-                     (g_object_set pipeline "uri" (string-append path-to-file file-name))
-                     (gst_bus_add_watch bus buscall loop)
-                     (gst_object_unref bus)
-                     (gst_element_set_state pipeline GST_STATE_PLAYING)
-                     (g_timeout_add 10000 print-position pipeline)
-                     (g_timeout_add 100 play-or-pause pipeline)
-                     (g_main_loop_run loop)
-                     (gst_element_set_state pipeline GST_STATE_NULL)
-                     (gst_object_unref loop)
-                     (gst_object_unref pipeline))))
+(with-gst-init 
+ #f
+ (thread 
+  (lambda () 
+    (let* ([pipeline (gst_element_factory_make "playbin2" "player")]
+           [loop (g_main_loop_new #f 0)]
+           [bus (gst_pipeline_get_bus (cast pipeline 
+                                            _GstElement-pointer 
+                                            _GstPipeline-pointer))])
+      
+      (g_object_set pipeline "uri" (string-append path-to-file file-name))
+      (gst_bus_add_watch bus buscall loop)
+      (gst_object_unref bus)
+      (gst_element_set_state pipeline GST_STATE_PLAYING)
+      (g_timeout_add 10000 print-position pipeline)
+      (g_timeout_add 100 play-or-pause pipeline)
+      (g_main_loop_run loop)
+      (gst_element_set_state pipeline GST_STATE_NULL)
+      (g_free loop)
+      (gst_object_unref pipeline)
+      ))))
