@@ -39,13 +39,19 @@
               (loop cc)]
              )))))))
 
-(with-gst-init
- '("song.mp3")
- (let-values ([(bin error) (gst_parse_launch "filesrc name=my_filesrc ! mad ! audioconvert ! audioresample ! osssink")])
-; (let-values ([(bin error) (gst_parse_launch "filesrc name=my_filesrc ! mad ! osssink")]) ; version that generates error
-   (let ([filesrc (gst_bin_get_by_name (cast bin _GstElement-pointer _GstBin-pointer) "my_filesrc")])
-     (g_object_set filesrc "location" "song.mp3")
-     (gst_element_set_state bin GST_STATE_PLAYING)
-     (event-loop bin)
-     (gst_element_set_state bin GST_STATE_NULL))
-   ))
+(define (parselaunch arg1)
+  (with-gst-init
+   (list arg1)
+   ;(let-values ([(bin error) ; version that plays mp3 successfully
+   ;              (gst_parse_launch "filesrc name=my_filesrc ! mad ! audioconvert ! audioresample ! osssink")])
+   (let-values ([(bin error) ; version that generates error
+                 (gst_parse_launch "filesrc name=my_filesrc ! mad ! osssink")]) 
+     (let ([filesrc (gst_bin_get_by_name (cast bin _GstElement-pointer _GstBin-pointer) "my_filesrc")])
+       (g_object_set filesrc "location" arg1)
+       (gst_element_set_state bin GST_STATE_PLAYING)
+       (event-loop bin)
+       (gst_element_set_state bin GST_STATE_NULL)
+       (gst_object_unref filesrc))
+     (gst_object_unref bin))))
+
+(parselaunch "song.mp3")
