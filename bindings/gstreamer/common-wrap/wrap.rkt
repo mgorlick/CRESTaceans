@@ -2,13 +2,10 @@
 
 (require ffi/unsafe
          ffi/unsafe/define
-         "../../gst/gstreamer.rkt")
-(provide (except-out (all-defined-out)
-                     test1-wrap
-                     df))
+         "../gst/gstreamer.rkt")
+(provide (except-out (all-defined-out) df))
 
-(define test1-wrap (ffi-lib "/usr/local/lib/libracketgst" "1.0"))
-(define-ffi-definer df test1-wrap)
+(define-ffi-definer df (ffi-lib "/usr/local/lib/libracketgst" "1.0"))
 
 (df signal_connect (_fun _GstElement-pointer _GstElement-pointer -> _void))
 

@@ -2,7 +2,6 @@
 #lang racket
 
 (require "../gstreamer.rkt"
-         "common-wrap/wrap.rkt"
          ffi/unsafe)
 
 ;; manual construction of ogg vorbis decode/demux pipeline

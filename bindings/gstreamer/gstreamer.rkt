@@ -1,8 +1,10 @@
 #lang racket
 
-(require "gst/gstreamer.rkt")
+(require "gst/gstreamer.rkt"
+         "common-wrap/wrap.rkt")
 (provide (all-defined-out)
-         (all-from-out "gst/gstreamer.rkt"))
+         (all-from-out "gst/gstreamer.rkt"
+                       "common-wrap/wrap.rkt"))
 
 (define-syntax-rule (with-gst-init argv body ...)
   (cond

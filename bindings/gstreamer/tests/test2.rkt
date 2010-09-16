@@ -1,8 +1,7 @@
 #! /usr/bin/racket
 #lang racket
 
-(require "../gstreamer.rkt"
-         "common-wrap/wrap.rkt")
+(require "../gstreamer.rkt")
 (provide (all-defined-out))
 
 ; elementary pausing and resuming via command line interaction

@@ -2,8 +2,7 @@
 #lang racket
 
 (require ffi/unsafe
-         "../gstreamer.rkt"
-         "common-wrap/wrap.rkt")
+         "../gstreamer.rkt")
 
 ; shows use of the parse_launch functionality, 
 ; plus an in-thread event loop
