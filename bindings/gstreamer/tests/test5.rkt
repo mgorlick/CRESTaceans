@@ -20,7 +20,7 @@
           [(or (eq? type GST_MESSAGE_WARNING)
                (eq? type GST_MESSAGE_ERROR))
            (printf "error~n")
-           (print-error-message message)
+           (extract-and-print-error message)
            (gst_message_unref_w message)
            #f]
           [else 
