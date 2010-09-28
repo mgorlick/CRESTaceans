@@ -36,6 +36,15 @@
 (define-cpointer-type _axlList-pointer)
 (define-cpointer-type _axlDoc-pointer)
 
+(define axl-false 0)
+(define axl-true 1)
+
+(define (vtx-false? v)
+  (= v axl-false))
+
+(define (vtx-true? v)
+  (= v axl-true))
+
 ; Macro definitions in vortex.h
 (define _Vortex-Socket _int)
 (define Vortex-Socket-Error -1)
@@ -57,7 +66,7 @@
 (define Mime-Version "MIME-Version")
 
 (define Vortex-TlS-Profile-URI "http://iana.org/beep/TLS")
-
+(define Plain-Profile-URI "http://fact.aspl.es/profiles/plain_profile")
 
 ; cpointers to opaque structs
 (define-cpointer-type _VortexAsyncQueue-pointer)
@@ -91,7 +100,7 @@
 
 (define _VortexOnFrameReceived
   (_fun _VortexChannel-pointer _VortexConnection-pointer 
-        _VortexFrame-pointer _axlPointer -> _void))
+                   _VortexFrame-pointer _axlPointer -> _void))
 
 (define _VortexChannelPoolCreate
   (_fun _VortexConnection-pointer _int _string
@@ -109,7 +118,7 @@
         _axlPointer -> _int))
 
 (define _VortexConnectionNew
-  (_fun _VortexConnection-pointer _axlPointer -> _void))
+  (_fun (_or-null _VortexConnection-pointer) (_or-null _axlPointer) -> _void))
 
 (define _VortexConnectionOnChannelUpdate
   (_fun _VortexChannel-pointer _axlPointer -> _void))
@@ -167,8 +176,8 @@
 
 (define _VortexLogHandler
   (_fun _string _int _VortexDebugLevel
-        _string 
-        ;(_list i _pointer) ;; XXX va_list
+        _string
+        _pointer ;(_list i _pointer) ;; XXX va_list
         -> _void))
 
 (define _VortexOnAcceptedConnection

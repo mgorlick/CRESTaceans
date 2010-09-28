@@ -78,7 +78,7 @@
 (defvtx* (_fun _VortexConnection-pointer _string -> _axlPointer)
   vortex-connection-get-data)
 
-(defvtx* (_fun _VortexConnection-pointer -> _string)
+(defvtx* (_fun (_or-null _VortexConnection-pointer) -> _string)
   vortex-connection-get-features
   vortex-connection-get-host
   vortex-connection-get-local-addr
@@ -110,7 +110,7 @@
 (defvtx* (_fun _VortexCtx-pointer -> _long)
   vortex-connection-get-timeout)
 
-(defvtx* (_fun _VortexConnection-pointer _axl-bool -> _axl-bool)
+(defvtx* (_fun (_or-null _VortexConnection-pointer) _axl-bool -> _axl-bool)
   vortex-connection-is-ok)
 
 (defvtx* (_fun _VortexConnection-pointer _int _string
@@ -125,16 +125,16 @@
   vortex-connection-ref)
 
 (defvtx* (_fun _VortexCtx-pointer _string _string
-               _VortexConnectionNew _axlPointer -> _VortexConnection-pointer)
+               _VortexConnectionNew _axlPointer -> (_or-null _VortexConnection-pointer))
   vortex-connection-new)
 
 (defvtx* (_fun _VortexCtx-pointer _Vortex-Socket _VortexPeerRole
-               -> _VortexConnection-pointer)
+               -> (_or-null _VortexConnection-pointer))
   vortex-connection-new-empty)
 
 (defvtx* (_fun _VortexCtx-pointer _string _string
                _VortexConnectionOpts-pointer _VortexConnectionNew
-               _axlPointer -> _VortexConnection-pointer)
+               _axlPointer -> (_or-null _VortexConnection-pointer))
   vortex-connection-new-full)
 
 (defvtx* (_fun _VortexConnection-pointer _VortexFrame-pointer -> _axl-bool)
