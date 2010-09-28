@@ -15,8 +15,7 @@
      (begin 
        (gst_init #f #f)
        body 
-       ...
-       (gst_deinit))]
+       ...)]
     [else
      (begin
        (let ([argc* (malloc _int 'raw)]
@@ -26,7 +25,6 @@
          (gst_init argc* argv**)
          body
          ...
-         (gst_deinit)
          (free argc*)
          (free argv**)))]))
 

@@ -1,4 +1,4 @@
-#! /usr/bin/racket
+#! /usr/bin/env racket
 #lang racket
 
 (require "../gstreamer.rkt")
@@ -90,4 +90,7 @@
       (gst_element_set_state pipeline GST_STATE_NULL)
       (g_free loop)
       (gst_object_unref pipeline)
-      ))))
+      )
+    )
+  )
+ )

@@ -1,4 +1,4 @@
-#! /usr/bin/racket
+#! /usr/bin/env racket
 #lang racket
 
 (require "../gst/gstreamer-ffi.rkt")
