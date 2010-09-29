@@ -89,6 +89,15 @@
 ; write them by hand for exploratory design purposes, as they may diverge
 ; in ways that would make it harder to keep a macro-generating-macro generic enough)
 
+; cleanup-and-return : lambda any ... -> ?
+; save the results of the body evaluation, run the cleanup sequence,
+; and then return the results of the body evaluation
+(define-syntax cleanup-and-return
+  (syntax-rules ()
+    [(_ (body ...) (cleanup ...))
+     (let ([return-value (begin body ...)])
+       cleanup ... return-value)]))
+
 ; with-vtx-init : identifier any ... -> ?
 ; initialize a vortex context and do operation(s) on that context.
 ; then clean up the context but don't exit it.
@@ -101,14 +110,9 @@
        (if (vtx-false? (vortex-init-ctx ctx-name))
            (raise (make-exn:vtx:init "could not initialize vortex context~n"
                                      (current-continuation-marks)))
-           (begin
-             (let ([return-val
-                    (begin
-                      body
-                      ...)])
-               (vortex-exit-ctx ctx-name axl-false)
-               (vortex-ctx-free ctx-name)
-               return-val))))]
+           (cleanup-and-return
+            (body ...) ((vortex-exit-ctx ctx-name axl-false) (vortex-ctx-free ctx-name)))
+           ))]
     ))
 
 (define-struct (exn:vtx:init exn:fail:user) ())
@@ -139,14 +143,10 @@
                              (vortex-connection-get-message connection-name))
                      (current-continuation-marks))
                     ))
-           (let ([return-val
-                  (begin
-                    (printf "connection to ~a:~a ok!~n" host port)
-                    body
-                    ...)])
-             (cond [(not (eq? #f connection-name)) (vortex-connection-close connection-name)])
-             return-val)
-           ))]
+           (cleanup-and-return
+            ((printf "connection to ~a:~a ok!~n" host port) body ...)
+            ((cond [(not (eq? #f connection-name)) (vortex-connection-close connection-name)]))
+            )))]
     ))
 
 (define-struct (exn:vtx:connection exn:fail:network) ())
@@ -171,12 +171,8 @@
        (if (null? channel-name)
            (raise (make-exn:vtx:channel "unable to create the channel" 
                                         (current-continuation-marks)))
-           (let ([return-val 
-                  (begin
-                    body
-                    ...)])
-             (vortex-channel-close channel-name #f)
-             return-val)))]))
+           (cleanup-and-return (body ...) ((vortex-channel-close channel-name #f)))
+           ))]))
 
 (define-struct (exn:vtx:channel exn:fail:network) ())
 
@@ -185,30 +181,28 @@
     [(_ wait-reply-name msgno-name frame-name 
         channel msg
         body ...)
-     (let ([wait-reply-name (vortex-channel-create-wait-reply)]
-           [msgno-name (cast (malloc _int) _pointer (_ptr io _int))]) ; create a wait reply
-       ; now send the message using msg_and_wait
-       (let ([send-msg-and-wait-result
-              (vortex-channel-send-msg-and-wait channel msg
-                                                (string-length msg)
-                                                msgno-name wait-reply-name)])
-         (if (vtx-false? send-msg-and-wait-result)
-             (begin
-               (vortex-channel-free-wait-reply wait-reply-name)
-               (raise (make-exn:vtx:wait-and-reply "unable to send message"
-                                                   (current-continuation-marks))))
-             ; now block until the reply arrives. the wait_reply object 
-             ; must not be freed after this function, because it has already been freed
-             (let ([frame-name (vortex-channel-wait-reply channel msgno-name wait-reply-name)])
-               (if (null? frame-name)
-                   (begin 
-                     (vortex-frame-free frame-name)
-                     (raise (make-exn:vtx:wait-and-reply
-                             "there was an error while receiving the reply, or a timeout occured"
-                             (current-continuation-marks))))
-                   (let ([return-val (begin body ...)])
-                     return-val
-                     ))))))]
-    ))
+     (let* ([wait-reply-name (vortex-channel-create-wait-reply)]  ; create a wait reply
+            [msgno-name (cast (malloc _int) _pointer (_ptr io _int))]
+            [send-msg-and-wait-result ; now actually send it
+             (vortex-channel-send-msg-and-wait channel msg
+                                               (string-length msg)
+                                               msgno-name wait-reply-name)])
+       (if (vtx-false? send-msg-and-wait-result)
+           (begin
+             (vortex-channel-free-wait-reply wait-reply-name)
+             (raise (make-exn:vtx:wait-and-reply "unable to send message"
+                                                 (current-continuation-marks))))
+           ; now block until the reply arrives. the wait_reply object 
+           ; must not be freed after this function, because it has already been freed
+           (let ([frame-name (vortex-channel-wait-reply channel msgno-name wait-reply-name)])
+             (if (null? frame-name)
+                 (begin 
+                   (vortex-frame-free frame-name)
+                   (raise (make-exn:vtx:wait-and-reply
+                           "there was an error while receiving the reply, or a timeout occured"
+                           (current-continuation-marks))))
+                 (cleanup-and-return (body ...) ())
+                 ))))]
+))
 
 (define-struct (exn:vtx:wait-and-reply exn:fail:network) ())
