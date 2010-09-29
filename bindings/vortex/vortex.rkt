@@ -1,28 +1,30 @@
 #lang racket
 
-(require "vtx/channel-pool.rkt"
-         "vtx/channel.rkt"
-         "vtx/connection.rkt"
-         "vtx/connection-options.rkt"
-         "vtx/context.rkt"
-         "vtx/frame-factory.rkt"
-         "vtx/greetings.rkt"
-         "vtx/hash.rkt"
-         "vtx/io.rkt"
-         "vtx/libvortex.rkt"
-         "vtx/listeners.rkt"
-         "vtx/main-init-and-exit.rkt"
-         "vtx/profiles.rkt"
-         "vtx/queue.rkt"
-         "vtx/reader.rkt"
-         "vtx/support.rkt"
-         "vtx/thread-pool.rkt"
-         "vtx/threads.rkt"
-         "vtx/addons/alive.rkt"
-         "vtx/addons/pull.rkt"
-         "vtx/addons/sasl.rkt"
-         "vtx/addons/tls.rkt"
-         "vtx/addons/tunnel.rkt")
+(require 
+ ffi/unsafe
+ "vtx/channel-pool.rkt"
+ "vtx/channel.rkt"
+ "vtx/connection.rkt"
+ "vtx/connection-options.rkt"
+ "vtx/context.rkt"
+ "vtx/frame-factory.rkt"
+ "vtx/greetings.rkt"
+ "vtx/hash.rkt"
+ "vtx/io.rkt"
+ "vtx/libvortex.rkt"
+ "vtx/listeners.rkt"
+ "vtx/main-init-and-exit.rkt"
+ "vtx/profiles.rkt"
+ "vtx/queue.rkt"
+ "vtx/reader.rkt"
+ "vtx/support.rkt"
+ "vtx/thread-pool.rkt"
+ "vtx/threads.rkt"
+ "vtx/addons/alive.rkt"
+ "vtx/addons/pull.rkt"
+ "vtx/addons/sasl.rkt"
+ "vtx/addons/tls.rkt"
+ "vtx/addons/tunnel.rkt")
 (provide 
  (all-defined-out)
  (all-from-out "vtx/channel-pool.rkt"
@@ -177,3 +179,36 @@
              return-val)))]))
 
 (define-struct (exn:vtx:channel exn:fail:network) ())
+
+(define-syntax do-blocking-send-and-receive
+  (syntax-rules ()
+    [(_ wait-reply-name msgno-name frame-name 
+        channel msg
+        body ...)
+     (let ([wait-reply-name (vortex-channel-create-wait-reply)]
+           [msgno-name (cast (malloc _int) _pointer (_ptr io _int))]) ; create a wait reply
+       ; now send the message using msg_and_wait
+       (let ([send-msg-and-wait-result
+              (vortex-channel-send-msg-and-wait channel msg
+                                                (string-length msg)
+                                                msgno-name wait-reply-name)])
+         (if (vtx-false? send-msg-and-wait-result)
+             (begin
+               (vortex-channel-free-wait-reply wait-reply-name)
+               (raise (make-exn:vtx:wait-and-reply "unable to send message"
+                                                   (current-continuation-marks))))
+             ; now block until the reply arrives. the wait_reply object 
+             ; must not be freed after this function, because it has already been freed
+             (let ([frame-name (vortex-channel-wait-reply channel msgno-name wait-reply-name)])
+               (if (null? frame-name)
+                   (begin 
+                     (vortex-frame-free frame-name)
+                     (raise (make-exn:vtx:wait-and-reply
+                             "there was an error while receiving the reply, or a timeout occured"
+                             (current-continuation-marks))))
+                   (let ([return-val (begin body ...)])
+                     return-val
+                     ))))))]
+    ))
+
+(define-struct (exn:vtx:wait-and-reply exn:fail:network) ())
