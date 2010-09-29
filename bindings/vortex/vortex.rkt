@@ -144,14 +144,15 @@
                      (current-continuation-marks))
                     ))
            (cleanup-and-return
-            ((printf "connection to ~a:~a ok!~n" host port) body ...)
+            (body ...)
             ((cond [(not (eq? #f connection-name)) (vortex-connection-close connection-name)]))
             )))]
     ))
 
 (define-struct (exn:vtx:connection exn:fail:network) ())
 
-; with-vtx-channel
+; with-vtx-channel identifier VortexConnection-pointer int string
+;                  lambda pointer lambda pointer lambda pointer body ... -> ?
 ; pass the arguments to vortex-channel-new, bind the channel to the specified id,
 ; then do whatever is specified with the channel in scope, then close the channel
 (define-syntax with-vtx-channel
@@ -176,6 +177,10 @@
 
 (define-struct (exn:vtx:channel exn:fail:network) ())
 
+; do-blocking-send-and-receive: identifier identifier identifier VortexChannel-pointer string any ... -> ?
+; bind the wait-reply object, the message number and the frame object to the given IDs.
+; issue the given message over the given channel and wait for the other end
+; to send a reply, blocking until received.
 (define-syntax do-blocking-send-and-receive
   (syntax-rules ()
     [(_ wait-reply-name msgno-name frame-name 
