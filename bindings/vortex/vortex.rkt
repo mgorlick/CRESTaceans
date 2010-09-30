@@ -24,7 +24,8 @@
  "vtx/addons/pull.rkt"
  "vtx/addons/sasl.rkt"
  "vtx/addons/tls.rkt"
- "vtx/addons/tunnel.rkt")
+ "vtx/addons/tunnel.rkt"
+ "misc-bindings/misc.rkt")
 (provide
  (all-from-out "vtx/channel-pool.rkt"
                "vtx/channel.rkt"
@@ -48,7 +49,8 @@
                "vtx/addons/pull.rkt"
                "vtx/addons/sasl.rkt"
                "vtx/addons/tls.rkt"
-               "vtx/addons/tunnel.rkt"))
+               "vtx/addons/tunnel.rkt"
+               "misc-bindings/misc.rkt"))
 
 ; GENERAL DOCUMENTATION ON THE MACROS USED HERE
 ; these macros are used for initializing various objects in the
@@ -110,7 +112,10 @@
            (raise (make-exn:vtx:init "could not initialize vortex context~n"
                                      (current-continuation-marks)))
            (cleanup-and-return
-            (body ...) ((vortex-exit-ctx ctx-name axl-false) (vortex-ctx-free ctx-name)))
+            (body ...) 
+            ((printf "cleaning up ctx~n") 
+             (vortex-exit-ctx ctx-name axl-false) 
+             (vortex-ctx-free ctx-name)))
            ))]
     ))
 
@@ -144,7 +149,11 @@
                     ))
            (cleanup-and-return
             (body ...)
-            ((cond [(not (eq? #f connection-name)) (vortex-connection-close connection-name)]))
+            ((printf "cleaning connection~n")
+             (cond [(not (eq? #f connection-name)) 
+                    (printf "closing connection~n")
+                    (vortex-connection-close connection-name)])
+             (printf "connection closed~n"))
             )))]
     ))
 
@@ -171,7 +180,7 @@
        (if (null? channel-name)
            (raise (make-exn:vtx:channel "unable to create the channel" 
                                         (current-continuation-marks)))
-           (cleanup-and-return (body ...) ((vortex-channel-close channel-name #f)))
+           (cleanup-and-return (body ...) ((printf "closing channel ~s~n" channel-name) (vortex-channel-close channel-name #f)))
            ))]))
 
 (define-struct (exn:vtx:channel exn:fail:network) ())

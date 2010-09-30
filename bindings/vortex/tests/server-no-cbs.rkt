@@ -19,7 +19,7 @@
 (with-vtx-ctx
  ctx
  (let ([queue (vortex-async-queue-new)])
-   (register_nocbs_profile ctx queue) ; call to special wrapper due to callbacks being broken
+   (server_register_nocbs_profile ctx queue) ; call to special wrapper due to callbacks being broken
    ; (the callbacks are not even asynchronous in this case; something fundamental is broken)
    (printf "New listener created: ~s~n" (vortex-listener-new ctx "0.0.0.0" "44000" #f #f))
    (let loop ([iterator 0])

@@ -129,6 +129,9 @@
 (defvtx* (_fun _VortexChannel-pointer _string _int (_ptr io _int) -> _axl-bool)
   vortex-channel-send-msg)
 
+(defvtx* (_fun _VortexChannel-pointer (_or-null (_ptr io _int)) _string -> _axl-bool)
+  vortex-channel-send-msgv)
+
 (defvtx* (_fun _VortexChannel-pointer _string _int (_ptr io _int) _WaitReplyData-pointer -> _axl-bool)
   vortex-channel-send-msg-and-wait)
 
