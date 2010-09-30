@@ -25,8 +25,7 @@
  "vtx/addons/sasl.rkt"
  "vtx/addons/tls.rkt"
  "vtx/addons/tunnel.rkt")
-(provide 
- (all-defined-out)
+(provide
  (all-from-out "vtx/channel-pool.rkt"
                "vtx/channel.rkt"
                "vtx/connection.rkt"
@@ -98,11 +97,11 @@
      (let ([return-value (begin body ...)])
        cleanup ... return-value)]))
 
-; with-vtx-init : identifier any ... -> ?
+; with-vtx-ctx : identifier any ... -> ?
 ; initialize a vortex context and do operation(s) on that context.
 ; then clean up the context but don't exit it.
 ; return whatever the last value of the body evaluated to
-(define-syntax with-vtx-init
+(define-syntax with-vtx-ctx
   (syntax-rules ()
     [(_ ctx-name 
         body ...)
@@ -124,18 +123,18 @@
 ; then connect, execute the steps after connecting, and exit vortex once completed
 (define-syntax with-vtx-conn
   (syntax-rules ()
-    [(_ ctx connection-name 
-        host port on-connected user-data 
+    [(_ connection-name 
+        ctx host port on-connected user-data 
         body ...)
      (let ([connection-name (vortex-connection-new ctx host port on-connected user-data)])
        (if (vtx-false? (vortex-connection-is-ok connection-name axl-false))
            ; sometimes the new connection bound to `connection-name' can be #f (null).
            ; this DOES NOT MEAN that the connection was not created;
-           ; it could mean that you've spawned the connection in threaded
-           ; (async) mode, because you supplied a callback.
-           ; always check with vortex-connection-is-ok, rather than
-           ; checking for a null value.
-           
+           ; it means that you've spawned the connection in threaded
+           ; (async) mode, because you supplied a callback. If this is true,
+           ; the callback will need to call `vortex-connection-is-ok' inside it.
+           ; here we only deal with the case where the connection is NOT threaded
+           ; (i.e., a null value for the `on-connected' callback was provided.)
            (begin
              (vortex-connection-close connection-name)
              (raise (make-exn:vtx:connection
@@ -208,6 +207,8 @@
                            (current-continuation-marks))))
                  (cleanup-and-return (body ...) ())
                  ))))]
-))
+    ))
 
 (define-struct (exn:vtx:wait-and-reply exn:fail:network) ())
+
+(provide (all-defined-out))

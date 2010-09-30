@@ -7,11 +7,11 @@
 (define (on-connect conn data) (printf "Inside VortexConnectionNew~n"))
 
 (define (simple-client)
-  (with-vtx-init 
+  (with-vtx-ctx
    ctx
    (printf "connecting to localhost:44000...~n")
    (with-vtx-conn 
-    ctx connection "localhost" "44000" #f #f
+    connection ctx "localhost" "44000" #f #f
     (with-vtx-channel
      channel connection 0 Plain-Profile-URI
      #f #f ; no close handling

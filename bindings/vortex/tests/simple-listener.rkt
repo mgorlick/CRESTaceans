@@ -28,7 +28,7 @@
   (printf "VORTEX_LISTENER: end task~n")
   (void))
 
-(with-vtx-init ctx
+(with-vtx-ctx ctx
                (printf "Server on~n")
                ;(vortex-profiles-register ctx Plain-Profile-URI
                ;                          start-channel #f

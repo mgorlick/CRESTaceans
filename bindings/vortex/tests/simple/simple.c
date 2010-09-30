@@ -17,7 +17,7 @@ void frame_received (VortexChannel    * channel,
 		     VortexFrame      * frame,
 		     axlPointer           user_data)
 {
-	printf ("A frame received on channl: %d\n",     vortex_channel_get_number (channel));
+	printf ("A frame received on channel: %d\n",     vortex_channel_get_number (channel));
 	printf ("Data received: '%s'\n",                (char*) vortex_frame_get_payload (frame));
 
 	/* reply the peer client with the same content */
@@ -36,6 +36,7 @@ int      start_channel (int                channel_num,
 			VortexConnection * connection, 
 			axlPointer           user_data)
 {
+  printf ("in start_channel\n");
 	/* implement profile requirement for allowing starting a new
 	 * channel */
 
