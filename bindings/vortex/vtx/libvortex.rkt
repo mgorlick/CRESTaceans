@@ -87,6 +87,23 @@
 (define-cpointer-type _SSL-pointer)
 (define-cpointer-type _SSL-CTX-pointer)
 
+(define VortexAsyncQueue*? (flat-named-contract 'VortexAsyncQueue*? VortexAsyncQueue-pointer?))
+(define VortexChannel*? (flat-named-contract 'VortexChannel*? VortexChannel-pointer?))
+(define VortexChannelPool*? (flat-named-contract 'VortexChannelPool*? VortexChannelPool-pointer?))
+(define VortexCond*? (flat-named-contract 'VortexCond*? VortexCond-pointer?))
+(define VortexConnection*? (flat-named-contract 'VortexConnection*? VortexConnection-pointer?))
+(define VortexConnectionOpts*? (flat-named-contract 'VortexConnectionOpts*? VortexConnectionOpts-pointer?))
+(define VortexCtx*? (flat-named-contract 'VortexCtx*? VortexCtx-pointer?))
+(define VortexFrame*? (flat-named-contract 'VortexFrame*? VortexFrame-pointer?))
+(define VortexHash*? (flat-named-contract 'VortexHash*? VortexHash-pointer?))
+(define VortexMimeHeader*? (flat-named-contract 'VortexMimeHeader*? VortexMimeHeader-pointer?))
+(define VortexMutex*? (flat-named-contract 'VortexMutex*? VortexMutex-pointer?))
+(define VortexQueue*? (flat-named-contract 'VortexQueue*? VortexQueue-pointer?))
+(define WaitReplyData*? (flat-named-contract 'WaitReplyData*? WaitReplyData-pointer?))
+(define VortexTunnelSettings*? (flat-named-contract 'VortexTunnelSettings*? VortexTunnelSettings-pointer?))
+(define SSL*? (flat-named-contract 'SSL*? SSL-pointer?))
+(define SSL-CTX*? (flat-named-contract 'SSL-CTX*? SSL-CTX-pointer?))
+
 
 ;; function pointer handlers
 (define _VortexAsyncQueueForeach
