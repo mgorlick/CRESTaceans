@@ -4,7 +4,7 @@
 (provide (all-defined-out))
 
 (define libvortex (ffi-lib "libvortex-1.1"))
-(define libvortex-alive (ffi-lib "/usr/local/lib/libvortex-alive-1.1")) ; XXX find a way to get rid of path
+(define libvortex-alive (ffi-lib "libvortex-alive-1.1" "0"))
 (define libvortex-pull (ffi-lib "libvortex-pull-1.1"))
 (define libvortex-sasl (ffi-lib "libvortex-sasl-1.1"))
 (define libvortex-tls (ffi-lib "libvortex-tls-1.1"))
