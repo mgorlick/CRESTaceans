@@ -5,7 +5,7 @@
          "../gst/gstreamer.rkt")
 (provide (except-out (all-defined-out) df))
 
-(define-ffi-definer df (ffi-lib "/usr/local/lib/libracketgst" "1.0"))
+(define-ffi-definer df (ffi-lib "libracket-gst" "1.0"))
 
 (df signal_connect (_fun _GstElement-pointer _GstElement-pointer -> _void))
 

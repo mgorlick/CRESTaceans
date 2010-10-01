@@ -2,6 +2,6 @@
 
 gcc -fPIC -c -Wall $(pkg-config --cflags --libs vortex-1.1) no-cbs.c
 ld -shared -soname libracket-vortex-simpletest.so.1 -o libracket-vortex-no-cbs.so.1.0 -lc no-cbs.o
-sudo cp libracket-vortex-no-cbs.so.1.0 /usr/local/lib
+sudo cp libracket-vortex-no-cbs.so.1.0 $RACKET_LIBS
 rm no-cbs.o
 rm libracket-vortex-no-cbs.so.1.0

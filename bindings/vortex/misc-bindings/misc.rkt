@@ -9,7 +9,7 @@
 ; file descriptors
 ; timevals
 
-(define-ffi-definer def-misc (ffi-lib "/usr/local/lib/libracket-vortex-misc" "1.0"))
+(define-ffi-definer def-misc (ffi-lib "libracket-vortex-misc" "1.0"))
 
 (define (rkt_pipe fd)
   (def-misc rkt_pipe (_fun (_vector i _int) -> _int))

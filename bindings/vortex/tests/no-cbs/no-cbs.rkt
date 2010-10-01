@@ -6,7 +6,7 @@
 (provide (all-defined-out)
          )
 
-(define-ffi-definer def-no-cbs (ffi-lib "/usr/local/lib/libracket-vortex-no-cbs" "1.0"))
+(define-ffi-definer def-no-cbs (ffi-lib "libracket-vortex-no-cbs" "1.0"))
 
 (def-no-cbs server_register_nocbs_profile (_fun _VortexCtx-pointer _VortexAsyncQueue-pointer -> _void))
 (def-no-cbs client_register_nocbs_profile (_fun _VortexCtx-pointer _VortexAsyncQueue-pointer -> _void))

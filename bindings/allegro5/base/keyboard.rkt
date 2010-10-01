@@ -15,7 +15,7 @@
 (defallegro al-set-keyboard-leds : _int -> _bool)
 (defallegro al-get-keyboard-event-source :  -> _Allegro-Event-Source-pointer)
 
-(define liballegro-keyboard-wrapper (ffi-lib "/usr/local/lib/liballegro_keyboard_wrap" "1.0.1"))
+(define liballegro-keyboard-wrapper (ffi-lib "libracket-allegro-keyboard-wrap" "1.0.1"))
 (define al-get-keyboard-state
   (get-ffi-obj "get_keyboard_state" liballegro-keyboard-wrapper
                (_fun -> (_or-null _Allegro-Keyboard-State-pointer))))
