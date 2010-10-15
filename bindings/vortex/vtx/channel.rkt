@@ -164,3 +164,6 @@
 
 (defvtx* (_fun _WaitReplyData-pointer -> _void)
   vortex-channel-wait-reply-ref)
+
+(defvtx* (_fun _VortexCtx-pointer -> _void)
+  vortex-channel-init)

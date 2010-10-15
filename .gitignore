@@ -2,3 +2,10 @@
 core
 compiled/
 .goutputstream*
+*.o
+*.so
+*.lo
+*.la
+.libs
+_libs
+so_locations

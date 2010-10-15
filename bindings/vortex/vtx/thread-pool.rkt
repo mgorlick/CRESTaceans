@@ -12,7 +12,7 @@
 (defvtx* (_fun _VortexCtx-pointer (_ptr i _int) -> _void)
   vortex-thread-pool-event-stats)
 
-(defvtx* (_fun -> _void)
+(defvtx* (_fun -> _int)
   vortex-thread-pool-get-num)
 
 (defvtx* (_fun _int -> _void)

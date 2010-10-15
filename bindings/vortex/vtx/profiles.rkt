@@ -4,6 +4,9 @@
          "libvortex.rkt")
 (provide (all-defined-out))
 
+(defvtx* (_fun _VortexCtx-pointer -> _void)
+  vortex-profiles-init)
+
 (defvtx* (_fun _VortexCtx-pointer -> _axlList-pointer)
   vortex-profiles-get-actual-list
   vortex-profiles-get-actual-list-ref)

@@ -6,7 +6,8 @@
 
 (defvtx* (_fun _VortexCtx-pointer -> _void)
   vortex-ctx-free
-  vortex-ctx-ref)
+  vortex-ctx-ref
+  vortex-ctx-mark-initialized)
 
 (defvtx* (_fun _VortexCtx-pointer _axlPointer -> _axlPointer)
   vortex-ctx-get-data)
@@ -45,3 +46,11 @@
 
 (defvtx* (_fun (_ptr io _VortexCtx-pointer) -> _void)
   vortex-ctx-unref)
+
+(defvtx* (_fun _VortexCtx-pointer -> _VortexMutex-pointer)
+  vortex-ctx-get-frame-id-mutex
+  vortex-ctx-get-listener-mutex
+  vortex-ctx-get-listener-unlock
+  vortex-ctx-get-exit-mutex
+  vortex-ctx-get-profiles-list-mutex
+  vortex-ctx-get-connection-id-mutex)

@@ -4,6 +4,9 @@
          "libvortex.rkt")
 (provide (all-defined-out))
 
+(defvtx* (_fun _VortexCtx-pointer -> _void)
+  vortex-connection-init)
+
 (defvtx* (_fun _VortexConnection-pointer _VortexChannel-pointer -> _void)
   vortex-connection-add-channel)
 

@@ -14,6 +14,9 @@
   vortex-reader-run
   vortex-reader-notify-change-io-api)
 
+(defvtx* (_fun _VortexCtx-pointer -> _axlPointer)
+  __vortex-reader-run)
+
 (defvtx* (_fun _VortexCtx-pointer -> _void)
   vortex-reader-stop
   vortex-reader-notify-change-done-io-api)
@@ -21,3 +24,6 @@
 (defvtx* (_fun _VortexCtx-pointer _VortexConnection-pointer
                _VortexChannel-pointer _VortexFrame-pointer -> _axl-bool)
   vortex-reader-invoke-frame-received)
+
+(defvtx* (_fun _VortexCtx-pointer -> _axl-bool)
+  vortex-reader-prep-to-run)

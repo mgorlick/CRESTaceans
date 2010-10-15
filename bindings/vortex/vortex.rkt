@@ -1,55 +1,12 @@
 #lang racket
 
-(require 
- ffi/unsafe
- "vtx/channel-pool.rkt"
- "vtx/channel.rkt"
- "vtx/connection.rkt"
- "vtx/connection-options.rkt"
- "vtx/context.rkt"
- "vtx/frame-factory.rkt"
- "vtx/greetings.rkt"
- "vtx/hash.rkt"
- "vtx/io.rkt"
- "vtx/libvortex.rkt"
- "vtx/listeners.rkt"
- "vtx/main-init-and-exit.rkt"
- "vtx/profiles.rkt"
- "vtx/queue.rkt"
- "vtx/reader.rkt"
- "vtx/support.rkt"
- "vtx/thread-pool.rkt"
- "vtx/threads.rkt"
- "vtx/addons/alive.rkt"
- "vtx/addons/pull.rkt"
- "vtx/addons/sasl.rkt"
- "vtx/addons/tls.rkt"
- "vtx/addons/tunnel.rkt"
- "misc-bindings/misc.rkt")
+(require  ffi/unsafe
+          "vtx/module.rkt"
+          "additions/init.rkt"
+          "misc-bindings/misc.rkt")
 (provide
- (all-from-out "vtx/channel-pool.rkt"
-               "vtx/channel.rkt"
-               "vtx/connection.rkt"
-               "vtx/connection-options.rkt"
-               "vtx/context.rkt"
-               "vtx/frame-factory.rkt"
-               "vtx/greetings.rkt"
-               "vtx/hash.rkt"
-               "vtx/io.rkt"
-               "vtx/libvortex.rkt"
-               "vtx/listeners.rkt"
-               "vtx/main-init-and-exit.rkt"
-               "vtx/profiles.rkt"
-               "vtx/queue.rkt"
-               "vtx/reader.rkt"
-               "vtx/support.rkt"
-               "vtx/thread-pool.rkt"
-               "vtx/threads.rkt"
-               "vtx/addons/alive.rkt"
-               "vtx/addons/pull.rkt"
-               "vtx/addons/sasl.rkt"
-               "vtx/addons/tls.rkt"
-               "vtx/addons/tunnel.rkt"
+ (all-from-out "vtx/module.rkt"
+               "additions/init.rkt"
                "misc-bindings/misc.rkt"))
 
 ; GENERAL DOCUMENTATION ON THE MACROS USED HERE
@@ -101,18 +58,18 @@
 
 ; with-vtx-ctx : identifier any ... -> ?
 ; initialize a vortex context and do operation(s) on that context.
-; then clean up the context but don't exit it.
+; then clean up the context.
 ; return whatever the last value of the body evaluated to
 (define-syntax with-vtx-ctx
   (syntax-rules ()
     [(_ ctx-name 
         body ...)
      (let ([ctx-name (vortex-ctx-new)])
-       (if (vtx-false? (vortex-init-ctx ctx-name))
+       (if (vtx-false? (rkt:vortex-init-ctx ctx-name))
            (raise (make-exn:vtx:init "could not initialize vortex context~n"
                                      (current-continuation-marks)))
            (cleanup-and-return
-            (body ...) 
+            (body ...)
             ((printf "cleaning up ctx~n") 
              (vortex-exit-ctx ctx-name axl-false) 
              (vortex-ctx-free ctx-name)))

@@ -46,3 +46,6 @@
 
 (defvtx* (_fun _timeval-pointer _timeval-pointer _timeval-pointer -> _int)
   vortex-timeval-substract)
+
+(defvtx* (_fun _string _string -> _string)
+  vortex-support-build-filename)

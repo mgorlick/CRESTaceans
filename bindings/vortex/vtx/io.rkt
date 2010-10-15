@@ -4,6 +4,9 @@
          "libvortex.rkt")
 (provide (all-defined-out))
 
+(defvtx* (_fun _VortexCtx-pointer -> _void)
+  vortex-io-init)
+
 (defvtx* (_fun _VortexCtx-pointer -> _VortexIoWaitingType)
   vortex-io-waiting-get-current)
 

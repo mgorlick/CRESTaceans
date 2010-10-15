@@ -2,10 +2,12 @@
 
 (require ffi/unsafe
          "libvortex-enums.rkt"
-         "libvortex-definers.rkt")
+         "libvortex-definers.rkt"
+         "libaxl.rkt")
 (provide (all-defined-out)
          (all-from-out "libvortex-enums.rkt"
-                       "libvortex-definers.rkt"))
+                       "libvortex-definers.rkt"
+                       "libaxl.rkt"))
 
 ; misc
 (define-cstruct _in-addr
@@ -17,33 +19,9 @@
    [sin_addr _in-addr]
    [sin_zero _string]))
 
-(define-cpointer-type _timeval-pointer)
-
-; axl types
-(define _axl-bool _int)
-(define _axlPointer _pointer)
-(define _axlDestroyFunc (_fun _axlPointer -> _void))
-(define _axlEqualFunc (_fun _axlPointer _axlPointer -> _int))
-(define _axlHashFunc (_fun _axlPointer -> _uint))
-(define _axlHashForeachFunc (_fun _axlPointer _axlPointer _axlPointer -> _axl-bool))
-(define _axlHashForeachFunc2 (_fun _axlPointer _axlPointer _axlPointer
-                                   _axlPointer -> _axl-bool))
-(define _axlHashForeachFunc3 (_fun _axlPointer _axlPointer
-                                   _axlPointer _axlPointer _axlPointer -> _axl-bool))
-(define _axlHashForeachFunc4 (_fun _axlPointer _axlPointer _axlPointer
-                                   _axlPointer _axlPointer _axlPointer -> _axl-bool))
-(define-cpointer-type _axlError-pointer)
-(define-cpointer-type _axlList-pointer)
-(define-cpointer-type _axlDoc-pointer)
-
-(define axl-false 0)
-(define axl-true 1)
-
-(define (vtx-false? v)
-  (= v axl-false))
-
-(define (vtx-true? v)
-  (= v axl-true))
+(define-cstruct _timeval
+  ([tv_sec _long]
+   [tv_usec _long]))
 
 ; Macro definitions in vortex.h
 (define _Vortex-Socket _int)
@@ -99,6 +77,7 @@
 (define VortexMimeHeader*? (flat-named-contract 'VortexMimeHeader*? VortexMimeHeader-pointer?))
 (define VortexMutex*? (flat-named-contract 'VortexMutex*? VortexMutex-pointer?))
 (define VortexQueue*? (flat-named-contract 'VortexQueue*? VortexQueue-pointer?))
+(define VortexThread*? (flat-named-contract 'VortexThread*? VortexThread-pointer?))
 (define WaitReplyData*? (flat-named-contract 'WaitReplyData*? WaitReplyData-pointer?))
 (define VortexTunnelSettings*? (flat-named-contract 'VortexTunnelSettings*? VortexTunnelSettings-pointer?))
 (define SSL*? (flat-named-contract 'SSL*? SSL-pointer?))
@@ -252,7 +231,6 @@
 
 (define _VortexThreadCreateFunc
   (_fun _VortexThread-pointer _VortexThreadFunc _axlPointer
-        ;(_list i _pointer) ; XXX va_list
         -> _axl-bool))
 
 (define _VortexThreadDestroyFunc
@@ -280,3 +258,28 @@
 
 (define _VortexTlsPrivateKeyFileLocator
   (_fun _VortexConnection-pointer _string -> _string))
+
+(define-cstruct _VortexThreadPool
+  ([queue _VortexAsyncQueue-pointer]
+   [mutex _VortexMutex-pointer]
+   [threads _axlList-pointer]
+   [stopped _axlList-pointer]
+   [stopped-mutex _VortexMutex-pointer]
+   [events _axlList-pointer]
+   [events-cursor _axlListCursor-pointer]
+   [ctx _VortexCtx-pointer]))
+
+(define-cstruct _VortexThreadPoolTask
+  ([func _VortexThreadFunc]
+   [data _axlPointer]))
+
+(define-cstruct _VortexThreadPoolEvent
+  ([func _VortexThreadAsyncEvent]
+   [data _axlPointer]
+   [data2 _axlPointer]
+   [delay _long]
+   [next-step _timeval]))
+
+(define-cstruct _VortexThreadPoolStarter
+  ([pool _VortexThreadPool-pointer]
+   [thread _VortexThread-pointer]))
