@@ -1,0 +1,12 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libvortex-pull-1.1
+Description: Robust, full featured BEEP implementation (RFC 3080/RFC 3081)
+  PULL API support
+Requires: vortex-1.1
+Version: 1.1.5.b4474.g4476
+Libs: -L${libdir} -lvortex-pull-1.1
+Cflags: -I${includedir}/vortex-1.1

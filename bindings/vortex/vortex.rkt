@@ -66,7 +66,7 @@
         body ...)
      (let ([ctx-name (vortex-ctx-new)])
        (if (vtx-false? (rkt:vortex-init-ctx ctx-name))
-           (raise (make-exn:vtx:init "could not initialize vortex context~n"
+           (raise (make-exn:vtx:init "could not initialize vortex context"
                                      (current-continuation-marks)))
            (cleanup-and-return
             (body ...)
@@ -89,29 +89,40 @@
         ctx host port on-connected user-data 
         body ...)
      (let ([connection-name (vortex-connection-new ctx host port on-connected user-data)])
-       (if (vtx-false? (vortex-connection-is-ok connection-name axl-false))
-           ; sometimes the new connection bound to `connection-name' can be #f (null).
-           ; this DOES NOT MEAN that the connection was not created;
-           ; it means that you've spawned the connection in threaded
-           ; (async) mode, because you supplied a callback. If this is true,
-           ; the callback will need to call `vortex-connection-is-ok' inside it.
-           ; here we only deal with the case where the connection is NOT threaded
-           ; (i.e., a null value for the `on-connected' callback was provided.)
-           (begin
-             (vortex-connection-close connection-name)
-             (raise (make-exn:vtx:connection
-                     (format "unable to connect to remote server; error was ~s" 
-                             (vortex-connection-get-message connection-name))
-                     (current-continuation-marks))
-                    ))
+       (printf "made new connection object~n")
+       ; sometimes the new connection bound to `connection-name' can be #f (null).
+       ; this DOES NOT MEAN that the connection was not created;
+       ; it means that you've spawned the connection in threaded
+       ; (async) mode, because you supplied a callback. If this is true,
+       ; the callback will need to call `vortex-connection-is-ok' inside it.
+       ; here we only deal with the case where the connection is NOT threaded
+       ; (i.e., a null value for the `on-connected' callback was provided.)
+       (if (eq? #f connection-name)
+           ; assume that the connection spawned in async mode
            (cleanup-and-return
             (body ...)
             ((printf "cleaning connection~n")
              (cond [(not (eq? #f connection-name)) 
                     (printf "closing connection~n")
                     (vortex-connection-close connection-name)])
-             (printf "connection closed~n"))
-            )))]
+             (printf "connection closed~n")))
+           
+           (if (vtx-false? (vortex-connection-is-ok connection-name axl-false))
+               (begin
+                 (vortex-connection-close connection-name)
+                 (raise (make-exn:vtx:connection
+                         (format "unable to connect to remote server; error was ~s" 
+                                 (vortex-connection-get-message connection-name))
+                         (current-continuation-marks))
+                        ))
+               (cleanup-and-return
+                (body ...)
+                ((printf "cleaning connection~n")
+                 (cond [(not (eq? #f connection-name)) 
+                        (printf "closing connection~n")
+                        (vortex-connection-close connection-name)])
+                 (printf "connection closed~n"))
+                ))))]
     ))
 
 (define-struct (exn:vtx:connection exn:fail:network) ())

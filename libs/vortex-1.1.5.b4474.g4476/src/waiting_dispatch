@@ -1,0 +1,674 @@
+vortex_listener.c:97:	vortex_mutex_lock(ctx->listener_mutex);
+vortex_listener.c:98:	while (iterator < axl_list_length (ctx->listener_on_accept_handlers)) {
+vortex_listener.c:100:		data = axl_list_get_nth (ctx->listener_on_accept_handlers, iterator);
+vortex_listener.c:127:	vortex_mutex_unlock(ctx->listener_mutex);
+vortex_listener.c:685:		vortex_mutex_lock(ctx->listener_unlock);
+vortex_listener.c:686:		QUEUE_PUSH (ctx->listener_wait_lock, INT_TO_PTR (axl_true));
+vortex_listener.c:687:		ctx->listener_wait_lock = NULL;
+vortex_listener.c:688:		vortex_mutex_unlock(ctx->listener_unlock);
+vortex_listener.c:1069:	vortex_mutex_lock(ctx->listener_mutex);
+vortex_listener.c:1072:	if (ctx->listener_wait_lock == NULL) 
+vortex_listener.c:1073:		ctx->listener_wait_lock = vortex_async_queue_new ();
+vortex_listener.c:1076:	vortex_mutex_unlock(ctx->listener_mutex);
+vortex_listener.c:1080:	if (ctx->listener_wait_lock != NULL) {
+vortex_listener.c:1082:		temp = ctx->listener_wait_lock;
+vortex_listener.c:1118:	if (ctx == NULL || ctx->listener_wait_lock == NULL)
+vortex_listener.c:1122:	vortex_mutex_lock(ctx->listener_unlock);
+vortex_listener.c:1123:	if (ctx->listener_wait_lock != NULL) {
+vortex_listener.c:1129:		if (vortex_async_queue_waiters (ctx->listener_wait_lock) > 0) {
+vortex_listener.c:1130:			QUEUE_PUSH (ctx->listener_wait_lock, INT_TO_PTR (axl_true));
+vortex_listener.c:1133:			vortex_async_queue_unref (ctx->listener_wait_lock);
+vortex_listener.c:1137:		ctx->listener_wait_lock = NULL;
+vortex_listener.c:1139:		vortex_mutex_unlock(ctx->listener_unlock);
+vortex_listener.c:1144:	vortex_mutex_unlock(ctx->listener_unlock);
+vortex_listener.c:1158:	if (ctx != NULL && ctx->listener_wait_lock != NULL &&
+vortex_listener.c:1159:	    ctx->listener_on_accept_handlers != NULL)
+vortex_listener.c:1163:	vortex_mutex_lock(ctx->listener_mutex);
+vortex_listener.c:1166:	if (ctx->listener_on_accept_handlers == NULL)
+vortex_listener.c:1167:		ctx->listener_on_accept_handlers = axl_list_new (axl_list_always_return_1, axl_free);
+vortex_listener.c:1170:	vortex_mutex_unlock(ctx->listener_mutex);
+vortex_listener.c:1218:	axl_list_free (ctx->listener_on_accept_handlers);
+vortex_listener.c:1219:	ctx->listener_on_accept_handlers = NULL;
+vortex_listener.c:1221:	axl_free (ctx->listener_default_realm);
+vortex_listener.c:1222:	ctx->listener_default_realm = NULL;
+vortex_listener.c:1225:	queue = ctx->listener_wait_lock;
+vortex_listener.c:1226:	ctx->listener_wait_lock = NULL;
+vortex_listener.c:1278:	vortex_mutex_lock(ctx->listener_mutex);
+vortex_listener.c:1284:		vortex_mutex_unlock(ctx->listener_mutex);
+vortex_listener.c:1291:	if (ctx->listener_on_accept_handlers == NULL) {
+vortex_listener.c:1293:		ctx->listener_on_accept_handlers = axl_list_new (axl_list_always_return_1, axl_free);
+vortex_listener.c:1296:		if (ctx->listener_on_accept_handlers == NULL) {
+vortex_listener.c:1298:			vortex_mutex_unlock(ctx->listener_mutex);
+vortex_listener.c:1304:	axl_list_add (ctx->listener_on_accept_handlers, data);
+vortex_listener.c:1307:		    on_accepted, data, axl_list_length (ctx->listener_on_accept_handlers));
+vortex_listener.c:1310:	vortex_mutex_unlock(ctx->listener_mutex);
+vortex_listener.c:1471:	ctx->listener_default_realm = axl_strdup (realm);
+vortex_listener.c:1493:	return ctx->listener_default_realm;
+vortex_support.c:118:	if (ctx->support_search_path == NULL) {
+vortex_support.c:119:		ctx->support_search_path = axl_list_new (axl_list_always_return_1,
+vortex_support.c:124:	vortex_mutex_create (&ctx->search_path_mutex);
+vortex_support.c:127:	vortex_mutex_create (&ctx->inet_ntoa_mutex);
+vortex_support.c:146:	axl_list_free (ctx->support_search_path);
+vortex_support.c:147:	ctx->support_search_path = NULL;
+vortex_support.c:150:	vortex_mutex_destroy(ctx->search_path_mutex);
+vortex_support.c:153:	vortex_mutex_destroy(ctx->inet_ntoa_mutex);
+vortex_support.c:303:	vortex_mutex_lock(ctx->search_path_mutex);
+vortex_support.c:307:	while (iterator < axl_list_length (ctx->support_search_path)) {
+vortex_support.c:309:		node = axl_list_get_nth (ctx->support_search_path, iterator);
+vortex_support.c:313:			vortex_mutex_unlock(ctx->search_path_mutex);	
+vortex_support.c:322:	vortex_mutex_unlock(ctx->search_path_mutex);	
+vortex_support.c:428:	vortex_mutex_lock(ctx->search_path_mutex);
+vortex_support.c:432:	while (iterator < axl_list_length (ctx->support_search_path)) {
+vortex_support.c:434:		node = axl_list_get_nth (ctx->support_search_path, iterator);
+vortex_support.c:442:			vortex_mutex_unlock(ctx->search_path_mutex);	
+vortex_support.c:454:	axl_list_add (ctx->support_search_path, node);
+vortex_support.c:456:	vortex_mutex_unlock(ctx->search_path_mutex);	
+vortex_support.c:535:	vortex_mutex_lock(ctx->search_path_mutex);	
+vortex_support.c:538:	cursor   = axl_list_cursor_new (ctx->support_search_path);
+vortex_support.c:560:					    axl_list_length (ctx->support_search_path), ctx->support_search_path);
+vortex_support.c:561:				vortex_mutex_unlock(ctx->search_path_mutex);	
+vortex_support.c:566:				    name, file_name, axl_list_length (ctx->support_search_path), ctx->support_search_path);
+vortex_support.c:580:		    axl_list_length (ctx->support_search_path), ctx->support_search_path);
+vortex_support.c:583:	vortex_mutex_unlock(ctx->search_path_mutex);
+vortex_support.c:883:	vortex_mutex_lock(ctx->inet_ntoa_mutex);
+vortex_support.c:889:	vortex_mutex_unlock(ctx->inet_ntoa_mutex);
+vortex_profiles.c:240:	vortex_mutex_lock(ctx->profiles_list_mutex);
+vortex_profiles.c:243:	profile = vortex_hash_lookup (ctx->registered_profiles, (axlPointer) uri);
+vortex_profiles.c:259:		vortex_hash_replace (ctx->registered_profiles, profile->profile_name, profile);
+vortex_profiles.c:262:		axl_list_append (ctx->profiles_list, profile->profile_name);
+vortex_profiles.c:265:		vortex_mutex_unlock(ctx->profiles_list_mutex);
+vortex_profiles.c:271:	vortex_mutex_unlock(ctx->profiles_list_mutex);
+vortex_profiles.c:319:	vortex_mutex_lock(ctx->profiles_list_mutex);
+vortex_profiles.c:322:	profile = vortex_hash_lookup (ctx->registered_profiles, (axlPointer) uri);
+vortex_profiles.c:327:		vortex_mutex_unlock(ctx->profiles_list_mutex);
+vortex_profiles.c:333:	vortex_mutex_unlock(ctx->profiles_list_mutex);
+vortex_profiles.c:368:	vortex_mutex_lock(ctx->profiles_list_mutex);
+vortex_profiles.c:369:	profile = vortex_hash_lookup (ctx->registered_profiles, (axlPointer) uri);
+vortex_profiles.c:372:		vortex_mutex_unlock(ctx->profiles_list_mutex);
+vortex_profiles.c:377:	axl_list_remove_ptr (ctx->profiles_list, profile->profile_name);
+vortex_profiles.c:380:	vortex_hash_remove (ctx->registered_profiles, (axlPointer) uri);
+vortex_profiles.c:383:	vortex_mutex_unlock(ctx->profiles_list_mutex);
+vortex_profiles.c:430:	profile = vortex_hash_lookup (ctx->registered_profiles, (axlPointer) uri);
+vortex_profiles.c:478:	profile = vortex_hash_lookup (ctx->registered_profiles, (axlPointer) uri);
+vortex_profiles.c:513:	profile = vortex_hash_lookup (ctx->registered_profiles, (axlPointer) uri);
+vortex_profiles.c:561:	vortex_mutex_lock(ctx->profiles_list_mutex);
+vortex_profiles.c:564:	profile     = vortex_hash_lookup (ctx->registered_profiles, (axlPointer) uri);
+vortex_profiles.c:575:		vortex_hash_replace (ctx->registered_profiles, profile->profile_name, profile);
+vortex_profiles.c:582:		axl_list_append (ctx->profiles_list, profile->profile_name);
+vortex_profiles.c:590:	vortex_mutex_unlock(ctx->profiles_list_mutex);
+vortex_profiles.c:631:	v_return_val_if_fail (ctx && ctx->registered_profiles, axl_false);
+vortex_profiles.c:634:	profile = vortex_hash_lookup (ctx->registered_profiles, (axlPointer) uri);
+vortex_profiles.c:642:	if (ctx->global_channel_start_extended) {
+vortex_profiles.c:645:		return ctx->global_channel_start_extended (
+vortex_profiles.c:648:			ctx->global_channel_start_extended_data);
+vortex_profiles.c:689:	profile = vortex_hash_lookup (ctx->registered_profiles, (axlPointer) uri);
+vortex_profiles.c:716:	v_return_val_if_fail (ctx && ctx->registered_profiles, axl_false);
+vortex_profiles.c:718:	profile = vortex_hash_lookup (ctx->registered_profiles, uri);
+vortex_profiles.c:745:	v_return_val_if_fail (ctx && ctx->registered_profiles, axl_false);
+vortex_profiles.c:747:	profile = vortex_hash_lookup (ctx->registered_profiles, (axlPointer) uri);
+vortex_profiles.c:888:	v_return_val_if_fail (ctx && ctx->registered_profiles, axl_false);
+vortex_profiles.c:890:	profile = vortex_hash_lookup (ctx->registered_profiles, (axlPointer) uri);
+vortex_profiles.c:957:	profile = vortex_hash_lookup (ctx->registered_profiles, (axlPointer) uri);
+vortex_profiles.c:995:	v_return_val_if_fail (ctx && ctx->registered_profiles, NULL);
+vortex_profiles.c:1000:	vortex_hash_foreach (ctx->registered_profiles, __get_actual_list, result);
+vortex_profiles.c:1022:	return ctx->profiles_list;
+vortex_profiles.c:1046:       vortex_mutex_lock(ctx->profiles_list_mutex);
+vortex_profiles.c:1048:       return ctx->profiles_list;
+vortex_profiles.c:1062:       vortex_mutex_unlock(ctx->profiles_list_mutex);
+vortex_profiles.c:1082:   vortex_mutex_lock(ctx->profiles_list_mutex);
+vortex_profiles.c:1084:   result = axl_list_length (ctx->profiles_list) > 0;
+vortex_profiles.c:1086:   vortex_mutex_unlock(ctx->profiles_list_mutex);
+vortex_profiles.c:1106:	if (ctx->registered_profiles == NULL)
+vortex_profiles.c:1108:	return vortex_hash_size (ctx->registered_profiles);
+vortex_profiles.c:1126:	return (vortex_hash_lookup (ctx->registered_profiles, (axlPointer) uri) != NULL);
+vortex_profiles.c:1172:	profile = vortex_hash_lookup (ctx->registered_profiles, (axlPointer)uri);
+vortex_profiles.c:1207:	profile = vortex_hash_lookup (ctx->registered_profiles, (axlPointer)uri);
+vortex_profiles.c:1230:	if (ctx->registered_profiles)
+vortex_profiles.c:1233:	ctx->registered_profiles = 
+vortex_profiles.c:1238:	ctx->profiles_list = axl_list_new (axl_list_always_return_1, NULL);
+vortex_profiles.c:1240:	vortex_mutex_create (&ctx->profiles_list_mutex);
+vortex_profiles.c:1258:	vortex_hash_destroy (ctx->registered_profiles);
+vortex_profiles.c:1259:	ctx->registered_profiles = NULL;
+vortex_profiles.c:1262:	axl_list_free (ctx->profiles_list);
+vortex_profiles.c:1263:	ctx->profiles_list = NULL;
+vortex_profiles.c:1266:	vortex_mutex_destroy(ctx->profiles_list_mutex);
+vortex_sequencer.c:50:	if (ctx->sequencer_queue == NULL) {
+vortex_sequencer.c:75:	QUEUE_PUSH (ctx->sequencer_queue, data);
+vortex_sequencer.c:302:		CHECK_AND_INCREASE_BUFFER (size_to_copy, ctx->sequencer_feeder_buffer, ctx->sequencer_feeder_buffer_size);
+vortex_sequencer.c:305:		size_to_copy = vortex_payload_feeder_get_content (data->feeder, ctx, size_to_copy, ctx->sequencer_feeder_buffer);
+vortex_sequencer.c:309: 		    size_to_copy, ctx->sequencer_send_buffer_size);
+vortex_sequencer.c:318:	CHECK_AND_INCREASE_BUFFER (size_to_copy, ctx->sequencer_send_buffer, ctx->sequencer_send_buffer_size);
+vortex_sequencer.c:329:		payload = ctx->sequencer_feeder_buffer;
+vortex_sequencer.c:362:		ctx->sequencer_send_buffer, ctx->sequencer_send_buffer_size);
+vortex_sequencer.c:519:		data    = vortex_async_queue_pop (ctx->sequencer_queue);
+vortex_sequencer.c:526:			queue                  = ctx->sequencer_queue;
+vortex_sequencer.c:527:			ctx->sequencer_queue   = NULL;
+vortex_sequencer.c:532:			QUEUE_PUSH (ctx->sequencer_stopped, INT_TO_PTR (1));
+vortex_sequencer.c:537:			    data->channel_num, data->message_size, vortex_async_queue_items (ctx->sequencer_queue));
+vortex_sequencer.c:740:	if (ctx->sequencer_queue != NULL)
+vortex_sequencer.c:741:		vortex_async_queue_release (ctx->sequencer_queue);
+vortex_sequencer.c:742:	ctx->sequencer_queue  = vortex_async_queue_new ();
+vortex_sequencer.c:746:	if (ctx->sequencer_stopped != NULL)
+vortex_sequencer.c:747:		vortex_async_queue_release (ctx->sequencer_stopped);
+vortex_sequencer.c:748:	ctx->sequencer_stopped      = vortex_async_queue_new ();
+vortex_sequencer.c:751:	ctx->sequencer_send_buffer_size = 4096 + 100;
+vortex_sequencer.c:752:	if (ctx->sequencer_send_buffer == NULL)
+vortex_sequencer.c:753:		ctx->sequencer_send_buffer = axl_new (char, ctx->sequencer_send_buffer_size);
+vortex_sequencer.c:756:	if (! vortex_thread_create (&ctx->sequencer_thread,
+vortex_sequencer.c:782:	QUEUE_PUSH  (ctx->sequencer_queue, INT_TO_PTR (1));
+vortex_sequencer.c:785:	vortex_async_queue_pop   (ctx->sequencer_stopped);
+vortex_sequencer.c:786:	vortex_async_queue_unref (ctx->sequencer_stopped);
+vortex_sequencer.c:787:	/* vortex_thread_destroy    (&ctx->sequencer_thread, axl_false); */
+vortex_sequencer.c:790:	axl_free (ctx->sequencer_send_buffer);
+vortex_sequencer.c:791:	axl_free (ctx->sequencer_feeder_buffer);
+vortex_sequencer.c:867:	if (ctx->sequencer_queue == NULL)
+vortex_sequencer.c:882:			    vortex_async_queue_items (ctx->sequencer_queue));
+vortex_sequencer.c:883:		QUEUE_PRIORITY_PUSH (ctx->sequencer_queue, data);
+vortex_sequencer.c:929:	if (ctx == NULL || ctx->sequencer_queue == NULL || ctx->reader_cleanup)
+vortex_sequencer.c:936:	vortex_async_queue_foreach (ctx->sequencer_queue,
+vortex_sequencer.c:946:	if (ctx->sequencer_queue != NULL)
+vortex_sequencer.c:947:		vortex_async_queue_release (ctx->sequencer_queue);
+vortex_sequencer.c:948:	ctx->sequencer_queue  = vortex_async_queue_new ();
+vortex_sequencer.c:952:	if (ctx->sequencer_stopped != NULL)
+vortex_sequencer.c:953:		vortex_async_queue_release (ctx->sequencer_stopped);
+vortex_sequencer.c:954:	ctx->sequencer_stopped      = vortex_async_queue_new ();
+vortex_sequencer.c:957:	ctx->sequencer_send_buffer_size = 4096 + 100;
+vortex_sequencer.c:958:	if (ctx->sequencer_send_buffer == NULL)
+vortex_sequencer.c:959:		ctx->sequencer_send_buffer = axl_new (char, ctx->sequencer_send_buffer_size);
+vortex_sequencer.c:965:  ctx->sequencer_thread = *t;
+vortex.c:104:	if (! ctx->debug_checked) {
+vortex.c:106:		ctx->debug         = vortex_support_getenv_int ("VORTEX_DEBUG") > 0;
+vortex.c:107:		ctx->debug_checked = axl_true;
+vortex.c:111:	return ctx->debug;
+vortex.c:135:	if (! ctx->debug2_checked) {
+vortex.c:137:		ctx->debug2         = vortex_support_getenv_int ("VORTEX_DEBUG2") > 0;
+vortex.c:138:		ctx->debug2_checked = axl_true;
+vortex.c:142:	return ctx->debug2;
+vortex.c:166:	ctx->debug         = status;
+vortex.c:167:	ctx->debug_checked = axl_true;
+vortex.c:197:	ctx->debug2 = status;
+vortex.c:198:	ctx->debug2_checked = axl_true;
+vortex.c:220:	if (! ctx->debug_color_checked) {
+vortex.c:221:		ctx->debug_color_checked = axl_true;
+vortex.c:222:		ctx->debug_color         = vortex_support_getenv_int ("VORTEX_DEBUG_COLOR") > 0;
+vortex.c:226:	return ctx->debug_color;
+vortex.c:260:	ctx->debug_color_checked = status;
+vortex.c:261:	ctx->debug_color = status;
+vortex.c:291:	ctx->debug_filter_checked = axl_true;
+vortex.c:295:		ctx->debug_filter_is_enabled = axl_false;
+vortex.c:301:		ctx->debug_filter |= VORTEX_LEVEL_DEBUG;
+vortex.c:303:		ctx->debug_filter |= VORTEX_LEVEL_WARNING;
+vortex.c:305:		ctx->debug_filter |= VORTEX_LEVEL_CRITICAL;
+vortex.c:308:	ctx->debug_filter_is_enabled = axl_true;
+vortex.c:323:	if (! ctx->debug_filter_checked) {
+vortex.c:325:		ctx->debug_filter_checked = axl_true;
+vortex.c:332:	return ctx->debug_filter_is_enabled;
+vortex.c:383:		*value = ctx->__vortex_conf_soft_sock_limit;
+vortex.c:399:		*value = ctx->__vortex_conf_hard_sock_limit;
+vortex.c:414:		*value = ctx->backlog;
+vortex.c:418:		*value = ctx->enforce_profiles_supported;
+vortex.c:422:		*value = ctx->automatic_mime;
+vortex.c:475:		if (value > ctx->__vortex_conf_hard_sock_limit)
+vortex.c:479:		ctx->__vortex_conf_soft_sock_limit = value;
+vortex.c:530:		ctx->backlog = value;
+vortex.c:535:		ctx->enforce_profiles_supported = value;
+vortex.c:539:		ctx->automatic_mime    = value;
+vortex.c:584:	ctx->use_log_mutex = axl_true;
+vortex.c:601:	return ctx->use_log_mutex;
+vortex.c:620:	ctx->debug_handler = handler;
+vortex.c:642:	ctx->prepare_log_string = prepare_string;
+vortex.c:661:	return ctx->debug_handler;
+vortex.c:709:		if ((ctx->debug_filter & log_level) == log_level)
+vortex.c:715:	use_log_mutex = ctx->use_log_mutex;
+vortex.c:717:		vortex_mutex_lock(ctx->log_mutex);
+vortex.c:719:	if( ctx->debug_handler) {
+vortex.c:720:		if (ctx->prepare_log_string) {
+vortex.c:723:			ctx->debug_handler (file, line, log_level, log_string, NULL);
+vortex.c:727:			ctx->debug_handler (file, line, log_level, message, args);
+vortex.c:782:	} /* end if (ctx->debug_handler) */
+vortex.c:786:		vortex_mutex_unlock(ctx->log_mutex);
+vortex.c:930:	vortex_mutex_create (&ctx->frame_id_mutex);
+vortex.c:931:	vortex_mutex_create (&ctx->connection_id_mutex);
+vortex.c:932:	vortex_mutex_create (&ctx->listener_mutex);
+vortex.c:933:	vortex_mutex_create (&ctx->listener_unlock);
+vortex.c:934:	vortex_mutex_create (&ctx->exit_mutex);
+vortex.c:935:	vortex_mutex_create (&ctx->profiles_list_mutex);
+vortex.c:1033:	ctx->vortex_initialized = axl_true;
+vortex.c:1048:	if (ctx == NULL || ! ctx->vortex_initialized) {
+vortex.c:1097:	if (ctx == NULL || ctx->vortex_exit)
+vortex.c:1102:	vortex_mutex_lock(ctx->exit_mutex);
+vortex.c:1103:	if (ctx->vortex_exit) {
+vortex.c:1104:		vortex_mutex_unlock(ctx->exit_mutex);
+vortex.c:1108:	ctx->vortex_exit = axl_true;
+vortex.c:1111:	vortex_mutex_unlock(ctx->exit_mutex);
+vortex.c:1177:	vortex_mutex_destroy(ctx->frame_id_mutex);
+vortex.c:1178:	vortex_mutex_destroy(ctx->connection_id_mutex);
+vortex.c:1179:	vortex_mutex_destroy(ctx->listener_mutex);
+vortex.c:1180:	vortex_mutex_destroy(ctx->listener_unlock);
+vortex.c:1181:	vortex_mutex_destroy(ctx->profiles_list_mutex);
+vortex.c:1184:	vortex_mutex_lock(ctx->exit_mutex);
+vortex.c:1185:	vortex_mutex_unlock(ctx->exit_mutex);
+vortex.c:1186:	vortex_mutex_destroy(ctx->exit_mutex);
+vortex.c:1205:	vortex_mutex_create (&ctx->frame_id_mutex);
+vortex.c:1206:	vortex_mutex_create (&ctx->connection_id_mutex);
+vortex.c:1207:	vortex_mutex_create (&ctx->listener_mutex);
+vortex.c:1208:	vortex_mutex_create (&ctx->listener_unlock);
+vortex.c:1209:	vortex_mutex_create (&ctx->exit_mutex);
+vortex.c:1210:	vortex_mutex_create (&ctx->profiles_list_mutex);
+vortex_connection.c:161:	if (! ctx->serverName_acquire)
+vortex_connection.c:565:	if (ctx && ctx->connection_enable_sanity_check) {
+vortex_connection.c:634:	vortex_mutex_lock(ctx->connection_id_mutex);
+vortex_connection.c:637:	result = ctx->connection_id;
+vortex_connection.c:638:	ctx->connection_id++;
+vortex_connection.c:641:	vortex_mutex_unlock(ctx->connection_id_mutex);
+vortex_connection.c:860:	axl_hash_insert_full (ctx->connection_xml_cache, 
+vortex_connection.c:878:	return axl_hash_get (ctx->connection_xml_cache, (axlPointer) index);
+vortex_connection.c:911:	vortex_mutex_lock(ctx->connection_xml_cache_mutex);
+vortex_connection.c:931:		vortex_mutex_unlock(ctx->connection_xml_cache_mutex);
+vortex_connection.c:956:		vortex_mutex_unlock(ctx->connection_xml_cache_mutex);
+vortex_connection.c:968:	vortex_mutex_unlock(ctx->connection_xml_cache_mutex);
+vortex_connection.c:1460:	vortex_mutex_lock(ctx->connection_hostname_mutex);
+vortex_connection.c:1463:	result = axl_hash_get (ctx->connection_hostname, (axlPointer) hostname);
+vortex_connection.c:1470:				vortex_mutex_unlock(ctx->connection_hostname_mutex);
+vortex_connection.c:1476:			axl_hash_insert_full (ctx->connection_hostname, 
+vortex_connection.c:1485:	vortex_mutex_unlock(ctx->connection_hostname_mutex);
+vortex_connection.c:2350:		if (is_added && ctx->global_channel_added) {
+vortex_connection.c:2354:			ctx->global_channel_added (channel, ctx->global_channel_added_data);
+vortex_connection.c:2355:		} else if (! is_added && ctx->global_channel_removed) {
+vortex_connection.c:2359:			ctx->global_channel_removed (channel, ctx->global_channel_removed_data);
+vortex_connection.c:2881:	ctx->connection_timeout_checked = axl_false;
+vortex_connection.c:2933:	ctx->connection_connect_timeout_checked = axl_false;
+vortex_connection.c:2950:	long       d_timeout   = ctx->connection_std_timeout;
+vortex_connection.c:2960:	if (! ctx->connection_timeout_checked) {
+vortex_connection.c:2961:		ctx->connection_timeout_checked = axl_true;
+vortex_connection.c:2967:		return ctx->connection_std_timeout;
+vortex_connection.c:2970:		ctx->connection_std_timeout = d_timeout;
+vortex_connection.c:2975:	return ctx->connection_std_timeout;
+vortex_connection.c:2997:	if (! ctx->connection_connect_timeout_checked) {
+vortex_connection.c:2998:		ctx->connection_connect_timeout_checked = axl_true;
+vortex_connection.c:2999:		ctx->connection_connect_std_timeout     = vortex_support_getenv_int ("VORTEX_CONNECT_TIMEOUT");
+vortex_connection.c:3003:	return ctx->connection_connect_std_timeout;
+vortex_connection.c:4302:	if ((time_stamp - conn->last_idle_stamp) > ctx->max_idle_period) {
+vortex_connection.c:4988:	ctx->next_frame_size_data = user_data;
+vortex_connection.c:4989:	ctx->next_frame_size      = next_frame_size;
+vortex_connection.c:4994:		ctx->next_frame_size_data = NULL;
+vortex_connection.c:5025:	vortex_mutex_lock(ctx->connection_actions_mutex);
+vortex_connection.c:5029:	while (iterator < axl_list_length (ctx->connection_actions)) {
+vortex_connection.c:5032:		data = axl_list_get_nth (ctx->connection_actions, iterator);
+vortex_connection.c:5046:				vortex_mutex_unlock(ctx->connection_actions_mutex);	
+vortex_connection.c:5051:				vortex_mutex_unlock(ctx->connection_actions_mutex);	
+vortex_connection.c:5071:	vortex_mutex_unlock(ctx->connection_actions_mutex);	
+vortex_connection.c:5387:	vortex_mutex_lock(ctx->connection_actions_mutex);
+vortex_connection.c:5390:	if (ctx->connection_actions == NULL)
+vortex_connection.c:5391:		ctx->connection_actions = axl_list_new (axl_list_always_return_1, axl_free);
+vortex_connection.c:5394:	axl_list_add (ctx->connection_actions, data);
+vortex_connection.c:5397:	vortex_mutex_unlock(ctx->connection_actions_mutex);
+vortex_connection.c:6178:	ctx->connection_enable_sanity_check  = enable;
+vortex_connection.c:6361:	if (ctx->connection_id == 0) {
+vortex_connection.c:6366:		ctx->connection_id                = 1;
+vortex_connection.c:6368:	ctx->connection_enable_sanity_check       = axl_true;
+vortex_connection.c:6369:	ctx->connection_std_timeout               = 60000000;
+vortex_connection.c:6371:	vortex_mutex_create (&ctx->connection_xml_cache_mutex);
+vortex_connection.c:6372:	vortex_mutex_create (&ctx->connection_hostname_mutex);
+vortex_connection.c:6373:	vortex_mutex_create (&ctx->connection_actions_mutex);
+vortex_connection.c:6376:	if (ctx->connection_xml_cache == NULL)
+vortex_connection.c:6377:		ctx->connection_xml_cache = axl_hash_new (axl_hash_string, axl_hash_equal_string);
+vortex_connection.c:6378:	if (ctx->connection_hostname == NULL)
+vortex_connection.c:6379:		ctx->connection_hostname  = axl_hash_new (axl_hash_string, axl_hash_equal_string);
+vortex_connection.c:6395:	vortex_mutex_destroy(ctx->connection_xml_cache_mutex);
+vortex_connection.c:6396:	vortex_mutex_destroy(ctx->connection_hostname_mutex);
+vortex_connection.c:6397:	vortex_mutex_destroy(ctx->connection_actions_mutex);
+vortex_connection.c:6400:	axl_hash_free (ctx->connection_xml_cache);
+vortex_connection.c:6401:	ctx->connection_xml_cache = NULL;
+vortex_connection.c:6402:	axl_hash_free (ctx->connection_hostname);
+vortex_connection.c:6403:	ctx->connection_hostname = NULL;
+vortex_connection.c:6406:	if (ctx->connection_actions != NULL)
+vortex_connection.c:6407:		axl_list_free (ctx->connection_actions);
+vortex_connection.c:6408:	ctx->connection_actions = NULL;
+vortex_io.c:808:	if (type == ctx->waiting_type) {
+vortex_io.c:823:		ctx->waiting_create        = __vortex_io_waiting_default_create;
+vortex_io.c:824:		ctx->waiting_destroy       = __vortex_io_waiting_default_destroy;
+vortex_io.c:825:		ctx->waiting_clear         = __vortex_io_waiting_default_clear;
+vortex_io.c:826:		ctx->waiting_wait_on       = __vortex_io_waiting_default_wait_on;
+vortex_io.c:827:		ctx->waiting_add_to        = __vortex_io_waiting_default_add_to;
+vortex_io.c:828:		ctx->waiting_is_set        = __vortex_io_waiting_default_is_set;
+vortex_io.c:829:		ctx->waiting_have_dispatch = NULL;
+vortex_io.c:830:		ctx->waiting_dispatch      = NULL;
+vortex_io.c:831:		ctx->waiting_type          = VORTEX_IO_WAIT_SELECT;
+vortex_io.c:841:		ctx->waiting_create        = __vortex_io_waiting_poll_create;
+vortex_io.c:842:		ctx->waiting_destroy       = __vortex_io_waiting_poll_destroy;
+vortex_io.c:843:		ctx->waiting_clear         = __vortex_io_waiting_poll_clear;
+vortex_io.c:844:		ctx->waiting_wait_on       = __vortex_io_waiting_poll_wait_on;
+vortex_io.c:845:		ctx->waiting_add_to        = __vortex_io_waiting_poll_add_to;
+vortex_io.c:847:		ctx->waiting_is_set        = NULL;
+vortex_io.c:848:		ctx->waiting_have_dispatch = __vortex_io_waiting_poll_have_dispatch;
+vortex_io.c:849:		ctx->waiting_dispatch      = __vortex_io_waiting_poll_dispatch;
+vortex_io.c:850:		ctx->waiting_type          = VORTEX_IO_WAIT_POLL;
+vortex_io.c:865:		ctx->waiting_create        = __vortex_io_waiting_epoll_create;
+vortex_io.c:866:		ctx->waiting_destroy       = __vortex_io_waiting_epoll_destroy;
+vortex_io.c:867:		ctx->waiting_clear         = __vortex_io_waiting_epoll_clear;
+vortex_io.c:868:		ctx->waiting_wait_on       = __vortex_io_waiting_epoll_wait_on;
+vortex_io.c:869:		ctx->waiting_add_to        = __vortex_io_waiting_epoll_add_to;
+vortex_io.c:871:		ctx->waiting_is_set        = NULL;
+vortex_io.c:872:		ctx->waiting_have_dispatch = __vortex_io_waiting_epoll_have_dispatch;
+vortex_io.c:873:		ctx->waiting_dispatch      = __vortex_io_waiting_epoll_dispatch;
+vortex_io.c:874:		ctx->waiting_type          = VORTEX_IO_WAIT_EPOLL;
+vortex_io.c:955:	return ctx->waiting_type;
+vortex_io.c:977:	ctx->waiting_create = create;
+vortex_io.c:997:	if (ctx == NULL || ctx->waiting_create == NULL) {
+vortex_io.c:1004:	return ctx->waiting_create (ctx, wait_to);
+vortex_io.c:1027:	ctx->waiting_destroy = destroy;
+vortex_io.c:1052:	if (ctx->waiting_destroy == NULL) {
+vortex_io.c:1059:	ctx->waiting_destroy (fd_group);
+vortex_io.c:1082:	ctx->waiting_clear = clear;
+vortex_io.c:1105:	if (ctx->waiting_clear == NULL) {
+vortex_io.c:1112:	ctx->waiting_clear (fd_group);
+vortex_io.c:1135:	ctx->waiting_add_to = add_to;
+vortex_io.c:1159:	if (ctx != NULL && ctx->waiting_add_to != NULL) {
+vortex_io.c:1162:		return ctx->waiting_add_to (fds, connection, fd_group);
+vortex_io.c:1187:	ctx->waiting_is_set = is_set;
+vortex_io.c:1210:	ctx->waiting_have_dispatch = have_dispatch;
+vortex_io.c:1231:	ctx->waiting_dispatch = dispatch;
+vortex_io.c:1259:	if (ctx->waiting_is_set == NULL) {
+vortex_io.c:1265:	return ctx->waiting_is_set (fds, fd_group, user_data);
+vortex_io.c:1294:	if (ctx->waiting_have_dispatch == NULL) {
+vortex_io.c:1300:	return ctx->waiting_have_dispatch (fd_group);
+vortex_io.c:1332:	if (ctx->waiting_dispatch == NULL) {
+vortex_io.c:1339:	ctx->waiting_dispatch (fd_group, func, changed, user_data);
+vortex_io.c:1393:	ctx->waiting_wait_on = wait_on;
+vortex_io.c:1424:	if (ctx->waiting_wait_on == NULL) {
+vortex_io.c:1432:	return ctx->waiting_wait_on (fd_group, max_fds, wait_to);
+vortex_io.c:1461:	ctx->waiting_create        = __vortex_io_waiting_epoll_create;
+vortex_io.c:1462:	ctx->waiting_destroy       = __vortex_io_waiting_epoll_destroy;
+vortex_io.c:1463:	ctx->waiting_clear         = __vortex_io_waiting_epoll_clear;
+vortex_io.c:1464:	ctx->waiting_wait_on       = __vortex_io_waiting_epoll_wait_on;
+vortex_io.c:1465:	ctx->waiting_add_to        = __vortex_io_waiting_epoll_add_to;
+vortex_io.c:1466:	ctx->waiting_is_set        = NULL;
+vortex_io.c:1467:	ctx->waiting_have_dispatch = __vortex_io_waiting_epoll_have_dispatch;
+vortex_io.c:1468:	ctx->waiting_dispatch      = __vortex_io_waiting_epoll_dispatch;
+vortex_io.c:1471:	ctx->waiting_type          = VORTEX_IO_WAIT_EPOLL;
+vortex_io.c:1475:	ctx->waiting_create        = __vortex_io_waiting_poll_create;
+vortex_io.c:1476:	ctx->waiting_destroy       = __vortex_io_waiting_poll_destroy;
+vortex_io.c:1477:	ctx->waiting_clear         = __vortex_io_waiting_poll_clear;
+vortex_io.c:1478:	ctx->waiting_wait_on       = __vortex_io_waiting_poll_wait_on;
+vortex_io.c:1479:	ctx->waiting_add_to        = __vortex_io_waiting_poll_add_to;
+vortex_io.c:1480:	ctx->waiting_is_set        = NULL;
+vortex_io.c:1481:	ctx->waiting_have_dispatch = __vortex_io_waiting_poll_have_dispatch;
+vortex_io.c:1482:	ctx->waiting_dispatch      = __vortex_io_waiting_poll_dispatch;
+vortex_io.c:1485:	ctx->waiting_type          = VORTEX_IO_WAIT_POLL;
+vortex_io.c:1489:	ctx->waiting_create        = __vortex_io_waiting_default_create;
+vortex_io.c:1490:	ctx->waiting_destroy       = __vortex_io_waiting_default_destroy;
+vortex_io.c:1491:	ctx->waiting_clear         = __vortex_io_waiting_default_clear;
+vortex_io.c:1492:	ctx->waiting_wait_on       = __vortex_io_waiting_default_wait_on;
+vortex_io.c:1493:	ctx->waiting_add_to        = __vortex_io_waiting_default_add_to;
+vortex_io.c:1494:	ctx->waiting_is_set        = __vortex_io_waiting_default_is_set;
+vortex_io.c:1495:	ctx->waiting_have_dispatch = NULL;
+vortex_io.c:1496:	ctx->waiting_dispatch      = NULL;
+vortex_io.c:1499:	ctx->waiting_type          = VORTEX_IO_WAIT_SELECT;
+vortex_greetings.c:625:	if (ctx->greetings_features)
+vortex_greetings.c:626:		axl_free (ctx->greetings_features);
+vortex_greetings.c:627:	ctx->greetings_features = NULL;
+vortex_greetings.c:633:	ctx->greetings_features = axl_strdup (features);
+vortex_greetings.c:653:	return ctx->greetings_features;
+vortex_greetings.c:678:	if (ctx->greetings_localize)
+vortex_greetings.c:679:		axl_free (ctx->greetings_localize);
+vortex_greetings.c:680:	ctx->greetings_localize = NULL;
+vortex_greetings.c:686:	ctx->greetings_localize = axl_strdup (localize);
+vortex_greetings.c:701:	return ctx->greetings_localize;
+vortex_greetings.c:714:	axl_free (ctx->greetings_features);
+vortex_greetings.c:715:	ctx->greetings_features = NULL;
+vortex_greetings.c:717:	axl_free (ctx->greetings_localize);
+vortex_greetings.c:718:	ctx->greetings_localize = NULL;
+vortex_reader.c:171:											   ctx->reader_seq_frame,
+vortex_reader.c:754:	vortex_async_queue_push (ctx->reader_stopped, INT_TO_PTR(1));
+vortex_reader.c:761:	result = vortex_async_queue_pop (ctx->reader_queue);
+vortex_reader.c:849:	if (ctx == NULL || ctx->global_frame_received == NULL)
+vortex_reader.c:853:	ctx->global_frame_received (channel, connection, frame, ctx->global_frame_received_data);
+vortex_reader.c:891:		data            = vortex_async_queue_pop (ctx->reader_queue);
+vortex_reader.c:939:	length = vortex_async_queue_length (ctx->reader_queue);
+vortex_reader.c:942:		data            = vortex_async_queue_pop (ctx->reader_queue);
+vortex_reader.c:985:	if (ctx->global_idle_handler)
+vortex_reader.c:995:		if (ctx->global_idle_handler)
+vortex_reader.c:1211:	vortex_async_queue_unref (ctx->reader_queue);
+vortex_reader.c:1214:	ctx->srv_list = NULL;
+vortex_reader.c:1219:	ctx->con_list = NULL;
+vortex_reader.c:1227:	QUEUE_PUSH (ctx->reader_stopped, INT_TO_PTR (1));
+vortex_reader.c:1278:	if (ctx->on_reading != NULL)
+vortex_reader.c:1279:		vortex_io_waiting_invoke_destroy_fd_group (ctx, ctx->on_reading);
+vortex_reader.c:1280:	ctx->on_reading  = vortex_io_waiting_invoke_create_fd_group (ctx, READ_OPERATIONS);
+vortex_reader.c:1283:	ctx->con_list = axl_list_new (axl_list_always_return_1, __vortex_reader_close_connection);
+vortex_reader.c:1284:	ctx->srv_list = axl_list_new (axl_list_always_return_1, __vortex_reader_close_connection);
+vortex_reader.c:1287:	ctx->con_cursor = axl_list_cursor_new (ctx->con_list);
+vortex_reader.c:1288:	ctx->srv_cursor = axl_list_cursor_new (ctx->srv_list);
+vortex_reader.c:1297:	if (!vortex_reader_read_queue (ctx, ctx->con_list, ctx->srv_list, &(ctx->on_reading))) {
+vortex_reader.c:1300:		__vortex_reader_stop_process (ctx, ctx->on_reading, ctx->con_cursor, ctx->srv_cursor);
+vortex_reader.c:1308:		vortex_io_waiting_invoke_clear_fd_group (ctx, ctx->on_reading);
+vortex_reader.c:1311:		max_fds = __vortex_reader_build_set_to_watch (ctx, ctx->on_reading, ctx->con_cursor, ctx->srv_cursor);
+vortex_reader.c:1313:		if ((axl_list_length (ctx->con_list) == 0) && (axl_list_length (ctx->srv_list) == 0)) {
+vortex_reader.c:1326:		result = vortex_io_waiting_invoke_wait (ctx, ctx->on_reading, max_fds, READ_OPERATIONS);
+vortex_reader.c:1348:			__vortex_reader_stop_process (ctx, ctx->on_reading, ctx->con_cursor, ctx->srv_cursor);
+vortex_reader.c:1357:			if (vortex_io_waiting_invoke_have_dispatch (ctx, ctx->on_reading)) {
+vortex_reader.c:1362:				vortex_io_waiting_invoke_dispatch (ctx, ctx->on_reading, __vortex_reader_dispatch_connection, result, ctx);
+vortex_reader.c:1366:				result = __vortex_reader_check_listener_list (ctx, ctx->on_reading, ctx->srv_cursor, result);
+vortex_reader.c:1369:				__vortex_reader_check_connection_list (ctx, ctx->on_reading, ctx->con_cursor, result);
+vortex_reader.c:1382:		if (!vortex_reader_read_pending (ctx, ctx->con_list, ctx->srv_list, &(ctx->on_reading))) {
+vortex_reader.c:1383:			__vortex_reader_stop_process (ctx, ctx->on_reading, ctx->con_cursor, ctx->srv_cursor);
+vortex_reader.c:1398:	if (ctx == NULL || ctx->con_list == NULL || ctx->srv_list == NULL)
+vortex_reader.c:1401:	return axl_list_length (ctx->con_list) + axl_list_length (ctx->srv_list);
+vortex_reader.c:1433:	v_return_if_fail (ctx->reader_queue);
+vortex_reader.c:1452:	QUEUE_PUSH (ctx->reader_queue, data);
+vortex_reader.c:1475:	QUEUE_PUSH (ctx->reader_queue, data);
+vortex_reader.c:1508:	if (ctx->con_list != NULL) {
+vortex_reader.c:1509:		ctx->reader_cleanup = axl_true;
+vortex_reader.c:1510:		axl_list_lookup (ctx->con_list, __vortex_reader_configure_conn, NULL);
+vortex_reader.c:1511:		axl_list_cursor_free (ctx->con_cursor);
+vortex_reader.c:1512:		axl_list_free (ctx->con_list);
+vortex_reader.c:1513:		ctx->con_list   = NULL;
+vortex_reader.c:1514:		ctx->con_cursor = NULL;
+vortex_reader.c:1516:	if (ctx->srv_list != NULL) {
+vortex_reader.c:1517:		ctx->reader_cleanup = axl_true;
+vortex_reader.c:1518:		axl_list_lookup (ctx->srv_list, __vortex_reader_configure_conn, NULL);
+vortex_reader.c:1519:		axl_list_cursor_free (ctx->srv_cursor);
+vortex_reader.c:1520:		axl_list_free (ctx->srv_list);
+vortex_reader.c:1521:		ctx->srv_list   = NULL;
+vortex_reader.c:1522:		ctx->con_cursor = NULL;
+vortex_reader.c:1526:	ctx->reader_cleanup = axl_false;
+vortex_reader.c:1529:	if (ctx->reader_queue != NULL)
+vortex_reader.c:1530:		vortex_async_queue_release (ctx->reader_queue);
+vortex_reader.c:1531:	ctx->reader_queue   = vortex_async_queue_new ();
+vortex_reader.c:1534:	if (ctx->reader_stopped != NULL) 
+vortex_reader.c:1535:		vortex_async_queue_release (ctx->reader_stopped);
+vortex_reader.c:1536:	ctx->reader_stopped = vortex_async_queue_new ();
+vortex_reader.c:1539:	if (! vortex_thread_create (&ctx->reader_thread,
+vortex_reader.c:1566:	QUEUE_PUSH (ctx->reader_queue, data);
+vortex_reader.c:1570:	vortex_async_queue_pop (ctx->reader_stopped);
+vortex_reader.c:1571:	vortex_async_queue_unref (ctx->reader_stopped);
+vortex_reader.c:1574:	/* vortex_thread_destroy (&ctx->reader_thread, axl_false); */
+vortex_reader.c:1594:	if (ctx == NULL || ctx->reader_queue == NULL)
+vortex_reader.c:1606:	QUEUE_PUSH (ctx->reader_queue, data);
+vortex_reader.c:1609:	vortex_async_queue_pop (ctx->reader_stopped);
+vortex_reader.c:1631:	QUEUE_PUSH (ctx->reader_queue, data);
+vortex_reader.c:1672:	QUEUE_PUSH (ctx->reader_queue, data);
+vortex_reader.c:1701:	if (ctx->con_list != NULL) {
+vortex_reader.c:1702:		ctx->reader_cleanup = axl_true;
+vortex_reader.c:1703:		axl_list_lookup (ctx->con_list, __vortex_reader_configure_conn, NULL);
+vortex_reader.c:1704:		axl_list_cursor_free (ctx->con_cursor);
+vortex_reader.c:1705:		axl_list_free (ctx->con_list);
+vortex_reader.c:1706:		ctx->con_list   = NULL;
+vortex_reader.c:1707:		ctx->con_cursor = NULL;
+vortex_reader.c:1709:	if (ctx->srv_list != NULL) {
+vortex_reader.c:1710:		ctx->reader_cleanup = axl_true;
+vortex_reader.c:1711:		axl_list_lookup (ctx->srv_list, __vortex_reader_configure_conn, NULL);
+vortex_reader.c:1712:		axl_list_cursor_free (ctx->srv_cursor);
+vortex_reader.c:1713:		axl_list_free (ctx->srv_list);
+vortex_reader.c:1714:		ctx->srv_list   = NULL;
+vortex_reader.c:1715:		ctx->con_cursor = NULL;
+vortex_reader.c:1719:	ctx->reader_cleanup = axl_false;
+vortex_reader.c:1722:	if (ctx->reader_queue != NULL)
+vortex_reader.c:1723:		vortex_async_queue_release (ctx->reader_queue);
+vortex_reader.c:1724:	ctx->reader_queue   = vortex_async_queue_new ();
+vortex_reader.c:1727:	if (ctx->reader_stopped != NULL) 
+vortex_reader.c:1728:		vortex_async_queue_release (ctx->reader_stopped);
+vortex_reader.c:1729:	ctx->reader_stopped = vortex_async_queue_new ();
+vortex_reader.c:1735:  ctx->reader_thread = *t;
+vortex_ctx.c:118:	vortex_mutex_create (&ctx->log_mutex);
+vortex_ctx.c:119:	vortex_mutex_create (&ctx->ref_mutex);
+vortex_ctx.c:149:		ctx->finish_handler = NULL;
+vortex_ctx.c:150:		ctx->finish_handler_data = NULL;
+vortex_ctx.c:155:	ctx->finish_handler      = finish_handler;
+vortex_ctx.c:156:	ctx->finish_handler_data = user_data;
+vortex_ctx.c:167:	if (ctx == NULL || ctx->finish_handler == NULL)
+vortex_ctx.c:170:	ctx->finish_handler (ctx, ctx->finish_handler_data);
+vortex_ctx.c:220:		vortex_hash_remove (ctx->data, key);
+vortex_ctx.c:225:	vortex_hash_replace_full (ctx->data, 
+vortex_ctx.c:249:	return vortex_hash_lookup (ctx->data, key);
+vortex_ctx.c:276:	ctx->global_frame_received      = received;
+vortex_ctx.c:277:	ctx->global_frame_received_data = received_user_data;
+vortex_ctx.c:307:	ctx->global_notify_close      = close_notify;
+vortex_ctx.c:308:	ctx->global_notify_close_data = user_data;
+vortex_ctx.c:331:	ctx->global_channel_added      = added_handler;
+vortex_ctx.c:332:	ctx->global_channel_added_data = user_data;
+vortex_ctx.c:355:	ctx->global_channel_removed      = removed_handler;
+vortex_ctx.c:356:	ctx->global_channel_removed_data = user_data;
+vortex_ctx.c:384:	ctx->global_channel_start_extended       = start_handler;
+vortex_ctx.c:385:	ctx->global_channel_start_extended_data  = start_handler_data;
+vortex_ctx.c:422:	ctx->global_idle_handler       = idle_handler;
+vortex_ctx.c:423:	ctx->max_idle_period           = max_idle_period;
+vortex_ctx.c:424:	ctx->global_idle_handler_data  = user_data;
+vortex_ctx.c:425:	ctx->global_idle_handler_data2 = user_data2;
+vortex_ctx.c:434:	VortexIdleHandler    handler = ctx->global_idle_handler;
+vortex_ctx.c:442:		    vortex_connection_get_id (conn), ctx->max_idle_period);
+vortex_ctx.c:443:	handler (ctx, conn, ctx->global_idle_handler_data, ctx->global_idle_handler_data2);
+vortex_ctx.c:465:	if (ctx == NULL || ctx->global_idle_handler == NULL)
+vortex_ctx.c:502:	if (ctx->cleanups == NULL) 
+vortex_ctx.c:503:		ctx->cleanups = axl_list_new (axl_list_always_return_1, NULL);
+vortex_ctx.c:506:	axl_list_append (ctx->cleanups, cleanup);
+vortex_ctx.c:531:	ctx->serverName_acquire = status;
+vortex_ctx.c:548:	vortex_mutex_lock(ctx->ref_mutex);
+vortex_ctx.c:549:	ctx->ref_count++;
+vortex_ctx.c:550:	vortex_mutex_unlock(ctx->ref_mutex);
+vortex_ctx.c:574:	vortex_mutex_lock(_ctx->ref_mutex);
+vortex_ctx.c:575:	nullify =  (_ctx->ref_count == 1);
+vortex_ctx.c:576:	vortex_mutex_unlock(_ctx->ref_mutex);
+vortex_ctx.c:603:	vortex_mutex_lock(ctx->ref_mutex);
+vortex_ctx.c:604:	ctx->ref_count--;
+vortex_ctx.c:606:	if (ctx->ref_count != 0) {
+vortex_ctx.c:608:		vortex_mutex_unlock(ctx->ref_mutex);
+vortex_ctx.c:613:	if (ctx->cleanups) {
+vortex_ctx.c:615:		while (iterator < axl_list_length (ctx->cleanups)) {
+vortex_ctx.c:617:			func = axl_list_get_nth (ctx->cleanups, iterator);
+vortex_ctx.c:627:		axl_list_free (ctx->cleanups);
+vortex_ctx.c:628:		ctx->cleanups = NULL; 
+vortex_ctx.c:632:	vortex_hash_destroy (ctx->data);
+vortex_ctx.c:633:	ctx->data = NULL;
+vortex_ctx.c:636:	vortex_mutex_destroy(ctx->log_mutex);
+vortex_ctx.c:639:	vortex_mutex_unlock(ctx->ref_mutex);
+vortex_ctx.c:640:	vortex_mutex_destroy(ctx->ref_mutex);
+vortex_ctx.c:649:  return ctx->frame_id_mutex;
+vortex_ctx.c:653:  return ctx->connection_id_mutex;
+vortex_ctx.c:657:  return ctx->listener_mutex;
+vortex_ctx.c:661:  return ctx->exit_mutex;
+vortex_ctx.c:665:  return ctx->exit_mutex;
+vortex_ctx.c:669:  return ctx->profiles_list_mutex;
+vortex_ctx.c:673:  ctx->vortex_initialized = axl_true;
+vortex_thread_pool.c:199:			vortex_mutex_lock((ctx->thread_pool->stopped_mutex));
+vortex_thread_pool.c:201:			vortex_mutex_unlock((ctx->thread_pool->stopped_mutex));
+vortex_thread_pool.c:211:			vortex_mutex_lock((ctx->thread_pool->stopped_mutex));
+vortex_thread_pool.c:214:			vortex_mutex_unlock((ctx->thread_pool->stopped_mutex));
+vortex_thread_pool.c:224:		if ((PTR_TO_INT (task) == 1) && ctx->thread_pool_being_stopped) {
+vortex_thread_pool.c:236:		if (! ctx->thread_pool_being_stopped)
+vortex_thread_pool.c:307:	if (ctx->thread_pool == NULL)
+vortex_thread_pool.c:308:		ctx->thread_pool      = axl_new (VortexThreadPool, 1)
+vortex_thread_pool.c:310:	if (ctx->thread_pool->threads != NULL) {
+vortex_thread_pool.c:312:		while (axl_list_length (ctx->thread_pool->threads) > 0) {
+vortex_thread_pool.c:313:			vortex_log (VORTEX_LEVEL_DEBUG, "releasing previous thread object allocated, length: %d", axl_list_length (ctx->thread_pool->threads));
+vortex_thread_pool.c:316:			thread = axl_list_get_first (ctx->thread_pool->threads);
+vortex_thread_pool.c:318:			axl_list_unlink_first (ctx->thread_pool->threads);
+vortex_thread_pool.c:322:		axl_list_free (ctx->thread_pool->threads);
+vortex_thread_pool.c:323:		axl_list_free (ctx->thread_pool->events);
+vortex_thread_pool.c:324:		axl_list_cursor_free (ctx->thread_pool->events_cursor);
+vortex_thread_pool.c:325:		axl_list_free (ctx->thread_pool->stopped);
+vortex_thread_pool.c:327:	ctx->thread_pool->threads       = axl_list_new (axl_list_always_return_1, __vortex_thread_pool_terminate_thread);
+vortex_thread_pool.c:328:	ctx->thread_pool->stopped       = axl_list_new (axl_list_always_return_1, __vortex_thread_pool_terminate_thread);
+vortex_thread_pool.c:329:	ctx->thread_pool->events        = axl_list_new (axl_list_always_return_1, axl_free);
+vortex_thread_pool.c:330:	ctx->thread_pool->events_cursor = axl_list_cursor_new (ctx->thread_pool->events);
+vortex_thread_pool.c:331:	ctx->thread_pool->ctx           = ctx;
+vortex_thread_pool.c:334:	if (ctx->thread_pool->queue != NULL)
+vortex_thread_pool.c:335:		vortex_async_queue_release (ctx->thread_pool->queue);
+vortex_thread_pool.c:336:	ctx->thread_pool->queue       = vortex_async_queue_new ();
+vortex_thread_pool.c:339:	vortex_mutex_create (&(ctx->thread_pool->mutex));
+vortex_thread_pool.c:340:	vortex_mutex_create (&(ctx->thread_pool->stopped_mutex));
+vortex_thread_pool.c:366:	vortex_mutex_lock((ctx->thread_pool->mutex));
+vortex_thread_pool.c:380:		starter->pool   = ctx->thread_pool;
+vortex_thread_pool.c:388:			vortex_mutex_unlock((ctx->thread_pool->mutex));
+vortex_thread_pool.c:395:		axl_list_add (ctx->thread_pool->threads, thread);
+vortex_thread_pool.c:399:		vortex_async_queue_ref (ctx->thread_pool->queue);
+vortex_thread_pool.c:407:	vortex_mutex_unlock((ctx->thread_pool->mutex));
+vortex_thread_pool.c:430:	vortex_mutex_lock(ctx->thread_pool->mutex);
+vortex_thread_pool.c:432:	threads_running = axl_list_length (ctx->thread_pool->threads);
+vortex_thread_pool.c:435:		vortex_async_queue_push (ctx->thread_pool->queue, INT_TO_PTR (2));
+vortex_thread_pool.c:440:	vortex_mutex_unlock(ctx->thread_pool->mutex);
+vortex_thread_pool.c:459:	ctx->thread_pool_being_stopped = axl_true;
+vortex_thread_pool.c:463:	while (iterator < axl_list_length (ctx->thread_pool->threads)) {
+vortex_thread_pool.c:466:		vortex_async_queue_push (ctx->thread_pool->queue, INT_TO_PTR (1));
+vortex_thread_pool.c:473:	axl_list_free (ctx->thread_pool->threads);
+vortex_thread_pool.c:474:	axl_list_free (ctx->thread_pool->events);
+vortex_thread_pool.c:475:	axl_list_cursor_free (ctx->thread_pool->events_cursor);
+vortex_thread_pool.c:476:	axl_list_free (ctx->thread_pool->stopped);
+vortex_thread_pool.c:479:	vortex_async_queue_unref (ctx->thread_pool->queue);
+vortex_thread_pool.c:482:	vortex_mutex_destroy(ctx->thread_pool->mutex);
+vortex_thread_pool.c:483:	vortex_mutex_destroy((ctx->thread_pool->stopped_mutex));
+vortex_thread_pool.c:486:	axl_free (ctx->thread_pool);
+vortex_thread_pool.c:502:	ctx->thread_pool_being_stopped = axl_true;
+vortex_thread_pool.c:527:	if (func == NULL || ctx == NULL || ctx->thread_pool == NULL || ctx->thread_pool_being_stopped)
+vortex_thread_pool.c:539:	vortex_async_queue_push (ctx->thread_pool->queue, task);
+vortex_thread_pool.c:593:	if (event_handler == NULL || ctx == NULL || ctx->thread_pool == NULL || ctx->thread_pool_being_stopped)
+vortex_thread_pool.c:597:	vortex_mutex_lock((ctx->thread_pool->mutex));
+vortex_thread_pool.c:613:		axl_list_add (ctx->thread_pool->events, event);
+vortex_thread_pool.c:617:	vortex_mutex_unlock((ctx->thread_pool->mutex));
+vortex_thread_pool.c:635:	vortex_mutex_lock((ctx->thread_pool->mutex));
+vortex_thread_pool.c:638:	axl_list_cursor_first (ctx->thread_pool->events_cursor);
+vortex_thread_pool.c:639:	while (axl_list_cursor_has_item (ctx->thread_pool->events_cursor)) {
+vortex_thread_pool.c:642:		event = axl_list_cursor_get (ctx->thread_pool->events_cursor);
+vortex_thread_pool.c:646:			axl_list_cursor_remove (ctx->thread_pool->events_cursor);
+vortex_thread_pool.c:651:		axl_list_cursor_next (ctx->thread_pool->events_cursor);
+vortex_thread_pool.c:655:	vortex_mutex_unlock((ctx->thread_pool->mutex));
+vortex_thread_pool.c:696:	vortex_mutex_lock((ctx->thread_pool->mutex));
+vortex_thread_pool.c:700:		*running_threads = axl_list_length (ctx->thread_pool->threads);
+vortex_thread_pool.c:702:		*waiting_threads = vortex_async_queue_waiters (ctx->thread_pool->queue);
+vortex_thread_pool.c:704:		*pending_tasks = vortex_async_queue_items (ctx->thread_pool->queue);
+vortex_thread_pool.c:707:	vortex_mutex_unlock((ctx->thread_pool->mutex));
+vortex_thread_pool.c:727:	vortex_mutex_lock((ctx->thread_pool->mutex));
+vortex_thread_pool.c:731:		*events_installed = axl_list_length (ctx->thread_pool->events);
+vortex_thread_pool.c:734:	vortex_mutex_unlock((ctx->thread_pool->mutex));
+vortex_thread_pool.c:751:	if (ctx == NULL || ctx->thread_pool == NULL)
+vortex_thread_pool.c:754:	return axl_list_length (ctx->thread_pool->threads);
+vortex_thread_pool.c:849:	ctx->thread_pool_exclusive = value;
+vortex_dtds.c:90:	if (ctx->channel_dtd)
+vortex_dtds.c:94:        if (!vortex_dtds_load_dtd (ctx, &ctx->channel_dtd, CHANNEL_DTD)) {
+vortex_dtds.c:112:	axl_dtd_free (ctx->channel_dtd);
+vortex_dtds.c:113:	ctx->channel_dtd = NULL;
+vortex_dtds.c:131:	return ctx->channel_dtd;
+vortex_frame_factory.c:294:	vortex_mutex_lock(ctx->frame_id_mutex);
+vortex_frame_factory.c:296:	result = ctx->frame_id;
+vortex_frame_factory.c:297:	ctx->frame_id++;
+vortex_frame_factory.c:301:	vortex_mutex_unlock(ctx->frame_id_mutex);
+vortex_channel.c:687:	vortex_mutex_lock(ctx->channel_start_reply_cache_mutex);
+vortex_channel.c:688:	cache = axl_hash_get (ctx->channel_start_reply_cache, (axlPointer) vortex_frame_get_payload (frame));
+vortex_channel.c:689:	vortex_mutex_unlock(ctx->channel_start_reply_cache_mutex);
+vortex_channel.c:790:		vortex_mutex_lock(ctx->channel_start_reply_cache_mutex);
+vortex_channel.c:806:			axl_hash_insert_full (ctx->channel_start_reply_cache,
+vortex_channel.c:813:		vortex_mutex_unlock(ctx->channel_start_reply_cache_mutex);
+vortex_channel.c:2785: 		    msg_no_rpy, message_size, vortex_async_queue_items (ctx->sequencer_queue), axl_list_length (channel->pending_messages));
+vortex_channel.c:3637:	if (ctx->next_frame_size) {
+vortex_channel.c:3639:		return ctx->next_frame_size (channel, next_seq_no, message_size, max_seq_no, ctx->next_frame_size_data);
+vortex_channel.c:6779:	if (channel->channel_num != 0 && ctx->global_notify_close != NULL) {
+vortex_channel.c:6787:		ctx->global_notify_close (channel, vortex_frame_get_msgno (frame), ctx->global_notify_close_data);
+vortex_channel.c:7187:	if (! ctx->reader_cleanup) {
+vortex_channel.c:7194:	if (! ctx->reader_cleanup) {
+vortex_channel.c:8361:	vortex_mutex_create (&ctx->channel_start_reply_cache_mutex);
+vortex_channel.c:8364:	if (ctx->channel_start_reply_cache == NULL)
+vortex_channel.c:8365:		ctx->channel_start_reply_cache = axl_hash_new (axl_hash_string, axl_hash_equal_string);
+vortex_channel.c:8380:	vortex_mutex_destroy(ctx->channel_start_reply_cache_mutex);
+vortex_channel.c:8381:	axl_hash_free (ctx->channel_start_reply_cache);
+vortex_channel.c:8382:	ctx->channel_start_reply_cache = NULL;

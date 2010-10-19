@@ -2,8 +2,7 @@
 #lang racket
 
 (require ffi/unsafe
-         "../vortex.rkt"
-         "simple/simple.rkt")
+         "../vortex.rkt")
 
 (define (start-channel num connection user-data)
   (printf "In start-channel~n")
@@ -31,14 +30,12 @@
 (define (simple-listener)
      (with-vtx-ctx ctx
                    (printf "Server on~n")
-                   ;(vortex-profiles-register ctx Plain-Profile-URI
-                   ;                          start-channel #f
-                   ;                          close-channel #f
-                   ;                          frame-received #f)
-                   (register_plain_profile ctx)
+                   (vortex-profiles-register ctx Plain-Profile-URI
+                                             start-channel #f
+                                             close-channel #f
+                                             frame-received #f)
                    (vortex-listener-new ctx "0.0.0.0" "44000" #f #f)
-                   (set_on_accepted ctx)
-                   ;(vortex-listener-set-on-connection-accepted ctx on-accepted #f)
+                   (vortex-listener-set-on-connection-accepted ctx on-accepted #f)
                    (printf "waiting...~n")
                    (vortex-listener-wait ctx)
                    (printf "exiting...~n")

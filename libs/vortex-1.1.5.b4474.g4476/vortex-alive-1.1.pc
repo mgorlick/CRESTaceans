@@ -1,0 +1,14 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libvortex-alive-1.1
+Description: Robust, full featured BEEP implementation (RFC 3080/RFC 3081)
+  Alive check support for Vortex 1.1. A component that allows checking with
+  a request-reply protocol, status of a peer to trigger a connection close
+  in case of failure (useful for network unplug or computer failure).
+Requires: vortex-1.1
+Version: 1.1.5.b4474.g4476
+Libs: -L${libdir} -lvortex-alive-1.1
+Cflags: -I${includedir}/vortex-1.1

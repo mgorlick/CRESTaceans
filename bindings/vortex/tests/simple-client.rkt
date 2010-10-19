@@ -12,6 +12,7 @@
    (printf "connecting to localhost:44000...~n")
    (with-vtx-conn 
     connection ctx "localhost" "44000" #f #f
+    (printf "opening channel....~n")
     (with-vtx-channel
      channel connection 0 Plain-Profile-URI
      #f #f ; no close handling

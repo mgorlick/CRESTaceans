@@ -1,0 +1,11 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libvortex-1.1
+Description: Robust, full featured BEEP implementation (RFC 3080/RFC 3081)
+Requires: axl
+Version: 1.1.5.b4474.g4476
+Libs: -L${libdir} -lvortex-1.1 -lpthread
+Cflags: -I${includedir}/vortex-1.1 -pthread

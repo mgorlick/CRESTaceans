@@ -1,7 +1,0 @@
-#! /bin/bash
-
-gcc -fPIC -c -Wall $(pkg-config --cflags --libs vortex-1.1) simple.c
-ld -shared -soname libracket-vortex-simpletest.so.1 -o libracket-vortex-simpletest.so.1.0 -lc simple.o
-sudo cp libracket-vortex-simpletest.so.1.0 $RACKET_LIBS
-rm simple.o
-rm libracket-vortex-simpletest.so.1.0

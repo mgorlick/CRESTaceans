@@ -1,0 +1,309 @@
+vortex_sasl.lo: vortex_sasl.c vortex_sasl.h ../src/vortex.h \
+ /usr/include/string.h /usr/include/features.h \
+ /usr/include/bits/predefs.h /usr/include/sys/cdefs.h \
+ /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+ /usr/include/gnu/stubs-32.h \
+ /usr/lib/gcc/i486-linux-gnu/4.4.3/include/stddef.h \
+ /usr/include/bits/string.h /usr/include/bits/string2.h \
+ /usr/include/endian.h /usr/include/bits/endian.h \
+ /usr/include/bits/types.h /usr/include/bits/typesizes.h \
+ /usr/include/bits/string3.h /usr/include/stdio.h /usr/include/libio.h \
+ /usr/include/_G_config.h /usr/include/wchar.h \
+ /usr/lib/gcc/i486-linux-gnu/4.4.3/include/stdarg.h \
+ /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
+ /usr/include/bits/stdio.h /usr/include/bits/stdio2.h \
+ /usr/include/stdlib.h /usr/include/bits/stdlib.h \
+ /usr/plt/full-5.0.1.2/include/scheme.h \
+ /usr/plt/full-5.0.1.2/include/sconfig.h \
+ /usr/plt/full-5.0.1.2/include/mzconfig.h /usr/include/setjmp.h \
+ /usr/include/bits/setjmp.h /usr/include/bits/sigset.h \
+ /usr/include/bits/setjmp2.h /usr/plt/full-5.0.1.2/include/stypes.h \
+ /usr/plt/full-5.0.1.2/include/schthread.h \
+ /usr/plt/full-5.0.1.2/include/schexn.h \
+ /usr/plt/full-5.0.1.2/include/schemef.h /usr/local/include/axl/axl.h \
+ /usr/local/include/axl/axl_decl.h /usr/local/include/axl/axl_config.h \
+ /usr/include/unistd.h /usr/include/bits/posix_opt.h \
+ /usr/include/bits/confname.h /usr/include/bits/unistd.h \
+ /usr/include/sys/types.h /usr/include/time.h /usr/include/sys/stat.h \
+ /usr/include/bits/stat.h /usr/include/fcntl.h /usr/include/bits/fcntl.h \
+ /usr/include/bits/fcntl2.h /usr/include/ctype.h \
+ /usr/local/include/axl/axl_list.h /usr/local/include/axl/axl_stack.h \
+ /usr/local/include/axl/axl_hash.h /usr/local/include/axl/axl_stream.h \
+ /usr/local/include/axl/axl_doc.h /usr/local/include/axl/axl_node.h \
+ /usr/local/include/axl/axl_dtd.h /usr/local/include/axl/axl_error.h \
+ /usr/local/include/axl/axl_log.h /usr/local/include/axl/axl_factory.h \
+ /usr/include/netdb.h /usr/include/netinet/in.h /usr/include/stdint.h \
+ /usr/include/bits/wchar.h /usr/include/sys/socket.h \
+ /usr/include/sys/uio.h /usr/include/bits/uio.h \
+ /usr/include/bits/socket.h /usr/include/bits/sockaddr.h \
+ /usr/include/asm/socket.h /usr/include/asm-generic/socket.h \
+ /usr/include/asm/sockios.h /usr/include/asm-generic/sockios.h \
+ /usr/include/bits/socket2.h /usr/include/bits/in.h \
+ /usr/include/bits/byteswap.h /usr/include/bits/netdb.h \
+ /usr/include/arpa/inet.h /usr/include/sys/select.h \
+ /usr/include/bits/select.h /usr/include/bits/time.h \
+ /usr/include/sys/time.h /usr/include/sys/resource.h \
+ /usr/include/bits/resource.h ../src/vortex_types.h \
+ /usr/include/pthread.h /usr/include/sched.h /usr/include/bits/sched.h \
+ /usr/include/signal.h /usr/include/bits/pthreadtypes.h \
+ ../src/vortex_support.h ../src/vortex_handlers.h ../src/vortex_ctx.h \
+ ../src/vortex_thread.h ../src/vortex_thread_pool.h ../src/vortex_queue.h \
+ ../src/vortex_hash.h ../src/vortex_connection.h ../src/vortex_listener.h \
+ ../src/vortex_frame_factory.h ../src/vortex_greetings.h \
+ ../src/vortex_profiles.h ../src/vortex_channel.h \
+ ../src/vortex_channel_pool.h ../src/vortex_io.h ../src/vortex_reader.h \
+ ../src/vortex_dtds.h ../src/vortex_sequencer.h ../src/vortex_errno.h \
+ ../src/vortex_payload_feeder.h /usr/include/errno.h \
+ /usr/include/bits/errno.h /usr/include/linux/errno.h \
+ /usr/include/asm/errno.h /usr/include/asm-generic/errno.h \
+ /usr/include/asm-generic/errno-base.h vortex-sasl.dtd.h \
+ /usr/include/gsasl.h /usr/include/gsasl-mech.h \
+ /usr/include/gsasl-compat.h
+
+vortex_sasl.h:
+
+../src/vortex.h:
+
+/usr/include/string.h:
+
+/usr/include/features.h:
+
+/usr/include/bits/predefs.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/bits/wordsize.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/gnu/stubs-32.h:
+
+/usr/lib/gcc/i486-linux-gnu/4.4.3/include/stddef.h:
+
+/usr/include/bits/string.h:
+
+/usr/include/bits/string2.h:
+
+/usr/include/endian.h:
+
+/usr/include/bits/endian.h:
+
+/usr/include/bits/types.h:
+
+/usr/include/bits/typesizes.h:
+
+/usr/include/bits/string3.h:
+
+/usr/include/stdio.h:
+
+/usr/include/libio.h:
+
+/usr/include/_G_config.h:
+
+/usr/include/wchar.h:
+
+/usr/lib/gcc/i486-linux-gnu/4.4.3/include/stdarg.h:
+
+/usr/include/bits/stdio_lim.h:
+
+/usr/include/bits/sys_errlist.h:
+
+/usr/include/bits/stdio.h:
+
+/usr/include/bits/stdio2.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/bits/stdlib.h:
+
+/usr/plt/full-5.0.1.2/include/scheme.h:
+
+/usr/plt/full-5.0.1.2/include/sconfig.h:
+
+/usr/plt/full-5.0.1.2/include/mzconfig.h:
+
+/usr/include/setjmp.h:
+
+/usr/include/bits/setjmp.h:
+
+/usr/include/bits/sigset.h:
+
+/usr/include/bits/setjmp2.h:
+
+/usr/plt/full-5.0.1.2/include/stypes.h:
+
+/usr/plt/full-5.0.1.2/include/schthread.h:
+
+/usr/plt/full-5.0.1.2/include/schexn.h:
+
+/usr/plt/full-5.0.1.2/include/schemef.h:
+
+/usr/local/include/axl/axl.h:
+
+/usr/local/include/axl/axl_decl.h:
+
+/usr/local/include/axl/axl_config.h:
+
+/usr/include/unistd.h:
+
+/usr/include/bits/posix_opt.h:
+
+/usr/include/bits/confname.h:
+
+/usr/include/bits/unistd.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/time.h:
+
+/usr/include/sys/stat.h:
+
+/usr/include/bits/stat.h:
+
+/usr/include/fcntl.h:
+
+/usr/include/bits/fcntl.h:
+
+/usr/include/bits/fcntl2.h:
+
+/usr/include/ctype.h:
+
+/usr/local/include/axl/axl_list.h:
+
+/usr/local/include/axl/axl_stack.h:
+
+/usr/local/include/axl/axl_hash.h:
+
+/usr/local/include/axl/axl_stream.h:
+
+/usr/local/include/axl/axl_doc.h:
+
+/usr/local/include/axl/axl_node.h:
+
+/usr/local/include/axl/axl_dtd.h:
+
+/usr/local/include/axl/axl_error.h:
+
+/usr/local/include/axl/axl_log.h:
+
+/usr/local/include/axl/axl_factory.h:
+
+/usr/include/netdb.h:
+
+/usr/include/netinet/in.h:
+
+/usr/include/stdint.h:
+
+/usr/include/bits/wchar.h:
+
+/usr/include/sys/socket.h:
+
+/usr/include/sys/uio.h:
+
+/usr/include/bits/uio.h:
+
+/usr/include/bits/socket.h:
+
+/usr/include/bits/sockaddr.h:
+
+/usr/include/asm/socket.h:
+
+/usr/include/asm-generic/socket.h:
+
+/usr/include/asm/sockios.h:
+
+/usr/include/asm-generic/sockios.h:
+
+/usr/include/bits/socket2.h:
+
+/usr/include/bits/in.h:
+
+/usr/include/bits/byteswap.h:
+
+/usr/include/bits/netdb.h:
+
+/usr/include/arpa/inet.h:
+
+/usr/include/sys/select.h:
+
+/usr/include/bits/select.h:
+
+/usr/include/bits/time.h:
+
+/usr/include/sys/time.h:
+
+/usr/include/sys/resource.h:
+
+/usr/include/bits/resource.h:
+
+../src/vortex_types.h:
+
+/usr/include/pthread.h:
+
+/usr/include/sched.h:
+
+/usr/include/bits/sched.h:
+
+/usr/include/signal.h:
+
+/usr/include/bits/pthreadtypes.h:
+
+../src/vortex_support.h:
+
+../src/vortex_handlers.h:
+
+../src/vortex_ctx.h:
+
+../src/vortex_thread.h:
+
+../src/vortex_thread_pool.h:
+
+../src/vortex_queue.h:
+
+../src/vortex_hash.h:
+
+../src/vortex_connection.h:
+
+../src/vortex_listener.h:
+
+../src/vortex_frame_factory.h:
+
+../src/vortex_greetings.h:
+
+../src/vortex_profiles.h:
+
+../src/vortex_channel.h:
+
+../src/vortex_channel_pool.h:
+
+../src/vortex_io.h:
+
+../src/vortex_reader.h:
+
+../src/vortex_dtds.h:
+
+../src/vortex_sequencer.h:
+
+../src/vortex_errno.h:
+
+../src/vortex_payload_feeder.h:
+
+/usr/include/errno.h:
+
+/usr/include/bits/errno.h:
+
+/usr/include/linux/errno.h:
+
+/usr/include/asm/errno.h:
+
+/usr/include/asm-generic/errno.h:
+
+/usr/include/asm-generic/errno-base.h:
+
+vortex-sasl.dtd.h:
+
+/usr/include/gsasl.h:
+
+/usr/include/gsasl-mech.h:
+
+/usr/include/gsasl-compat.h:

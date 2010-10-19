@@ -1,0 +1,13 @@
+prefix=/usr/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: libvortex-http-1.1
+Description: Robust, full featured BEEP implementation (RFC 3080/RFC 3081)
+  HTTP CONNECT support for Vortex 1.1. A component that allows BEEP 
+  connection through an HTTP/1.1 proxy.
+Requires: vortex-1.1
+Version: 1.1.5.b4474.g4476
+Libs: -L${libdir} -lvortex-http-1.1
+Cflags: -I${includedir}/vortex-1.1
