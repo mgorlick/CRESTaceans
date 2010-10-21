@@ -145,7 +145,7 @@
                                 on-frame-received fr-rec-ptr
                                 on-created created-ptr
                                 )])
-       (if (null? channel-name)
+       (if (eq? #f channel-name)
            (raise (make-exn:vtx:channel "unable to create the channel" 
                                         (current-continuation-marks)))
            (cleanup-and-return (body ...) ((printf "closing channel ~s~n" channel-name) (vortex-channel-close channel-name #f)))

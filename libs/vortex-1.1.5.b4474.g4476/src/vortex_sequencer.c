@@ -642,7 +642,8 @@ axlPointer __vortex_sequencer_run (axlPointer _data)
 		 * the channel queue. At this point, we have prepared
 		 * the rest to be sequenced message. */
 		/* now, perform a send operation for the frame built */
-		vortex_log (VORTEX_LEVEL_DEBUG, "frame built, send the frame directly"); 
+		vortex_log (VORTEX_LEVEL_DEBUG, "frame built, send the frame directly");
+                printf ("calling direct_send\n");
 		if (! vortex_sequencer_direct_send (connection, channel, &packet)) {
 			vortex_log (VORTEX_LEVEL_WARNING, "unable to send data at this moment");
 			
@@ -818,6 +819,7 @@ axl_bool      vortex_sequencer_direct_send (VortexConnection * connection,
 			    packet->the_size,  
 			    vortex_connection_get_id (connection), errno);
 
+        printf ("sending raw\n");
 	if (! vortex_frame_send_raw (connection, packet->the_frame, packet->the_size)) {
 		/* drop a log */
 		vortex_log (VORTEX_LEVEL_CRITICAL, "unable to send the frame: errno=(%d): %s", 

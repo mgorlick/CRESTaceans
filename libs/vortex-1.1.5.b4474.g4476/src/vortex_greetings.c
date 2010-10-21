@@ -299,7 +299,7 @@ VortexFrame *  vortex_greetings_process (VortexConnection     * connection,
 	/* check pending frame */
         printf ("checking pending frame\n");
 	if (pending) {
-		vortex_log (VORTEX_LEVEL_WARNING, "have pending flag at greetings process (previous incomplete frame received).");
+          vortex_log (VORTEX_LEVEL_WARNING, "have pending flag at greetings process (previous incomplete frame received).");
 		pending = vortex_frame_join (pending, frame);
 		vortex_frame_unref (frame);
 		frame   = pending;
@@ -506,6 +506,7 @@ axl_bool           vortex_greetings_client_send     (VortexConnection     * conn
 	
 	/* Build the greetings message with localization features and filtered profiles*/
 	next_index = __vortex_greetings_build_message (connection, options, greetings_buffer, 5100);
+        FUEL_WITH_PROGRESS ("greetings_client_send build greetings");
 	if (next_index == -1) {
 		/* log */
 		vortex_log (VORTEX_LEVEL_CRITICAL, "failed to build greetings message, closing the connection");
@@ -516,6 +517,7 @@ axl_bool           vortex_greetings_client_send     (VortexConnection     * conn
 		return axl_false;
 	} /* end if */
 
+        FUEL_WITH_PROGRESS ("greetings_client_send do rpy");
 	/* send the message */
 	if (!vortex_channel_send_rpy (vortex_connection_get_channel (connection, 0),
 				      greetings_buffer,

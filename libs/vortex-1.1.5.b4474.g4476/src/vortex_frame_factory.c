@@ -1758,7 +1758,7 @@ axl_bool             vortex_frame_send_raw     (VortexConnection * connection, c
  	int          wait_result;
  	int          tries    = 3;
  	axlPointer   on_write = NULL;
-
+        printf ("in frame_send_raw\n");
 	v_return_val_if_fail (connection, axl_false);
 	v_return_val_if_fail (vortex_connection_is_ok (connection, axl_false), axl_false);
 	v_return_val_if_fail (a_frame, axl_false);

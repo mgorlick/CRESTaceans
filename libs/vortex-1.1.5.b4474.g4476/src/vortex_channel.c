@@ -2612,6 +2612,7 @@ axl_bool  __vortex_channel_common_rpy (VortexChannel       * channel,
 
 	v_return_val_if_fail (channel,            axl_false);
 
+        FUEL_WITH_PROGRESS ("common_rpy start");
 	/* check message content only if the frame type is not NUL */
 	if (type != VORTEX_FRAME_TYPE_NUL && feeder == NULL) {
 		v_return_val_if_fail (message,    axl_false);
@@ -2620,7 +2621,8 @@ axl_bool  __vortex_channel_common_rpy (VortexChannel       * channel,
 	
 	/* lock send mutex */
 	vortex_mutex_lock(channel->send_mutex);
-	
+
+        FUEL_WITH_PROGRESS ("common_rpy connection ok?");
 	/* check if the connection is ok */
 	if (! vortex_connection_is_ok (channel->connection, axl_false)) {
 		vortex_log (VORTEX_LEVEL_WARNING, "received a reply request to be sent over a non connected session, dropming message");
@@ -2630,6 +2632,7 @@ axl_bool  __vortex_channel_common_rpy (VortexChannel       * channel,
 		return axl_false;
 	}
 
+        FUEL_WITH_PROGRESS ("common_rpy data create");
 	/* create data to be sent by the sequencer */
 	data                  = axl_new (VortexSequencerData, 1);
 	if (data == NULL) {
@@ -2643,12 +2646,14 @@ axl_bool  __vortex_channel_common_rpy (VortexChannel       * channel,
 	data->msg_no          = msg_no_rpy;
 	data->ansno           = channel->last_ansno_sent;
 
+        FUEL_WITH_PROGRESS ("common_rpy current mime header configuration");
 	/* get current mime header configuration */
 	mime_header_size      = __vortex_channel_get_mime_headers_size (ctx, channel);
 	data->message_size    = message_size + mime_header_size;
 
 	/* copy the message to be send using memcpy */
 	if (feeder == NULL && (message != NULL || data->message_size > 0)) {
+          FUEL_WITH_PROGRESS ("common_rpy memcpy");
 		vortex_log (VORTEX_LEVEL_DEBUG, "new reply message to sent size (%d) = msg size (%d) + mime size (%d)",
 			    data->message_size, message_size, mime_header_size);
 
@@ -2662,6 +2667,7 @@ axl_bool  __vortex_channel_common_rpy (VortexChannel       * channel,
 			return axl_false;
 		} /* end if */
 
+                FUEL_WITH_PROGRESS ("common_rpy memcpy");
 		if (mime_header_size > 0)
 			__vortex_channel_get_mime_headers (channel, data->message);
 
@@ -2670,7 +2676,7 @@ axl_bool  __vortex_channel_common_rpy (VortexChannel       * channel,
 	} else {
 		/* set feeder for this send operation */
 		data->feeder = feeder;
-
+                FUEL_WITH_PROGRESS ("common_rpy set feeder");
 		vortex_log (VORTEX_LEVEL_DEBUG, "new reply message to sent using feeder (channel=%d)",
 			    channel->channel_num);
 	}
@@ -2679,11 +2685,12 @@ axl_bool  __vortex_channel_common_rpy (VortexChannel       * channel,
 	 * be replied */
 	if (vortex_channel_get_next_reply_no (channel) != msg_no_rpy) {
 
+          FUEL_WITH_PROGRESS ("common_rpy reply?");
 		/* check if the connection is ok */
 		if (! vortex_connection_is_ok (channel->connection, axl_false)) {
 			vortex_log (VORTEX_LEVEL_WARNING, 
 				    "while waiting for a previous reply to be sent, detected reply request to be sent over a non connected session, dropming message");
-			
+
 			/* flag the channels non being sending */
 			vortex_mutex_unlock(channel->send_mutex);
 
@@ -2693,6 +2700,7 @@ axl_bool  __vortex_channel_common_rpy (VortexChannel       * channel,
 		} /* end if */
 
 		if (type == VORTEX_FRAME_TYPE_NUL || type == VORTEX_FRAME_TYPE_ANS) {
+                  FUEL_WITH_PROGRESS ("common_rpy ans/nul");
 			/* ok, so we have to store a lot of frames
 			 * (ANS/NUL) associated to a signel
 			 * msg_no_rpy. We should do this using seqno
@@ -2781,6 +2789,7 @@ axl_bool  __vortex_channel_common_rpy (VortexChannel       * channel,
 
 	/* do sending reply operation */
  send_reply:
+        FUEL_WITH_PROGRESS ("common_rpy send_reply label");
 	vortex_log (VORTEX_LEVEL_DEBUG, "sending reply for message %d (size: %d, sequencer queue status: %d, channel queue status: %d)\n", 
  		    msg_no_rpy, message_size, vortex_async_queue_items (ctx->sequencer_queue), axl_list_length (channel->pending_messages));
 
@@ -2817,10 +2826,10 @@ axl_bool  __vortex_channel_common_rpy (VortexChannel       * channel,
 
 	/* send data to sequencer */
 	vortex_sequencer_queue_data (ctx, data);
-
+        FUEL_WITH_PROGRESS ("common_rpy just queued data");
 	/* update next msg_no_rpy */
 	msg_no_rpy = vortex_channel_get_next_reply_no (channel);
-
+        FUEL_WITH_PROGRESS ("common_rpy set msg_no_rpy");
 	/* now check if the pending stored replies have the next reply
 	 * to be sent */
 	data = axl_hash_get (channel->stored_replies, INT_TO_PTR (msg_no_rpy));
@@ -2841,6 +2850,7 @@ axl_bool  __vortex_channel_common_rpy (VortexChannel       * channel,
 			data->ansno  = channel->last_ansno_sent;
 		} /* end if */
 
+                FUEL_WITH_PROGRESS ("common_rpy type update");
 		/* update the type */
 		type = data->type;
 
@@ -2848,6 +2858,8 @@ axl_bool  __vortex_channel_common_rpy (VortexChannel       * channel,
 			    msg_no_rpy, channel->channel_num);
 		goto send_reply;
 	} /* end if */
+
+        FUEL_WITH_PROGRESS ("common_rpy about to end");
 
 	/* unlock send mutex */
 	vortex_mutex_unlock(channel->send_mutex);

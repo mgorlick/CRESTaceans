@@ -597,7 +597,10 @@ int  vortex_connection_default_send (VortexConnection * connection,
 				     int                buffer_len)
 {
 	/* send the message */
-	return send (connection->session, buffer, buffer_len, 0);
+
+  printf ("in default send\n");
+  FUEL_WITH_PROGRESS ("call to default send");
+  return send ((int) connection->session, buffer, buffer_len, 0);
 }
 
 /** 
@@ -612,8 +615,8 @@ int  vortex_connection_default_receive (VortexConnection * connection,
 {
 	/* receive content */
   printf ("in default receive\n");
-  FUEL_WITH_PROGRESS ("call to recv");
-	return recv (connection->session, buffer, buffer_len, 0);
+  FUEL_WITH_PROGRESS ("call to default recv");
+  return recv ((int) connection->session, buffer, buffer_len, 0);
 }
 
 /** 
@@ -1785,6 +1788,7 @@ axl_bool vortex_connection_do_greetings_exchange (VortexCtx             * ctx,
 		vortex_log (VORTEX_LEVEL_DEBUG, vortex_connection_get_message (connection));
 		return axl_false;
 	}
+        FUEL_WITH_PROGRESS ("do_greetings_exchange, sent greetings");
 	printf ("sent greetings correctly\n");
 	vortex_log (VORTEX_LEVEL_DEBUG, "greetings sent, waiting for reply");
 
@@ -1925,16 +1929,19 @@ axlPointer __vortex_connection_new (VortexConnectionNewData * data)
 	axlError             * error        = NULL;
 	int                    d_timeout    = 0;
 
+        FUEL_WITH_PROGRESS ("__connection_new");
 	vortex_log (VORTEX_LEVEL_DEBUG, "executing connection new in %s mode to %s:%s id=%d",
 	       (data->threaded == axl_true) ? "thread" : "blocking", 
 	       connection->host, connection->port,
 	       connection->id);
         printf ("configuring connection\n");
 
+        FUEL_WITH_PROGRESS ("__connection_new socket configuration");
 	/* configure the socket created */
 	connection->session = vortex_connection_sock_connect (ctx, connection->host, connection->port, &d_timeout, &error);
 	if (connection->session == -1) {
           printf ("connection->session = -1\n");
+          FUEL_WITH_PROGRESS ("__connection_new socket = -1");
 		/* free previous message */
 		if (connection->message)
 			axl_free (connection->message);
@@ -1948,6 +1955,7 @@ axlPointer __vortex_connection_new (VortexConnectionNewData * data)
 		connection->is_connected = axl_false;
 	} else {
           printf ("connection->session != -1\n");
+          FUEL_WITH_PROGRESS ("__connection_new socket != -1");
 		/* flag as connected */
 		connection->is_connected = axl_true;
 	} /* end if */
@@ -1956,10 +1964,12 @@ axlPointer __vortex_connection_new (VortexConnectionNewData * data)
 	 * perform the final operations so the connection becomes
 	 * usable. Later, the user app level is notified. */
 	if (connection->is_connected) {
+          FUEL_WITH_PROGRESS ("__connection_new, is_connected = true");
           printf ("configuring local connection data\n");
 		/* configure local address used by this connection */
 		/* now set local address */
 		if (getsockname (connection->session, (struct sockaddr *) &sin, &sin_size) < -1) {
+                  FUEL_WITH_PROGRESS ("__connection_new, getsockname");
 			vortex_log (VORTEX_LEVEL_DEBUG, "unable to get local hostname and port to resolve local address");
                         printf ("unable to get local hostname\n");
 			/* check to release options if defined */
@@ -1980,13 +1990,15 @@ axlPointer __vortex_connection_new (VortexConnectionNewData * data)
 		 * is necessary to have a representation for channel
 		 * 0, in order to make channel management function to
 		 * be consistent). */
+                FUEL_WITH_PROGRESS ("__connection_new, create 0");
 		channel = vortex_channel_empty_new (0, "not applicable", connection);
+                FUEL_WITH_PROGRESS ("__connection_new, add channel"); 
 		vortex_connection_add_channel  (connection, channel);
 
 		/* block thread until received remote greetings */
                 printf ("blocking until received remote greetings\n");
 		if (vortex_connection_do_greetings_exchange (ctx, connection, options, d_timeout)) {
-
+                  FUEL_WITH_PROGRESS ("__connection_new, did greetings exchange");
 			/* call to notify CONECTION_STAGE_POST_CREATED */
 			vortex_log (VORTEX_LEVEL_DEBUG, "doing post creation notification for connection id=%d", connection->id);
 			vortex_connection_actions_notify (&connection, CONNECTION_STAGE_POST_CREATED);
@@ -2009,6 +2021,8 @@ axlPointer __vortex_connection_new (VortexConnectionNewData * data)
 
 	/* release data */
 	axl_free (data);
+
+        FUEL_WITH_PROGRESS ("__connection_new about to return");
 
 	/* check to release options if defined */
 	vortex_connection_opts_check_and_release (options);

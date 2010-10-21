@@ -546,9 +546,8 @@ VORTEX_SOCKET     vortex_listener_sock_listen      (VortexCtx   * ctx,
 	 * state.  */
 	/* setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (char  *)&unit, sizeof(BOOL)); */
 #else
-	setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &unit, sizeof (unit));
+	/* setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &unit, sizeof (unit)); */
 #endif 
-
 	/* get integer port */
 	int_port  = (uint16_t) atoi (port);
 
@@ -583,6 +582,7 @@ VORTEX_SOCKET     vortex_listener_sock_listen      (VortexCtx   * ctx,
 
 	/* report and return fd */
 	vortex_log  (VORTEX_LEVEL_DEBUG, "running listener at %s:%d (socket: %d)", inet_ntoa(sin.sin_addr), ntohs (sin.sin_port), fd);
+        printf ("listening at %i\n", fd);
 	return fd;
 }
 

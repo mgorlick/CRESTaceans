@@ -25,6 +25,8 @@
 (define-cpointer-type _axlListCursor-pointer)
 (define-cpointer-type _axlDoc-pointer)
 
+(define axlError*? (flat-named-contract 'axlError*? axlError-pointer?))
+
 (define axl-false 0)
 (define axl-true 1)
 

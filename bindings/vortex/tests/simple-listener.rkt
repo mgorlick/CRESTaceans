@@ -28,18 +28,24 @@
   (void))
 
 (define (simple-listener)
-     (with-vtx-ctx ctx
-                   (printf "Server on~n")
-                   (vortex-profiles-register ctx Plain-Profile-URI
-                                             start-channel #f
-                                             close-channel #f
-                                             frame-received #f)
-                   (vortex-listener-new ctx "0.0.0.0" "44000" #f #f)
-                   (vortex-listener-set-on-connection-accepted ctx on-accepted #f)
-                   (printf "waiting...~n")
-                   (vortex-listener-wait ctx)
-                   (printf "exiting...~n")
-                   (vortex-exit-ctx ctx axl-true)
-                   ))
+  (define application-group (make-thread-group))
+  (with-vtx-ctx 
+   ctx
+   (parameterize ([current-thread-group application-group])
+     ;(thread
+     ;(lambda ()
+     (printf "Server on~n")
+     (vortex-profiles-register ctx Plain-Profile-URI
+                               start-channel #f
+                               close-channel #f
+                               frame-received #f)
+     (vortex-listener-new ctx "0.0.0.0" "44000" #f #f)
+     (vortex-listener-set-on-connection-accepted ctx on-accepted #f)
+     (printf "waiting...~n")
+     (vortex-listener-wait ctx)
+     (printf "exiting...~n")
+     (vortex-exit-ctx ctx axl-true)
+     )))
+;))
 
 (simple-listener)
