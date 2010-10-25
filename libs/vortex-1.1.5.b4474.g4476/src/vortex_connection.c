@@ -383,7 +383,7 @@ struct _VortexConnection {
 	 * This mutex is also used on that function to avoid re-entrant
 	 * conditions on the same function and between function which
 	 * access to channel hash table.
-	 */
+t	 */
 	VortexMutex* channel_mutex;
 
 	/** 
@@ -407,7 +407,7 @@ struct _VortexConnection {
 	 * 
 	 */
 	VortexMutex* ref_mutex;
-
+  
 	/** 
 	 * @brief The op_mutex
 	 * This mutex allows to avoid race condition on operating with
@@ -1795,7 +1795,6 @@ axl_bool vortex_connection_do_greetings_exchange (VortexCtx             * ctx,
 
 	/* while we did not finish */
 	while (axl_true) {
-          printf ("didn't finish yet\n");
           FUEL_WITH_PROGRESS ("do_greetings_exchange, top of while()\n");
 		/* block thread until received remote greetings */
 		vortex_log (VORTEX_LEVEL_DEBUG, "getting initial greetings frame..");
@@ -1934,13 +1933,11 @@ axlPointer __vortex_connection_new (VortexConnectionNewData * data)
 	       (data->threaded == axl_true) ? "thread" : "blocking", 
 	       connection->host, connection->port,
 	       connection->id);
-        printf ("configuring connection\n");
 
         FUEL_WITH_PROGRESS ("__connection_new socket configuration");
 	/* configure the socket created */
 	connection->session = vortex_connection_sock_connect (ctx, connection->host, connection->port, &d_timeout, &error);
 	if (connection->session == -1) {
-          printf ("connection->session = -1\n");
           FUEL_WITH_PROGRESS ("__connection_new socket = -1");
 		/* free previous message */
 		if (connection->message)
@@ -1954,7 +1951,6 @@ axlPointer __vortex_connection_new (VortexConnectionNewData * data)
 		/* flag as not connected */
 		connection->is_connected = axl_false;
 	} else {
-          printf ("connection->session != -1\n");
           FUEL_WITH_PROGRESS ("__connection_new socket != -1");
 		/* flag as connected */
 		connection->is_connected = axl_true;
@@ -1971,14 +1967,12 @@ axlPointer __vortex_connection_new (VortexConnectionNewData * data)
 		if (getsockname (connection->session, (struct sockaddr *) &sin, &sin_size) < -1) {
                   FUEL_WITH_PROGRESS ("__connection_new, getsockname");
 			vortex_log (VORTEX_LEVEL_DEBUG, "unable to get local hostname and port to resolve local address");
-                        printf ("unable to get local hostname\n");
 			/* check to release options if defined */
 			vortex_connection_opts_check_and_release (options);
 
 			/* release data */
 			axl_free (data);
 
-                        printf ("returning false\n");
 			return axl_false;
 		} /* end if */
 	
@@ -1996,7 +1990,6 @@ axlPointer __vortex_connection_new (VortexConnectionNewData * data)
 		vortex_connection_add_channel  (connection, channel);
 
 		/* block thread until received remote greetings */
-                printf ("blocking until received remote greetings\n");
 		if (vortex_connection_do_greetings_exchange (ctx, connection, options, d_timeout)) {
                   FUEL_WITH_PROGRESS ("__connection_new, did greetings exchange");
 			/* call to notify CONECTION_STAGE_POST_CREATED */

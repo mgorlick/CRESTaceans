@@ -1540,8 +1540,9 @@ axl_bool  vortex_reader_run (VortexCtx * ctx)
 		vortex_async_queue_release (ctx->reader_stopped);
 	ctx->reader_stopped = vortex_async_queue_new ();
 
+        VortexThread *t;
 	/* create the vortex reader main thread */
-	if (! vortex_thread_create (&ctx->reader_thread,
+	if (! vortex_thread_create (t,
                                     (VortexThreadFunc) __vortex_reader_run, ctx)) {
 		vortex_log (VORTEX_LEVEL_CRITICAL, "unable to start vortex reader loop");
 		return axl_false;
@@ -1576,7 +1577,7 @@ void vortex_reader_stop (VortexCtx * ctx)
 	vortex_async_queue_unref (ctx->reader_stopped);
 	
 	/* terminate thread */
-	/* vortex_thread_destroy (&ctx->reader_thread, axl_false); */
+	/* vortex_thread_destroy (ctx->reader_thread, axl_false); */
 
 	vortex_log (VORTEX_LEVEL_DEBUG, "vortex reader process stopped");
 
@@ -1737,7 +1738,7 @@ axl_bool vortex_reader_prep_to_run (VortexCtx* ctx) {
 }
 
 void vortex_reader_register_reader_thread (VortexCtx* ctx, VortexThread* t) {
-  ctx->reader_thread = *t;
+  return;
 }
 
 /* @} */

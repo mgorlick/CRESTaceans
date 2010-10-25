@@ -753,8 +753,9 @@ axl_bool  vortex_sequencer_run (VortexCtx * ctx)
 	if (ctx->sequencer_send_buffer == NULL)
 		ctx->sequencer_send_buffer = axl_new (char, ctx->sequencer_send_buffer_size);
 
+        VortexThread* t;
 	/* starts the vortex sequencer */
-	if (! vortex_thread_create (&ctx->sequencer_thread,
+	if (! vortex_thread_create (t,
 				    (VortexThreadFunc) __vortex_sequencer_run, ctx)) {
 		vortex_log (VORTEX_LEVEL_CRITICAL, "unable to initialize the sequencer thread");
 		return axl_false;
@@ -785,7 +786,7 @@ void vortex_sequencer_stop (VortexCtx * ctx)
 	/* wait until the sequencer stops */
 	vortex_async_queue_pop   (ctx->sequencer_stopped);
 	vortex_async_queue_unref (ctx->sequencer_stopped);
-	/* vortex_thread_destroy    (&ctx->sequencer_thread, axl_false); */
+	/* vortex_thread_destroy    (ctx->sequencer_thread, axl_false); */
 	
 	/* free sequencer buffer */
 	axl_free (ctx->sequencer_send_buffer);
@@ -964,5 +965,5 @@ axl_bool vortex_sequencer_prep_for_run (VortexCtx* ctx) {
 }
 
 void vortex_sequencer_register_thread (VortexCtx* ctx, VortexThread* t) {
-  ctx->sequencer_thread = *t;
+  return;
 }

@@ -2,12 +2,10 @@
 
 (require  ffi/unsafe
           "vtx/module.rkt"
-          "additions/init.rkt"
-          "misc-bindings/misc.rkt")
+          "additions/init.rkt")
 (provide
  (all-from-out "vtx/module.rkt"
-               "additions/init.rkt"
-               "misc-bindings/misc.rkt"))
+               "additions/init.rkt"))
 
 ; GENERAL DOCUMENTATION ON THE MACROS USED HERE
 ; these macros are used for initializing various objects in the

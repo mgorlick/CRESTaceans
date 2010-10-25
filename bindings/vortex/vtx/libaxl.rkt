@@ -20,10 +20,12 @@
                                    _axlPointer _axlPointer _axlPointer -> _axl-bool))
 (define _axlHashForeachFunc4 (_fun _axlPointer _axlPointer _axlPointer
                                    _axlPointer _axlPointer _axlPointer -> _axl-bool))
+(define-cpointer-type _axlHash-pointer)
 (define-cpointer-type _axlError-pointer)
 (define-cpointer-type _axlList-pointer)
 (define-cpointer-type _axlListCursor-pointer)
 (define-cpointer-type _axlDoc-pointer)
+(define-cpointer-type _axlDtd-pointer)
 
 (define axlError*? (flat-named-contract 'axlError*? axlError-pointer?))
 

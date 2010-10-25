@@ -1,7 +1,0 @@
-#! /bin/bash
-
-gcc -fPIC -c -Wall $(pkg-config --cflags --libs vortex-1.1) misc.c
-ld -shared -soname libracket-vortex-misc.so.1 -o libracket-vortex-misc.so.1.0 -lc misc.o
-sudo cp libracket-vortex-misc.so.1.0 $RACKET_LIBS
-rm misc.o
-rm libracket-vortex-misc.so.1.0

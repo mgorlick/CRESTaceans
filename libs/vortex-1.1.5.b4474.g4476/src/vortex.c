@@ -1194,8 +1194,6 @@ void vortex_exit_ctx (VortexCtx * ctx, axl_bool  free_ctx)
 
 axl_bool    vortex_preinit_ctx (VortexCtx * ctx)
 {
-	int          soft_limit;
-
 	v_return_val_if_fail (ctx, axl_false);
 
 	/**** vortex_io.c: init io module */
@@ -1257,32 +1255,7 @@ axl_bool    vortex_preinit_ctx (VortexCtx * ctx)
 		fprintf (stderr, "VORTEX_ERROR: unable to load dtd files (this means some DTD (or all) file wasn't possible to be loaded.\n");
 		return axl_false;
 	}
-
-	/* before starting, check if we are using select(2) system
-	 * call method, to adequate the number of sockets that can
-	 * *really* handle the FD_* function family, to the number of
-	 * sockets that is allowed to handle the process. This is to
-	 * avoid race conditions cause to properly create a
-	 * connection, which is later not possible to handle at the
-	 * select(2) I/O subsystem. */
-	if (vortex_io_waiting_get_current (ctx) == VORTEX_IO_WAIT_SELECT) {
-		/* now check if the current process soft limit is
-		 * allowed to handle more connection than
-		 * VORTEX_FD_SETSIZE */
-		vortex_conf_get (ctx, VORTEX_SOFT_SOCK_LIMIT, &soft_limit);
-		vortex_log (VORTEX_LEVEL_DEBUG, "select mechanism selected, reconfiguring current socket limit: soft_limit=%d > %d..",
-			    soft_limit, VORTEX_FD_SETSIZE);
-		if (soft_limit > (VORTEX_FD_SETSIZE - 1)) {
-			/* decrease the limit to avoid funny
-			 * problems. it is not required to be
-			 * privilege user to run the following
-			 * command. */
-			vortex_conf_set (ctx, VORTEX_SOFT_SOCK_LIMIT, (VORTEX_FD_SETSIZE - 1), NULL);
-			vortex_log (VORTEX_LEVEL_WARNING, 
-				    "found select(2) I/O configured, which can handled up to %d fds, reconfigured process with that value",
-				    VORTEX_FD_SETSIZE -1);
-		} /* end if */
-	}
+        
 	return axl_true;
 }
 
