@@ -4,6 +4,21 @@
          "libvortex.rkt")
 (provide (all-defined-out))
 
+(defvtx* (_fun _VortexConnection-pointer
+               _ListenClosure
+               _AcceptClosure
+               _ReadClosure
+               _WriteClosure
+               _CloseClosure -> _void)
+  vortex-connection-set-listener-closures)
+
+(defvtx* (_fun _VortexConnection-pointer
+               _ConnectClosure
+               _ReadClosure
+               _WriteClosure
+               _CloseClosure -> _void)
+  vortex-connection-set-client-closures)
+
 (defvtx* (_fun _VortexCtx-pointer -> _void)
   vortex-connection-init)
 

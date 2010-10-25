@@ -420,6 +420,20 @@ int                 vortex_connection_get_mss                (VortexConnection *
 axl_bool            vortex_connection_check_socket_limit     (VortexCtx        * ctx, 
 							      VORTEX_SOCKET      socket);
 
+typedef int (*ListenClosure) (char* host, int port);
+typedef int (*AcceptClosure) (void);
+typedef int (*ConnectClosure) (char* host, int port);
+typedef int (*ReadClosure) (char* buffer, int buffer_len);
+typedef int (*WriteClosure) (const char* buffer, int buffer_len);
+typedef int (*CloseClosure) (void);
+
+void vortex_connection_set_listener_closures (VortexConnection* connection, ListenClosure l,
+                                              AcceptClosure a, ReadClosure r,
+                                              WriteClosure w, CloseClosure cl);
+void vortex_connection_set_client_closures (VortexConnection* connection, ConnectClosure c,
+                                            ReadClosure r, WriteClosure w, CloseClosure cl);
+
+
 /** private API **/
 axl_bool               vortex_connection_ref_internal                    (VortexConnection * connection, 
 									  const char       * who,

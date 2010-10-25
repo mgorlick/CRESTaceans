@@ -4,7 +4,6 @@ compiled/
 .goutputstream*
 *.o
 *.so
-*.Plo
 *.lo
 *.la
 .libs

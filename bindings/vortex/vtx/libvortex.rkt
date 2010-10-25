@@ -489,3 +489,10 @@
    [the-frame _string]
    [the-size _int]
    [is-complete _int]))
+
+(define _ListenClosure (_fun _string _int -> _int))
+(define _AcceptClosure (_fun -> _int))
+(define _ConnectClosure (_fun _string _int -> _int))
+(define _ReadClosure (_fun _string _int -> _int))
+(define _WriteClosure (_fun _string -> _int))
+(define _CloseClosure (_fun -> _int))
