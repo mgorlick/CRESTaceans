@@ -4,6 +4,12 @@
          "libvortex.rkt")
 (provide (all-defined-out))
 
+(defvtx* (_fun _NewTaskFunc -> _void)
+  vortex-thread-pool-set-new-task)
+
+(defvtx* (_fun _NewEventFunc -> _void)
+  vortex-thread-pool-set-new-event)
+
 (defvtx* (_fun _VortexCtx-pointer _int -> _void)
   vortex-thread-pool-add
   vortex-thread-pool-init

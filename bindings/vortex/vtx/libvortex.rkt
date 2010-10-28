@@ -17,7 +17,7 @@
   ([sin_family _short]
    [sin_port _ushort]
    [sin_addr _in-addr]
-   [sin_zero _string]))
+   [sin_zero (_bytes o 8)]))
 
 (define-cstruct _timeval
   ([tv_sec _long]
@@ -490,9 +490,18 @@
    [the-size _int]
    [is-complete _int]))
 
-(define _ListenClosure (_fun _string _int -> _int))
-(define _AcceptClosure (_fun -> _int))
-(define _ConnectClosure (_fun _string _int -> _int))
+(define _ListenClosure (_fun _string _string -> _int))
+(define _AcceptClosure (_fun _VortexConnection-pointer -> _int))
+(define _ConnectClosure (_fun _string _string _VortexConnection-pointer -> _int))
 (define _ReadClosure (_fun _string _int -> _int))
 (define _WriteClosure (_fun _string -> _int))
 (define _CloseClosure (_fun -> _int))
+(define _GetSockNameClosure (_fun (_ptr io _string) (_ptr io _string)
+                                  (_ptr io _string) (_ptr io _string)
+                                  -> _int))
+
+(define _ClosureSetter (_fun _VortexConnection-pointer -> _void))
+
+(define _NewTaskFunc (_fun _VortexCtx-pointer _VortexThreadFunc _axlPointer -> _void))
+(define _NewEventFunc (_fun _VortexCtx-pointer _long _VortexThreadAsyncEvent
+                            _axlPointer _axlPointer -> _int))

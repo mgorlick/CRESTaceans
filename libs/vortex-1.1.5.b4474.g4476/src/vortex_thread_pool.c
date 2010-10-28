@@ -518,7 +518,7 @@ void vortex_thread_pool_being_closed        (VortexCtx * ctx)
  *
  * 
  **/
-void vortex_thread_pool_new_task (VortexCtx * ctx, VortexThreadFunc func, axlPointer data)
+void vortex_thread_pool_new_task_default (VortexCtx * ctx, VortexThreadFunc func, axlPointer data)
 {
 	/* get current context */
 	VortexThreadPoolTask * task;
@@ -541,6 +541,15 @@ void vortex_thread_pool_new_task (VortexCtx * ctx, VortexThreadFunc func, axlPoi
 	return;
 }
 
+NewTaskFunc vortex_thread_pool_new_task_impl = vortex_thread_pool_new_task_default;
+
+void vortex_thread_pool_set_new_task (NewTaskFunc f) {
+  vortex_thread_pool_new_task_impl = f;
+}
+
+void vortex_thread_pool_new_task (VortexCtx* ctx, VortexThreadFunc func, axlPointer data) {
+  vortex_thread_pool_new_task_impl (ctx, func, data);
+}
 /** 
  * @brief Allows to install a new async event represented by the event
  * handler provided. This async event represents a handler called at
@@ -580,7 +589,7 @@ void vortex_thread_pool_new_task (VortexCtx * ctx, VortexThreadFunc func, axlPoi
  * vortex_thread_pool_remove_event. The function returns -1 in case of
  * failure.
  */
-int  vortex_thread_pool_new_event           (VortexCtx              * ctx,
+int  vortex_thread_pool_new_event_default          (VortexCtx              * ctx,
 					     long                     microseconds,
 					     VortexThreadAsyncEvent   event_handler,
 					     axlPointer               user_data,
@@ -618,6 +627,19 @@ int  vortex_thread_pool_new_event           (VortexCtx              * ctx,
 
 	return PTR_TO_INT (event);
 }
+
+NewEventFunc vortex_thread_pool_new_event_impl = vortex_thread_pool_new_event_default;
+
+void vortex_thread_pool_set_new_event (NewEventFunc f) {
+  vortex_thread_pool_new_event_impl = f;
+}
+
+int vortex_thread_pool_new_event (VortexCtx* ctx, long microseconds,
+                                  VortexThreadAsyncEvent event_handler,
+                                  axlPointer user_data, axlPointer user_data2) {
+  return vortex_thread_new_event_impl (ctx, microseconds, event_handler, user_data, user_data2);
+}
+
 
 /** 
  * @brief Allows to remove an event installed by \ref vortex_thread_pool_new_event.

@@ -58,11 +58,20 @@ void vortex_thread_pool_new_task            (VortexCtx        * ctx,
 					     VortexThreadFunc   func, 
 					     axlPointer         data);
 
+typedef void (*NewTaskFunc) (VortexCtx* ctx, VortexThreadFunc func,
+                        axlPointer data);
+
+void vortex_thread_pool_set_new_task (NewTaskFunc* f);
+
 int  vortex_thread_pool_new_event           (VortexCtx              * ctx,
 					     long                     microseconds,
 					     VortexThreadAsyncEvent   event_handler,
 					     axlPointer               user_data,
 					     axlPointer               user_data2);
+
+typedef int (*NewEventFunc) (VortexCtx* ctx, long microseconds, VortexThreadAsyncEvent event_handler, axlPointer user_data, axlPointer user_data2);
+
+void vortex_thread_pool_set_new_event (NewEventFunc f);
 
 void vortex_thread_pool_remove_event        (VortexCtx              * ctx,
 					     int                      event_id);

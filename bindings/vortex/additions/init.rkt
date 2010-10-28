@@ -3,7 +3,8 @@
 (require (except-in ffi/unsafe ->)
          "../vtx/module.rkt"
          "thread.rkt"
-         "thread-pool.rkt")
+         "thread-pool.rkt"
+         "connection.rkt")
 (provide (all-defined-out))
 
 (define/contract (rkt:vortex-init-ctx ctx)
@@ -15,8 +16,10 @@
   
   ;; replacement of vortex C components with custom components written in racket
   (vortex-thread-set-create rkt:vortex-thread-create)  
-  ; (vortex-thread-pool-set-new-task rkt:vortex-thread-pool-new-task)
-  ; (vortex-thread-pool-set-new-event rkt:vortex-thread-pool-new-event)
+  (vortex-thread-pool-set-new-task rkt:vortex-thread-pool-new-task)
+  (vortex-thread-pool-set-new-event rkt:vortex-thread-pool-new-event)
+  (vortex-connection-set-listener-closures-setter rkt:vortex-connection-set-listener-mode-closures)
+  (vortex-connection-set-client-closures-setter rkt:vortex-connection-set-client-mode-closures)
   
   (printf "log (debug level): Doing alternate vortex ctx initialization in Racket~n")
   (rkt:preinitialize-ctx ctx) ; performs all the steps of vortex_ctx_init except for what follows here...

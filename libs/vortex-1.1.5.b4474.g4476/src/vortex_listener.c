@@ -453,8 +453,9 @@ void vortex_listener_accept_connections (VortexCtx        * ctx,
 	/* check we can support more sockets, if not close current
 	 * connection: function already closes client socket in the
 	 * case of failure */
-	if (! vortex_connection_check_socket_limit (ctx, client_socket))
-		return;
+        /* NO LIMIT IN CASE OF RACKET VERSION! */
+	/* if (! vortex_connection_check_socket_limit (ctx, client_socket))
+           return;*/
 
 	/* instead of negotiate the connection at this point simply
 	 * accept it to negotiate it inside vortex_reader loop.  */

@@ -9,15 +9,25 @@
                _AcceptClosure
                _ReadClosure
                _WriteClosure
-               _CloseClosure -> _void)
-  vortex-connection-set-listener-closures)
+               _CloseClosure
+               _GetSockNameClosure -> _void)
+  vortex-connection-set-listener-mode-closures)
 
 (defvtx* (_fun _VortexConnection-pointer
                _ConnectClosure
                _ReadClosure
                _WriteClosure
-               _CloseClosure -> _void)
-  vortex-connection-set-client-closures)
+               _CloseClosure
+               _GetSockNameClosure -> _void)
+  vortex-connection-set-client-mode-closures)
+
+(defvtx* (_fun _ClosureSetter -> _void)
+  vortex-connection-set-client-closures-setter
+  vortex-connection-set-listener-closures-setter)
+
+(defvtx* (_fun _VortexConnection-pointer -> _void)
+  vortex-connection-set-client-closures
+  vortex-connection-set-listener-closures)
 
 (defvtx* (_fun _VortexCtx-pointer -> _void)
   vortex-connection-init)
@@ -240,7 +250,7 @@
   vortex-connection-set-sock-block
   vortex-connection-set-sock-tcp-nodelay)
 
-(defvtx* (_fun _VortexConnection-pointer _Vortex-Socket _string _string -> _axl-bool)
+(defvtx* (_fun _VortexConnection-pointer _Vortex-Socket (_or-null _string) (_or-null _string) -> _axl-bool)
   vortex-connection-set-socket)
 
 (defvtx* (_fun _VortexCtx-pointer _string _string _int 
