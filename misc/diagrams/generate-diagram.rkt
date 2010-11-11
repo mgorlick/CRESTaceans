@@ -35,42 +35,46 @@
   (printi ilvl "~a\\ \\fbox{$~n" (peer-name p))
   (printi (+ 1 ilvl) "\\begin{array}{ l l || l }~n")
   (draw/subpeer/first-row p (+ 2 ilvl))
-  (draw/subpeer/rest-rows p (rest (peer-subpeers p)) ilvl)
+  (draw/subpeer/rest-rows p (rest (peer-subpeers p)) (+ 2 ilvl) 2)
   (printi (+ 1 ilvl) "\\end{array}~n")
   (printi ilvl "$}~n"))
 
 ; draw/subpeer/first-row: peer int -> nothing
 ; print the first row of a peer with subpeers
 (define (draw/subpeer/first-row p ilvl)
-  (printi ilvl "~a & \\lambda^~a &~n" (peer-ee p) (peer-comp p))
-  (draw-peer (first (peer-subpeers p)) (+ 1 ilvl))
+  (printi ilvl "~a & \\lambda~a & % row 1~n" (peer-ee p) (peer-comp p))
+  (draw-peer (first (peer-subpeers p)) ilvl)
   (printi ilvl "\\\\~n")
-  (printi ilvl "\\ & \\ & \\\\~n"))
+  (printi ilvl "\\ & \\ & \\\\ % empty line~n"))
 
 ; draw/subpeer/rest-rows: peer (listof peer) int -> nothing
 ; print all remaining rows of a peer with subpeers
-(define (draw/subpeer/rest-rows p subps ilvl)
+(define (draw/subpeer/rest-rows p subps ilvl c)
   (cond
     [(= (length subps) 0)
-     (printi (+ 2 ilvl) "~a & ~a &~n" (peer-url p) (peer-bev p))]
-    [(= (length subps) 1)
-     (printi (+ 2 ilvl) "~a & ~a &~n" (peer-url p) (peer-bev p))
-     (draw-peer (first subps) (+ 2 ilvl))
-     (printi (+ 2 ilvl) "\\\\~n")]
+     ; there is no subpeer in this last row, so just print the 
+     ; peer's url and binding environment
+     (printi ilvl "~a & ~a & % row ~a~n" (peer-url p) (peer-bev p) c)]
+    [(= (length subps) 1) 
+     ; print the peer's url and binding environment, then print the 
+     ; subpeer that matches the row
+     (printi ilvl "~a & ~a & % row ~a~n" (peer-url p) (peer-bev p) c)
+     (draw-peer (first subps) ilvl)
+     (printi ilvl "\\\\~n")]
     [else
-     (printi (+ 2 ilvl) "\\ & \\ & \\~n")
-     (draw-peer (first subps) (+ 2 ilvl))
-     (printi (+ 2 ilvl) "\\\\~n")
-     (printi (+ 2 ilvl) "\\ & \\ & \\\\~n")
-     (draw/subpeer/rest-rows p (rest subps) ilvl)]
-    ))
+     ; empty row on the peer side; full subpeer on the other side
+     (printi ilvl "\\ & \\ & \\ % row ~a~n" c)
+     (draw-peer (first subps) ilvl)
+     (printi ilvl "\\\\~n")
+     (printi ilvl "\\ & \\ & \\\\ % empty line~n")
+     (draw/subpeer/rest-rows p (rest subps) ilvl (+ c 1))]))
 
 ; draw-orphan: peer int -> nothing
 ; print a peer with no subpeers
 (define (draw-orphan p ilvl)
   (printi ilvl "~a\\ \\fbox {$~n" (peer-name p))
   (printi (+ 1 ilvl) "\\begin{array}{ l l }~n")
-  (printi (+ 2 ilvl) "~a & \\lambda^~a \\\\~n" (peer-ee p) (peer-comp p))
+  (printi (+ 2 ilvl) "~a & \\lambda~a \\\\~n" (peer-ee p) (peer-comp p))
   (printi (+ 2 ilvl) "~a & ~a~n" (peer-url p) (peer-bev p))
   (printi (+ 1 ilvl) "\\end{array}~n")
   (printi ilvl "$}~n"))
@@ -81,5 +85,5 @@
   (cond
     [(eq? ilvl 0) (apply printf (cons fmtstring args))]
     [else
-     (let ([spacestring (make-string (* 4 ilvl) #\space)])      
+     (let ([spacestring (make-string (* 4 ilvl) #\space)])
        (apply printf (cons (string-append spacestring fmtstring) args)))]))
