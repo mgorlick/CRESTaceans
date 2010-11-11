@@ -24,17 +24,17 @@
 
 (define cm1-pc (peer "CM1" "E" "^\\circ monitor_1" "s.pc/client1" "B:process\\_data()" '()))
 (define cm2-pc (peer "CM2" "E" "^\\circ monitor_2" "s.pc/client2" "B:process\\_data()" '()))
-(define serenapc (peer "S" "E:Scheme" " ^\\circ launcher_0" "s.pc" "B: \\beta^\\circ_0" (list cm1-pc cm2-pc)))
+(define serenapc (peer "S" "E:Scheme" " ^\\circ launcher_0" "s.pc" "B: \\beta^\\circ_0" (list cm1-pc)))
 (define serenapc-blank (peer "S" "E:Scheme" "^\\circ launcher_0" "s.pc" "B: \\beta^\\circ_0" '()))
 
 (define cm1-sp (peer "CM1" "E" "^\\circ monitor_1" "s.phone/cli1" "B:process\\_data()" '()))
 (define cm2-sp (peer "CM2" "E" "^\\circ monitor_2" "s.phone/cli2" "B:process\\_data()" '()))
-(define phone (peer "P" "E:JS" "^\\circ launcher_1" "s.phone" "B: \\beta^\\circ_1" (list cm1-sp cm2-sp)))
+(define phone (peer "P" "E:JS" "^\\circ launcher_1" "s.phone" "B: \\beta^\\circ_1" (list cm1-sp)))
 (define phone-blank (peer "P" "E:JS" "^\\circ launcher_1" "s.phone" "B: \\beta^\\circ_1" '()))
 
-(generate home 'right)
-;(generate serenapc 'left)
-;(generate phone 'left)
+;(generate home 'right)
+(generate serenapc 'left)
+(generate phone 'left)
 ;(generate serenapc-blank 'left)
 ;(generate phone-blank 'left)
 ;(generate home-blank 'right)

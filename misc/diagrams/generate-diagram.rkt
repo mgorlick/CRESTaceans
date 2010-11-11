@@ -64,8 +64,8 @@
     [(= (length subps) 0)
      ; there is no subpeer in this last row, so just print the 
      ; peer's url and binding environment
-     (cond [(eq? dir 'left) (printi ilvl "\\ & \\ & \\ ~n")])
-     (printi ilvl "~a & ~a & % row ~a~n" (peer-url p) (peer-bev p) c)]
+     (cond [(eq? dir 'left) (printi ilvl "\\ & \\ ~n")])
+     (printi ilvl "~a & ~a % row ~a~n" (peer-url p) (peer-bev p) c)]
     [(= (length subps) 1)
      ; print the peer's url and binding environment, then print the 
      ; subpeer that matches the row
