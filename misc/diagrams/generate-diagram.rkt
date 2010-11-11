@@ -42,7 +42,7 @@
 ; draw/subpeer/first-row: peer int -> nothing
 ; print the first row of a peer with subpeers
 (define (draw/subpeer/first-row p ilvl)
-  (printi ilvl "~a & \\lambda~a &~n" (peer-ee p) (peer-comp p))
+  (printi ilvl "~a & \\lambda^~a &~n" (peer-ee p) (peer-comp p))
   (draw-peer (first (peer-subpeers p)) (+ 1 ilvl))
   (printi ilvl "\\\\~n")
   (printi ilvl "\\ & \\ & \\\\~n"))
@@ -70,7 +70,7 @@
 (define (draw-orphan p ilvl)
   (printi ilvl "~a\\ \\fbox {$~n" (peer-name p))
   (printi (+ 1 ilvl) "\\begin{array}{ l l }~n")
-  (printi (+ 2 ilvl) "~a & \\lambda~a \\\\~n" (peer-ee p) (peer-comp p))
+  (printi (+ 2 ilvl) "~a & \\lambda^~a \\\\~n" (peer-ee p) (peer-comp p))
   (printi (+ 2 ilvl) "~a & ~a~n" (peer-url p) (peer-bev p))
   (printi (+ 1 ilvl) "\\end{array}~n")
   (printi ilvl "$}~n"))
