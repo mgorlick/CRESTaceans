@@ -53,7 +53,6 @@
 (defvtx* (_fun _VortexConnection-pointer -> _int)
   vortex-connection-channels-count
   vortex-connection-get-id
-  vortex-connection-get-mss
   vortex-connection-get-next-channel
   vortex-connection-get-opened-channels
   vortex-connection-get-pending-msgs
@@ -255,13 +254,8 @@
   vortex-connection-set-sock-block
   vortex-connection-set-sock-tcp-nodelay)
 
-(defvtx* (_fun _VortexConnection-pointer _Vortex-Socket (_or-null _string) (_or-null _string) -> _axl-bool)
+(defvtx* (_fun _VortexConnection-pointer _Vortex-Socket _string _string -> _axl-bool)
   vortex-connection-set-socket)
-
-(defvtx* (_fun _VortexCtx-pointer _string _string _int 
-               (error : (_ptr o _axlError-pointer)) -> (socket : _Vortex-Socket)
-               -> (values socket error))
-  vortex-connection-sock-connect)
 
 (defvtx* (_fun _VortexConnection-pointer _string -> _void)
   vortex-connection-unref)

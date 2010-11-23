@@ -38,11 +38,6 @@
 (defvtx* (_fun _VortexConnection-pointer _axl-bool -> _void)
   vortex-listener-shutdown)
 
-(defvtx* (_fun _VortexCtx-pointer _string _string 
-               (error : (_ptr o _axlError-pointer)) -> (socket : _Vortex-Socket)
-               -> (values socket error))
-  vortex-listener-sock-listen)
-
 (defvtx* (_fun _VortexCtx-pointer -> _void)
   vortex-listener-unlock
   vortex-listener-wait)
