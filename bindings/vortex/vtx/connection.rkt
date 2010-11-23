@@ -10,7 +10,10 @@
                _ReadClosure
                _WriteClosure
                _CloseClosure
-               _GetSockNameClosure -> _void)
+               _GetSockNameClosure
+               _GetHostUsedClosure
+               _WaitReadClosure
+               _WaitWriteClosure -> _void)
   vortex-connection-set-listener-mode-closures)
 
 (defvtx* (_fun _VortexConnection-pointer
@@ -18,7 +21,9 @@
                _ReadClosure
                _WriteClosure
                _CloseClosure
-               _GetSockNameClosure -> _void)
+               _GetSockNameClosure
+               _WaitReadClosure
+               _WaitWriteClosure -> _void)
   vortex-connection-set-client-mode-closures)
 
 (defvtx* (_fun _ClosureSetter -> _void)

@@ -121,14 +121,12 @@ int                 vortex_connection_ref_count              (VortexConnection *
 
 VortexConnection  * vortex_connection_new_empty              (VortexCtx        * ctx,
 							      VORTEX_SOCKET      socket,
-							      VortexPeerRole     role,
-                                                              int listener_or_client);
+							      VortexPeerRole     role);
 
 VortexConnection  * vortex_connection_new_empty_from_connection (VortexCtx        * ctx,
 								 VORTEX_SOCKET      socket, 
 								 VortexConnection * __connection,
-								 VortexPeerRole     role,
-                                                                 int listener_or_client);
+								 VortexPeerRole     role);
 
 axl_bool            vortex_connection_set_socket                (VortexConnection * conn,
 								 VORTEX_SOCKET      socket,
@@ -413,41 +411,46 @@ void                __vortex_connection_check_and_notify     (VortexConnection *
 							      VortexChannel    * channel, 
 							      axl_bool           is_added);
 
-int                 vortex_connection_get_mss                (VortexConnection * connection);
-
 axl_bool            vortex_connection_check_socket_limit     (VortexCtx        * ctx, 
 							      VORTEX_SOCKET      socket);
 
-typedef int (*ListenClosure) (char* host, char* port);
-typedef int (*AcceptClosure) (VortexConnection* conn);
-typedef int (*ConnectClosure) (char* host, char* port, VortexConnection* conn);
-typedef int (*ReadClosure) (char* buffer, int buffer_len);
-typedef int (*WriteClosure) (const char* buffer, int buffer_len);
-typedef int (*CloseClosure) (void);
-typedef int (*GetSockNameClosure) (char** local_a, char** local_p,
+typedef int (*ListenClosure) (VortexConnection* conn, char* host, char* port);
+typedef int (*AcceptClosure) (VortexConnection* master_conn, VortexConnection* child_conn);
+typedef int (*ConnectClosure) (VortexConnection* conn, char* host, char* port);
+typedef int (*ReadClosure) (VortexConnection* conn, char* buffer, int buffer_len);
+typedef int (*WriteClosure) (VortexConnection* conn, const char* buffer, int buffer_len);
+typedef int (*CloseClosure) (VortexConnection* conn);
+typedef int (*GetSockNameClosure) (VortexConnection* conn,
+                                   char** local_a, char** local_p,
                                    char** remote_a, char** remote_p);
+typedef int (*WaitReadClosure) (VortexConnection* conn, int timeout);
+typedef int (*WaitWriteClosure) (VortexConnection* conn, int timeout);
+typedef int (*GetHostUsedClosure) (VortexConnection* conn, char** local_a, int* local_p);
 
 void vortex_connection_set_listener_mode_closures (VortexConnection* connection, ListenClosure l,
-                                              AcceptClosure a, ReadClosure r, WriteClosure w,
-                                              CloseClosure cl, GetSockNameClosure g);
+                                                   AcceptClosure a, ReadClosure r, WriteClosure w,
+                                                   CloseClosure cl, GetSockNameClosure g, GetHostUsedClosure h,
+                                                   WaitReadClosure wr, WaitWriteClosure ww);
 void vortex_connection_set_client_mode_closures (VortexConnection* connection, ConnectClosure c,
-                                            ReadClosure r, WriteClosure w, CloseClosure cl,
-                                            GetSockNameClosure g);
+                                                 ReadClosure r, WriteClosure w, CloseClosure cl,
+                                                 GetSockNameClosure g,
+                                                 WaitReadClosure wr, WaitWriteClosure ww);
 
-typedef void (ClosureSetter) (VortexConnection* conn);
+typedef void (*ClosureSetter) (VortexConnection* conn);
 
 void vortex_connection_set_client_closures_setter (ClosureSetter c);
 void vortex_connection_set_client_closures (VortexConnection* conn);
 void vortex_connection_set_listener_closures_setter (ClosureSetter c);
 void vortex_connection_set_listener_closures (VortexConnection* conn);
 
-AcceptClosure vortex_connection_get_accept (VortexConnection* conn);
-ListenClosure vortex_connection_get_listen (VortexConnection* conn);
-ConnectClosure vortex_connection_get_connect (VortexConnection* conn);
-ReadClosure vortex_connection_get_read (VortexConnection* conn);
-WriteClosure vortex_connection_get_write (VortexConnection* conn);
-CloseClosure vortex_connection_get_close (VortexConnection* conn);
-GetSockNameClosure vortex_connection_get_getsockname (VortexConnection* conn);
+int vortex_connection_get_sock_name (VortexConnection* conn, char** local_a, char** local_p, char** remote_a, char** remote_p);
+int vortex_connection_get_host_used (VortexConnection* conn, char** host, int* port);
+int vortex_connection_do_accept (VortexConnection* master, VortexConnection* child);
+int vortex_connection_do_listen (VortexConnection* conn, char* host, char* port);
+int vortex_connection_do_wait_read (VortexConnection* conn, int timeout);
+int vortex_connection_do_wait_write (VortexConnection* conn, int timeout);
+
+void vortex_connection_share_closures (VortexConnection* source, VortexConnection* connection); 
 
 /** private API **/
 axl_bool               vortex_connection_ref_internal                    (VortexConnection * connection, 

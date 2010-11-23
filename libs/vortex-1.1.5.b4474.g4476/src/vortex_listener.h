@@ -63,11 +63,6 @@ VortexConnection * vortex_listener_new_full        (VortexCtx                * c
 						    VortexListenerReadyFull    on_ready_full, 
 						    axlPointer                 user_data);
 
-VORTEX_SOCKET     vortex_listener_sock_listen      (VortexCtx   * ctx,
-						    const char  * host,
-						    const char  * port,
-						    axlError   ** error);
-
 void          vortex_listener_accept_connections   (VortexCtx        * ctx,
 						    int                server_socket,
 						    VortexConnection * listener);
@@ -75,7 +70,7 @@ void          vortex_listener_accept_connections   (VortexCtx        * ctx,
 void          vortex_listener_accept_connection    (VortexConnection * connection, 
 						    axl_bool           send_greetings);
 
-VORTEX_SOCKET vortex_listener_accept               (VORTEX_SOCKET server_socket);
+int           vortex_listener_accept               (VortexConnection* master, VortexConnection* child);
 
 void          __vortex_listener_second_step_accept (VortexFrame * frame, 
 						    VortexConnection * connection);

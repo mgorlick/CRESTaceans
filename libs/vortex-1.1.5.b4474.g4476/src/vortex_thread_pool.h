@@ -61,7 +61,7 @@ void vortex_thread_pool_new_task            (VortexCtx        * ctx,
 typedef void (*NewTaskFunc) (VortexCtx* ctx, VortexThreadFunc func,
                         axlPointer data);
 
-void vortex_thread_pool_set_new_task (NewTaskFunc* f);
+void vortex_thread_pool_set_new_task (NewTaskFunc f);
 
 int  vortex_thread_pool_new_event           (VortexCtx              * ctx,
 					     long                     microseconds,

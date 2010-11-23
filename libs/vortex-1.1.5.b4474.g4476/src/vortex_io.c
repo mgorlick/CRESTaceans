@@ -57,6 +57,182 @@
  * @{
  */
 
+typedef struct _VortexPort {
+  VortexCtx* ctx;
+  int max;
+  int length;
+  VortexConnection** connections;
+  VortexIoWaitingFor wait_to;
+}VortexPort;
+
+axlPointer __vortex_io_waiting_port_create (VortexCtx* ctx, VortexIoWaitingFor wait_to) {
+  int max;
+  
+ vortex_log (VORTEX_LEVEL_DEBUG, "creating empty port");
+
+  /* support up to 4096 connections */
+  if (! vortex_conf_get (ctx, VORTEX_HARD_SOCK_LIMIT, &max)) {
+    vortex_log (VORTEX_LEVEL_CRITICAL, "unable to get current max hard sock limit");
+    return NULL;
+  } /* end if */
+
+  /* check if max points to something not useful */
+  if (max <= 0)
+    max = 4096;
+
+  VortexPort* port  = axl_new (VortexPort, 1);
+  port->ctx         = ctx;
+  port->max         = max;
+  port->wait_to     = wait_to;
+  port->connections = axl_new (VortexConnection *, max);
+
+  return port;
+  
+}
+
+void __vortex_io_waiting_port_destroy (axlPointer fd_group) {
+  VortexPort* port = (VortexPort*) fd_group;
+  axl_free (port->connections);
+  axl_free (port);
+  return;
+}
+
+void __vortex_io_waiting_port_clear (axlPointer fd_group) {
+  VortexPort* port = (VortexPort*) fd_group;
+  axl_free (port->connections);
+  port->connections = axl_new (VortexConnection*, port->max);
+  return;
+}
+
+axl_bool __vortex_io_waiting_port_add_to (int fds, VortexConnection* connection, axlPointer fd_set) {
+   VortexPort* port   = (VortexPort*) fd_set;
+  VortexCtx  * ctx    = port->ctx;
+  int          max;
+
+  /* check if max size reached */
+  if (port->length == port->max) {
+     /* support up to 4096 connections */
+    if (! vortex_conf_get (ctx, VORTEX_HARD_SOCK_LIMIT, &max)) {
+      vortex_log (VORTEX_LEVEL_CRITICAL, "unable to get current max hard sock limit, closing socket");
+      return axl_false;
+    } /* end if */
+
+    if (port->max >= max) {
+      vortex_log (VORTEX_LEVEL_DEBUG, "unable to accept more sockets, max poll set reached.");
+      return axl_false;
+    } /* end if */
+
+    vortex_log (VORTEX_LEVEL_DEBUG, "max amount of file descriptors reached, expanding");
+
+    /* limit reached */
+    port->max          = max;
+    port->connections  = axl_realloc (port->connections, sizeof (VortexConnection *) * port->max);
+  } /* end if */
+
+  /* configure the socket to be watched */
+  port->connections[port->length] = connection;
+
+  /* update length */
+  port->length++;
+
+  return axl_true; 
+}
+
+int __vortex_io_waiting_port_wait_on (axlPointer fd_group, int max_fds, VortexIoWaitingFor wait_to) {
+  VortexPort* port   = (VortexPort*) fd_group;
+  int iterator = 0;
+  int changed = 0;
+
+  int read_timeout = 1;
+  int write_timeout = 1;
+  
+  int temp_result;
+  
+  if (VORTEX_IO_IS (wait_to, READ_OPERATIONS)) {
+    /* wait for read operations */
+    while (iterator < port->length) {
+      temp_result = vortex_connection_do_wait_read (port->connections[iterator], read_timeout);
+      if (temp_result == 1) { changed++; }
+    }
+    
+  } else if (VORTEX_IO_IS (wait_to, WRITE_OPERATIONS)) {
+    /* wait for write operations */
+    while (iterator < port->length) {
+      temp_result = vortex_connection_do_wait_write (port->connections[iterator], write_timeout);
+      if (temp_result == 1) { changed++; }
+    }
+
+  } else {
+    return -1;
+  }
+	
+  return changed;
+}
+
+axl_bool __vortex_io_waiting_port_have_dispatch (axlPointer fd_group) {
+  return axl_true;
+}
+
+void __vortex_io_waiting_port_dispatch (axlPointer fd_group,
+                                        VortexIoDispatchFunc dispatch_func,
+                                        int changed, axlPointer user_data) {
+  VortexPort * port     = (VortexPort *) fd_group;
+  int          iterator = 0;
+  int          checked  = 0;
+
+  /* for all sockets polled */
+  while (iterator < port->length && (checked < changed)) {
+
+    /* item found now check the event */
+    if (VORTEX_IO_IS(port->wait_to, READ_OPERATIONS)) {
+			
+      if (vortex_connection_do_wait_read (port->connections[iterator], 0) == 1) {
+				
+        /* found read event, dispatch */
+        dispatch_func (
+            /* socket found */
+            1,
+            /* purpose for the waiting set */
+            port->wait_to, 
+            /* connection associated */
+            port->connections[iterator], 
+            /* dispatch user data */
+            user_data);
+
+        /* update items checked */
+        checked++;
+      } /* end if */
+
+    } /* end if */
+
+    /* item found now check the event */
+    if (VORTEX_IO_IS(port->wait_to, WRITE_OPERATIONS)) {
+      if (vortex_connection_do_wait_write (port->connections[iterator], 0) == 1) {
+        /* found read event, dispatch */
+        dispatch_func (
+            /* socket found */
+            1,
+            /* purpose for the waiting set */
+            port->wait_to, 
+            /* connection associated */
+            port->connections[iterator], 
+            /* dispatch user data */
+            user_data);
+				
+        /* update items checked */
+        checked++;
+      } /* end if */
+    } /* end if */
+		
+    /* go to the next */
+    iterator++;
+
+  } /* end if */
+	
+  return;
+}
+
+
 /**
  * poll(2) system call implementation.
  */
@@ -245,7 +421,7 @@ axl_bool      __vortex_io_waiting_poll_have_dispatch (axlPointer fd_group)
  *
  * @param fd_set The fd set where the socket descriptor will be checked.
  */
-void     __vortex_io_waiting_poll_dispatch (axlPointer           fd_group, 
+void     __vortex_io_waiting_poll_dispatch (axlPointer           fd_group,
 					    VortexIoDispatchFunc dispatch_func,
 					    int                  changed,
 					    axlPointer           user_data)
@@ -308,286 +484,6 @@ void     __vortex_io_waiting_poll_dispatch (axlPointer           fd_group,
 }
 #endif /* VORTEX_HAVE_POLL */
 
-axlPointer __vortex_io_waiting_port_create (VortexCtx* ctx, VortexIoWaitingFor wait_to);
-void __vortex_io_waiting_port_destroy (axlPointer fd_group);
-void __vortex_io_waiting_port_clear (axlPointer fd_group);
-axl_bool __vortex_io_waiting_port_add_to (int fds, VortexConnection* connection, axlPointer fd_set);
-int __vortex_io_waiting_port_wait_on (axlPointer fd_group, int max_fds, VortexIoWaitingFor wait_to);
-axl_bool __vortex_io_waiting_poll_have_dispatch (axlPointer fd_group);
-void __vortex_io_waiting_poll_dispatch (axlPointer fd_group,
-                                        VortexIoDispatchFunc dispatch_func,
-                                        int changed, axlPointer user_data);
-/**
- * linux epoll(2) system call implementation.
- */
-#if defined(VORTEX_HAVE_EPOLL)
-typedef struct _VortexEPoll {
-  VortexCtx           * ctx;
-  int                   max;
-  int                   length;
-  int                   set;
-  struct epoll_event  * events;
-  VortexIoWaitingFor    wait_to;
-}VortexEPoll;
-/** 
- * @internal
- *
- * @brief Internal vortex implementation to support epoll(2) interface
- * to the file set creation interface.
- *
- * @return A newly allocated file set reference, supporting epoll(2).
- */
-axlPointer __vortex_io_waiting_epoll_create (VortexCtx * ctx, VortexIoWaitingFor wait_to) 
-{
-  int           max;
-  int           set;
-  VortexEPoll * epoll;
-
-  /* get current max support */
-  if (! vortex_conf_get (ctx, VORTEX_HARD_SOCK_LIMIT, &max)) {
-    vortex_log (VORTEX_LEVEL_CRITICAL, "unable to get current max hard sock limit");
-    return NULL;
-  } /* end if */
-
-  /* check if max points to something not useful */
-  if (max <= 0)
-    max = 4096;
-
-  set = epoll_create (max);
-  if (set == -1) {
-    vortex_log (VORTEX_LEVEL_CRITICAL, "failed to create the epoll interface (epoll_create system call have failed): %s",
-                vortex_errno_get_last_error ());
-    return NULL;
-  } /* end if */
-		
-  epoll              = axl_new (VortexEPoll, 1);
-  epoll->ctx         = ctx;
-  epoll->max         = max;
-  epoll->wait_to     = wait_to;
-  epoll->set         = set;
-  epoll->events      = axl_new (struct epoll_event, max);
-
-  return epoll;
-}
-
-/** 
- * @internal
- *
- * Internal implementation to destroy a file set support the epoll(2)
- * interface.
- * 
- * @param fd_group The file set to be deallocated.
- */
-void    __vortex_io_waiting_epoll_destroy (axlPointer fd_group)
-{
-  VortexEPoll * epoll = (VortexEPoll *) fd_group;
-
-  /* free the poll */
-  close    (epoll->set);
-  axl_free (epoll->events);
-  axl_free (epoll);
-	
-  /* nothing more to do */
-  return;
-}
-
-/** 
- * @internal
- *
- * Clears the file set supporting epoll(2) interface.
- */
-void    __vortex_io_waiting_epoll_clear (axlPointer __fd_group)
-{
-  VortexEPoll *      epoll  = (VortexEPoll *) __fd_group;
-
-  /* close the epoll set, to avoid having to remove all sockets
-   * that were added but not removed by the kernel */
-  close (epoll->set);
-  epoll->set    = epoll_create (epoll->max);
-  epoll->length = 0;
-  return;
-}
-
-/** 
- * @internal
- *
- * Add to file set implementation for epoll(2) interface.
- * 
- * @param fds The socket descriptor to be added.
- *
- * @param fd_set The fd set where the socket descriptor will be added.
- */
-axl_bool  __vortex_io_waiting_epoll_add_to (int                fds, 
-					    VortexConnection * connection,
-					    axlPointer         __fd_set)
-{
-  VortexEPoll *        epoll  = (VortexEPoll *) __fd_set;
-  VortexCtx   *        ctx    = epoll->ctx;
-  int                  max;
-  struct epoll_event   ev;
-
-  /* check if max size reached */
-  if (epoll->length == epoll->max) {
-    /* support up to 4096 connections */
-    if (! vortex_conf_get (ctx, VORTEX_HARD_SOCK_LIMIT, &max)) {
-      vortex_log (VORTEX_LEVEL_CRITICAL, "unable to get current max hard sock limit, closing socket");
-      return axl_false;
-    } /* end if */
-
-    if (epoll->max >= max) {
-      vortex_log (VORTEX_LEVEL_DEBUG, "unable to accept more sockets, max poll set reached (%d).", epoll->max);
-      return axl_false;
-    } /* end if */
-
-    vortex_log (VORTEX_LEVEL_DEBUG, "max amount of file descriptors reached, expanding");
-
-    /* limit reached */
-    epoll->max          = max;
-    epoll->events       = axl_realloc (epoll->events, sizeof (struct epoll_event) * epoll->max);
-  } /* end if */
-
-  /* clear data */
-  memset (&ev, 0, sizeof (struct epoll_event));
-
-  /* configure the kind of polling */
-  if (VORTEX_IO_IS(epoll->wait_to, READ_OPERATIONS)) {
-    ev.events = EPOLLIN | EPOLLPRI;
-  } /* end if */
-
-  if (VORTEX_IO_IS(epoll->wait_to, WRITE_OPERATIONS)) {
-    ev.events = EPOLLOUT;
-  } /* end if */
-
-  /* configure the file descriptor */
-  ev.data.ptr = connection;
-  if (epoll_ctl(epoll->set, EPOLL_CTL_ADD, fds, &ev) != 0 && errno != EEXIST) {
-		
-    vortex_log (VORTEX_LEVEL_CRITICAL, 
-                "failed to add to the epoll fd=%d, epoll_ctl system call have failed: %s",
-                fds, vortex_errno_get_last_error ());
-    return axl_false;
-  } /* end if */
-
-  /* update length */
-  epoll->length++;
-
-  return axl_true;
-}
-
-/** 
- * @internal
- *
- * Perform a wait operation over the object supporting epoll(2)
- * interface.
- */
-int __vortex_io_waiting_epoll_wait_on (axlPointer __fd_group, int max_fds, VortexIoWaitingFor wait_to)
-{
-  int           result  = -1;
-  VortexEPoll * epoll   = (VortexEPoll *) __fd_group;
-
-  /* clear events reported */
-  memset (epoll->events, 0, sizeof (struct epoll_event) * epoll->max);
-
-  /* perform the select operation according to the
-   * <b>wait_to</b> value. */
-  if (VORTEX_IO_IS (wait_to, READ_OPERATIONS)) {
-    FUEL_WITH_PROGRESS ("epoll_wait read");
-    result = epoll_wait (epoll->set, epoll->events, epoll->length, 500);
-  } else 	if (VORTEX_IO_IS (wait_to, WRITE_OPERATIONS)) {
-    FUEL_WITH_PROGRESS ("epoll_wait write");
-    result = epoll_wait (epoll->set, epoll->events, epoll->length, 1000);
-  } /* end if */
-
-  /* check result */
-  if ((result == VORTEX_SOCKET_ERROR) && (errno == VORTEX_EINTR))
-    return -1;
-	
-  return result;
-}
-
-/** 
- * @internal Notify that we have dispatch support.
- */
-axl_bool      __vortex_io_waiting_epoll_have_dispatch (axlPointer fd_group)
-{
-  return axl_true;
-}
-
-/** 
- * @internal
- *
- * Poll implementation for the automatic dispatch.
- * 
- * @param fds The socket descriptor to be checked to be active on the
- * given fd group.
- *
- * @param fd_set The fd set where the socket descriptor will be checked.
- */
-void     __vortex_io_waiting_epoll_dispatch (axlPointer           fd_group, 
-					     VortexIoDispatchFunc dispatch_func,
-					     int                  changed,
-					     axlPointer           user_data)
-{
-  VortexEPoll      * epoll    = (VortexEPoll *) fd_group;
-  VortexConnection * connection;
-  int                iterator = 0;
-
-  /* for all sockets polled */
-  while ((iterator < changed) && (iterator < epoll->length)) {
-    FUEL_WITH_PROGRESS ("io_waiting_epoll_dispatch while loop");
-    /* item found now check the event */
-    if (VORTEX_IO_IS (epoll->wait_to, READ_OPERATIONS)) {
-			
-      if ((epoll->events[iterator].events & EPOLLIN) == EPOLLIN ||
-          (epoll->events[iterator].events & EPOLLPRI) == EPOLLPRI) {
-
-        /* get the connection */
-        connection = (VortexConnection *) epoll->events[iterator].data.ptr;
-				
-        /* found read event, dispatch */
-        dispatch_func (
-            /* socket found */
-            vortex_connection_get_socket (connection),
-            /* purpose for the waiting set */
-            epoll->wait_to, 
-            /* connection associated */
-            connection,
-            /* dispatch user data */
-            user_data);
-      } /* end if */
-
-    } /* end if */
-
-    /* item found now check the event */
-    if (VORTEX_IO_IS(epoll->wait_to, WRITE_OPERATIONS)) {
-      if ((epoll->events[iterator].events & EPOLLOUT) == EPOLLOUT) {
-
-        /* get the connection */
-        connection = (VortexConnection *) epoll->events[iterator].data.ptr;
-				
-        /* found read event, dispatch */
-        dispatch_func (
-            /* socket found */
-            vortex_connection_get_socket (connection),
-            /* purpose for the waiting set */
-            epoll->wait_to, 
-            /* connection associated */
-            connection,
-            /* dispatch user data */
-            user_data);
-      } /* end if */
-    } /* end if */
-		
-    /* go to the next */
-    iterator++;
-
-  } /* end if */
-	
-  return;
-}
-#endif /* VORTEX_HAVE_EPOLL */
-
-
 /** 
  * @brief Allows to configure the default io waiting mechanism to be
  * used by the library.
@@ -621,102 +517,8 @@ void     __vortex_io_waiting_epoll_dispatch (axlPointer           fd_group,
  */
 axl_bool                  vortex_io_waiting_use (VortexCtx * ctx, VortexIoWaitingType type)
 {
-  /* get current context */
-  axl_bool    result = axl_false;
-  axl_bool    do_notify;
-  char      * mech = "";
-
-  vortex_log (VORTEX_LEVEL_DEBUG, "about to change I/O waiting API");
-
-  /* check if the type is available */
-  if (! vortex_io_waiting_is_available (type)) {
-    vortex_log (VORTEX_LEVEL_DEBUG, "I/O waiting API not available");
-    return axl_false;
-  }
-
-  /* check if the user is requesting to change to the same IO
-   * API */
-  if (type == ctx->waiting_type) {
-    vortex_log (VORTEX_LEVEL_DEBUG, "I/O waiting API requested currently installed");
-    return axl_true;
-  }
-
-  /* notify the reader to stop processing and dealloc resources
-   * with current IO api installed. */
-  vortex_log (VORTEX_LEVEL_DEBUG, "requesting vortex reader to change its I/O API");
-  do_notify = vortex_reader_notify_change_io_api (ctx);
-
-  vortex_log (VORTEX_LEVEL_DEBUG, "done, now vortex reader is blocked until we finish");
-
-  switch (type) {
-    case VORTEX_IO_WAIT_SELECT:
-      result = axl_false;
-      break;
-      
-    case VORTEX_IO_WAIT_POLL:
-      /* use poll mechanism */
-#if defined (VORTEX_HAVE_POLL)
-      /* use select mechanism */
-      ctx->waiting_create        = __vortex_io_waiting_poll_create;
-      ctx->waiting_destroy       = __vortex_io_waiting_poll_destroy;
-      ctx->waiting_clear         = __vortex_io_waiting_poll_clear;
-      ctx->waiting_wait_on       = __vortex_io_waiting_poll_wait_on;
-      ctx->waiting_add_to        = __vortex_io_waiting_poll_add_to;
-      /* no is_set support but automatic dispatch */
-      ctx->waiting_is_set        = NULL;
-      ctx->waiting_have_dispatch = __vortex_io_waiting_poll_have_dispatch;
-      ctx->waiting_dispatch      = __vortex_io_waiting_poll_dispatch;
-      ctx->waiting_type          = VORTEX_IO_WAIT_POLL;
-      mech                              = "poll(2) system call";
-	       
-      /* ok */
-      result = axl_true;
-#else 
-      result = axl_false;
-#endif
-      /* important, leave the break outside the mech
-       * definition */
-      break;
-    case VORTEX_IO_WAIT_EPOLL:
-      /* use poll mechanism */
-#if defined (VORTEX_HAVE_EPOLL)
-      /* use select mechanism */
-      ctx->waiting_create        = __vortex_io_waiting_epoll_create;
-      ctx->waiting_destroy       = __vortex_io_waiting_epoll_destroy;
-      ctx->waiting_clear         = __vortex_io_waiting_epoll_clear;
-      ctx->waiting_wait_on       = __vortex_io_waiting_epoll_wait_on;
-      ctx->waiting_add_to        = __vortex_io_waiting_epoll_add_to;
-      /* no is_set support but automatic dispatch */
-      ctx->waiting_is_set        = NULL;
-      ctx->waiting_have_dispatch = __vortex_io_waiting_epoll_have_dispatch;
-      ctx->waiting_dispatch      = __vortex_io_waiting_epoll_dispatch;
-      ctx->waiting_type          = VORTEX_IO_WAIT_EPOLL;
-      mech                              = "linux epoll(2) system call";
-	       
-      /* ok */
-      result = axl_true;
-#else 
-      result = axl_false;
-#endif
-      /* important, leave the break outside the mech
-       * definition */
-      break;
-  } /* end switch */
-
-  vortex_log (VORTEX_LEVEL_DEBUG, "I/O API changed with result=%s%s%s", 
-              result ? "ok" : "fail",
-              (strlen (mech) > 0) ? ", now using: " :"",
-              (strlen (mech) > 0) ? mech            : "");
-
-  /* notify that the API change process have finished */
-  if (do_notify) {
-    vortex_reader_notify_change_done_io_api (ctx);
-  }
-
-  vortex_log (VORTEX_LEVEL_DEBUG, "vortex reader notified");
-
-  /* fail */
-  return result;
+  /* do not support alternate methods of waiting with Racket port */
+  return (type == VORTEX_IO_WAIT_PORT) ? axl_true : axl_false;
 }
 
 /** 
@@ -729,32 +531,8 @@ axl_bool                  vortex_io_waiting_use (VortexCtx * ctx, VortexIoWaitin
  */
 axl_bool                  vortex_io_waiting_is_available (VortexIoWaitingType type)
 {
-  switch (type) {
-    case VORTEX_IO_WAIT_SELECT:
-      /* ok */
-      return axl_false;
-    case VORTEX_IO_WAIT_POLL:
-      /* use poll mechanism */
-#if defined (VORTEX_HAVE_POLL)
-      /* ok */
-      return axl_true;
-#else
-      /* not available */
-      return axl_false;
-#endif
-    case VORTEX_IO_WAIT_EPOLL:
-      /* use poll mechanism */
-#if defined (VORTEX_HAVE_EPOLL)
-      /* ok */
-      return axl_true;
-#else
-      /* not available */
-      return axl_false;
-#endif
-  } /* end switch */
-
-  /* fail */
-  return axl_false;
+  /* do not support alternate methods of waiting with Racket port */
+  return (type == VORTEX_IO_WAIT_PORT) ? axl_true : axl_false;
 }
 
 /** 
@@ -867,7 +645,7 @@ void                 vortex_io_waiting_invoke_destroy_fd_group (VortexCtx  * ctx
   if (ctx == NULL || fd_group == NULL)
     return;
 
-  /* check current destroy IO handler configuration */
+ /* check current destroy IO handler configuration */
   if (ctx->waiting_destroy == NULL) {
     vortex_log (VORTEX_LEVEL_CRITICAL, 
                 "critical error, found that destroy fd set handler is not properly set, this is critical malfunctions");
@@ -1139,7 +917,7 @@ axl_bool                  vortex_io_waiting_invoke_have_dispatch    (VortexCtx  
  * the dispatch function.
  */
 void                 vortex_io_waiting_invoke_dispatch         (VortexCtx            * ctx,
-								axlPointer             fd_group, 
+								axlPointer             fd_group,
 								VortexIoDispatchFunc   func,
 								int                    changed,
 								axlPointer             user_data)
@@ -1157,7 +935,6 @@ void                 vortex_io_waiting_invoke_dispatch         (VortexCtx       
   /* invoke dispatch operation */
   printf ("invoking dispatch operation\n");
   ctx->waiting_dispatch (fd_group, func, changed, user_data);
-  printf ("returning from io_waiting_invoke_dispatch\n");
   return;
 }
 
@@ -1276,34 +1053,15 @@ void                 vortex_io_init (VortexCtx * ctx)
    * implemented other IO blocking operations using other APIs rather than
    * select.
    */
-#if defined(DEFAULT_EPOLL)
-  printf ("io is default_epoll\n");
-  ctx->waiting_create        = __vortex_io_waiting_epoll_create;
-  ctx->waiting_destroy       = __vortex_io_waiting_epoll_destroy;
-  ctx->waiting_clear         = __vortex_io_waiting_epoll_clear;
-  ctx->waiting_wait_on       = __vortex_io_waiting_epoll_wait_on;
-  ctx->waiting_add_to        = __vortex_io_waiting_epoll_add_to;
+  ctx->waiting_create        = __vortex_io_waiting_port_create;
+  ctx->waiting_destroy       = __vortex_io_waiting_port_destroy;
+  ctx->waiting_clear         = __vortex_io_waiting_port_clear;
+  ctx->waiting_wait_on       = __vortex_io_waiting_port_wait_on;
+  ctx->waiting_add_to        = __vortex_io_waiting_port_add_to;
   ctx->waiting_is_set        = NULL;
-  ctx->waiting_have_dispatch = __vortex_io_waiting_epoll_have_dispatch;
-  ctx->waiting_dispatch      = __vortex_io_waiting_epoll_dispatch;
-
-  /* current implementation used */
-  ctx->waiting_type          = VORTEX_IO_WAIT_EPOLL;
-
-#elif defined(DEFAULT_POLL) /* poll(2) system call support */
-  prinf ("io is default_poll\n");
-  ctx->waiting_create        = __vortex_io_waiting_poll_create;
-  ctx->waiting_destroy       = __vortex_io_waiting_poll_destroy;
-  ctx->waiting_clear         = __vortex_io_waiting_poll_clear;
-  ctx->waiting_wait_on       = __vortex_io_waiting_poll_wait_on;
-  ctx->waiting_add_to        = __vortex_io_waiting_poll_add_to;
-  ctx->waiting_is_set        = NULL;
-  ctx->waiting_have_dispatch = __vortex_io_waiting_poll_have_dispatch;
-  ctx->waiting_dispatch      = __vortex_io_waiting_poll_dispatch;
-
-  /* current implementation used */
-  ctx->waiting_type          = VORTEX_IO_WAIT_POLL;
-#endif
+  ctx->waiting_have_dispatch = __vortex_io_waiting_port_have_dispatch;
+  ctx->waiting_dispatch      = __vortex_io_waiting_port_dispatch;
+  ctx->waiting_type = VORTEX_IO_WAIT_PORT;
   return;
 }
 

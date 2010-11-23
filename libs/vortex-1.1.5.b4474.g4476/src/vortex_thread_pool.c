@@ -637,7 +637,7 @@ void vortex_thread_pool_set_new_event (NewEventFunc f) {
 int vortex_thread_pool_new_event (VortexCtx* ctx, long microseconds,
                                   VortexThreadAsyncEvent event_handler,
                                   axlPointer user_data, axlPointer user_data2) {
-  return vortex_thread_new_event_impl (ctx, microseconds, event_handler, user_data, user_data2);
+  return vortex_thread_pool_new_event_impl (ctx, microseconds, event_handler, user_data, user_data2);
 }
 
 

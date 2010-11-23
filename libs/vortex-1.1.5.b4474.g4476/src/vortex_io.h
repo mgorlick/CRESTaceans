@@ -96,7 +96,7 @@ axl_bool             vortex_io_waiting_invoke_have_dispatch    (VortexCtx       
 								axlPointer            fd_group);
 
 void                 vortex_io_waiting_invoke_dispatch         (VortexCtx           * ctx,
-								axlPointer            fd_group, 
+								axlPointer            fd_group,
 								VortexIoDispatchFunc  func,
 								int                   changed,
 								axlPointer            user_data);

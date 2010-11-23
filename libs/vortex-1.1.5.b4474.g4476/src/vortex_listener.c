@@ -46,13 +46,13 @@
 #define LOG_DOMAIN "vortex-listener"
 
 typedef struct _VortexListenerOnAcceptData {
-	VortexOnAcceptedConnection on_accept;
-	axlPointer                 on_accept_data;
+  VortexOnAcceptedConnection on_accept;
+  axlPointer                 on_accept_data;
 }VortexListenerOnAcceptData;
 
 int  __vortex_listener_get_port (const char  * port)
 {
-	return strtol (port, NULL, 10);
+  return strtol (port, NULL, 10);
 }
 
 /** 
@@ -74,97 +74,97 @@ int  __vortex_listener_get_port (const char  * port)
  */
 void vortex_listener_accept_connection    (VortexConnection * connection, axl_bool  send_greetings)
 {
-	VortexCtx                  * ctx;
-	axl_bool                     result;
-	int                          iterator;
-	VortexListenerOnAcceptData * data;
-	VortexConnection           * listener;
+  VortexCtx                  * ctx;
+  axl_bool                     result;
+  int                          iterator;
+  VortexListenerOnAcceptData * data;
+  VortexConnection           * listener;
 
-	/* check received reference */
-	if (connection == NULL)
-		return;
+  /* check received reference */
+  if (connection == NULL)
+    return;
 
-	/* Get a reference to the connection, accept the new
-	 * connection under the same domain as the context of the
-	 * listener  */
-	ctx = vortex_connection_get_ctx (connection);
+  /* Get a reference to the connection, accept the new
+   * connection under the same domain as the context of the
+   * listener  */
+  ctx = vortex_connection_get_ctx (connection);
 	
-	/* call to the handler defined */
-	iterator = 0;
-	result   = axl_true;
+  /* call to the handler defined */
+  iterator = 0;
+  result   = axl_true;
 
-	/* init lock */
-	vortex_mutex_lock(ctx->listener_mutex);
-	while (iterator < axl_list_length (ctx->listener_on_accept_handlers)) {
-		/* call and check */
-		data = axl_list_get_nth (ctx->listener_on_accept_handlers, iterator);
-		/* internal check */
-		if (data == NULL) {
-			result = axl_false;
-			break;
-		} /* end if */
+  /* init lock */
+  vortex_mutex_lock(ctx->listener_mutex);
+  while (iterator < axl_list_length (ctx->listener_on_accept_handlers)) {
+    /* call and check */
+    data = axl_list_get_nth (ctx->listener_on_accept_handlers, iterator);
+    /* internal check */
+    if (data == NULL) {
+      result = axl_false;
+      break;
+    } /* end if */
 			
-		/* check if the following handler accept the incoming
-		 * connection */
-		vortex_log (VORTEX_LEVEL_DEBUG, "calling to accept connection, handler: %p, data: %p",
-			    data->on_accept, data->on_accept_data);
-		if (! data->on_accept (connection, data->on_accept_data)) {
+    /* check if the following handler accept the incoming
+     * connection */
+    vortex_log (VORTEX_LEVEL_DEBUG, "calling to accept connection, handler: %p, data: %p",
+                data->on_accept, data->on_accept_data);
+    if (! data->on_accept (connection, data->on_accept_data)) {
 
-			vortex_log (VORTEX_LEVEL_DEBUG, "on accept handler have denied to accept the connection, handler: %p, data: %p",
-				    data->on_accept, data->on_accept_data);
+      vortex_log (VORTEX_LEVEL_DEBUG, "on accept handler have denied to accept the connection, handler: %p, data: %p",
+                  data->on_accept, data->on_accept_data);
 
-			/* found that at least one handler do not
-			 * accept the incoming connection, dropping */
-			result = axl_false;
-			break;
-		}
-		/* next iterator */
-		iterator++;
+      /* found that at least one handler do not
+       * accept the incoming connection, dropping */
+      result = axl_false;
+      break;
+    }
+    /* next iterator */
+    iterator++;
 
-	} /* end while */
+  } /* end while */
 
-	/* unlock */
-	vortex_mutex_unlock(ctx->listener_mutex);
+  /* unlock */
+  vortex_mutex_unlock(ctx->listener_mutex);
 
-	/* check result */
-	if (! result) {
-		/* check connection status */
-		if (vortex_connection_is_ok (connection, axl_false)) {
-			vortex_log (VORTEX_LEVEL_CRITICAL, "the server application level have dropped the provided connection");
+  /* check result */
+  if (! result) {
+    /* check connection status */
+    if (vortex_connection_is_ok (connection, axl_false)) {
+      vortex_log (VORTEX_LEVEL_CRITICAL, "the server application level have dropped the provided connection");
 
-			/* send greeints error */
-			vortex_greetings_error_send (connection, 
-						     NULL, "554",
-						     "Transaction failed, peer have denied your request");
-		} /* end if */
+      /* send greeints error */
+      vortex_greetings_error_send (connection, 
+                                   NULL, "554",
+                                   "Transaction failed, peer have denied your request");
+    } /* end if */
 
-		/* flag the connection to be not connected */
-		__vortex_connection_set_not_connected (connection, "connection filtered by on accept handler", VortexConnectionFiltered);
+    /* flag the connection to be not connected */
+    __vortex_connection_set_not_connected (connection, "connection filtered by on accept handler", VortexConnectionFiltered);
 
-		vortex_connection_unref (connection, "vortex listener");
-		return;
+    vortex_connection_unref (connection, "vortex listener");
+    return;
 
-	} /* end if */
+  } /* end if */
 
-	/* check to send greetings but only if prered is not defined */
-	if (! vortex_connection_is_defined_preread_handler (connection)) {
-		/* get master listener (the connection that created this
-		 * incoming connection) to check if we have to send greetings */
-		listener = vortex_connection_get_data (connection, "_vo:li:master");
-		if (vortex_connection_get_data (listener, "vo:li:send-greetings")) {
-			vortex_log (VORTEX_LEVEL_DEBUG, "Sending BEEP greetings to client without waiting for theirs..");
-			vortex_greetings_send (connection, NULL);
-		} /* end if */
-	} /* end if */
+  /* check to send greetings but only if prered is not defined */
+  if (! vortex_connection_is_defined_preread_handler (connection)) {
+    /* get master listener (the connection that created this
+     * incoming connection) to check if we have to send greetings */
+    listener = vortex_connection_get_data (connection, "_vo:li:master");
+    if (vortex_connection_get_data (listener, "vo:li:send-greetings")) {
+      vortex_log (VORTEX_LEVEL_DEBUG, "Sending BEEP greetings to client without waiting for theirs..");
+      vortex_greetings_send (connection, NULL);
+    } /* end if */
+  } /* end if */
 
-	/* call to complete incoming connection register operation */
-	vortex_listener_complete_register (connection);
-        printf ("completed listener connection registration\n");
+  /* call to complete incoming connection register operation */
+  vortex_listener_complete_register (connection);
+  printf ("completed listener connection registration\n");
 	
-	/* close connection and free resources */
-	vortex_log (VORTEX_LEVEL_DEBUG, "worker ended, connection registered on manager (initial accept)");
+  /* close connection and free resources */
+  vortex_log (VORTEX_LEVEL_DEBUG, "worker ended, connection registered on manager (initial accept)");
 
-	return;
+  return;
 }
 
 /** 
@@ -173,32 +173,32 @@ void vortex_listener_accept_connection    (VortexConnection * connection, axl_bo
  */
 void          vortex_listener_complete_register    (VortexConnection     * connection)
 {
-	VortexCtx * ctx;
+  VortexCtx * ctx;
 
-	/* check connection received */
-	if (connection == NULL)
-		return;
+  /* check connection received */
+  if (connection == NULL)
+    return;
 
-	ctx = vortex_connection_get_ctx (connection);
+  ctx = vortex_connection_get_ctx (connection);
 
-	/* flag the connection to be on initial step */
-	vortex_connection_set_data (connection, "initial_accept", INT_TO_PTR (axl_true));
+  /* flag the connection to be on initial step */
+  vortex_connection_set_data (connection, "initial_accept", INT_TO_PTR (axl_true));
 
-	/*
-	 * register the connection on vortex reader from here, the
-	 * connection get a non-blocking state
-	 */
-	vortex_reader_watch_connection      (ctx, connection);
+  /*
+   * register the connection on vortex reader from here, the
+   * connection get a non-blocking state
+   */
+  vortex_reader_watch_connection      (ctx, connection);
 
-	/*
-	 * Because this is a listener, we don't want to pay attention
-	 * to free connection on errors. connection already have 1
-	 * reference (reader), so let's reference counting to the job
-	 * of free connection resources.
-	 */
-	vortex_connection_unref (connection, "vortex listener (initial accept)");
+  /*
+   * Because this is a listener, we don't want to pay attention
+   * to free connection on errors. connection already have 1
+   * reference (reader), so let's reference counting to the job
+   * of free connection resources.
+   */
+  vortex_connection_unref (connection, "vortex listener (initial accept)");
 
-	return;
+  return;
 }
 
 /** 
@@ -251,27 +251,28 @@ void __vortex_listener_initial_accept (VortexCtx        * ctx,
 				       VORTEX_SOCKET      client_socket, 
 				       VortexConnection * listener)
 {
-	VortexConnection     * connection = NULL;
+  VortexConnection     * connection = NULL;
 
-	/* before doing anything, we have to create a connection */
-	connection = vortex_connection_new_empty (ctx, client_socket, VortexRoleListener);
-	vortex_log (VORTEX_LEVEL_DEBUG, "received connection from: %s:%s", 
-		    vortex_connection_get_host (connection),
-		    vortex_connection_get_port (connection));
+  /* before doing anything, we have to create a connection */
+  connection = vortex_connection_new_empty (ctx, 1, VortexRoleListener);
+  vortex_connection_share_closures (listener, connection);
+  vortex_log (VORTEX_LEVEL_DEBUG, "received connection from: %s:%s", 
+              vortex_connection_get_host (connection),
+              vortex_connection_get_port (connection));
 
-	/* configure the relation between this connection and the
-	 * master listener connection */
-	vortex_connection_set_data (connection, "_vo:li:master", listener);
+  /* configure the relation between this connection and the
+   * master listener connection */
+  vortex_connection_set_data (connection, "_vo:li:master", listener);
 
-	/*
-	 * Perform an initial accept, flagging the connection to be
-	 * into the initial accept stage, and send the initial greetings.
-	 */
-	vortex_listener_accept_connection (connection, axl_true);
+  /*
+   * Perform an initial accept, flagging the connection to be
+   * into the initial accept stage, and send the initial greetings.
+   */
+  vortex_listener_accept_connection (connection, axl_true);
 
-        printf ("returning from initial_accept\n");
+  printf ("returning from initial_accept\n");
 
-	return;
+  return;
 }
 
 /** 
@@ -293,122 +294,122 @@ void __vortex_listener_initial_accept (VortexCtx        * ctx,
  */
 void __vortex_listener_second_step_accept (VortexFrame * frame, VortexConnection * connection)
 {
-	VortexFrame   * pending;
+  VortexFrame   * pending;
 #if defined(ENABLE_VORTEX_LOG)
-	VortexCtx     * ctx = vortex_connection_get_ctx (connection);
+  VortexCtx     * ctx = vortex_connection_get_ctx (connection);
 #endif
-	vortex_log (VORTEX_LEVEL_DEBUG, "called listener second step accept..");
-        printf ("in second step accept\n");
-	/* check if the connection have a pending frame (get the reference) */
-	pending = vortex_connection_get_data (connection,
-					      VORTEX_GREETINGS_PENDING_FRAME);
-	/* check pending frame */
-	if (pending) {
-		pending = vortex_frame_join (pending, frame);
-		vortex_frame_unref (frame);
-		frame   = pending;
-	} /* end if */
+  vortex_log (VORTEX_LEVEL_DEBUG, "called listener second step accept..");
+  printf ("in second step accept\n");
+  /* check if the connection have a pending frame (get the reference) */
+  pending = vortex_connection_get_data (connection,
+                                        VORTEX_GREETINGS_PENDING_FRAME);
+  /* check pending frame */
+  if (pending) {
+    pending = vortex_frame_join (pending, frame);
+    vortex_frame_unref (frame);
+    frame   = pending;
+  } /* end if */
 
-	/* check if the frame returned is not complete, to store in
-	 * the connection and return NULL */
-	if (vortex_frame_get_more_flag (frame)) {
-		/* store the frame */
-		vortex_connection_set_data_full (connection, 
-						 /* key and data */
-						 VORTEX_GREETINGS_PENDING_FRAME, frame,
-						 NULL, (axlDestroyFunc) vortex_frame_unref);
-		return;
-	} /* end if */
+  /* check if the frame returned is not complete, to store in
+   * the connection and return NULL */
+  if (vortex_frame_get_more_flag (frame)) {
+    /* store the frame */
+    vortex_connection_set_data_full (connection, 
+                                     /* key and data */
+                                     VORTEX_GREETINGS_PENDING_FRAME, frame,
+                                     NULL, (axlDestroyFunc) vortex_frame_unref);
+    return;
+  } /* end if */
 
-	/* frame complete, clear connection content */
-	vortex_connection_set_data (connection, 
-				    /* key and data */
-				    VORTEX_GREETINGS_PENDING_FRAME, NULL);
+  /* frame complete, clear connection content */
+  vortex_connection_set_data (connection, 
+                              /* key and data */
+                              VORTEX_GREETINGS_PENDING_FRAME, NULL);
 
 
-	/* call to update frame MIME status */
-	if (! vortex_frame_mime_process (frame))
-		vortex_log (VORTEX_LEVEL_WARNING, "failed to update MIME status for the frame, continue delivery");
+  /* call to update frame MIME status */
+  if (! vortex_frame_mime_process (frame))
+    vortex_log (VORTEX_LEVEL_WARNING, "failed to update MIME status for the frame, continue delivery");
 
-	/* process greetings from init peer */
-	if (!vortex_greetings_is_reply_ok (frame, connection, NULL)) {
-		/* previous function already unref frame object
-		 * received is something goes wrong */
-		vortex_log (VORTEX_LEVEL_CRITICAL, "wrong greeting rpy from init peer, closing session");
-		__vortex_connection_set_not_connected (connection, "wrong greeting rpy from init peer, closing session", VortexProtocolError);
-		return;
-	}
+  /* process greetings from init peer */
+  if (!vortex_greetings_is_reply_ok (frame, connection, NULL)) {
+    /* previous function already unref frame object
+     * received is something goes wrong */
+    vortex_log (VORTEX_LEVEL_CRITICAL, "wrong greeting rpy from init peer, closing session");
+    __vortex_connection_set_not_connected (connection, "wrong greeting rpy from init peer, closing session", VortexProtocolError);
+    return;
+  }
 
-	vortex_log (VORTEX_LEVEL_DEBUG, "received initiator peer greetings...checking..");
+  vortex_log (VORTEX_LEVEL_DEBUG, "received initiator peer greetings...checking..");
 
-	/* because the greeting is ok, parse it */
-	if (!__vortex_connection_parse_greetings (connection, frame)) {
-		/* previous function doesn't perform a frame
-		 * deallocation, unref it*/
-		vortex_frame_unref (frame);
+  /* because the greeting is ok, parse it */
+  if (!__vortex_connection_parse_greetings (connection, frame)) {
+    /* previous function doesn't perform a frame
+     * deallocation, unref it*/
+    vortex_frame_unref (frame);
 		
-		vortex_log (VORTEX_LEVEL_CRITICAL, "wrong greetings received, closing session");
-		__vortex_connection_set_not_connected (connection, "wrong greetings received, closing session", VortexProtocolError);
-		return;
-	}
+    vortex_log (VORTEX_LEVEL_CRITICAL, "wrong greetings received, closing session");
+    __vortex_connection_set_not_connected (connection, "wrong greetings received, closing session", VortexProtocolError);
+    return;
+  }
 
-	/* if parse greetins ok, notify to process features and and
-	   localize */
-	if (! vortex_connection_actions_notify (&connection, CONNECTION_STAGE_PROCESS_GREETINGS_FEATURES)) {
-		/* release_frame */
-		vortex_frame_unref (frame);
+  /* if parse greetins ok, notify to process features and and
+     localize */
+  if (! vortex_connection_actions_notify (&connection, CONNECTION_STAGE_PROCESS_GREETINGS_FEATURES)) {
+    /* release_frame */
+    vortex_frame_unref (frame);
 
-		/* action reporting failure, unref the connection */
-		vortex_log (VORTEX_LEVEL_CRITICAL, "vortex listener do to action failure = CONNECTION_STAGE_PROCESS_GREETINGS_FEATURES, connection closed id=%d",
-			    vortex_connection_get_id (connection));
-		__vortex_connection_set_not_connected (connection, "vortex listener do to action failure = CONNECTION_STAGE_PROCESS_GREETINGS_FEATURES", 
-						       VortexConnectionFiltered);
-		return;
-	} /* end if */
+    /* action reporting failure, unref the connection */
+    vortex_log (VORTEX_LEVEL_CRITICAL, "vortex listener do to action failure = CONNECTION_STAGE_PROCESS_GREETINGS_FEATURES, connection closed id=%d",
+                vortex_connection_get_id (connection));
+    __vortex_connection_set_not_connected (connection, "vortex listener do to action failure = CONNECTION_STAGE_PROCESS_GREETINGS_FEATURES", 
+                                           VortexConnectionFiltered);
+    return;
+  } /* end if */
 
-	vortex_log (VORTEX_LEVEL_DEBUG, "greetings ok, sending listener greetings..");
+  vortex_log (VORTEX_LEVEL_DEBUG, "greetings ok, sending listener greetings..");
 
-	/* send greetings, get actual profile installation and report
-	 * it to init peer */
-	vortex_log (VORTEX_LEVEL_DEBUG, "sending greetings for a new connection..");
-	if ((! vortex_greetings_send (connection, NULL))) {
-		/* release frame */
-		vortex_frame_unref (frame);
+  /* send greetings, get actual profile installation and report
+   * it to init peer */
+  vortex_log (VORTEX_LEVEL_DEBUG, "sending greetings for a new connection..");
+  if ((! vortex_greetings_send (connection, NULL))) {
+    /* release frame */
+    vortex_frame_unref (frame);
 
-		vortex_log (VORTEX_LEVEL_CRITICAL, "vortex listener: failed to send initial listener greetings reply message");
+    vortex_log (VORTEX_LEVEL_CRITICAL, "vortex listener: failed to send initial listener greetings reply message");
 		
-		/*
-		 * This unref sentence is properly defined. Opposite
-		 * ref call done to this unref is actually done by
-		 * vortex_connection_new_empty.
-		 */ 
-		__vortex_connection_set_not_connected (connection, "vortex listener: failed to send initial listener greetings reply message",
-						       VortexProtocolError);
-		return;
-	} /* end if */
+    /*
+     * This unref sentence is properly defined. Opposite
+     * ref call done to this unref is actually done by
+     * vortex_connection_new_empty.
+     */ 
+    __vortex_connection_set_not_connected (connection, "vortex listener: failed to send initial listener greetings reply message",
+                                           VortexProtocolError);
+    return;
+  } /* end if */
 
-	/* frame accepted */
-	vortex_log (VORTEX_LEVEL_DEBUG, "accepting connection on vortex_reader (second accept step)");
+  /* frame accepted */
+  vortex_log (VORTEX_LEVEL_DEBUG, "accepting connection on vortex_reader (second accept step)");
 	
-	/* free the last frame and watch connection on changes */
-	vortex_frame_unref (frame);
+  /* free the last frame and watch connection on changes */
+  vortex_frame_unref (frame);
 	
-	/*** CONNECTION COMPLETELY ACCEPTED ***/
-	/* flag the connection to be totally accepted. */
-	vortex_connection_set_data (connection, "initial_accept", NULL);
-	/* flag that the greetings message was already sent */
-	vortex_connection_set_data (connection, "vo:greetings-sent", NULL);
+  /*** CONNECTION COMPLETELY ACCEPTED ***/
+  /* flag the connection to be totally accepted. */
+  vortex_connection_set_data (connection, "initial_accept", NULL);
+  /* flag that the greetings message was already sent */
+  vortex_connection_set_data (connection, "vo:greetings-sent", NULL);
 
-	/* call to notify connection created */
-	if (! vortex_connection_actions_notify (&connection, CONNECTION_STAGE_POST_CREATED)) {
-		/* action reporting failure, unref the connection */
-		vortex_log (VORTEX_LEVEL_CRITICAL, "vortex listener do to action failure = CONNECTION_STAGE_POST_CREATED, connection closed id=%d",
-			    vortex_connection_get_id (connection));
-		__vortex_connection_set_not_connected (connection, "vortex listener do to action failure = CONNECTION_STAGE_POST_CREATED", VortexConnectionFiltered);
-		return;
-	} /* end if */
+  /* call to notify connection created */
+  if (! vortex_connection_actions_notify (&connection, CONNECTION_STAGE_POST_CREATED)) {
+    /* action reporting failure, unref the connection */
+    vortex_log (VORTEX_LEVEL_CRITICAL, "vortex listener do to action failure = CONNECTION_STAGE_POST_CREATED, connection closed id=%d",
+                vortex_connection_get_id (connection));
+    __vortex_connection_set_not_connected (connection, "vortex listener do to action failure = CONNECTION_STAGE_POST_CREATED", VortexConnectionFiltered);
+    return;
+  } /* end if */
 
-	return;	
+  return;	
 }
 
 /** 
@@ -416,286 +417,172 @@ void __vortex_listener_second_step_accept (VortexFrame * frame, VortexConnection
  *
  * @param server_socket The listener socket where the accept() operation will be called.
  *
- * @return Returns a connected socket descriptor or -1 if it fails.
+ * @return Returns a 1 if accepting succeeded and socket addresses are set, or -1 if it fails.
  */
-VORTEX_SOCKET vortex_listener_accept (VORTEX_SOCKET server_socket)
+int vortex_listener_accept (VortexConnection* master, VortexConnection* child)
 {
-	struct sockaddr_in inet_addr;
-#if defined(AXL_OS_WIN32)
-	int               addrlen;
-#else
-	socklen_t         addrlen;
-#endif
-	addrlen       = sizeof(struct sockaddr_in);
-        printf ("accepting a socket connection\n");
-	/* accept the connection new connection */
-	return accept (server_socket, (struct sockaddr *)&inet_addr, &addrlen);
+  return vortex_connection_do_accept (master, child);
 }
 
 void vortex_listener_accept_connections (VortexCtx        * ctx,
 					 int                server_socket, 
 					 VortexConnection * listener)
 {
-	int   soft_limit, hard_limit, client_socket;
+  VortexConnection* connection = NULL;
+  int accept_result;
+  int soft_limit, hard_limit;
 
-	/* accept the connection new connection */
-	client_socket = vortex_listener_accept (server_socket);
-	if (client_socket == VORTEX_SOCKET_ERROR) {
-		/* get values */
-		vortex_conf_get (ctx, VORTEX_SOFT_SOCK_LIMIT, &soft_limit);
-		vortex_conf_get (ctx, VORTEX_HARD_SOCK_LIMIT, &hard_limit);
+  /* borrowed from old initial_accept */
+  /* before doing anything, we have to create a connection */
+  connection = vortex_connection_new_empty (ctx, 1, VortexRoleListener);
+  vortex_connection_share_closures (listener, connection);
+  accept_result = vortex_listener_accept (listener, connection);
+        
+  if (accept_result == VORTEX_SOCKET_ERROR) {
+    /* get values */
+    vortex_conf_get (ctx, VORTEX_SOFT_SOCK_LIMIT, &soft_limit);
+    vortex_conf_get (ctx, VORTEX_HARD_SOCK_LIMIT, &hard_limit);
+    vortex_log (VORTEX_LEVEL_CRITICAL, "accept () failed, server_socket=%d, soft-limit=%d, hard-limit=%d, connection invalid!\n",
+                server_socket, soft_limit, hard_limit);
+    vortex_connection_close (connection);
+    vortex_connection_free (connection);
+    return;
+  }
+        
+  vortex_log (VORTEX_LEVEL_DEBUG, "received connection from: %s:%s", 
+              vortex_connection_get_host (connection),
+              vortex_connection_get_port (connection));
 
-		vortex_log (VORTEX_LEVEL_CRITICAL, "accept () failed, server_socket=%d, soft-limit=%d, hard-limit=%d: (errno=%d) %s\n",
-			    server_socket, soft_limit, hard_limit, errno, vortex_errno_get_last_error ());
-		return;
-	}
+  /* configure the relation between this connection and the
+   * master listener connection */
+  vortex_connection_set_data (connection, "_vo:li:master", listener);
 
-	/* check we can support more sockets, if not close current
-	 * connection: function already closes client socket in the
-	 * case of failure */
-        /* NO LIMIT IN CASE OF RACKET VERSION! */
-	/* if (! vortex_connection_check_socket_limit (ctx, client_socket))
-           return;*/
+  /*
+   * Perform an initial accept, flagging the connection to be
+   * into the initial accept stage, and send the initial greetings.
+   */
+  vortex_listener_accept_connection (connection, axl_true);
 
-	/* instead of negotiate the connection at this point simply
-	 * accept it to negotiate it inside vortex_reader loop.  */
-	__vortex_listener_initial_accept (vortex_connection_get_ctx (listener), client_socket, listener);
-        printf ("returning from accept_connections\n");
-	return;
+  return;
+
 }
 
 typedef struct _VortexListenerData {
-	char                     * host;
-	int                        port;
-	VortexListenerReady        on_ready;
-	VortexListenerReadyFull    on_ready_full;
-	axlPointer                 user_data;
-	axl_bool                   threaded;
-	VortexCtx                * ctx;
+  char                     * host;
+  int                        port;
+  VortexListenerReady        on_ready;
+  VortexListenerReadyFull    on_ready_full;
+  axlPointer                 user_data;
+  axl_bool                   threaded;
+  VortexCtx                * ctx;
 }VortexListenerData;
-
-/** 
- * @brief Starts a generic TCP listener on the provided address and
- * port. This function is used internally by the vortex listener
- * module to startup the vortex listener TCP session associated,
- * however the function can be used directly to start TCP listeners.
- *
- * @param ctx The context where the listener is started.
- *
- * @param host Host address to allocate. It can be "127.0.0.1" to only
- * listen for localhost connections or "0.0.0.0" to listen on any
- * address that the server has installed. It cannot be NULL.
- *
- * @param port The port to listen on. It cannot be NULL and it must be
- * a non-zero string.
- *
- * @param error Optional axlError reference where a textual diagnostic
- * will be reported in case of error.
- *
- * @return The function returns the listener socket or -1 if it
- * fails. Optionally the axlError reports the textual especific error
- * found. If the function returns -2 then some parameter provided was
- * found to be NULL.
- */
-VORTEX_SOCKET     vortex_listener_sock_listen      (VortexCtx   * ctx,
-						    const char  * host,
-						    const char  * port,
-						    axlError   ** error)
-{
-	struct hostent     * he;
-       struct in_addr     * haddr;
-       struct sockaddr_in   saddr;
-	struct sockaddr_in   sin;
-	VORTEX_SOCKET        fd;
-#if defined(AXL_OS_WIN32)
-/*	BOOL                 unit      = axl_true; */
-	int                  sin_size  = sizeof (sin);
-#else    	
-	int                  unit      = 1; 
-	socklen_t            sin_size  = sizeof (sin);
-#endif	
-	uint16_t             int_port;
-	int                  backlog   = 0;
-	int                  bind_res;
-
-	v_return_val_if_fail (ctx,  -2);
-	v_return_val_if_fail (host, -2);
-	v_return_val_if_fail (port || strlen (port) == 0, -2);
-
-	/* resolve hostname */
-	he = gethostbyname (host);
-        if (he == NULL) {
-		axl_error_report (error, VortexNameResolvFailure, "unable to get hostname by calling gethostbyname");
-		return -1;
-	} /* end if */
-
-	haddr = ((struct in_addr *) (he->h_addr_list)[0]);
-	if ((fd = socket(AF_INET, SOCK_STREAM, 0)) <= 2) {
-		/* do not allow creating sockets reusing stdin (0),
-		   stdout (1), stderr (2) */
-		vortex_log (VORTEX_LEVEL_DEBUG, "failed to create listener socket: %d (errno=%d:%s)", fd, errno, vortex_errno_get_error (errno));
-		axl_error_report (error, VortexSocketCreationError, 
-				  "failed to create listener socket: %d (errno=%d:%s)", fd, errno, vortex_errno_get_error (errno));
-		return -1;
-        } /* end if */
-
-#if defined(AXL_OS_WIN32)
-	/* Do not issue a reuse addr which causes on windows to reuse
-	 * the same address:port for the same process. Under linux,
-	 * reusing the address means that consecutive process can
-	 * reuse the address without being blocked by a wait
-	 * state.  */
-	/* setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, (char  *)&unit, sizeof(BOOL)); */
-#else
-	/* setsockopt(fd, SOL_SOCKET, SO_REUSEADDR, &unit, sizeof (unit)); */
-#endif 
-	/* get integer port */
-	int_port  = (uint16_t) atoi (port);
-
-	memset(&saddr, 0, sizeof(struct sockaddr_in));
-	saddr.sin_family          = AF_INET;
-	saddr.sin_port            = htons(int_port);
-	memcpy(&saddr.sin_addr, haddr, sizeof(struct in_addr));
-
-	/* call to bind */
-	bind_res = bind(fd, (struct sockaddr *)&saddr,  sizeof (struct sockaddr_in));
-	vortex_log (VORTEX_LEVEL_DEBUG, "bind(2) call returned: %d", bind_res);
-	if (bind_res == VORTEX_SOCKET_ERROR) {
-		vortex_log (VORTEX_LEVEL_DEBUG, "unable to bind address (port:%u already in use or insufficient permissions). Closing socket: %d", int_port, fd);
-		axl_error_report (error, VortexBindError, "unable to bind address (port:%u already in use or insufficient permissions). Closing socket: %d", int_port, fd);
-		vortex_close_socket (fd);
-		return -1;
-	}
-	
-	/* get current backlog configuration */
-	vortex_conf_get (ctx, VORTEX_LISTENER_BACKLOG, &backlog);
-	
-	if (listen(fd, backlog) == VORTEX_SOCKET_ERROR) {
-		axl_error_report (error, VortexSocketCreationError, "an error have occur while executing listen");
-		return -1;
-        } /* end if */
-
-	/* notify listener */
-	if (getsockname (fd, (struct sockaddr *) &sin, &sin_size) < -1) {
-		axl_error_report (error, VortexNameResolvFailure, "an error have happen while executing getsockname");
-		return -1;
-	} /* end if */
-
-	/* report and return fd */
-	vortex_log  (VORTEX_LEVEL_DEBUG, "running listener at %s:%d (socket: %d)", inet_ntoa(sin.sin_addr), ntohs (sin.sin_port), fd);
-        printf ("listening at %i\n", fd);
-	return fd;
-}
 
 axlPointer __vortex_listener_new (VortexListenerData * data)
 {
-	char               * host      = data->host;
-	axl_bool             threaded  = data->threaded;
-	char               * str_port  = axl_strdup_printf ("%d", data->port);
-	axlPointer           user_data = data->user_data;
-	const char         * message   = NULL;
-	VortexConnection   * listener  = NULL;
-	VortexCtx          * ctx       = data->ctx;
-	VortexStatus         status    = VortexOk;
-	char               * host_used;
-	axlError           * error     = NULL;
-	VORTEX_SOCKET        fd;
-	struct sockaddr_in   sin;
+  char               * host      = data->host;
+  axl_bool             threaded  = data->threaded;
+  char               * str_port  = axl_strdup_printf ("%d", data->port);
+  axlPointer           user_data = data->user_data;
+  const char         * message   = NULL;
+  VortexConnection   * listener  = NULL;
+  VortexCtx          * ctx       = data->ctx;
+  VortexStatus         status    = VortexOk;
+  int socket_listen_result;
 
-	/* handlers received (may be both null) */
-	VortexListenerReady      on_ready       = data->on_ready;
-	VortexListenerReadyFull  on_ready_full  = data->on_ready_full;
+  /* handlers received (may be both null) */
+  VortexListenerReady      on_ready       = data->on_ready;
+  VortexListenerReadyFull  on_ready_full  = data->on_ready_full;
 	
-	/* free data */
-	axl_free (data);
+  /* free data */
+  axl_free (data);
 
-	/* allocate listener */
-	fd = vortex_listener_sock_listen (ctx, host, str_port, &error);
+  /* listener ok */
+  /* seems listener to be created, now create the BEEP
+   * connection around it */
+  listener = vortex_connection_new_empty (ctx, 1, VortexRoleMasterListener);
+  /* allocate listener */
+  socket_listen_result = vortex_connection_do_listen (listener, host, str_port);
 	
-	/* unref the host and port value */
-	axl_free (str_port);
-	axl_free (host);
+  /* unref the host and port value */
+  axl_free (str_port);
+  axl_free (host);
+        
+  vortex_log (VORTEX_LEVEL_DEBUG, "listener reference created (%p, id: %d, status: %d)", listener, 
+              vortex_connection_get_id (listener), socket_listen_result);
 
-	/* listener ok */
-	/* seems listener to be created, now create the BEEP
-	 * connection around it */
-	listener = vortex_connection_new_empty (ctx, fd, VortexRoleMasterListener);
-
-	vortex_log (VORTEX_LEVEL_DEBUG, "listener reference created (%p, id: %d, socket: %d)", listener, 
-		    vortex_connection_get_id (listener), fd);
-
-	/* handle returned socket or error */
-	switch (fd) {
-	case -2:
+  /* handle returned socket or error */
+  switch (socket_listen_result) {
+    case -2:
 		vortex_log (VORTEX_LEVEL_CRITICAL, "Failed to start listener because vortex_listener_sock_listener reported NULL parameter received");
 		status  = VortexWrongReference;
-		message = "Failed to start listener because vortex_listener_sock_listener reported NULL parameter received";
+		message = "Failed to start listener because vortex_connection_do_listen reported NULL parameter received";
 
 		/* set status */
 		__vortex_connection_set_not_connected (listener, message, status);
-		break;
-	case -1:
-		vortex_log (VORTEX_LEVEL_CRITICAL, "Failed to start listener, vortex_listener_sock_listener reported (code: %d): %s",
-			    axl_error_get_code (error), axl_error_get (error));
-		status  = axl_error_get_code (error);
-		message = axl_error_get (error);
+                
+    case -1:
+      vortex_log (VORTEX_LEVEL_CRITICAL, "Failed to start listener, tcp/listen reported network error");
+      status  = VortexSocketCreationError;
+      message = "network error, unable to connect in tcp/listen";
 
-		/* set status */
-		__vortex_connection_set_not_connected (listener, message, status);
-		break;
-	default:
-		/* register the listener socket at the Vortex Reader process.  */
-		vortex_reader_watch_listener (ctx, listener);
-		if (threaded) {
-			vortex_log (VORTEX_LEVEL_DEBUG, "doing listener notification (threaded mode)");
-			/* notify listener created */
-			host_used = vortex_support_inet_ntoa (ctx, &sin);
-			if (on_ready != NULL) {
-				on_ready (host_used, ntohs (sin.sin_port), VortexOk, "server ready for requests", user_data);
-			} /* end if */
+      /* set status */
+      __vortex_connection_set_not_connected (listener, message, status);
+      break;
+      
+    default:
+      /* register the listener socket at the Vortex Reader process.  */
+      vortex_reader_watch_listener (ctx, listener);
+      if (threaded) {
+        vortex_log (VORTEX_LEVEL_DEBUG, "doing listener notification (threaded mode)");
+
+        char* locala;
+        int localp;
+        int host_used_status = vortex_connection_get_host_used (listener, &locala, &localp);
+        
+        /* notify listener created */
+        
+        if (on_ready != NULL) {
+          on_ready (locala, localp, VortexOk, "server ready for requests", user_data);
+        } /* end if */
 			
-			if (on_ready_full != NULL) {
-				on_ready_full (host_used, ntohs (sin.sin_port), VortexOk, "server ready for requests", listener, user_data);
-			} /* end if */
-			axl_free (host_used);
-		} /* end if */
+        if (on_ready_full != NULL) {
+          on_ready_full (locala, localp, VortexOk, "server ready for requests", listener, user_data);
+        } /* end if */
+      } /* end if */
 
-		/* call to notify connection created */
-		if (! vortex_connection_actions_notify (&listener, CONNECTION_STAGE_POST_CREATED)) {
-			/* action reporting failure, unref the connection */
-			__vortex_connection_set_not_connected (listener, "vortex master listener post created action failed", VortexConnectionFiltered);
-		} /* end if */
+      /* call to notify connection created */
+      if (! vortex_connection_actions_notify (&listener, CONNECTION_STAGE_POST_CREATED)) {
+        /* action reporting failure, unref the connection */
+        __vortex_connection_set_not_connected (listener, "vortex master listener post created action failed", VortexConnectionFiltered);
+      } /* end if */
 
-		/* the listener reference */
-		vortex_log (VORTEX_LEVEL_DEBUG, "returning listener running at %s:%s (non-threaded mode)", 
-			    vortex_connection_get_host (listener), vortex_connection_get_port (listener));
-		return listener;
-	} /* end switch */
+      /* the listener reference */
+      vortex_log (VORTEX_LEVEL_DEBUG, "returning listener running at %s:%s (non-threaded mode)", 
+                  vortex_connection_get_host (listener), vortex_connection_get_port (listener));
+      return listener;
+  } /* end switch */
 
-	/* according to the invocation */
-	if (threaded) {
-		/* notify error found to handlers */
-		if (on_ready != NULL) 
-			on_ready      (NULL, 0, status, (char*) message, user_data);
-		if (on_ready_full != NULL) 
-			on_ready_full (NULL, 0, status, (char*) message, NULL, user_data);
-	} else {
-		vortex_log (VORTEX_LEVEL_CRITICAL, "unable to start vortex server, error was: %s, unblocking vortex_listener_wait",
-		       message);
-		/* notify the listener that an error was found
-		 * (because the server didn't suply a handler) */
-		vortex_mutex_lock(ctx->listener_unlock);
-		QUEUE_PUSH (ctx->listener_wait_lock, INT_TO_PTR (axl_true));
-		ctx->listener_wait_lock = NULL;
-                printf ("error was found because the server didn't supply a handler\n");
-		vortex_mutex_unlock(ctx->listener_unlock);
-	} /* end if */
+  /* according to the invocation */
+  if (threaded) {
+    /* notify error found to handlers */
+    if (on_ready != NULL) 
+      on_ready      (NULL, 0, status, (char*) message, user_data);
+    if (on_ready_full != NULL) 
+      on_ready_full (NULL, 0, status, (char*) message, NULL, user_data);
+  } else {
+    vortex_log (VORTEX_LEVEL_CRITICAL, "unable to start vortex server, error was: %s, unblocking vortex_listener_wait",
+                message);
+    /* notify the listener that an error was found
+     * (because the server didn't suply a handler) */
+    vortex_mutex_lock(ctx->listener_unlock);
+    QUEUE_PUSH (ctx->listener_wait_lock, INT_TO_PTR (axl_true));
+    ctx->listener_wait_lock = NULL;
+    printf ("error was found because the server didn't supply a handler\n");
+    vortex_mutex_unlock(ctx->listener_unlock);
+  } /* end if */
 
-	/* unref error */
-	axl_error_free (error);
-
-	/* return listener created */
-	return listener;
+  /* return listener created */
+  return listener;
 }
 
 /** 
@@ -708,34 +595,34 @@ VortexConnection * __vortex_listener_new_common  (VortexCtx               * ctx,
 						  VortexListenerReadyFull   on_ready_full,
 						  axlPointer                user_data)
 {
-	VortexListenerData * data;
+  VortexListenerData * data;
 
-	/* check context is initialized */
-	if (! vortex_init_check (ctx))
-		return NULL;
+  /* check context is initialized */
+  if (! vortex_init_check (ctx))
+    return NULL;
 	
-	/* init listener module */
-	vortex_listener_init (ctx);
+  /* init listener module */
+  vortex_listener_init (ctx);
 	
-	/* prepare function data */
-	data                = axl_new (VortexListenerData, 1);
-	data->host          = axl_strdup (host);
-	data->port          = port;
-	data->on_ready      = on_ready;
-	data->on_ready_full = on_ready_full;
-	data->user_data     = user_data;
-	data->ctx           = ctx;
-	data->threaded      = (on_ready != NULL) || (on_ready_full != NULL);
+  /* prepare function data */
+  data                = axl_new (VortexListenerData, 1);
+  data->host          = axl_strdup (host);
+  data->port          = port;
+  data->on_ready      = on_ready;
+  data->on_ready_full = on_ready_full;
+  data->user_data     = user_data;
+  data->ctx           = ctx;
+  data->threaded      = (on_ready != NULL) || (on_ready_full != NULL);
 	
-	/* make request */
-	if (data->threaded) {
-		vortex_log (VORTEX_LEVEL_DEBUG, "invoking listener_new threaded mode");
-		vortex_thread_pool_new_task (ctx, (VortexThreadFunc) __vortex_listener_new, data);
-		return NULL;
-	}
+  /* make request */
+  if (data->threaded) {
+    vortex_log (VORTEX_LEVEL_DEBUG, "invoking listener_new threaded mode");
+    vortex_thread_pool_new_task (ctx, (VortexThreadFunc) __vortex_listener_new, data);
+    return NULL;
+  }
 
-	vortex_log (VORTEX_LEVEL_DEBUG, "invoking listener_new non-threaded mode");
-	return __vortex_listener_new (data);	
+  vortex_log (VORTEX_LEVEL_DEBUG, "invoking listener_new non-threaded mode");
+  return __vortex_listener_new (data);	
 }
 
 
@@ -938,8 +825,8 @@ VortexConnection * vortex_listener_new (VortexCtx           * ctx,
 					VortexListenerReady   on_ready, 
 					axlPointer            user_data)
 {
-	/* call to int port API */
-	return __vortex_listener_new_common (ctx, host, __vortex_listener_get_port (port), on_ready, NULL, user_data);
+  /* call to int port API */
+  return __vortex_listener_new_common (ctx, host, __vortex_listener_get_port (port), on_ready, NULL, user_data);
 }
 
 /** 
@@ -989,8 +876,8 @@ VortexConnection * vortex_listener_new_full  (VortexCtx   * ctx,
 					      VortexListenerReadyFull on_ready_full, 
 					      axlPointer user_data)
 {
-	/* call to int port API */
-	return __vortex_listener_new_common (ctx, host, __vortex_listener_get_port (port), NULL, on_ready_full, user_data);
+  /* call to int port API */
+  return __vortex_listener_new_common (ctx, host, __vortex_listener_get_port (port), NULL, on_ready_full, user_data);
 }
 
 /** 
@@ -1035,8 +922,8 @@ VortexConnection * vortex_listener_new2    (VortexCtx   * ctx,
 					    axlPointer user_data)
 {
 
-	/* call to common API */
-	return __vortex_listener_new_common (ctx, host, port, on_ready, NULL, user_data);
+  /* call to common API */
+  return __vortex_listener_new_common (ctx, host, port, on_ready, NULL, user_data);
 }
 
 
@@ -1061,52 +948,52 @@ VortexConnection * vortex_listener_new2    (VortexCtx   * ctx,
  */
 void vortex_listener_wait (VortexCtx * ctx)
 {
-	VortexAsyncQueue * temp;
-        printf ("entered listener_wait\n");
-	/* check reference received */
-	if (ctx == NULL)
-          return;
+  VortexAsyncQueue * temp;
+  printf ("entered listener_wait\n");
+  /* check reference received */
+  if (ctx == NULL)
+    return;
         
-        FUEL_WITH_PROGRESS ("vortex_listener_wait()");
-	/* check and init listener_wait_lock if it wasn't: init
-	   lock */
-	vortex_mutex_lock(ctx->listener_mutex);
+  FUEL_WITH_PROGRESS ("vortex_listener_wait()");
+  /* check and init listener_wait_lock if it wasn't: init
+     lock */
+  vortex_mutex_lock(ctx->listener_mutex);
 
-	/* create listener locker */
-	if (ctx->listener_wait_lock == NULL) 
-          ctx->listener_wait_lock = vortex_async_queue_new ();
+  /* create listener locker */
+  if (ctx->listener_wait_lock == NULL) 
+    ctx->listener_wait_lock = vortex_async_queue_new ();
         
-        FUEL_WITH_PROGRESS ("vortex_listener_wait()");
+  FUEL_WITH_PROGRESS ("vortex_listener_wait()");
         
-	/* unlock */
-	vortex_mutex_unlock(ctx->listener_mutex);
-        printf ("midway thru listener_wait\n");
-	/* double locking to ensure waiting */
-	vortex_log (VORTEX_LEVEL_DEBUG, "Locking listener");
+  /* unlock */
+  vortex_mutex_unlock(ctx->listener_mutex);
+  printf ("midway thru listener_wait\n");
+  /* double locking to ensure waiting */
+  vortex_log (VORTEX_LEVEL_DEBUG, "Locking listener");
         
-	if (ctx->listener_wait_lock != NULL) {
-          /* get a local reference to the queue and work with it */
+  if (ctx->listener_wait_lock != NULL) {
+    /* get a local reference to the queue and work with it */
 
-          temp = ctx->listener_wait_lock;
+    temp = ctx->listener_wait_lock;
 
-          FUEL_WITH_PROGRESS ("vortex_listener_wait()");
+    FUEL_WITH_PROGRESS ("vortex_listener_wait()");
 
-          printf ("listener_wait_lock != null\n");
-          /* get blocked until the waiting lock is released */
-          vortex_async_queue_pop   (temp);
-          printf ("popped temp from queue in listener_wait()\n");
+    printf ("listener_wait_lock != null\n");
+    /* get blocked until the waiting lock is released */
+    vortex_async_queue_pop   (temp);
+    printf ("popped temp from queue in listener_wait()\n");
           
-          FUEL_WITH_PROGRESS ("vortex_listener_wait()");
+    FUEL_WITH_PROGRESS ("vortex_listener_wait()");
           
-          /* unref the queue */
-          vortex_async_queue_unref (temp);
-          printf ("unrefered queue in listener_wait()\n");
-	}
+    /* unref the queue */
+    vortex_async_queue_unref (temp);
+    printf ("unrefered queue in listener_wait()\n");
+  }
         
-        FUEL_WITH_PROGRESS ("vortex_listener_wait()");
-	vortex_log (VORTEX_LEVEL_DEBUG, "(un)Locked listener");
-        printf ("returning from listener_wait\n");
-	return;
+  FUEL_WITH_PROGRESS ("vortex_listener_wait()");
+  vortex_log (VORTEX_LEVEL_DEBUG, "(un)Locked listener");
+  printf ("returning from listener_wait\n");
+  return;
 }
 
 /** 
@@ -1131,35 +1018,35 @@ void vortex_listener_wait (VortexCtx * ctx)
  **/
 void vortex_listener_unlock (VortexCtx * ctx)
 {
-	/* check reference received */
-	if (ctx == NULL || ctx->listener_wait_lock == NULL)
-		return;
+  /* check reference received */
+  if (ctx == NULL || ctx->listener_wait_lock == NULL)
+    return;
 
-	/* unlock listener */
-	vortex_mutex_lock(ctx->listener_unlock);
-	if (ctx->listener_wait_lock != NULL) {
+  /* unlock listener */
+  vortex_mutex_lock(ctx->listener_unlock);
+  if (ctx->listener_wait_lock != NULL) {
 
-		/* push to signal listener unblocking */
-		vortex_log (VORTEX_LEVEL_DEBUG, "(un)Locking listener..");
+    /* push to signal listener unblocking */
+    vortex_log (VORTEX_LEVEL_DEBUG, "(un)Locking listener..");
 
-		/* notify waiters */
-		if (vortex_async_queue_waiters (ctx->listener_wait_lock) > 0) {
-			QUEUE_PUSH (ctx->listener_wait_lock, INT_TO_PTR (axl_true));
-		} else {
-			/* unref */
-			vortex_async_queue_unref (ctx->listener_wait_lock);
-		} /* end if */
+    /* notify waiters */
+    if (vortex_async_queue_waiters (ctx->listener_wait_lock) > 0) {
+      QUEUE_PUSH (ctx->listener_wait_lock, INT_TO_PTR (axl_true));
+    } else {
+      /* unref */
+      vortex_async_queue_unref (ctx->listener_wait_lock);
+    } /* end if */
 
-		/* nullify */
-		ctx->listener_wait_lock = NULL;
+    /* nullify */
+    ctx->listener_wait_lock = NULL;
 
-		vortex_mutex_unlock(ctx->listener_unlock);
-		return;
-	}
+    vortex_mutex_unlock(ctx->listener_unlock);
+    return;
+  }
 
-	vortex_log (VORTEX_LEVEL_DEBUG, "(un)Locking listener: already unlocked..");
-	vortex_mutex_unlock(ctx->listener_unlock);
-	return;
+  vortex_log (VORTEX_LEVEL_DEBUG, "(un)Locking listener: already unlocked..");
+  vortex_mutex_unlock(ctx->listener_unlock);
+  return;
 }
 
 /** 
@@ -1171,21 +1058,21 @@ void vortex_listener_unlock (VortexCtx * ctx)
  **/
 void vortex_listener_init (VortexCtx * ctx)
 {
-	/* do not lock if the data is already initialized */
-	if (ctx != NULL && ctx->listener_wait_lock != NULL &&
-	    ctx->listener_on_accept_handlers != NULL)
-		return;
+  /* do not lock if the data is already initialized */
+  if (ctx != NULL && ctx->listener_wait_lock != NULL &&
+      ctx->listener_on_accept_handlers != NULL)
+    return;
 
-	/* init lock */
-	vortex_mutex_lock(ctx->listener_mutex);
+  /* init lock */
+  vortex_mutex_lock(ctx->listener_mutex);
 	
-	/* init the server on accept connection list */
-	if (ctx->listener_on_accept_handlers == NULL)
-		ctx->listener_on_accept_handlers = axl_list_new (axl_list_always_return_1, axl_free);
+  /* init the server on accept connection list */
+  if (ctx->listener_on_accept_handlers == NULL)
+    ctx->listener_on_accept_handlers = axl_list_new (axl_list_always_return_1, axl_free);
 
-	/* unlock */
-	vortex_mutex_unlock(ctx->listener_mutex);
-	return;
+  /* unlock */
+  vortex_mutex_unlock(ctx->listener_mutex);
+  return;
 }
 
 /** 
@@ -1211,15 +1098,15 @@ void vortex_listener_init (VortexCtx * ctx)
 void          vortex_listener_send_greetings_on_connect (VortexConnection * listener, 
 							 axl_bool           send_on_connect)
 {
-	VortexCtx * ctx;
+  VortexCtx * ctx;
 
-	if (listener == NULL)
-		return;
+  if (listener == NULL)
+    return;
 
-	ctx = CONN_CTX (listener);
-	vortex_log (VORTEX_LEVEL_DEBUG, "Setting BEEP listener greetings reply: %d", send_on_connect);
-	vortex_connection_set_data (listener, "vo:li:send-greetings", INT_TO_PTR (send_on_connect));
-	return;
+  ctx = CONN_CTX (listener);
+  vortex_log (VORTEX_LEVEL_DEBUG, "Setting BEEP listener greetings reply: %d", send_on_connect);
+  vortex_connection_set_data (listener, "vo:li:send-greetings", INT_TO_PTR (send_on_connect));
+  return;
 }
 
 /** 
@@ -1229,29 +1116,29 @@ void          vortex_listener_send_greetings_on_connect (VortexConnection * list
  */
 void vortex_listener_cleanup (VortexCtx * ctx)
 {
-	VortexAsyncQueue * queue;
-	v_return_if_fail (ctx);
+  VortexAsyncQueue * queue;
+  v_return_if_fail (ctx);
 
-	axl_list_free (ctx->listener_on_accept_handlers);
-	ctx->listener_on_accept_handlers = NULL;
+  axl_list_free (ctx->listener_on_accept_handlers);
+  ctx->listener_on_accept_handlers = NULL;
 	
-	axl_free (ctx->listener_default_realm);
-	ctx->listener_default_realm = NULL;
+  axl_free (ctx->listener_default_realm);
+  ctx->listener_default_realm = NULL;
 
-	/* acquire queue and nullify */
-	queue = ctx->listener_wait_lock;
-	ctx->listener_wait_lock = NULL;
-	vortex_log (VORTEX_LEVEL_DEBUG, "listener wait queue ref: %p", queue);
-	if (queue) {
-		/* remove pending items from the queue */
-		while (vortex_async_queue_items (queue) > 0)
-			vortex_async_queue_pop (queue);
-		/* unref the queue */
-		vortex_async_queue_unref (queue);
-	}
+  /* acquire queue and nullify */
+  queue = ctx->listener_wait_lock;
+  ctx->listener_wait_lock = NULL;
+  vortex_log (VORTEX_LEVEL_DEBUG, "listener wait queue ref: %p", queue);
+  if (queue) {
+    /* remove pending items from the queue */
+    while (vortex_async_queue_items (queue) > 0)
+      vortex_async_queue_pop (queue);
+    /* unref the queue */
+    vortex_async_queue_unref (queue);
+  }
 
 
-	return;
+  return;
 }
 
 /** 
@@ -1285,49 +1172,49 @@ void          vortex_listener_set_on_connection_accepted (VortexCtx             
 							  VortexOnAcceptedConnection   on_accepted, 
 							  axlPointer                   _data)
 {
-	VortexListenerOnAcceptData * data;
+  VortexListenerOnAcceptData * data;
 
-	/* check reference received */
-	if (ctx == NULL || on_accepted == NULL)
-		return;
+  /* check reference received */
+  if (ctx == NULL || on_accepted == NULL)
+    return;
 
-	/* init lock */
-	vortex_mutex_lock(ctx->listener_mutex);
+  /* init lock */
+  vortex_mutex_lock(ctx->listener_mutex);
 
-	/* store handler configuration */
-	data                 = axl_new (VortexListenerOnAcceptData, 1);
-	if (data == NULL) {
-		/* memory allocation failed. */
-		vortex_mutex_unlock(ctx->listener_mutex);
-		return;
-	}
-	data->on_accept      = on_accepted;
-	data->on_accept_data = _data;
+  /* store handler configuration */
+  data                 = axl_new (VortexListenerOnAcceptData, 1);
+  if (data == NULL) {
+    /* memory allocation failed. */
+    vortex_mutex_unlock(ctx->listener_mutex);
+    return;
+  }
+  data->on_accept      = on_accepted;
+  data->on_accept_data = _data;
 
-	/* init the list if it wasn't */
-	if (ctx->listener_on_accept_handlers == NULL) {
-		/* alloc list */
-		ctx->listener_on_accept_handlers = axl_list_new (axl_list_always_return_1, axl_free);
+  /* init the list if it wasn't */
+  if (ctx->listener_on_accept_handlers == NULL) {
+    /* alloc list */
+    ctx->listener_on_accept_handlers = axl_list_new (axl_list_always_return_1, axl_free);
 
-		/* check allocated list */
-		if (ctx->listener_on_accept_handlers == NULL) {
-			/* memory allocation failed. */
-			vortex_mutex_unlock(ctx->listener_mutex);
-			return;
-		} /* end if */
-	}
+    /* check allocated list */
+    if (ctx->listener_on_accept_handlers == NULL) {
+      /* memory allocation failed. */
+      vortex_mutex_unlock(ctx->listener_mutex);
+      return;
+    } /* end if */
+  }
 
-	/* add the item */
-	axl_list_add (ctx->listener_on_accept_handlers, data);
+  /* add the item */
+  axl_list_add (ctx->listener_on_accept_handlers, data);
 
-	vortex_log (VORTEX_LEVEL_DEBUG, "received new handler: %p with data %p, list: %d", 
-		    on_accepted, data, axl_list_length (ctx->listener_on_accept_handlers));
+  vortex_log (VORTEX_LEVEL_DEBUG, "received new handler: %p with data %p, list: %d", 
+              on_accepted, data, axl_list_length (ctx->listener_on_accept_handlers));
 
-	/* unlock */
-	vortex_mutex_unlock(ctx->listener_mutex);
+  /* unlock */
+  vortex_mutex_unlock(ctx->listener_mutex);
 
-	/* nothing more */
-	return;
+  /* nothing more */
+  return;
 }
 
 
@@ -1358,100 +1245,100 @@ void          vortex_listener_set_on_connection_accepted (VortexCtx             
  */
 axl_bool            vortex_listener_parse_conf_and_start (VortexCtx * ctx)
 {
-	/* listener xml configuration */
-	axlDoc   * doc;
-	axlDtd   * dtd;
-	axlError * error;
+  /* listener xml configuration */
+  axlDoc   * doc;
+  axlDtd   * dtd;
+  axlError * error;
 
-	axlNode  * listener;
-	axlNode  * aux;
+  axlNode  * listener;
+  axlNode  * aux;
 
-	/* host and port references */
-	char     * host;
-	char     * port;
+  /* host and port references */
+  char     * host;
+  char     * port;
 
-	/* a full path reference to the file */
-	char     * full_path_file;
+  /* a full path reference to the file */
+  char     * full_path_file;
 
-	/* check reference received */
-	if (ctx == NULL)
-		return axl_false;
+  /* check reference received */
+  if (ctx == NULL)
+    return axl_false;
 
-	/* load the document */
-	full_path_file = vortex_support_find_data_file (ctx, "conf.xml");
-	doc            = axl_doc_parse_from_file (full_path_file, &error);
-	axl_free (full_path_file);
+  /* load the document */
+  full_path_file = vortex_support_find_data_file (ctx, "conf.xml");
+  doc            = axl_doc_parse_from_file (full_path_file, &error);
+  axl_free (full_path_file);
 
-	if (doc == NULL) {
+  if (doc == NULL) {
 		
-		/* drop a log message */
-		fprintf (stderr, "Unable to open conf.xml file, for host and port configuration. Error reported: %s\n",
-			    axl_error_get (error));
+    /* drop a log message */
+    fprintf (stderr, "Unable to open conf.xml file, for host and port configuration. Error reported: %s\n",
+             axl_error_get (error));
 
-		/* release the error reported */
-		axl_error_free (error);
+    /* release the error reported */
+    axl_error_free (error);
 		
-		return axl_false;
-	}
+    return axl_false;
+  }
 	
 
-	/* load the xml listener conf DTD */
-	dtd            = axl_dtd_parse (VORTEX_LISTENER_CONF_DTD, -1, &error);
-	if (dtd == NULL) {
-		/* drop a log message */
-		fprintf (stderr, "Unable to open conf.xml file, for host and port configuration. Error reported: %s\n",
-			 axl_error_get (error));
+  /* load the xml listener conf DTD */
+  dtd            = axl_dtd_parse (VORTEX_LISTENER_CONF_DTD, -1, &error);
+  if (dtd == NULL) {
+    /* drop a log message */
+    fprintf (stderr, "Unable to open conf.xml file, for host and port configuration. Error reported: %s\n",
+             axl_error_get (error));
 		
-		/* release the error reported */
-		axl_error_free (error);
+    /* release the error reported */
+    axl_error_free (error);
 
-		/* release the document read */
-		axl_doc_free (doc);
+    /* release the document read */
+    axl_doc_free (doc);
 		
-		return -1;
-	}
+    return -1;
+  }
 
-	/* validate the xml listener document config */
-	if (!axl_dtd_validate (doc, dtd, &error)) {
-		fprintf (stderr, "Unable to validate listener configuration. Check your settings. Error reported: %s\n",
-			 axl_error_get (error));
+  /* validate the xml listener document config */
+  if (!axl_dtd_validate (doc, dtd, &error)) {
+    fprintf (stderr, "Unable to validate listener configuration. Check your settings. Error reported: %s\n",
+             axl_error_get (error));
 
-		/* release the error reported */
-		axl_error_free (error);
+    /* release the error reported */
+    axl_error_free (error);
 
-		/* release the document read */
-		axl_doc_free (doc);
+    /* release the document read */
+    axl_doc_free (doc);
 
-		/* release the DTD read */
-		axl_dtd_free (dtd);
+    /* release the DTD read */
+    axl_dtd_free (dtd);
 		
-		return -1;
-	}
+    return -1;
+  }
 
-	/* get a reference to the fist <listener> configuration */
-	listener = axl_doc_get (doc, "/vortex-listener/listener");
+  /* get a reference to the fist <listener> configuration */
+  listener = axl_doc_get (doc, "/vortex-listener/listener");
 
-	do {
-		/* get the <host> content */
-		aux  = axl_node_get_child_nth (listener, 0);
-		host = axl_node_get_content_trim (aux, NULL);
+  do {
+    /* get the <host> content */
+    aux  = axl_node_get_child_nth (listener, 0);
+    host = axl_node_get_content_trim (aux, NULL);
 
-		/* get the <port> content */
-		aux  = axl_node_get_child_nth (listener, 1);
-		port = axl_node_get_content_trim (aux, NULL);
+    /* get the <port> content */
+    aux  = axl_node_get_child_nth (listener, 1);
+    port = axl_node_get_content_trim (aux, NULL);
 
-		/* starts a listener for the given configuration */
-		vortex_listener_new (ctx, host, port, NULL, NULL);
+    /* starts a listener for the given configuration */
+    vortex_listener_new (ctx, host, port, NULL, NULL);
 
-		/* now go for the next listener configuration */
-	}while ((listener = axl_node_get_next (listener)) != NULL);
+    /* now go for the next listener configuration */
+  }while ((listener = axl_node_get_next (listener)) != NULL);
 	
-	/* listener configuration already read, release document and DTD */
-	axl_doc_free (doc);
+  /* listener configuration already read, release document and DTD */
+  axl_doc_free (doc);
 
-	axl_dtd_free (dtd);
+  axl_dtd_free (dtd);
 
-	return axl_true;	
+  return axl_true;	
 }
 
 
@@ -1480,14 +1367,14 @@ axl_bool            vortex_listener_parse_conf_and_start (VortexCtx * ctx)
 void          vortex_listener_set_default_realm (VortexCtx   * ctx,
 						 const char  * realm)
 {
-	/* check values received */
-	if (ctx == NULL || realm == NULL)
-		return;
+  /* check values received */
+  if (ctx == NULL || realm == NULL)
+    return;
 
-	/* configure default realm */
-	ctx->listener_default_realm = axl_strdup (realm);
+  /* configure default realm */
+  ctx->listener_default_realm = axl_strdup (realm);
 
-	return;
+  return;
 }
 
 
@@ -1502,12 +1389,12 @@ void          vortex_listener_set_default_realm (VortexCtx   * ctx,
  */
 const char  * vortex_listener_get_default_realm (VortexCtx * ctx)
 {
-	/* check reference received */
-	if (ctx == NULL)
-		return NULL;
+  /* check reference received */
+  if (ctx == NULL)
+    return NULL;
 
-	/* return current realm */
-	return ctx->listener_default_realm;
+  /* return current realm */
+  return ctx->listener_default_realm;
 }
 
 /** 
@@ -1517,29 +1404,29 @@ const char  * vortex_listener_get_default_realm (VortexCtx * ctx)
 void __vortex_listener_shutdown_foreach (VortexConnection * conn,
 					 axlPointer         user_data)
 {
-	/* get the listener id associated to the connection */
-	int         listener_id;
-	VortexCtx * ctx;
+  /* get the listener id associated to the connection */
+  int         listener_id;
+  VortexCtx * ctx;
 
-	/* check the role (if it is a listener, skip) */
-	if (vortex_connection_get_role (conn) == VortexRoleMasterListener)
-		return;
+  /* check the role (if it is a listener, skip) */
+  if (vortex_connection_get_role (conn) == VortexRoleMasterListener)
+    return;
 
-	/* get the listener ctx */
-	ctx = vortex_connection_get_ctx (conn);
+  /* get the listener ctx */
+  ctx = vortex_connection_get_ctx (conn);
 
-	/* get the listener id associated to the connection */
-	listener_id = vortex_connection_get_id (vortex_connection_get_listener (conn));
+  /* get the listener id associated to the connection */
+  listener_id = vortex_connection_get_id (vortex_connection_get_listener (conn));
 
-	/* check connection */
-	vortex_log (VORTEX_LEVEL_DEBUG, "checking connection to shutdown: %d == %d", 
-		    listener_id, PTR_TO_INT (user_data));
-	if (listener_id == PTR_TO_INT (user_data)) { 
-		vortex_log (VORTEX_LEVEL_DEBUG, "shutdown connection: %d..",
-			    vortex_connection_get_id (conn));
-		vortex_connection_shutdown (conn);
-	}
-	return;
+  /* check connection */
+  vortex_log (VORTEX_LEVEL_DEBUG, "checking connection to shutdown: %d == %d", 
+              listener_id, PTR_TO_INT (user_data));
+  if (listener_id == PTR_TO_INT (user_data)) { 
+    vortex_log (VORTEX_LEVEL_DEBUG, "shutdown connection: %d..",
+                vortex_connection_get_id (conn));
+    vortex_connection_shutdown (conn);
+  }
+  return;
 }
 
 /** 
@@ -1556,40 +1443,40 @@ void __vortex_listener_shutdown_foreach (VortexConnection * conn,
 void          vortex_listener_shutdown (VortexConnection * listener,
 					axl_bool           also_created_conns)
 {
-	VortexCtx        * ctx;
-	VortexAsyncQueue * notify = NULL;
+  VortexCtx        * ctx;
+  VortexAsyncQueue * notify = NULL;
 
-	/* check parameters */
-	if (! vortex_connection_is_ok (listener, axl_false))
-		return;
+  /* check parameters */
+  if (! vortex_connection_is_ok (listener, axl_false))
+    return;
 	
-	/* get ctx */
-	ctx = vortex_connection_get_ctx (listener);
+  /* get ctx */
+  ctx = vortex_connection_get_ctx (listener);
 
-	vortex_log (VORTEX_LEVEL_DEBUG, "shutting down listener..");
+  vortex_log (VORTEX_LEVEL_DEBUG, "shutting down listener..");
 	
-	/* ref the listener during the operation */
-	vortex_connection_ref (listener, "listener-shutdown");
+  /* ref the listener during the operation */
+  vortex_connection_ref (listener, "listener-shutdown");
 
-	/* now do a foreach over all connections registered in the
-	 * reader */
-	if (also_created_conns) {
-		/* call to shutdown all associated connections */
-		notify = vortex_reader_foreach (ctx, 
-						__vortex_listener_shutdown_foreach, 
-						INT_TO_PTR (vortex_connection_get_id (listener)));
-		/* wait to finish */
-		vortex_async_queue_pop (notify);
-		vortex_async_queue_unref (notify);
-	} /* end if */
+  /* now do a foreach over all connections registered in the
+   * reader */
+  if (also_created_conns) {
+    /* call to shutdown all associated connections */
+    notify = vortex_reader_foreach (ctx, 
+                                    __vortex_listener_shutdown_foreach, 
+                                    INT_TO_PTR (vortex_connection_get_id (listener)));
+    /* wait to finish */
+    vortex_async_queue_pop (notify);
+    vortex_async_queue_unref (notify);
+  } /* end if */
 
-	/* shutdown the listener */
-	vortex_connection_shutdown (listener);
+  /* shutdown the listener */
+  vortex_connection_shutdown (listener);
 
-	/* unref the listener now finished */
-	vortex_connection_unref (listener, "listener-shutdown");
+  /* unref the listener now finished */
+  vortex_connection_unref (listener, "listener-shutdown");
 
-	return;
+  return;
 }
 
 /* @} */

@@ -1044,6 +1044,8 @@ typedef enum {
 	 * socket number to be handled at the compilation process.
 	 */
 	VORTEX_IO_WAIT_EPOLL  = 3,
+
+        VORTEX_IO_WAIT_PORT = 4 /** Racket ports */
 } VortexIoWaitingType;
 
 

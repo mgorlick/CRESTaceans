@@ -298,11 +298,25 @@ struct _VortexConnection {
   VortexStatus status;
 
   /** 
-   * @brief Underlying transport descriptor.
-   * This is actually the network descriptor used to send and
-   * received data.
+   * `session' used to be an actual socket, i.e., a file descriptor
+   * returned by system socket() calls.
+   * since we can't expose the actual racket tcp-listener,
+   * we just hold onto `session' as an int to preserve
+   * the semantics of the error-checking code in Vortex.
+   *
+   * everything you actually want to do with a socket
+   * is done with the closures below, that close over
+   * the racket tcp-listener and its input/output ports.
+   *
+   * some of these closures will be NULL depending on
+   * the role of the particular connection.
+   *
+   * using `session' as a mark of whether the [connect, accept]
+   * actions succeeded or not requires the closures
+   * to adhere to Vortex's error discipline. in general,
+   * -1 is the error code and 1 is the success code.
    */
-  VORTEX_SOCKET  session;
+  int  session;
 
   ListenClosure tcp_listen;
   AcceptClosure tcp_accept;
@@ -311,6 +325,9 @@ struct _VortexConnection {
   WriteClosure tcp_write;
   CloseClosure tcp_close;
   GetSockNameClosure tcp_get_sock_name;
+  GetHostUsedClosure tcp_get_host_used;
+  WaitReadClosure tcp_wait_read;
+  WaitWriteClosure tcp_wait_write;
 
   /** 
    * @brief Allows to configure if the given session (actually
@@ -596,7 +613,7 @@ int  vortex_connection_default_send (VortexConnection * connection,
   /* send the message */
 
   FUEL_WITH_PROGRESS ("call to default send");
-  return connection->tcp_write (buffer, buffer_len);
+  return connection->tcp_write (connection, buffer, buffer_len);
 }
 
 /** 
@@ -612,7 +629,7 @@ int  vortex_connection_default_receive (VortexConnection * connection,
   /* receive content */
 
   FUEL_WITH_PROGRESS ("call to default recv");
-  return connection->tcp_read (buffer, buffer_len);
+  return connection->tcp_read (connection, buffer, buffer_len);
 }
 
 /** 
@@ -1018,11 +1035,10 @@ axl_bool      __vortex_connection_parse_greetings (VortexConnection * connection
  */
 VortexConnection * vortex_connection_new_empty            (VortexCtx *    ctx, 
 							   VORTEX_SOCKET  socket, 
-							   VortexPeerRole role,
-                                                           int listener_or_client)
+							   VortexPeerRole role)
 {
   /* creates a new connection */
-  return vortex_connection_new_empty_from_connection (ctx, socket, NULL, role, listener_or_client);
+  return vortex_connection_new_empty_from_connection (ctx, socket, NULL, role);
 }
 
 
@@ -1057,8 +1073,7 @@ VortexConnection * vortex_connection_new_empty            (VortexCtx *    ctx,
 VortexConnection * vortex_connection_new_empty_from_connection (VortexCtx        * ctx,
 								VORTEX_SOCKET      socket,
 								VortexConnection * __connection,
-								VortexPeerRole     role,
-                                                                int listener_or_client)
+								VortexPeerRole     role)
 {
   VortexConnection   * connection;
   VortexChannel      * channel;
@@ -1107,28 +1122,24 @@ VortexConnection * vortex_connection_new_empty_from_connection (VortexCtx       
 
       /* remove being closed flag if found */
       vortex_connection_set_data (connection, "being_closed", NULL);
-    } else 
-      connection->data       = vortex_hash_new_full (axl_hash_string, axl_hash_equal_string,
+    } else {
+      connection->data = vortex_hash_new_full (axl_hash_string, axl_hash_equal_string,
                                                      NULL, 
                                                      NULL);
-		
-    connection->channel_pools      = vortex_hash_new_full (axl_hash_int, axl_hash_equal_int,
+    }
+    
+    connection->channel_pools  = vortex_hash_new_full (axl_hash_int, axl_hash_equal_int,
                                                            NULL, 
                                                            (axlDestroyFunc) __vortex_channel_pool_close_internal);
     /* configure the last channel value */
-    connection->last_channel       = (role == VortexRoleListener) ? 2 : 1;
+    connection->last_channel = (role == VortexRoleListener) ? 2 : 1;
 
     /* set default send and receive handlers */
-    connection->send               = vortex_connection_default_send;
-    connection->receive            = vortex_connection_default_receive;
+    connection->send = vortex_connection_default_send;
+    connection->receive = vortex_connection_default_receive;
 
-    connection->tcp_read = __connection->tcp_read;
-    connection->tcp_write = __connection->tcp_write;
-    connection->tcp_connect = __connection->tcp_connect;
-    connection->tcp_accept = __connection->tcp_accept;
-    connection->tcp_listen = __connection->tcp_listen;
-    connection->tcp_close = __connection->tcp_close;
-    connection->tcp_get_sock_name = __connection->tcp_get_sock_name;
+    /* transfer socket access closures from `__connection' to `connection' */
+    vortex_connection_share_closures (__connection, connection);
 		
     /* create channel 0 (virtually always is created but, is
      * necessary to have a representation for channel 0, in order
@@ -1143,10 +1154,14 @@ VortexConnection * vortex_connection_new_empty_from_connection (VortexCtx       
     connection->data       = vortex_hash_new_full (axl_hash_string, axl_hash_equal_string,
                                                    NULL, 
                                                    NULL);
-    if (listener_or_client == USE_LISTENER_CLOSURES) {
-      vortex_connection_set_listener_closures (connection);
-    } else if (listener_or_client == USE_CLIENT_CLOSURES) {
+
+    /* socket access closure instantiation */
+    if (role == VortexRoleInitiator) {
       vortex_connection_set_client_closures (connection);
+    } else if (role == VortexRoleMasterListener) {
+      vortex_connection_set_listener_closures (connection);
+    } else if (role == VortexRoleListener) {
+      vortex_connection_set_listener_closures (connection);
     }
   } /* end if */
 	
@@ -1212,7 +1227,7 @@ axl_bool            vortex_connection_set_socket                (VortexConnectio
   /* set socket */
   conn->session = socket;
 
-  if (conn->tcp_get_sock_name (&locala, &localp, &remotea, &remotep) < -1) {
+  if (conn->tcp_get_sock_name (conn, &locala, &localp, &remotea, &remotep) < -1) {
     vortex_log (VORTEX_LEVEL_DEBUG, "unable to get hostnames and ports");
   } else {
 
@@ -1300,121 +1315,6 @@ axl_bool                 vortex_connection_set_sock_block         (VORTEX_SOCKET
   return (enable == axl_true) ? axl_false : axl_true;
 }
 
-/** 
- * @internal Function to perform a wait operation on the provided
- * socket, assuming the wait operation will be performed on a
- * nonblocking socket. The function configure the socket to be
- * non-blocking.
- * 
- * @param wait_for The kind of operation to wait for to be available.
- *
- * @param session The socket associated to the BEEP session.
- *
- * @param wait_period How many seconds to wait for the connection.
- * 
- * @return The error code to return:
- *    -4: Add operation into the file set failed.
- *     1: Wait operation finished.
- *    -2: Timeout
- *    -3: Fatal error found.
- */
-int __vortex_connection_wait_on (VortexCtx           * ctx,
-                                 VortexIoWaitingFor    wait_for, 
-                                 VORTEX_SOCKET         session,
-                                 int                 * wait_period)
-{
-  int           err         = -2;
-  axlPointer    wait_set;
-  int           start_time;
-#if defined(AXL_OS_UNIX)
-  int           sock_err = 0;       
-  unsigned int  sock_err_len;
-#endif
-
-  /* do not perform a wait operation if the wait period is zero
-   * or less */
-  if (*wait_period <= 0) {
-    vortex_log (VORTEX_LEVEL_WARNING, 
-                "requested to perform a wait operation but the wait period configured is 0 or less: %d",
-                *wait_period);
-    return -2;
-  } /* end if */
-
-  /* make the socket to be nonblocking */
-  vortex_connection_set_sock_block (session, axl_false);
-
-  /* create a waiting set using current selected I/O
-   * waiting engine. */
-  wait_set     = vortex_io_waiting_invoke_create_fd_group (ctx, wait_for);
-
-  /* flag the starting time */
-  start_time   = time (NULL);
-
-  vortex_log (VORTEX_LEVEL_DEBUG, 
-              "detected connect timeout during %d seconds (starting from: %d)", 
-              *wait_period, start_time);
-
-  /* add the socket in connection transit */
-  while ((start_time + (*wait_period)) > time (NULL)) {
-    /* clear file set */
-    vortex_io_waiting_invoke_clear_fd_group (ctx, wait_set);
-
-    /* add the socket into the file set (we can pass the
-     * socket and a NULL reference to the VortexConnection
-     * because we won't use dispatch API: we are only
-     * checking for changes) */
-    if (! vortex_io_waiting_invoke_add_to_fd_group (ctx, session, NULL, wait_set)) {
-      vortex_log (VORTEX_LEVEL_WARNING, "failed to add session to the waiting socket");
-      err = -4;
-      break;
-    } /* end if */
-				
-    /* perform wait operation */
-    err = vortex_io_waiting_invoke_wait (ctx, wait_set, session, wait_for);
-    vortex_log (VORTEX_LEVEL_DEBUG, "__vortex_connection_wt_on (sock=%d) operation finished, err=%d, errno=%d (%s), wait_for=%d (ellapsed: %d)",
-                session, err, errno, vortex_errno_get_error (errno) ? vortex_errno_get_error (errno) : "", wait_for, time (NULL) - start_time);
-
-    if(err == -1 /* EINTR */ || err == -2 /* SSL */)
-      continue;
-    else if (!err) 
-      continue; /*select, poll, epoll timeout*/
-    else if (err > 0) {
-#if defined(AXL_OS_UNIX)
-      /* check estrange case on older linux 2.4 glib
-       * versions that returns err > 0 but it is not
-       * really connected */
-      sock_err_len = sizeof(sock_err);
-      if (getsockopt (session, SOL_SOCKET, SO_ERROR, (char*)&sock_err, &sock_err_len) < 0){
-        vortex_log (VORTEX_LEVEL_WARNING, "failed to get error level on waiting socket");
-        err = -5;
-      } else if (sock_err) {
-        vortex_log (VORTEX_LEVEL_WARNING, "error level set on waiting socket");
-        err = -6;
-      }
-#endif
-      /* connect ok */
-      break; 
-    } else if (err /*==-3, fatal internal error, other errors*/)
-      return -1;
-  } /* end while */
-	
-  vortex_log (VORTEX_LEVEL_DEBUG, "timeout operation finished, with err=%d, errno=%d, ellapsed time=%d (seconds)", 
-              err, errno, time (NULL) - start_time);
-
-  /* destroy waiting set */
-  vortex_io_waiting_invoke_destroy_fd_group (ctx, wait_set);
-
-  /* update the return timeout code to signal that the timeout
-   * period was reached */
-  if ((start_time + (*wait_period)) <= time (NULL))
-    err = -2;
-
-  /* update wait period */
-  (*wait_period) -= (time (NULL) - start_time);
-
-  /* return error code */
-  return err;
-}
 
 /** 
  * @brief Do greetings exchange (BEEP session initialization) on the
@@ -1469,21 +1369,21 @@ axl_bool vortex_connection_do_greetings_exchange (VortexCtx             * ctx,
       vortex_log (VORTEX_LEVEL_DEBUG, "greetings received, process reply frame");
       break;
 
-    } else if (timeout > 0 && vortex_connection_is_ok (connection, axl_false)) {
+    } else if (timeout > -1 && vortex_connection_is_ok (connection, axl_false)) {
       vortex_log (VORTEX_LEVEL_WARNING, 
                   "found NULL frame referecence connection=%d, checking to wait for read operation..",
                   connection->id);
 
       /* try to perform a wait operation */
-      err = __vortex_connection_wait_on (ctx, READ_OPERATIONS, connection->session, &timeout);
-      if (err <= 0 || timeout <= 0) {
+      err = connection->tcp_wait_read (connection, timeout);
+      if (err <= 0) {
         /* timeout reached while waiting for the connection to terminate */
         vortex_log (VORTEX_LEVEL_WARNING, 
                     "reached timeout=%d or general operation failure=%d while waiting for initial greetings frame",
                     err, timeout);
 				
         /* close the connection */
-        connection->tcp_close ();
+        connection->tcp_close (connection);
         connection->session      = -1;
 
         /* free previous message */
@@ -1514,9 +1414,9 @@ axl_bool vortex_connection_do_greetings_exchange (VortexCtx             * ctx,
                   "Connection refused. Received null frame were it was expected initial greetings, finish connection id=%d", connection->id);
 			
       /* timeout reached while waiting for the connection to terminate */
-      /*shutdown (connection->session, SHUT_RDWR);
-        vortex_close_socket (connection->session);*/
-      connection->tcp_close ();
+      /* shutdown (connection->session, SHUT_RDWR);
+       * vortex_close_socket (connection->session);*/
+      connection->tcp_close (connection);
       connection->session      = -1;
 
       /* free previous message */
@@ -1586,7 +1486,7 @@ axlPointer __vortex_connection_new (VortexConnectionNewData * data)
   FUEL_WITH_PROGRESS ("__connection_new socket configuration");
   /* configure the socket created */
 
-  connection->session = connection->tcp_connect (connection->host, connection->port);
+  connection->session = connection->tcp_connect (connection, connection->host, connection->port);
   
   if (connection->session == -1) {
     FUEL_WITH_PROGRESS ("__connection_new socket = -1");
@@ -1617,7 +1517,7 @@ axlPointer __vortex_connection_new (VortexConnectionNewData * data)
 
     /* configure local address used by this connection */
     /* now set local address */
-    if (connection->tcp_get_sock_name (&connection->local_addr,
+    if (connection->tcp_get_sock_name (connection, &connection->local_addr,
                                        &connection->local_port,
                                        &remote_addr, &remote_port) < 0) {
 
@@ -1924,6 +1824,7 @@ VortexConnection  * vortex_connection_new_full               (VortexCtx         
     return NULL;
   }
 
+  /* set client-mode socket access closures */
 
   if (data->threaded) {
     vortex_log (VORTEX_LEVEL_DEBUG, "invoking connection_new threaded mode");
@@ -3036,9 +2937,9 @@ void               vortex_connection_free (VortexConnection * connection)
   /* close connection */
   if (( connection->close_session) && (connection->session != -1)) {
     /* it seems that this connection is 
-    shutdown (connection->session, SHUT_RDWR);
-    vortex_close_socket (connection->session); */
-    connection->tcp_close ();
+     * shutdown (connection->session, SHUT_RDWR);
+     * vortex_close_socket (connection->session); */
+    connection->tcp_close (connection);
     connection->session = -1;
     vortex_log (VORTEX_LEVEL_DEBUG, "session socket closed");
   }
@@ -3761,32 +3662,30 @@ VORTEX_SOCKET    vortex_connection_get_socket           (VortexConnection * conn
   return connection->session;
 }
 
-ReadClosure vortex_connection_get_read (VortexConnection* conn) {
-  return conn->tcp_read;
+int vortex_connection_get_sock_name (VortexConnection* conn, char** local_a, char** local_p, char** remote_a, char** remote_p) {
+  return conn->tcp_get_sock_name (conn, local_a, local_p, remote_a, remote_p);
 }
 
-WriteClosure vortex_connection_get_write (VortexConnection* conn) {
-  return conn->tcp_write;
+int vortex_connection_get_host_used (VortexConnection* conn, char** host, int* port) {
+  return conn->tcp_get_host_used (conn, host, port);
 }
 
-CloseClosure vortex_connection_get_close (VortexConnection* conn) {
-  return conn->tcp_close;
+int vortex_connection_do_accept (VortexConnection* master, VortexConnection* child) {
+  child->session = master->tcp_accept (master, child);
+  return child->session;
 }
 
-GetSockNameClosure vortex_connection_get_getsockname (VortexConnection* conn) {
-  return conn->tcp_get_sock_name;
+int vortex_connection_do_listen (VortexConnection* conn, char* host, char* port) {
+  if (conn == NULL || host == NULL || port == NULL) return -2;
+  return conn->tcp_listen (conn, host, port);
 }
 
-AcceptClosure vortex_connection_get_accept (VortexConnection* conn) {
-  return conn->tcp_accept;
+int vortex_connection_do_wait_read (VortexConnection* conn, int timeout) {
+  return conn->tcp_wait_read (conn, timeout);
 }
 
-ListenClosure vortex_connection_get_listen (VortexConnection* conn) {
-  return conn->tcp_listen;
-}
-
-ConnectClosure vortex_connection_get_connect (VortexConnection* conn) {
-  return conn->tcp_connect;
+int vortex_connection_do_wait_write (VortexConnection* conn, int timeout) {
+  return conn->tcp_wait_write (conn, timeout);
 }
 
 /** 
@@ -4842,8 +4741,8 @@ void           __vortex_connection_set_not_connected (VortexConnection * connect
                   axl_check_undef (connection->host), 
                   axl_check_undef (connection->port));
       /*shutdown (connection->session, SHUT_RDWR); 
-        vortex_close_socket (connection->session);  */
-      conneciton->tcp_close ();
+       * vortex_close_socket (connection->session);  */
+      connection->tcp_close (connection);
       connection->session      = -1;
       vortex_log (VORTEX_LEVEL_DEBUG, "closing session id=%d and set to be not connected",
                   connection->id);
@@ -6100,41 +5999,6 @@ void                vortex_connection_cleanup                (VortexCtx        *
 }
 
 /** 
- * @brief Allows to get maximum segment size negociated.
- * 
- * @param connection The connection where to get maximum segment size.
- * 
- * @return The maximum segment size or -1 if fails. The function is
- * still not portable since the Microsoft Windows API do not allow
- * getting TCP maximum segment size.
- */
-int                vortex_connection_get_mss                (VortexConnection * connection)
-{
-#if defined(AXL_OS_WIN32)
-  /* no support */
-  return -1;
-#else
-  /* unix flavors */
-  socklen_t            optlen;
-  long              max_seg_size;
-
-  v_return_val_if_fail (connection, -1);
-
-  /* clear values */
-  optlen       = sizeof (long);
-  max_seg_size = 0;
-	
-  /* call to get socket option */
-  if (getsockopt (connection->session, IPPROTO_TCP, TCP_MAXSEG, &max_seg_size, &optlen) == 0) {
-    return max_seg_size;
-  }
-
-  /* return value found */
-  return -1;
-#endif
-}
-
-/** 
  * @internal Function used to check if we have reached our socket
  * creation limit to avoid exhausting it. The idea is that we need to
  * have at least one bucket free before limit is reached so we can
@@ -6157,7 +6021,7 @@ axl_bool vortex_connection_check_socket_limit (VortexCtx * ctx, VORTEX_SOCKET so
      * could be filled with sockets we can't accept */
     /* NO LIMIT IN CASE OF RACKET VERSION! */
     /* shutdown (socket_to_check, SHUT_RDWR);
-       vortex_close_socket (socket_to_check); */
+     * vortex_close_socket (socket_to_check); */
 
     /* get values */
   /* vortex_conf_get (ctx, VORTEX_SOFT_SOCK_LIMIT, &soft_limit);
@@ -6178,7 +6042,9 @@ axl_bool vortex_connection_check_socket_limit (VortexCtx * ctx, VORTEX_SOCKET so
 
 void vortex_connection_set_listener_mode_closures (VortexConnection* connection, ListenClosure l,
                                               AcceptClosure a, ReadClosure r,
-                                              WriteClosure w, CloseClosure cl, GetSockNameClosure g) {
+                                                   WriteClosure w, CloseClosure cl, GetSockNameClosure g,
+                                                   GetHostUsedClosure h,
+                                                   WaitReadClosure wr, WaitWriteClosure ww) {
   connection->tcp_listen = l;
   connection->tcp_accept = a;
   connection->tcp_connect = NULL;
@@ -6186,10 +6052,15 @@ void vortex_connection_set_listener_mode_closures (VortexConnection* connection,
   connection->tcp_write = w;
   connection->tcp_close = cl;
   connection->tcp_get_sock_name = g;
+  connection->tcp_get_host_used = h;
+  connection->tcp_wait_read = wr;
+  connection->tcp_wait_write = ww;
 }
 
 void vortex_connection_set_client_mode_closures (VortexConnection* connection, ConnectClosure c,
-                                            ReadClosure r, WriteClosure w, CloseClosure cl, GetSockNameClosure g) {
+                                                 ReadClosure r, WriteClosure w, CloseClosure cl,
+                                                 GetSockNameClosure g, WaitReadClosure wr,
+                                                 WaitWriteClosure ww) {
   connection->tcp_listen = NULL;
   connection->tcp_accept = NULL;
   connection->tcp_connect = c;
@@ -6197,6 +6068,9 @@ void vortex_connection_set_client_mode_closures (VortexConnection* connection, C
   connection->tcp_write = w;
   connection->tcp_close = cl;
   connection->tcp_get_sock_name = g;
+  connection->tcp_get_host_used = NULL;
+  connection->tcp_wait_read = wr;
+  connection->tcp_wait_write = ww;
 }
 
 void vortex_connection_set_closures_default (VortexConnection* conn) {
@@ -6221,6 +6095,19 @@ void vortex_connection_set_listener_closures_setter (ClosureSetter c) {
 
 void vortex_connection_set_listener_closures (VortexConnection* conn) {
   vortex_connection_set_listener_closures_impl (conn);
+}
+
+void vortex_connection_share_closures (VortexConnection* source, VortexConnection* connection) {
+  connection->tcp_listen = source->tcp_listen;
+  connection->tcp_accept = source->tcp_accept;
+  connection->tcp_connect = source->tcp_connect;
+  connection->tcp_read = source->tcp_read;
+  connection->tcp_write = source->tcp_write;
+  connection->tcp_close = source->tcp_close;
+  connection->tcp_get_sock_name = source->tcp_get_sock_name;
+  connection->tcp_get_host_used = source->tcp_get_host_used;
+  connection->tcp_wait_read = source->tcp_wait_read;
+  connection->tcp_wait_write = source->tcp_wait_write;
 }
 
 
