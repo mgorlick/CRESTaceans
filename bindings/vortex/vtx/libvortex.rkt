@@ -498,7 +498,7 @@
 (define _CloseClosure (_fun _VortexConnection-pointer -> _int))
 (define _GetSockNameClosure (_fun _VortexConnection-pointer (_ptr io _string) (_ptr io _string) 
                                                             (_ptr io _string) (_ptr io _string) -> _int))
-(define _GetSockUsedClosure (_fun _VortexConnection-pointer (_ptr io _string) (_ptr io _int)-> _int))
+(define _GetHostUsedClosure (_fun _VortexConnection-pointer (_ptr io _string) (_ptr io _int) -> _int))
 (define _WaitReadClosure (_fun _VortexConnection-pointer _int -> _int))
 (define _WaitWriteClosure (_fun _VortexConnection-pointer _int -> _int))
 

@@ -9,3 +9,5 @@ compiled/
 .libs
 _libs
 so_locations
+.#*
+#*

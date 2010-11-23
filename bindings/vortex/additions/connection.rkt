@@ -160,7 +160,7 @@
     (VortexConnection*? string? integer? . -> . integer?)
     (with-handlers ([exn:fail:network? -1])
       (let ([amt (write-string buffer (hash-ref outports conn) 0 buffer-len)])
-        (flush-output outp)
+        (flush-output (hash-ref outports conn))
         amt)))
   
   ;; close the connection's input ports, remove them from the hash table
