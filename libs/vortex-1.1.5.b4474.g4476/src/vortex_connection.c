@@ -613,7 +613,6 @@ int  vortex_connection_default_send (VortexConnection * connection,
   /* send the message */
 
   FUEL_WITH_PROGRESS ("call to default send");
-  printf ("invoking tcp_write with buffer %s\n", buffer);
   return connection->tcp_write (connection, buffer, buffer_len);
 }
 
@@ -630,7 +629,6 @@ int  vortex_connection_default_receive (VortexConnection * connection,
   /* receive content */
 
   FUEL_WITH_PROGRESS ("call to default recv");
-  printf ("in default receive\n");
   return connection->tcp_read (connection, buffer, buffer_len);
 }
 
@@ -1124,9 +1122,6 @@ VortexConnection * vortex_connection_new_empty_from_connection (VortexCtx       
 
       /* remove being closed flag if found */
       vortex_connection_set_data (connection, "being_closed", NULL);
-      /* transfer socket access closures from `__connection' to `connection' */
-      vortex_connection_share_closures (__connection, connection);
-		
     } else {
       connection->data = vortex_hash_new_full (axl_hash_string, axl_hash_equal_string,
                                                      NULL, 
@@ -1143,6 +1138,9 @@ VortexConnection * vortex_connection_new_empty_from_connection (VortexCtx       
     connection->send = vortex_connection_default_send;
     connection->receive = vortex_connection_default_receive;
 
+    /* transfer socket access closures from `__connection' to `connection' */
+    vortex_connection_share_closures (__connection, connection);
+		
     /* create channel 0 (virtually always is created but, is
      * necessary to have a representation for channel 0, in order
      * to make channel management function to be consistent). */
@@ -1161,6 +1159,8 @@ VortexConnection * vortex_connection_new_empty_from_connection (VortexCtx       
     if (role == VortexRoleInitiator) {
       vortex_connection_set_client_closures (connection);
     } else if (role == VortexRoleMasterListener) {
+      vortex_connection_set_listener_closures (connection);
+    } else if (role == VortexRoleListener) {
       vortex_connection_set_listener_closures (connection);
     }
   } /* end if */
@@ -1226,7 +1226,7 @@ axl_bool            vortex_connection_set_socket                (VortexConnectio
 
   /* set socket */
   conn->session = socket;
-  printf ("in set_socket\n");
+
   if (conn->tcp_get_sock_name (conn, &locala, &localp, &remotea, &remotep) < -1) {
     vortex_log (VORTEX_LEVEL_DEBUG, "unable to get hostnames and ports");
   } else {
@@ -3663,35 +3663,28 @@ VORTEX_SOCKET    vortex_connection_get_socket           (VortexConnection * conn
 }
 
 int vortex_connection_get_sock_name (VortexConnection* conn, char** local_a, char** local_p, char** remote_a, char** remote_p) {
-  printf ("get_sock_name with connection %p\n", conn);
   return conn->tcp_get_sock_name (conn, local_a, local_p, remote_a, remote_p);
 }
 
 int vortex_connection_get_host_used (VortexConnection* conn, char** host, int* port) {
-  printf ("get_host_used with connection %p)\n", conn);
   return conn->tcp_get_host_used (conn, host, port);
 }
 
 int vortex_connection_do_accept (VortexConnection* master, VortexConnection* child) {
-  printf ("do_accept with connections %p (master), %p (child)\n", master, child);
   child->session = master->tcp_accept (master, child);
-  printf ("did accept\n");
   return child->session;
 }
 
 int vortex_connection_do_listen (VortexConnection* conn, char* host, char* port) {
-  printf ("do_listen with connection %p\n", conn);
   if (conn == NULL || host == NULL || port == NULL) return -2;
   return conn->tcp_listen (conn, host, port);
 }
 
 int vortex_connection_do_wait_read (VortexConnection* conn, int timeout) {
-  printf ("do_wait_read with connection %p\n", conn);
   return conn->tcp_wait_read (conn, timeout);
 }
 
 int vortex_connection_do_wait_write (VortexConnection* conn, int timeout) {
-  printf ("do_wait_write with connection %p\n", conn);
   return conn->tcp_wait_write (conn, timeout);
 }
 
@@ -5729,7 +5722,7 @@ int                 vortex_connection_invoke_send            (VortexConnection *
   if (connection == NULL || ! connection->is_connected ||
       buffer     == NULL || ! connection->send)
     return -1;
-  printf ("invoking send with buffer %s\n", buffer);
+	    
   return connection->send (connection, buffer, buffer_len);
 }
 
@@ -6105,7 +6098,6 @@ void vortex_connection_set_listener_closures (VortexConnection* conn) {
 }
 
 void vortex_connection_share_closures (VortexConnection* source, VortexConnection* connection) {
-  printf ("sharing %p ---> %p\n", source, connection);
   connection->tcp_listen = source->tcp_listen;
   connection->tcp_accept = source->tcp_accept;
   connection->tcp_connect = source->tcp_connect;

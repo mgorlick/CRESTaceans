@@ -527,8 +527,8 @@ int  setenv  (const char *name, const char *value, int overwrite);
 
 #define FUEL_WITH_PROGRESS(s) \
   SCHEME_USE_FUEL (10); \
-  /* printf ("log (threading): using fuel with progress (%s)\n", s);*/ \
- scheme_making_progress (); 
+  scheme_making_progress ();
+  /*printf ("log (threading): using fuel with progress (%s)\n", s);     \ */
 /* printf ("log (threading): resuming after fuel use (%s)\n", s); */
 
 #define FUEL_NO_PROGRESS(s) \

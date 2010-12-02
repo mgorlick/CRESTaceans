@@ -97,8 +97,7 @@
 (define _VortexIoWaitingType
   (_enum '(select = 1
                   poll = 2
-                  epoll = 3
-                  port = 4)))
+                  epoll = 3)))
 
 ; enum VortexPeerRole
 ;(define VortexRoleUnknown 0)

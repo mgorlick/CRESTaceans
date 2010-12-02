@@ -59,11 +59,6 @@ void vortex_sequencer_queue_data (VortexCtx * ctx, VortexSequencerData * data)
 		     data->channel_num, 
 		     data->message_size,
 		     data->message ? data->message : "**** empty message ****");
-	printf("new message to be sent: msgno %d, channel %d (size: %d):\n%s",
-		     data->msg_no, 
-		     data->channel_num, 
-		     data->message_size,
-		     data->message ? data->message : "**** empty message ****");
 
 	/* update channel reference */
 	if (! vortex_channel_ref (data->channel)) {
