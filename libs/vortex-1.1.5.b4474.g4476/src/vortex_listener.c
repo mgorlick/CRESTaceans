@@ -577,7 +577,6 @@ axlPointer __vortex_listener_new (VortexListenerData * data)
     vortex_mutex_lock(ctx->listener_unlock);
     QUEUE_PUSH (ctx->listener_wait_lock, INT_TO_PTR (axl_true));
     ctx->listener_wait_lock = NULL;
-    printf ("error was found because the server didn't supply a handler\n");
     vortex_mutex_unlock(ctx->listener_unlock);
   } /* end if */
 
@@ -949,7 +948,6 @@ VortexConnection * vortex_listener_new2    (VortexCtx   * ctx,
 void vortex_listener_wait (VortexCtx * ctx)
 {
   VortexAsyncQueue * temp;
-  printf ("entered listener_wait\n");
   /* check reference received */
   if (ctx == NULL)
     return;
@@ -967,7 +965,6 @@ void vortex_listener_wait (VortexCtx * ctx)
         
   /* unlock */
   vortex_mutex_unlock(ctx->listener_mutex);
-  printf ("midway thru listener_wait\n");
   /* double locking to ensure waiting */
   vortex_log (VORTEX_LEVEL_DEBUG, "Locking listener");
         
@@ -978,21 +975,17 @@ void vortex_listener_wait (VortexCtx * ctx)
 
     FUEL_WITH_PROGRESS ("vortex_listener_wait()");
 
-    printf ("listener_wait_lock != null\n");
     /* get blocked until the waiting lock is released */
     vortex_async_queue_pop   (temp);
-    printf ("popped temp from queue in listener_wait()\n");
           
     FUEL_WITH_PROGRESS ("vortex_listener_wait()");
           
     /* unref the queue */
     vortex_async_queue_unref (temp);
-    printf ("unrefered queue in listener_wait()\n");
   }
         
   FUEL_WITH_PROGRESS ("vortex_listener_wait()");
   vortex_log (VORTEX_LEVEL_DEBUG, "(un)Locked listener");
-  printf ("returning from listener_wait\n");
   return;
 }
 

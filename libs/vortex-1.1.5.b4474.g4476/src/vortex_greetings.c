@@ -502,6 +502,7 @@ axl_bool           vortex_greetings_client_send     (VortexConnection     * conn
 		vortex_log (VORTEX_LEVEL_CRITICAL, 
 			    "unable to build and send greetings message: unable to find any profile registered");
 		return axl_false;
+                printf ("no profile registered\n");
 	}
 	
 	/* Build the greetings message with localization features and filtered profiles*/
@@ -514,6 +515,7 @@ axl_bool           vortex_greetings_client_send     (VortexConnection     * conn
 		__vortex_connection_set_not_connected (connection, 
 						       "failed to build greetings message, closing the connection",
 						       VortexError);
+                printf ("failed to build greetings message\n");
 		return axl_false;
 	} /* end if */
 
@@ -523,6 +525,7 @@ axl_bool           vortex_greetings_client_send     (VortexConnection     * conn
 				      greetings_buffer,
 				      next_index,
 				      0)) {
+          printf ("unable to send initial client greetings message\n");
 		vortex_log (VORTEX_LEVEL_CRITICAL,  "unable to send initial client greetings message");
 		__vortex_connection_set_not_connected (connection, 
 						       "unable to send initial client greetings message",

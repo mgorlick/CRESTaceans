@@ -2605,6 +2605,7 @@ axl_bool  __vortex_channel_common_rpy (VortexChannel       * channel,
 				       int                   msg_no_rpy,
 				       VortexPayloadFeeder * feeder)
 {
+
 	VortexSequencerData * data;
 	VortexSequencerData * data2;
 	int                   mime_header_size;
