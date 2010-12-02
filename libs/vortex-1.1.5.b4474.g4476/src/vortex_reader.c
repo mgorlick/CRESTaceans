@@ -291,12 +291,10 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
   char             * raw_frame;
 
   vortex_log (VORTEX_LEVEL_DEBUG, "something to read conn-id=%d", vortex_connection_get_id (connection));
-  printf ("in __process_socket\n");
   /* check if there are pre read handler to be executed on this 
      connection. */
   if (vortex_connection_is_defined_preread_handler (connection)) {
     /* if defined preread handler invoke it and return. */
-    printf ("invoking preread handler\n");
     vortex_connection_invoke_preread_handler (connection);
     return;
   }
@@ -304,7 +302,6 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
   /* before doing anything, check if the connection is broken */
   if (! vortex_connection_is_ok (connection, axl_false))
     return;
-  printf ("connection is OK\n");
   /* check for unwatch requests */
   if (PTR_TO_INT (vortex_connection_get_data (connection, VORTEX_READER_UNWATCH)))
     return;
@@ -317,7 +314,6 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
   /* get frame type to avoid calling everytime to
    * vortex_frame_get_type */
   type    = vortex_frame_get_type (frame);
-  printf ("got frame type\n");
   /* NOTE: After this point, frame received is
    * complete. vortex_frame_get_next function takes cares about
    * joining frame fragments. */
@@ -335,13 +331,11 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
     /* it doesn't matter to have a connection accepted or
      * not accepted to the vortex reader mission, so
      * simply call second step accept and return.  */
-    printf ("calling second_step_accept\n");
     __vortex_listener_second_step_accept (frame, connection);
     return;
   }
   vortex_log (VORTEX_LEVEL_DEBUG, "passed initial accept stage");
 
-  printf ("passed initial accept stage\n");
   /* channel exists, get a channel reference */
   channel = vortex_connection_get_channel (connection,
                                            vortex_frame_get_channel (frame));
@@ -361,7 +355,6 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
     vortex_log (VORTEX_LEVEL_CRITICAL, "unable to notify SEQ channel status, connection broken or protocol violation");
     return;
   } /* end if */
-  printf ("checking sequencing #s\n");
   /* check message numbers and reply numbers sequencing */
   switch (type) {
     case VORTEX_FRAME_TYPE_MSG:
@@ -1174,7 +1167,6 @@ int  __vortex_reader_check_listener_list (VortexCtx     * ctx,
     if (vortex_io_waiting_invoke_is_set_fd_group (ctx, fds, on_reading, ctx)) {
       /* init the listener incoming connection phase */
       vortex_log (VORTEX_LEVEL_DEBUG, "listener (%d) have requests, processing..", fds);
-      printf ("direct-calling accept_connections\n");
       vortex_listener_accept_connections (ctx, fds, connection);
 
       /* update checked connections */
@@ -1257,17 +1249,14 @@ void __vortex_reader_dispatch_connection (int                  fds,
   switch (vortex_connection_get_role (connection)) {
     case VortexRoleMasterListener:
       /* listener connections */
-      printf ("dispatching to accept_connections\n");
       vortex_listener_accept_connections (ctx, fds, connection);
       break;
     default:
       /* call to process incoming data, activating all
        * invocation code (first and second level handler) */
-      printf ("dispatching to __process_socket\n");
       __vortex_reader_process_socket (ctx, connection);
       break;
   } /* end if */
-  printf ("returning from __dispatch_connection\n");
   return;
 }
 
@@ -1293,7 +1282,7 @@ axlPointer __vortex_reader_run (VortexCtx * ctx)
   FUEL_WITH_PROGRESS (" __vortex_reader_run() before first_connection label");
   /* first step. Waiting blocked for our first connection to
    * listen */
-        
+
 __vortex_reader_run_first_connection:
         
   FUEL_WITH_PROGRESS (" __vortex_reader_run() inside first_connection label");
@@ -1313,10 +1302,10 @@ __vortex_reader_run_first_connection:
     max_fds = __vortex_reader_build_set_to_watch (ctx, ctx->on_reading, ctx->con_cursor, ctx->srv_cursor);
 
     if ((axl_list_length (ctx->con_list) == 0) && (axl_list_length (ctx->srv_list) == 0)) {
-      printf ("check_on_finish\n");			/* check if we have to terminate the process
-                                                         * in the case no more connections are
-                                                         * available: useful when the current instance
-                                                         * is running in the context of turbulence */
+      /* check if we have to terminate the process
+       * in the case no more connections are
+       * available: useful when the current instance
+       * is running in the context of turbulence */
       vortex_ctx_check_on_finish (ctx);
 
       vortex_log (VORTEX_LEVEL_DEBUG, "no more connection to watch for, putting thread to sleep");
@@ -1358,7 +1347,6 @@ __vortex_reader_run_first_connection:
     if (result > 0) {
       /* check if the mechanism have automatic
        * dispatch */
-      printf ("result > 0\n");
       if (vortex_io_waiting_invoke_have_dispatch (ctx, ctx->on_reading)) {
         /* perform automatic dispatch,
          * providing the dispatch function and

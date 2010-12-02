@@ -66,6 +66,7 @@ typedef struct _VortexPort {
 }VortexPort;
 
 axlPointer __vortex_io_waiting_port_create (VortexCtx* ctx, VortexIoWaitingFor wait_to) {
+  
   int max;
   
  vortex_log (VORTEX_LEVEL_DEBUG, "creating empty port");
@@ -84,6 +85,7 @@ axlPointer __vortex_io_waiting_port_create (VortexCtx* ctx, VortexIoWaitingFor w
   port->ctx         = ctx;
   port->max         = max;
   port->wait_to     = wait_to;
+  port->length      = 0;
   port->connections = axl_new (VortexConnection *, max);
 
   return port;
@@ -99,13 +101,22 @@ void __vortex_io_waiting_port_destroy (axlPointer fd_group) {
 
 void __vortex_io_waiting_port_clear (axlPointer fd_group) {
   VortexPort* port = (VortexPort*) fd_group;
+
+  int iterator = 0;
+  while (iterator < port->length) {
+
+    vortex_connection_unref (port->connections[iterator], "io_waiting_port_clear");
+    iterator++;
+  }
+  
   axl_free (port->connections);
   port->connections = axl_new (VortexConnection*, port->max);
+  port->length = 0;
   return;
 }
 
-axl_bool __vortex_io_waiting_port_add_to (int fds, VortexConnection* connection, axlPointer fd_set) {
-   VortexPort* port   = (VortexPort*) fd_set;
+axl_bool __vortex_io_waiting_port_add_to (int fds, VortexConnection* connection, axlPointer fd_group) {
+   VortexPort* port   = (VortexPort*) fd_group;
   VortexCtx  * ctx    = port->ctx;
   int          max;
 
@@ -131,6 +142,7 @@ axl_bool __vortex_io_waiting_port_add_to (int fds, VortexConnection* connection,
 
   /* configure the socket to be watched */
   port->connections[port->length] = connection;
+  vortex_connection_ref (connection, "io_waiting_port_add_to");
 
   /* update length */
   port->length++;
@@ -153,6 +165,7 @@ int __vortex_io_waiting_port_wait_on (axlPointer fd_group, int max_fds, VortexIo
     while (iterator < port->length) {
       temp_result = vortex_connection_do_wait_read (port->connections[iterator], read_timeout);
       if (temp_result == 1) { changed++; }
+      iterator++;
     }
     
   } else if (VORTEX_IO_IS (wait_to, WRITE_OPERATIONS)) {
@@ -160,6 +173,7 @@ int __vortex_io_waiting_port_wait_on (axlPointer fd_group, int max_fds, VortexIo
     while (iterator < port->length) {
       temp_result = vortex_connection_do_wait_write (port->connections[iterator], write_timeout);
       if (temp_result == 1) { changed++; }
+      iterator++;
     }
 
   } else {
@@ -176,6 +190,7 @@ axl_bool __vortex_io_waiting_port_have_dispatch (axlPointer fd_group) {
 void __vortex_io_waiting_port_dispatch (axlPointer fd_group,
                                         VortexIoDispatchFunc dispatch_func,
                                         int changed, axlPointer user_data) {
+
   VortexPort * port     = (VortexPort *) fd_group;
   int          iterator = 0;
   int          checked  = 0;

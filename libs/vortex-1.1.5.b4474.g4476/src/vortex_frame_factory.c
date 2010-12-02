@@ -1792,6 +1792,7 @@ axl_bool             vortex_frame_send_raw     (VortexConnection * connection, c
  			} /* en dif */
  
  			/* perform a wait operation */
+                        printf ("frame factory doing wait operation\n");
  			wait_result = vortex_io_waiting_invoke_wait (ctx, on_write, fds + 1, WRITE_OPERATIONS);
  			switch (wait_result) {
  			case -3: /* unrecoberable error */
