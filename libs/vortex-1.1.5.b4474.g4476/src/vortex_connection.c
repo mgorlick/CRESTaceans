@@ -614,7 +614,7 @@ int  vortex_connection_default_send (VortexConnection * connection,
 
   FUEL_WITH_PROGRESS ("call to default send");
   printf ("invoking tcp_write with buffer %s\n", buffer);
-  return connection->tcp_write (connection, buffer, buffer_len);
+  return connection->tcp_write (connection, &buffer, buffer_len);
 }
 
 /** 
@@ -631,7 +631,7 @@ int  vortex_connection_default_receive (VortexConnection * connection,
 
   FUEL_WITH_PROGRESS ("call to default recv");
   printf ("in default receive\n");
-  return connection->tcp_read (connection, buffer, buffer_len);
+  return connection->tcp_read (connection, &buffer, buffer_len);
 }
 
 /** 
@@ -6048,7 +6048,7 @@ axl_bool vortex_connection_check_socket_limit (VortexCtx * ctx, VORTEX_SOCKET so
 }
 
 void vortex_connection_set_listener_mode_closures (VortexConnection* connection, ListenClosure l,
-                                              AcceptClosure a, ReadClosure r,
+                                                   AcceptClosure a, ReadClosure r,
                                                    WriteClosure w, CloseClosure cl, GetSockNameClosure g,
                                                    GetHostUsedClosure h,
                                                    WaitReadClosure wr, WaitWriteClosure ww) {

@@ -417,8 +417,8 @@ axl_bool            vortex_connection_check_socket_limit     (VortexCtx        *
 typedef int (*ListenClosure) (VortexConnection* conn, char* host, char* port);
 typedef int (*AcceptClosure) (VortexConnection* master_conn, VortexConnection* child_conn);
 typedef int (*ConnectClosure) (VortexConnection* conn, char* host, char* port);
-typedef int (*ReadClosure) (VortexConnection* conn, char* buffer, int buffer_len);
-typedef int (*WriteClosure) (VortexConnection* conn, const char* buffer, int buffer_len);
+typedef int (*ReadClosure) (VortexConnection* conn, char** buffer, int buffer_len);
+typedef int (*WriteClosure) (VortexConnection* conn, const char** buffer, int buffer_len);
 typedef int (*CloseClosure) (VortexConnection* conn);
 typedef int (*GetSockNameClosure) (VortexConnection* conn,
                                    char** local_a, char** local_p,
