@@ -230,7 +230,7 @@ top_srcdir = ..
 EXTRA_DIST = Makefile.win libvortex-pull-1.1.def
 INCLUDE_PULL_SUPPORT = -DENABLE_PULL_SUPPORT
 INCLUDE_VORTEX_LOG = -DENABLE_VORTEX_LOG
-INCLUDES = -I. -I$(top_srcdir)/src -Wall  -Wstrict-prototypes -ansi -g -I/usr/plt/full-5.0.1.2/include -I$(top_srcdir) -D__COMPILING_VORTEX__ -D__axl_disable_broken_bool_def__  \
+INCLUDES = -I. -I$(top_srcdir)/src -Wall  -Wstrict-prototypes -ansi -g -I/usr/racket/include/racket -I$(top_srcdir) -D__COMPILING_VORTEX__ -D__axl_disable_broken_bool_def__  \
 	$(AXL_CFLAGS) $(INCLUDE_VORTEX_LOG) $(PTHREAD_CFLAGS) \
 	-DVERSION=\""$(VORTEX_VERSION)"\" $(INCLUDE_PULL_SUPPORT) \
 	-DPACKAGE_DTD_DIR=\""$(datadir)"\" \

@@ -489,7 +489,7 @@ EXTRA_DIST = Makefile.win $(certfiles_DATA) vortex-regression-client.vcproj  vor
 
 INCLUDES = -I$(top_srcdir)/src -I$(top_srcdir)/tunnel -I$(top_srcdir)/pull -I$(top_srcdir)/alive \
 	-I$(top_srcdir)/xml-rpc -I$(top_srcdir)/http $(AXL_CFLAGS)  $(PTHREAD_CFLAGS) \
-	-I$(READLINE_PATH)/include -Wall  -Wstrict-prototypes -g -ansi -I/usr/plt/full-5.0.1.2/include -D__axl_disable_broken_bool_def__   \
+	-I$(READLINE_PATH)/include -Wall  -Wstrict-prototypes -g -ansi -I/usr/racket/include/racket -D__axl_disable_broken_bool_def__   \
         -DVERSION=\""$(VORTEX_VERSION)"\" -I$(top_srcdir)/src $(INCLUDE_VORTEX_POLL) $(INCLUDE_VORTEX_EPOLL) $(INCLUDE_VORTEX_LOG) $(INCLUDE_TUNNEL_SUPPORT) $(INCLUDE_PULL_SUPPORT)  $(INCLUDE_XML_RPC_SUPPORT) $(INCLUDE_SASL_SUPPORT) $(INCLUDE_HTTP_SUPPORT) $(INCLUDE_TLS_SUPPORT)
 
 bin_SCRIPTS = prepare_files

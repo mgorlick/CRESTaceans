@@ -10,4 +10,4 @@ compiled/
 _libs
 so_locations
 .#*
-#*
+\#*
