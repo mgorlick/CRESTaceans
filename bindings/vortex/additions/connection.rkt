@@ -21,13 +21,16 @@
 (define-syntax-rule (define-read/tcp id inports)
   (define/contract (id conn buffer buffer-len)
     (VortexConnection*? cpointer? integer?  . -> . integer?)
+    (printf "reading with buffer size = ~s~n" buffer-len)
     (with-handlers ([exn:fail:network? -1])
       (wk ([key conn])
           (let ([s (read-string buffer-len (hash-ref inports key))])
             (if (eof-object? s) ; returns `#<eof>' or some number
                 0 
                 (begin
+                  (printf "read ~s~n" s)
                   (ptr-set! buffer _string s)
+                  (printf "set to ~s~n" (ptr-ref buffer _string))
                   (string-length s))))))))
 
 ;; write the designated amount onto the designated connection's output port
@@ -38,7 +41,7 @@
     (with-handlers ([exn:fail:network? -1])
       (wk ([key conn])
           (let ([amt (write-string (ptr-ref buffer _string) (hash-ref outports key) 0 buffer-len)])
-            (printf "wrote ~s~n" buffer)
+            (printf "wrote ~s~n" (ptr-ref buffer _string))
             (flush-output (hash-ref outports key))
             amt)))))
 

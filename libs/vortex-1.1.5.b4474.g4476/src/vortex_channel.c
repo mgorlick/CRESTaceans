@@ -842,6 +842,7 @@ axlPointer __vortex_channel_new (VortexChannelData * data)
 
 	/* check if remote peer support actual profile */
 	if (! vortex_conf_get (ctx, VORTEX_ENFORCE_PROFILES_SUPPORTED, &check_profiles)) {
+          printf ("unable to get the current enforce profiles supported config\n");
 		vortex_log (VORTEX_LEVEL_WARNING, "unable to get the current enforce profiles supported configuration");
 		goto __vortex_channel_new_invoke_caller;
 	} 
@@ -849,6 +850,7 @@ axlPointer __vortex_channel_new (VortexChannelData * data)
 	/* according to previous configuration, check or not remote
 	 * profiles supported */
 	if (check_profiles && !vortex_connection_is_profile_supported (data->connection, data->profile)) {
+          printf ("channel profile not supported by remote peer\n");
 		vortex_log (VORTEX_LEVEL_WARNING, "channel profile not supported by remote peer, channel can't be created");
 		goto __vortex_channel_new_invoke_caller;
 	} 
@@ -856,6 +858,7 @@ axlPointer __vortex_channel_new (VortexChannelData * data)
 	/* check if channel to be created already exists */
 	if ((data->channel_num != 0) && 
 	    vortex_connection_channel_exists (data->connection, data->channel_num)) {
+          printf ("channel already exists\n");
 		vortex_log (VORTEX_LEVEL_CRITICAL, "creating a channel identified by %d that already exists",
 		       data->channel_num);
 		goto __vortex_channel_new_invoke_caller;
@@ -866,6 +869,7 @@ axlPointer __vortex_channel_new (VortexChannelData * data)
 	if (data->channel_num == 0) {
 		data->channel_num      = vortex_connection_get_next_channel (data->connection);
 		if (data->channel_num == -1) {
+                  printf ("get next channel failed\n");
 			vortex_log (VORTEX_LEVEL_CRITICAL, 
 			       "vortex connection get next channel have failed, this could be bad, I mean, really bad..");
 			goto __vortex_channel_new_invoke_caller;
@@ -884,6 +888,7 @@ axlPointer __vortex_channel_new (VortexChannelData * data)
 	/* get the channel 0 */
 	channel0 = vortex_connection_get_channel (data->connection, 0);
 	if (channel0 == NULL) {
+          printf ("channel0 == null\n");
 		vortex_log (VORTEX_LEVEL_CRITICAL, "internal vortex error: unable to get channel 0 for a session");
 
 		/* free allocated channel and exist */
@@ -928,6 +933,7 @@ axlPointer __vortex_channel_new (VortexChannelData * data)
 					       start_msg,
 					       strlen (start_msg),
 					       &msg_no, wait_reply)) {
+          printf ("could not send start msg\n");
 		axl_free (start_msg);
 
 		/* remove the channel and nullify */
@@ -947,6 +953,7 @@ axlPointer __vortex_channel_new (VortexChannelData * data)
 	 * this operation will block us until frame is received */
 	frame      = vortex_channel_wait_reply (channel0, msg_no, wait_reply);
 	if (frame == NULL) {
+          printf ("frame == null\n");
 		vortex_log (VORTEX_LEVEL_CRITICAL, 
 			    "something have failed while receiving start message reply for channel %d under profile %s",
 			    vortex_channel_get_number (channel), 
@@ -963,6 +970,7 @@ axlPointer __vortex_channel_new (VortexChannelData * data)
 
 	/* check start reply data */
 	if (!__vortex_channel_validate_start_reply (frame, channel->profile, channel)) {
+          printf ("reply not started\n");
 		/* remove the channel and nullify */
 		channel = NULL;
 		goto __vortex_channel_new_invoke_caller;
@@ -1016,11 +1024,13 @@ axlPointer __vortex_channel_new (VortexChannelData * data)
 
 		/* free no longer needed data */
 		vortex_channel_data_free (data);
+                printf ("returning in threaded mode\n");
 		return NULL;
 	} /* end if */
 
 	/* free no longer needed data */
 	vortex_channel_data_free (data);
+        printf ("channel address %p\n", channel); 
 	return channel;
 }
 

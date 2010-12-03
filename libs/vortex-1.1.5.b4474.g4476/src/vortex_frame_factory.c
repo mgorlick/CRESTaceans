@@ -1171,6 +1171,7 @@ int          vortex_frame_readline (VortexConnection * connection, char  * buffe
 	char        c, *ptr;
 	char      * error_msg;
 	char      * pending_line;
+
 #if defined(ENABLE_VORTEX_LOG)
 	VortexCtx * ctx = vortex_connection_get_ctx (connection);
 #endif
@@ -1204,8 +1205,8 @@ int          vortex_frame_readline (VortexConnection * connection, char  * buffe
 		vortex_connection_set_data (connection, VORTEX_FRAME_PENDING_LINE, NULL);
                 printf ("set data\n");
 	}
-
         printf ("starting to read next line\n");
+        
 	/* read current next line */
 	ptr = (buffer + desp);
 	for (n = 1; n < (maxlen - desp); n++) {
@@ -1215,6 +1216,7 @@ int          vortex_frame_readline (VortexConnection * connection, char  * buffe
            if (( rc = vortex_connection_invoke_receive (connection, &c, 1)) == 1) {
              printf ("rc = 1\n");
              *ptr++ = c;
+             printf ("vortex has %c (%x)\n", c, c);
              if (c == '\x0A')
                break;
            }else if (rc == 0) {
@@ -1521,7 +1523,6 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 						       VortexProtocolError);
 		return NULL;
 	}
-
 	if (bytes_read == 1 || (line[bytes_read - 1] != '\x0A') || (line[bytes_read - 2] != '\x0D')) {
           printf ("else\n");
 		vortex_log (VORTEX_LEVEL_CRITICAL, 

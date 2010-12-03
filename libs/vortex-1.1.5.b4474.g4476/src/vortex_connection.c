@@ -611,8 +611,6 @@ int  vortex_connection_default_send (VortexConnection * connection,
 				     int                buffer_len)
 {
   /* send the message */
-
-  FUEL_WITH_PROGRESS ("call to default send");
   printf ("invoking tcp_write with buffer %s\n", buffer);
   return connection->tcp_write (connection, &buffer, buffer_len);
 }
@@ -628,10 +626,11 @@ int  vortex_connection_default_receive (VortexConnection * connection,
 					int                buffer_len)
 {
   /* receive content */
-
-  FUEL_WITH_PROGRESS ("call to default recv");
   printf ("in default receive\n");
-  return connection->tcp_read (connection, &buffer, buffer_len);
+  char* s;
+  int l = connection->tcp_read (connection, &s, buffer_len);
+  strncpy (buffer, s, l);
+  return l;
 }
 
 /** 
@@ -5701,9 +5700,7 @@ int                 vortex_connection_invoke_receive         (VortexConnection *
     printf ("return -1\n");
     return -1;
   }
-  printf ("invoking receive\n");
   int i = connection->receive (connection, buffer, buffer_len);
-  printf ("Returning from receive\n");
   return i;
 }
 
