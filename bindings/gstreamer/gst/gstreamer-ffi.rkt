@@ -1,6 +1,8 @@
 #lang racket
 
 (require "gst_base.rkt"
+         "gst-structs-ffi.rkt"
+         "gst_castings.rkt"
          "GstBin-ffi.rkt"
          "GstBuffer-ffi.rkt"
          "GstBufferList-ffi.rkt"
@@ -37,7 +39,6 @@
          "GstQuery-ffi.rkt"
          "GstRegistry-ffi.rkt"
          "GstSegment-ffi.rkt"
-         "GstStructs-ffi.rkt"
          "GstStructure-ffi.rkt"
          "GstSystemClock-ffi.rkt"
          "GstTagList-ffi.rkt"
@@ -53,7 +54,9 @@
          "GstVersion-ffi.rkt")
 
 (provide (all-from-out 
-          "gst_base.rkt"
+         "gst_base.rkt"
+         "gst-structs-ffi.rkt"
+         "gst_castings.rkt"
          "GstBin-ffi.rkt"
          "GstBuffer-ffi.rkt"
          "GstBufferList-ffi.rkt"
@@ -90,7 +93,6 @@
          "GstQuery-ffi.rkt"
          "GstRegistry-ffi.rkt"
          "GstSegment-ffi.rkt"
-         "GstStructs-ffi.rkt"
          "GstStructure-ffi.rkt"
          "GstSystemClock-ffi.rkt"
          "GstTagList-ffi.rkt"

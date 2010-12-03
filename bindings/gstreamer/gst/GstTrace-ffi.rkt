@@ -1,14 +1,9 @@
 #lang racket
 
-(require "gst_base.rkt")
+(require "gst_base.rkt"
+         "gst-structs-ffi.rkt")
 
 (provide (all-defined-out))
-
-
-;typedef struct { ;;OJO
-;} GstTrace;
-
-(define-cpointer-type _GstTrace-pointer)
 
 
 ;GstTrace*           gst_trace_new                       (const gchar *filename, gint size);
@@ -30,20 +25,6 @@
 
 (define GST_ALLOC_TRACE_LIVE (arithmetic-shift 1 0))
 (define GST_ALLOC_TRACE_MEM_LIVE (arithmetic-shift 1 1))
-
-
-#|typedef struct {
-  gchar		*name;
-  gint		 flags;
-  gint		 live;
-  GSList *mem_live;
-} GstAllocTrace;|#
-
-(define-cstruct _GstAllocTrace
-  ([name _string]
-   [flags _gint]
-   [live _gint]
-   [mem_live _GSList-pointer]))
 
   
 ;gboolean            gst_alloc_trace_available           (void);

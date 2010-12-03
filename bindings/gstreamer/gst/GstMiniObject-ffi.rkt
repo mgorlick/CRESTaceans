@@ -1,21 +1,10 @@
 #lang racket
 
-(require "gst_base.rkt")
+(require "gst_base.rkt"
+         "gst-structs-ffi.rkt")
 
 (provide (all-defined-out))
 
-#|
-typedef struct {
-  GTypeInstance instance;
-  gint refcount;
-  guint flags;
-} GstMiniObject;
-|#
-
-(define-cstruct _GstMiniObject
-  ([instance _GTypeInstance]
-   [refcount _gint]
-   [flags _guint]))
 
 #|typedef enum
 {
@@ -37,10 +26,10 @@ typedef struct {
 
 
 ;GstMiniObject *     (*GstMiniObjectCopyFunction)        (const GstMiniObject *obj);
-(define GstMiniObjectCopyFunction (_cprocedure '(_GstMiniObject-pointer) _GstMiniObject-pointer))
+(define GstMiniObjectCopyFunction (_cprocedure (list _GstMiniObject-pointer) _GstMiniObject-pointer))
 
 ;void                (*GstMiniObjectFinalizeFunction)    (GstMiniObject *obj);
-(define GstMiniObjectFinalizeFunction (_cprocedure '(_GstMiniObject-pointer) _void))
+(define GstMiniObjectFinalizeFunction (_cprocedure (list _GstMiniObject-pointer) _void))
 
 ;GstMiniObject*      gst_mini_object_new                 (GType type);
 (define-gstreamer gst_mini_object_new (_fun _GType -> _GstMiniObject-pointer))
@@ -67,8 +56,7 @@ typedef struct {
   GParamSpec parent_instance;
 } GstParamSpecMiniObject;|#
 
-(define-cstruct _GstParamSpecMiniObject
-  ([parent_instance _GParamSpec]))
+(define-cpointer-type _GstParamSpecMiniObject-pointer)
 
   
 ;GParamSpec*         gst_param_spec_mini_object          (const char *name, const char *nick, const char *blurb, GType object_type, GParamFlags flags);

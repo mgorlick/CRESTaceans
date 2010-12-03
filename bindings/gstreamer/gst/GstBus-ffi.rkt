@@ -1,9 +1,8 @@
 #lang racket
 
 (require "gst_base.rkt"
-         "GstStructs-ffi.rkt"
+         "gst-structs-ffi.rkt"
          "GstClock-ffi.rkt"
-         "GstMessage-ffi.rkt"
          "GstObject-ffi.rkt")
 
 (provide (all-defined-out))
@@ -25,15 +24,16 @@
   GST_BUS_ASYNC = 2
 } GstBusSyncReply;|#
 
-(define _GstBusSyncReply
-  (_enum '(GST_BUS_DROP = 0 GST_BUS_PASS = 1 GST_BUS_ASYNC = 2)))
+(define GST_BUS_DROP 0)
+(define GST_BUS_PASS 1)
+(define GST_BUS_ASYNC 2)
 
 
 ;gboolean            (*GstBusFunc)                       (GstBus *bus, GstMessage *message, gpointer data); 
 (define GstBusFunc (_cprocedure (list _GstBus-pointer _GstMessage-pointer _gpointer) _gboolean))
 
 ;GstBusSyncReply     (*GstBusSyncHandler)                (GstBus *bus, GstMessage *message, gpointer data); 
-(define GstBusSyncHandler (_cprocedure (list _GstBus-pointer _GstMessage-pointer _gpointer) _GstBusSyncReply))
+(define GstBusSyncHandler (_cprocedure (list _GstBus-pointer _GstMessage-pointer _gpointer) _int))
 
 ;GstBus*             gst_bus_new                         (void);
 (define-gstreamer gst_bus_new (_fun -> _GstBus-pointer))
@@ -65,13 +65,13 @@
 (define-gstreamer gst_bus_set_sync_handler (_fun _GstBus-pointer GstBusSyncHandler _gpointer -> _void))
 
 ;GstBusSyncReply     gst_bus_sync_signal_handler         (GstBus *bus, GstMessage *message, gpointer data);
-(define-gstreamer gst_bus_sync_signal_handler (_fun _GstBus-pointer _GstMessage-pointer _gpointer -> _GstBusSyncReply))
+(define-gstreamer gst_bus_sync_signal_handler (_fun _GstBus-pointer _GstMessage-pointer _gpointer -> _int))
 
 ;GSource *           gst_bus_create_watch                (GstBus *bus);
 (define-gstreamer gst_bus_create_watch (_fun _GstBus-pointer -> _GSource-pointer))
 
 ;guint               gst_bus_add_watch_full              (GstBus *bus, gint priority, GstBusFunc func, gpointer user_data, GDestroyNotify notify);
-(define-gstreamer gst_bus_add_watch_full (_fun _GstBus-pointer _gint GstBusFunc _gpointer _GDestroyNotify -> _guint))
+(define-gstreamer gst_bus_add_watch_full (_fun _GstBus-pointer _gint GstBusFunc _gpointer GDestroyNotify -> _guint))
 
 ;guint               gst_bus_add_watch                   (GstBus *bus, GstBusFunc func, gpointer user_data);
 (define-gstreamer gst_bus_add_watch (_fun _GstBus-pointer GstBusFunc _gpointer -> _guint))

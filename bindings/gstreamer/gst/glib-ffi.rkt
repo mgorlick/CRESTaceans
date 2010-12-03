@@ -108,8 +108,10 @@
 ;;  G_THREAD_PRIORITY_URGENT
 ;;} GThreadPriority;
 
-(define _GThreadPriority
-  (_enum '(G_THREAD_PRIORITY_LOW G_THREAD_PRIORITY_NORMAL G_THREAD_PRIORITY_HIGH G_THREAD_PRIORITY_URGENT)))
+(define G_THREAD_PRIORITY_LOW 0)
+(define G_THREAD_PRIORITY_NORMAL 1)
+(define G_THREAD_PRIORITY_HIGH 2)
+(define G_THREAD_PRIORITY_URGENT 3)
 
 
 ;;typedef enum    /*< skip >*/
@@ -149,13 +151,11 @@
 ;;  gchar       *message;
 ;;};
 
-(define-cstruct _GError
-  ([domain _GQuark]
-   [code _gint]
-   [message _string]))
+(define-cpointer-type _GError-pointer)
 
 
-;;typedef struct _GList GList;  YES but his doesn't mathc the .h file
+
+;;typedef struct _GList GList;
 ;;struct _GList
 ;;{
 ;;  gpointer data;
@@ -163,24 +163,16 @@
 ;;  GList *prev;
 ;;};
 
-(define-cstruct _GList
-  ([data _gpointer]
-   [next _GList-pointer]
-   [prev _GList-pointer]))
+(define-cpointer-type _GList-pointer)
 
 
-;;typedef struct _GSList GSList; YES but different
-;;struct _GSList
-;;{
-;;  gpointer data;
-;;  GSList *next;
-;;};
+;gpointer            g_list_nth_data                     (GList *list, guint n);
+(define g_list_nth_data (get-ffi-obj 'g_list_nth_data glib-lib (_fun _GList-pointer _guint -> _gpointer)))
+
 
 ;(define _GSList (_cpointer/null 'GSList)) Matt Flatt's defnition
 
-(define-cstruct _GSList
-  ([data _gpointer]
-   [next _GSList-pointer]))
+(define-cpointer-type _GSList-pointer)
 
 
 ;;typedef struct _GModule GModule; 
@@ -200,8 +192,7 @@
 ;;  GType g_type;
 ;;};
 
-(define-cstruct _GTypeClass
-  ([g_type _GType]))
+(define-cpointer-type _GTypeClass-pointer)
 
 
 ;;typedef struct _GTypeInstance GTypeInstance;
@@ -211,8 +202,7 @@
 ;;  GTypeClass *g_class;
 ;;};
 
-(define-cstruct _GTypeInstance 
-  ([g_class _GTypeClass-pointer]))
+(define-cpointer-type _GTypeInstance-pointer)
 
 
 ;;typedef struct _GData GData; 
@@ -227,10 +217,7 @@
 ;;  GData         *qdata;
 ;;};
 
-(define-cstruct _GObject                        
-  ([g_type_instance _GTypeInstance]
-   [ref_count _guint]
-   [qdata _GData-pointer]))
+(define-cpointer-type _GObject-pointer)
 
 
 ;;typedef struct _GParamSpec      GParamSpec;
@@ -249,21 +236,11 @@
 ;  guint		 param_id;	/* sort-criteria */
 ;};
 
-(define-cstruct _GParamSpec       
-  ([g_type_instance _GTypeInstance]
-   [name _string]
-   [flags _int]
-   [value_type _GType]
-   [owner_type _GType]
-   [_nick _string]
-   [_blurb _string]
-   [qdata _GData-pointer]
-   [ref_count _guint]
-   [param_id _guint]))
+(define-cpointer-type _GParamSpec-pointer)
 
 
 ;;gboolean (*GSourceFunc) (gpointer data);
-(define _GSourceFunc (_fun _gpointer -> _gboolean))
+(define GSourceFunc (_cprocedure (list _gpointer) _gboolean))
 
 
 ;;typedef struct _GSourceCallbackFuncs	GSourceCallbackFuncs;
@@ -274,10 +251,7 @@
 ;;  void (*get)   (gpointer     cb_data, GSource *source, GSourceFunc *func, gpointer *data);
 ;;};
 
-(define-cstruct _GSourceCallbackFuncs
-  ([ref (_ptr io (_fun _gpointer -> _void))]
-   [unref (_ptr io (_fun _gpointer -> _void))]
-   [get (_ptr io (_fun _gpointer _GSource-pointer _GSourceFunc _gpointer -> _void))]))
+(define-cpointer-type _GSourceCallbackFuncs-pointer)
 
 
 ;typedef struct _GSourceFuncs GSourceFuncs;
@@ -288,16 +262,11 @@
 ;;  gboolean (*dispatch) (GSource    *source, GSourceFunc callback, gpointer    user_data);
 ;;  void     (*finalize) (GSource    *source); /* Can be NULL */
 
-(define-cstruct _GSourceFuncs
-  ([prepare (_ptr io (_fun _GSource-pointer _gintptr -> _gboolean))]
-   [check (_ptr io (_fun _GSource-pointer -> _gboolean))]
-   [dispatch (_ptr io (_fun _GSource-pointer _GSourceFunc _gpointer -> _gboolean))]
-   [finalize (_or-null (_ptr io (_fun _GSource-pointer -> _void)))]))
+(define-cpointer-type _GSourceFuncs-pointer)
 
 
 ;;typedef struct _GMainContext GMainContext;	/* Opaque */ YES
 (define-cpointer-type _GMainContext-pointer)
-;(define _GMainContext (_cpointer 'GMainContext))
 
 
 ;;typedef struct _GSource GSource;
@@ -319,20 +288,7 @@
 ;;  gpointer reserved2;
 ;;};
 
-(define-cstruct _GSource
-  ([callback_data _gpointer]
-   [callback_funcs _GSourceCallbackFuncs-pointer]
-   [source_funcs _GSourceFuncs-pointer]
-   [ref_count _guint]
-   [context _GMainContext-pointer]
-   [priority _gint]
-   [flags _guint]
-   [source_id _guint]
-   [poll_fds _GSList-pointer]
-   [prev _GSource-pointer]
-   [next _GSource-pointer]
-   [reserved1 _gpointer]
-   [reserved2 _gpointer]))
+(define-cpointer-type _GSource-pointer)
 
 
 ;;typedef struct _GStaticMutex GStaticMutex;
@@ -347,9 +303,7 @@
 ;;  } static_mutex;
 ;;;};
 
-;;(define-cstruct _GStaticMutex   
-;;  ([runtime_mutex _GMutex-pointer]
-;;  [static_mutex ]))
+(define-cpointer-type _GStaticMutex-pointer)
 
 ;;typedef struct _GStaticRecMutex GStaticRecMutex;
 ;;struct _GStaticRecMutex
@@ -359,11 +313,6 @@
 ;;  guint depth;
 ;;  GSystemThread owner;
 ;;};
-
-;(define-cstruct _GStaticRecMutex
-;  ([mutex _GStaticMutex]
-;   [depth _guint]
-;   [owner _GSystemThread]))
 
 (define-cpointer-type _GStaticRecMutex-pointer)
 
@@ -376,10 +325,7 @@
 ;;  gsize allocated_len;
 ;;};
 
-(define-cstruct _GString
-  ([str _string]
-   [len _gsize]
-   [allocated_len _gsize]))
+(define-cpointer-type _GString-pointer)
 
 
 ;;struct _GValue
@@ -408,9 +354,7 @@
   GValue     *value;
 } GObjectConstructParam;|#
 
-(define-cstruct _GObjectConstructParam
-  ([pspec _GParamSpec-pointer]
-   [value _GValue-pointer]))
+(define-cpointer-type _GObjectConstructParam-pointer)
 
 
 #|typedef struct {
@@ -431,16 +375,7 @@
 } GObjectClass;|#
 
 
-(define-cstruct _GObjectClass
-  ([g_type_class _GTypeClass]
-   [constructor (_ptr io (_fun _GType _guint _GObjectConstructParam-pointer -> _GObject-pointer))]
-   [set_property (_ptr io (_fun _GObject-pointer _guint _GValue-pointer _GParamSpec-pointer -> _void))]
-   [get_property (_ptr io (_fun _GObject-pointer _guint _GValue-pointer _GParamSpec-pointer -> _void))]
-   [dispose (_ptr io (_fun _GObject-pointer -> _void))]
-   [finalize (_ptr io (_fun _GObject-pointer -> _void))]
-   [dispatch_properties_changed (_ptr io (_fun _GObject-pointer _guint _GParamSpec-pointer -> _void))]
-   [notify (_ptr io (_fun _GObject-pointer _GParamSpec-pointer -> _void))]
-   [constructed (_ptr io (_fun _GObject-pointer -> _void))]))
+(define-cpointer-type _GObjectClass-pointer)
 
 
 
@@ -455,17 +390,7 @@
 ;;  gchar*   (*collect_value)      (GValue *value, guint n_collect_values, GTypeCValue  *collect_values, guint collect_flags);
 ;;  gchar	    *lcopy_format;
 ;;  gchar*   (*lcopy_value)        (const GValue *value, guint n_collect_values, GTypeCValue  *collect_values, guint collect_flags)
-;;};
-
-;;(define-cstruct _GTypeValueTable
-;;  ([value_init (_ptr io (_fun _GValue-pointer -> _void))]
-;;   [value_free (_ptr io (_fun _GValue-pointer -> _void))]
-;;   [value_copy (_ptr io (_fun _GValue-pointer _GValue-pointer -> _void))]
-;;   [value_peek_pointer (_ptr io (_fun _GValue-pointer -> _gpointer))]
-;;   [collect_format _gcharptr]
-;;   [collect_value (_ptr io (_fun _GValue-pointer _guint _GTypeCValue-pointer _guint -> _gcharptr))]    ;;GTypeCValue is a union!
-;;   [lcopy_format _gcharptr]
-;;   [lcopy_value (_ptr io (_fun _GValue-pointer _guint _GTypeCValue-pointer _guint -> _gcharptr))]))
+;;}
 
 (define-cpointer-type _GTypeValueTable-pointer)
 
@@ -481,38 +406,37 @@
 
 
 ;;typedef void   (*GBaseInitFunc) (gpointer g_class); ;;pointer to a function that takes a gpointer and returns void
-(define _GBaseInitFunc-pointer (_ptr io (_fun _gpointer -> _void)))
-
+(define GBaseInitFunc (_cprocedure (list _gpointer) _void))
 
 ;;typedef void   (*GBaseFinalizeFunc)          (gpointer g_class);
-(define _GBaseFinalizeFunc-pointer (_ptr io (_fun _gpointer -> _void)))
+(define GBaseFinalizeFunc (_cprocedure (list _gpointer) _void))
 
 ;;typedef void  (*GCallback) (void);
-(define _GCallback-pointer (_ptr io (_fun -> _void)))
+(define GCallback (_cprocedure empty _void))
 
 ;;typedef void   (*GClassFinalizeFunc) (gpointer g_class, gpointer class_data);
-(define _GClassFinalizeFunc-pointer (_ptr io (_fun _gpointer _gpointer -> _void)))
+(define GClassFinalizeFunc (_cprocedure (list _gpointer _gpointer) _void))
 
 ;;typedef void (*GClassInitFunc) (gpointer g_class, gpointer class_data);
-(define _GClassInitFunc-pointer (_ptr io (_fun _gpointer _gpointer -> _void)))
+(define GClassInitFunc (_cprocedure (list _gpointer _gpointer) _void))
 
 ;;typedef gint (*GCompareDataFunc)     (gconstpointer  a, gconstpointer  b, gpointer user_data);
-(define _GCompareDataFunc (_ptr io (_fun _gconstpointer _gconstpointer _gpointer -> _gint)))
+(define GCompareDataFunc (_cprocedure (list _gconstpointer _gconstpointer _gpointer) _gint))
 
 ;;typedef gint (*GCompareFunc) (gconstpointer  a, gconstpointer  b);
-(define _GCompareFunc (_ptr io (_fun _gconstpointer _gconstpointer -> _gint)))
+(define GCompareFunc (_cprocedure (list _gconstpointer _gconstpointer) _gint))
 
 ;;typedef void (*GDestroyNotify) (gpointer data);
-(define _GDestroyNotify (_ptr io (_fun _gpointer -> _void)))
+(define GDestroyNotify (_cprocedure (list _gpointer) _void))
 
 ;;typedef void (*GFreeFunc) (gpointer data);
-(define _GFreeFunc (_ptr io (_fun _gpointer -> _void)))
+(define GFreeFunc (_cprocedure (list _gpointer) _void))
 
 ;;typedef void (*GFunc) (gpointer data, gpointer user_data);
-(define _GFunc (_ptr io (_fun _gpointer _gpointer -> _void)))
+(define GFunc (_cprocedure (list _gpointer _gpointer) _void))
 
 ;;typedef void (*GInstanceInitFunc) (GTypeInstance   *instance, gpointer g_class);
-(define _GInstanceInitFunc (_ptr io (_fun _GTypeInstance _gpointer -> _void)))
+(define GInstanceInitFunc (_cprocedure (list _GTypeInstance-pointer _gpointer) _void))
 
 ;void                g_type_init                         (void);
 (define g_type_init (get-ffi-obj 'g_type_init glib-lib (_fun -> _void)))
@@ -540,18 +464,19 @@
 
 (gldf g_main_loop_quit (_fun _GMainLoop-pointer -> _void))
 
-(define _GCallback (_fun -> _void))
+(gldf g_signal_connect_data (_fun _gpointer _string GCallback _gpointer (_gpointer = #f) (_int = 0) -> _gulong))
 
-(gldf g_signal_connect_data (_fun _gpointer _string _GCallback _gpointer
-                     (_gpointer = #f) (_int = 0) -> _gulong))
-
-(gldf g_timeout_add (_fun _guint _GSourceFunc _gpointer -> _guint))
+(gldf g_timeout_add (_fun _guint GSourceFunc _gpointer -> _guint))
 
 (gldf g_error_free (_fun _GError-pointer -> _void))
 
 (gldf g_free (_fun _gpointer -> _void))
 
+(gldf g_error_new (_fun _GQuark _gint _string -> _GError-pointer))
+
+
 ;; initialize the type system for all users
 (g_type_init)
+
 
 

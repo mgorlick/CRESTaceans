@@ -1,14 +1,7 @@
 #lang racket
 
 (require "gst_base.rkt"
-         "GstStructs-ffi.rkt"
-         "GstClock-ffi.rkt"
-         "GstFormat-ffi.rkt"
-         "GstMiniObject-ffi.rkt"
-         "GstObject-ffi.rkt"
-         "GstQuery-ffi.rkt"
-         "GstStructure-ffi.rkt"
-         "GstTagList-ffi.rkt" )
+         "gst-structs-ffi.rkt")
 
 (provide (all-defined-out))
 
@@ -71,25 +64,6 @@
 (define GST_MESSAGE_STEP_START (arithmetic-shift 1 23))
 (define GST_MESSAGE_QOS (arithmetic-shift 1 24))
 (define GST_MESSAGE_ANY (bitwise-not 0))
-
-
-#|
-typedef struct {
-  GstMiniObject mini_object;
-  GstMessageType type;
-  guint64 timestamp;
-  GstObject *src;
-  GstStructure *structure;
-} GstMessage;
-|#
-
-(define-cstruct _GstMessage
-  ([mini_object _GstMiniObject]
-   [type _int]
-   [timestamp _guint64]
-   [src _GstObject-pointer]
-   [structure _GstStructure-pointer]))
-
 
 
 
@@ -158,10 +132,10 @@ typedef struct {
 (define-gstreamer gst_message_parse_buffering (_fun _GstMessage-pointer _gintptr -> _void))
 
 ;void                gst_message_set_buffering_stats     (GstMessage *message, GstBufferingMode mode, gint avg_in, gint avg_out, gint64 buffering_left);
-(define-gstreamer gst_message_set_buffering_stats (_fun _GstMessage-pointer _GstBufferingMode _gint _gint _gint64 -> _void))
+(define-gstreamer gst_message_set_buffering_stats (_fun _GstMessage-pointer _int _gint _gint _gint64 -> _void))
 
 ;void                gst_message_parse_buffering_stats   (GstMessage *message, GstBufferingMode *mode, gint *avg_in, gint *avg_out, gint64 *buffering_left);
-(define-gstreamer gst_message_parse_buffering_stats (_fun _GstMessage-pointer (_ptr io _GstBufferingMode) _gintptr _gintptr (_ptr io _gint64) -> _void))
+(define-gstreamer gst_message_parse_buffering_stats (_fun _GstMessage-pointer (_ptr io _int) _gintptr _gintptr (_ptr io _gint64) -> _void))
 
 ;GstMessage *        gst_message_new_state_changed       (GstObject *src, GstState oldstate, GstState newstate,GstState pending);
 (define-gstreamer gst_message_new_state_changed (_fun _GstObject-pointer _int _int _int -> _GstMessage-pointer))
@@ -170,10 +144,10 @@ typedef struct {
 (define-gstreamer gst_message_parse_state_changed (_fun _GstMessage-pointer (_ptr io _int) (_ptr io _int) (_ptr io _int) -> _void))
 
 ;GstMessage * gst_message_new_step_done (GstObject *src, GstFormat format, guint64 amount, gdouble rate, gboolean flush, gboolean intermediate, guint64 duration, gboolean eos);
-(define-gstreamer gst_message_new_step_done (_fun _GstObject-pointer _GstFormat _guint64 _gdouble _gboolean _gboolean _guint64 _gboolean -> _GstMessage-pointer))
+(define-gstreamer gst_message_new_step_done (_fun _GstObject-pointer _int _guint64 _gdouble _gboolean _gboolean _guint64 _gboolean -> _GstMessage-pointer))
 
 ;void gst_message_parse_step_done (GstMessage *message, GstFormat *format, guint64 *amount, gdouble *rate, gboolean *flush, gboolean *intermediate, guint64 *duration, gboolean *eos);
-(define-gstreamer gst_message_parse_step_done (_fun _GstMessage-pointer (_ptr io _GstFormat) (_ptr io _guint64) (_ptr io _gdouble) (_ptr io _gboolean) (_ptr io _gboolean) (_ptr io _guint64) (_ptr io _gboolean) -> _void))
+(define-gstreamer gst_message_parse_step_done (_fun _GstMessage-pointer (_ptr io _int) (_ptr io _guint64) (_ptr io _gdouble) (_ptr io _gboolean) (_ptr io _gboolean) (_ptr io _guint64) (_ptr io _gboolean) -> _void))
 
 ;GstMessage *        gst_message_new_clock_provide       (GstObject *src, GstClock *clock, gboolean ready);
 (define-gstreamer gst_message_new_clock_provide (_fun _GstObject-pointer _GstClock-pointer _gboolean -> _GstMessage-pointer))
@@ -200,17 +174,17 @@ typedef struct {
 (define-gstreamer gst_message_new_custom (_fun _int _GstObject-pointer _GstStructure-pointer -> _GstMessage-pointer))
 
 ;GstMessage *        gst_message_new_segment_start       (GstObject *src, GstFormat format, gint64 position);
-(define-gstreamer gst_message_new_segment_start (_fun _GstObject-pointer _GstFormat _gint64 -> _GstMessage-pointer))
+(define-gstreamer gst_message_new_segment_start (_fun _GstObject-pointer _int _gint64 -> _GstMessage-pointer))
 
 ;;GstMessage* GstFormat* gint64 -> void
 (define-gstreamer*
-  (_fun _GstMessage-pointer (_ptr io _GstFormat) _gint64 -> _void)
+  (_fun _GstMessage-pointer (_ptr io _int) _gint64 -> _void)
   gst_message_parse_segment_start gst_message_parse_segment_done gst_message_parse_duration)
 
 
 ;;GstObject* GstFormat gint64 -> GstMessage*
 (define-gstreamer*
-  (_fun _GstObject-pointer _GstFormat _gint64 -> _GstMessage-pointer)
+  (_fun _GstObject-pointer _int _gint64 -> _GstMessage-pointer)
   gst_message_new_segment_done gst_message_new_duration)
 
 ;GstMessage *        gst_message_new_async_start         (GstObject *src, gboolean new_base_time);
@@ -223,10 +197,10 @@ typedef struct {
 (define-gstreamer gst_message_new_async_done (_fun _GstObject-pointer -> _GstMessage-pointer))
 
 ;GstMessage * gst_message_new_step_start (GstObject *src, gboolean active, GstFormat format, guint64 amount, gdouble rate, gboolean flush, gboolean intermediate);
-(define-gstreamer gst_message_new_step_start (_fun _GstObject-pointer _gboolean _GstFormat _guint64 _gdouble _gboolean _gboolean -> _GstMessage-pointer))
+(define-gstreamer gst_message_new_step_start (_fun _GstObject-pointer _gboolean _int _guint64 _gdouble _gboolean _gboolean -> _GstMessage-pointer))
 
 ;void gst_message_parse_step_start (GstMessage *message, gboolean *active, GstFormat *format, guint64 *amount, gdouble *rate, gboolean *flush, gboolean *intermediate);
-(define-gstreamer gst_message_parse_step_start (_fun _GstMessage-pointer (_ptr io _gboolean) (_ptr io _GstFormat) (_ptr io _guint64) (_ptr io _gdouble) (_ptr io _gboolean) (_ptr io _gboolean)-> _void))
+(define-gstreamer gst_message_parse_step_start (_fun _GstMessage-pointer (_ptr io _gboolean) (_ptr io _int) (_ptr io _guint64) (_ptr io _gdouble) (_ptr io _gboolean) (_ptr io _gboolean)-> _void))
 
 ;GstMessage *        gst_message_new_qos                 (GstObject *src, gboolean live, guint64 running_time, guint64 stream_time, guint64 timestamp, guint64 duration);
 ;(define-gstreamer gst_message_new_qos (_fun _GstObject-pointer _gboolean _guint64 _guint64 _guint64 _guint64 -> _GstMessage-pointer)) NOT IN LIB
@@ -251,15 +225,15 @@ typedef struct {
   GST_STRUCTURE_CHANGE_TYPE_PAD_UNLINK = 1
 } GstStructureChangeType;|#
 
-(define _GstStructureChangeType
-  (_enum '(GST_STRUCTURE_CHANGE_TYPE_PAD_LINK = 0 GST_STRUCTURE_CHANGE_TYPE_PAD_UNLINK = 1)))
+(define GST_STRUCTURE_CHANGE_TYPE_PAD_LINK 0)
+(define GST_STRUCTURE_CHANGE_TYPE_PAD_UNLINK 1)
 
 
 ;GstMessage *        gst_message_new_structure_change    (GstObject *src, GstStructureChangeType type, GstElement *owner, gboolean busy);
-(define-gstreamer gst_message_new_structure_change (_fun _GstObject-pointer _GstStructureChangeType _GstElement-pointer _gboolean -> _GstMessage-pointer))
+(define-gstreamer gst_message_new_structure_change (_fun _GstObject-pointer _int _GstElement-pointer _gboolean -> _GstMessage-pointer))
 
 ;void                gst_message_parse_structure_change  (GstMessage *message, GstStructureChangeType *type, GstElement **owner, gboolean *busy);
-(define-gstreamer gst_message_parse_structure_change (_fun _GstMessage-pointer (_ptr io _GstStructureChangeType) (_ptr io _GstElement-pointer) (_ptr io _gboolean) -> _void))
+(define-gstreamer gst_message_parse_structure_change (_fun _GstMessage-pointer (_ptr io _int) (_ptr io _GstElement-pointer) (_ptr io _gboolean) -> _void))
 
 ;GstMessage *        gst_message_new_request_state       (GstObject *src, GstState state);
 (define-gstreamer gst_message_new_request_state (_fun _GstObject-pointer _int -> _GstMessage-pointer))
@@ -278,14 +252,19 @@ typedef struct {
   GST_STREAM_STATUS_TYPE_STOP     = 10
 } GstStreamStatusType;|#
   
-(define _GstStreamStatusType
-  (_enum '(GST_STREAM_STATUS_TYPE_CREATE = 0 GST_STREAM_STATUS_TYPE_ENTER = 1 GST_STREAM_STATUS_TYPE_LEAVE = 2 GST_STREAM_STATUS_TYPE_DESTROY = 3 GST_STREAM_STATUS_TYPE_START = 8 GST_STREAM_STATUS_TYPE_PAUSE = 9 GST_STREAM_STATUS_TYPE_STOP = 10)))
+(define GST_STREAM_STATUS_TYPE_CREATE 0)
+(define GST_STREAM_STATUS_TYPE_ENTER 1)
+(define GST_STREAM_STATUS_TYPE_LEAVE 2)
+(define GST_STREAM_STATUS_TYPE_DESTROY 3)
+(define GST_STREAM_STATUS_TYPE_START 8)
+(define GST_STREAM_STATUS_TYPE_PAUSE 9)
+(define GST_STREAM_STATUS_TYPE_STOP 10)
 
 ;GstMessage *        gst_message_new_stream_status       (GstObject *src, GstStreamStatusType type, GstElement *owner);
-(define-gstreamer gst_message_new_stream_status (_fun _GstObject-pointer _GstStreamStatusType _GstElement-pointer -> _GstMessage-pointer))
+(define-gstreamer gst_message_new_stream_status (_fun _GstObject-pointer _int _GstElement-pointer -> _GstMessage-pointer))
 
 ;void                gst_message_parse_stream_status     (GstMessage *message, GstStreamStatusType *type, GstElement **owner);
-(define-gstreamer gst_message_parse_stream_status (_fun _GstMessage-pointer (_ptr io _GstStreamStatusType) (_ptr io _GstElement-pointer) -> _void))
+(define-gstreamer gst_message_parse_stream_status (_fun _GstMessage-pointer (_ptr io _int) (_ptr io _GstElement-pointer) -> _void))
 
 ;void                gst_message_set_stream_status_object (GstMessage *message, const GValue *object);
 (define-gstreamer gst_message_set_stream_status_object (_fun _GstMessage-pointer _GValue-pointer -> _void))

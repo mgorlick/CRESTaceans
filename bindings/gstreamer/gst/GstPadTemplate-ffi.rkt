@@ -1,14 +1,12 @@
 #lang racket
 
 (require "gst_base.rkt"
-         "GstCaps-ffi.rkt"
+         "gst-structs-ffi.rkt"
          "GstObject-ffi.rkt")
 
 (provide (all-defined-out))
 
 
-;typedef struct _GstPadTemplate GstPadTemplate;
-(define-cpointer-type _GstPadTemplate-pointer)
 
 #|typedef enum {
   GST_PAD_TEMPLATE_FIXED        = (GST_OBJECT_FLAG_LAST << 0),
@@ -26,34 +24,9 @@
   GST_PAD_REQUEST
 } GstPadPresence;|#
 
-(define _GstPadPresence
-  (_enum '(GST_PAD_ALWAYS GST_PAD_SOMETIMES GST_PAD_REQUEST)))
-
-
-#|typedef enum {
-  GST_PAD_UNKNOWN,
-  GST_PAD_SRC,
-  GST_PAD_SINK
-} GstPadDirection;|#
-
-(define _GstPadDirection
-  (_enum '(GST_PAD_UNKNOWN GST_PAD_SRC GST_PAD_SINK)))
-  
-
-#|
-typedef struct {
-  const gchar     *name_template;
-  GstPadDirection  direction;
-  GstPadPresence   presence;
-  GstStaticCaps    static_caps;
-} GstStaticPadTemplate;
-|#
-
-(define-cstruct _GstStaticPadTemplate
-  ([name_template _string]
-   [direction _GstPadDirection]
-   [presence _GstPadPresence]
-   [static_caps _GstStaticCaps]))
+(define GST_PAD_ALWAYS 0)
+(define GST_PAD_SOMETIMES 1)
+(define GST_PAD_REQUEST 2)
 
 
 #|#define             GST_STATIC_PAD_TEMPLATE             (padname, dir, pres, caps)
@@ -72,7 +45,7 @@ typedef struct {
 
 
 ;GstPadTemplate*     gst_pad_template_new                (const gchar *name_template, GstPadDirection direction, GstPadPresence presence, GstCaps *caps);
-(define-gstreamer gst_pad_template_new (_fun _string _GstPadDirection _GstPadPresence _GstCaps-pointer -> _GstPadTemplate-pointer))
+(define-gstreamer gst_pad_template_new (_fun _string _int _int _GstCaps-pointer -> _GstPadTemplate-pointer))
 
 ;GstCaps*            gst_pad_template_get_caps           (GstPadTemplate *templ);
 (define-gstreamer gst_pad_template_get_caps (_fun _GstPadTemplate-pointer -> _GstCaps-pointer))

@@ -1,7 +1,7 @@
 #lang racket
 
 (require "gst_base.rkt"
-         "GstStructure-ffi.rkt")
+         "gst-structs-ffi.rkt")
 
 (provide (all-defined-out))
 
@@ -12,33 +12,6 @@ typedef enum {
 } GstCapsFlags;|#
 
 (define GST_CAPS_FLAGS_ANY (arithmetic-shift 1 0))
-
-
-#|
-typedef struct {
-  GType type;
-  /* refcounting */
-  gint           refcount;
-  GstCapsFlags flags;
-} GstCaps;
-|#
-
-(define-cstruct _GstCaps
-  ([type _GType]
-   [refcount _gint]
-   [flags _int]))
-
-
-#|
-typedef struct {
-  GstCaps caps;
-  const char *string;
-} GstStaticCaps;
-|#
-
-(define-cstruct _GstStaticCaps
-  ([caps _GstCaps]
-   [string _string]))
 
 
 #|#define             GST_CAPS_ANY
@@ -57,13 +30,13 @@ typedef struct {
   gst_caps_new_empty gst_caps_new_any)
 
 ;GstCaps *           gst_caps_new_simple                 (const char *media_type, const char *fieldname,...);
-(define-gstreamer gst_caps_new_simple (_fun _string _string (_list i _string) -> _GstCaps-pointer))
+;;NOTE: can't bind this function because of the variable amount of arguments which might be of different types. Use gst_caps_from_string() instead.
 
 ;GstCaps *           gst_caps_new_full                   (GstStructure *struct1, ...);
-(define-gstreamer gst_caps_new_full (_fun _GstStructure-pointer (_list i _GstStructure-pointer) -> _GstCaps-pointer))
+;NOTE: Need to do a C wrapper around this function with a fixed number of arguments to call from the racket side
 
-;GstCaps *           gst_caps_new_full_valist            (GstStructure *structure, va_list var_args);   OJO!!!
-(define-gstreamer gst_caps_new_full_valist (_fun _GstStructure-pointer (_list i _GstStructure-pointer) -> _GstCaps-pointer))
+;GstCaps *           gst_caps_new_full_valist            (GstStructure *structure, va_list var_args); 
+;;NOTE: not able to bind va_list, use gst_caps_new_full. 
 
 ;;GstCaps* -> GstCaps*
 (define-gstreamer*
@@ -104,10 +77,10 @@ typedef struct {
 (define-gstreamer gst_caps_set_value (_fun _GstCaps-pointer _string _GValue-pointer -> _void))
 
 ;void                gst_caps_set_simple                 (GstCaps *caps, const char *field, ...);
-(define-gstreamer gst_caps_set_simple (_fun _GstCaps-pointer _string (_list i _string) -> _void))
+;;NOTE: cannot bind a function that contains a variable number of elements. Build a C wrapper for your needs with a fixed number of params.
 
-;void                gst_caps_set_simple_valist          (GstCaps *caps, const char *field, va_list varargs); OJO!!!
-(define-gstreamer gst_caps_set_simple_valist (_fun _GstCaps-pointer _string (_list i _string) -> _void))
+;void                gst_caps_set_simple_valist          (GstCaps *caps, const char *field, va_list varargs);
+;;NOTE: cannot bind a function that contains a variable number of elements. Build a C wrapper for your needs with a fixed number of params.
 
 
 ;;GstCaps* -> gboolean
@@ -127,6 +100,9 @@ typedef struct {
   (_fun _GstCaps-pointer _GstCaps-pointer -> _GstCaps-pointer)
   gst_caps_intersect gst_caps_union)
 
+
+;GstCaps *           gst_caps_normalize                  (const GstCaps *caps);
+(define-gstreamer gst_caps_normalize (_fun _GstCaps-pointer -> _GstCaps-pointer))
 
 ;xmlNodePtr          gst_caps_save_thyself               (const GstCaps *caps, xmlNodePtr parent);
 ;(define-gstreamer gst_caps_save_thyself (_fun _GstCaps-pointer _xmlNodePtr -> _xmlNodePtr))

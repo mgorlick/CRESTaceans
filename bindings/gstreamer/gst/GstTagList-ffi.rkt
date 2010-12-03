@@ -1,12 +1,9 @@
 #lang racket
 
 (require "gst_base.rkt"
-         "GstBuffer-ffi.rkt")
+         "gst-structs-ffi.rkt")
 
 (provide (all-defined-out))
-
-;;typedef struct _GstTagList GstTagList;
-(define-cpointer-type _GstTagList-pointer)
 
 
 #|typedef enum {
@@ -21,9 +18,14 @@
   GST_TAG_MERGE_COUNT
 } GstTagMergeMode;|#
 
-(define _GstTagMergeMode
-  (_enum '(GST_TAG_MERGE_UNDEFINED GST_TAG_MERGE_REPLACE_ALL GST_TAG_MERGE_REPLACE GST_TAG_MERGE_APPEND GST_TAG_MERGE_PREPEND GST_TAG_MERGE_KEEP,
-  GST_TAG_MERGE_KEEP_ALL GST_TAG_MERGE_COUNT)))
+(define GST_TAG_MERGE_UNDEFINED 0)
+(define GST_TAG_MERGE_REPLACE_ALL 1)
+(define GST_TAG_MERGE_REPLACE 2)
+(define GST_TAG_MERGE_APPEND 3)
+(define GST_TAG_MERGE_PREPEND 4)
+(define GST_TAG_MERGE_KEEP 5)
+(define GST_TAG_MERGE_KEEP_ALL 6)
+(define GST_TAG_MERGE_COUNT 7)
 
 
 #|typedef enum {
@@ -34,16 +36,19 @@
   GST_TAG_FLAG_COUNT
 } GstTagFlag;|#
 
-(define _GstTagFlag
-  (_enum '(GST_TAG_FLAG_UNDEFINED GST_TAG_FLAG_META GST_TAG_FLAG_ENCODED GST_TAG_FLAG_DECODED GST_TAG_FLAG_COUNT)))
+(define GST_TAG_FLAG_UNDEFINED 0)
+(define GST_TAG_FLAG_META 1)
+(define GST_TAG_FLAG_ENCODED 2)
+(define GST_TAG_FLAG_DECODED 3)
+(define GST_TAG_FLAG_COUNT 4)
 
 
 
 ;void                (*GstTagForeachFunc)                (const GstTagList *list, const gchar *tag, gpointer user_data);
-(define GstTagForeachFunc (_cprocedure '(_GstTagList-pointer _string _gpointer) _void))
+(define GstTagForeachFunc (_cprocedure (list _GstTagList-pointer _string _gpointer) _void))
 
 ;void                (*GstTagMergeFunc)                  (GValue *dest, const GValue *src);
-(define GstTagMergeFunc (_cprocedure '(_GValue-pointer _GValue-pointer) _void))
+(define GstTagMergeFunc (_cprocedure (list _GValue-pointer _GValue-pointer) _void))
 
 #|#define             GST_TAG_TITLE
 #define             GST_TAG_TITLE_SORTNAME
@@ -122,7 +127,7 @@
 
 
 ;void                gst_tag_register                    (const gchar *name, GstTagFlag flag, GType type, const gchar *nick, const gchar *blurb, GstTagMergeFunc func);
-(define-gstreamer gst_tag_register (_fun _string _GstTagFlag _GType _string _string GstTagMergeFunc -> _void))
+(define-gstreamer gst_tag_register (_fun _string _int _GType _string _string GstTagMergeFunc -> _void))
 
 ;;GValue* GValue* -> void
 (define-gstreamer*
@@ -143,7 +148,7 @@
   gst_tag_get_nick gst_tag_get_description)
 
 ;GstTagFlag          gst_tag_get_flag                    (const gchar *tag);
-(define-gstreamer gst_tag_get_flag (_fun _string -> _GstTagFlag))
+(define-gstreamer gst_tag_get_flag (_fun _string -> _int))
 
 ;GstTagList *        gst_tag_list_new                    (void);
 (define-gstreamer gst_tag_list_new (_fun -> _GstTagList-pointer))
@@ -164,10 +169,10 @@
 (define-gstreamer gst_tag_list_copy (_fun _GstTagList-pointer -> _GstTagList-pointer))
 
 ;void                gst_tag_list_insert                 (GstTagList *into, const GstTagList *from, GstTagMergeMode mode);
-(define-gstreamer gst_tag_list_insert (_fun _GstTagList-pointer _GstTagList-pointer _GstTagMergeMode -> _void))
+(define-gstreamer gst_tag_list_insert (_fun _GstTagList-pointer _GstTagList-pointer _int -> _void))
 
 ;GstTagList *        gst_tag_list_merge                  (const GstTagList *list1, const GstTagList *list2, GstTagMergeMode mode);
-(define-gstreamer gst_tag_list_merge (_fun _GstTagList-pointer _GstTagList-pointer _GstTagMergeMode -> _GstTagList-pointer))
+(define-gstreamer gst_tag_list_merge (_fun _GstTagList-pointer _GstTagList-pointer _int -> _GstTagList-pointer))
 
 ;void                gst_tag_list_free                   (GstTagList *list);
 (define-gstreamer gst_tag_list_free (_fun _GstTagList-pointer -> _void))
@@ -177,15 +182,15 @@
 
 ;;GstTagList* GstTagMergeMode gchar* ... -> void
 (define-gstreamer*
-  (_fun _GstTagList-pointer _GstTagMergeMode _string (_list i _string) -> _void)
+  (_fun _GstTagList-pointer _int _string (_list i _string) -> _void)
   gst_tag_list_add gst_tag_list_add_values)
 
 ;void                gst_tag_list_add_value              (GstTagList *list, GstTagMergeMode mode, const gchar *tag, const GValue *value);
-(define-gstreamer gst_tag_list_add_value (_fun _GstTagList-pointer _GstTagMergeMode _string _GValue-pointer -> _void))
+(define-gstreamer gst_tag_list_add_value (_fun _GstTagList-pointer _int _string _GValue-pointer -> _void))
 
 ;;GstTagList* GstTagMergeMode gchar* va_list -> void
 (define-gstreamer*
-  (_fun _GstTagList-pointer _GstTagMergeMode _string (_list i _string) -> _void)
+  (_fun _GstTagList-pointer _int _string (_list i _string) -> _void)
   gst_tag_list_add_valist gst_tag_list_add_valist_values)
 
 ;void                gst_tag_list_remove_tag             (GstTagList *list, const gchar *tag);

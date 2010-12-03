@@ -1,24 +1,11 @@
 #lang racket
 
 (require "gst_base.rkt"
-         "GstStructs-ffi.rkt"
+         "gst-structs-ffi.rkt"
          "GstBin-ffi.rkt"
          "GstClock-ffi.rkt")
 
 (provide (all-defined-out))
-
-#|
-typedef struct {
-  GstClock      *fixed_clock;
-  GstClockTime   stream_time;	
-  GstClockTime   delay;
-} GstPipeline;
-|#
-
-(define-cstruct _GstPipeline
-  ([fixed_clock _GstClock-pointer]
-   [stream_time _GstClockTime]
-   [delay _GstClockTime]))
 
 
 #|typedef enum {
@@ -48,12 +35,6 @@ typedef struct {
 
 ;void                gst_pipeline_auto_clock             (GstPipeline *pipeline);
 (define-gstreamer gst_pipeline_auto_clock (_fun _GstPipeline-pointer -> _void))
-
-;void                gst_pipeline_set_new_stream_time    (GstPipeline *pipeline, GstClockTime time);
-(define-gstreamer gst_pipeline_set_new_stream_time (_fun _GstPipeline-pointer _GstClockTime -> _void))
-
-;GstClockTime        gst_pipeline_get_last_stream_time   (GstPipeline *pipeline);
-(define-gstreamer gst_pipeline_get_last_stream_time (_fun _GstPipeline-pointer -> _GstClockTime))
 
 ;GstClockTime        gst_pipeline_get_delay              (GstPipeline *pipeline);
 (define-gstreamer gst_pipeline_get_delay (_fun _GstPipeline-pointer -> _GstClockTime))

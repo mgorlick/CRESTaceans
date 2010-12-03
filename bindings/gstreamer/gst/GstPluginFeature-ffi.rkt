@@ -1,22 +1,12 @@
 #lang racket
 
-(require "gst_base.rkt")
+(require "gst_base.rkt"
+         "gst-structs-ffi.rkt")
 
 (provide (all-defined-out))
 
-;;typedef struct _GstPluginFeature GstPluginFeature;
-(define-cpointer-type _GstPluginFeature-pointer)
 
 #|#define             GST_PLUGIN_FEATURE_NAME             (feature)|#
-
-#|typedef struct {
-  const gchar   *name;
-  GType          type;
-} GstTypeNameData;|#
-
-(define-cstruct _GstTypeNameData
-  ([name _string]
-   [type _GType]))
 
 
 #|typedef enum {
@@ -26,11 +16,13 @@
   GST_RANK_PRIMARY              = 256
 } GstRank;|#
 
-(define _GstRank
-  (_enum '(GST_RANK_NONE = 0 GST_RANK_MARGINAL = 64 GST_RANK_SECONDARY = 128 GST_RANK_PRIMARY = 256)))
+(define GST_RANK_NONE 0)
+(define GST_RANK_MARGINAL 64)
+(define GST_RANK_SECONDARY 128)
+(define GST_RANK_PRIMARY 256)
   
 ;gboolean            (*GstPluginFeatureFilter)           (GstPluginFeature *feature, gpointer user_data);
-(define GstPluginFeatureFilter (_cprocedure '(_GstPluginFeature-pointer _gpointer) _gboolean))
+(define GstPluginFeatureFilter (_cprocedure (list _GstPluginFeature-pointer _gpointer) _gboolean))
 
 ;gboolean            gst_plugin_feature_type_name_filter (GstPluginFeature *feature, GstTypeNameData *data);
 (define-gstreamer gst_plugin_feature_type_name_filter (_fun _GstPluginFeature-pointer _GstTypeNameData-pointer -> _gboolean))

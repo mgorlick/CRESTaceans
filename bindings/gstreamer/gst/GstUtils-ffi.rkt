@@ -1,7 +1,7 @@
 #lang racket
 
 (require "gst_base.rkt"
-         "GstStructs-ffi.rkt"
+         "gst-structs-ffi.rkt"
          "GstClock-ffi.rkt")
 
 (provide (all-defined-out))
@@ -65,10 +65,10 @@ void                GST_WRITE_DOUBLE_BE                 (guint8 *data, gdouble n
 
 
 ;const gchar*        gst_flow_get_name                   (GstFlowReturn ret);
-(define-gstreamer gst_flow_get_name (_fun _GstFlowReturn -> _string))
+(define-gstreamer gst_flow_get_name (_fun _int -> _string))
 
 ;GQuark              gst_flow_to_quark                   (GstFlowReturn ret);
-(define-gstreamer gst_flow_to_quark (_fun _GstFlowReturn -> _GQuark))
+(define-gstreamer gst_flow_to_quark (_fun _int -> _GQuark))
 
 ;void                gst_print_element_args              (GString *buf, gint indent, GstElement *element);
 (define-gstreamer gst_print_element_args (_fun _GString-pointer _gint _GstElement-pointer -> _void))
@@ -77,7 +77,7 @@ void                GST_WRITE_DOUBLE_BE                 (guint8 *data, gdouble n
 (define-gstreamer gst_print_pad_caps (_fun _GString-pointer _gint _GstPad-pointer -> _void))
 
 ;GType gst_type_register_static_full       (GType parent_type, const gchar *type_name, guint class_size, GBaseInitFunc base_init, GBaseFinalizeFunc base_finalize, GClassInitFunc class_init, GClassFinalizeFunc class_finalize, gconstpointer class_data, guint instance_size, guint16 n_preallocs, GInstanceInitFunc instance_init, const GTypeValueTable *value_table, GTypeFlags flags);
-(define-gstreamer gst_type_register_static_full (_fun _GType _string _guint _GBaseInitFunc-pointer _GBaseFinalizeFunc-pointer _GClassInitFunc-pointer _GClassFinalizeFunc-pointer _gconstpointer _guint _guint16 _GInstanceInitFunc _GTypeValueTable-pointer _int -> _GType))
+(define-gstreamer gst_type_register_static_full (_fun _GType _string _guint GBaseInitFunc GBaseFinalizeFunc GClassInitFunc GClassFinalizeFunc _gconstpointer _guint _guint16 GInstanceInitFunc _GTypeValueTable-pointer _int -> _GType))
 
 ;void                gst_util_dump_mem                   (const guchar *mem, guint size);
 (define-gstreamer gst_util_dump_mem (_fun (_ptr io _guchar) _guint -> _void))
@@ -128,8 +128,9 @@ void                GST_WRITE_DOUBLE_BE                 (guint8 *data, gdouble n
   GST_SEARCH_MODE_AFTER
 } GstSearchMode;|#
 
-(define _GstSearchMode
-  (_enum '(GST_SEARCH_MODE_EXACT = 0 GST_SEARCH_MODE_BEFORE GST_SEARCH_MODE_AFTER)))
+(define GST_SEARCH_MODE_EXACT 0)
+(define GST_SEARCH_MODE_BEFORE 1)
+(define GST_SEARCH_MODE_AFTER 2)
 
 ;gpointer gst_util_array_binary_search (gpointer array, guint num_elements, gsize element_size, GCompareDataFunc search_func, GstSearchMode mode, gconstpointer search_data, gpointer user_data);
-(define-gstreamer gst_util_array_binary_search (_fun _gpointer _guint _gsize _GCompareDataFunc _GstSearchMode _gconstpointer _gpointer -> _gpointer))
+(define-gstreamer gst_util_array_binary_search (_fun _gpointer _guint _gsize GCompareDataFunc _int _gconstpointer _gpointer -> _gpointer))

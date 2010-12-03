@@ -1,7 +1,7 @@
 #lang racket
 
 (require "gst_base.rkt"
-         "GstStructs-ffi.rkt")
+         "gst-structs-ffi.rkt")
 
 (provide (all-defined-out))
 
@@ -22,11 +22,13 @@
   GST_PARSE_ERROR_EMPTY
 } GstParseError;|#
 
-(define _GstParseError
-  (_enum '( GST_PARSE_ERROR_SYNTAX GST_PARSE_ERROR_NO_SUCH_ELEMENT GST_PARSE_ERROR_NO_SUCH_PROPERTY GST_PARSE_ERROR_LINK GST_PARSE_ERROR_COULD_NOT_SET_PROPERTY GST_PARSE_ERROR_EMPTY_BIN GST_PARSE_ERROR_EMPTY)))  
-
-;typedef struct _GstParseContext GstParseContext;
-(define-cpointer-type _GstParseContext-pointer)
+(define GST_PARSE_ERROR_SYNTAX 0)
+(define GST_PARSE_ERROR_NO_SUCH_ELEMENT 1)
+(define GST_PARSE_ERROR_NO_SUCH_PROPERTY 2)
+(define GST_PARSE_ERROR_LINK 3)
+(define GST_PARSE_ERROR_COULD_NOT_SET_PROPERTY 4)
+(define GST_PARSE_ERROR_EMPTY_BIN 5)
+(define GST_PARSE_ERROR_EMPTY 6)
 
 
 #|typedef enum

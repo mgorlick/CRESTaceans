@@ -1,61 +1,10 @@
 #lang racket
 
-(require "gst_base.rkt")
+(require "gst_base.rkt"
+         "gst-structs-ffi.rkt")
 
 (provide (all-defined-out))
 
-
-#|typedef struct {
-  gint           refcount;    /* unused (FIXME 0.11: remove) */
-  GMutex        *lock;        /* object LOCK */
-  gchar         *name;        /* object name */
-  gchar         *name_prefix; /* (un)used for debugging (FIXME 0.11: remove) */
-  GstObject     *parent;      /* this object's parent, weak ref */
-  guint32        flags;
-} GstObject;|#
-
-(define-cstruct _GstObject
-  (;[refcount _gint]
-   [lock _GMutex-pointer]
-   [name _string]
-   ;[name_prefix _string]
-   [parent _GstObject-pointer]
-   [flags _guint32]))
-
-
-#|typedef struct {
-  GObjectClass parent_class;
-  const gchar *path_string_separator;
-  GObject *signal_object;
-  /* FIXME-0.11: remove this, plus the above GST_CLASS_*_LOCK macros */
-  GStaticRecMutex *lock;
-  /* signals */
-  /* FIXME-0.11: remove, and pass NULL in g_signal_new(), we never used them */
-  void          (*parent_set)       (GstObject * object, GstObject * parent);
-  void          (*parent_unset)     (GstObject * object, GstObject * parent);
-  /* FIXME 0.11: Remove this, it's deprecated */
-  void          (*object_saved)     (GstObject * object, GstXmlNodePtr parent);
-  void          (*deep_notify)      (GstObject * object, GstObject * orig, GParamSpec * pspec);
-  /* virtual methods for subclasses */
-  /* FIXME 0.11: Remove this, it's deprecated */
-  GstXmlNodePtr (*save_thyself)     (GstObject * object, GstXmlNodePtr parent);
-  void          (*restore_thyself)  (GstObject * object, GstXmlNodePtr self);
-} GstObjectClass;|#
-
-;;Commented everything related to GstXmlNodePtr...it's going to be deprecated anyway
-
-(define-cstruct _GstObjectClass
-  ([parent_class _GObjectClass]
-   [path_string_separator _string]
-   [signal_object _GObject-pointer]
-   [lock _GStaticRecMutex-pointer]
-   [parent_set (_ptr io (_fun _GstObject-pointer _GstObject-pointer -> _void))]
-   [parent_unset (_ptr io (_fun _GstObject-pointer _GstObject-pointer -> _void))]
-   ;[object_saved (_ptr io (_fun _GstObject-pointer _GstXmlNodePtr -> _void))]
-   ;[deep_notify (_ptr io (_fun _GstObject-pointer _GstObject-pointer _GParamSpec-pointer -> _void))]
-   ;[save_thyself (_ptr io (_fun _GstObject-pointer _GstXmlNodePtr -> _GstXmlNodePtr))]
-   ;[restore_thyself (_ptr io (_fun _GstObject-pointer _GstXmlNodePtr -> _void))]
-   ))
 
 
 #|typedef enum
