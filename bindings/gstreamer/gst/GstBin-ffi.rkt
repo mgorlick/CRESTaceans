@@ -19,11 +19,13 @@
 
 
 
-(provide/doc
+ #|(provide/doc
+
+
  (proc-doc/names gst_bin_new
                  (-> string? GstElement-pointer?)
                  (s)
-                 @{Returns a new bin with name v.}))
+                 @{Returns a new bin with name v.}))|#
 
 
 ;GstElement*         gst_bin_new                         (const gchar *name);

@@ -11,21 +11,21 @@
          "GstCaps-test.rkt")
 
 
-;(run-tests gst-initialization-test)
+(run-tests gst-initialization-test)
 
-;(run-tests GstElementFactory-test)
+(run-tests GstElementFactory-test)
 
-;(run-tests GstElement-test)
+(run-tests GstElement-test)
 
-;(run-tests GstBin-test)
+(run-tests GstBin-test)
 
-;(run-tests GstBuffer-test)
+(run-tests GstBuffer-test)
 
 (run-tests GstCaps-test)
 
 ;(run-tests GstIterator-test)
 
-;(run-tests GstPipeline-test)
+(run-tests GstPipeline-test)
 
 
 

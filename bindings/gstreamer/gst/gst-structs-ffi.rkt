@@ -1,8 +1,15 @@
-#lang racket
+#lang at-exp racket/base
 
 (require "gst_base.rkt")
 
 (provide (all-defined-out))
+
+#|(provide/doc
+ (proc-doc/names GstElement-pointer?
+                 (--> any/c boolean?)
+                 (v)
+                 @{Returns @racket[#t] if @racket[v] is a pointer for a GstElement
+                           @racket[gif-write], @racket[#f] otherwise.}))|#
 
 
 (define-cpointer-type _GstBin-pointer)
@@ -24,7 +31,7 @@
 (define-cpointer-type _GstChildProxy-pointer)
 
 (define-cpointer-type _GstChildProxyInterface-pointer)
-      
+
 (define-cpointer-type _GstClock-pointer)
 
 (define-cpointer-type _GstClockEntry-pointer)

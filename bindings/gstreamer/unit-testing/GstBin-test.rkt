@@ -138,8 +138,8 @@ testing gst_bin_iterate_elements, gst_bin_iterate_recurse, gst_bin_iterate_sinks
                            [filesink (gst_element_factory_make "esdsink" "esdsink")])
                        
                        (gst_bin_add_many (elem-to-bin the-bin) fakesrc decodebin audioconvert audioresample filesink)
-                       (check-equal? (get_GstPad_name (gst_bin_find_unlinked_pad (elem-to-bin the-bin) 'GST_PAD_SINK)) "sink")
-                       (check-equal? (get_GstPad_name (gst_bin_find_unlinked_pad (elem-to-bin the-bin) 'GST_PAD_SRC)) "src"))))
+                       (check-equal? (get_GstPad_name (gst_bin_find_unlinked_pad (elem-to-bin the-bin) GST_PAD_SINK)) "sink")
+                       (check-equal? (get_GstPad_name (gst_bin_find_unlinked_pad (elem-to-bin the-bin) GST_PAD_SRC)) "src"))))
       
      
        ))

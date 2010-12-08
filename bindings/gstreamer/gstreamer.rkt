@@ -28,6 +28,42 @@
          (free argc*)
          (free argv**)))]))
 
+
+
+; with-gst-init-check: (or #f listof-string) any ... -> boolean
+; initialize gstreamer in the current thread and perform
+; any subsequent actions before deinitializing gstreamer.
+;This function will return FALSE if GStreamer could not be initialized for some reason.s
+
+
+(define-syntax-rule (with-gst-init-check body ...)
+  (let ([err** (cast (malloc _GError-pointer 'raw) _pointer (_ptr io _GError-pointer))])
+    (let-values ([(result error) (gst_init_check #f #f err**)])
+      body
+      ...
+      (cond
+        [(not (pointer_is_null err**)) (free err**)])
+      result)))
+
+
+(define-syntax-rule (with-gst-init-check-args argv body ...)
+  (let ([err** (cast (malloc _GError-pointer 'raw) _pointer (_ptr io _GError-pointer))]
+        [argc* (malloc _int 'raw)]
+        [argv** (malloc (_list i _string) 'raw)])
+    
+    (ptr-set! argc* _int (length argv))
+    (ptr-set! argv** (_list i _string) argv)
+    
+    (let-values ([(result error) (gst_init_check argc* argv** err**)])
+      body
+      ...
+      (free argc*)
+      (free argv**)
+      (cond
+        [(not (pointer_is_null err**)) (free err**)])
+      result)))
+
+
 ; print-error-message: _GstMessage-pointer -> (values _GError-pointer string)
 ; extract the error from the GstMessage,
 ; print the error and the debug info to stdout

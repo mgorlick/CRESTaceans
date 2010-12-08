@@ -1,15 +1,18 @@
 #lang racket
 
 (require ffi/unsafe
-         scribble/srcdoc
+         ;(rename-in racket/contract (-> -->))
+         ;scribble/srcdoc
          "glib-ffi.rkt")
 
-(require/doc racket/base
-            scribble/manual)
+
+;(require/doc racket/base
+ ;           scribble/manual)
 
 (provide (all-defined-out) 
          (all-from-out ffi/unsafe) 
-         (all-from-out scribble/srcdoc)
+         ;(all-from-out scribble/srcdoc)
+         ;(all-from-out racket/contract)
          (all-from-out "glib-ffi.rkt"))
 
 

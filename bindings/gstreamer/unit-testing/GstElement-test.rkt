@@ -392,8 +392,8 @@
                              (let-values ([(succeed? format position) (gst_element_query_position (pointer-to-elem element*) GST_FORMAT_TIME)])
                                
                                (check-equal? succeed? 1)
-                               (check-equal? format GST_FORMAT_TIME)
-                               (check-not-equal? position 0))
+                               (check-equal? format GST_FORMAT_TIME)                               
+                               (check-not-equal? position 0)) ;;;MIGHT GET JAMMED HERE AND THROW AN ERROR, RUN IT AGAIN.
                              
                              
                              (let-values ([(succeed? format duration) (gst_element_query_duration (pointer-to-elem element*) GST_FORMAT_TIME)])
