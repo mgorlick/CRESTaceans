@@ -50,6 +50,7 @@
 
 (define (pause)
   (set! pause-the-stream? #t))
+
 (define (play)
   (set! pause-the-stream? #f))
 
@@ -70,15 +71,17 @@
       ))
   1)
 
+
 (with-gst-init 
  #f
  (thread 
-  (lambda () 
+  (lambda ()
     (let* ([pipeline (gst_element_factory_make "playbin2" "player")]
            [loop (g_main_loop_new #f 0)]
            [bus (gst_pipeline_get_bus (cast pipeline 
                                             _GstElement-pointer 
                                             _GstPipeline-pointer))])
+      
       
       (g_object_set pipeline "uri" (string-append path-to-file file-name))
       (gst_bus_add_watch bus buscall loop)

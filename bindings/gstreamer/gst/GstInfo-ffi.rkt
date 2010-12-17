@@ -1,12 +1,10 @@
 #lang racket
 
-(require "gst_base.rkt")
+(require "gst_base.rkt"
+         "gst-structs-ffi.rkt")
 
 (provide (all-defined-out))
 
-
-;typedef struct _GstDebugMessage GstDebugMessage;
-(define-cpointer-type _GstDebugMessage-pointer)
 
 #|typedef enum {
   GST_LEVEL_NONE = 0,
@@ -24,8 +22,16 @@
 } GstDebugLevel;|#
 
 
-(define _GstDebugLevel
-  (_enum '(GST_LEVEL_NONE = 0 GST_LEVEL_ERROR GST_LEVEL_WARNING GST_LEVEL_INFO GST_LEVEL_DEBUG GST_LEVEL_LOG GST_LEVEL_FIXME = 6 GST_LEVEL_TRACE = 7 GST_LEVEL_MEMDUMP = 9 GST_LEVEL_COUNT)))
+(define GST_LEVEL_NONE 0)
+(define GST_LEVEL_ERROR 1)
+(define GST_LEVEL_WARNING 2)
+(define GST_LEVEL_INFO 3)
+(define GST_LEVEL_DEBUG 4)
+(define GST_LEVEL_LOG 5)
+(define GST_LEVEL_FIXME 6)
+(define GST_LEVEL_TRACE 7)
+(define GST_LEVEL_MEMDUMP 9)
+(define GST_LEVEL_COUNT 10)
 
 
 #|typedef enum {
@@ -52,8 +58,24 @@
   GST_DEBUG_UNDERLINE		= 0x0200
 } GstDebugColorFlags;|#
 
-(define _GstDebugColorFlags
-  (_enum '(GST_DEBUG_FG_BLACK = #x0000 GST_DEBUG_FG_RED = #x0001 GST_DEBUG_FG_GREEN = #x0002 GST_DEBUG_FG_YELLOW = #x0003 GST_DEBUG_FG_BLUE = #x0004 GST_DEBUG_FG_MAGENTA = #x0005 GST_DEBUG_FG_CYAN = #x0006 GST_DEBUG_FG_WHITE = #x0007 GST_DEBUG_BG_BLACK = #x0000 GST_DEBUG_BG_RED = #x0010 GST_DEBUG_BG_GREEN = #x0020 GST_DEBUG_BG_YELLOW = #x0030 GST_DEBUG_BG_BLUE = #x0040 GST_DEBUG_BG_MAGENTA	= #x0050 GST_DEBUG_BG_CYAN = #x0060 GST_DEBUG_BG_WHITE = #x0070 GST_DEBUG_BOLD = #x0100 GST_DEBUG_UNDERLINE = #x0200)))
+(define GST_DEBUG_FG_BLACK #x0000)
+(define GST_DEBUG_FG_RED #x0001)
+(define GST_DEBUG_FG_GREEN #x0002)
+(define GST_DEBUG_FG_YELLOW #x0003)
+(define GST_DEBUG_FG_BLUE #x0004)
+(define GST_DEBUG_FG_MAGENTA #x0005)
+(define GST_DEBUG_FG_CYAN #x0006)
+(define GST_DEBUG_FG_WHITE #x0007)
+(define GST_DEBUG_BG_BLACK #x0000)
+(define GST_DEBUG_BG_RED #x0010)
+(define GST_DEBUG_BG_GREEN #x0020)
+(define GST_DEBUG_BG_YELLOW #x0030)
+(define GST_DEBUG_BG_BLUE #x0040)
+(define GST_DEBUG_BG_MAGENTA #x0050)
+(define GST_DEBUG_BG_CYAN #x0060)
+(define GST_DEBUG_BG_WHITE #x0070)
+(define GST_DEBUG_BOLD #x0100)
+(define GST_DEBUG_UNDERLINE #x0200)
 
 
 #|typedef enum {
@@ -70,11 +92,6 @@
 (define GST_DEBUG_GRAPH_SHOW_STATES (arithmetic-shift 1 3))
 (define GST_DEBUG_GRAPH_SHOW_ALL (- (arithmetic-shift 1 4) 1))
   
-
-#|typedef struct {
-} GstDebugCategory;|#
-
-(define-cpointer-type _GstDebugCategory-pointer)
 
 
 #|#define             GST_LEVEL_DEFAULT
@@ -129,22 +146,22 @@
 
 
 ;void (*GstLogFunction) (GstDebugCategory *category, GstDebugLevel level, const gchar *file, const gchar *function, gint line, GObject *object, GstDebugMessage *message, gpointer data);
-(define GstLogFunction (_cprocedure '(_GstDebugCategory-pointer _GstDebugLevel _string _string _gint _GObject-pointer _GstDebugMessage-pointer _gpointer) _void))
+(define GstLogFunction (_cprocedure (list _GstDebugCategory-pointer _int _string _string _gint _GObject-pointer _GstDebugMessage-pointer _gpointer) _void))
 
 ;void gst_debug_log (GstDebugCategory *category, GstDebugLevel level, const gchar *file, const gchar *function, gint line, GObject *object, const gchar *format, ...);
-(define-gstreamer gst_debug_log (_fun _GstDebugCategory-pointer _GstDebugLevel _string _string _gint _GObject-pointer _string (_list i _string) -> _void))
+(define-gstreamer gst_debug_log (_fun _GstDebugCategory-pointer _int _string _string _gint _GObject-pointer _string (_list i _string) -> _void))
 
 ;void gst_debug_log_valist (GstDebugCategory *category, GstDebugLevel level, const gchar *file, const gchar *function, gint line,GObject *object, const gchar *format, va_list args);
-(define-gstreamer gst_debug_log_valist (_fun _GstDebugCategory-pointer _GstDebugLevel _string _string _gint  _GObject-pointer _string (_list i _string) -> _void))
+(define-gstreamer gst_debug_log_valist (_fun _GstDebugCategory-pointer _int _string _string _gint  _GObject-pointer _string (_list i _string) -> _void))
 
 ;const gchar *       gst_debug_message_get               (GstDebugMessage *message);
 (define-gstreamer gst_debug_message_get (_fun _GstDebugMessage-pointer -> _string))
 
 ;void                gst_debug_log_default               (GstDebugCategory *category, GstDebugLevel level, const gchar *file, const gchar *function, gint line, GObject *object, GstDebugMessage *message, gpointer unused);
-(define-gstreamer gst_debug_log_default (_fun _GstDebugCategory-pointer _GstDebugLevel _string _string _gint _GObject-pointer _GstDebugMessage-pointer _gpointer -> _void))
+(define-gstreamer gst_debug_log_default (_fun _GstDebugCategory-pointer _int _string _string _gint _GObject-pointer _GstDebugMessage-pointer _gpointer -> _void))
 
 ;const gchar *       gst_debug_level_get_name            (GstDebugLevel level);
-(define-gstreamer gst_debug_level_get_name (_fun _GstDebugLevel -> _string))
+(define-gstreamer gst_debug_level_get_name (_fun _int -> _string))
 
 ;void                gst_debug_add_log_function          (GstLogFunction func, gpointer data);
 (define-gstreamer gst_debug_add_log_function (_fun GstLogFunction _gpointer -> _void))
@@ -166,13 +183,13 @@
   gst_debug_is_active gst_debug_is_colored)
 
 ;void                gst_debug_set_default_threshold     (GstDebugLevel level);
-(define-gstreamer gst_debug_set_default_threshold (_fun _GstDebugLevel -> _void))
+(define-gstreamer gst_debug_set_default_threshold (_fun _int -> _void))
 
 ;GstDebugLevel       gst_debug_get_default_threshold     (void);
-(define-gstreamer gst_debug_get_default_threshold (_fun -> _GstDebugLevel))
+(define-gstreamer gst_debug_get_default_threshold (_fun -> _int))
 
 ;void                gst_debug_set_threshold_for_name    (const gchar *name, GstDebugLevel level);
-(define-gstreamer gst_debug_set_threshold_for_name (_fun _string _GstDebugLevel -> _void))
+(define-gstreamer gst_debug_set_threshold_for_name (_fun _string _int -> _void))
 
 ;void                gst_debug_unset_threshold_for_name  (const gchar *name);
 (define-gstreamer gst_debug_unset_threshold_for_name (_fun _string -> _void))
@@ -183,10 +200,10 @@
   gst_debug_category_free gst_debug_category_reset_threshold)
 
 ;void                gst_debug_category_set_threshold    (GstDebugCategory *category, GstDebugLevel level);
-(define-gstreamer gst_debug_category_set_threshold (_fun _GstDebugCategory-pointer _GstDebugLevel -> _void))
+(define-gstreamer gst_debug_category_set_threshold (_fun _GstDebugCategory-pointer _int -> _void))
 
 ;GstDebugLevel       gst_debug_category_get_threshold    (GstDebugCategory *category);
-(define-gstreamer gst_debug_category_get_threshold (_fun _GstDebugCategory-pointer -> _GstDebugLevel))
+(define-gstreamer gst_debug_category_get_threshold (_fun _GstDebugCategory-pointer -> _int))
 
 ;;GstDebugCategory* -> gchar*
 (define-gstreamer*

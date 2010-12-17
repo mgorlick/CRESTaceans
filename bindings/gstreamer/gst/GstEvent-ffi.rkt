@@ -1,13 +1,8 @@
 #lang racket
 
 (require "gst_base.rkt"
-         "GstClock-ffi.rkt"
-         "GstFormat-ffi.rkt"
-         "GstMessage-ffi.rkt"
-         "GstMiniObject-ffi.rkt"
-         "GstObject-ffi.rkt"
-         "GstStructure-ffi.rkt"
-         "GstTagList-ffi.rkt")
+         "gst-structs-ffi.rkt"
+         "GstClock-ffi.rkt")
 
 (provide (all-defined-out))
 
@@ -57,25 +52,24 @@ typedef enum {
 (define (GEMT num flags)
   (bitwise-ior flags (arithmetic-shift num GstEventTypeShift)))
 
-(define _GstEventType
-  (_enum '(GST_EVENT_UNKNOWN = 0
-           GST_EVENT_FLUSH_START = 19
-           GST_EVENT_FLUSH_STOP = 39
-           GST_EVENT_EOS = 86
-           GST_EVENT_NEWSEGMENT = 102 
-           GST_EVENT_TAG = 118
-           GST_EVENT_BUFFERSIZE = 134 
-           GST_EVENT_SINK_MESSAGE = 150
-           GST_EVENT_QOS = 241
-           GST_EVENT_SEEK = 257
-           GST_EVENT_NAVIGATION = 273  
-           GST_EVENT_LATENCY = 289
-           GST_EVENT_STEP = 305
-           GST_EVENT_CUSTOM_UPSTREAM = 513
-           GST_EVENT_CUSTOM_DOWNSTREAM = 518
-           GST_EVENT_CUSTOM_DOWNSTREAM_OOB = 514
-           GST_EVENT_CUSTOM_BOTH = 519
-           GST_EVENT_CUSTOM_BOTH_OOB = 515)))
+(define GST_EVENT_UNKNOWN 0)
+(define GST_EVENT_FLUSH_START 19)
+(define GST_EVENT_FLUSH_STOP 39)
+(define GST_EVENT_EOS 86)
+(define GST_EVENT_NEWSEGMENT 102)
+(define GST_EVENT_TAG 118)
+(define GST_EVENT_BUFFERSIZE 134)
+(define GST_EVENT_SINK_MESSAGE  150)
+(define GST_EVENT_QOS 241)
+(define GST_EVENT_SEEK 257)
+(define GST_EVENT_NAVIGATION 273)  
+(define GST_EVENT_LATENCY 289)
+(define GST_EVENT_STEP 305)
+(define GST_EVENT_CUSTOM_UPSTREAM 513)
+(define GST_EVENT_CUSTOM_DOWNSTREAM 518)
+(define GST_EVENT_CUSTOM_DOWNSTREAM_OOB 514)
+(define GST_EVENT_CUSTOM_BOTH 519)
+(define GST_EVENT_CUSTOM_BOTH_OOB 515)
 
 
 ;(GEMT 0 0)
@@ -100,22 +94,6 @@ typedef enum {
 ;(GEMT 32 (bitwise-ior GST_EVENT_TYPE_BOTH GST_EVENT_TYPE_SERIALIZED))
 ;(GEMT 32 GST_EVENT_TYPE_BOTH)
 
-#|
-typedef struct {
-  GstMiniObject mini_object;
-  GstEventType  type;
-  guint64       timestamp;
-  GstObject     *src;
-  GstStructure  *structure;
-} GstEvent;
-|#
-
-(define-cstruct _GstEvent
-  ([mini_object _GstMiniObject]
-   [type _GstEventType]
-   [timestamp _guint64]
-   [src _GstObject-pointer]
-   [structure _GstStructure-pointer]))
 
 #|#define             GST_EVENT_TRACE_NAME
 #define             GST_EVENT_TYPE                      (event)
@@ -130,19 +108,19 @@ typedef struct {
 
 
 ;GstEventTypeFlags   gst_event_type_get_flags            (GstEventType type);
-(define-gstreamer gst_event_type_get_flags (_fun _GstEventType -> _int))
+(define-gstreamer gst_event_type_get_flags (_fun _int -> _int))
 
 ;const gchar*        gst_event_type_get_name             (GstEventType type);
-(define-gstreamer gst_event_type_get_name (_fun _GstEventType -> _string))
+(define-gstreamer gst_event_type_get_name (_fun _int -> _string))
 
 ;GQuark              gst_event_type_to_quark             (GstEventType type);
-(define-gstreamer gst_event_type_to_quark (_fun _GstEventType -> _GQuark))
+(define-gstreamer gst_event_type_to_quark (_fun _int -> _GQuark))
 
 ;void                gst_event_unref                     (GstEvent *event);
 ;(define-gstreamer gst_event_unref (_fun _GstEvent-pointer -> _void)) ;;NOT IN LIB
 
 ;GstEvent*           gst_event_new_custom                (GstEventType type, GstStructure *structure);
-(define-gstreamer gst_event_new_custom (_fun _GstEventType _GstStructure-pointer -> _GstEvent-pointer))
+(define-gstreamer gst_event_new_custom (_fun _int _GstStructure-pointer -> _GstEvent-pointer))
 
 ;const GstStructure * gst_event_get_structure            (GstEvent *event);
 (define-gstreamer gst_event_get_structure (_fun _GstEvent-pointer -> _GstStructure-pointer))
@@ -163,16 +141,16 @@ typedef struct {
 
 
 ;GstEvent*           gst_event_new_new_segment           (gboolean update, gdouble rate, GstFormat format, gint64 start, gint64 stop, gint64 position);
-(define-gstreamer gst_event_new_new_segment (_fun _gboolean _gdouble _GstFormat _gint64 _gint64 _gint64 -> _GstEvent-pointer))
+(define-gstreamer gst_event_new_new_segment (_fun _gboolean _gdouble _int _gint64 _gint64 _gint64 -> _GstEvent-pointer))
 
 ;GstEvent*           gst_event_new_new_segment_full      (gboolean update, gdouble rate, gdouble applied_rate, GstFormat format, gint64 start, gint64 stop, gint64 position);
-(define-gstreamer gst_event_new_new_segment_full (_fun _gboolean _gdouble _gdouble _GstFormat _gint64 _gint64 _gint64 -> _GstEvent-pointer))
+(define-gstreamer gst_event_new_new_segment_full (_fun _gboolean _gdouble _gdouble _int _gint64 _gint64 _gint64 -> _GstEvent-pointer))
 
 ;void                gst_event_parse_new_segment         (GstEvent *event, gboolean *update, gdouble *rate, GstFormat *format, gint64 *start, gint64 *stop, gint64 *position);
-(define-gstreamer gst_event_parse_new_segment (_fun _GstEvent-pointer (_ptr io _gboolean) (_ptr io _gdouble) (_ptr io _GstFormat) (_ptr io _gint64) (_ptr io _gint64) (_ptr io _gint64) -> _void))
+(define-gstreamer gst_event_parse_new_segment (_fun _GstEvent-pointer (_ptr io _gboolean) (_ptr io _gdouble) (_ptr io _int) (_ptr io _gint64) (_ptr io _gint64) (_ptr io _gint64) -> _void))
 
 ;void gst_event_parse_new_segment_full (GstEvent *event, gboolean *update, gdouble *rate, gdouble *applied_rate, GstFormat *format, gint64 *start, gint64 *stop, gint64 *position);
-(define-gstreamer gst_event_parse_new_segment_full (_fun _GstEvent-pointer (_ptr io _gboolean) (_ptr io _gdouble) (_ptr io _gdouble) (_ptr io _GstFormat) (_ptr io _gint64) (_ptr io _gint64) (_ptr io _gint64) -> _void))
+(define-gstreamer gst_event_parse_new_segment_full (_fun _GstEvent-pointer (_ptr io _gboolean) (_ptr io _gdouble) (_ptr io _gdouble) (_ptr io _int) (_ptr io _gint64) (_ptr io _gint64) (_ptr io _gint64) -> _void))
 
 ;GstEvent*           gst_event_new_tag                   (GstTagList *taglist);
 (define-gstreamer gst_event_new_tag (_fun _GstTagList-pointer -> _GstEvent-pointer))
@@ -181,10 +159,10 @@ typedef struct {
 (define-gstreamer gst_event_parse_tag (_fun _GstEvent-pointer (_ptr io _GstTagList-pointer) -> _void))
 
 ;GstEvent *          gst_event_new_buffer_size           (GstFormat format, gint64 minsize, gint64 maxsize, gboolean async);
-(define-gstreamer gst_event_new_buffer_size (_fun _GstFormat _gint64 _gint _gboolean -> _GstEvent-pointer))
+(define-gstreamer gst_event_new_buffer_size (_fun _int _gint64 _gint _gboolean -> _GstEvent-pointer))
 
 ;void                gst_event_parse_buffer_size         (GstEvent *event, GstFormat *format, gint64 *minsize, gint64 *maxsize, gboolean *async);
-(define-gstreamer gst_event_parse_buffer_size (_fun _GstEvent-pointer (_ptr io _GstFormat) (_ptr io _gint64) (_ptr io _gint) (_ptr io _gboolean) -> _void))
+(define-gstreamer gst_event_parse_buffer_size (_fun _GstEvent-pointer (_ptr io _int) (_ptr io _gint64) (_ptr io _gint) (_ptr io _gboolean) -> _void))
 
 ;GstEvent*           gst_event_new_qos                   (gdouble proportion, GstClockTimeDiff diff, GstClockTime timestamp);
 (define-gstreamer gst_event_new_qos (_fun _gdouble _GstClockTimeDiff _GstClockTime -> _GstEvent-pointer))
@@ -201,8 +179,10 @@ typedef enum {
   GST_SEEK_TYPE_END             = 3
 } GstSeekType;|#
 
-(define _GstSeekType
-  (_enum '(GST_SEEK_TYPE_NONE = 0 GST_SEEK_TYPE_CUR = 1 GST_SEEK_TYPE_SET = 2 GST_SEEK_TYPE_END = 3)))
+(define GST_SEEK_TYPE_NONE 0)
+(define GST_SEEK_TYPE_CUR 1) 
+(define GST_SEEK_TYPE_SET 2) 
+(define GST_SEEK_TYPE_END 3)
 
 #|typedef enum {
   GST_SEEK_FLAG_NONE            = 0,
@@ -220,12 +200,12 @@ typedef enum {
 (define GST_SEEK_FLAG_SEGMENT (arithmetic-shift 1 3))
 (define GST_SEEK_FLAG_SKIP (arithmetic-shift 1 4))
 
-  
+
 ;GstEvent*           gst_event_new_seek (gdouble rate, GstFormat format, GstSeekFlags flags, GstSeekType start_type, gint64 start, GstSeekType stop_type, gint64 stop);
-(define-gstreamer gst_event_new_seek (_fun _gdouble _GstFormat _int _GstSeekType _gint64 _GstSeekType _gint64 -> _GstEvent-pointer))
+(define-gstreamer gst_event_new_seek (_fun _gdouble _int _int _int _gint64 _int _gint64 -> _GstEvent-pointer))
 
 ;void gst_event_parse_seek (GstEvent *event, gdouble *rate, GstFormat *format, GstSeekFlags *flags, GstSeekType *start_type, gint64 *start, GstSeekType *stop_type, gint64 *stop);
-(define-gstreamer gst_event_parse_seek (_fun _GstEvent-pointer (_ptr io _gdouble) (_ptr io _GstFormat) (_ptr io _int) (_ptr io _GstSeekType) (_ptr io _gint64) (_ptr io _GstSeekType) (_ptr io _gint64) -> _void))
+(define-gstreamer gst_event_parse_seek (_fun _GstEvent-pointer (_ptr io _gdouble) (_ptr io _int) (_ptr io _int) (_ptr io _int)  (_ptr io _gint64) (_ptr io _int) (_ptr io _gint64) -> _void))
 
 ;GstEvent*           gst_event_new_navigation            (GstStructure *structure);
 (define-gstreamer gst_event_new_navigation (_fun _GstStructure-pointer -> _GstEvent-pointer))
@@ -237,10 +217,10 @@ typedef enum {
 (define-gstreamer gst_event_parse_latency (_fun _GstEvent-pointer (_ptr io _GstClockTime) -> _void))
 
 ;GstEvent*           gst_event_new_step                  (GstFormat format, guint64 amount, gdouble rate, gboolean flush, gboolean intermediate);
-(define-gstreamer gst_event_new_step (_fun _GstFormat _guint64 _gdouble _gboolean _gboolean -> _GstEvent-pointer))
+(define-gstreamer gst_event_new_step (_fun _int _guint64 _gdouble _gboolean _gboolean -> _GstEvent-pointer))
 
 ;void                gst_event_parse_step                (GstEvent *event, GstFormat *format, guint64 *amount, gdouble *rate, gboolean *flush, gboolean *intermediate);
-(define-gstreamer gst_event_parse_step (_fun _GstEvent-pointer (_ptr io _GstFormat) (_ptr io _guint64) (_ptr io _gdouble) (_ptr io _gboolean) (_ptr io _gboolean) -> _void))
+(define-gstreamer gst_event_parse_step (_fun _GstEvent-pointer (_ptr io _int) (_ptr io _guint64) (_ptr io _gdouble) (_ptr io _gboolean) (_ptr io _gboolean) -> _void))
 
 ;GstEvent*           gst_event_new_sink_message          (GstMessage *msg);
 (define-gstreamer gst_event_new_sink_message (_fun _GstMessage-pointer -> _GstEvent-pointer))

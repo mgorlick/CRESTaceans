@@ -1,26 +1,9 @@
 #lang racket
 
 (require "gst_base.rkt"
-         "GstObject-ffi.rkt")
+         "gst-structs-ffi.rkt")
 
 (provide (all-defined-out))
-
-;;typedef struct _GstChildProxy GstChildProxy;      ;;Opaque
-(define-cpointer-type _GstChildProxy-pointer)
-
-#|
-typedef struct {
-  GTypeInterface parent;
-  /* methods */
-  GstObject *(*get_child_by_index) (GstChildProxy * parent, guint index);
-  guint (*get_children_count) (GstChildProxy * parent);
-} GstChildProxyInterface;
-|#
-
-(define-cstruct _GstChildProxyInterface
-  ([parent _GTypeInterface-pointer]
-   [get_child_by_index (_ptr io (_fun _GstChildProxy-pointer _guint -> _GstObject-pointer))]
-   [get_children_count (_ptr io (_fun _GstChildProxy-pointer -> _guint))]))
 
 
 ;guint               gst_child_proxy_get_children_count  (GstChildProxy *parent);

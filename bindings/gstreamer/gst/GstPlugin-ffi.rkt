@@ -1,50 +1,19 @@
 #lang racket
 
 (require "gst_base.rkt"
-         "GstStructure-ffi.rkt")
+         "gst-structs-ffi.rkt")
 
 (provide (all-defined-out))
 
-;typedef struct _GstPlugin GstPlugin;
-(define-cpointer-type _GstPlugin-pointer)
-
 
 ;gboolean            (*GstPluginInitFunc)                (GstPlugin *plugin);
-(define GstPluginInitFunc (_cprocedure '(_GstPlugin-pointer) _gboolean))
+(define GstPluginInitFunc (_cprocedure (list _GstPlugin-pointer) _gboolean))
 
 ;gboolean            (*GstPluginInitFullFunc)            (GstPlugin *plugin, gpointer user_data);
-(define GstPluginInitFullFunc (_cprocedure '(_GstPlugin-pointer _gpointer) _gboolean))
+(define GstPluginInitFullFunc (_cprocedure (list _GstPlugin-pointer _gpointer) _gboolean))
 
 ;gboolean            (*GstPluginFilter)                  (GstPlugin *plugin, gpointer user_data);
-(define GstPluginFilter (_cprocedure '(_GstPlugin-pointer _gpointer) _gboolean))
-
-
-#|typedef struct {
-  gint major_version;
-  gint minor_version;
-  const gchar *name;
-  const gchar *description;
-  GstPluginInitFunc plugin_init;
-  const gchar *version;
-  const gchar *license;
-  const gchar *source;
-  const gchar *package;
-  const gchar *origin;
-  gpointer _gst_reserved[GST_PADDING]; ;;OJO!!
-} GstPluginDesc;|#
-
-(define-cstruct _GstPluginDesc
-  ([major_version _gint]
-   [minor_version _gint]
-   [name _string]
-   [description _string]
-   [plugin_init GstPluginInitFunc]
-   [version _string]
-   [license _string]
-   [source _string]
-   [package _string]
-   [origin _string]
-   [_gst_reserved _gpointer]))
+(define GstPluginFilter (_cprocedure (list _GstPlugin-pointer _gpointer) _gboolean))
 
 
 
@@ -61,14 +30,13 @@
   GST_PLUGIN_ERROR_NAME_MISMATCH
 } GstPluginError;|#
 
-(define _GstPluginError
-  (_enum '(GST_PLUGIN_ERROR_MODULE GST_PLUGIN_ERROR_DEPENDENCIES GST_PLUGIN_ERROR_NAME_MISMATCH)))
+(define GST_PLUGIN_ERROR_MODULE 0)
+(define GST_PLUGIN_ERROR_DEPENDENCIES 1)
+(define GST_PLUGIN_ERROR_NAME_MISMATCH 2)
 
 
 ;GQuark              gst_plugin_error_quark              (void);
 (define-gstreamer gst_plugin_error_quark (_fun -> _GQuark))
-
-
 
 ;;GstPlugin* -> gchar*
 (define-gstreamer*

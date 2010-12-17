@@ -1,8 +1,7 @@
 #lang racket
 
 (require "gst_base.rkt"
-         "GstStructs-ffi.rkt"
-         "GstCaps-ffi.rkt")
+         "gst-structs-ffi.rkt")
 
 (provide (all-defined-out))
 

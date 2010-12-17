@@ -1,14 +1,12 @@
 #lang racket
 
 (require "gst_base.rkt"
+         "gst-structs-ffi.rkt"
          "GstPlugin-ffi.rkt"
          "GstPluginFeature-ffi.rkt")
 
 (provide (all-defined-out))
 
-
-;;typedef struct _GstRegistry GstRegistry;
-(define-cpointer-type _GstRegistry-pointer)
 
 ;GstRegistry *       gst_registry_get_default            (void);
 (define-gstreamer gst_registry_get_default (_fun -> _GstRegistry-pointer))

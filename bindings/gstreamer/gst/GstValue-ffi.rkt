@@ -1,42 +1,29 @@
 #lang racket
 
 (require "gst_base.rkt"
-         "GstCaps-ffi.rkt"
-         "GstStructure-ffi.rkt")
+         "gst-structs-ffi.rkt")
 
 (provide (all-defined-out))
 
 
 ;gint                (*GstValueCompareFunc)              (const GValue *value1, const GValue *value2); OJO
-(define GstValueCompareFunc (_cprocedure '(_GValue-pointer _GValue-pointer) _gint))
+(define GstValueCompareFunc (_cprocedure (list _GValue-pointer _GValue-pointer) _gint))
 
 ;gchar *             (*GstValueSerializeFunc)            (const GValue *value1);
-(define GstValueSerializeFunc (_cprocedure '(_GValue-pointer) _string))
+(define GstValueSerializeFunc (_cprocedure (list _GValue-pointer) _string))
 
 ;gboolean            (*GstValueDeserializeFunc)          (GValue *dest, const gchar *s);
-(define GstValueDeserializeFunc (_cprocedure '(_GValue-pointer _string) _gboolean))
+(define GstValueDeserializeFunc (_cprocedure (list _GValue-pointer _string) _gboolean))
 
 ;gboolean            (*GstValueUnionFunc)                (GValue *dest, const GValue *value1, const GValue *value2);
-(define GstValueUnionFunc (_cprocedure '(_GValue-pointer _GValue-pointer _GValue-pointer) _gboolean))
+(define GstValueUnionFunc (_cprocedure (list _GValue-pointer _GValue-pointer _GValue-pointer) _gboolean))
 
 ;gboolean            (*GstValueIntersectFunc)            (GValue *dest, const GValue *value1, const GValue *value2);
-(define GstValueIntersectFunc (_cprocedure '(_GValue-pointer _GValue-pointer _GValue-pointer) _gboolean))
+(define GstValueIntersectFunc (_cprocedure (list _GValue-pointer _GValue-pointer _GValue-pointer) _gboolean))
 
 ;gboolean            (*GstValueSubtractFunc)             (GValue *dest, const GValue *minuend, const GValue *subtrahend);
-(define GstValueSubtractFunc (_cprocedure '(_GValue-pointer _GValue-pointer _GValue-pointer) _gboolean))
+(define GstValueSubtractFunc (_cprocedure (list _GValue-pointer _GValue-pointer _GValue-pointer) _gboolean))
 
-#|typedef struct {
-  GType type;
-  GstValueCompareFunc compare;
-  GstValueSerializeFunc serialize;
-  GstValueDeserializeFunc deserialize;
-} GstValueTable;|#
-
-(define-cstruct _GstValueTable
-  ([type _GType]
-   [compare GstValueCompareFunc]
-   [serialize GstValueSerializeFunc]
-   [deserialize GstValueDeserializeFunc]))
 
 ;#define             GST_VALUE_HOLDS_FOURCC              (x)
 

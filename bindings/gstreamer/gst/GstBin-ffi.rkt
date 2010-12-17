@@ -1,61 +1,13 @@
-#lang racket
+#lang at-exp racket
 
 (require "gst_base.rkt"
-         "GstStructs-ffi.rkt"
-         "GstClock-ffi.rkt"
-         "GstElement-ffi.rkt"
-         "GstMessage-ffi.rkt"
-         "GstPadTemplate-ffi.rkt")
+         "gst-structs-ffi.rkt"
+         "GstElement-ffi.rkt")
 
 (provide (all-defined-out))
 
 
-;;typedef struct _GstBin GstBin;
-;;struct _GstBin {
-;;  GstElement	 element;
-;;  /*< public >*/ /* with LOCK */
-;;  gint		 numchildren;
-;;  GList		*children;
-;;  guint32	 children_cookie;
-;;  GstBus        *child_bus;
-;;  GList         *messages;
-;;  gboolean	 polling;
-;;  gboolean       state_dirty;
-;;  gboolean       clock_dirty;
-;;  GstClock	*provided_clock;
-;;  GstElement    *clock_provider;
-;;  /*< private >*/
-;;  GstBinPrivate *priv;
-;;  gpointer _gst_reserved[GST_PADDING - 1];
-;;};
 
-(define-cstruct _GstBin
-  ([element _GstElement]
-   [numchildren _gint]
-   [children _GList-pointer]
-   [children_cookie _guint32]
-   [child_bus _GstBus-pointer]
-   [messages _GList-pointer]
-   [polling _gboolean]
-   [state_dirty _gboolean]
-   [clock_dirty _gboolean]
-   [provided_clock _GstClock-pointer]
-   [clock_provider _GstElement-pointer]))
-
-
-;;typedef struct {
-;;  GstElementClass parent_class;
-;;  /* virtual methods for subclasses */
-;;  gboolean (*add_element)		(GstBin *bin, GstElement *element);
-;;  gboolean (*remove_element) (GstBin *bin, GstElement *element);
-;;  void (*handle_message) (GstBin *bin, GstMessage *message);
-;;} GstBinClass;
-
-(define-cstruct _GstBinClass
-  ([parent_class _GstElementClass]
-   [add_element (_ptr io (_fun _GstBin-pointer _GstElement-pointer -> _gboolean))]
-   [remove_element (_ptr io (_fun _GstBin-pointer _GstElement-pointer -> _gboolean))]
-   [handle_message (_ptr io (_fun _GstBin-pointer _GstMessage-pointer -> _void))]))
 
 
 #|typedef enum {
@@ -66,8 +18,20 @@
 (define GST_BIN_FLAG_LAST (arithmetic-shift GST_ELEMENT_FLAG_LAST 5))
 
 
+
+ #|(provide/doc
+
+
+ (proc-doc/names gst_bin_new
+                 (-> string? GstElement-pointer?)
+                 (s)
+                 @{Returns a new bin with name v.}))|#
+
+
 ;GstElement*         gst_bin_new                         (const gchar *name);
 (define-gstreamer gst_bin_new (_fun _string -> _GstElement-pointer))
+
+
 
 ;GstBin* GstElement* -> gboolean
 (define-gstreamer*
@@ -104,13 +68,5 @@
   (for/list ([e args])
     (gst_bin_remove bin e)))
 
-;GstBin* GstPadDirection -> GstPad*
-(define-gstreamer*
-  (_fun _GstBin-pointer _GstPadDirection -> _GstPad-pointer)
-  gst_bin_find_unlinked_pad gst_bin_find_unconnected_pad)
-
-#|
-#define             GST_BIN_CHILDREN                    (bin)
-#define             GST_BIN_CHILDREN_COOKIE             (bin)
-#define             GST_BIN_NUMCHILDREN                 (bin)
-|#
+;GstPad *            gst_bin_find_unlinked_pad           (GstBin *bin, GstPadDirection direction);
+(define-gstreamer gst_bin_find_unlinked_pad (_fun  _GstBin-pointer _int -> _GstPad-pointer))

@@ -1,25 +1,17 @@
 #lang racket
 
 (require "gst_base.rkt"
+         "gst-structs-ffi.rkt"
          "GstClock-ffi.rkt")
 
 (provide (all-defined-out))
 
-#|
-typedef struct {
-  GType type;
-} GstStructure;
-|#
-
-(define-cstruct _GstStructure
-  ([type _GType]))
-
 
 ;gboolean            (*GstStructureForeachFunc)          (GQuark field_id, const GValue *value, gpointer user_data);
-(define GstStructureForeachFunc (_cprocedure '(_GQuark _GValue-pointer _gpointer) _gboolean))
+(define GstStructureForeachFunc (_cprocedure (list _GQuark _GValue-pointer _gpointer) _gboolean))
 
 ;gboolean            (*GstStructureMapFunc)              (GQuark field_id, GValue *value, gpointer user_data);
-(define GstStructureMapFunc (_cprocedure '(_GQuark _GValue-pointer _gpointer) _gboolean))
+(define GstStructureMapFunc (_cprocedure (list _GQuark _GValue-pointer _gpointer) _gboolean))
 
 ;GstStructure *      gst_structure_empty_new             (const gchar *name);
 (define-gstreamer gst_structure_empty_new (_fun _string -> _GstStructure-pointer))
@@ -157,7 +149,7 @@ typedef struct {
 (define-gstreamer gst_structure_nth_field_name (_fun _GstStructure-pointer _guint -> _string))
 
 ;void                gst_structure_set_parent_refcount   (GstStructure *structure, gint *refcount);
-(define-gstreamer gst_structure_set_parent_refcount (_fun _GstStructure-pointer (_ptr io _gint) -> _void))
+(define-gstreamer gst_structure_set_parent_refcount (_fun _GstStructure-pointer (_or-null (_ptr io _gint)) -> _void))
 
 ;gchar *             gst_structure_to_string             (const GstStructure *structure);
 (define-gstreamer gst_structure_to_string (_fun _GstStructure-pointer -> _string))

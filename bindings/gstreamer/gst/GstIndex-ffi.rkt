@@ -1,25 +1,10 @@
 #lang racket
 
 (require "gst_base.rkt"
-         "GstFormat-ffi.rkt"
+         "gst-structs-ffi.rkt"
          "GstObject-ffi.rkt")
 
 (provide (all-defined-out))
-
-;;typedef struct _GstIndex GstIndex;
-(define-cpointer-type _GstIndex-pointer)
-
-
-;;typedef struct { ;;OJO
-;;} GstIndexEntry;
-
-(define-cpointer-type _GstIndexEntry-pointer)
- 
-
-;;typedef struct { ;;OJO
-;;} GstIndexGroup;
-
-(define-cpointer-type _GstIndexGroup-pointer)
 
 #|typedef enum {
   GST_INDEX_UNKNOWN,
@@ -27,8 +12,9 @@
   GST_INDEX_FUZZY
 } GstIndexCertainty;|#
 
-(define _GstIndexCertainty
-  (_enum '(GST_INDEX_UNKNOWN GST_INDEX_CERTAIN GST_INDEX_FUZZY)))
+(define GST_INDEX_UNKNOWN 0)
+(define GST_INDEX_CERTAIN 1)
+(define GST_INDEX_FUZZY 2)
 
 
 #|typedef enum {
@@ -38,8 +24,10 @@
   GST_INDEX_ENTRY_FORMAT
 } GstIndexEntryType;|#
 
-(define _GstIndexEntryType
-  (_enum '(GST_INDEX_ENTRY_ID GST_INDEX_ENTRY_ASSOCIATION GST_INDEX_ENTRY_OBJECT GST_INDEX_ENTRY_FORMAT)))
+(define GST_INDEX_ENTRY_ID 0)
+(define GST_INDEX_ENTRY_ASSOCIATION 1)
+(define GST_INDEX_ENTRY_OBJECT 2)
+(define GST_INDEX_ENTRY_FORMAT 3)
 
 
 #|typedef enum {
@@ -48,8 +36,9 @@
   GST_INDEX_LOOKUP_AFTER
 } GstIndexLookupMethod;|#
 
-(define _GstIndexLookupMethod
-  (_enum '(GST_INDEX_LOOKUP_EXACT GST_INDEX_LOOKUP_BEFORE GST_INDEX_LOOKUP_AFTER)))
+(define GST_INDEX_LOOKUP_EXACT 0)
+(define GST_INDEX_LOOKUP_BEFORE 1)
+(define GST_INDEX_LOOKUP_AFTER 2)
 
 
 #|#define             GST_INDEX_NASSOCS                   (entry)
@@ -64,15 +53,6 @@
 #define             GST_INDEX_IS_WRITABLE               (obj)
 |#
 
-
-#|typedef struct {
-  GstFormat     format;
-  gint64        value;
-} GstIndexAssociation;|#
-
-(define-cstruct _GstIndexAssociation
-  ([format _GstFormat]
-   [value _gint64]))
 
 
 #|typedef enum {
@@ -91,7 +71,7 @@
 
 
 ;gboolean            (*GstIndexFilter)                   (GstIndex *index, GstIndexEntry *entry, gpointer user_data);
-(define GstIndexFilter (_cprocedure '(_GstIndex-pointer _GstIndexEntry-pointer _gpointer) _gboolean))
+(define GstIndexFilter (_cprocedure (list _GstIndex-pointer _GstIndexEntry-pointer _gpointer) _gboolean))
 
 #|typedef enum {
   GST_INDEX_RESOLVER_CUSTOM,
@@ -99,12 +79,13 @@
   GST_INDEX_RESOLVER_PATH
 } GstIndexResolverMethod;|#
 
-(define _GstIndexResolverMethod
-  (_enum '(GST_INDEX_RESOLVER_CUSTOM GST_INDEX_RESOLVER_GTYPE GST_INDEX_RESOLVER_PATH)))
+(define GST_INDEX_RESOLVER_CUSTOM 0)
+(define GST_INDEX_RESOLVER_GTYPE 1)
+(define GST_INDEX_RESOLVER_PATH 2)
 
 
 ;gboolean            (*GstIndexResolver)                 (GstIndex *index, GstObject *writer, gchar **writer_string, gpointer user_data);
-(define GstIndexResolver (_cprocedure '(_GstIndex-pointer _GstObject-pointer (_ptr io _string) _gpointer) _gboolean))
+(define GstIndexResolver (_cprocedure (list _GstIndex-pointer _GstObject-pointer (_ptr io _string) _gpointer) _gboolean))
 
 
 #|typedef enum {
@@ -134,31 +115,31 @@
 (define-gstreamer gst_index_set_group (_fun _GstIndex-pointer _gint -> _gboolean))
 
 ;void                gst_index_set_certainty             (GstIndex *index, GstIndexCertainty certainty);
-(define-gstreamer gst_index_set_certainty (_fun _GstIndex-pointer _GstIndexCertainty -> _void))
+(define-gstreamer gst_index_set_certainty (_fun _GstIndex-pointer _int -> _void))
 
 ;GstIndexCertainty   gst_index_get_certainty             (GstIndex *index);
-(define-gstreamer gst_index_get_certainty (_fun _GstIndex-pointer -> _GstIndexCertainty))
+(define-gstreamer gst_index_get_certainty (_fun _GstIndex-pointer -> _int))
 
 ;void                gst_index_set_filter                (GstIndex *index, GstIndexFilter filter, gpointer user_data);
 (define-gstreamer gst_index_set_filter (_fun _GstIndex-pointer GstIndexFilter _gpointer -> _void))
 
 ;void                gst_index_set_filter_full           (GstIndex *index, GstIndexFilter filter, gpointer user_data, GDestroyNotify user_data_destroy);
-(define-gstreamer gst_index_set_filter_full (_fun _GstIndex-pointer GstIndexFilter _gpointer _GDestroyNotify -> _void))
+(define-gstreamer gst_index_set_filter_full (_fun _GstIndex-pointer GstIndexFilter _gpointer GDestroyNotify -> _void))
 
 ;void                gst_index_set_resolver              (GstIndex *index, GstIndexResolver resolver, gpointer user_data);
 (define-gstreamer gst_index_set_resolver (_fun _GstIndex-pointer GstIndexResolver _gpointer -> _void))
 
 ;void                gst_index_set_resolver_full         (GstIndex *index, GstIndexResolver resolver, gpointer user_data, GDestroyNotify user_data_destroy);
-(define-gstreamer gst_index_set_resolver_full (_fun _GstIndex-pointer GstIndexResolver _gpointer _GDestroyNotify -> _void))
+(define-gstreamer gst_index_set_resolver_full (_fun _GstIndex-pointer GstIndexResolver _gpointer GDestroyNotify -> _void))
 
 ;gboolean            gst_index_get_writer_id             (GstIndex *index, GstObject *writer, gint *id);
 (define-gstreamer gst_index_get_writer_id (_fun _GstIndex-pointer _GstObject-pointer _gint -> _gboolean))
 
 ;GstIndexEntry*      gst_index_add_format                (GstIndex *index, gint id, GstFormat format);
-(define-gstreamer gst_index_add_format (_fun _GstIndex-pointer _gint _GstFormat -> _GstIndexEntry-pointer))
+(define-gstreamer gst_index_add_format (_fun _GstIndex-pointer _gint _int -> _GstIndexEntry-pointer))
 
 ;GstIndexEntry*      gst_index_add_association           (GstIndex *index, gint id, GstAssocFlags flags, GstFormat format, gint64 value, ...);
-(define-gstreamer gst_index_add_association (_fun _GstIndex-pointer _gint _int _GstFormat _gint64 (_list i _gint64) -> _GstIndexEntry-pointer))
+(define-gstreamer gst_index_add_association (_fun _GstIndex-pointer _gint _int _int _gint64 (_list i _gint64) -> _GstIndexEntry-pointer))
 
 ;GstIndexEntry*      gst_index_add_associationv          (GstIndex *index, gint id, GstAssocFlags flags, gint n, const GstIndexAssociation *list);
 (define-gstreamer gst_index_add_associationv (_fun _GstIndex-pointer _gint _int _gint _GstIndexAssociation-pointer -> _GstIndexEntry-pointer))
@@ -170,10 +151,10 @@
 (define-gstreamer gst_index_add_id (_fun _GstIndex-pointer _gint _string -> _GstIndexEntry-pointer))
 
 ;GstIndexEntry*      gst_index_get_assoc_entry           (GstIndex *index, gint id, GstIndexLookupMethod method, GstAssocFlags flags, GstFormat format, gint64 value);
-(define-gstreamer gst_index_get_assoc_entry (_fun _GstIndex-pointer _gint _GstIndexLookupMethod _int _GstFormat _gint64 -> _GstIndexEntry-pointer))
+(define-gstreamer gst_index_get_assoc_entry (_fun _GstIndex-pointer _gint _int _int _int _gint64 -> _GstIndexEntry-pointer))
 
 ;GstIndexEntry*      gst_index_get_assoc_entry_full      (GstIndex *index, gint id, GstIndexLookupMethod method, GstAssocFlags flags, GstFormat format, gint64 value, GCompareDataFunc func, gpointer user_data);
-(define-gstreamer  gst_index_get_assoc_entry_full (_fun _GstIndex-pointer _gint _GstIndexLookupMethod _int _GstFormat _gint64 _GCompareDataFunc _gpointer -> _GstIndexEntry-pointer))
+(define-gstreamer  gst_index_get_assoc_entry_full (_fun _GstIndex-pointer _gint _int _int _int _gint64 GCompareDataFunc _gpointer -> _GstIndexEntry-pointer))
 
 ;GstIndexEntry *     gst_index_entry_copy                (GstIndexEntry *entry);
 (define-gstreamer gst_index_entry_copy (_fun _GstIndexEntry-pointer -> _GstIndexEntry-pointer))
@@ -182,4 +163,4 @@
 (define-gstreamer gst_index_entry_free (_fun _GstIndexEntry-pointer -> _void))
 
 ;gboolean            gst_index_entry_assoc_map           (GstIndexEntry *entry, GstFormat format, gint64 *value);
-(define-gstreamer gst_index_entry_assoc_map (_fun _GstIndexEntry-pointer _GstFormat _gint64 -> _gboolean))
+(define-gstreamer gst_index_entry_assoc_map (_fun _GstIndexEntry-pointer _int _gint64 -> _gboolean))

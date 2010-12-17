@@ -41,17 +41,12 @@
    (gst_bus_add_watch bus buscall loop)
    (gst_object_unref bus)
    
-   (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) source)
-   (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) demuxer)
-   (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) decoder)
-   (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) conv)
-   (gst_bin_add (cast pipeline _GstElement-pointer _GstBin-pointer) sink)
+   (gst_bin_add_many (elem-to-bin pipeline) source demuxer decoder conv sink)
    
    (gst_element_link source demuxer)
-   (gst_element_link decoder conv)
-   (gst_element_link conv sink)
+   (gst_element_link_many (list decoder conv sink))
    (printf "doing dynamic link~n")
-   (signal_connect demuxer decoder)
+   (signal_connect_pad_added demuxer decoder)
    
    (gst_element_set_state pipeline GST_STATE_PLAYING)
    

@@ -1,43 +1,11 @@
 #lang racket
 
 (require "gst_base.rkt"
-         "GstMiniObject-ffi.rkt"
-         "GstClock-ffi.rkt"
-         "GstCaps-ffi.rkt")
+         "gst-structs-ffi.rkt"
+         "GstMiniObject-ffi.rkt")
 
 (provide (all-defined-out))
 
-;;typedef struct {
-;;  GstMiniObject          mini_object;
-;;  /* pointer to data and its size */
-;;  guint8                *data;
-;;  guint                  size;
-;;  /* timestamp */
-;;  GstClockTime           timestamp;
-;;  GstClockTime           duration;
-;;  /* the media type of this buffer */
-;;  GstCaps               *caps;
-;;  /* media specific offset */
-;;  guint64                offset;
-;;  guint64                offset_end;
-;;  guint8                *malloc_data;
-;;  /* ABI Added */
-;;  GFreeFunc              free_func;
-;;  GstBuffer             *parent;
-;;} GstBuffer;
-
-(define-cstruct _GstBuffer
-  ([mini_object _GstMiniObject]
-   [data (_ptr io _guint8)]
-   [size _guint]
-   [timestamp _GstClockTime]
-   [duration _GstClockTime]
-   [caps _GstCaps-pointer]
-   [offset _guint64]
-   [offset_end _guint64]
-   [malloc_data (_ptr io _guint8)]
-   [free_func _GFreeFunc]
-   [parent _GstBuffer-pointer]))
 
 
 #|typedef enum {
@@ -75,32 +43,6 @@
 (define GST_BUFFER_COPY_TIMESTAMPS (arithmetic-shift 1 1))
 (define GST_BUFFER_COPY_CAPS (arithmetic-shift 1 2))
 
-
-#|#define             GST_BUFFER_FLAGS                    (buf)
-#define             GST_BUFFER_FLAG_IS_SET              (buf, flag)
-#define             GST_BUFFER_FLAG_SET                 (buf, flag)
-#define             GST_BUFFER_FLAG_UNSET               (buf, flag)
-#define             GST_BUFFER_DATA                     (buf)
-#define             GST_BUFFER_MALLOCDATA               (buf)
-#define             GST_BUFFER_FREE_FUNC                (buf)
-#define             GST_BUFFER_SIZE                     (buf)
-#define             GST_BUFFER_TIMESTAMP                (buf)
-#define             GST_BUFFER_DURATION                 (buf)
-#define             GST_BUFFER_CAPS                     (buf)
-#define             GST_BUFFER_OFFSET                   (buf)
-#define             GST_BUFFER_OFFSET_END               (buf)
-#define             GST_BUFFER_OFFSET_NONE
-#define             GST_BUFFER_DURATION_IS_VALID        (buffer)
-#define             GST_BUFFER_TIMESTAMP_IS_VALID       (buffer)
-#define             GST_BUFFER_OFFSET_IS_VALID          (buffer)
-#define             GST_BUFFER_OFFSET_END_IS_VALID      (buffer)
-#define             GST_BUFFER_IS_DISCONT               (buffer)
-#define             GST_BUFFER_TRACE_NAME
-#define             gst_buffer_set_data                 (buf, data, size)
-#define             GST_BUFFER_COPY_ALL
-#define             gst_buffer_is_writable              (buf)
-#define             gst_buffer_make_writable            (buf)
-#define             gst_buffer_replace                  (obuf, nbuf)|#
 
 
 ;GstBuffer *         gst_buffer_new                      (void);
@@ -141,12 +83,15 @@
 ;GstBuffer*          gst_buffer_span                     (GstBuffer *buf1,  guint32 offset, GstBuffer *buf2, guint32 len);
 (define-gstreamer gst_buffer_span (_fun _GstBuffer-pointer _guint32 _GstBuffer-pointer _guint32 -> _GstBuffer-pointer))
 
-;void                gst_buffer_stamp                    (GstBuffer *dest, const GstBuffer *src);
-(define-gstreamer gst_buffer_stamp (_fun _GstBuffer-pointer _GstBuffer-pointer -> _void))
-
 ;;GstBuffer* GstBuffer* -> GstBuffer*
 (define-gstreamer*
   (_fun _GstBuffer-pointer _GstBuffer-pointer -> _GstBuffer-pointer)
   gst_buffer_join gst_buffer_merge)
 
+;replacement for GST_BUFFER_COPY_ALL macro
+(define (Gst_Buffer_Copy_All dest-buffer src-buffer)
+  (begin
+    (gst_buffer_copy_metadata dest-buffer src-buffer GST_BUFFER_COPY_FLAGS)
+    (gst_buffer_copy_metadata dest-buffer src-buffer GST_BUFFER_COPY_TIMESTAMPS)
+    (gst_buffer_copy_metadata dest-buffer src-buffer GST_BUFFER_COPY_CAPS)))
 

@@ -1,12 +1,10 @@
 #lang racket
 
 (require "gst_base.rkt"
-         "GstStructs-ffi.rkt")
+         "gst-structs-ffi.rkt")
 
 (provide (all-defined-out))
 
-;;typedef struct _GstImplementsInterface GstImplementsInterface;
-(define-cpointer-type _GstImplementsInterface-pointer)
 
 ;gboolean            gst_element_implements_interface    (GstElement *element, GType iface_type);
 (define-gstreamer gst_element_implements_interface (_fun _GstElement-pointer _GType -> _gboolean))

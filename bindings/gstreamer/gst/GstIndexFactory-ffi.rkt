@@ -1,12 +1,9 @@
 #lang racket
 
 (require "gst_base.rkt"
-         "GstIndex-ffi.rkt")
+         "gst-structs-ffi.rkt")
 
 (provide (all-defined-out))
-
-;;typedef struct _GstIndexFactory GstIndexFactory;
-(define-cpointer-type _GstIndexFactory-pointer)
 
 
 ;GstIndexFactory*    gst_index_factory_new               (const gchar *name, const gchar *longdesc, GType type);

@@ -1,22 +1,17 @@
 #lang racket
 
 (require "gst_base.rkt"
-         "GstBuffer-ffi.rkt")
+         "gst-structs-ffi.rkt")
 
 (provide (all-defined-out))
 
 
-;;typedef struct _GstBufferList GstBufferList;  ;;Opaque
-(define-cpointer-type _GstBufferList-pointer)
-
-;;typedef struct _GstBufferListIterator GstBufferListIterator;  ;;Opaque
-(define-cpointer-type _GstBufferListIterator-pointer)
 
 #|#define             gst_buffer_list_is_writable         (list)
 #define             gst_buffer_list_make_writable       (list)|#
 
 ;GstBuffer *         (*GstBufferListDoFunction)          (GstBuffer *buffer, gpointer user_data); ;;OJO
-(define GstBufferListDoFunction (_cprocedure '(_GstBuffer-pointer _gpointer) _GstBuffer-pointer))
+(define GstBufferListDoFunction (_cprocedure (list _GstBuffer-pointer _gpointer) _GstBuffer-pointer))
 
 ;GstBufferList *     gst_buffer_list_new                 (void);
 (define-gstreamer gst_buffer_list_new (_fun -> _GstBufferList-pointer))
@@ -34,12 +29,13 @@
   GST_BUFFER_LIST_END
 } GstBufferListItem;|#
 
-(define _GstBufferListItem
-  (_enum '(GST_BUFFER_LIST_CONTINUE GST_BUFFER_LIST_SKIP_GROUP GST_BUFFER_LIST_END)))
+(define GST_BUFFER_LIST_CONTINUE 0)
+(define GST_BUFFER_LIST_SKIP_GROUP 1)
+(define GST_BUFFER_LIST_END 2)
 
 
-;GstBufferListItem   (*GstBufferListFunc)                (GstBuffer **buffer, guint group, guint idx, gpointer user_data); ;;OJO!!!
-(define GstBufferListFunc (_cprocedure '((_ptr io _GstBuffer-pointer) _guint _guint _gpointer) _GstBufferListItem))
+;GstBufferListItem   (*GstBufferListFunc)                (GstBuffer **buffer, guint group, guint idx, gpointer user_data);
+(define GstBufferListFunc (_cprocedure (list (_ptr io _GstBuffer-pointer) _guint _guint _gpointer) _int))
 
 ;void                gst_buffer_list_foreach             (GstBufferList *list, GstBufferListFunc func, gpointer user_data);
 (define-gstreamer gst_buffer_list_foreach (_fun _GstBufferList-pointer GstBufferListFunc _gpointer -> _void))

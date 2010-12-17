@@ -1,19 +1,11 @@
 #lang racket
 
 (require "gst_base.rkt"
+         "gst-structs-ffi.rkt"
          "GstClock-ffi.rkt")
 
 (provide (all-defined-out))
 
-;;typedef struct _GstPoll GstPoll;
-(define-cpointer-type _GstPoll-pointer)
-
-;;typedef struct {
-;;  int fd;
-;;} GstPollFD;
-
-(define-cstruct _GstPollFD
-  ([fd _int]))
 
 ;#define             GST_POLL_FD_INIT
 

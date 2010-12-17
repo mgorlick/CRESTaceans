@@ -1,48 +1,10 @@
 #lang racket
 
 (require "gst_base.rkt"
+         "gst-structs-ffi.rkt"
          "GstObject-ffi.rkt")
 
 (provide (all-defined-out))
-
-
-;;typedef struct _GstClock GstClock;        ;;Opaque
-(define-cpointer-type _GstClock-pointer)
-
-
-#|typedef struct {
-  gint			refcount;
-} GstClockEntry;|#
-
-(define-cstruct  _GstClockEntry
-  ([refcount _gint]))
-
-
-#|
-typedef struct {
-  GstObjectClass        parent_class;
-  /* vtable */
-  GstClockTime          (*change_resolution)    (GstClock *clock, GstClockTime old_resolution, GstClockTime new_resolution);
-  GstClockTime          (*get_resolution)       (GstClock *clock);
-  GstClockTime		(*get_internal_time) (GstClock *clock);
-  /* waiting on an ID */
-  GstClockReturn        (*wait)			(GstClock *clock, GstClockEntry *entry);
-  GstClockReturn        (*wait_async)           (GstClock *clock, GstClockEntry *entry);
-  void                  (*unschedule)		(GstClock *clock, GstClockEntry *entry);
-  /* ABI added to replace the deprecated wait */
-  GstClockReturn        (*wait_jitter)		(GstClock *clock, GstClockEntry *entry, GstClockTimeDiff *jitter);
-} GstClockClass;
-|#
-
-(define-cstruct  _GstClockClass
-  ([parent_class _GstObjectClass]
-   [change_resolution (_ptr io (_fun _GstClock-pointer _GstClockTime _GstClockTime  -> _GstClockTime))]
-   [get_resolution (_ptr io (_fun _GstClock-pointer -> _GstClockTime))]
-   [get_internal_time (_ptr io (_fun _GstClock-pointer -> _GstClockTime))]
-   [wait (_ptr io (_fun _GstClock-pointer _GstClockEntry-pointer -> _GstClockReturn))]
-   [wait_async (_ptr io (_fun _GstClock-pointer _GstClockEntry-pointer -> _GstClockReturn))]
-   [unschedule (_ptr io (_fun _GstClock-pointer _GstClockEntry-pointer -> _void))]
-   [wait_jitter (_ptr io (_fun _GstClock-pointer _GstClockEntry-pointer (_ptr io _GstClockTimeDiff) -> _GstClockReturn))]))
 
 
 ;;typedef guint64 GstClockTime;
@@ -73,7 +35,7 @@ typedef struct {
 ;#define             GST_CLOCK_ENTRY_TRACE_NAME          GstClockEntry;
 
 ;;gboolean            (*GstClockCallback)                 (GstClock *clock, GstClockTime time, GstClockID id, gpointer user_data);
-(define GstClockCallback (_cprocedure '(_GstClock-pointer _GstClockTime _GstClockID _gpointer) _gboolean))
+(define GstClockCallback (_cprocedure (list _GstClock-pointer _GstClockTime _GstClockID _gpointer) _gboolean))
 
 
 #|typedef enum {
@@ -81,8 +43,8 @@ typedef struct {
   GST_CLOCK_ENTRY_PERIODIC
 } GstClockEntryType;|#
 
-(define _GstClockEntryType
-  (_enum '(GST_CLOCK_ENTRY_SINGLE GST_CLOCK_ENTRY_PERIODIC)))
+(define GST_CLOCK_ENTRY_SINGLE 0)
+(define GST_CLOCK_ENTRY_PERIODIC 1)
 
 
 ;#define             GST_CLOCK_ENTRY                     (entry)
@@ -109,8 +71,13 @@ typedef struct {
   GST_CLOCK_UNSUPPORTED =  6
 } GstClockReturn;|#
 
-(define _GstClockReturn
-  (_enum '(GST_CLOCK_OK = 0 GST_CLOCK_EARLY = 1 GST_CLOCK_UNSCHEDULED = 2 GST_CLOCK_BUSY = 3 GST_CLOCK_BADTIME = 4 GST_CLOCK_ERROR = 5 GST_CLOCK_UNSUPPORTED = 6)))
+(define GST_CLOCK_OK 0)
+(define GST_CLOCK_EARLY 1)
+(define GST_CLOCK_UNSCHEDULED 2)
+(define GST_CLOCK_BUSY 3)
+(define GST_CLOCK_BADTIME 4)
+(define GST_CLOCK_ERROR 5)
+(define GST_CLOCK_UNSUPPORTED 6)
 
 
 #|typedef enum {
@@ -184,14 +151,14 @@ typedef struct {
 (define-gstreamer gst_clock_id_get_time (_fun _GstClockID -> _GstClockTime))
 
 ;GstClockReturn      gst_clock_id_wait                   (GstClockID id, GstClockTimeDiff *jitter);
-(define-gstreamer gst_clock_id_wait (_fun _GstClockID (_ptr io _GstClockTimeDiff) -> _GstClockReturn))
+(define-gstreamer gst_clock_id_wait (_fun _GstClockID (_ptr io _GstClockTimeDiff) -> _int))
 
 ;GstClockReturn      gst_clock_id_wait_async             (GstClockID id, GstClockCallback func, gpointer user_data); OJO!!! depends on GstClockCallback
-(define-gstreamer gst_clock_id_wait_async (_fun _GstClockID GstClockCallback _gpointer -> _GstClockReturn))
+(define-gstreamer gst_clock_id_wait_async (_fun _GstClockID GstClockCallback _gpointer -> _int))
 
 ;;NOT IN LIB
 ;GstClockReturn gst_clock_id_wait_async_full (GstClockID id, GstClockCallback func, gpointer user_data, GDestroyNotify destroy_data); OJO!! depends on GstClockCallback
-;(define-gstreamer gst_clock_id_wait_async_full (_fun _GstClockID GstClockCallback _gpointer _GDestroyNotify -> _GstClockReturn))
+;(define-gstreamer gst_clock_id_wait_async_full (_fun _GstClockID GstClockCallback _gpointer _GDestroyNotify -> _int))
 
 ;;GstClock* GstClockTime -> GstClockTime
 (define-gstreamer*
