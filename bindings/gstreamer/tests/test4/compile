@@ -1,7 +1,7 @@
 #! /bin/bash
 
 gcc -fPIC -c -Wall $(pkg-config --cflags --libs gstreamer-0.10) test4-wrap.c
-ld -shared -soname libgracketgst-test4.so.1 -o libracketgst-test4.so.1.0 -lc test4-wrap.o
-sudo cp libracketgst-test4.so.1.0 /usr/local/lib
-rm libracketgst-test4.so.1.0
+ld -shared -soname libgracket-gst-test4.so.1 -o libracket-gst-test4.so.1.0 -lc test4-wrap.o
+sudo cp libracket-gst-test4.so.1.0 $RACKET_LIBS
+rm libracket-gst-test4.so.1.0
 rm test4-wrap.o

@@ -6,7 +6,7 @@
 
 (provide (except-out (all-defined-out) df))
 
-(define-ffi-definer df (ffi-lib "/usr/local/lib/libracketgst" "1.0"))
+(define-ffi-definer df (ffi-lib "libracket-gst" "1.0"))
 
 (df signal_connect_pad_added (_fun _GstElement-pointer _GstElement-pointer -> _void))
 
