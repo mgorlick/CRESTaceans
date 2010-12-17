@@ -159,7 +159,6 @@ void vortex_listener_accept_connection    (VortexConnection * connection, axl_bo
 
   /* call to complete incoming connection register operation */
   vortex_listener_complete_register (connection);
-  printf ("completed listener connection registration\n");
 	
   /* close connection and free resources */
   vortex_log (VORTEX_LEVEL_DEBUG, "worker ended, connection registered on manager (initial accept)");
@@ -270,7 +269,6 @@ void __vortex_listener_initial_accept (VortexCtx        * ctx,
    */
   vortex_listener_accept_connection (connection, axl_true);
 
-  printf ("returning from initial_accept\n");
 
   return;
 }
@@ -299,7 +297,6 @@ void __vortex_listener_second_step_accept (VortexFrame * frame, VortexConnection
   VortexCtx     * ctx = vortex_connection_get_ctx (connection);
 #endif
   vortex_log (VORTEX_LEVEL_DEBUG, "called listener second step accept..");
-  printf ("in second step accept\n");
   /* check if the connection have a pending frame (get the reference) */
   pending = vortex_connection_get_data (connection,
                                         VORTEX_GREETINGS_PENDING_FRAME);
@@ -537,7 +534,7 @@ axlPointer __vortex_listener_new (VortexListenerData * data)
 
         char* locala;
         int localp;
-        int host_used_status = vortex_connection_get_host_used (listener, &locala, &localp);
+        vortex_connection_get_host_used (listener, &locala, &localp);
         
         /* notify listener created */
         

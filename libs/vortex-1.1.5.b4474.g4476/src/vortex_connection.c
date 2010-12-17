@@ -611,7 +611,6 @@ int  vortex_connection_default_send (VortexConnection * connection,
 				     int                buffer_len)
 {
   /* send the message */
-  printf ("invoking tcp_write with buffer %s\n", buffer);
   return connection->tcp_write (connection, &buffer, buffer_len);
 }
 
@@ -626,7 +625,6 @@ int  vortex_connection_default_receive (VortexConnection * connection,
 					int                buffer_len)
 {
   /* receive content */
-  printf ("in default receive\n");
   char* s;
   int l = connection->tcp_read (connection, &s, buffer_len);
   strncpy (buffer, s, l);
@@ -3662,35 +3660,28 @@ VORTEX_SOCKET    vortex_connection_get_socket           (VortexConnection * conn
 }
 
 int vortex_connection_get_sock_name (VortexConnection* conn, char** local_a, char** local_p, char** remote_a, char** remote_p) {
-  printf ("get_sock_name with connection %p\n", conn);
   return conn->tcp_get_sock_name (conn, local_a, local_p, remote_a, remote_p);
 }
 
 int vortex_connection_get_host_used (VortexConnection* conn, char** host, int* port) {
-  printf ("get_host_used with connection %p)\n", conn);
   return conn->tcp_get_host_used (conn, host, port);
 }
 
 int vortex_connection_do_accept (VortexConnection* master, VortexConnection* child) {
-  printf ("do_accept with connections %p (master), %p (child)\n", master, child);
   child->session = master->tcp_accept (master, child);
-  printf ("did accept\n");
   return child->session;
 }
 
 int vortex_connection_do_listen (VortexConnection* conn, char* host, char* port) {
-  printf ("do_listen with connection %p\n", conn);
   if (conn == NULL || host == NULL || port == NULL) return -2;
   return conn->tcp_listen (conn, host, port);
 }
 
 int vortex_connection_do_wait_read (VortexConnection* conn, int timeout) {
-  printf ("do_wait_read with connection %p\n", conn);
   return conn->tcp_wait_read (conn, timeout);
 }
 
 int vortex_connection_do_wait_write (VortexConnection* conn, int timeout) {
-  printf ("do_wait_write with connection %p\n", conn);
   return conn->tcp_wait_write (conn, timeout);
 }
 

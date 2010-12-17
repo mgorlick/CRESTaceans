@@ -59,11 +59,6 @@ void vortex_sequencer_queue_data (VortexCtx * ctx, VortexSequencerData * data)
 		     data->channel_num, 
 		     data->message_size,
 		     data->message ? data->message : "**** empty message ****");
-	printf("new message to be sent: msgno %d, channel %d (size: %d):\n%s",
-		     data->msg_no, 
-		     data->channel_num, 
-		     data->message_size,
-		     data->message ? data->message : "**** empty message ****");
 
 	/* update channel reference */
 	if (! vortex_channel_ref (data->channel)) {
@@ -502,7 +497,6 @@ axl_bool vortex_sequencer_check_status_and_get_references (VortexCtx            
 	
 axlPointer __vortex_sequencer_run (axlPointer _data)
 {
-  printf ("entered __vortex_sequencer_run() \n");
 	/* get current context */
 	VortexCtx           * ctx = _data;
 	VortexSequencerData * data                   = NULL;
@@ -517,10 +511,8 @@ axlPointer __vortex_sequencer_run (axlPointer _data)
 	VortexAsyncQueue    * queue;
 
 	while (axl_true) {
-          printf ("sequencer_run while()\n");
           FUEL_WITH_PROGRESS ("top of the __vortex_sequencer_run while()");
 		/* block until receive a new message to be sent */
-          printf ("sequencer_run get data from queue\n");
 		data    = vortex_async_queue_pop (ctx->sequencer_queue);
 		/* check if it was requested to stop the vortex
 		 * sequencer operation */
@@ -648,7 +640,6 @@ axlPointer __vortex_sequencer_run (axlPointer _data)
 		 * the rest to be sequenced message. */
 		/* now, perform a send operation for the frame built */
 		vortex_log (VORTEX_LEVEL_DEBUG, "frame built, send the frame directly");
-                printf ("calling direct_send\n");
 		if (! vortex_sequencer_direct_send (connection, channel, &packet)) {
 			vortex_log (VORTEX_LEVEL_WARNING, "unable to send data at this moment");
 			
@@ -825,7 +816,6 @@ axl_bool      vortex_sequencer_direct_send (VortexConnection * connection,
 			    packet->the_size,  
 			    vortex_connection_get_id (connection), errno);
 
-        printf ("sending raw\n");
 	if (! vortex_frame_send_raw (connection, packet->the_frame, packet->the_size)) {
 		/* drop a log */
 		vortex_log (VORTEX_LEVEL_CRITICAL, "unable to send the frame: errno=(%d): %s", 
@@ -965,7 +955,6 @@ axl_bool vortex_sequencer_prep_for_run (VortexCtx* ctx) {
 	ctx->sequencer_send_buffer_size = 4096 + 100;
 	if (ctx->sequencer_send_buffer == NULL)
 		ctx->sequencer_send_buffer = axl_new (char, ctx->sequencer_send_buffer_size);
-        printf ("Context prepared for the sequencer thread\n");
         return axl_true;
 }
 

@@ -1099,11 +1099,16 @@ void vortex_exit_ctx (VortexCtx * ctx, axl_bool  free_ctx)
 
 	vortex_log (VORTEX_LEVEL_DEBUG, "shutting down vortex library");
 
+
+        printf ("acquiring mutex\n");
 	vortex_mutex_lock(ctx->exit_mutex);
 	if (ctx->vortex_exit) {
+          printf ("exit signal already flagged, returning prematurely\n");
 		vortex_mutex_unlock(ctx->exit_mutex);
 		return;
 	}
+
+        printf ("flagging exit signal\n");
 	/* flag other waiting functions to do nothing */
 	ctx->vortex_exit = axl_true;
 	
@@ -1113,6 +1118,8 @@ void vortex_exit_ctx (VortexCtx * ctx, axl_bool  free_ctx)
 	/* flag the thread pool to not accept more jobs */
 	vortex_thread_pool_being_closed (ctx);
 
+        printf ("thread pool flagged\n");
+
 	/* stop vortex writer */
 	/* vortex_writer_stop (); */
 
@@ -1121,9 +1128,11 @@ void vortex_exit_ctx (VortexCtx * ctx, axl_bool  free_ctx)
 
 	/* stop vortex sequencer */
 	vortex_sequencer_stop (ctx);
-
+        printf ("cleaning profiles\n");
 	/* stop vortex profiles process */
 	vortex_profiles_cleanup (ctx);
+
+        printf ("stopped reader, sequencer, thread pool\n");
 
 #if defined(AXL_OS_WIN32)
 	WSACleanup ();
@@ -1153,7 +1162,9 @@ void vortex_exit_ctx (VortexCtx * ctx, axl_bool  free_ctx)
 	 * 
 	 * At the end, to release the thread pool is not a big
 	 * deal. */
-	vortex_thread_pool_exit (ctx); 
+	vortex_thread_pool_exit (ctx);
+
+        printf ("cleaning connection, channel, listener, support, greetings\n");
 
 	/* cleanup connection module */
 	vortex_connection_cleanup (ctx); 
@@ -1173,6 +1184,8 @@ void vortex_exit_ctx (VortexCtx * ctx, axl_bool  free_ctx)
 	/* cleanup greetings module */
 	vortex_greetings_cleanup (ctx);
 
+        printf ("destroying mutexes\n");
+
 	/* destroy global mutex */
 	vortex_mutex_destroy(ctx->frame_id_mutex);
 	vortex_mutex_destroy(ctx->connection_id_mutex);
@@ -1184,11 +1197,12 @@ void vortex_exit_ctx (VortexCtx * ctx, axl_bool  free_ctx)
 	vortex_mutex_lock(ctx->exit_mutex);
 	vortex_mutex_unlock(ctx->exit_mutex);
 	vortex_mutex_destroy(ctx->exit_mutex);
-   
-	/* release the ctx */
-	if (free_ctx)
-		vortex_ctx_free (ctx);
 
+	/* release the ctx */
+	if (free_ctx) {
+          printf ("releasing ctx\n");
+          vortex_ctx_free (ctx);
+        }
 	return;
 }
 

@@ -74,7 +74,6 @@ axl_bool vortex_thread_create_internal (VortexThread      * thread_def,
                                         VortexThreadFunc    func, 
 					axlPointer          user_data)
 {
-  printf ("You didn't call vortex_thread_set_create() with a replacement!\n");
   return axl_false;
 }
 
@@ -262,7 +261,6 @@ void semaP (VortexMutex* sema) {
   while (scheme_wait_sema (sema, 1) == 0) {
     FUEL_WITH_PROGRESS ("sema.P()");
   }
-  return;
 }
 
 void semaV (VortexMutex* sema) {
@@ -308,7 +306,6 @@ void vortex_cond_broadcast (VortexCond        * cond)
     cond->waiters--;
     semaP (cond->h);
   }
-  printf ("**********cond_broadcast %i waiters on %p after broadcast\n", cond->waiters, cond);
   vortex_mutex_unlock (cond->x);
   return;
 }
@@ -331,16 +328,11 @@ axl_bool  vortex_cond_wait      (VortexCond        * cond,
   cond->waiters++;
   vortex_mutex_unlock (cond->x);
   vortex_mutex_unlock (mutex);
-  printf ("**************cond_wait, cond=%p, m=%p, x=%p, h=%p, s=%p\n",
-          cond, mutex, cond->x, cond->h, cond->s);
-  printf ("**************%i waiters on cond %p now\n", cond->waiters, cond);
-  printf ("**************cond_wait s.P(), cond %p\n", cond);
+
   semaP (cond->s);
   
-  printf ("**************cond_wait h.V(), cond %p\n", cond);
   semaV (cond->h);
   
-  printf ("**************cond_wait m.Acquire(), cond %p\n", cond);
   vortex_mutex_lock (mutex);
   
   return axl_true;
@@ -378,26 +370,27 @@ int timeval_subtract (struct timeval* result, struct timeval* x, struct timeval*
   }
 }
 
-long timeval_subt (struct timeval *r) {
-  return (r->tv_usec + (r->tv_usec * 1000000));
+long timeval_total_usec (struct timeval *r) {
+  return (r->tv_usec + (r->tv_sec * 1000000));
 }
 
 long timeval_difference_in_usec (struct timeval *x, struct timeval *y) {
   struct timeval result;
   timeval_subtract (&result, x, y);
-  return timeval_subt (&result);
+  return timeval_total_usec (&result);
 }
 
 axl_bool  vortex_cond_timedwait (VortexCond * cond,
 				 VortexMutex * mutex,
 				 long  microseconds)
 {
-  struct timeval t, n;
+  struct timeval at_start, now;
   int i, w;
-  i = gettimeofday (&t, NULL);
+  long diff;
+  i = gettimeofday (&at_start, NULL);
   if (i == -1) return axl_false;
   
-  i = gettimeofday (&n, NULL);
+  i = gettimeofday (&now, NULL);
   if (i == -1) return axl_false;
   
   vortex_mutex_lock (cond->x); /* x.P() */
@@ -406,14 +399,15 @@ axl_bool  vortex_cond_timedwait (VortexCond * cond,
   vortex_mutex_unlock (mutex); /* m.Release() */
 
   w = scheme_wait_sema (cond->s, 1); /* try s.P() */
-  
-  while ((w == 0) && (timeval_difference_in_usec(&t, &n) < microseconds)) {
+  diff = timeval_difference_in_usec (&now, &at_start);
+  while (w == 0 && diff < microseconds) {
     FUEL_WITH_PROGRESS ("timedwait while()");
-    gettimeofday (&n, NULL);
+    gettimeofday (&now, NULL);
     w = scheme_wait_sema (cond->s, 1); /* try s.P() again */
+    diff = timeval_difference_in_usec (&now, &at_start);
   }
 
-  if(timeval_difference_in_usec (&t, &n) >= microseconds) {
+  if(diff >= microseconds) {
     /* waiting took too long, remove self from waiter count
        and reacquire mutex m */
     vortex_mutex_lock (cond->x);
@@ -427,8 +421,6 @@ axl_bool  vortex_cond_timedwait (VortexCond * cond,
      time limit on semaphore s */
   semaV(cond->h); /* h.V() */
   vortex_mutex_lock (mutex); /* m.Acquire() */
-  printf ("**************cond_timedwait SUCCESS, cond=%p, m=%p, x=%p, h=%p, s=%p\n",
-          cond, mutex, cond->x, cond->h, cond->s);
   return axl_true;
 }
 
@@ -625,7 +617,6 @@ axlPointer         vortex_async_queue_pop       (VortexAsyncQueue * queue)
 
 	while (axl_list_length (queue->data) == 0) {
           FUEL_WITH_PROGRESS ("vortex_async_queue_pop [in while loop, waiting on cond]");
-          printf ("cond_wait on %p->cond\n", queue);
           VORTEX_COND_WAIT (queue->cond, queue->mutex);
         }
 

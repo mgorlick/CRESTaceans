@@ -599,6 +599,7 @@ void        vortex_ctx_free (VortexCtx * ctx)
 	if (ctx == NULL)
 		return;
 
+        printf ("acquiring mutex\n");
 	/* acquire the mutex */
 	vortex_mutex_lock(ctx->ref_mutex);
 	ctx->ref_count--;
@@ -608,7 +609,9 @@ void        vortex_ctx_free (VortexCtx * ctx)
 		vortex_mutex_unlock(ctx->ref_mutex);
 		return;
 	} /* end if */
-	
+
+        printf ("beginning cleanup calls\n");
+        
 	/* call to cleanup functions defined */
 	if (ctx->cleanups) {
 		iterator = 0;
@@ -628,6 +631,7 @@ void        vortex_ctx_free (VortexCtx * ctx)
 		ctx->cleanups = NULL; 
 	} /* end if */
 
+        printf ("clearing hash\n");
 	/* clear the hash */
 	vortex_hash_destroy (ctx->data);
 	ctx->data = NULL;

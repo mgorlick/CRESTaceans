@@ -250,7 +250,6 @@ axl_bool      vortex_greetings_send (VortexConnection * connection, VortexConnec
 	} /* end if */
 
 	/* flag that the greetings message was already sent */
-        printf ("flagging that greetings message was sent\n");
 	vortex_connection_set_data (connection, "vo:greetings-sent", INT_TO_PTR (1));
 	
 	return axl_true;
@@ -283,21 +282,17 @@ VortexFrame *  vortex_greetings_process (VortexConnection     * connection,
   
  	/* check if the connection have a pending frame (get the
 	 * reference) */
-        printf ("getting data\n");
  	pending = vortex_connection_get_data (connection,
  					      VORTEX_GREETINGS_PENDING_FRAME);
 
 	/* get greetings info from remote peer (or a piece of it) */
-        printf ("getting greetings info\n");
 	frame = vortex_frame_get_next (connection);
 	if (frame == NULL) {
-          printf ("Frame is null\n");
 		vortex_log (VORTEX_LEVEL_WARNING, "no frame received from remote peer");
 		return NULL;
 	}
 
 	/* check pending frame */
-        printf ("checking pending frame\n");
 	if (pending) {
           vortex_log (VORTEX_LEVEL_WARNING, "have pending flag at greetings process (previous incomplete frame received).");
 		pending = vortex_frame_join (pending, frame);
@@ -307,7 +302,6 @@ VortexFrame *  vortex_greetings_process (VortexConnection     * connection,
 
 	/* check if the frame returned is not complete, to store in
 	 * the connection and return NULL */
-        printf ("checking pending frame completeness\n");
 	if (vortex_frame_get_more_flag (frame) > 0) {
 		/* store the frame */
 		vortex_connection_set_data_full (connection, 
@@ -318,12 +312,10 @@ VortexFrame *  vortex_greetings_process (VortexConnection     * connection,
 	} /* end if */
 
 	/* call to update frame MIME status */
-        printf ("updating mime status\n");
 	if (! vortex_frame_mime_process (frame))
 		vortex_log (VORTEX_LEVEL_WARNING, "failed to update MIME status for the frame, continue delivery");
 
 	/* frame complete, clear connection content */
-        printf ("clearing connection content\n");
 	vortex_connection_set_data (connection, 
 				    /* key and data */
 				    VORTEX_GREETINGS_PENDING_FRAME, NULL);
@@ -502,7 +494,6 @@ axl_bool           vortex_greetings_client_send     (VortexConnection     * conn
 		vortex_log (VORTEX_LEVEL_CRITICAL, 
 			    "unable to build and send greetings message: unable to find any profile registered");
 		return axl_false;
-                printf ("no profile registered\n");
 	}
 	
 	/* Build the greetings message with localization features and filtered profiles*/
@@ -515,7 +506,6 @@ axl_bool           vortex_greetings_client_send     (VortexConnection     * conn
 		__vortex_connection_set_not_connected (connection, 
 						       "failed to build greetings message, closing the connection",
 						       VortexError);
-                printf ("failed to build greetings message\n");
 		return axl_false;
 	} /* end if */
 
@@ -525,14 +515,12 @@ axl_bool           vortex_greetings_client_send     (VortexConnection     * conn
 				      greetings_buffer,
 				      next_index,
 				      0)) {
-          printf ("unable to send initial client greetings message\n");
 		vortex_log (VORTEX_LEVEL_CRITICAL,  "unable to send initial client greetings message");
 		__vortex_connection_set_not_connected (connection, 
 						       "unable to send initial client greetings message",
 						       VortexError);
 		return axl_false;
 	} /* end if */
-        printf ("got to end of greetings_client_send\n");
 	return axl_true;
 }
 

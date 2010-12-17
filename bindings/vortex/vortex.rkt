@@ -14,32 +14,6 @@
 ; 2. if the object is invalid, handle the error
 ; 3. if the object is valid, do something with it, then clean it up
 
-; the following macro skeleton is provided for clarity.
-; A. (i) macro args used to bind a name to the new object, and also cleanup etc
-; A. (ii) and (iii) arguments to the actual object `factory-like' function
-; A. (iv) whatever you want to do with the object once it's created,
-;        using the name defined in (i)
-; B. create the object
-; C. check validity
-; D. if valid, bind a temp return value to whatever the result of the body is
-; E. clean up the created object somehow
-; F. return the return value
-; G. if invalid handle the error
-;(define-syntax macro-name
-;  (syntax-rules ()
-;    [(_ arg1 arg2 arg3 ; A(i) 
-;        arg4 arg5 arg6 ; A(ii)
-;        arg7 arg8 arg9 ; A(iii)
-;        body ...) ; A(iv)
-;     (let ([arg1 (call-to-factory-func arg4 arg5 arg6 arg7 arg8 arg9)]) ; B
-;       (if (is-valid? arg1) ; C
-;           (begin
-;             (let ([return-val (begin body ...)]) ; D
-;               (cleanup-after-body) ; E
-;               return-val)) ; F
-;           (handle-error) ; G
-;           ))]))
-
 ; (in principle we should be able to write a macro-generating-macro
 ; to generate all of these at once, but for now it's easiest to just 
 ; write them by hand for exploratory design purposes, as they may diverge
@@ -68,7 +42,7 @@
                                      (current-continuation-marks)))
            (cleanup-and-return
             (body ...)
-            ((printf "cleaning up ctx~n") 
+            ((printf "cleaning up ctx~n")
              (vortex-exit-ctx ctx-name axl-false) 
              (vortex-ctx-free ctx-name)))
            ))]
@@ -99,11 +73,8 @@
            ; assume that the connection spawned in async mode
            (cleanup-and-return
             (body ...)
-            ((printf "cleaning connection~n")
-             (cond [(not (eq? #f connection-name)) 
-                    (printf "closing connection~n")
-                    (vortex-connection-close connection-name)])
-             (printf "connection closed~n")))
+            ((cond [(not (eq? #f connection-name)) 
+                    (vortex-connection-close connection-name)])))
            
            (if (vtx-false? (vortex-connection-is-ok connection-name axl-false))
                (begin
@@ -115,11 +86,9 @@
                         ))
                (cleanup-and-return
                 (body ...)
-                ((printf "cleaning connection~n")
-                 (cond [(not (eq? #f connection-name)) 
+                ((cond [(not (eq? #f connection-name)) 
                         (printf "closing connection~n")
-                        (vortex-connection-close connection-name)])
-                 (printf "connection closed~n"))
+                        (vortex-connection-close connection-name)]))
                 ))))]
     ))
 

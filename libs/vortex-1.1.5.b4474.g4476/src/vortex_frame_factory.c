@@ -1180,16 +1180,12 @@ int          vortex_frame_readline (VortexConnection * connection, char  * buffe
 	memset (buffer, 0, maxlen * sizeof (char ));
 
 	/* check for pending line read */
-        printf ("Reading pending line\n");
 	pending_line = vortex_connection_get_data (connection, VORTEX_FRAME_PENDING_LINE);
 	desp         = 0;
-        printf ("Done reading pending line\n");
 	if (pending_line) {
-          printf ("true: pending_line\n");
 		/* get size and check exceeded values */
 		desp = strlen (pending_line);
 		if (desp >= maxlen) {
-                  printf ("desp >- maxlen\n");
 			vortex_log (VORTEX_LEVEL_CRITICAL, 
 				    "found fragmented frame line header but allowed size was exceeded (desp:%d >= maxlen:%d)",
 				    desp, maxlen);
@@ -1200,43 +1196,31 @@ int          vortex_frame_readline (VortexConnection * connection, char  * buffe
 
 		/* now store content into the buffer */
 		memcpy (buffer, pending_line, desp);
-                printf ("setting data\n");
 		/* clear from the connection the line */
 		vortex_connection_set_data (connection, VORTEX_FRAME_PENDING_LINE, NULL);
-                printf ("set data\n");
 	}
-        printf ("starting to read next line\n");
         
 	/* read current next line */
 	ptr = (buffer + desp);
 	for (n = 1; n < (maxlen - desp); n++) {
-           printf ("top of for loop\n");
        __vortex_frame_readline_again:
            FUEL_WITH_PROGRESS ("readline for loop with added goto\n");
            if (( rc = vortex_connection_invoke_receive (connection, &c, 1)) == 1) {
-             printf ("rc = 1\n");
              *ptr++ = c;
-             printf ("vortex has %c (%x)\n", c, c);
              if (c == '\x0A')
                break;
            }else if (rc == 0) {
-             printf ("rc = 0\n");
              if (n == 1)
                return 0;
              else {
-               printf ("rc = 0 but n != 1\n");
                break;
              }
            } else {
-             printf ("rc = else\n");
              if (errno == VORTEX_EINTR)
-               printf ("errno = eintr\n");
              goto __vortex_frame_readline_again;
              if ((errno == VORTEX_EWOULDBLOCK) || (errno == VORTEX_EAGAIN) || (rc == -2)) {
-               printf ("errno = else\n");
                if (n > 0) {
                  /* store content read until now */
-                 printf ("storing content read until now\n");
                  pending_line = axl_strdup (buffer);
                  vortex_connection_set_data_full (connection, 
                                                   /* key and value */
@@ -1250,7 +1234,6 @@ int          vortex_frame_readline (VortexConnection * connection, char  * buffe
              /* if the connection is closed, just return
               * without logging a message */
              if (vortex_connection_is_ok (connection, axl_false)) {
-               printf ("connection is closed\n");
                error_msg = vortex_errno_get_last_error ();
                vortex_log (VORTEX_LEVEL_CRITICAL, "unable to read a line, error was: %s",
                            error_msg ? error_msg : "");
@@ -1259,7 +1242,6 @@ int          vortex_frame_readline (VortexConnection * connection, char  * buffe
            }
 	}
 	*ptr = 0;
-        printf ("returning from frame_readline\n");
 	return (n + desp);
 
 }
@@ -1420,29 +1402,23 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 
 	/* before reading anything else, we have to check if previous
 	 * read was complete if not, we are in a frame fragment case */
-        printf ("checking to see if previous read was complete\n");
 	buffer = vortex_connection_get_data (connection, "buffer");
 	
 	if (buffer) {
-          printf ("buffer = true\n");
 		vortex_log (VORTEX_LEVEL_DEBUG, 
 			    "received more data after a frame fragment, previous read isn't still complete");
-                printf ("getting previous frame\n");
 		/* get previous frame */
 		frame        = vortex_connection_get_data (connection, "frame");
 		v_return_val_if_fail (frame, NULL);
-                printf ("getting previous remaining\n");
 		/* get previous remaining */
 		remaining    = PTR_TO_INT (vortex_connection_get_data (connection, "remaining_bytes"));
 		vortex_log (VORTEX_LEVEL_DEBUG, "remaining bytes to be read: %d", remaining);
 		v_return_val_if_fail (remaining > 0, NULL);
 
-                printf ("getting bytes_read data\n");
 		/* get previous bytes read */
 		bytes_read = PTR_TO_INT (vortex_connection_get_data (connection, "bytes_read"));
 		vortex_log (VORTEX_LEVEL_DEBUG, "bytes already read: %d", bytes_read);
 
-                printf ("receiving raw\n");
 		bytes_read = vortex_frame_receive_raw (connection, buffer + bytes_read, remaining);
 		if (bytes_read == 0) {
 			vortex_frame_free (frame);
@@ -1460,7 +1436,6 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
                 
 		/* check data received */
 		if (bytes_read != remaining) {
-                  printf ("Keep on reading\n");
 			/* add bytes read to keep on reading */
 			bytes_read += PTR_TO_INT (vortex_connection_get_data (connection, "bytes_read"));
 			vortex_log (VORTEX_LEVEL_DEBUG, "the frame fragment isn't still complete, total read: %d", bytes_read);
@@ -1477,12 +1452,9 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 		goto process_buffer;
 	
 }
-        printf ("parsing frame header\n");
 	/* parse frame header, read the first line */
 	bytes_read = vortex_frame_readline (connection, line, 99);
-        printf ("done reading header\n");
 	if (bytes_read == -2) {
-          printf ("-2\n");
                 vortex_log (VORTEX_LEVEL_WARNING,
 			    "no data were waiting on this non-blocking connection id=%d (EWOULDBLOCK|EAGAIN errno=%d)",
 			    vortex_connection_get_id (connection), errno);
@@ -1490,7 +1462,6 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 	}
         
 	if (bytes_read == 0) {
-          printf ("0\n");
 		/* check if channel is expected to be closed */
 		if (vortex_connection_get_data (connection, "being_closed")) {
 			vortex_log (VORTEX_LEVEL_DEBUG, "properly connection close");
@@ -1517,14 +1488,12 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 		return NULL;
 	}
 	if (bytes_read == -1) {
-          printf ("-1\n");
 		vortex_log (VORTEX_LEVEL_CRITICAL, "an error have ocurred while reading socket");
 		__vortex_connection_set_not_connected (connection, "client have disconnected without closing session",
 						       VortexProtocolError);
 		return NULL;
 	}
 	if (bytes_read == 1 || (line[bytes_read - 1] != '\x0A') || (line[bytes_read - 2] != '\x0D')) {
-          printf ("else\n");
 		vortex_log (VORTEX_LEVEL_CRITICAL, 
 			    "no line definition found for frame, over connection id=%d, bytes read: %d, line: '%s' errno=%d, closing session",
 			    vortex_connection_get_id (connection),
@@ -1574,7 +1543,6 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 	}
 
 	/* get the next frame according to the expected values */
-        printf (" get the next frame according to the expected values\n");
 	bytes_read = vortex_frame_get_header_data (ctx, connection, &(line[4]), frame);
 	if (bytes_read == -2) {
 		/* free frame no longer needed */
@@ -1793,7 +1761,6 @@ axl_bool             vortex_frame_send_raw     (VortexConnection * connection, c
  			} /* en dif */
  
  			/* perform a wait operation */
-                        printf ("frame factory doing wait operation\n");
  			wait_result = vortex_io_waiting_invoke_wait (ctx, on_write, fds + 1, WRITE_OPERATIONS);
  			switch (wait_result) {
  			case -3: /* unrecoberable error */
