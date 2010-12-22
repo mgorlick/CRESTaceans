@@ -42,8 +42,7 @@
                                      (current-continuation-marks)))
            (cleanup-and-return
             (body ...)
-            ((printf "cleaning up ctx~n")
-             (vortex-exit-ctx ctx-name axl-false) 
+            ((vortex-exit-ctx ctx-name axl-false) 
              (vortex-ctx-free ctx-name)))
            ))]
     ))
@@ -86,8 +85,7 @@
                         ))
                (cleanup-and-return
                 (body ...)
-                ((cond [(not (eq? #f connection-name)) 
-                        (printf "closing connection~n")
+                ((cond [(not (eq? #f connection-name))
                         (vortex-connection-close connection-name)]))
                 ))))]
     ))
@@ -115,7 +113,7 @@
        (if (eq? #f channel-name)
            (raise (make-exn:vtx:channel "unable to create the channel" 
                                         (current-continuation-marks)))
-           (cleanup-and-return (body ...) ((printf "closing channel ~s~n" channel-name) (vortex-channel-close channel-name #f)))
+           (cleanup-and-return (body ...) ((vortex-channel-close channel-name #f)))
            ))]))
 
 (define-struct (exn:vtx:channel exn:fail:network) ())

@@ -5,26 +5,25 @@
          "../vortex.rkt")
 
 (define (start-channel num connection user-data)
-  (printf "In start-channel~n")
+  (printf "Starting channel ~s~n" num)
   axl-true)
 
 (define (close-channel num connection user-data)
-  (printf "In close-channel~n")
+  (printf "Closing channel ~s~n" num)
   axl-true)
 
 (define (on-accepted connection data)
-  (printf "New connection accepted from ~s:~s~n"
+  (printf "New connection accepted from ~a:~a~n"
           (vortex-connection-get-host connection)
           (vortex-connection-get-port connection))
   axl-true)
 
 (define (frame-received channel connection frame user-data)
-  (printf "A frame received on channel: ~s~n" (vortex-channel-get-number channel))
+  (printf "A frame received on channel ~s~n" (vortex-channel-get-number channel))
   (printf "Data received: ~s~n" (vortex-frame-get-payload frame))
   (vortex-channel-send-rpyv channel
                             (vortex-frame-get-msgno frame)
-                            (format "Received OK: ~s~n" (vortex-frame-get-payload frame)))
-  (printf "VORTEX_LISTENER: end task~n")
+                            (format "Received OK: ~s~n" (cast (vortex-frame-get-payload frame) _pointer _string)))
   (void))
 
 (define (simple-listener)
@@ -32,8 +31,6 @@
   (with-vtx-ctx 
    ctx
    (parameterize ([current-thread-group application-group])
-     ;(thread
-     ;(lambda ()
      (printf "Server on~n")
      (vortex-profiles-register ctx Plain-Profile-URI
                                start-channel #f
@@ -46,6 +43,5 @@
      (printf "exiting...~n")
      (vortex-exit-ctx ctx axl-true)
      )))
-;))
 
 (simple-listener)

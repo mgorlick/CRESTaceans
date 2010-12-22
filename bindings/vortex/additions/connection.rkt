@@ -38,7 +38,6 @@
     (with-handlers ([exn:fail:network? -1])
       (wk ([key conn])
           (let ([amt (write-string (ptr-ref buffer _string) (hash-ref outports key) 0 buffer-len)])
-            (printf "wrote ~s~n" (ptr-ref buffer _string))
             (flush-output (hash-ref outports key))
             amt)))))
 
@@ -145,7 +144,6 @@
   ;; return 1 when done, or -1 if network error
   (define/contract (listener/listen conn host port)
     (VortexConnection*? string? string? . -> . integer?)
-    (printf "in listen/tcp~n")
     (with-handlers ([exn:fail:network? -1])
       (wk ([key conn])
           (if (eq? host #f)
@@ -159,7 +157,6 @@
   ;; return 1 when done, or -1 if network error
   (define/contract (listener/accept masterconn childconn)
     (VortexConnection*? VortexConnection*? . -> . integer?)
-    (printf "in accept/tcp~n")
     (with-handlers ([exn:fail:network? -1])
       (wk ([masterkey masterconn] [childkey childconn])
           (let-values ([(in out) (tcp-accept (hash-ref listeners masterkey))])
@@ -188,7 +185,6 @@
   ;; (NOT the connected input/output ports)
   (define/contract (listener/gethostused conn local-addr* local-port*)
     (VortexConnection*? cpointer? cpointer? . -> . integer?)
-    (printf "in listener gethostused/tcp~n")
     (with-handlers ([exn:fail:network? -1])
       (wk ([key conn])
           (let-values ([(locala localp remotea remotep) (tcp-addresses (hash-ref listeners key) #t)])

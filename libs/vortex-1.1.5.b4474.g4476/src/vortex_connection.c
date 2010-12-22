@@ -1175,7 +1175,8 @@ VortexConnection * vortex_connection_new_empty_from_connection (VortexCtx       
      solve an ordering conflict:
      if the connection is not connected
      (which is done by the closures)
-     how do we get the addresses? */
+     how do we get the addresses?
+     set_socket is now called in the tcp_connect callback */
   return connection;	
 }
 
@@ -1223,9 +1224,11 @@ axl_bool            vortex_connection_set_socket                (VortexConnectio
 
   /* set socket */
   conn->session = socket;
-  printf ("in set_socket\n");
-  if (conn->tcp_get_sock_name (conn, &locala, &localp, &remotea, &remotep) < -1) {
+  if (conn->tcp_get_sock_name (conn, &locala, &localp, &remotea, &remotep) < 0) {
+    
     vortex_log (VORTEX_LEVEL_DEBUG, "unable to get hostnames and ports");
+    return axl_false;
+    
   } else {
 
     if (conn->role == VortexRoleMasterListener) {
@@ -1235,10 +1238,8 @@ axl_bool            vortex_connection_set_socket                (VortexConnectio
       conn->host = axl_strdup (remotea);
       conn->port = axl_strdup (remotep);
     }
-
     conn->local_addr = axl_strdup (locala);
     conn->local_port = axl_strdup (localp);
-
   }
 
   return axl_true;
@@ -1504,36 +1505,11 @@ axlPointer __vortex_connection_new (VortexConnectionNewData * data)
     connection->is_connected = axl_true;
   } /* end if */
 
-  char* remote_addr;
-  char* remote_port;
-  
   /* according to the connection status (is_connected attribute)
    * perform the final operations so the connection becomes
    * usable. Later, the user app level is notified. */
   if (connection->is_connected) {
-
-    /* configure local address used by this connection */
-    /* now set local address */
-    if (connection->tcp_get_sock_name (connection, &connection->local_addr,
-                                       &connection->local_port,
-                                       &remote_addr, &remote_port) < 0) {
-
-      vortex_log (VORTEX_LEVEL_DEBUG, "unable to get local hostname and port to resolve local address");
-      /* check to release options if defined */
-      vortex_connection_opts_check_and_release (options);
-
-      /* release data */
-      axl_free (data);
-
-      return axl_false;
-    } /* end if */
-	
-    /* set local addr and local port */
-    /* connection->local_addr = vortex_support_inet_ntoa (ctx, &sin);
-       connection->local_port = axl_strdup_printf ("%d", ntohs (sin.sin_port)); */	
-
-  /* ***RACKET CONVERSION!*** converted up to here */
-    
+	    
     /* create channel 0 (virtually always is created but,
      * is necessary to have a representation for channel
      * 0, in order to make channel management function to
@@ -2160,7 +2136,7 @@ axl_bool                    vortex_connection_close                  (VortexConn
       __vortex_connection_set_not_connected (connection, 
                                              "failed to update reference counting on the connection during close operation, skiping clean close operation..",
                                              VortexError);
-      vortex_connection_unref (connection, "vortex_connection_close");
+      vortex_connection_unref (connection, "vortex_connection_close(1)");
       return axl_true;
     }
 		
@@ -2169,7 +2145,7 @@ axl_bool                    vortex_connection_close                  (VortexConn
     if (!vortex_connection_close_all_channels (connection, axl_true)) {
       /* update the connection reference to avoid race
        * conditions caused by deallocations */
-      vortex_connection_unref (connection, "vortex_connection_close");
+      vortex_connection_unref (connection, "vortex_connection_close(2)");
 
 
       vortex_log (VORTEX_LEVEL_WARNING, "failed while closing all channels");
@@ -2182,7 +2158,7 @@ axl_bool                    vortex_connection_close                  (VortexConn
     /* update the connection reference to avoid race
      * conditions caused by deallocations */
     refcount = connection->ref_count;
-    vortex_connection_unref (connection, "vortex_connection_close");
+    vortex_connection_unref (connection, "vortex_connection_close(3)");
 
     /* check special case where the caller have stoped a
      * listener reference without taking a reference to it */
@@ -2199,7 +2175,7 @@ axl_bool                    vortex_connection_close                  (VortexConn
        the listener and it is required to remove it,
        allowing to do so by the user. */
     if (connection->role == VortexRoleMasterListener)  {
-      vortex_connection_unref (connection, "vortex_connection_close");
+      vortex_connection_unref (connection, "vortex_connection_close(4)");
       return axl_true;
     }
   }
@@ -2210,7 +2186,7 @@ axl_bool                    vortex_connection_close                  (VortexConn
   if (connection->role == VortexRoleInitiator) {
     vortex_log (VORTEX_LEVEL_DEBUG, "connection close finished, now unrefering (refcount=%d)..", 
                 connection->ref_count);
-    vortex_connection_unref (connection, "vortex_connection_close");
+    vortex_connection_unref (connection, "vortex_connection_close(5)");
   } /* end if */
 
   return axl_true;
@@ -2362,6 +2338,7 @@ void               vortex_connection_unref                  (VortexConnection * 
   /* get current count */
   count = connection->ref_count;
   vortex_mutex_unlock((connection->ref_mutex));
+
 
   /* if counf is 0, free the connection */
   if (count == 0) {
@@ -2852,14 +2829,17 @@ void               vortex_connection_free (VortexConnection * connection)
     axl_free (connection->message);
     connection->message = NULL;
   }
-
+  
   vortex_log (VORTEX_LEVEL_DEBUG, "freeing connection host id=%d", connection->id);
 
   /* free host and port */
   if (connection->host != NULL) {
     axl_free (connection->host);
-    axl_free (connection->local_addr);
     connection->host       = NULL;
+  }
+
+  if (connection->local_addr != NULL) {
+    axl_free (connection->local_addr);
     connection->local_addr = NULL;
   }
 
@@ -5717,7 +5697,6 @@ int                 vortex_connection_invoke_send            (VortexConnection *
   if (connection == NULL || ! connection->is_connected ||
       buffer     == NULL || ! connection->send)
     return -1;
-  printf ("invoking send with buffer %s\n", buffer);
   return connection->send (connection, buffer, buffer_len);
 }
 
@@ -6093,7 +6072,6 @@ void vortex_connection_set_listener_closures (VortexConnection* conn) {
 }
 
 void vortex_connection_share_closures (VortexConnection* source, VortexConnection* connection) {
-  printf ("sharing %p ---> %p\n", source, connection);
   connection->tcp_listen = source->tcp_listen;
   connection->tcp_accept = source->tcp_accept;
   connection->tcp_connect = source->tcp_connect;

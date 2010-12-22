@@ -909,7 +909,6 @@ axl_bool                  vortex_io_waiting_invoke_have_dispatch    (VortexCtx  
   } /* end if */
 
   /* invoke have dispatch operation */
-  printf ("invoking 'have dispatch operation'\n");
   return ctx->waiting_have_dispatch (fd_group);
 }
 
@@ -948,7 +947,6 @@ void                 vortex_io_waiting_invoke_dispatch         (VortexCtx       
   } /* end if */
 
   /* invoke dispatch operation */
-  printf ("invoking dispatch operation\n");
   ctx->waiting_dispatch (fd_group, func, changed, user_data);
   return;
 }

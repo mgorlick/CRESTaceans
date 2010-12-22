@@ -1564,7 +1564,6 @@ void vortex_reader_stop (VortexCtx * ctx)
   /* waiting until the reader is stoped */
   vortex_async_queue_pop (ctx->reader_stopped);
   vortex_async_queue_unref (ctx->reader_stopped);
-	
   /* terminate thread */
   /* vortex_thread_destroy (ctx->reader_thread, axl_false); */
 
