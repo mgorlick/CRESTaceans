@@ -43,15 +43,19 @@
 
 ;; close the connection's input and output ports, remove from the map,
 ;; unref the connection and return 1 when done, or -1 on network error
-(define-syntax-rule (define-close/tcp id inports outports)
+(define-syntax-rule (define-close/tcp id inports outports listeners)
   (define/contract (id conn)
     (VortexConnection*? . -> . integer?)
+    (printf "in close/tcp~n")
     (with-handlers ([exn:fail:network? -1])
       (wk ([key conn])
           (close-input-port (hash-ref inports key))
           (close-output-port (hash-ref outports key))
           (hash-remove! inports key)
           (hash-remove! outports key)
+          (cond [(and (hash? listeners) 
+                      (eq? (vortex-connection-get-role conn) 'master-listener))
+                 (hash-remove! listeners key)])
           (vortex-connection-unref conn "close/tcp")
           1))))
 
@@ -65,6 +69,7 @@
 (define-syntax-rule (define-wait/tcp id sync-on)
   (define/contract (id conn timeout)
     (VortexConnection*? integer? . -> . integer?)
+    (printf "in wait/tcp~n")
     (with-handlers ([exn:fail:network? -1])
       (wk ([key conn])
           (if (> timeout -1)
@@ -118,7 +123,7 @@
   
   (define-read/tcp client/read inports)
   (define-write/tcp client/write outports)
-  (define-close/tcp client/close inports outports)
+  (define-close/tcp client/close inports outports #f)
   (define-wait/tcp client/wait/read (lambda (conn key) (hash-ref inports key)))
   (define-wait/tcp client/wait/write (lambda (conn key) (hash-ref outports key)))
   (define-get-sock-name/tcp client/getsockname inports)
@@ -168,7 +173,7 @@
   
   (define-read/tcp listener/read inports)
   (define-write/tcp listener/write outports)
-  (define-close/tcp listener/close inports outports)
+  (define-close/tcp listener/close inports outports listeners)
   (define-wait/tcp listener/wait/read (lambda (conn key)
                                         (cond
                                           [(eq? (vortex-connection-get-role conn) 'master-listener) 

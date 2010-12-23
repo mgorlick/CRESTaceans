@@ -3639,32 +3639,6 @@ VORTEX_SOCKET    vortex_connection_get_socket           (VortexConnection * conn
   return connection->session;
 }
 
-int vortex_connection_get_sock_name (VortexConnection* conn, char** local_a, char** local_p, char** remote_a, char** remote_p) {
-  return conn->tcp_get_sock_name (conn, local_a, local_p, remote_a, remote_p);
-}
-
-int vortex_connection_get_host_used (VortexConnection* conn, char** host, int* port) {
-  return conn->tcp_get_host_used (conn, host, port);
-}
-
-int vortex_connection_do_accept (VortexConnection* master, VortexConnection* child) {
-  child->session = master->tcp_accept (master, child);
-  return child->session;
-}
-
-int vortex_connection_do_listen (VortexConnection* conn, char* host, char* port) {
-  if (conn == NULL || host == NULL || port == NULL) return -2;
-  return conn->tcp_listen (conn, host, port);
-}
-
-int vortex_connection_do_wait_read (VortexConnection* conn, int timeout) {
-  return conn->tcp_wait_read (conn, timeout);
-}
-
-int vortex_connection_do_wait_write (VortexConnection* conn, int timeout) {
-  return conn->tcp_wait_write (conn, timeout);
-}
-
 /** 
  * @brief Allows to configure what to do with the underlying socket
  * connection when the \ref VortexConnection is closed.
@@ -6085,6 +6059,31 @@ void vortex_connection_share_closures (VortexConnection* source, VortexConnectio
 }
 
 
+int vortex_connection_get_sock_name (VortexConnection* conn, char** local_a, char** local_p, char** remote_a, char** remote_p) {
+  return conn->tcp_get_sock_name (conn, local_a, local_p, remote_a, remote_p);
+}
+
+int vortex_connection_get_host_used (VortexConnection* conn, char** host, int* port) {
+  return conn->tcp_get_host_used (conn, host, port);
+}
+
+int vortex_connection_do_accept (VortexConnection* master, VortexConnection* child) {
+  child->session = master->tcp_accept (master, child);
+  return child->session;
+}
+
+int vortex_connection_do_listen (VortexConnection* conn, char* host, char* port) {
+  if (conn == NULL || host == NULL || port == NULL) return -2;
+  return conn->tcp_listen (conn, host, port);
+}
+
+int vortex_connection_do_wait_read (VortexConnection* conn, int timeout) {
+  return conn->tcp_wait_read (conn, timeout);
+}
+
+int vortex_connection_do_wait_write (VortexConnection* conn, int timeout) {
+  return conn->tcp_wait_write (conn, timeout);
+}
 
 /* @} */
 
