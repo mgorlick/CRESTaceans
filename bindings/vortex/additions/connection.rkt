@@ -16,12 +16,18 @@
            ...)
        body ...)]))
 
+(define-syntax handle-neterr
+  (syntax-rules ()
+    [(wh body ...)
+     (with-handlers ([exn:fail:network? (lambda (e) -1)])
+       body ...)]))
+
 ;; read the designated amount from the designated connection's input port
-;; return 1 when done, 0 if encountered only #<eof> or -1 on network error
+;; return length of read when done, 0 if encountered only #<eof> or -1 on network error
 (define-syntax-rule (define-read/tcp id inports)
   (define/contract (id conn buffer buffer-len)
     (VortexConnection*? cpointer? integer?  . -> . integer?)
-    (with-handlers ([exn:fail:network? -1])
+    (handle-neterr
       (wk ([key conn])
           (let ([s (read-string buffer-len (hash-ref inports key))])
             (if (eof-object? s) ; returns `#<eof>' or some number
@@ -35,7 +41,7 @@
 (define-syntax-rule (define-write/tcp id outports)
   (define/contract (id conn buffer buffer-len)
     (VortexConnection*? cpointer? integer? . -> . integer?)
-    (with-handlers ([exn:fail:network? -1])
+    (handle-neterr
       (wk ([key conn])
           (let ([amt (write-string (ptr-ref buffer _string) (hash-ref outports key) 0 buffer-len)])
             (flush-output (hash-ref outports key))
@@ -46,7 +52,7 @@
 (define-syntax-rule (define-close/tcp id inports outports listeners)
   (define/contract (id conn)
     (VortexConnection*? . -> . integer?)
-    (with-handlers ([exn:fail:network? -1])
+    (handle-neterr
       (wk ([key conn])
           (close-input-port (hash-ref inports key))
           (close-output-port (hash-ref outports key))
@@ -68,7 +74,7 @@
 (define-syntax-rule (define-wait/tcp id sync-on)
   (define/contract (id conn timeout)
     (VortexConnection*? integer? . -> . integer?)
-    (with-handlers ([exn:fail:network? -1])
+    (handle-neterr
       (wk ([key conn])
           (if (> timeout -1)
               (let ([res (sync/timeout timeout (sync-on conn key))]) ; wait with a timeout
@@ -84,7 +90,7 @@
 (define-syntax-rule (define-get-sock-name/tcp id inports)
   (define/contract (id conn local-addr* local-port* remote-addr* remote-port*)
     (VortexConnection*? cpointer? cpointer? cpointer? cpointer? . -> . integer?)
-    (with-handlers ([exn:fail:network? -1])
+    (handle-neterr
       (wk ([key conn])
           (let-values ([(locala localp remotea remotep) (tcp-addresses (hash-ref inports key) #t)])
             (ptr-set! local-addr* _string locala)
@@ -110,7 +116,7 @@
   ;; return 1 when done or -1 on network error
   (define/contract (client/connect conn host port)
     (VortexConnection*? string? string? . -> . integer?)
-    (with-handlers ([exn:fail:network? -1])
+    (handle-neterr
       (wk ([key conn])
           (let-values ([(in out) (tcp-connect host (string->number port))])
             (hash-set! inports key in)
@@ -147,7 +153,7 @@
   ;; return 1 when done, or -1 if network error
   (define/contract (listener/listen conn host port)
     (VortexConnection*? string? string? . -> . integer?)
-    (with-handlers ([exn:fail:network? -1])
+    (handle-neterr
       (wk ([key conn])
           (if (eq? host #f)
               (hash-set! listeners key (tcp-listen (string->number port) 10000 #t))
@@ -160,7 +166,7 @@
   ;; return 1 when done, or -1 if network error
   (define/contract (listener/accept masterconn childconn)
     (VortexConnection*? VortexConnection*? . -> . integer?)
-    (with-handlers ([exn:fail:network? -1])
+    (handle-neterr
       (wk ([masterkey masterconn] [childkey childconn])
           (let-values ([(in out) (tcp-accept (hash-ref listeners masterkey))])
             (hash-set! inports childkey in)
@@ -188,7 +194,7 @@
   ;; (NOT the connected input/output ports)
   (define/contract (listener/gethostused conn local-addr* local-port*)
     (VortexConnection*? cpointer? cpointer? . -> . integer?)
-    (with-handlers ([exn:fail:network? -1])
+    (handle-neterr
       (wk ([key conn])
           (let-values ([(locala localp remotea remotep) (tcp-addresses (hash-ref listeners key) #t)])
             (ptr-set! local-addr* _string locala)
