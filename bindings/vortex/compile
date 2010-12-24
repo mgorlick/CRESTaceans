@@ -1,1 +1,2 @@
 raco make vortex.rkt
+raco make tests/*.rkt

@@ -46,7 +46,6 @@
 (define-syntax-rule (define-close/tcp id inports outports listeners)
   (define/contract (id conn)
     (VortexConnection*? . -> . integer?)
-    (printf "in close/tcp~n")
     (with-handlers ([exn:fail:network? -1])
       (wk ([key conn])
           (close-input-port (hash-ref inports key))
