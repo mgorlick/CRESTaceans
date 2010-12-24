@@ -204,7 +204,7 @@ void __vortex_io_waiting_port_dispatch (axlPointer fd_group,
     /* item found now check the event */
     if (VORTEX_IO_IS(port->wait_to, READ_OPERATIONS)) {
 			
-      if (vortex_connection_is_connected(port->connections[iterator]) &&
+      if (vortex_connection_is_connected (port->connections[iterator]) &&
           vortex_connection_do_wait_read (port->connections[iterator], 0) == 1) {
 
         /* found read event, dispatch */
@@ -226,7 +226,9 @@ void __vortex_io_waiting_port_dispatch (axlPointer fd_group,
 
     /* item found now check the event */
     if (VORTEX_IO_IS(port->wait_to, WRITE_OPERATIONS)) {
-      if (vortex_connection_do_wait_write (port->connections[iterator], 0) == 1) {
+      
+      if (vortex_connection_is_connected (port->connections[iterator]) &&
+          vortex_connection_do_wait_write (port->connections[iterator], 0) == 1) {
         /* found read event, dispatch */
         dispatch_func (
             /* socket found */
