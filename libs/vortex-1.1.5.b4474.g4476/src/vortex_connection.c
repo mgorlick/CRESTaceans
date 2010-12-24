@@ -626,9 +626,9 @@ int  vortex_connection_default_receive (VortexConnection * connection,
 {
   /* receive content */
   char* s;
-  int l = connection->tcp_read (connection, &s, buffer_len);
-  strncpy (buffer, s, l);
-  return l;
+  int i = connection->tcp_read (connection, &s, buffer_len);
+  if (i > 0) strncpy (buffer, s, i);
+  return i;
 }
 
 /** 
