@@ -450,7 +450,9 @@ int vortex_connection_do_listen (VortexConnection* conn, char* host, char* port)
 int vortex_connection_do_wait_read (VortexConnection* conn, int timeout);
 int vortex_connection_do_wait_write (VortexConnection* conn, int timeout);
 
-void vortex_connection_share_closures (VortexConnection* source, VortexConnection* connection); 
+void vortex_connection_share_closures (VortexConnection* source, VortexConnection* connection);
+
+axl_bool vortex_connection_is_connected (VortexConnection* conn);
 
 /** private API **/
 axl_bool               vortex_connection_ref_internal                    (VortexConnection * connection, 

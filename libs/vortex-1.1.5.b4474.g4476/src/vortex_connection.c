@@ -6085,5 +6085,9 @@ int vortex_connection_do_wait_write (VortexConnection* conn, int timeout) {
   return conn->tcp_wait_write (conn, timeout);
 }
 
+axl_bool vortex_connection_is_connected (VortexConnection* conn) {
+  return conn->is_connected;
+}
+
 /* @} */
 

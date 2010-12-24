@@ -104,7 +104,6 @@ void __vortex_io_waiting_port_clear (axlPointer fd_group) {
 
   int iterator = 0;
   while (iterator < port->length) {
-
     vortex_connection_unref (port->connections[iterator], "io_waiting_port_clear");
     iterator++;
   }
@@ -158,12 +157,14 @@ int __vortex_io_waiting_port_wait_on (axlPointer fd_group, int max_fds, VortexIo
   int read_timeout = 1;
   int write_timeout = 1;
   
-  int temp_result;
+  int temp_result = 0;
   
   if (VORTEX_IO_IS (wait_to, READ_OPERATIONS)) {
     /* wait for read operations */
     while (iterator < port->length) {
-      temp_result = vortex_connection_do_wait_read (port->connections[iterator], read_timeout);
+      if (vortex_connection_is_connected(port->connections[iterator])) {
+        temp_result = vortex_connection_do_wait_read (port->connections[iterator], read_timeout);
+      }
       if (temp_result == 1) { changed++; }
       iterator++;
     }
@@ -171,7 +172,9 @@ int __vortex_io_waiting_port_wait_on (axlPointer fd_group, int max_fds, VortexIo
   } else if (VORTEX_IO_IS (wait_to, WRITE_OPERATIONS)) {
     /* wait for write operations */
     while (iterator < port->length) {
-      temp_result = vortex_connection_do_wait_write (port->connections[iterator], write_timeout);
+      if (vortex_connection_is_connected(port->connections[iterator])) {
+        temp_result = vortex_connection_do_wait_write (port->connections[iterator], write_timeout);
+      }
       if (temp_result == 1) { changed++; }
       iterator++;
     }
@@ -201,8 +204,9 @@ void __vortex_io_waiting_port_dispatch (axlPointer fd_group,
     /* item found now check the event */
     if (VORTEX_IO_IS(port->wait_to, READ_OPERATIONS)) {
 			
-      if (vortex_connection_do_wait_read (port->connections[iterator], 0) == 1) {
-				
+      if (vortex_connection_is_connected(port->connections[iterator]) &&
+          vortex_connection_do_wait_read (port->connections[iterator], 0) == 1) {
+
         /* found read event, dispatch */
         dispatch_func (
             /* socket found */

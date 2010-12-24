@@ -69,7 +69,6 @@
 (define-syntax-rule (define-wait/tcp id sync-on)
   (define/contract (id conn timeout)
     (VortexConnection*? integer? . -> . integer?)
-    (printf "in wait/tcp~n")
     (with-handlers ([exn:fail:network? -1])
       (wk ([key conn])
           (if (> timeout -1)

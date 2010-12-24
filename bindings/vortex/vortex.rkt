@@ -60,7 +60,6 @@
         ctx host port on-connected user-data 
         body ...)
      (let ([connection-name (vortex-connection-new ctx host port on-connected user-data)])
-       (printf "made new connection object~n")
        ; sometimes the new connection bound to `connection-name' can be #f (null).
        ; this DOES NOT MEAN that the connection was not created;
        ; it means that you've spawned the connection in threaded
