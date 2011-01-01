@@ -42,8 +42,7 @@
                                      (current-continuation-marks)))
            (cleanup-and-return
             (body ...)
-            ((vortex-exit-ctx ctx-name axl-false) 
-             (vortex-ctx-free ctx-name)))
+            ((vortex-exit-ctx ctx-name axl-true)))
            ))]
     ))
 

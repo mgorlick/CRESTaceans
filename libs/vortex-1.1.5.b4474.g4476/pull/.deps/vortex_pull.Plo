@@ -13,26 +13,25 @@ vortex_pull.lo: vortex_pull.c vortex_pull.h ../src/vortex.h \
  /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h \
  /usr/include/bits/stdio.h /usr/include/bits/stdio2.h \
  /usr/include/stdlib.h /usr/include/bits/stdlib.h \
- /usr/plt/full-5.0.1.2/include/scheme.h \
- /usr/plt/full-5.0.1.2/include/sconfig.h \
- /usr/plt/full-5.0.1.2/include/mzconfig.h /usr/include/setjmp.h \
+ /usr/racket/include/racket/scheme.h /usr/racket/include/racket/sconfig.h \
+ /usr/racket/include/racket/mzconfig.h /usr/include/setjmp.h \
  /usr/include/bits/setjmp.h /usr/include/bits/sigset.h \
- /usr/include/bits/setjmp2.h /usr/plt/full-5.0.1.2/include/stypes.h \
- /usr/plt/full-5.0.1.2/include/schthread.h \
- /usr/plt/full-5.0.1.2/include/schexn.h \
- /usr/plt/full-5.0.1.2/include/schemef.h /usr/local/include/axl/axl.h \
- /usr/local/include/axl/axl_decl.h /usr/local/include/axl/axl_config.h \
- /usr/include/unistd.h /usr/include/bits/posix_opt.h \
- /usr/include/bits/confname.h /usr/include/bits/unistd.h \
- /usr/include/sys/types.h /usr/include/time.h /usr/include/sys/stat.h \
- /usr/include/bits/stat.h /usr/include/fcntl.h /usr/include/bits/fcntl.h \
- /usr/include/bits/fcntl2.h /usr/include/ctype.h \
- /usr/local/include/axl/axl_list.h /usr/local/include/axl/axl_stack.h \
- /usr/local/include/axl/axl_hash.h /usr/local/include/axl/axl_stream.h \
- /usr/local/include/axl/axl_doc.h /usr/local/include/axl/axl_node.h \
- /usr/local/include/axl/axl_dtd.h /usr/local/include/axl/axl_error.h \
- /usr/local/include/axl/axl_log.h /usr/local/include/axl/axl_factory.h \
- /usr/include/netdb.h /usr/include/netinet/in.h /usr/include/stdint.h \
+ /usr/include/bits/setjmp2.h /usr/racket/include/racket/stypes.h \
+ /usr/racket/include/racket/schthread.h \
+ /usr/racket/include/racket/schexn.h /usr/racket/include/racket/schemef.h \
+ /usr/local/include/axl/axl.h /usr/local/include/axl/axl_decl.h \
+ /usr/local/include/axl/axl_config.h /usr/include/unistd.h \
+ /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
+ /usr/include/bits/unistd.h /usr/include/sys/types.h /usr/include/time.h \
+ /usr/include/sys/stat.h /usr/include/bits/stat.h /usr/include/fcntl.h \
+ /usr/include/bits/fcntl.h /usr/include/bits/fcntl2.h \
+ /usr/include/ctype.h /usr/local/include/axl/axl_list.h \
+ /usr/local/include/axl/axl_stack.h /usr/local/include/axl/axl_hash.h \
+ /usr/local/include/axl/axl_stream.h /usr/local/include/axl/axl_doc.h \
+ /usr/local/include/axl/axl_node.h /usr/local/include/axl/axl_dtd.h \
+ /usr/local/include/axl/axl_error.h /usr/local/include/axl/axl_log.h \
+ /usr/local/include/axl/axl_factory.h /usr/include/netdb.h \
+ /usr/include/netinet/in.h /usr/include/stdint.h \
  /usr/include/bits/wchar.h /usr/include/sys/socket.h \
  /usr/include/sys/uio.h /usr/include/bits/uio.h \
  /usr/include/bits/socket.h /usr/include/bits/sockaddr.h \
@@ -114,11 +113,11 @@ vortex_pull.h:
 
 /usr/include/bits/stdlib.h:
 
-/usr/plt/full-5.0.1.2/include/scheme.h:
+/usr/racket/include/racket/scheme.h:
 
-/usr/plt/full-5.0.1.2/include/sconfig.h:
+/usr/racket/include/racket/sconfig.h:
 
-/usr/plt/full-5.0.1.2/include/mzconfig.h:
+/usr/racket/include/racket/mzconfig.h:
 
 /usr/include/setjmp.h:
 
@@ -128,13 +127,13 @@ vortex_pull.h:
 
 /usr/include/bits/setjmp2.h:
 
-/usr/plt/full-5.0.1.2/include/stypes.h:
+/usr/racket/include/racket/stypes.h:
 
-/usr/plt/full-5.0.1.2/include/schthread.h:
+/usr/racket/include/racket/schthread.h:
 
-/usr/plt/full-5.0.1.2/include/schexn.h:
+/usr/racket/include/racket/schexn.h:
 
-/usr/plt/full-5.0.1.2/include/schemef.h:
+/usr/racket/include/racket/schemef.h:
 
 /usr/local/include/axl/axl.h:
 
