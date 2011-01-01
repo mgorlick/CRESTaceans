@@ -126,7 +126,7 @@
 (defvtx* (_fun _VortexChannel-pointer _int _string -> _axl-bool)
   vortex-channel-send-rpyv)
 
-(defvtx* (_fun _VortexChannel-pointer _string _int (_ptr io _int) -> _axl-bool)
+(defvtx* (_fun _VortexChannel-pointer _string _int (_or-null (_ptr io _int)) -> _axl-bool)
   vortex-channel-send-msg)
 
 (defvtx* (_fun _VortexChannel-pointer (_or-null (_ptr io _int)) _string -> _axl-bool)

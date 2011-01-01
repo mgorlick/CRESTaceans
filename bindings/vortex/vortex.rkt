@@ -4,6 +4,7 @@
           "vtx/module.rkt"
           "additions/init.rkt")
 (provide
+ (all-defined-out)
  (all-from-out "vtx/module.rkt"
                "additions/init.rkt"))
 
@@ -108,7 +109,7 @@
                                 on-frame-received fr-rec-ptr
                                 on-created created-ptr
                                 )])
-       (if (eq? #f channel-name)
+       (if (and (not (procedure? #f)) (eq? #f channel-name))
            (raise (make-exn:vtx:channel "unable to create the channel" 
                                         (current-continuation-marks)))
            (cleanup-and-return (body ...) ((vortex-channel-close channel-name #f)))
@@ -145,7 +146,7 @@
                    (raise (make-exn:vtx:wait-and-reply
                            "there was an error while receiving the reply, or a timeout occured"
                            (current-continuation-marks))))
-                 (cleanup-and-return (body ...) ())
+                 (cleanup-and-return (body ...) ((free msgno-name)))
                  ))))]
     ))
 

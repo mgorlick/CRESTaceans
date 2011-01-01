@@ -77,6 +77,9 @@
 (defvtx* (_fun _VortexFrame-pointer -> _pointer)
   vortex-frame-get-payload)
 
+(define (vortex-frame-get-payload-string f)
+  (cast (vortex-frame-get-payload f) _pointer _string))
+
 (defvtx* (_fun _VortexFrame-pointer -> _uint)
   vortex-frame-get-seqno)
 
