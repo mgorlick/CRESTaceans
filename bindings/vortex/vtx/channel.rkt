@@ -31,7 +31,12 @@
 (defvtx* (_fun _VortexChannel-pointer _int -> _axl-bool)
   vortex-channel-finalize-ans-rpy)
 
+(defvtx* (_fun _VortexChannel-pointer _int -> _void)
+  vortex-channel-set-window-size
+  vortex-channel-set-complete-flag)
+
 (defvtx* (_fun _VortexChannel-pointer _axl-bool -> _void)
+    vortex-channel-set-serialize
   vortex-channel-flag-reply-processed)
 
 (defvtx* (_fun _WaitReplyData-pointer -> _void)
@@ -108,8 +113,6 @@
 
 (defvtx* (_fun _VortexChannel-pointer _int _axl-bool -> _void)
   vortex-channel-notify-close
-  vortex-channel-set-complete-flag
-  vortex-channel-set-serialize
   vortex-channel-set-outstanding-limit)
 
 (defvtx* (_fun _VortexChannel-pointer _string _axl-bool -> _axl-bool)

@@ -148,6 +148,8 @@ void               vortex_async_queue_lock      (VortexAsyncQueue * queue);
 
 void               vortex_async_queue_unlock    (VortexAsyncQueue * queue);
 
+void vortex_async_queue_push_intsignal (VortexAsyncQueue* queue, int x);
+
 END_C_DECLS
 
 #endif

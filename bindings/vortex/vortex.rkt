@@ -15,11 +15,6 @@
 ; 2. if the object is invalid, handle the error
 ; 3. if the object is valid, do something with it, then clean it up
 
-; (in principle we should be able to write a macro-generating-macro
-; to generate all of these at once, but for now it's easiest to just 
-; write them by hand for exploratory design purposes, as they may diverge
-; in ways that would make it harder to keep a macro-generating-macro generic enough)
-
 ; cleanup-and-return : lambda any ... -> ?
 ; save the results of the body evaluation, run the cleanup sequence,
 ; and then return the results of the body evaluation
@@ -67,21 +62,25 @@
        ; the callback will need to call `vortex-connection-is-ok' inside it.
        ; here we only deal with the case where the connection is NOT threaded
        ; (i.e., a null value for the `on-connected' callback was provided.)
-       (if (eq? #f connection-name)
+       (if (and (eq? #f on-connected) (eq? #f connection-name))
            ; assume that the connection spawned in async mode
            (cleanup-and-return
             (body ...)
-            ((cond [(not (eq? #f connection-name)) 
+            ((cond [(not (eq? #f connection-name))
                     (vortex-connection-close connection-name)])))
            
+           ; otherwise, check to see whether connection is ok or not
            (if (vtx-false? (vortex-connection-is-ok connection-name axl-false))
-               (begin
+               ; exception case: connection not created
+               (begin 
                  (vortex-connection-close connection-name)
                  (raise (make-exn:vtx:connection
                          (format "unable to connect to remote server; error was ~s" 
                                  (vortex-connection-get-message connection-name))
                          (current-continuation-marks))
                         ))
+               
+                ; normal case: connection created
                (cleanup-and-return
                 (body ...)
                 ((cond [(not (eq? #f connection-name))
@@ -152,4 +151,28 @@
 
 (define-struct (exn:vtx:wait-and-reply exn:fail:network) ())
 
-(provide (all-defined-out))
+;;; Non-hygenic convenience forms
+;; the following introduce new non-hygenic bindings for the above kinds of objects
+;; (contexts, connections, channels ...)
+;; useful in cases where the user doesn't need to explicitly name the objects
+
+(define-syntax context
+  (lambda (x)
+    (syntax-case x ()
+      [(k e1 e2 ...)
+       (with-syntax ([context (datum->syntax #'k 'context)])
+         #'(with-vtx-ctx context e1 e2 ...))])))
+
+(define-syntax connection
+  (lambda (x)
+    (syntax-case x ()
+      [(k [arg1 arg2 ...] e1 e2 ...)
+       (with-syntax ([connection (datum->syntax #'k 'connection)])
+         #'(with-vtx-conn connection arg1 arg2 ... e1 e2 ...))])))
+
+(define-syntax channel
+  (lambda (x)
+    (syntax-case x ()
+      [(k [arg1 arg2 ...] e1 e2 ...)
+       (with-syntax ([channel (datum->syntax #'k 'channel)])
+         #'(with-vtx-channel channel arg1 arg2 ... e1 e2 ...))])))

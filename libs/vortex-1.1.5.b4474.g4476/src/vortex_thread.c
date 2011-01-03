@@ -1003,6 +1003,11 @@ void               vortex_async_queue_unlock    (VortexAsyncQueue * queue)
 	return;
 }
 
+void vortex_async_queue_push_intsignal (VortexAsyncQueue* queue, int x)
+{
+  vortex_async_queue_push (queue, INT_TO_PTR(x));
+}
+
 /** 
  * @} 
  */

@@ -35,6 +35,9 @@
 (defvtx* (_fun _VortexAsyncQueue-pointer _long -> _axlPointer)
   vortex-async-queue-timedpop)
 
+(defvtx* (_fun _VortexAsyncQueue-pointer _int -> _void)
+  vortex-async-queue-push-intsignal)
+
 (defvtx* (_fun _VortexCond-pointer -> _void)
   vortex-cond-broadcast
   vortex-cond-destroy
