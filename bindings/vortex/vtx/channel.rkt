@@ -129,13 +129,23 @@
 (defvtx* (_fun _VortexChannel-pointer _int _string -> _axl-bool)
   vortex-channel-send-rpyv)
 
-(defvtx* (_fun _VortexChannel-pointer _string _int (_or-null (_ptr io _int)) -> _axl-bool)
+(defvtx* (_fun (c m p) :: 
+               (c : _VortexChannel-pointer)
+               (m : _string)
+               (_int = (string-length m))
+               (p : (_or-null _pointer)) -> _axl-bool)
   vortex-channel-send-msg)
+
+(define (vortex-channel-send-msg* s)
+  (vortex-channel-send-msg s (string-length s) #f))
+
+(define (vortex-channel-send-msg** s p)
+  (vortex-channel-send-msg s (string-length s) p))
 
 (defvtx* (_fun _VortexChannel-pointer (_or-null (_ptr io _int)) _string -> _axl-bool)
   vortex-channel-send-msgv)
 
-(defvtx* (_fun _VortexChannel-pointer _string _int (_ptr io _int) _WaitReplyData-pointer -> _axl-bool)
+(defvtx* (_fun _VortexChannel-pointer _string _int (_or-null _pointer) _WaitReplyData-pointer -> _axl-bool)
   vortex-channel-send-msg-and-wait)
 
 (defvtx* (_fun _VortexChannel-pointer _VortexOnCloseChannel _axlPointer -> _void)

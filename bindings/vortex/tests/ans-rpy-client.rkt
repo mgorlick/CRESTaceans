@@ -16,9 +16,9 @@
    (vortex-channel-set-received-handler channel client-frame-received #f)
    
    (let ([msg "Hello world"])
-     (vortex-channel-send-msg channel msg (string-length msg) #f)
+     (vortex-channel-send-msg channel msg #f)
      (printf "sent msg...~n")
-     (vortex-channel-send-msg channel msg (string-length msg) #f)
+     (vortex-channel-send-msg channel msg #f)
      (printf "sent msg...~n"))
    (let loop () (loop))   
    (printf "Exiting client...~n")

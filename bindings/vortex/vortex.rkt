@@ -126,11 +126,9 @@
         channel msg
         body ...)
      (let* ([wait-reply-name (vortex-channel-create-wait-reply)]  ; create a wait reply
-            [msgno-name (cast (malloc _int) _pointer (_ptr io _int))]
+            [msgno-name (malloc _int 'raw)]
             [send-msg-and-wait-result ; now actually send it
-             (vortex-channel-send-msg-and-wait channel msg
-                                               (string-length msg)
-                                               msgno-name wait-reply-name)])
+             (vortex-channel-send-msg-and-wait channel msg (string-length msg) msgno-name wait-reply-name)])
        (if (vtx-false? send-msg-and-wait-result)
            (begin
              (vortex-channel-free-wait-reply wait-reply-name)
@@ -138,7 +136,7 @@
                                                  (current-continuation-marks))))
            ; now block until the reply arrives. the wait_reply object 
            ; must not be freed after this function, because it has already been freed
-           (let ([frame-name (vortex-channel-wait-reply channel msgno-name wait-reply-name)])
+           (let ([frame-name (vortex-channel-wait-reply channel (ptr-ref msgno-name _int) wait-reply-name)])
              (if (null? frame-name)
                  (begin 
                    (vortex-frame-free frame-name)

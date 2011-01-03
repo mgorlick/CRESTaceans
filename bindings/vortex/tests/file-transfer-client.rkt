@@ -10,10 +10,16 @@
 (define FILE-TRANSFER-URI-BIGMSG "http://www.aspl.es/vortex/profiles/file-transfer/bigmessage")
 (define FILE-TRANSFER-URI-FEEDER "http://www.aspl.es/vortex/profiles/file-transfer/feeder")
 
-(define FILE-TO-TRANSFER "copy.ogg")
+(define FILE-TO-SAVE "copy.ogg")
 
-(let ([outport (open-output-file FILE-TO-TRANSFER #:exists 'replace)]
+(define (re/open file #:existing-port [existing-port #f])
+  (cond [(port? existing-port)
+         (close-output-port existing-port)])
+  (open-output-file file #:exists 'replace))
+
+(let ([outport (re/open FILE-TO-SAVE)]
       [times 1]
+      [count 1]
       [size 4096])
   (define (frame-received channel connection frame user-data)
     (cond [(eq? 'nul (vortex-frame-get-type frame))
@@ -49,19 +55,21 @@
       (channel
        [connection 0 uri #f #f f q #f #f]
        
+       ; feeder profile requires deactivation of message reassembly. why? who knows
        (cond [(eq? uri FILE-TRANSFER-URI-FEEDER)
               (vortex-channel-set-complete-flag channel axl-false)])
        (printf "Made channel~n")
        
+       ; allow user to adjust # of times to download, and window size
        (cond [((vector-length (current-command-line-arguments)) . > . 1)
               (set! times  (string->number (vector-ref (current-command-line-arguments) 1)))])
        (cond [((vector-length (current-command-line-arguments)) . > . 2)
               (set! size (string->number (vector-ref (current-command-line-arguments) 2)))
               (vortex-channel-set-window-size channel size)])
-       
-       (printf "Requested to download ~s ~s times~n" FILE-TO-TRANSFER times)
+       (printf "Requested to download ~s ~s times~n" FILE-TO-SAVE times)
        (printf "Window size = ~s bytes~n" size)
-       
        (vortex-channel-set-serialize channel axl-true)
+       
+       (vortex-channel-send-msg channel "send the message, please" #f)
        
        )))))
