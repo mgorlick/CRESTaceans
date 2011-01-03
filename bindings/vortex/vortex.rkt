@@ -8,6 +8,9 @@
  (all-from-out "vtx/module.rkt"
                "additions/init.rkt"))
 
+(define (ptr-null? ptr)
+  (eq? #f ptr))
+
 ; GENERAL DOCUMENTATION ON THE MACROS USED HERE
 ; these macros are used for initializing various objects in the
 ; vortex library, according to the following pattern:
@@ -62,12 +65,9 @@
        ; the callback will need to call `vortex-connection-is-ok' inside it.
        ; here we only deal with the case where the connection is NOT threaded
        ; (i.e., a null value for the `on-connected' callback was provided.)
-       (if (and (eq? #f on-connected) (eq? #f connection-name))
+       (if (and (not (procedure? on-connected)) (ptr-null? connection-name))
            ; assume that the connection spawned in async mode
-           (cleanup-and-return
-            (body ...)
-            ((cond [(not (eq? #f connection-name))
-                    (vortex-connection-close connection-name)])))
+           (begin body ...)
            
            ; otherwise, check to see whether connection is ok or not
            (if (vtx-false? (vortex-connection-is-ok connection-name axl-false))
@@ -80,10 +80,10 @@
                          (current-continuation-marks))
                         ))
                
-                ; normal case: connection created
+               ; normal case: connection created
                (cleanup-and-return
                 (body ...)
-                ((cond [(not (eq? #f connection-name))
+                ((cond [(not (ptr-null? connection-name))
                         (vortex-connection-close connection-name)]))
                 ))))]
     ))
@@ -94,6 +94,8 @@
 ;                  lambda pointer lambda pointer lambda pointer body ... -> ?
 ; pass the arguments to vortex-channel-new, bind the channel to the specified id,
 ; then do whatever is specified with the channel in scope, then close the channel
+
+; channel-new can return a null reference when in threaded mode (i.e., on-created is used)
 (define-syntax with-vtx-channel
   (syntax-rules ()
     [(_ channel-name 
@@ -108,11 +110,18 @@
                                 on-frame-received fr-rec-ptr
                                 on-created created-ptr
                                 )])
-       (if (and (not (procedure? #f)) (eq? #f channel-name))
-           (raise (make-exn:vtx:channel "unable to create the channel" 
-                                        (current-continuation-marks)))
-           (cleanup-and-return (body ...) ((vortex-channel-close channel-name #f)))
-           ))]))
+       (if (and (not (procedure? on-created)) (ptr-null? channel-name))
+           ; assume the channel spawned in async mode
+           (begin body ...)
+           
+           ; otherwise, test to see whether channel was created or not
+           (if (ptr-null? channel-name)
+               (raise (make-exn:vtx:channel "unable to create the channel" 
+                                            (current-continuation-marks)))
+               (cleanup-and-return 
+                (body ...) 
+                ((vortex-channel-close channel-name #f)))
+               )))]))
 
 (define-struct (exn:vtx:channel exn:fail:network) ())
 
@@ -128,7 +137,7 @@
      (let* ([wait-reply-name (vortex-channel-create-wait-reply)]  ; create a wait reply
             [msgno-name (malloc _int 'raw)]
             [send-msg-and-wait-result ; now actually send it
-             (vortex-channel-send-msg-and-wait channel msg (string-length msg) msgno-name wait-reply-name)])
+             (vortex-channel-send-msg-and-wait channel msg msgno-name wait-reply-name)])
        (if (vtx-false? send-msg-and-wait-result)
            (begin
              (vortex-channel-free-wait-reply wait-reply-name)
@@ -137,7 +146,7 @@
            ; now block until the reply arrives. the wait_reply object 
            ; must not be freed after this function, because it has already been freed
            (let ([frame-name (vortex-channel-wait-reply channel (ptr-ref msgno-name _int) wait-reply-name)])
-             (if (null? frame-name)
+             (if (eq? #f frame-name)
                  (begin 
                    (vortex-frame-free frame-name)
                    (raise (make-exn:vtx:wait-and-reply
