@@ -137,7 +137,7 @@
      (let* ([wait-reply-name (vortex-channel-create-wait-reply)]  ; create a wait reply
             [msgno-name (malloc _int 'raw)]
             [send-msg-and-wait-result ; now actually send it
-             (vortex-channel-send-msg-and-wait channel msg msgno-name wait-reply-name)])
+             (vortex-channel-send-msg-and-wait* channel msg msgno-name wait-reply-name)])
        (if (vtx-false? send-msg-and-wait-result)
            (begin
              (vortex-channel-free-wait-reply wait-reply-name)

@@ -1,8 +1,7 @@
 #! /usr/bin/env racket
 #lang racket
 
-(require ffi/unsafe
-         "../vortex.rkt")
+(require "../vortex.rkt")
 
 (define (on-connect conn data) (printf "Inside VortexConnectionNew~n"))
 
@@ -22,7 +21,7 @@
      (do-blocking-send-and-receive wait-reply msg-no frame channel "my message"
       (printf "the reply has arrived (size: ~s):~n     ~s~n"
               (vortex-frame-get-payload-size frame)
-              (cast (vortex-frame-get-payload frame) _pointer _string)))
+              (vortex-frame-get-payload-string frame)))
      ))))
 
 (simple-client)

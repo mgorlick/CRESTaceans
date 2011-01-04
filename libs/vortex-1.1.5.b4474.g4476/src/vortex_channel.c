@@ -1016,7 +1016,6 @@ axlPointer __vortex_channel_new (VortexChannelData * data)
 
 		/* free no longer needed data */
 		vortex_channel_data_free (data);
-                printf ("returning in threaded mode\n");
 		return NULL;
 	} /* end if */
 
@@ -3005,7 +3004,7 @@ axl_bool        vortex_channel_send_rpy        (VortexChannel    * channel,
 						size_t             message_size,
 						int                msg_no_rpy)
 {
-	return __vortex_channel_common_rpy (channel, VORTEX_FRAME_TYPE_RPY,
+       return __vortex_channel_common_rpy (channel, VORTEX_FRAME_TYPE_RPY,
 					    message, message_size, msg_no_rpy, NULL);
 }
 
@@ -3117,7 +3116,7 @@ axl_bool           vortex_channel_send_ans_rpy                    (VortexChannel
 								   size_t             message_size,
 								   int                msg_no_rpy)
 {
-	return __vortex_channel_common_rpy (channel, VORTEX_FRAME_TYPE_ANS,
+  return __vortex_channel_common_rpy (channel, VORTEX_FRAME_TYPE_ANS,
 					    message, message_size,
 					    msg_no_rpy, NULL);
 }

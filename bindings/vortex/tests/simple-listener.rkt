@@ -1,8 +1,7 @@
 #! /usr/bin/env racket
 #lang racket
 
-(require ffi/unsafe
-         "../vortex.rkt")
+(require "../vortex.rkt")
 
 (define (start-channel num connection user-data)
   (printf "Starting channel ~s~n" num)
@@ -20,10 +19,10 @@
 
 (define (frame-received channel connection frame user-data)
   (printf "A frame received on channel ~s~n" (vortex-channel-get-number channel))
-  (printf "Data received: ~s~n" (vortex-frame-get-payload frame))
-  (vortex-channel-send-rpyv channel
-                            (vortex-frame-get-msgno frame)
-                            (format "Received OK: ~s~n" (cast (vortex-frame-get-payload frame) _pointer _string)))
+  (printf "Data received: ~s~n" (vortex-frame-get-payload-string frame))
+  (vortex-channel-send-rpy* channel
+                            (format "Received OK: ~s~n" (vortex-frame-get-payload-string frame))
+                            (vortex-frame-get-msgno frame))
   (void))
 
 (define (simple-listener)

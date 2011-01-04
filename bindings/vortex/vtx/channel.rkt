@@ -121,7 +121,11 @@
 (defvtx* (_fun _VortexChannel-pointer _VortexConnection-pointer _VortexFrame-pointer _axlPointer -> _void)
   vortex-channel-queue-reply)
 
-(defvtx* (_fun _VortexChannel-pointer _string _int _int -> _axl-bool)
+(defvtx* (_fun (c m i) ::
+               (c : _VortexChannel-pointer)
+               (m : _bytes)
+               (_int = (bytes-length m))
+               (i : _int) -> _axl-bool)
   vortex-channel-send-ans-rpy
   vortex-channel-send-err
   vortex-channel-send-rpy)
@@ -131,24 +135,33 @@
 
 (defvtx* (_fun (c m p) :: 
                (c : _VortexChannel-pointer)
-               (m : _string)
-               (_int = (string-length m))
+               (m : _bytes)
+               (_int = (bytes-length m))
                (p : (_or-null _pointer)) -> _axl-bool)
   vortex-channel-send-msg)
 
-(define (vortex-channel-send-msg* s)
-  (vortex-channel-send-msg s (string-length s) #f))
+(define (vortex-channel-send-rpy* c m i)
+  (vortex-channel-send-rpy c (string->bytes/latin-1 m) i))
 
-(define (vortex-channel-send-msg** s p)
-  (vortex-channel-send-msg s (string-length s) p))
+(define (vortex-channel-send-ans-rpy* c m i)
+  (vortex-channel-send-ans-rpy c (string->bytes/latin-1 m) i))
+
+(define (vortex-channel-send-err* c m i)
+  (vortex-channel-send-err c (string->bytes/latin-1 m) i))
+
+(define (vortex-channel-send-msg-and-wait* c m p w)
+  (vortex-channel-send-msg-and-wait c (string->bytes/latin-1 m) p w))
+
+(define (vortex-channel-send-msg* c m p)
+  (vortex-channel-send-msg c (string->bytes/latin-1 m) p))
 
 (defvtx* (_fun _VortexChannel-pointer (_or-null (_ptr io _int)) _string -> _axl-bool)
   vortex-channel-send-msgv)
 
 (defvtx* (_fun (c m p w) :: 
                (c : _VortexChannel-pointer)
-               (m : _string)
-               (_int = (string-length m))
+               (m : _bytes)
+               (_int = (bytes-length m))
                (p : (_or-null _pointer))
                (w : _WaitReplyData-pointer) -> _axl-bool)
   vortex-channel-send-msg-and-wait)
@@ -185,3 +198,6 @@
 
 (defvtx* (_fun _VortexCtx-pointer -> _void)
   vortex-channel-init)
+
+(defvtx* (_fun _VortexChannel-pointer _VortexPayloadFeeder-pointer _int -> _axl-bool)
+  vortex-channel-send-rpy-from-feeder)

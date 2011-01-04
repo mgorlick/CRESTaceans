@@ -14,7 +14,7 @@
   (printf "Data received: ~s~n" (vortex-frame-get-payload-string frame))
   (for/list ([i (in-range 10)])
     (let ([msg (format "Received OK (~a): ~a" i (vortex-frame-get-payload-string frame))])
-      (if (vtx-false? (vortex-channel-send-ans-rpy channel msg (string-length msg) (vortex-frame-get-msgno frame)))
+      (if (vtx-false? (vortex-channel-send-ans-rpy* channel msg (vortex-frame-get-msgno frame)))
           (printf "Failed sending ANS/RPY #~s~n" i)
           (printf "Sent ANS/RPY #~s~n" i))))
   (if (vtx-false? (vortex-channel-finalize-ans-rpy channel (vortex-frame-get-msgno frame)))

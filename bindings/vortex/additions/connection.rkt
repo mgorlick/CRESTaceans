@@ -29,12 +29,12 @@
     (VortexConnection*? cpointer? integer?  . -> . integer?)
     (handle-neterr
       (wk ([key conn])
-          (let ([s (read-string buffer-len (hash-ref inports key))])
+          (let ([s (read-bytes buffer-len (hash-ref inports key))])
             (if (eof-object? s) ; returns `#<eof>' or some number
                 0 
                 (begin
-                  (ptr-set! buffer _string s)
-                  (string-length s))))))))
+                  (ptr-set! buffer _bytes s)
+                  (bytes-length s))))))))
 
 ;; write the designated amount onto the designated connection's output port
 ;; return the amount written, or -1 on network error
@@ -43,7 +43,8 @@
     (VortexConnection*? cpointer? integer? . -> . integer?)
     (handle-neterr
       (wk ([key conn])
-          (let ([amt (write-string (ptr-ref buffer _string) (hash-ref outports key) 0 buffer-len)])
+          (let* ([payload (ptr-ref buffer (_bytes o buffer-len))]
+                 [amt (write-bytes payload (hash-ref outports key) 0 buffer-len)])
             (flush-output (hash-ref outports key))
             amt)))))
 

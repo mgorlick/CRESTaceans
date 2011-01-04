@@ -627,7 +627,7 @@ int  vortex_connection_default_receive (VortexConnection * connection,
   /* receive content */
   char* s;
   int i = connection->tcp_read (connection, &s, buffer_len);
-  if (i > 0) strncpy (buffer, s, i); /* -1 -> network error, 0 -> nothing copied  */
+  if (i > 0) memcpy (buffer, s, i); /* -1 -> network error, 0 -> nothing copied  */
   return i;
 }
 

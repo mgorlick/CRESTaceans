@@ -80,6 +80,9 @@
 (define (vortex-frame-get-payload-string f)
   (cast (vortex-frame-get-payload f) _pointer _string))
 
+(define (vortex-frame-get-payload-bytes f)
+  (cast (vortex-frame-get-payload f) _pointer (_bytes o (vortex-frame-get-payload-size f))))
+
 (defvtx* (_fun _VortexFrame-pointer -> _uint)
   vortex-frame-get-seqno)
 
