@@ -35,6 +35,7 @@
     (cond [(not (eq? FILE-SIZE (bytes-length buffer))) 
            (printf "Failed to load the whole file: should have loaded ~s bytes, actually loaded ~s bytes~n"
                    FILE-SIZE (bytes-length buffer))])
+    (printf "Sending bigmsg with ~s bytes~n" FILE-SIZE)
     (vortex-channel-send-rpy channel buffer (vortex-frame-get-msgno frame))))
 
 (define (frame-received-with-feeder channel connection frame user-data)

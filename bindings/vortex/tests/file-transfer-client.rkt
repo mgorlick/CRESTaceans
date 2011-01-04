@@ -52,7 +52,7 @@
     (write* frame)
     (cond [(vtx-false? (vortex-frame-get-more-flag frame))
            (printf "Last message received~n")
-           (vortex-async-queue-push-intsignal user-data 1)])
+           (vortex-async-queue-push-intsignal (cast user-data _pointer _VortexAsyncQueue-pointer) 1)])
     )
   
   (context
