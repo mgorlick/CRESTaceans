@@ -6832,6 +6832,7 @@ void __vortex_channel_0_frame_received_close_msg (VortexChannel * channel0,
 
 	/* ask first level handler */
 	if (vortex_profiles_is_defined_close (ctx, channel->profile)) {
+          printf ("closing with profile %p, channel_num %d, connection %p", channel->profile, channel->channel_num, channel->connection);
 		close_value = vortex_profiles_invoke_close (channel->profile, 
 							    channel->channel_num, 
 							    channel->connection);

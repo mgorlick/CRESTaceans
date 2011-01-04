@@ -130,9 +130,6 @@
   vortex-channel-send-err
   vortex-channel-send-rpy)
 
-(defvtx* (_fun _VortexChannel-pointer _int _string -> _axl-bool)
-  vortex-channel-send-rpyv)
-
 (defvtx* (_fun (c m p) :: 
                (c : _VortexChannel-pointer)
                (m : _bytes)
@@ -140,6 +137,22 @@
                (p : (_or-null _pointer)) -> _axl-bool)
   vortex-channel-send-msg)
 
+(defvtx* (_fun (c m p w) :: 
+               (c : _VortexChannel-pointer)
+               (m : _bytes)
+               (_int = (bytes-length m))
+               (p : (_or-null _pointer))
+               (w : _WaitReplyData-pointer) -> _axl-bool)
+  vortex-channel-send-msg-and-wait)
+
+; send-**: versions of the send-* functions above that take Racket strings
+; and convert them to ASCII-encoded bytes before passing off to
+; send-*. Needed for most conventional string sending.
+
+; (the versions above are for sending non-nul-terminated bytestrings (const void *),
+; including binary data encoded in bytestreams)
+
+; never supply a length. all these functions compute the length themselves.
 (define (vortex-channel-send-rpy* c m i)
   (vortex-channel-send-rpy c (string->bytes/latin-1 m) i))
 
@@ -158,13 +171,8 @@
 (defvtx* (_fun _VortexChannel-pointer (_or-null (_ptr io _int)) _string -> _axl-bool)
   vortex-channel-send-msgv)
 
-(defvtx* (_fun (c m p w) :: 
-               (c : _VortexChannel-pointer)
-               (m : _bytes)
-               (_int = (bytes-length m))
-               (p : (_or-null _pointer))
-               (w : _WaitReplyData-pointer) -> _axl-bool)
-  vortex-channel-send-msg-and-wait)
+(defvtx* (_fun _VortexChannel-pointer _int _string -> _axl-bool)
+  vortex-channel-send-rpyv)
 
 (defvtx* (_fun _VortexChannel-pointer _VortexOnCloseChannel _axlPointer -> _void)
   vortex-channel-set-close-handler)

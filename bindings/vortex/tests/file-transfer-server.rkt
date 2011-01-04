@@ -25,8 +25,9 @@
                 (printf "Server sending ~s bytes in a new frame~n" bytes-read)
                 (vortex-channel-send-ans-rpy channel buffer (vortex-frame-get-msgno frame))
                 (loop total*)))))
-      (vortex-channel-finalize-ans-rpy channel (vortex-frame-get-msgno frame))
-      (close-input-port in))))
+      (close-input-port in)))
+  (vortex-channel-finalize-ans-rpy channel (vortex-frame-get-msgno frame))
+  )
 
 (define (frame-received-with-msg channel connection frame user-data)
   (let* ([in (open-input-file FILE-TO-TRANSFER)]

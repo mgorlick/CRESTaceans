@@ -13,20 +13,20 @@
 
 (define FILE-TO-SAVE (string-append (path->string (current-directory)) "copy.ogg"))
 
-(define (re/open file #:port [port #f])
-  (cond [(port? port) (close port)])
-  (open-output-file file #:exists 'replace))
-
-(define (open? port)
-  (not (port-closed? port)))
-
-(define (close port)
-  (cond [(open? port) (close-output-port port)]))
-
-(let ([out (re/open FILE-TO-SAVE)]
+(let ([out (open-output-file FILE-TO-SAVE #:exists 'replace)]
       [times 1]
-      [count 1]
       [size 4096])
+  
+  (define (re/open!)
+    (cond [(port? out) (close out)])
+    (set! out (open-output-file FILE-TO-SAVE #:exists 'replace)))
+  
+  (define (open? port)
+    (not (port-closed? port)))
+  
+  (define (close port)
+    (cond [(open? port) (close-output-port port)]))
+  
   (define (write s)
     (write-bytes s out))
   
@@ -93,14 +93,18 @@
        (vortex-channel-set-window-size channel size)
        (printf "Window size after change: ~s bytes~n" (vortex-channel-get-window-size channel))
        (vortex-channel-set-serialize channel axl-true)
-       (let loop ([c count])
+       (let loop ([c times])
+         (printf "requesting file~n")
          (vortex-channel-send-msg* channel "send the message, please" #f)
-         (printf "waiting on queue pop~n")
          (vortex-async-queue-pop q)
-         (printf "Transfer #~s done, pending: ~s more times~n" (- count c) c)
+         (printf "Transfer #~s done, pending: ~s more times~n" (- times c) (sub1 c))
          (cond
-           [(> c 0) (loop (sub1 c))]))
+           [(> c 1)
+            (re/open!)
+            (loop 
+             (sub1 c))]))
        
        (vortex-async-queue-unref q)
        (close out)
+       (printf "Exiting client~n")
        )))))
