@@ -116,6 +116,8 @@ VortexMutex* vortex_ctx_get_listener_unlock (VortexCtx* ctx);
 VortexMutex* vortex_ctx_get_profiles_list_mutex (VortexCtx* ctx);
 void vortex_ctx_mark_initialized (VortexCtx* ctx);
 
+void vortex_ctx_set_ssl (VortexCtx* ctx, axl_bool use, char* cert_path);
+
 END_C_DECLS
 
 #endif /* __VORTEX_CTX_H__ */

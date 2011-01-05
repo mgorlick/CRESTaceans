@@ -7,7 +7,6 @@
 (define libvortex-alive (ffi-lib "libvortex-alive-1.1"))
 (define libvortex-pull (ffi-lib "libvortex-pull-1.1"))
 (define libvortex-sasl (ffi-lib "libvortex-sasl-1.1"))
-(define libvortex-tls (ffi-lib "libvortex-tls-1.1"))
 (define libvortex-tunnel (ffi-lib "libvortex-tunnel-1.1"))
 
 ; Produce two macros:
@@ -25,5 +24,4 @@
 (define-vtx-definer libvortex-alive deftvxa defvtxa*)
 (define-vtx-definer libvortex-pull defvtxp defvtxp*)
 (define-vtx-definer libvortex-sasl defvtxs defvtxs*)
-(define-vtx-definer libvortex-tls defvtxtl defvtxtl*)
 (define-vtx-definer libvortex-tunnel defvtxtu defvtxtu*)

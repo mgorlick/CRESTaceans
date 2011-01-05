@@ -27,20 +27,19 @@
 
 (define (simple-listener)
   (define application-group (make-thread-group))
-  (with-vtx-ctx 
-   ctx
+  (context
+   [#f #t "/usr/racket/lib/racket/collects/openssl/test.pem"]
+   ;[#f #f #f]
    (parameterize ([current-thread-group application-group])
      (printf "Server on~n")
-     (vortex-profiles-register ctx Plain-Profile-URI
-                               start-channel #f
-                               close-channel #f
-                               frame-received #f)
-     (vortex-listener-new ctx "0.0.0.0" "44000" #f #f)
-     (vortex-listener-set-on-connection-accepted ctx on-accepted #f)
+     (vortex-profiles-register context Plain-Profile-URI start-channel #f
+                               close-channel #f frame-received #f)
+     (vortex-listener-new context "0.0.0.0" "44016" #f #f)
+     (vortex-listener-set-on-connection-accepted context on-accepted #f)
      (printf "waiting...~n")
-     (vortex-listener-wait ctx)
+     (vortex-listener-wait context)
      (printf "exiting...~n")
-     (vortex-exit-ctx ctx axl-true)
+     (vortex-exit-ctx context axl-true)
      )))
 
 (simple-listener)

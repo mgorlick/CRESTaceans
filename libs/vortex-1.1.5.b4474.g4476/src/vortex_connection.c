@@ -1381,8 +1381,8 @@ axl_bool vortex_connection_do_greetings_exchange (VortexCtx             * ctx,
                     err, timeout);
 				
         /* close the connection */
-        connection->tcp_close (connection);
-        connection->session      = -1;
+          connection->tcp_close (connection, "greetings_exchange, #1");
+          connection->session      = -1;
 
         /* free previous message */
         if (connection->message)
@@ -1414,9 +1414,11 @@ axl_bool vortex_connection_do_greetings_exchange (VortexCtx             * ctx,
       /* timeout reached while waiting for the connection to terminate */
       /* shutdown (connection->session, SHUT_RDWR);
        * vortex_close_socket (connection->session);*/
-      connection->tcp_close (connection);
-      connection->session      = -1;
-
+      if (connection->is_connected) {
+        connection->tcp_close (connection, "greetings_exchange, #2");
+        connection->session      = -1;
+      }
+      
       /* free previous message */
       if (connection->message == NULL) {
         connection->message      = 
@@ -2916,7 +2918,7 @@ void               vortex_connection_free (VortexConnection * connection)
     /* it seems that this connection is 
      * shutdown (connection->session, SHUT_RDWR);
      * vortex_close_socket (connection->session); */
-    connection->tcp_close (connection);
+    connection->tcp_close (connection,"free");
     connection->session = -1;
     vortex_log (VORTEX_LEVEL_DEBUG, "session socket closed");
   }
@@ -4693,9 +4695,10 @@ void           __vortex_connection_set_not_connected (VortexConnection * connect
                   axl_check_undef (connection->port));
       /*shutdown (connection->session, SHUT_RDWR); 
        * vortex_close_socket (connection->session);  */
-      connection->tcp_close (connection);
-      connection->session      = -1;
-      vortex_log (VORTEX_LEVEL_DEBUG, "closing session id=%d and set to be not connected",
+      connection->tcp_close (connection, "set_not_connected");
+        connection->session      = -1;
+
+        vortex_log (VORTEX_LEVEL_DEBUG, "closing session id=%d and set to be not connected",
                   connection->id);
 
       /* notify sequencer to drop all packages */
@@ -6021,7 +6024,7 @@ void vortex_connection_set_client_mode_closures (VortexConnection* connection, C
   connection->tcp_wait_write = ww;
 }
 
-void vortex_connection_set_closures_default (VortexConnection* conn) {
+void vortex_connection_set_closures_default (VortexConnection* conn, axl_bool use_ssl, char* cert_path) {
   return;
 }
 
@@ -6032,7 +6035,10 @@ void vortex_connection_set_client_closures_setter (ClosureSetter c) {
 }
 
 void vortex_connection_set_client_closures (VortexConnection* conn) {
-  vortex_connection_set_client_closures_impl (conn);
+  VortexCtx* ctx = vortex_connection_get_ctx (conn);
+  axl_bool use_ssl = ctx->use_ssl;
+  char* cert_path = ctx->ssl_cert_path;
+  vortex_connection_set_client_closures_impl (conn, use_ssl, cert_path);
 }
 
 ClosureSetter vortex_connection_set_listener_closures_impl = vortex_connection_set_closures_default;
@@ -6042,7 +6048,10 @@ void vortex_connection_set_listener_closures_setter (ClosureSetter c) {
 }
 
 void vortex_connection_set_listener_closures (VortexConnection* conn) {
-  vortex_connection_set_listener_closures_impl (conn);
+  VortexCtx* ctx = vortex_connection_get_ctx (conn);
+  axl_bool use_ssl = ctx->use_ssl;
+  char* cert_path = ctx->ssl_cert_path;
+  vortex_connection_set_listener_closures_impl (conn, use_ssl, cert_path);
 }
 
 void vortex_connection_share_closures (VortexConnection* source, VortexConnection* connection) {

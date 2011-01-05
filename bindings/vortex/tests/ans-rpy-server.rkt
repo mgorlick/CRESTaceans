@@ -22,11 +22,8 @@
       (printf "Sent final ANS/NUL (message id=~s)~n" (vortex-frame-get-msgno frame)))
   (void))
 
-(with-vtx-ctx 
- ctx
- (vortex-profiles-register ctx Plain-Profile-URI
-                           start-channel #f
-                           close-channel #f
-                           frame-received #f)
- (vortex-listener-new ctx "0.0.0.0" "44000" #f #f)
- (vortex-listener-wait ctx))
+(context
+ [#f #f #f]
+ (vortex-profiles-register context Plain-Profile-URI start-channel #f close-channel #f frame-received #f)
+ (vortex-listener-new context "0.0.0.0" "44000" #f #f)
+ (vortex-listener-wait context))

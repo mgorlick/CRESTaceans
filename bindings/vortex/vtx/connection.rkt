@@ -30,10 +30,6 @@
   vortex-connection-set-client-closures-setter
   vortex-connection-set-listener-closures-setter)
 
-(defvtx* (_fun _VortexConnection-pointer -> _void)
-  vortex-connection-set-client-closures
-  vortex-connection-set-listener-closures)
-
 (defvtx* (_fun _VortexCtx-pointer -> _void)
   vortex-connection-init)
 

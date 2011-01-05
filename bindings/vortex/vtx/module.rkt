@@ -22,7 +22,6 @@
  "addons/alive.rkt"
  "addons/pull.rkt"
  "addons/sasl.rkt"
- "addons/tls.rkt"
  "addons/tunnel.rkt")
 (provide (all-from-out  "channel-pool.rkt"
  "channel.rkt"
@@ -46,5 +45,4 @@
  "addons/alive.rkt"
  "addons/pull.rkt"
  "addons/sasl.rkt"
- "addons/tls.rkt"
  "addons/tunnel.rkt"))

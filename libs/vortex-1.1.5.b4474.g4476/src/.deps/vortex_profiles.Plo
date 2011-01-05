@@ -13,7 +13,8 @@ vortex_profiles.lo: vortex_profiles.c vortex.h /usr/include/string.h \
  /usr/include/bits/stdio.h /usr/include/bits/stdio2.h \
  /usr/include/stdlib.h /usr/include/bits/stdlib.h \
  /usr/racket/include/racket/scheme.h /usr/racket/include/racket/sconfig.h \
- /usr/racket/include/racket/mzconfig.h /usr/include/setjmp.h \
+ /usr/racket/include/racket/mzconfig.h /usr/include/inttypes.h \
+ /usr/include/stdint.h /usr/include/bits/wchar.h /usr/include/setjmp.h \
  /usr/include/bits/setjmp.h /usr/include/bits/sigset.h \
  /usr/include/bits/setjmp2.h /usr/racket/include/racket/stypes.h \
  /usr/racket/include/racket/schgc2obj.h \
@@ -32,8 +33,7 @@ vortex_profiles.lo: vortex_profiles.c vortex.h /usr/include/string.h \
  /usr/local/include/axl/axl_doc.h /usr/local/include/axl/axl_node.h \
  /usr/local/include/axl/axl_dtd.h /usr/local/include/axl/axl_error.h \
  /usr/local/include/axl/axl_log.h /usr/local/include/axl/axl_factory.h \
- /usr/include/netdb.h /usr/include/netinet/in.h /usr/include/stdint.h \
- /usr/include/bits/wchar.h /usr/include/sys/socket.h \
+ /usr/include/netdb.h /usr/include/netinet/in.h /usr/include/sys/socket.h \
  /usr/include/sys/uio.h /usr/include/bits/uio.h \
  /usr/include/bits/socket.h /usr/include/bits/sockaddr.h \
  /usr/include/asm/socket.h /usr/include/asm-generic/socket.h \
@@ -117,6 +117,12 @@ vortex.h:
 
 /usr/racket/include/racket/mzconfig.h:
 
+/usr/include/inttypes.h:
+
+/usr/include/stdint.h:
+
+/usr/include/bits/wchar.h:
+
 /usr/include/setjmp.h:
 
 /usr/include/bits/setjmp.h:
@@ -190,10 +196,6 @@ vortex.h:
 /usr/include/netdb.h:
 
 /usr/include/netinet/in.h:
-
-/usr/include/stdint.h:
-
-/usr/include/bits/wchar.h:
 
 /usr/include/sys/socket.h:
 

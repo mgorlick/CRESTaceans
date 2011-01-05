@@ -10,9 +10,11 @@
   (void))
 
 (context
- (connection [context "localhost" "44000" #f #f]
-  (with-vtx-channel
-   channel connection 0 Plain-Profile-URI #f #f #f #f #f #f
+ [#f #f #f]
+ (connection 
+  [context "localhost" "44000" #f #f]
+  (channel
+   [connection 0 Plain-Profile-URI #f #f #f #f #f #f]
    (vortex-channel-set-received-handler channel client-frame-received #f)
    
    (let ([msg "Hello world"])

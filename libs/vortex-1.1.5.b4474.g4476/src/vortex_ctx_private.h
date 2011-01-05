@@ -283,6 +283,10 @@ struct _VortexCtx {
 	 */
 	axlPointer              next_frame_size_data;
 
+  /* Racket additions */
+  axl_bool use_ssl;
+  char* ssl_cert_path;
+
 };
 
 #endif /* __VORTEX_CTX_PRIVATE_H__ */

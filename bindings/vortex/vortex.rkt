@@ -34,9 +34,10 @@
 (define-syntax with-vtx-ctx
   (syntax-rules ()
     [(_ ctx-name 
+        [use-logging? use-ssl? ssl-cert-path]
         body ...)
      (let ([ctx-name (vortex-ctx-new)])
-       (if (vtx-false? (rkt:vortex-init-ctx ctx-name))
+       (if (vtx-false? (rkt:vortex-init-ctx ctx-name use-logging? use-ssl? ssl-cert-path))
            (raise (make-exn:vtx:init "could not initialize vortex context"
                                      (current-continuation-marks)))
            (cleanup-and-return
@@ -55,7 +56,7 @@
 (define-syntax with-vtx-conn
   (syntax-rules ()
     [(_ connection-name 
-        ctx host port on-connected user-data 
+        [ctx host port on-connected user-data]
         body ...)
      (let ([connection-name (vortex-connection-new ctx host port on-connected user-data)])
        ; sometimes the new connection bound to `connection-name' can be #f (null).
@@ -99,10 +100,7 @@
 (define-syntax with-vtx-channel
   (syntax-rules ()
     [(_ channel-name 
-        connection num profile
-        on-close close-ptr 
-        on-frame-received fr-rec-ptr
-        on-created created-ptr
+        [connection num profile on-close close-ptr on-frame-received fr-rec-ptr on-created created-ptr]
         body ...)
      (let ([channel-name 
             (vortex-channel-new connection num profile
@@ -132,7 +130,7 @@
 (define-syntax do-blocking-send-and-receive
   (syntax-rules ()
     [(_ wait-reply-name msgno-name frame-name 
-        channel msg
+        [channel msg]
         body ...)
      (let* ([wait-reply-name (vortex-channel-create-wait-reply)]  ; create a wait reply
             [msgno-name (malloc _int 'raw)]
@@ -161,25 +159,26 @@
 ;;; Non-hygenic convenience forms
 ;; the following introduce new non-hygenic bindings for the above kinds of objects
 ;; (contexts, connections, channels ...)
-;; useful in cases where the user doesn't need to explicitly name the objects
+;; useful in cases where the user doesn't need to explicitly name the objects uniquely,
+;; but only in general terms within a specific lexical scope
 
 (define-syntax context
   (lambda (x)
     (syntax-case x ()
-      [(k e1 e2 ...)
+      [(k [arg1 arg2 ...] e1 e2 ...)
        (with-syntax ([context (datum->syntax #'k 'context)])
-         #'(with-vtx-ctx context e1 e2 ...))])))
+         #'(with-vtx-ctx context [arg1 arg2 ...] e1 e2 ...))])))
 
 (define-syntax connection
   (lambda (x)
     (syntax-case x ()
       [(k [arg1 arg2 ...] e1 e2 ...)
        (with-syntax ([connection (datum->syntax #'k 'connection)])
-         #'(with-vtx-conn connection arg1 arg2 ... e1 e2 ...))])))
+         #'(with-vtx-conn connection [arg1 arg2 ...] e1 e2 ...))])))
 
 (define-syntax channel
   (lambda (x)
     (syntax-case x ()
       [(k [arg1 arg2 ...] e1 e2 ...)
        (with-syntax ([channel (datum->syntax #'k 'channel)])
-         #'(with-vtx-channel channel arg1 arg2 ... e1 e2 ...))])))
+         #'(with-vtx-channel channel [arg1 arg2 ...] e1 e2 ...))])))

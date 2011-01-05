@@ -419,7 +419,7 @@ typedef int (*AcceptClosure) (VortexConnection* master_conn, VortexConnection* c
 typedef int (*ConnectClosure) (VortexConnection* conn, char* host, char* port);
 typedef int (*ReadClosure) (VortexConnection* conn, char** buffer, int buffer_len);
 typedef int (*WriteClosure) (VortexConnection* conn, const char** buffer, int buffer_len);
-typedef int (*CloseClosure) (VortexConnection* conn);
+typedef int (*CloseClosure) (VortexConnection* conn, char* who);
 typedef int (*GetSockNameClosure) (VortexConnection* conn,
                                    char** local_a, char** local_p,
                                    char** remote_a, char** remote_p);
@@ -436,7 +436,7 @@ void vortex_connection_set_client_mode_closures (VortexConnection* connection, C
                                                  GetSockNameClosure g,
                                                  WaitReadClosure wr, WaitWriteClosure ww);
 
-typedef void (*ClosureSetter) (VortexConnection* conn);
+typedef void (*ClosureSetter) (VortexConnection* conn, axl_bool use_ssl, char* cert_path);
 
 void vortex_connection_set_client_closures_setter (ClosureSetter c);
 void vortex_connection_set_client_closures (VortexConnection* conn);

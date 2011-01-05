@@ -54,3 +54,6 @@
   vortex-ctx-get-exit-mutex
   vortex-ctx-get-profiles-list-mutex
   vortex-ctx-get-connection-id-mutex)
+
+(defvtx* (_fun _VortexCtx-pointer _axl-bool _string -> _void)
+  vortex-ctx-set-ssl)

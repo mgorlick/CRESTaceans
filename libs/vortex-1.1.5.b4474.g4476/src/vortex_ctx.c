@@ -105,6 +105,9 @@ VortexCtx * vortex_ctx_new (void)
 	/* set default serverName acquire value */
 	result->serverName_acquire = axl_true;
 
+        result->use_ssl = axl_false;
+        result->ssl_cert_path = NULL;
+
 	/* return context created */
 	return result;
 }
@@ -671,6 +674,11 @@ VortexMutex* vortex_ctx_get_profiles_list_mutex (VortexCtx* ctx) {
 
 void vortex_ctx_mark_initialized (VortexCtx* ctx) {
   ctx->vortex_initialized = axl_true;
+}
+
+void vortex_ctx_set_ssl (VortexCtx* ctx, axl_bool use, char* cert_path) {
+  ctx->use_ssl = use;
+  ctx->ssl_cert_path = cert_path;
 }
 
 /** 

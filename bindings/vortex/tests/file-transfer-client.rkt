@@ -56,8 +56,7 @@
     )
   
   (context
-   
-   ;(vortex-log-enable context axl-true)
+   [#f #f #f]
    (connection 
     [context SERVER-HOST SERVER-PORT #f #f]
     
