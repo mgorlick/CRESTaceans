@@ -76,7 +76,7 @@
 ;; the `sync-on' function is a lambda:
 ;; (lambda (conn key)
 ;;   (... specify the port used to sync on (either inport or outport) ....))
-(define-syntax-rule (define-wait/tcp id sync-on typename)
+(define-syntax-rule (define-wait/tcp id sync-on)
   (define/contract (id conn timeout)
     (VortexConnection*? integer? . -> . integer?)
     (handle-neterr
@@ -138,8 +138,8 @@
     (define-read/tcp client/read inports)
     (define-write/tcp client/write outports)
     (define-close/tcp client/close inports outports #f)
-    (define-wait/tcp client/wait/read (lambda (conn key) (hash-ref inports key)) "read")
-    (define-wait/tcp client/wait/write (lambda (conn key) (hash-ref outports key)) "write")
+    (define-wait/tcp client/wait/read (lambda (conn key) (hash-ref inports key)))
+    (define-wait/tcp client/wait/write (lambda (conn key) (hash-ref outports key)))
     (define-get-sock-name/tcp client/getsockname addresses inports)
     
     ;; transfer all of the above closures to the vortex side to be opaquely invoked
@@ -189,7 +189,7 @@
            (let-values ([(in out) (accept (hash-ref listeners masterkey))])
              (hash-set! inports childkey in)
              (hash-set! outports childkey out)
-             (vortex-connection-set-socket childconn 1 "fake" "values")
+             (vortex-connection-set-socket childconn 1 #f #f)
              1))))
     
     (define-read/tcp listener/read inports)
@@ -199,12 +199,12 @@
                                           (cond
                                             [(eq? (vortex-connection-get-role conn) 'master-listener) 
                                              (hash-ref listeners key)]
-                                            [else (hash-ref inports key)])) "read")
+                                            [else (hash-ref inports key)])))
     (define-wait/tcp listener/wait/write (lambda (conn key)
                                            (cond
                                              [(eq? (vortex-connection-get-role conn) 'master-listener) 
                                               (hash-ref listeners key)]
-                                             [else (hash-ref outports key)])) "write")
+                                             [else (hash-ref outports key)])))
     (define-get-sock-name/tcp listener/getsockname addresses inports)
     
     ;; take a char** and an int* and write in the actual host address used for the listener

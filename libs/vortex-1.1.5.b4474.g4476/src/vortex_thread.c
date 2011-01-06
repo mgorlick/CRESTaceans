@@ -385,7 +385,7 @@ long timeval_total_usec (struct timeval *r) {
 
 long timeval_difference_in_usec (struct timeval *x, struct timeval *y) {
   struct timeval result;
-  timeval_subtract ( x, y, &result);
+  timeval_subtract (&result, x, y);
   return timeval_total_usec (&result);
 }
 
