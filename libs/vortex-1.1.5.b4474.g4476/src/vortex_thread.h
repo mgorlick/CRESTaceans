@@ -47,7 +47,7 @@ BEGIN_C_DECLS
  * @{
  */
 
-axl_bool           vortex_thread_create   (VortexThread      * thread_def,
+axl_bool           vortex_thread_create   (VortexThread      ** thread_def,
 					   VortexThreadFunc    func,
 					   axlPointer          user_data);
 
@@ -56,7 +56,9 @@ axl_bool           vortex_thread_destroy  (VortexThread      * thread_def,
 
 void               vortex_thread_set_create (VortexThreadCreateFunc  create_fn);
 
-void               vortex_thread_set_destroy(VortexThreadDestroyFunc destroy_fn);
+void               vortex_thread_set_destroy (VortexThreadDestroyFunc destroy_fn);
+
+void               vortex_thread_set_reference (VortexThread** t);
 
 axl_bool           vortex_mutex_create     (VortexMutex       ** mutex_def);
 

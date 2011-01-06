@@ -236,7 +236,7 @@
   (_fun _VortexCtx-pointer _axlPointer _axlPointer -> _axl-bool))
 
 (define _VortexThreadCreateFunc
-  (_fun (_or-null _VortexThread-pointer) _VortexThreadFunc _axlPointer
+  (_fun _pointer _VortexThreadFunc _axlPointer
         -> _axl-bool))
 
 (define _VortexThreadDestroyFunc

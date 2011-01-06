@@ -126,6 +126,7 @@ void __vortex_thread_pool_process_events (VortexCtx * ctx, VortexThreadPool * po
 	gettimeofday (&now, NULL);
 	iterator = 0;
 	while (iterator < length) {
+          FUEL_WITH_PROGRESS ("process_events while(), top");
 		/* get event reference */
 		vortex_mutex_lock(pool->mutex);
 		event = axl_list_get_nth (pool->events, iterator);
@@ -184,6 +185,7 @@ axlPointer __vortex_thread_pool_dispatcher (VortexThreadPoolStarter * data)
 
 	/* get a reference to the queue, waiting for the next work */
 	while (axl_true) {
+          FUEL_WITH_PROGRESS ("thread pool dispatcher while()");
 
 		/* get next task to process: precision=100ms */
 		task = vortex_async_queue_timedpop (queue, 100000);
@@ -261,10 +263,10 @@ void __vortex_thread_pool_terminate_thread (axlPointer _thread)
   /* all this is commented for Racket threads to avoid
      invoking vortex_thread_destroy on them */
 	/* cast a get a proper reference */
-  /* VortexThread * thread = (VortexThread *) _thread; */
+   VortexThread * thread = (VortexThread *) _thread;
 
 	/* dealloc the node allocated */
-  /* vortex_thread_destroy (thread, axl_true); */
+  vortex_thread_destroy (thread, axl_true);
 
 	return;
 }
@@ -310,6 +312,7 @@ void vortex_thread_pool_init     (VortexCtx * ctx,
 	if (ctx->thread_pool->threads != NULL) {
 		/* clear list */
 		while (axl_list_length (ctx->thread_pool->threads) > 0) {
+                  FUEL_WITH_PROGRESS ("thread_pool_init, top of while()");
 			vortex_log (VORTEX_LEVEL_DEBUG, "releasing previous thread object allocated, length: %d", axl_list_length (ctx->thread_pool->threads));
 
 			/* get thread object */
@@ -367,6 +370,8 @@ void vortex_thread_pool_add                 (VortexCtx        * ctx,
 
 	iterator = 0;
 	while (iterator < threads) {
+
+          FUEL_WITH_PROGRESS ("thread pool add, while()");
 		/* create the thread */
 		thread          = axl_new (VortexThread, 1);
 		if (thread == NULL)
@@ -378,7 +383,7 @@ void vortex_thread_pool_add                 (VortexCtx        * ctx,
 		} /* end if */
 		starter->thread = thread;
 		starter->pool   = ctx->thread_pool;
-		if (! vortex_thread_create (thread,
+		if (! vortex_thread_create (&thread,
 					    (VortexThreadFunc)__vortex_thread_pool_dispatcher,
 					    starter)) {
                   
@@ -431,6 +436,7 @@ void vortex_thread_pool_remove                 (VortexCtx        * ctx,
 
 	threads_running = axl_list_length (ctx->thread_pool->threads);
 	while (threads > 0 && threads_running > 1) {
+          FUEL_WITH_PROGRESS ("thread_pool_remove, while()");
 		/* push a task to stop one thread */
 		vortex_async_queue_push (ctx->thread_pool->queue, INT_TO_PTR (2));
 		threads--;
@@ -461,6 +467,7 @@ void vortex_thread_pool_exit (VortexCtx * ctx)
 	/* push beacons to notify eacy thread created to stop */
 	iterator = 0;
 	while (iterator < axl_list_length (ctx->thread_pool->threads)) {
+          FUEL_WITH_PROGRESS ("thread_pool_exit, while()");
 		vortex_log (VORTEX_LEVEL_DEBUG, "pushing beacon to stop thread from the pool..");
 		/* push a notifier */
 		vortex_async_queue_push (ctx->thread_pool->queue, INT_TO_PTR (1));
@@ -659,6 +666,8 @@ void vortex_thread_pool_remove_event        (VortexCtx              * ctx,
 	/* reset cursor list */
 	axl_list_cursor_first (ctx->thread_pool->events_cursor);
 	while (axl_list_cursor_has_item (ctx->thread_pool->events_cursor)) {
+
+          FUEL_WITH_PROGRESS ("thread_pool_remove_event, while()");
 
 		/* get event at the current position */
 		event = axl_list_cursor_get (ctx->thread_pool->events_cursor);

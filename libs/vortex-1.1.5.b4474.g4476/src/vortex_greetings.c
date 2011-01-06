@@ -83,6 +83,8 @@ int __vortex_greetings_build_message (VortexConnection     * connection,
 	localize      = vortex_greetings_get_localize (ctx);
 	localize_size = localize ? strlen (localize) : 0;
 
+        FUEL_WITH_PROGRESS ("build_message");
+
 	/* count features and localize size plus 9, 11, 1, 11, 1 ,3 */
 	if ((features_size + localize_size + 36) >= buffer_size) {
 		vortex_log (VORTEX_LEVEL_CRITICAL,  
@@ -95,6 +97,7 @@ int __vortex_greetings_build_message (VortexConnection     * connection,
 	memcpy (greetings_buffer, "<greeting", 9);
 	next_index += 9;
 	if (features) {
+          FUEL_WITH_PROGRESS ("build_message");
 		memcpy (greetings_buffer + next_index, " features='", 11);
 		next_index += 11;
 		
@@ -106,6 +109,7 @@ int __vortex_greetings_build_message (VortexConnection     * connection,
 	} /* end features */
 	
 	if (localize) {
+          FUEL_WITH_PROGRESS ("build_message");
 		memcpy (greetings_buffer + next_index, " localize='", 11);
 		next_index += 11;
 		
@@ -124,6 +128,7 @@ int __vortex_greetings_build_message (VortexConnection     * connection,
 
 		iterator = 0;   
 		while (iterator < axl_list_length (registered_profiles)) {
+                  FUEL_WITH_PROGRESS ("build_message");
 			/* get the uri reference */
 			uri = (char  *) axl_list_get_nth (registered_profiles, iterator);
 			
@@ -149,7 +154,7 @@ int __vortex_greetings_build_message (VortexConnection     * connection,
 				vortex_profiles_release (ctx);
 				return -1;
 			} /* end if */
-			
+			FUEL_WITH_PROGRESS ("build_message");
 			/* copy the profile content */
 			memcpy (greetings_buffer + next_index, "   <profile uri='", 17);
 			next_index += 17;
@@ -166,11 +171,12 @@ int __vortex_greetings_build_message (VortexConnection     * connection,
 			iterator++;
 			
 		} /* end if */
-
+                FUEL_WITH_PROGRESS ("build_message");
 		/* terminate greetings  */
 		memcpy (greetings_buffer + next_index, "</greeting>\x0D\x0A", 13);
 		next_index += 13;
 	} else {
+          FUEL_WITH_PROGRESS ("build_message");
 		/* no profiles to be notified */
 		memcpy (greetings_buffer + next_index, " />\x0D\x0A", 5);
 		next_index += 5;
@@ -208,27 +214,30 @@ axl_bool      vortex_greetings_send (VortexConnection * connection, VortexConnec
 	char            greetings_buffer[5100];
 	int             next_index = 0;
 
-
 	/* check if greetins was already sent */
 	if (PTR_TO_INT (vortex_connection_get_data (connection, "vo:greetings-sent"))) {
 		vortex_log (VORTEX_LEVEL_DEBUG, "greetings already sent, not sending greetings this time..");
 		return axl_true;
 	}
 
+        FUEL_WITH_PROGRESS ("greetings_send");
+
 	/* get registered profiles */
 	registered_profiles = vortex_profiles_get_actual_list_ref (ctx);
-
+        FUEL_WITH_PROGRESS ("greetings_send");
 	/* build up supported registered profiles */
 	if (registered_profiles == NULL) {
+          FUEL_WITH_PROGRESS ("greetings_send");
 		vortex_log (VORTEX_LEVEL_CRITICAL, 
 			    "unable to build and send greetings message: unable to find any profile registered");
 		__vortex_connection_set_not_connected (connection, 
 						       "unable to build and send greetings message: unable to find any profile registered", VortexError);
 		return axl_false;
 	}
-
+        FUEL_WITH_PROGRESS ("greetings_send");
 	/* Build the greetings message with localization features and filtered profiles*/
 	next_index = __vortex_greetings_build_message (connection, options, greetings_buffer, 5100);
+        FUEL_WITH_PROGRESS ("greetings_message");
 	if (next_index == -1) {
 		/* log */
 		vortex_log (VORTEX_LEVEL_CRITICAL, "failed to build greetings message, closing the connection");
@@ -238,7 +247,7 @@ axl_bool      vortex_greetings_send (VortexConnection * connection, VortexConnec
 						       VortexError);
 		return axl_false;
 	} /* end if */
-
+        FUEL_WITH_PROGRESS ("greetings_send");
 	/* send the message */
 	if (!vortex_channel_send_rpy (vortex_connection_get_channel (connection, 0),
 				      greetings_buffer,
@@ -248,7 +257,7 @@ axl_bool      vortex_greetings_send (VortexConnection * connection, VortexConnec
 						       VortexError);
 		return axl_false;
 	} /* end if */
-
+        FUEL_WITH_PROGRESS ("greetings_send");
 	/* flag that the greetings message was already sent */
 	vortex_connection_set_data (connection, "vo:greetings-sent", INT_TO_PTR (1));
 	
@@ -284,25 +293,31 @@ VortexFrame *  vortex_greetings_process (VortexConnection     * connection,
 	 * reference) */
  	pending = vortex_connection_get_data (connection,
  					      VORTEX_GREETINGS_PENDING_FRAME);
-
+        FUEL_WITH_PROGRESS ("greetings_process");
 	/* get greetings info from remote peer (or a piece of it) */
 	frame = vortex_frame_get_next (connection);
+
+        FUEL_WITH_PROGRESS ("greetings_progress");
 	if (frame == NULL) {
 		vortex_log (VORTEX_LEVEL_WARNING, "no frame received from remote peer");
 		return NULL;
 	}
+        FUEL_WITH_PROGRESS ("greetings_process");
 
 	/* check pending frame */
 	if (pending) {
           vortex_log (VORTEX_LEVEL_WARNING, "have pending flag at greetings process (previous incomplete frame received).");
+                  FUEL_WITH_PROGRESS ("greetings_process");
 		pending = vortex_frame_join (pending, frame);
+                FUEL_WITH_PROGRESS ("greetings_process");
 		vortex_frame_unref (frame);
 		frame   = pending;
 	} /* end if */
-
+        FUEL_WITH_PROGRESS ("greetings_process");
 	/* check if the frame returned is not complete, to store in
 	 * the connection and return NULL */
 	if (vortex_frame_get_more_flag (frame) > 0) {
+                  FUEL_WITH_PROGRESS ("greetings_process");
 		/* store the frame */
 		vortex_connection_set_data_full (connection, 
 						 /* key and data */
@@ -310,16 +325,16 @@ VortexFrame *  vortex_greetings_process (VortexConnection     * connection,
 						 NULL, (axlDestroyFunc) vortex_frame_unref);
 		return NULL;
 	} /* end if */
-
+        FUEL_WITH_PROGRESS ("greetings_process");
 	/* call to update frame MIME status */
 	if (! vortex_frame_mime_process (frame))
 		vortex_log (VORTEX_LEVEL_WARNING, "failed to update MIME status for the frame, continue delivery");
-
+        FUEL_WITH_PROGRESS ("greetings_process");
 	/* frame complete, clear connection content */
 	vortex_connection_set_data (connection, 
 				    /* key and data */
 				    VORTEX_GREETINGS_PENDING_FRAME, NULL);
-
+        FUEL_WITH_PROGRESS ("greetings_process");
 	/* ensure from this point to be frame not NULL  */
 	if (vortex_greetings_is_reply_ok (frame, connection, options)) {
 		return frame;
@@ -409,7 +424,7 @@ axl_bool            vortex_greetings_is_reply_ok    (VortexFrame          * fram
 #if defined(ENABLE_VORTEX_LOG)
 	VortexCtx     * ctx = vortex_connection_get_ctx (connection);
 #endif
-
+        FUEL_WITH_PROGRESS ("is_reply_ok");
 	/* check for error reply frame and get values from error */
 	if (vortex_frame_get_type (frame) == VORTEX_FRAME_TYPE_ERR) {
 		/* manage error reply */
@@ -419,6 +434,7 @@ axl_bool            vortex_greetings_is_reply_ok    (VortexFrame          * fram
 	}
 
 	/* check greetings reply */
+                FUEL_WITH_PROGRESS ("is_reply_ok");
 	if (vortex_frame_get_type (frame) != VORTEX_FRAME_TYPE_RPY) {
 		vortex_log (VORTEX_LEVEL_CRITICAL, 
 			    "frame error, expected RPY frame type on greetings process. Frame content: '%s'",
@@ -433,6 +449,7 @@ axl_bool            vortex_greetings_is_reply_ok    (VortexFrame          * fram
 	if (vortex_frame_get_channel (frame) != 0 || 
 	    vortex_frame_get_msgno   (frame) != 0 || 
 	    vortex_frame_get_seqno   (frame) != 0) {
+                  FUEL_WITH_PROGRESS ("is_reply_ok");
 		vortex_log (VORTEX_LEVEL_CRITICAL, 
 			    "frame error, expected greetings message on channel 0, message 0 or sequence number 0");
 		__vortex_connection_set_not_connected (connection, "frame error, expected greetings message on channel 0, message 0 or sequence number 0",
@@ -440,7 +457,7 @@ axl_bool            vortex_greetings_is_reply_ok    (VortexFrame          * fram
 		vortex_frame_unref (frame);
 		return axl_false;
 	}
-	
+	        FUEL_WITH_PROGRESS ("is_reply_ok");
 	/* check content-type reply */
 	if ((vortex_frame_get_content_type (frame) == NULL) ||
 	    (! axl_cmp (vortex_frame_get_content_type (frame), "application/beep+xml"))) {
@@ -452,14 +469,14 @@ axl_bool            vortex_greetings_is_reply_ok    (VortexFrame          * fram
 		vortex_frame_unref (frame);
 		return axl_false;
 	}
-
+        FUEL_WITH_PROGRESS ("is_reply_ok");
 	/* update channel status */
 	channel = vortex_connection_get_channel (connection, 0);
 	vortex_channel_update_status_received (channel, 
 					       vortex_frame_get_content_size (frame),
 					       0,
 					       UPDATE_SEQ_NO | UPDATE_RPY_NO);
-
+        FUEL_WITH_PROGRESS ("is_reply_ok");
 	vortex_log (VORTEX_LEVEL_DEBUG, "greetings frame header specification is ok");
 	
 	return axl_true;	
@@ -487,7 +504,7 @@ axl_bool           vortex_greetings_client_send     (VortexConnection     * conn
 	int         next_index = 0;
 	VortexCtx * ctx         = CONN_CTX (connection);
 	axlList   * registered_profiles;
-	
+	FUEL_WITH_PROGRESS ("greetings_client_send");
 	/* build up supported registered profiles */
 	registered_profiles = vortex_profiles_get_actual_list_ref (ctx);
 	if (registered_profiles == NULL) {
@@ -495,7 +512,7 @@ axl_bool           vortex_greetings_client_send     (VortexConnection     * conn
 			    "unable to build and send greetings message: unable to find any profile registered");
 		return axl_false;
 	}
-	
+		FUEL_WITH_PROGRESS ("greetings_client_send");
 	/* Build the greetings message with localization features and filtered profiles*/
 	next_index = __vortex_greetings_build_message (connection, options, greetings_buffer, 5100);
         FUEL_WITH_PROGRESS ("greetings_client_send build greetings");

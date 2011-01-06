@@ -25,7 +25,7 @@
   (syntax-rules ()
     [(_ (body ...) (cleanup ...))
      (let ([return-value (begin body ...)])
-       cleanup ... return-value)]))
+       cleanup ... (printf "returning from cleanup-and-return~n") return-value)]))
 
 ; with-vtx-ctx : identifier any ... -> ?
 ; initialize a vortex context and do operation(s) on that context.
@@ -84,7 +84,8 @@
                ; normal case: connection created
                (cleanup-and-return
                 (body ...)
-                ((cond [(not (ptr-null? connection-name))
+                ((printf "closing connection~n")
+                 (cond [(not (ptr-null? connection-name))
                         (vortex-connection-close connection-name)]))
                 ))))]
     ))

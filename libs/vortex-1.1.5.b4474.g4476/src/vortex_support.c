@@ -207,6 +207,8 @@ void   vortex_support_free (int params, ...)
 	iterator = 0;
 	while (iterator < params) {
 
+          FUEL_WITH_PROGRESS ("support_free");
+
 		/* get a reference to the deallocator and its resource
 		   to deallocate */
 		data    = va_arg (args, axlPointer);
@@ -305,6 +307,8 @@ axl_bool vortex_support_check_search_path          (VortexCtx  * ctx,
 	/* check we do not add something already added */
 	iterator = 0;
 	while (iterator < axl_list_length (ctx->support_search_path)) {
+
+          FUEL_WITH_PROGRESS ("support_check_search_path()");
 		/* get node */
 		node = axl_list_get_nth (ctx->support_search_path, iterator);
 		
@@ -430,6 +434,7 @@ void     vortex_support_add_domain_search_path_ref (VortexCtx * ctx,
 	/* check we do not add something already added */
 	iterator = 0;
 	while (iterator < axl_list_length (ctx->support_search_path)) {
+          FUEL_WITH_PROGRESS ("support_add_domain_search_path_ref while()");
 		/* get node */
 		node = axl_list_get_nth (ctx->support_search_path, iterator);
 		
@@ -537,6 +542,8 @@ char   * vortex_support_domain_find_data_file      (VortexCtx  * ctx,
 	/* foreach path installed */
 	cursor   = axl_list_cursor_new (ctx->support_search_path);
 	while (axl_list_cursor_has_item (cursor)) {
+
+          FUEL_WITH_PROGRESS ("support_domain_find_data_file while()");
 
 		/* get the item */
 		node = axl_list_cursor_get (cursor);

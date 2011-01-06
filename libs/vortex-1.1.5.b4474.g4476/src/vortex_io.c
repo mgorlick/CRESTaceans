@@ -104,6 +104,7 @@ void __vortex_io_waiting_port_clear (axlPointer fd_group) {
 
   int iterator = 0;
   while (iterator < port->length) {
+    FUEL_WITH_PROGRESS ("io_waiting_port_clear");
     vortex_connection_unref (port->connections[iterator], "io_waiting_port_clear");
     iterator++;
   }
@@ -131,6 +132,8 @@ axl_bool __vortex_io_waiting_port_add_to (int fds, VortexConnection* connection,
       vortex_log (VORTEX_LEVEL_DEBUG, "unable to accept more sockets, max poll set reached.");
       return axl_false;
     } /* end if */
+
+    FUEL_WITH_PROGRESS ("io_waiting_port_add_to");
 
     vortex_log (VORTEX_LEVEL_DEBUG, "max amount of file descriptors reached, expanding");
 
@@ -162,6 +165,7 @@ int __vortex_io_waiting_port_wait_on (axlPointer fd_group, int max_fds, VortexIo
   if (VORTEX_IO_IS (wait_to, READ_OPERATIONS)) {
     /* wait for read operations */
     while (iterator < port->length) {
+      FUEL_WITH_PROGRESS ("io_waiting_port_wait_on");
       if (vortex_connection_is_connected(port->connections[iterator])) {
         temp_result = vortex_connection_do_wait_read (port->connections[iterator], read_timeout);
       }
@@ -172,6 +176,7 @@ int __vortex_io_waiting_port_wait_on (axlPointer fd_group, int max_fds, VortexIo
   } else if (VORTEX_IO_IS (wait_to, WRITE_OPERATIONS)) {
     /* wait for write operations */
     while (iterator < port->length) {
+      FUEL_WITH_PROGRESS ("io_waiting_port_wait_on");
       if (vortex_connection_is_connected(port->connections[iterator])) {
         temp_result = vortex_connection_do_wait_write (port->connections[iterator], write_timeout);
       }
@@ -200,7 +205,7 @@ void __vortex_io_waiting_port_dispatch (axlPointer fd_group,
 
   /* for all sockets polled */
   while (iterator < port->length && (checked < changed)) {
-
+    FUEL_WITH_PROGRESS ("io_waiting_port_dispatch");
     /* item found now check the event */
     if (VORTEX_IO_IS(port->wait_to, READ_OPERATIONS)) {
 			
@@ -226,7 +231,7 @@ void __vortex_io_waiting_port_dispatch (axlPointer fd_group,
 
     /* item found now check the event */
     if (VORTEX_IO_IS(port->wait_to, WRITE_OPERATIONS)) {
-      
+      FUEL_WITH_PROGRESS ("io_waiting_port_dispatch");
       if (vortex_connection_is_connected (port->connections[iterator]) &&
           vortex_connection_do_wait_write (port->connections[iterator], 0) == 1) {
         /* found read event, dispatch */

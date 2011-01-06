@@ -70,7 +70,7 @@
  *
  * @see vortex_thread_destroy
  */
-axl_bool vortex_thread_create_internal (VortexThread      * thread_def,
+axl_bool vortex_thread_create_internal (VortexThread     ** thread_def,
                                         VortexThreadFunc    func, 
 					axlPointer          user_data)
 {
@@ -126,7 +126,7 @@ VortexThreadDestroyFunc __vortex_thread_destroy = vortex_thread_destroy_internal
  *
  * @see vortex_thread_destroy
  */
-axl_bool  vortex_thread_create (VortexThread      * thread_def,
+axl_bool  vortex_thread_create (VortexThread     ** thread_def,
                                 VortexThreadFunc    func,
                                 axlPointer          user_data)
 {
@@ -204,6 +204,15 @@ void vortex_thread_set_destroy (VortexThreadDestroyFunc destroy_fn)
 		__vortex_thread_destroy = destroy_fn;
 	else 
 		__vortex_thread_destroy = vortex_thread_destroy_internal;
+}
+
+/* Call vortex_thread_set_reference as the first thing in a new thread
+   to initialize the reference: need to do it here, and
+   can't do it from Racket because you cannot send pointers to Racket
+   threads across the FFI (i.e., there is no type that can express them
+   and no way to generate a pointer to `(current-thread)' */
+void vortex_thread_set_reference (VortexThread** t) {
+  *t = scheme_current_thread;
 }
 
 axl_bool  vortex_mutex_create (VortexMutex** mutex_def)
@@ -376,7 +385,7 @@ long timeval_total_usec (struct timeval *r) {
 
 long timeval_difference_in_usec (struct timeval *x, struct timeval *y) {
   struct timeval result;
-  timeval_subtract (&result, x, y);
+  timeval_subtract ( x, y, &result);
   return timeval_total_usec (&result);
 }
 
@@ -695,6 +704,8 @@ axlPointer         vortex_async_queue_timedpop  (VortexAsyncQueue * queue,
 	/* remove the data from the queue */
 	axl_list_remove_last (queue->data);
 
+        FUEL_WITH_PROGRESS ("decreasing waiters on async queue timedpop");
+
 	/* decrease the number of waiters */
 	queue->waiters--;
 
@@ -828,6 +839,8 @@ void               vortex_async_queue_unref     (VortexAsyncQueue * queue)
 	/* check reference couting */
 	if (queue->reference == 0) {
 
+          FUEL_WITH_PROGRESS ("check reference count");
+
 		/* free the list */
 		axl_list_free (queue->data);
 		queue->data = NULL;
@@ -862,6 +875,7 @@ void             vortex_async_queue_release (VortexAsyncQueue * queue)
 {
 	if (queue == NULL)
 		return;
+        FUEL_WITH_PROGRESS ("queue_release");
 	axl_list_free (queue->data);
 	queue->data = NULL;
 	axl_free (queue);
@@ -888,6 +902,8 @@ void               vortex_async_queue_safe_unref (VortexAsyncQueue ** queue)
 
 	/* check reference couting */
 	if (_queue->reference == 0) {
+
+          FUEL_WITH_PROGRESS ("safe_unref");
 
 		/* nullify queue */
 		(*queue) = NULL;

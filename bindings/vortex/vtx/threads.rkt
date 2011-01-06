@@ -60,11 +60,8 @@
   vortex-mutex-lock
   vortex-mutex-unlock)
 
-(defvtx* (_fun _VortexThread-pointer _VortexThreadFunc _axlPointer -> _axl-bool) ; XXX ...
-  vortex-thread-create)
-
-(defvtx* (_fun _VortexThread-pointer _axl-bool -> _axl-bool)
-  vortex-thread-destroy)
+(defvtx* (_fun _pointer -> _void)
+  vortex-thread-set-reference)
 
 (defvtx* (_fun _VortexThreadCreateFunc -> _void)
   vortex-thread-set-create)

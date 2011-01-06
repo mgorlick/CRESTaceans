@@ -18,6 +18,7 @@
 ;; VortexThreadCreateFunc: VortexThread* VortexThreadFunc pointer -> axl_bool
 (define/contract (rkt:vortex-thread-create thread* func user-data)
   (cpointer? procedure? cpointer? . -> . integer?)
-  (thread (lambda () (func user-data)))
-  ;(ptr-set! thread* _pointer t)
+  (thread (lambda () 
+            (vortex-thread-set-reference thread*)
+            (func user-data)))
   axl-true)

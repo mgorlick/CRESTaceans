@@ -1073,7 +1073,7 @@ typedef void (*VortexAsyncQueueForeach) (VortexAsyncQueue * queue,
  *
  * @see vortex_thread_create
  */
-typedef axl_bool (* VortexThreadCreateFunc) (VortexThread      * thread_def,
+typedef axl_bool (* VortexThreadCreateFunc) (VortexThread      ** thread_def,
                                              VortexThreadFunc    func,
                                              axlPointer          user_data);
 

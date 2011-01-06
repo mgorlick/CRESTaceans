@@ -84,11 +84,12 @@ void vortex_listener_accept_connection    (VortexConnection * connection, axl_bo
   if (connection == NULL)
     return;
 
+  FUEL_WITH_PROGRESS ("accept_connection");
   /* Get a reference to the connection, accept the new
    * connection under the same domain as the context of the
    * listener  */
   ctx = vortex_connection_get_ctx (connection);
-	
+  FUEL_WITH_PROGRESS ("accept_connection");
   /* call to the handler defined */
   iterator = 0;
   result   = axl_true;
@@ -96,18 +97,22 @@ void vortex_listener_accept_connection    (VortexConnection * connection, axl_bo
   /* init lock */
   vortex_mutex_lock(ctx->listener_mutex);
   while (iterator < axl_list_length (ctx->listener_on_accept_handlers)) {
+    FUEL_WITH_PROGRESS ("listener_accept_connection");
     /* call and check */
     data = axl_list_get_nth (ctx->listener_on_accept_handlers, iterator);
+    FUEL_WITH_PROGRESS ("accept_connection");
     /* internal check */
     if (data == NULL) {
       result = axl_false;
       break;
     } /* end if */
-			
+
+    FUEL_WITH_PROGRESS ("accept_connection");
     /* check if the following handler accept the incoming
      * connection */
     vortex_log (VORTEX_LEVEL_DEBUG, "calling to accept connection, handler: %p, data: %p",
                 data->on_accept, data->on_accept_data);
+    FUEL_WITH_PROGRESS ("accept_connection");
     if (! data->on_accept (connection, data->on_accept_data)) {
 
       vortex_log (VORTEX_LEVEL_DEBUG, "on accept handler have denied to accept the connection, handler: %p, data: %p",
@@ -122,12 +127,15 @@ void vortex_listener_accept_connection    (VortexConnection * connection, axl_bo
     iterator++;
 
   } /* end while */
-
+  FUEL_WITH_PROGRESS ("listener_accept_connection");
   /* unlock */
   vortex_mutex_unlock(ctx->listener_mutex);
 
+
   /* check result */
+  FUEL_WITH_PROGRESS ("accept_connection");
   if (! result) {
+    FUEL_WITH_PROGRESS ("accept_connection");
     /* check connection status */
     if (vortex_connection_is_ok (connection, axl_false)) {
       vortex_log (VORTEX_LEVEL_CRITICAL, "the server application level have dropped the provided connection");
@@ -137,7 +145,7 @@ void vortex_listener_accept_connection    (VortexConnection * connection, axl_bo
                                    NULL, "554",
                                    "Transaction failed, peer have denied your request");
     } /* end if */
-
+    FUEL_WITH_PROGRESS ("listener_accept_connection");
     /* flag the connection to be not connected */
     __vortex_connection_set_not_connected (connection, "connection filtered by on accept handler", VortexConnectionFiltered);
 
@@ -145,21 +153,24 @@ void vortex_listener_accept_connection    (VortexConnection * connection, axl_bo
     return;
 
   } /* end if */
-
+  FUEL_WITH_PROGRESS ("accept_connection");
   /* check to send greetings but only if prered is not defined */
   if (! vortex_connection_is_defined_preread_handler (connection)) {
+    FUEL_WITH_PROGRESS ("listener_accept_connection");
     /* get master listener (the connection that created this
      * incoming connection) to check if we have to send greetings */
     listener = vortex_connection_get_data (connection, "_vo:li:master");
+    FUEL_WITH_PROGRESS ("accept_connection");
     if (vortex_connection_get_data (listener, "vo:li:send-greetings")) {
+      FUEL_WITH_PROGRESS ("accept_connection");
       vortex_log (VORTEX_LEVEL_DEBUG, "Sending BEEP greetings to client without waiting for theirs..");
       vortex_greetings_send (connection, NULL);
     } /* end if */
   } /* end if */
-
+  FUEL_WITH_PROGRESS ("listener_accept_connection");
   /* call to complete incoming connection register operation */
   vortex_listener_complete_register (connection);
-	
+  FUEL_WITH_PROGRESS ("accept_connection");
   /* close connection and free resources */
   vortex_log (VORTEX_LEVEL_DEBUG, "worker ended, connection registered on manager (initial accept)");
 
@@ -177,12 +188,12 @@ void          vortex_listener_complete_register    (VortexConnection     * conne
   /* check connection received */
   if (connection == NULL)
     return;
-
+  FUEL_WITH_PROGRESS ("complete_register");
   ctx = vortex_connection_get_ctx (connection);
 
   /* flag the connection to be on initial step */
   vortex_connection_set_data (connection, "initial_accept", INT_TO_PTR (axl_true));
-
+  FUEL_WITH_PROGRESS ("complete_register");
   /*
    * register the connection on vortex reader from here, the
    * connection get a non-blocking state
@@ -255,6 +266,7 @@ void __vortex_listener_initial_accept (VortexCtx        * ctx,
   /* before doing anything, we have to create a connection */
   connection = vortex_connection_new_empty (ctx, 1, VortexRoleListener);
   vortex_connection_share_closures (listener, connection);
+  FUEL_WITH_PROGRESS ("listener_initial_accept");
   vortex_log (VORTEX_LEVEL_DEBUG, "received connection from: %s:%s", 
               vortex_connection_get_host (connection),
               vortex_connection_get_port (connection));
@@ -268,7 +280,6 @@ void __vortex_listener_initial_accept (VortexCtx        * ctx,
    * into the initial accept stage, and send the initial greetings.
    */
   vortex_listener_accept_connection (connection, axl_true);
-
 
   return;
 }
@@ -301,6 +312,7 @@ void __vortex_listener_second_step_accept (VortexFrame * frame, VortexConnection
   pending = vortex_connection_get_data (connection,
                                         VORTEX_GREETINGS_PENDING_FRAME);
   /* check pending frame */
+  FUEL_WITH_PROGRESS ("second_step_accept");
   if (pending) {
     pending = vortex_frame_join (pending, frame);
     vortex_frame_unref (frame);
@@ -317,7 +329,7 @@ void __vortex_listener_second_step_accept (VortexFrame * frame, VortexConnection
                                      NULL, (axlDestroyFunc) vortex_frame_unref);
     return;
   } /* end if */
-
+  FUEL_WITH_PROGRESS ("second_step_accept");
   /* frame complete, clear connection content */
   vortex_connection_set_data (connection, 
                               /* key and data */
@@ -337,6 +349,8 @@ void __vortex_listener_second_step_accept (VortexFrame * frame, VortexConnection
     return;
   }
 
+  FUEL_WITH_PROGRESS ("second_step_accept");
+
   vortex_log (VORTEX_LEVEL_DEBUG, "received initiator peer greetings...checking..");
 
   /* because the greeting is ok, parse it */
@@ -350,6 +364,7 @@ void __vortex_listener_second_step_accept (VortexFrame * frame, VortexConnection
     return;
   }
 
+  FUEL_WITH_PROGRESS ("second_step_accept");
   /* if parse greetins ok, notify to process features and and
      localize */
   if (! vortex_connection_actions_notify (&connection, CONNECTION_STAGE_PROCESS_GREETINGS_FEATURES)) {
@@ -365,7 +380,7 @@ void __vortex_listener_second_step_accept (VortexFrame * frame, VortexConnection
   } /* end if */
 
   vortex_log (VORTEX_LEVEL_DEBUG, "greetings ok, sending listener greetings..");
-
+  FUEL_WITH_PROGRESS ("second_step_accept");
   /* send greetings, get actual profile installation and report
    * it to init peer */
   vortex_log (VORTEX_LEVEL_DEBUG, "sending greetings for a new connection..");
@@ -390,7 +405,7 @@ void __vortex_listener_second_step_accept (VortexFrame * frame, VortexConnection
 	
   /* free the last frame and watch connection on changes */
   vortex_frame_unref (frame);
-	
+  FUEL_WITH_PROGRESS ("second_step_accept");
   /*** CONNECTION COMPLETELY ACCEPTED ***/
   /* flag the connection to be totally accepted. */
   vortex_connection_set_data (connection, "initial_accept", NULL);
@@ -434,7 +449,7 @@ void vortex_listener_accept_connections (VortexCtx        * ctx,
   connection = vortex_connection_new_empty (ctx, 1, VortexRoleListener);
   vortex_connection_share_closures (listener, connection);
   accept_result = vortex_listener_accept (listener, connection);
-        
+  FUEL_WITH_PROGRESS ("accept_connections");
   if (accept_result == VORTEX_SOCKET_ERROR) {
     /* get values */
     vortex_conf_get (ctx, VORTEX_SOFT_SOCK_LIMIT, &soft_limit);
@@ -445,7 +460,7 @@ void vortex_listener_accept_connections (VortexCtx        * ctx,
     vortex_connection_free (connection);
     return;
   }
-        
+  FUEL_WITH_PROGRESS ("accept_connections");     
   vortex_log (VORTEX_LEVEL_DEBUG, "received connection from: %s:%s", 
               vortex_connection_get_host (connection),
               vortex_connection_get_port (connection));
@@ -453,13 +468,13 @@ void vortex_listener_accept_connections (VortexCtx        * ctx,
   /* configure the relation between this connection and the
    * master listener connection */
   vortex_connection_set_data (connection, "_vo:li:master", listener);
-
+  FUEL_WITH_PROGRESS ("accept_connections");
   /*
    * Perform an initial accept, flagging the connection to be
    * into the initial accept stage, and send the initial greetings.
    */
   vortex_listener_accept_connection (connection, axl_true);
-
+  FUEL_WITH_PROGRESS ("accept_connections");
   return;
 
 }
@@ -506,7 +521,7 @@ axlPointer __vortex_listener_new (VortexListenerData * data)
         
   vortex_log (VORTEX_LEVEL_DEBUG, "listener reference created (%p, id: %d, status: %d)", listener, 
               vortex_connection_get_id (listener), socket_listen_result);
-
+  FUEL_WITH_PROGRESS ("listener_new");
   /* handle returned socket or error */
   switch (socket_listen_result) {
     case -2:
@@ -537,7 +552,7 @@ axlPointer __vortex_listener_new (VortexListenerData * data)
         vortex_connection_get_host_used (listener, &locala, &localp);
         
         /* notify listener created */
-        
+        FUEL_WITH_PROGRESS ("listener_new");
         if (on_ready != NULL) {
           on_ready (locala, localp, VortexOk, "server ready for requests", user_data);
         } /* end if */
@@ -552,7 +567,7 @@ axlPointer __vortex_listener_new (VortexListenerData * data)
         /* action reporting failure, unref the connection */
         __vortex_connection_set_not_connected (listener, "vortex master listener post created action failed", VortexConnectionFiltered);
       } /* end if */
-
+      FUEL_WITH_PROGRESS ("listener_new");
       /* the listener reference */
       vortex_log (VORTEX_LEVEL_DEBUG, "returning listener running at %s:%s (non-threaded mode)", 
                   vortex_connection_get_host (listener), vortex_connection_get_port (listener));
@@ -561,6 +576,7 @@ axlPointer __vortex_listener_new (VortexListenerData * data)
 
   /* according to the invocation */
   if (threaded) {
+    FUEL_WITH_PROGRESS ("listener_new");
     /* notify error found to handlers */
     if (on_ready != NULL) 
       on_ready      (NULL, 0, status, (char*) message, user_data);
@@ -599,6 +615,8 @@ VortexConnection * __vortex_listener_new_common  (VortexCtx               * ctx,
 	
   /* init listener module */
   vortex_listener_init (ctx);
+
+  FUEL_WITH_PROGRESS ("listener_new_common");
 	
   /* prepare function data */
   data                = axl_new (VortexListenerData, 1);
@@ -1026,7 +1044,7 @@ void vortex_listener_unlock (VortexCtx * ctx)
       /* unref */
       vortex_async_queue_unref (ctx->listener_wait_lock);
     } /* end if */
-
+    FUEL_WITH_PROGRESS ("listener_unlock");
     /* nullify */
     ctx->listener_wait_lock = NULL;
 
@@ -1178,6 +1196,8 @@ void          vortex_listener_set_on_connection_accepted (VortexCtx             
     vortex_mutex_unlock(ctx->listener_mutex);
     return;
   }
+  FUEL_WITH_PROGRESS ("set_on_connection_accepted");
+  
   data->on_accept      = on_accepted;
   data->on_accept_data = _data;
 
@@ -1287,7 +1307,7 @@ axl_bool            vortex_listener_parse_conf_and_start (VortexCtx * ctx)
 		
     return -1;
   }
-
+  FUEL_WITH_PROGRESS ("parse_conf_and_start");
   /* validate the xml listener document config */
   if (!axl_dtd_validate (doc, dtd, &error)) {
     fprintf (stderr, "Unable to validate listener configuration. Check your settings. Error reported: %s\n",
@@ -1309,6 +1329,7 @@ axl_bool            vortex_listener_parse_conf_and_start (VortexCtx * ctx)
   listener = axl_doc_get (doc, "/vortex-listener/listener");
 
   do {
+    FUEL_WITH_PROGRESS ("parse_conf_with_start");
     /* get the <host> content */
     aux  = axl_node_get_child_nth (listener, 0);
     host = axl_node_get_content_trim (aux, NULL);
@@ -1450,6 +1471,7 @@ void          vortex_listener_shutdown (VortexConnection * listener,
 
   /* now do a foreach over all connections registered in the
    * reader */
+  FUEL_WITH_PROGRESS ("listener_shutdown");
   if (also_created_conns) {
     /* call to shutdown all associated connections */
     notify = vortex_reader_foreach (ctx, 

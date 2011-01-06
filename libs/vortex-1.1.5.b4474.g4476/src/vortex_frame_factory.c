@@ -601,13 +601,14 @@ char  * vortex_frame_build_up_from_params_s_buffer (VortexFrameType   type,
 			(* frame_size ) = -1;
 		return NULL;
 	}
-
+        FUEL_WITH_PROGRESS ("build frame up from params s buffer");
 	/*
 	 * check if we have to build content type and content transfer
 	 * encoding headers ... */
 	place_content_type      = (content_type      != NULL) && ! axl_stream_cmp (content_type, "application/octet-stream", 24);
 	place_transfer_encoding = (transfer_encoding != NULL) && ! axl_stream_cmp (transfer_encoding, "binary", 6);
 
+        
 	/* payload size for the BEEP header */
 	header_size = size;
 	
@@ -628,6 +629,7 @@ char  * vortex_frame_build_up_from_params_s_buffer (VortexFrameType   type,
 
 	/* build BEEP header */
 	if (buffer && buffer_size > 0) {
+          FUEL_WITH_PROGRESS ("build frame up from params s buffer");
 		/* check if we are building a BEEP ANS header */
 		if (type == VORTEX_FRAME_TYPE_ANS) {
 			header_length  = axl_stream_printf_buffer (
@@ -698,7 +700,8 @@ char  * vortex_frame_build_up_from_params_s_buffer (VortexFrameType   type,
 		value = axl_realloc (value, header_length + size + 6);
 		VORTEX_CHECK_REF (value, NULL);
 	} /* end if */
-	
+
+        FUEL_WITH_PROGRESS ("build frame up from params s buffer");
 	/* copy BEEP frame payload */
 	memcpy (value + header_length, payload, size);
 
@@ -1115,6 +1118,7 @@ int         vortex_frame_receive_raw  (VortexConnection * connection, char  * bu
 #endif
 
  __vortex_frame_readn_keep_reading:
+        FUEL_WITH_PROGRESS ("Frame_receive_raw, readn_keep_reading");
 	/* clear buffer */
 	/* memset (buffer, 0, maxlen * sizeof (char )); */
 	if ((nread = vortex_connection_invoke_receive (connection, buffer, maxlen)) == VORTEX_SOCKET_ERROR) {
@@ -1178,11 +1182,13 @@ int          vortex_frame_readline (VortexConnection * connection, char  * buffe
 
 	/* clear the buffer received */
 	memset (buffer, 0, maxlen * sizeof (char ));
-
+        FUEL_WITH_PROGRESS ("readline");
 	/* check for pending line read */
 	pending_line = vortex_connection_get_data (connection, VORTEX_FRAME_PENDING_LINE);
 	desp         = 0;
+        FUEL_WITH_PROGRESS ("readline");
 	if (pending_line) {
+          FUEL_WITH_PROGRESS ("readline");
 		/* get size and check exceeded values */
 		desp = strlen (pending_line);
 		if (desp >= maxlen) {
@@ -1193,33 +1199,37 @@ int          vortex_frame_readline (VortexConnection * connection, char  * buffe
 							       VortexProtocolError);
 			return -1;
 		} /* end if */
-
+                FUEL_WITH_PROGRESS ("readline");
 		/* now store content into the buffer */
 		memcpy (buffer, pending_line, desp);
 		/* clear from the connection the line */
 		vortex_connection_set_data (connection, VORTEX_FRAME_PENDING_LINE, NULL);
 	}
-        
+        FUEL_WITH_PROGRESS ("readline");
 	/* read current next line */
 	ptr = (buffer + desp);
 	for (n = 1; n < (maxlen - desp); n++) {
        __vortex_frame_readline_again:
-           FUEL_WITH_PROGRESS ("readline for loop with added goto\n");
+           FUEL_WITH_PROGRESS ("frame_readline");
            if (( rc = vortex_connection_invoke_receive (connection, &c, 1)) == 1) {
              *ptr++ = c;
+             FUEL_WITH_PROGRESS ("readline");
              if (c == '\x0A')
                break;
            }else if (rc == 0) {
+             FUEL_WITH_PROGRESS ("readline");
              if (n == 1)
                return 0;
              else {
                break;
              }
            } else {
+             FUEL_WITH_PROGRESS ("readline");
              if (errno == VORTEX_EINTR)
              goto __vortex_frame_readline_again;
              if ((errno == VORTEX_EWOULDBLOCK) || (errno == VORTEX_EAGAIN) || (rc == -2)) {
                if (n > 0) {
+                 FUEL_WITH_PROGRESS ("readline");
                  /* store content read until now */
                  pending_line = axl_strdup (buffer);
                  vortex_connection_set_data_full (connection, 
@@ -1233,6 +1243,7 @@ int          vortex_frame_readline (VortexConnection * connection, char  * buffe
 			
              /* if the connection is closed, just return
               * without logging a message */
+             FUEL_WITH_PROGRESS ("readline");
              if (vortex_connection_is_ok (connection, axl_false)) {
                error_msg = vortex_errno_get_last_error ();
                vortex_log (VORTEX_LEVEL_CRITICAL, "unable to read a line, error was: %s",
@@ -1240,6 +1251,7 @@ int          vortex_frame_readline (VortexConnection * connection, char  * buffe
              }
              return (-1);
            }
+           FUEL_WITH_PROGRESS ("readline");
 	}
 	*ptr = 0;
 	return (n + desp);
@@ -1403,24 +1415,28 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 	/* before reading anything else, we have to check if previous
 	 * read was complete if not, we are in a frame fragment case */
 	buffer = vortex_connection_get_data (connection, "buffer");
-	
+	FUEL_WITH_PROGRESS ("get_next");
 	if (buffer) {
 		vortex_log (VORTEX_LEVEL_DEBUG, 
 			    "received more data after a frame fragment, previous read isn't still complete");
 		/* get previous frame */
+                FUEL_WITH_PROGRESS ("get_next");
 		frame        = vortex_connection_get_data (connection, "frame");
+                FUEL_WITH_PROGRESS ("get_next");
 		v_return_val_if_fail (frame, NULL);
 		/* get previous remaining */
 		remaining    = PTR_TO_INT (vortex_connection_get_data (connection, "remaining_bytes"));
+                FUEL_WITH_PROGRESS ("get_next");
 		vortex_log (VORTEX_LEVEL_DEBUG, "remaining bytes to be read: %d", remaining);
 		v_return_val_if_fail (remaining > 0, NULL);
-
+                FUEL_WITH_PROGRESS ("get_next");
 		/* get previous bytes read */
 		bytes_read = PTR_TO_INT (vortex_connection_get_data (connection, "bytes_read"));
 		vortex_log (VORTEX_LEVEL_DEBUG, "bytes already read: %d", bytes_read);
-
+                FUEL_WITH_PROGRESS ("get_next");
 		bytes_read = vortex_frame_receive_raw (connection, buffer + bytes_read, remaining);
 		if (bytes_read == 0) {
+                  FUEL_WITH_PROGRESS ("get_next");
 			vortex_frame_free (frame);
 			axl_free (buffer);
 			vortex_connection_set_data (connection, "buffer", NULL);
@@ -1431,7 +1447,7 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 			return NULL;
 		}
 
-
+                FUEL_WITH_PROGRESS ("get_next");
 		vortex_log (VORTEX_LEVEL_DEBUG, "bytes ready this time: %d", bytes_read);
                 
 		/* check data received */
@@ -1441,18 +1457,22 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 			vortex_log (VORTEX_LEVEL_DEBUG, "the frame fragment isn't still complete, total read: %d", bytes_read);
 			goto save_buffer;
 		}
+                FUEL_WITH_PROGRESS ("get_next");
 		
 		/* We have a complete buffer for the frame, let's
 		 * continue the process but, before doing that we have
 		 * to restore expected state of bytes_read. */
 		bytes_read = (frame->size + 5);
+                FUEL_WITH_PROGRESS ("get_next");
 		vortex_connection_set_data (connection, "buffer", NULL);
+                FUEL_WITH_PROGRESS ("get_next");
 		vortex_connection_set_data (connection, "frame", NULL);
 		vortex_log (VORTEX_LEVEL_DEBUG, "this already complete (total size: %d", frame->size);
 		goto process_buffer;
 	
 }
 	/* parse frame header, read the first line */
+        FUEL_WITH_PROGRESS ("get_next");
 	bytes_read = vortex_frame_readline (connection, line, 99);
 	if (bytes_read == -2) {
                 vortex_log (VORTEX_LEVEL_WARNING,
@@ -1462,15 +1482,17 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 	}
         
 	if (bytes_read == 0) {
+          FUEL_WITH_PROGRESS ("get_next");
 		/* check if channel is expected to be closed */
 		if (vortex_connection_get_data (connection, "being_closed")) {
 			vortex_log (VORTEX_LEVEL_DEBUG, "properly connection close");
 			__vortex_connection_set_not_connected (connection, "connection properly closed", VortexConnectionCloseCalled);
 			return NULL;
 		}
-
+                FUEL_WITH_PROGRESS ("get_next");
 		/* check for connection into initial connect state */
 		if (PTR_TO_INT (vortex_connection_get_data (connection, "initial_accept"))) {
+                  FUEL_WITH_PROGRESS ("get_next");
 			/* found a connection broken in the middle of
 			 * the negotiation (just before the initial
 			 * step, but after the second step) */
@@ -1479,7 +1501,7 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 							       VortexProtocolError);
 			return NULL;
 		}
-	
+                FUEL_WITH_PROGRESS ("get_next");
 		/* check if we have a non-blocking connection */
 		vortex_log (VORTEX_LEVEL_CRITICAL, "client have disconnected without closing properly this session id=%d",
 			    vortex_connection_get_id (connection));
@@ -1487,12 +1509,14 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 						       VortexProtocolError);
 		return NULL;
 	}
+        FUEL_WITH_PROGRESS ("get_next");
 	if (bytes_read == -1) {
 		vortex_log (VORTEX_LEVEL_CRITICAL, "an error have ocurred while reading socket");
 		__vortex_connection_set_not_connected (connection, "client have disconnected without closing session",
 						       VortexProtocolError);
 		return NULL;
 	}
+        FUEL_WITH_PROGRESS ("get_next");
 	if (bytes_read == 1 || (line[bytes_read - 1] != '\x0A') || (line[bytes_read - 2] != '\x0D')) {
 		vortex_log (VORTEX_LEVEL_CRITICAL, 
 			    "no line definition found for frame, over connection id=%d, bytes read: %d, line: '%s' errno=%d, closing session",
@@ -1502,9 +1526,10 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 						       VortexProtocolError);
 		return NULL;
 	}
-
+        FUEL_WITH_PROGRESS ("get_next");
 	/* create a frame */
 	frame       = axl_new (VortexFrame, 1);
+        FUEL_WITH_PROGRESS ("get_next");
 	if (frame == NULL) {
 		__vortex_connection_set_not_connected (connection, "Failed to allocate memory for frame", VortexMemoryFail);
 		return NULL;
@@ -1512,11 +1537,11 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 
 	/* set initial ref count */
 	frame->ref_count = 1;
-
+        FUEL_WITH_PROGRESS ("get_next");
 	/* associate the next frame id available */
 	frame-> id  = __vortex_frame_get_next_id (ctx, "get-next");
 	frame->ctx  = ctx;
-
+        FUEL_WITH_PROGRESS ("get_next");
 	/* check initial frame spec */
 	frame->type = VORTEX_FRAME_TYPE_UNKNOWN;
 	if (axl_stream_cmp (line, "MSG", 3))
@@ -1532,6 +1557,7 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 	else if (axl_stream_cmp (line, "SEQ", 3))
 		frame->type = VORTEX_FRAME_TYPE_SEQ;
 
+        FUEL_WITH_PROGRESS ("get_next");
 	if (frame->type == VORTEX_FRAME_TYPE_UNKNOWN) {
 		/* unref frame value */
 		axl_free (frame);
@@ -1542,6 +1568,7 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 		return NULL;
 	}
 
+        FUEL_WITH_PROGRESS ("get_next");
 	/* get the next frame according to the expected values */
 	bytes_read = vortex_frame_get_header_data (ctx, connection, &(line[4]), frame);
 	if (bytes_read == -2) {
@@ -1553,6 +1580,7 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 		return NULL;
 	}
 
+        FUEL_WITH_PROGRESS ("get_next");
 	/* configure the channel where the frame was received */
 	frame->channel_ref = vortex_connection_get_channel (connection, frame->channel);
 	if (frame->channel_ref == NULL) {
@@ -1563,6 +1591,8 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 		axl_free (frame);
 		return NULL;
 	}
+
+        FUEL_WITH_PROGRESS ("get_next");
 	
 	/* in the case it is a SEQ frame */
 	if (frame->type == VORTEX_FRAME_TYPE_SEQ) 
@@ -1579,7 +1609,8 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 		axl_free (frame);
 		return NULL;
 	}
-
+        
+        FUEL_WITH_PROGRESS ("get_next");
 	/* check more flag */
 	if (frame->more_char != '.' && frame->more_char != '*') {
 		vortex_log (VORTEX_LEVEL_CRITICAL, "poorly-formed frame: more char is wrong");
@@ -1590,6 +1621,7 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 		axl_free (frame);
 		return NULL;
 	}
+        FUEL_WITH_PROGRESS ("get_next");
 
 	/* set more flag */
 	if (frame->more_char == '.')
@@ -1597,6 +1629,7 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 	else
 		frame->more = axl_true;
 
+        FUEL_WITH_PROGRESS ("get_next");
 	/* check incoming frame size fits expected window size - seqno  */
 	if (! vortex_channel_check_incoming_seqno (frame->channel_ref, frame)) {
 		vortex_log (VORTEX_LEVEL_CRITICAL, "received an unexpected frame size (max seqno expected: %u, but received: %u), frame seqno: %u, frame size: %d, expected: %u), closing session",
@@ -1610,10 +1643,12 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 		return NULL;
 	}
 
+        FUEL_WITH_PROGRESS ("get_next");
 	/* allocate exactly frame->size + 5 bytes */
 	buffer = axl_new (char , frame->size + 6);
 	VORTEX_CHECK_REF2 (buffer, NULL, frame, axl_free);
-	
+
+        FUEL_WITH_PROGRESS ("get_next");
 	/* read the next frame content */
 	bytes_read = vortex_frame_receive_raw (connection, buffer, frame->size + 5);
  	if (bytes_read == 0 && errno != VORTEX_EAGAIN && errno != VORTEX_EWOULDBLOCK) {
@@ -1629,6 +1664,7 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 		return NULL;
 	}
 
+        FUEL_WITH_PROGRESS ("get_next");
 	if (bytes_read != (frame->size + 5)) {
 		/* ok, we have received few bytes than expected but
 		 * this is not wrong. Non-blocking sockets behave this
@@ -1639,20 +1675,21 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 		 * connection will return the rest of frame to be read. */
 
 	save_buffer:
+          FUEL_WITH_PROGRESS ("save_buffer");
 		/* save current frame */
 		vortex_connection_set_data (connection, "frame", frame);
-		
+		FUEL_WITH_PROGRESS ("get_next");
 		/* save current buffer read */
 		vortex_connection_set_data (connection, "buffer", buffer);
-		
+		FUEL_WITH_PROGRESS ("get_next");
 		/* save remaining bytes */
 		vortex_connection_set_data (connection, "remaining_bytes", 
 					    INT_TO_PTR ((frame->size + 5) - bytes_read));
-
+                FUEL_WITH_PROGRESS ("get_next");
 		/* save read bytes */
 		vortex_connection_set_data (connection, "bytes_read", 
 					    INT_TO_PTR (bytes_read));
-
+                FUEL_WITH_PROGRESS ("get_next");
 		vortex_log (VORTEX_LEVEL_DEBUG, 
 		       "(ok message) received a frame fragment (expected: %d read: %d remaining: %d), storing into this connection id=%d",
 		       (frame->size + 5), bytes_read, (frame->size + 5) - bytes_read, vortex_connection_get_id (connection));
@@ -1660,7 +1697,7 @@ VortexFrame * vortex_frame_get_next     (VortexConnection * connection)
 	}
 
 process_buffer:
-
+        FUEL_WITH_PROGRESS ("get_next");
 	/* check frame have ended */
 	if (! axl_stream_cmp (&buffer[bytes_read - 5], "END\x0D\x0A", 5)) {
 		vortex_log (VORTEX_LEVEL_CRITICAL, 
@@ -1676,7 +1713,7 @@ process_buffer:
 		axl_free (buffer);
 		return NULL;
 	}
-	
+	FUEL_WITH_PROGRESS ("get_next");
 	/* locate body frame init */
 	frame->size      = frame->size - frame->mime_headers_size;
 
@@ -1686,7 +1723,7 @@ process_buffer:
 
 	/* get a reference to the buffer to dealloc it */
 	frame->buffer    = buffer;
-
+        FUEL_WITH_PROGRESS ("get_next");
 	/* log frame on channel received */
 	if (vortex_log_is_enabled (ctx)) {
 		vortex_log (VORTEX_LEVEL_DEBUG, "Frame received on channel %d, content type=%s, transfer encoding=%s, payload size=%d, mime content size=%d", 
@@ -1695,7 +1732,7 @@ process_buffer:
  			    (vortex_frame_get_transfer_encoding (frame) != NULL) ? vortex_frame_get_transfer_encoding (frame) : "",
  			    frame->size, frame->mime_headers_size);
 	} /* end if */
-
+        FUEL_WITH_PROGRESS ("get_next");
 	/* notify here frame received (content receieved) */
 	vortex_connection_set_receive_stamp (connection);
 
@@ -1733,11 +1770,13 @@ axl_bool             vortex_frame_send_raw     (VortexConnection * connection, c
 	v_return_val_if_fail (a_frame, axl_false);
 
  again:
+        FUEL_WITH_PROGRESS ("again");
 	if ((bytes = vortex_connection_invoke_send (connection, a_frame + total, frame_size - total)) < 0) {
 		if (errno == VORTEX_EINTR)
 			goto again;
  		if ((errno == VORTEX_EWOULDBLOCK) || (errno == VORTEX_EAGAIN) || (bytes == -2)) {
  		implement_retry:
+                  FUEL_WITH_PROGRESS ("implement_try");
  			vortex_log (VORTEX_LEVEL_WARNING, 
  				    "unable to write data to socket (requested %d but written %d), socket not is prepared to write, doing wait",
  				    frame_size, total);
@@ -1791,7 +1830,7 @@ axl_bool             vortex_frame_send_raw     (VortexConnection * connection, c
  			} /* end switch */
 			goto end;
 		}
-		
+                
 		/* check if socket have been disconnected (macro
 		 * definition at vortex.h) */
 		if (vortex_is_disconnected) {
@@ -3058,8 +3097,9 @@ axl_bool           vortex_frame_mime_process          (VortexFrame * frame)
 
 	/* until frame content is exhausted.. */
 	while (iterator < frame->size) {
-
+          FUEL_WITH_PROGRESS ("mime_process");
 		while (axl_true) {
+                  FUEL_WITH_PROGRESS ("mime_process");
 			/* check to terminate mime body part */
 			if ((payload[iterator] == '\x0A') || 
 			    (payload[iterator] == '\x0D' && payload[iterator + 1] == '\x0A'))
@@ -3399,6 +3439,7 @@ int                vortex_frame_mime_header_count      (VortexMimeHeader * heade
 	/* point to the received header */
 	header_aux = header;
 	while (header_aux->next) {
+          FUEL_WITH_PROGRESS ("mime_header_count");
 		count++;
 		header_aux = header_aux->next;
 	}

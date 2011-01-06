@@ -39,7 +39,6 @@
      (printf "waiting...~n")
      (vortex-listener-wait context)
      (printf "exiting...~n")
-     (vortex-exit-ctx context axl-true)
      )))
 
 (simple-listener)

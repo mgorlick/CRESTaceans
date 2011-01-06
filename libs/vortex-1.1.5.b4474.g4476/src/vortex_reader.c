@@ -91,7 +91,7 @@ axl_bool      __vortex_reader_process_socket_check_nul_frame (VortexCtx        *
     vortex_log (VORTEX_LEVEL_CRITICAL, "failed to update MIME status for the NUL frame (protocol error)");
     return axl_false;
   } /* end if */
-	
+  FUEL_WITH_PROGRESS ("reader_process_socket_check_nul_frame");
   switch (vortex_frame_get_type (frame)) {
     case VORTEX_FRAME_TYPE_NUL:
       /* check zero payload size at NUL frame */
@@ -103,6 +103,8 @@ axl_bool      __vortex_reader_process_socket_check_nul_frame (VortexCtx        *
                                                VortexProtocolError);
         return axl_false;
       }
+
+      FUEL_WITH_PROGRESS ("reader_process_socket_check_nul_frame");
 
       /* check more flag at NUL frame reply. */
       if (vortex_frame_get_more_flag (frame)) {
@@ -157,6 +159,8 @@ axl_bool      __vortex_reader_update_incoming_buffer_and_notify (VortexCtx      
       /* only perform this task for those frames that have
        * actually payload content to report and the current
        * window size have changed. */
+
+      FUEL_WITH_PROGRESS ("reader_update_incoming_buffer_and_notify");
       if (vortex_channel_update_incoming_buffer (channel, frame, &ackno, &window)) {
         /* It seems there are something to report.
          * 
@@ -182,6 +186,7 @@ axl_bool      __vortex_reader_update_incoming_buffer_and_notify (VortexCtx      
          * will check if the packet to send is a SEQ frame to
          * apply this priority. */
         channel0 = vortex_connection_get_channel (connection, 0);
+        FUEL_WITH_PROGRESS ("reader_update_incoming_buffer_and_notify");
         if ((channel0 == NULL) || ! vortex_sequencer_direct_send (connection, channel0, &writer)) {
           vortex_log (VORTEX_LEVEL_CRITICAL, "unable to queue a SEQ frame");
           /* deallocate memory on error, because no one
@@ -228,6 +233,7 @@ axl_bool      vortex_reader_check_incoming_msgno (VortexCtx        * ctx,
   /* check if the message is not already available in the
    * list */
   if (! vortex_channel_check_msg_no (channel, frame)) {
+    FUEL_WITH_PROGRESS ("reader_check_incoming_msgno");
     /* drop a log */
     vortex_log (VORTEX_LEVEL_CRITICAL, 
                 "Found incoming message number %d that represents a previous message received but still not replied, protocol violation",
@@ -294,6 +300,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
   /* check if there are pre read handler to be executed on this 
      connection. */
   if (vortex_connection_is_defined_preread_handler (connection)) {
+    FUEL_WITH_PROGRESS ("reader_process_socket");
     /* if defined preread handler invoke it and return. */
     vortex_connection_invoke_preread_handler (connection);
     return;
@@ -305,12 +312,14 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
   /* check for unwatch requests */
   if (PTR_TO_INT (vortex_connection_get_data (connection, VORTEX_READER_UNWATCH)))
     return;
+      FUEL_WITH_PROGRESS ("reader_process_socket");
 
   /* read all frames received from remote site */
   frame   = vortex_frame_get_next (connection);
   if (frame == NULL) 
     return;
 
+      FUEL_WITH_PROGRESS ("reader_process_socket");
   /* get frame type to avoid calling everytime to
    * vortex_frame_get_type */
   type    = vortex_frame_get_type (frame);
@@ -320,6 +329,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
 
   /* check for debug to throw some debug messages.*/
   if (vortex_log2_is_enabled (ctx)) {
+          FUEL_WITH_PROGRESS ("reader_process_socket");
     raw_frame = vortex_frame_get_raw_frame (frame);
     vortex_log (VORTEX_LEVEL_DEBUG, "frame received (before all filters)\n%s",
                 raw_frame);
@@ -331,15 +341,18 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
     /* it doesn't matter to have a connection accepted or
      * not accepted to the vortex reader mission, so
      * simply call second step accept and return.  */
+          FUEL_WITH_PROGRESS ("reader_process_socket");
     __vortex_listener_second_step_accept (frame, connection);
     return;
   }
   vortex_log (VORTEX_LEVEL_DEBUG, "passed initial accept stage");
+        FUEL_WITH_PROGRESS ("reader_process_socket");
 
   /* channel exists, get a channel reference */
   channel = vortex_connection_get_channel (connection,
                                            vortex_frame_get_channel (frame));
   if (channel == NULL) {
+          FUEL_WITH_PROGRESS ("reader_process_socket");
     vortex_log (VORTEX_LEVEL_CRITICAL, "received a frame referring to a non-opened channel, closing session");
     __vortex_connection_set_not_connected (connection, 
                                            "received a frame referring to a non-opened channel, closing session",
@@ -351,7 +364,10 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
 
   vortex_log (VORTEX_LEVEL_DEBUG, "passed connection existence stage");	
   /* now update current incoming buffers to track SEQ frames */
+        FUEL_WITH_PROGRESS ("reader_process_socket");
   if (! __vortex_reader_update_incoming_buffer_and_notify (ctx, connection, channel, frame)) {
+            FUEL_WITH_PROGRESS ("reader_process_socket");
+
     vortex_log (VORTEX_LEVEL_CRITICAL, "unable to notify SEQ channel status, connection broken or protocol violation");
     return;
   } /* end if */
@@ -359,6 +375,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
   switch (type) {
     case VORTEX_FRAME_TYPE_MSG:
       /* MSG frame type: check if msgno is correct */
+              FUEL_WITH_PROGRESS ("reader_process_socket");
       if (!vortex_reader_check_incoming_msgno (ctx, connection, channel, frame))
         return;
       break;
@@ -366,6 +383,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
     case VORTEX_FRAME_TYPE_ERR:
     case VORTEX_FRAME_TYPE_ANS:
     case VORTEX_FRAME_TYPE_NUL:
+              FUEL_WITH_PROGRESS ("reader_process_socket");
       /* RPY or ERR frame type: check if reply is expected */
       if (vortex_channel_get_next_expected_reply_no (channel) != vortex_frame_get_msgno (frame)) {
 
@@ -382,6 +400,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
       }
       break;
     case VORTEX_FRAME_TYPE_SEQ:
+              FUEL_WITH_PROGRESS ("reader_process_socket");
       /* manage incoming SEQ frames, check if the received
        * ackno value is inside the seqno range for bytes
        * already sent. */
@@ -420,6 +439,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
 		
       /* update information about the buffer state of the
        * remote peer for the given channel */
+              FUEL_WITH_PROGRESS ("reader_process_socket");
       vortex_channel_update_remote_incoming_buffer (channel, 
                                                     /* ackno */
                                                     vortex_frame_get_seqno (frame), 
@@ -440,7 +460,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
       break;
   }
   vortex_log (VORTEX_LEVEL_DEBUG, "passed message number checking stage");
-
+        FUEL_WITH_PROGRESS ("reader_process_socket");
   /* Check next sequence number, this check is always applied,
    * for SEQ frames received this case is not reached. */
   if (vortex_channel_get_next_expected_seq_no (channel) !=
@@ -456,7 +476,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
     /* close the connection due to a protocol violation */
     __vortex_connection_set_not_connected (connection, "expected seq no number for channel wan't found",
                                            VortexProtocolError);
-
+        FUEL_WITH_PROGRESS ("reader_process_socket");
     /* free the frame */
     vortex_frame_unref (frame);
     return;
@@ -466,6 +486,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
   if ((type == VORTEX_FRAME_TYPE_NUL) && 
       !__vortex_reader_process_socket_check_nul_frame (ctx, frame, connection)) {
     /* free the frame */
+            FUEL_WITH_PROGRESS ("reader_process_socket");
     vortex_frame_unref (frame);	
     return;
   }	
@@ -473,6 +494,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
   /* update channel internal status for next incoming messages */
   switch (type) {
     case VORTEX_FRAME_TYPE_MSG:
+              FUEL_WITH_PROGRESS ("reader_process_socket");
       /* is a MSG frame type: update msgno and seqno */
       vortex_channel_update_status_received (channel, 
                                              vortex_frame_get_content_size (frame), 
@@ -493,6 +515,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
        * And we have to do this flagging before updating
        * channel status because close process will compare
        * messages sent to message replies receive. */
+              FUEL_WITH_PROGRESS ("reader_process_socket");
       vortex_channel_flag_reply_processed (channel, axl_false);
 		
 
@@ -510,6 +533,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
 
       break;
     case VORTEX_FRAME_TYPE_NUL:
+              FUEL_WITH_PROGRESS ("reader_process_socket");
       /* And we have to do this flagging before updating
        * channel status because close process will compare
        * messages sent to message replies receive. */
@@ -520,7 +544,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
                                              vortex_frame_get_content_size (frame), 
                                              vortex_frame_get_msgno (frame),
                                              UPDATE_RPY_NO | UPDATE_SEQ_NO);
-
+        FUEL_WITH_PROGRESS ("reader_process_socket");
       /* remove the message replied from outstanding list */
       vortex_channel_remove_first_outstanding_msg_no (channel, vortex_frame_get_msgno (frame));
 		
@@ -528,7 +552,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
     case VORTEX_FRAME_TYPE_ANS:
       /* look above description */
       vortex_channel_flag_reply_processed (channel, axl_false);
-
+        FUEL_WITH_PROGRESS ("reader_process_socket");
       /* is not a MSG frame type: update seqno */
       vortex_channel_update_status_received (channel, 
                                              vortex_frame_get_content_size (frame), 
@@ -547,7 +571,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
    * invoke frame received handler. This is done by checking for
    * more flag. */
   more = vortex_frame_get_more_flag (frame);
-
+        FUEL_WITH_PROGRESS ("reader_process_socket");
   /* check complete frames flags:
    * If more is enabled, the frame signal that more(*) frames have to come, or
    * The more(.) flag is not enabled but we have a previously stored frame and the channel
@@ -555,14 +579,14 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
   if (more) {
     /* get previous frame to perform check operations */
     previous = vortex_channel_get_previous_frame (channel);
-		
+		        FUEL_WITH_PROGRESS ("reader_process_socket");
     /* check if there are previous frame */
     if (previous == NULL) {
       /* no previous frame found, store if the
        * complete flag is activated */
       if (vortex_channel_have_complete_flag (channel)) {
         vortex_log (VORTEX_LEVEL_DEBUG, "more flag and completed flag detected, skipping to the next frame");
-
+        FUEL_WITH_PROGRESS ("reader_process_socket");
         /* push the frame for later operation */
         vortex_channel_store_previous_frame (channel, frame);
         return;
@@ -570,6 +594,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
     } else {
       /* we have a previous frame, check to store or
        * deliver */
+              FUEL_WITH_PROGRESS ("reader_process_socket");
       if (! vortex_frame_are_joinable (previous, frame)) {
         vortex_log (VORTEX_LEVEL_CRITICAL, "frame fragment received is not valid, giving up for this session");
         vortex_frame_unref (frame);
@@ -585,7 +610,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
        * was found stored. Because the frame is
        * joinable, store. */
       vortex_log (VORTEX_LEVEL_DEBUG, "more flag and completed flag detected, skipping to the next frame");
-			
+			        FUEL_WITH_PROGRESS ("reader_process_socket");
       /* push the frame for later operation */
       vortex_channel_store_previous_frame (channel, frame);
       return;
@@ -595,6 +620,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
     /* no more pending frames, check for stored frames
      * previous */
     if (vortex_channel_have_previous_frame (channel)) {
+              FUEL_WITH_PROGRESS ("reader_process_socket");
       /* store the frame into the channel */
       vortex_channel_store_previous_frame (channel, frame);
 
@@ -607,6 +633,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
 
   /* if the frame is complete, apply mime processing */
   if (vortex_frame_get_more_flag (frame) == 0 && type != VORTEX_FRAME_TYPE_NUL) {
+            FUEL_WITH_PROGRESS ("reader_process_socket");
     /* call to update frame MIME status */
     if (! vortex_frame_mime_process (frame))
       vortex_log (VORTEX_LEVEL_WARNING, "failed to update MIME status for the frame, continue delivery");
@@ -615,6 +642,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
   /* check for general frame received (channel != 0) */
   if (vortex_channel_get_number (channel) != 0 && 
       vortex_reader_invoke_frame_received (ctx, connection, channel, frame)) {
+            FUEL_WITH_PROGRESS ("reader_process_socket");
     vortex_log (VORTEX_LEVEL_DEBUG, "frame delivered to global frame received handler");
     return; /* frame was successfully delivered */
   }
@@ -622,6 +650,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
   /* invoke frame received handler for second level and, if not
    * defined, the first level handler */
   if (vortex_channel_invoke_received_handler (connection, channel, frame)) {
+            FUEL_WITH_PROGRESS ("reader_process_socket");
     vortex_log (VORTEX_LEVEL_DEBUG, "frame delivered on second (channel) level handler channel");
     return; /* frame was successfully delivered */
   }
@@ -647,6 +676,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
     case VORTEX_FRAME_TYPE_ERR:
     case VORTEX_FRAME_TYPE_ANS:
     case VORTEX_FRAME_TYPE_NUL:
+              FUEL_WITH_PROGRESS ("reader_process_socket");
       /* flag this frame over the channel to be delivered because a
        * dead-lock can happen if we receive a close message at this
        * point. We have to be able to close a channel having defined
@@ -660,7 +690,7 @@ void __vortex_reader_process_socket (VortexCtx        * ctx,
 	
   /* unable to deliver the frame, free it */
   vortex_frame_unref (frame);
-
+        FUEL_WITH_PROGRESS ("reader_process_socket");
   /* that's all I can do */
   return;
 }
@@ -689,6 +719,7 @@ axl_bool   vortex_reader_register_watch (VortexReaderData * data, axlList * con_
   switch (data->type) {
     case CONNECTION:
       /* check the connection */
+              FUEL_WITH_PROGRESS ("reader_process_socket");
       if (!vortex_connection_is_ok (connection, axl_false)) {
         /* check if we can free this connection */
         vortex_connection_unref (connection, "vortex reader (process)");
@@ -706,6 +737,7 @@ axl_bool   vortex_reader_register_watch (VortexReaderData * data, axlList * con_
 
       break;
     case LISTENER:
+              FUEL_WITH_PROGRESS ("reader_process_socket");
       vortex_log (VORTEX_LEVEL_DEBUG, "new listener connection to be watched (%d --> %s:%s)",
                   vortex_connection_get_socket (connection), 
                   vortex_connection_get_host (connection), 
@@ -813,6 +845,7 @@ void vortex_reader_foreach_impl (VortexCtx        * ctx,
 
   /* notify that the foreach operation was completed */
 foreach_impl_notify:
+          FUEL_WITH_PROGRESS ("reader_process_socket");
   vortex_async_queue_push (data->notify, INT_TO_PTR (1));
 
   return;
@@ -896,6 +929,7 @@ axl_bool      vortex_reader_read_queue (VortexCtx  * ctx,
                                              srv_list, 
                                              data);
     } else if (data->type == FOREACH) {
+              FUEL_WITH_PROGRESS ("reader_process_socket");
       /* do a foreach operation */
       vortex_reader_foreach_impl (ctx, con_list, srv_list, data);
 
@@ -932,6 +966,7 @@ axl_bool      vortex_reader_read_pending (VortexCtx  * ctx,
 
   length = vortex_async_queue_length (ctx->reader_queue);
   while (length > 0) {
+            FUEL_WITH_PROGRESS ("reader_process_socket");
     length--;
     data            = vortex_async_queue_pop (ctx->reader_queue);
 
@@ -981,7 +1016,7 @@ VORTEX_SOCKET __vortex_reader_build_set_to_watch_aux (VortexCtx     * ctx,
 	
   axl_list_cursor_first (cursor);
   while (axl_list_cursor_has_item (cursor)) {
-
+        FUEL_WITH_PROGRESS ("reader_process_socket");
     /* get current connection */
     connection = axl_list_cursor_get (cursor);
 
@@ -1015,6 +1050,7 @@ VORTEX_SOCKET __vortex_reader_build_set_to_watch_aux (VortexCtx     * ctx,
 
     /* check if the connection is blocked (no I/O read to
      * perform on it) */
+            FUEL_WITH_PROGRESS ("reader_process_socket");
     if (vortex_connection_is_blocked (connection)) {
       vortex_log (VORTEX_LEVEL_DEBUG, "connection id=%d has I/O read blocked (vortex_connection_block)", 
                   vortex_connection_get_id (connection));
@@ -1087,7 +1123,7 @@ void __vortex_reader_check_connection_list (VortexCtx     * ctx,
   /* check all connections */
   axl_list_cursor_first (con_cursor);
   while (axl_list_cursor_has_item (con_cursor)) {
-
+        FUEL_WITH_PROGRESS ("reader_process_socket");
     /* check changed */
     if (changed == checked)
       return;
@@ -1140,7 +1176,7 @@ int  __vortex_reader_check_listener_list (VortexCtx     * ctx,
   /* check all listeners */
   axl_list_cursor_first (srv_cursor);
   while (axl_list_cursor_has_item (srv_cursor)) {
-
+        FUEL_WITH_PROGRESS ("reader_process_socket");
     /* get the connection */
     connection = axl_list_cursor_get (srv_cursor);
 
@@ -1165,6 +1201,7 @@ int  __vortex_reader_check_listener_list (VortexCtx     * ctx,
 		
     /* check if the socket is activated */
     if (vortex_io_waiting_invoke_is_set_fd_group (ctx, fds, on_reading, ctx)) {
+              FUEL_WITH_PROGRESS ("reader_process_socket");
       /* init the listener incoming connection phase */
       vortex_log (VORTEX_LEVEL_DEBUG, "listener (%d) have requests, processing..", fds);
       vortex_listener_accept_connections (ctx, fds, connection);
@@ -1425,12 +1462,12 @@ void vortex_reader_watch_connection (VortexCtx        * ctx,
 
   v_return_if_fail (vortex_connection_is_ok (connection, axl_false));
   v_return_if_fail (ctx->reader_queue);
-
+  FUEL_WITH_PROGRESS ("reader_watch_connection");
   if (!vortex_connection_set_nonblocking_socket (connection)) {
     vortex_log (VORTEX_LEVEL_CRITICAL, "unable to set non-blocking I/O operation, at connection registration, closing session");
     return;
   }
-
+  FUEL_WITH_PROGRESS ("reader_watch_connection");
   /* increase reference counting */
   if (! vortex_connection_ref (connection, "vortex reader (process)")) {
     vortex_log (VORTEX_LEVEL_CRITICAL, "unable to increase connection reference count, dropping connection");
@@ -1441,7 +1478,7 @@ void vortex_reader_watch_connection (VortexCtx        * ctx,
   data             = axl_new (VortexReaderData, 1);
   data->type       = CONNECTION;
   data->connection = connection;
-
+  FUEL_WITH_PROGRESS ("reader_watch_connection");
   /* push data */
   QUEUE_PUSH (ctx->reader_queue, data);
 
@@ -1529,10 +1566,8 @@ axl_bool  vortex_reader_run (VortexCtx * ctx)
     vortex_async_queue_release (ctx->reader_stopped);
   ctx->reader_stopped = vortex_async_queue_new ();
 
-  VortexThread *t;
   /* create the vortex reader main thread */
-  if (! vortex_thread_create (t,
-                              (VortexThreadFunc) __vortex_reader_run, ctx)) {
+  if (! vortex_thread_create (&ctx->reader_thread, (VortexThreadFunc) __vortex_reader_run, ctx)) {
     vortex_log (VORTEX_LEVEL_CRITICAL, "unable to start vortex reader loop");
     return axl_false;
   } /* end if */
@@ -1565,7 +1600,7 @@ void vortex_reader_stop (VortexCtx * ctx)
   vortex_async_queue_pop (ctx->reader_stopped);
   vortex_async_queue_unref (ctx->reader_stopped);
   /* terminate thread */
-  /* vortex_thread_destroy (ctx->reader_thread, axl_false); */
+  vortex_thread_destroy (ctx->reader_thread, axl_false);
 
   vortex_log (VORTEX_LEVEL_DEBUG, "vortex reader process stopped");
 
