@@ -7,6 +7,15 @@
          "connection.rkt")
 (provide (all-defined-out))
 
+;; this function initializes a Vortex context in a way that needs to be done in order to glue all of the
+;; Racket compatibility modifications together. Here we make separate thread groups for different Vortex
+;; components, set up the thread creation system, potentially turn on logging and SSL, and initialize all
+;; the components. Most initialization is done on the C side but we need to initialize the reader, sequencer
+;; and thread pool here so that we can assign them to new thread groups.
+
+;; this function also transfers the i/o closures to Vortex so that Vortex Connections can use the Racket port i/o
+;; mechanisms.
+
 (define/contract (rkt:vortex-init-ctx ctx use-logging? use-ssl? ssl-cert-path)
   (VortexCtx*? boolean? boolean? (or/c string? false?) . -> . integer?) ; return must always be `axl_true' or `axl_false'
   
@@ -15,9 +24,7 @@
   (define tp-tg (make-thread-group)) ; for thread pool
   
   ;; replacement of vortex C components with custom components written in racket
-  (vortex-thread-set-create rkt:vortex-thread-create)  
-  (vortex-thread-pool-set-new-task rkt:vortex-thread-pool-new-task)
-  (vortex-thread-pool-set-new-event rkt:vortex-thread-pool-new-event)
+  (vortex-thread-set-create rkt:vortex-thread-create)
   (vortex-connection-set-listener-closures-setter rkt:vortex-connection-set-listener-mode-closures)
   (vortex-connection-set-client-closures-setter rkt:vortex-connection-set-client-mode-closures)
   

@@ -12,10 +12,10 @@
 ; vortex thread creation function with one that creates green threads.
 
 ; caveat: the ffi cannot send pointers to green threads across the racket <-> C
-; boundary. vortex holds on to thread references but doesn't do anything with them;
-; if this changes, another solution will have to be found.
+; boundary. instead, send the VortexThread** back to vortex C side where Vortex
+; can grab it from a conveniently-placed global variable `current_scheme_thread'
 
-;; VortexThreadCreateFunc: VortexThread* VortexThreadFunc pointer -> axl_bool
+;; VortexThreadCreateFunc: VortexThread** VortexThreadFunc pointer -> axl_bool
 (define/contract (rkt:vortex-thread-create thread* func user-data)
   (cpointer? procedure? cpointer? . -> . integer?)
   (thread (lambda () 
