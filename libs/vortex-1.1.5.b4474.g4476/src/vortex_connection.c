@@ -6152,7 +6152,7 @@ void vortex_connection_set_client_mode_closures (VortexConnection* connection, C
   connection->tcp_wait_write = ww;
 }
 
-void vortex_connection_set_closures_default (VortexConnection* conn, axl_bool use_ssl, char* cert_path) {
+void vortex_connection_set_closures_default (VortexConnection* conn) {
   return;
 }
 
@@ -6163,10 +6163,7 @@ void vortex_connection_set_client_closures_setter (ClosureSetter c) {
 }
 
 void vortex_connection_set_client_closures (VortexConnection* conn) {
-  VortexCtx* ctx = vortex_connection_get_ctx (conn);
-  axl_bool use_ssl = ctx->use_ssl;
-  char* cert_path = ctx->ssl_cert_path;
-  vortex_connection_set_client_closures_impl (conn, use_ssl, cert_path);
+  vortex_connection_set_client_closures_impl (conn);
 }
 
 ClosureSetter vortex_connection_set_listener_closures_impl = vortex_connection_set_closures_default;
@@ -6176,10 +6173,7 @@ void vortex_connection_set_listener_closures_setter (ClosureSetter c) {
 }
 
 void vortex_connection_set_listener_closures (VortexConnection* conn) {
-  VortexCtx* ctx = vortex_connection_get_ctx (conn);
-  axl_bool use_ssl = ctx->use_ssl;
-  char* cert_path = ctx->ssl_cert_path;
-  vortex_connection_set_listener_closures_impl (conn, use_ssl, cert_path);
+  vortex_connection_set_listener_closures_impl (conn);
 }
 
 void vortex_connection_share_closures (VortexConnection* source, VortexConnection* connection) {

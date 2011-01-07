@@ -34,10 +34,10 @@
 (define-syntax with-vtx-ctx
   (syntax-rules ()
     [(_ ctx-name 
-        [use-logging? use-ssl? ssl-cert-path]
+        [use-logging?]
         body ...)
      (let ([ctx-name (vortex-ctx-new)])
-       (if (vtx-false? (rkt:vortex-init-ctx ctx-name use-logging? use-ssl? ssl-cert-path))
+       (if (vtx-false? (rkt:vortex-init-ctx ctx-name use-logging?))
            (raise (make-exn:vtx:init "could not initialize vortex context"
                                      (current-continuation-marks)))
            (cleanup-and-return
@@ -165,9 +165,9 @@
 (define-syntax context
   (lambda (x)
     (syntax-case x ()
-      [(k [arg1 arg2 ...] e1 e2 ...)
+      [(k [arg1] e1 e2 ...)
        (with-syntax ([context (datum->syntax #'k 'context)])
-         #'(with-vtx-ctx context [arg1 arg2 ...] e1 e2 ...))])))
+         #'(with-vtx-ctx context [arg1] e1 e2 ...))])))
 
 (define-syntax connection
   (lambda (x)

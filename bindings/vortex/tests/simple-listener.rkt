@@ -28,7 +28,7 @@
 (define (simple-listener)
   (define application-group (make-thread-group))
   (context
-   [#f #t "/usr/racket/lib/racket/collects/openssl/test.pem"]
+   [#f]
    ;[#f #f #f]
    (parameterize ([current-thread-group application-group])
      (printf "Server on~n")

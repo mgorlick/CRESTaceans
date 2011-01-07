@@ -436,7 +436,7 @@ void vortex_connection_set_client_mode_closures (VortexConnection* connection, C
                                                  GetSockNameClosure g,
                                                  WaitReadClosure wr, WaitWriteClosure ww);
 
-typedef void (*ClosureSetter) (VortexConnection* conn, axl_bool use_ssl, char* cert_path);
+typedef void (*ClosureSetter) (VortexConnection* conn);
 
 void vortex_connection_set_client_closures_setter (ClosureSetter c);
 void vortex_connection_set_client_closures (VortexConnection* conn);

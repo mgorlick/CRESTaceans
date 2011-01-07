@@ -259,7 +259,7 @@
 (define _WaitReadClosure (_fun _VortexConnection-pointer _int -> _int))
 (define _WaitWriteClosure (_fun _VortexConnection-pointer _int -> _int))
 
-(define _ClosureSetter (_fun _VortexConnection-pointer _int _string -> _void))
+(define _ClosureSetter (_fun _VortexConnection-pointer -> _void))
 
 (define _NewTaskFunc (_fun _VortexCtx-pointer _VortexThreadFunc _axlPointer -> _void))
 (define _NewEventFunc (_fun _VortexCtx-pointer _long _VortexThreadAsyncEvent

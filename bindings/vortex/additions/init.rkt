@@ -16,8 +16,8 @@
 ;; this function also transfers the i/o closures to Vortex so that Vortex Connections can use the Racket port i/o
 ;; mechanisms.
 
-(define/contract (rkt:vortex-init-ctx ctx use-logging? use-ssl? ssl-cert-path)
-  (VortexCtx*? boolean? boolean? (or/c string? false?) . -> . integer?) ; return must always be `axl_true' or `axl_false'
+(define/contract (rkt:vortex-init-ctx ctx use-logging?)
+  (VortexCtx*? boolean? . -> . integer?) ; return must always be `axl_true' or `axl_false'
   
   (define sequencer-group (make-thread-group)) ; for sequencer
   (define reader-group (make-thread-group)) ; for reader
@@ -41,7 +41,6 @@
   
   (vortex-ctx-mark-initialized ctx)
   (cond [use-logging? (vortex-log-enable ctx axl-true)])
-  (cond [use-ssl? (vortex-ctx-set-ssl ctx axl-true ssl-cert-path)])
   axl-true)
 
 (define/contract (rkt:preinitialize-ctx ctx)

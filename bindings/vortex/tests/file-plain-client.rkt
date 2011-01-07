@@ -49,7 +49,7 @@
     )
   
   (context
-   [#f #f #f]
+   [#f]
    (connection 
     [context SERVER-HOST SERVER-PORT #f #f]
     (let ([q (vortex-async-queue-new)])

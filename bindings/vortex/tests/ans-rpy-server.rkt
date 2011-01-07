@@ -23,7 +23,7 @@
   (void))
 
 (context
- [#f #f #f]
+ [#f]
  (vortex-profiles-register context Plain-Profile-URI start-channel #f close-channel #f frame-received #f)
  (vortex-listener-new context "0.0.0.0" "44000" #f #f)
  (vortex-listener-wait context))
