@@ -25,8 +25,8 @@
   
   ;; replacement of vortex C components with custom components written in racket
   (vortex-thread-set-create rkt:vortex-thread-create)
-  (vortex-thread-pool-set-new-task rkt:vortex-thread-pool-new-task)
-  (vortex-thread-pool-set-new-event rkt:vortex-thread-pool-new-event)
+  ;(vortex-thread-pool-set-new-task rkt:vortex-thread-pool-new-task)
+  ;(vortex-thread-pool-set-new-event rkt:vortex-thread-pool-new-event)
   (vortex-connection-set-listener-closures-setter rkt:vortex-connection-set-listener-mode-closures)
   (vortex-connection-set-client-closures-setter rkt:vortex-connection-set-client-mode-closures)
   
@@ -37,7 +37,8 @@
   (parameterize ([current-thread-group sequencer-group])
     (vortex-sequencer-run ctx))
   (parameterize ([current-thread-group tp-tg])
-    (vortex-thread-pool-init ctx (vortex-thread-pool-get-num)))
+    (vortex-thread-pool-init ctx 5)
+   )
   
   (vortex-ctx-mark-initialized ctx)
   (cond [use-logging? (vortex-log-enable ctx axl-true)])

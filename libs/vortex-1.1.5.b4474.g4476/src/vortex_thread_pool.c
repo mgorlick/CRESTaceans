@@ -809,7 +809,7 @@ void vortex_thread_pool_set_num             (int  number)
 	char * _number;
 	
 	/* do not configure anything .. */
-	if (number <= 0)
+	if (number < 0)
 		return;
 	
 	/* translate the number into an string representation */
@@ -848,8 +848,8 @@ int  vortex_thread_pool_get_num             (void)
 	/* get the number of threads to start */
 	value = vortex_support_getenv_int ("VORTEX_THREADS");
 
-	/* set as default value 5 if 0 or lower threads are returned */
-	if (value <= 0)
+	/* set as default value 5 if less than 0 threads are returned */
+	if (value < 0)
 		return 5;
 	return value;
 }
