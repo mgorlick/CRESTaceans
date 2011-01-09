@@ -47,8 +47,8 @@
 
 (context
  [#f]
- (vortex-profiles-register context FILE-TRANSFER-URI start-channel #f close-channel #f frame-received #f)
- (vortex-profiles-register context FILE-TRANSFER-URI-BIGMSG start-channel #f close-channel #f frame-received-with-msg #f)
+ (vortex-profiles-register context FILE-TRANSFER-URI #f #f #f #f frame-received #f)
+ (vortex-profiles-register context FILE-TRANSFER-URI-BIGMSG #f #f #f #f frame-received-with-msg #f)
  (vortex-profiles-register context FILE-TRANSFER-URI-FEEDER start-channel #f close-channel #f frame-received-with-feeder #f)
  (vortex-listener-new context SERVER-HOST SERVER-PORT #f #f)
  (vortex-listener-wait context)
