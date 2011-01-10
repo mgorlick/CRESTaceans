@@ -1,7 +1,6 @@
 #lang racket
 
 (require racket/tcp 
-         openssl
          (except-in ffi/unsafe ->)
          "../vtx/module.rkt")
 (provide rkt:vortex-connection-set-client-mode-closures
@@ -30,7 +29,8 @@
 ;; read the designated amount from the designated connection's input port
 ;; return length of read when done, 0 if encountered only #<eof> or -1 on network error
 (define-syntax-rule (define-read/tcp id inports)
-  (define (id conn buffer buffer-len)
+  (define/contract (id conn buffer buffer-len)
+    (VortexConnection*? cpointer? integer?  . -> . integer?)
     (handle-neterr
      (wk ([key conn])
          (let ([s (read-bytes buffer-len (hash-ref inports key))])
@@ -43,7 +43,8 @@
 ;; write the designated amount onto the designated connection's output port
 ;; return the amount written, or -1 on network error
 (define-syntax-rule (define-write/tcp id outports)
-  (define (id conn buffer buffer-len)
+  (define/contract (id conn buffer buffer-len)
+    (VortexConnection*? cpointer? integer? . -> . integer?)
     (handle-neterr
      (wk ([key conn])
          (let* ([payload (ptr-ref buffer (_bytes o buffer-len))]
@@ -54,7 +55,8 @@
 ;; close the connection's input and output ports, remove from the map,
 ;; unref the connection and return 1 when done, or -1 on network error
 (define-syntax-rule (define-close/tcp id inports outports listeners)
-  (define (id conn who)
+  (define/contract (id conn who)
+    (VortexConnection*? string? . -> . integer?)
     ;(printf "close/tcp called by ~a~n" who)
     (handle-neterr
      (wk ([key conn])
@@ -76,7 +78,8 @@
 ;; (lambda (conn key)
 ;;   (... specify the port used to sync on (either inport or outport) ....))
 (define-syntax-rule (define-wait/tcp id sync-on)
-  (define (id conn timeout)
+  (define/contract (id conn timeout)
+    (VortexConnection*? integer? . -> . integer?)
     (handle-neterr
      (wk ([key conn])
          (if (> timeout -1)
@@ -91,7 +94,8 @@
 ;; addresses and ports into those char**
 ;; return 1 if successful, -1 if not
 (define-syntax-rule (define-get-sock-name/tcp id inports)
-  (define (id conn local-addr* local-port* remote-addr* remote-port*)
+  (define/contract (id conn local-addr* local-port* remote-addr* remote-port*)
+    (VortexConnection*? cpointer? cpointer? cpointer? cpointer? . -> . integer?)
     (handle-neterr
      (wk ([key conn])
          (let-values ([(locala localp remotea remotep) (tcp-addresses (hash-ref inports key) #t)])
@@ -107,7 +111,8 @@
 
 ; given a new connection, turn into client mode by registering function pointers
 ; to closures that close over the tcp listener.
-(define (rkt:vortex-connection-set-client-mode-closures this-connection)
+(define/contract (rkt:vortex-connection-set-client-mode-closures this-connection)
+  (VortexConnection*? . -> . void)
   (define inports (make-hash))
   (define outports (make-hash))
   
@@ -115,7 +120,8 @@
   ;; and bind the resulting input and output ports
   ;; and the socket addresses
   ;; return 1 when done or -1 on network error
-  (define (client/connect conn host port)
+  (define/contract (client/connect conn host port)
+    (VortexConnection*? string? string? . -> . integer?)
     (handle-neterr
      (wk ([key conn])
          (vortex-connection-ref conn "connect/tcp")
@@ -143,7 +149,8 @@
 
 ; given a new connection, turn it into listener mode by registering function pointers
 ; to closures that close over the tcp listener.
-(define (rkt:vortex-connection-set-listener-mode-closures this-connection)
+(define/contract (rkt:vortex-connection-set-listener-mode-closures this-connection)
+  (VortexConnection*? . -> . void)
   (define inports (make-hash))
   (define outports (make-hash))
   (define listeners (make-hash))
@@ -151,7 +158,8 @@
   ;; listen on the given host/port (both strings) and set the
   ;; master listener for this connection
   ;; return 1 when done, or -1 if network error
-  (define (listener/listen conn host port)
+  (define/contract (listener/listen conn host port)
+    (VortexConnection*? string? string? . -> . integer?)
     (handle-neterr
      (wk ([key conn])
          (vortex-connection-ref conn "listen/tcp")
@@ -163,7 +171,8 @@
   ;; accept a connection request with the master listener, and the new child listener
   ;; to bind together with the connection's input and output ports
   ;; return 1 when done, or -1 if network error
-  (define (listener/accept masterconn childconn)
+  (define/contract (listener/accept masterconn childconn)
+    (VortexConnection*? VortexConnection*? . -> . integer?)
     (handle-neterr
      (wk ([masterkey masterconn] [childkey childconn])
          (vortex-connection-ref childconn "accept/tcp")
@@ -190,7 +199,8 @@
   
   ;; take a char** and an int* and write in the actual host address used for the listener
   ;; (NOT the connected input/output ports)
-  (define (listener/gethostused conn local-addr* local-port*)
+  (define/contract (listener/gethostused conn local-addr* local-port*)
+    (VortexConnection*? cpointer? cpointer? . -> . integer?)
     (handle-neterr
      (wk ([key conn])
          (let-values ([(locala localp remotea remotep) (tcp-addresses (hash-ref listeners key) #t)])

@@ -5,8 +5,7 @@
           "additions/init.rkt")
 (provide
  (all-defined-out)
- (all-from-out "vtx/module.rkt"
-               "additions/init.rkt"))
+ (all-from-out "vtx/module.rkt"))
 
 (define (ptr-null? ptr)
   (eq? #f ptr))

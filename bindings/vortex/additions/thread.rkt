@@ -1,6 +1,6 @@
 #lang racket
 
-(require (except-in ffi/unsafe ->)
+(require (only-in ffi/unsafe cpointer?)
          "../vtx/module.rkt")
 (provide rkt:vortex-thread-create
          rkt:vortex-mutex-setup
@@ -62,13 +62,15 @@
 (define (signal-end cv) ; V
   (semaphore-post (condvar-s cv)))
 
-(define (rkt:vortex-cond-setup vtx-cond-var*)
+(define/contract (rkt:vortex-cond-setup vtx-cond-var*)
+  (VortexCond*? . -> . void?)
   
   (define cv (cond-create))
   
   ;; precondition: none
   ;; signal one thread waiting on the condition variable
-  (define (cond-signal)
+  (define/contract (cond-signal)
+    (-> void?)
     (cvlock cv)
     (cond [(> (cvcount cv) 0)
            (cvdec cv)
@@ -79,7 +81,8 @@
   ;; precondition: none
   ;; signal all threads waiting on the condition variable
   ;; (i.e., those that enqueued on `waiters' before (1) executed
-  (define (cond-broadcast)
+  (define/contract (cond-broadcast)
+    (-> void?)
     (cvlock cv) ; (1)
     (for/list ([i (in-range (cvcount cv))])
       (signal-end cv))
@@ -92,7 +95,8 @@
   
   ;; precondition: this thread holds `mutex'
   ;; wait for a signal on the condition variable
-  (define (cond-wait mutex)
+  (define/contract (cond-wait mutex)
+    (VortexMutex*? . -> . integer?)
     (cvlock cv)
     (cvinc cv)
     (cvunlock cv)
@@ -118,7 +122,8 @@
   ;; wait on the cond when it actually did.)
   ;; if that is the case, it is not a problem since
   ;; it'll be successful on the next round through.
-  (define (cond-timedwait mutex usecs)
+  (define/contract (cond-timedwait mutex usecs)
+    (VortexMutex*? integer? . -> . integer?)
     (cvlock cv)
     (cvinc cv)
     (cvunlock cv)
@@ -147,8 +152,13 @@
 (define (m-unlock m)
   (semaphore-post m))
 
-(define (rkt:vortex-mutex-setup mutex*)
+(define/contract (rkt:vortex-mutex-setup mutex*)
+  (VortexMutex*? . -> . void?)
   (define m (make-semaphore 1))
-  (define (unlock) (m-unlock m))
-  (define (lock) (m-lock m))
+  (define/contract (unlock)
+    (-> void?)
+    (m-unlock m))
+  (define/contract (lock) 
+    (-> void?)
+    (m-lock m))
   (vortex-mutex-set-closures mutex* lock unlock))

@@ -1,6 +1,6 @@
 #lang racket
 
-(require (except-in ffi/unsafe ->)
+(require (only-in ffi/unsafe cpointer?)
          "../vtx/module.rkt")
 (provide (all-defined-out))
 
