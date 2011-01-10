@@ -25,6 +25,7 @@
             (func user-data)))
   axl-true)
 
+;; Condition variable implementation from (Birrell, 2003)
 (struct condvar (s x h
                    [waiters #:mutable]))
 
@@ -65,6 +66,8 @@
   
   (define cv (cond-create))
   
+  ;; precondition: none
+  ;; signal one thread waiting on the condition variable
   (define (cond-signal)
     (cvlock cv)
     (cond [(> (cvcount cv) 0)
@@ -73,20 +76,22 @@
            (handshake-init cv)])
     (cvunlock cv))
   
+  ;; precondition: none
+  ;; signal all threads waiting on the condition variable
+  ;; (i.e., those that enqueued on `waiters' before (1) executed
   (define (cond-broadcast)
-    (cvlock cv)
-    (printf "broadcasting; waiters count = ~s~n" (cvcount cv))
+    (cvlock cv) ; (1)
     (for/list ([i (in-range (cvcount cv))])
-      (printf "signalled #~s~n" i)
       (signal-end cv))
     (let loop ()
       (when (> (cvcount cv) 0)
         (cvdec cv)
-        (printf "dec'ed ~n")
         (handshake-init cv)
         (loop)))
     (cvunlock cv))
   
+  ;; precondition: this thread holds `mutex'
+  ;; wait for a signal on the condition variable
   (define (cond-wait mutex)
     (cvlock cv)
     (cvinc cv)
@@ -98,6 +103,21 @@
     axl-true
     )
   
+  ;; precondition: this thread holds `mutex'
+  ;; wait for a signal on the condition variable
+  ;; for `usec' microseconds
+  ;; DANGER!! 
+  ;; you might think to redo this in the form
+  ;; (if (semaphore-try-wait? cv)
+  ;;     (... do something ...)
+  ;;     (... do something else ...))
+  ;; do not do that!!
+  ;; it makes things much much slower (30-40x or more) than syncing on an event directly
+  ;; there may be a spurious negative result here
+  ;; (i.e., a thread is told that it did not successfully
+  ;; wait on the cond when it actually did.)
+  ;; if that is the case, it is not a problem since
+  ;; it'll be successful on the next round through.
   (define (cond-timedwait mutex usecs)
     (cvlock cv)
     (cvinc cv)
@@ -119,6 +139,8 @@
   
   (vortex-cond-set-closures vtx-cond-var* cond-signal cond-broadcast cond-wait cond-timedwait))
 
+;; Mutex replacement
+;; very important: ensure that only one thread posts to a mutex between calls to lock it
 (define (m-lock m)
   (semaphore-wait m))
 
