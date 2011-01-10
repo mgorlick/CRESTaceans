@@ -46,7 +46,7 @@
 (define (close-channel num connection user-data) axl-true)
 
 (context
- [#f]
+ [#f #f #f]
  (vortex-profiles-register context FILE-TRANSFER-URI #f #f #f #f frame-received #f)
  (vortex-profiles-register context FILE-TRANSFER-URI-BIGMSG #f #f #f #f frame-received-with-msg #f)
  (vortex-profiles-register context FILE-TRANSFER-URI-FEEDER start-channel #f close-channel #f frame-received-with-feeder #f)

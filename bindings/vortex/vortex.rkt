@@ -33,12 +33,12 @@
 (define-syntax with-vtx-ctx
   (syntax-rules ()
     [(_ ctx-name 
-        [use-logging?]
+        [use-logging? ...]
         body ...)
      (begin 
        (rkt:vortex-setup)
        (let ([ctx-name (vortex-ctx-new)])
-         (if (vtx-false? (rkt:vortex-init-ctx ctx-name use-logging?))
+         (if (vtx-false? (rkt:vortex-init-ctx ctx-name use-logging? ...))
              (raise (make-exn:vtx:init "could not initialize vortex context"
                                        (current-continuation-marks)))
              (cleanup-and-return
@@ -166,9 +166,9 @@
 (define-syntax context
   (lambda (x)
     (syntax-case x ()
-      [(k [arg1] e1 e2 ...)
+      [(k [arg1 ...] e1 e2 ...)
        (with-syntax ([context (datum->syntax #'k 'context)])
-         #'(with-vtx-ctx context [arg1] e1 e2 ...))])))
+         #'(with-vtx-ctx context [arg1 ...] e1 e2 ...))])))
 
 (define-syntax connection
   (lambda (x)

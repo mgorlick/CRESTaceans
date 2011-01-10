@@ -29,7 +29,7 @@
 (define (close-channel num connection user-data) axl-true)
 
 (context
- [#f]
+ [#f #f #f]
  (vortex-profiles-register context Plain-Profile-URI start-channel #f close-channel #f frame-received #f)
  (vortex-listener-new context SERVER-HOST SERVER-PORT #f #f)
  (vortex-listener-wait context)

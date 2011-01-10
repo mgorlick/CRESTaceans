@@ -8,7 +8,7 @@
 
 (printf "starting client at t=~a~n" (secs))
 (context
- [#f]
+ [#f #f #f]
  (printf "context established at t=~a~n" (secs))
  (connection
   [context "localhost" "44015" #f #f]

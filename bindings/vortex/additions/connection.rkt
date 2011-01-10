@@ -1,6 +1,7 @@
 #lang racket
 
 (require racket/tcp 
+         openssl
          (except-in ffi/unsafe ->)
          "../vtx/module.rkt")
 (provide rkt:vortex-connection-set-client-mode-closures
@@ -93,12 +94,12 @@
 ;; take four char**, then write the connection's local and remote
 ;; addresses and ports into those char**
 ;; return 1 if successful, -1 if not
-(define-syntax-rule (define-get-sock-name/tcp id inports)
+(define-syntax-rule (define-get-sock-name/tcp id addresses inports)
   (define/contract (id conn local-addr* local-port* remote-addr* remote-port*)
     (VortexConnection*? cpointer? cpointer? cpointer? cpointer? . -> . integer?)
     (handle-neterr
      (wk ([key conn])
-         (let-values ([(locala localp remotea remotep) (tcp-addresses (hash-ref inports key) #t)])
+         (let-values ([(locala localp remotea remotep) (addresses (hash-ref inports key) #t)])
            (ptr-set! local-addr* _string locala)
            (ptr-set! local-port* _string (number->string localp))
            (ptr-set! remote-addr* _string remotea)
@@ -111,10 +112,14 @@
 
 ; given a new connection, turn into client mode by registering function pointers
 ; to closures that close over the tcp listener.
-(define/contract (rkt:vortex-connection-set-client-mode-closures this-connection)
-  (VortexConnection*? . -> . void)
+(define/contract (rkt:vortex-connection-set-client-mode-closures this-connection use-ssl? ssl-cert-path)
+  (VortexConnection*? integer? (or/c path-string? false?) . -> . void)
   (define inports (make-hash))
   (define outports (make-hash))
+  (define-values (connect addresses)
+    (cond
+      [(vtx-true? use-ssl?) (values ssl-connect ssl-addresses)]
+      [else (values tcp-connect tcp-addresses)]))
   
   ;; given a new connection, a host and a port, connect
   ;; and bind the resulting input and output ports
@@ -125,7 +130,7 @@
     (handle-neterr
      (wk ([key conn])
          (vortex-connection-ref conn "connect/tcp")
-         (let-values ([(in out) (tcp-connect host (string->number port))])
+         (let-values ([(in out) (connect host (string->number port))])
            (hash-set! inports key in)
            (hash-set! outports key out)
            (vortex-connection-set-socket conn 1 #f #f)
@@ -137,7 +142,7 @@
   (define-close/tcp client/close inports outports #f)
   (define-wait/tcp client/wait/read (lambda (conn key) (hash-ref inports key)))
   (define-wait/tcp client/wait/write (lambda (conn key) (hash-ref outports key)))
-  (define-get-sock-name/tcp client/getsockname inports)
+  (define-get-sock-name/tcp client/getsockname addresses inports)
   
   ;; transfer all of the above closures to the vortex side to be opaquely invoked
   (vortex-connection-set-client-mode-closures this-connection
@@ -149,11 +154,15 @@
 
 ; given a new connection, turn it into listener mode by registering function pointers
 ; to closures that close over the tcp listener.
-(define/contract (rkt:vortex-connection-set-listener-mode-closures this-connection)
-  (VortexConnection*? . -> . void)
+(define/contract (rkt:vortex-connection-set-listener-mode-closures this-connection use-ssl? ssl-cert-path)
+  (VortexConnection*? integer? (or/c path-string? false?) . -> . void)
   (define inports (make-hash))
   (define outports (make-hash))
   (define listeners (make-hash))
+  (define-values (listen accept addresses)
+    (cond
+      [(vtx-true? use-ssl?) (values ssl-listen ssl-accept ssl-addresses)]
+      [else (values tcp-listen tcp-accept tcp-addresses)]))
   
   ;; listen on the given host/port (both strings) and set the
   ;; master listener for this connection
@@ -164,8 +173,11 @@
      (wk ([key conn])
          (vortex-connection-ref conn "listen/tcp")
          (if (eq? host #f)
-             (hash-set! listeners key (tcp-listen (string->number port) 10000 #t))
-             (hash-set! listeners key (tcp-listen (string->number port) 10000 host)))
+             (hash-set! listeners key (listen (string->number port) 10000 #t))
+             (hash-set! listeners key (listen (string->number port) 10000 host)))
+         (cond [(vtx-true? use-ssl?)
+                (ssl-load-certificate-chain! (hash-ref listeners key) ssl-cert-path)
+                (ssl-load-private-key! (hash-ref listeners key) ssl-cert-path)])
          1)))
   
   ;; accept a connection request with the master listener, and the new child listener
@@ -176,7 +188,7 @@
     (handle-neterr
      (wk ([masterkey masterconn] [childkey childconn])
          (vortex-connection-ref childconn "accept/tcp")
-         (let-values ([(in out) (tcp-accept (hash-ref listeners masterkey))])
+         (let-values ([(in out) (accept (hash-ref listeners masterkey))])
            (hash-set! inports childkey in)
            (hash-set! outports childkey out)
            (vortex-connection-set-socket childconn 1 #f #f)
@@ -195,7 +207,7 @@
                                            [(eq? (vortex-connection-get-role conn) 'master-listener) 
                                             (hash-ref listeners key)]
                                            [else (hash-ref outports key)])))
-  (define-get-sock-name/tcp listener/getsockname inports)
+  (define-get-sock-name/tcp listener/getsockname addresses inports)
   
   ;; take a char** and an int* and write in the actual host address used for the listener
   ;; (NOT the connected input/output ports)
@@ -203,7 +215,7 @@
     (VortexConnection*? cpointer? cpointer? . -> . integer?)
     (handle-neterr
      (wk ([key conn])
-         (let-values ([(locala localp remotea remotep) (tcp-addresses (hash-ref listeners key) #t)])
+         (let-values ([(locala localp remotea remotep) (addresses (hash-ref listeners key) #t)])
            (ptr-set! local-addr* _string locala)
            (ptr-set! local-port* _int localp)
            1))))
