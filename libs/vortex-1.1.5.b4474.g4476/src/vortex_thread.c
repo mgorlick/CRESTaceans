@@ -215,67 +215,90 @@ void vortex_thread_set_reference (VortexThread** t) {
   *t = scheme_current_thread;
 }
 
+struct _VortexMutex {
+  MutexFun m_lock;
+  MutexFun m_unlock;
+};
+
+void vortex_mutex_setup_default (VortexMutex* mutex_def) {
+  printf ("ERROR: no vortex mutex setup functions provided.\n");
+}
+
+MutexSetup vortex_mutex_setup_impl = vortex_mutex_setup_default;
+
+void vortex_mutex_setup (VortexMutex* mutex_def) {
+  vortex_mutex_setup_impl (mutex_def);
+}
+
+void vortex_mutex_set_setup (MutexSetup s) {
+  vortex_mutex_setup_impl = s;
+}
+
+void vortex_mutex_set_closures (VortexMutex* mutex_def, MutexFun lock, MutexFun unlock) {
+  mutex_def->m_lock = lock;
+  mutex_def->m_unlock = unlock;
+}
+
 axl_bool  vortex_mutex_create (VortexMutex** mutex_def)
 {
-  *mutex_def = scheme_make_sema (1);
+  *mutex_def = malloc (sizeof (VortexMutex));
+  vortex_mutex_setup (*mutex_def);
   return axl_true;
+}
+
+void vortex_mutex_lock (VortexMutex* mutex_def)
+{
+  mutex_def->m_lock ();
+}
+
+void vortex_mutex_unlock (VortexMutex* mutex_def)
+{
+  mutex_def->m_unlock ();
 }
 
 axl_bool  vortex_mutex_destroy (VortexMutex* mutex_def)
 {
 	v_return_val_if_fail (mutex_def, axl_false);
-
-        /* skip destroying the actual mutex;
-           libracket has no semaphore destructor. */
-        /* FIXME */
+        free (mutex_def);
         return axl_true;	
 }
 
-void vortex_mutex_lock (VortexMutex* mutex_def)
-{
-  if (mutex_def == NULL) return;
 
-  while (scheme_wait_sema (mutex_def, 1) == 0) {
-    /* calling scheme_wait_sema (mutex_def, 1) [as opposed to
-       (mutex_def, 0)] means that the thread only checks
-       the wait on the sema instead of blocking on the call.
-       take this opportunity to switch out to another thread,
-       since waiting on mutexes is a critical bottleneck. */
-    FUEL_WITH_PROGRESS ("in vortex_mutex_lock");
-  }
-  return;
+struct _VortexCond {
+  CondSig cv_signal;
+  CondSig cv_broadcast;
+  CondWait cv_wait;
+  CondTimedWait cv_timedwait;
+};
+
+void vortex_cond_set_closures (VortexCond* cond, CondSig signal, CondSig broadcast,
+                          CondWait wait, CondTimedWait timedwait) {
+  cond->cv_signal = signal;
+  cond->cv_broadcast = broadcast;
+  cond->cv_wait = wait;
+  cond->cv_timedwait = timedwait;
 }
 
-void vortex_mutex_unlock (VortexMutex* mutex_def)
-{
-	if (mutex_def == NULL) return;
-        scheme_post_sema (mutex_def);
-      	return;
+void vortex_cond_setup_default (VortexCond* cond) {
+  printf ("ERROR: no condition variable setup functions provided.\n");
+}
+
+CondSetup vortex_cond_setup_impl = vortex_cond_setup_default;
+
+void vortex_cond_set_setup (CondSetup s) {
+  vortex_cond_setup_impl = s;
+}
+
+void vortex_cond_setup (VortexCond* cond) {
+  vortex_cond_setup_impl (cond);
 }
 
 axl_bool  vortex_cond_create    (VortexCond ** cond)
 {
-  *cond = (VortexCond*) malloc(sizeof(VortexCond));
-  if(cond == NULL) {
-    return axl_false;
-  }
-  (*cond)->s = scheme_make_sema (0); /* initial 0; limit 999999 */
-  (*cond)->x = scheme_make_sema (1); /* initial 1; limit 1 */
-  (*cond)->h = scheme_make_sema (0); /* initial 0; limit 999999 */
-  (*cond)->waiters = 0;
+  *cond = malloc (sizeof (VortexCond));
+  vortex_cond_setup (*cond);
   return axl_true;
 }
-
-void semaP (VortexMutex* sema) {
-  while (scheme_wait_sema (sema, 1) == 0) {
-    FUEL_WITH_PROGRESS ("sema.P()");
-  }
-}
-
-void semaV (VortexMutex* sema) {
-  scheme_post_sema (sema);
-}
-
 
 /* Signal(), Birrell 2003
    precondition: none
@@ -286,14 +309,7 @@ void semaV (VortexMutex* sema) {
 
 void vortex_cond_signal    (VortexCond        * cond)
 {
-  vortex_mutex_lock (cond->x);
-  if (cond->waiters > 0) {
-    cond->waiters--;
-    semaV (cond->s);
-    semaP (cond->h); 
-  }
-  vortex_mutex_unlock (cond->x);
-  return;
+  return cond->cv_signal ();
 }
 
 /* Broadcast(), Birrell 2003
@@ -306,17 +322,8 @@ void vortex_cond_signal    (VortexCond        * cond)
 
 void vortex_cond_broadcast (VortexCond        * cond)
 {
-  vortex_mutex_lock (cond->x);
-  int i;
-  for (i = 0; i < cond->waiters; i++) {
-    semaV (cond->s);
-  }
-  while (cond->waiters > 0) {
-    cond->waiters--;
-    semaP (cond->h);
-  }
-  vortex_mutex_unlock (cond->x);
-  return;
+  if (cond == NULL) return;
+  cond->cv_broadcast ();
 }
 /* Wait(), Birrell 2003
    precondition: this thread holds mutex m
@@ -332,111 +339,20 @@ void vortex_cond_broadcast (VortexCond        * cond)
 axl_bool  vortex_cond_wait      (VortexCond        * cond, 
 				 VortexMutex* mutex)
 {
-  
-  vortex_mutex_lock (cond->x);
-  cond->waiters++;
-  vortex_mutex_unlock (cond->x);
-  vortex_mutex_unlock (mutex);
-
-  semaP (cond->s);
-  
-  semaV (cond->h);
-  
-  vortex_mutex_lock (mutex);
-  
-  return axl_true;
+  if (cond == NULL) return axl_false;
+  return cond->cv_wait (mutex);
 }
 
-/* Subtract the `struct timeval' values X and Y,
-   storing the result in RESULT.
-   Return 1 if the difference is negative, otherwise 0.  */
-
-int timeval_subtract (struct timeval* result, struct timeval* x, struct timeval* y)
-{
-  /* Perform the carry for the later subtraction by updating y. */
-  if (x->tv_usec < y->tv_usec) {
-    int nsec = (y->tv_usec - x->tv_usec) / 1000000 + 1;
-    y->tv_usec -= 1000000 * nsec;
-    y->tv_sec += nsec;
-  }
-  
-  if (x->tv_usec - y->tv_usec > 1000000) {
-    int nsec = (x->tv_usec - y->tv_usec) / 1000000;
-    y->tv_usec += 1000000 * nsec;
-    y->tv_sec -= nsec;
-  }
-
-  /* Compute the time remaining to wait.
-     tv_usec is certainly positive. */
-  result->tv_sec = x->tv_sec - y->tv_sec;
-  result->tv_usec = x->tv_usec - y->tv_usec;
-
-  /* Return 1 if result is negative. */
-  if (x->tv_sec < y->tv_sec) {
-    return 1;
-  } else {
-    return 0;
-  }
-}
-
-long timeval_total_usec (struct timeval *r) {
-  return (r->tv_usec + (r->tv_sec * 1000000));
-}
-
-long timeval_difference_in_usec (struct timeval *x, struct timeval *y) {
-  struct timeval result;
-  timeval_subtract (&result, x, y);
-  return timeval_total_usec (&result);
-}
-
-axl_bool  vortex_cond_timedwait (VortexCond * cond,
+axl_bool vortex_cond_timedwait (VortexCond * cond,
 				 VortexMutex * mutex,
 				 long  microseconds)
 {
-  struct timeval at_start, now;
-  int i, w;
-  long diff;
-  i = gettimeofday (&at_start, NULL);
-  if (i == -1) return axl_false;
-  
-  i = gettimeofday (&now, NULL);
-  if (i == -1) return axl_false;
-  
-  vortex_mutex_lock (cond->x); /* x.P() */
-  cond->waiters++;
-  vortex_mutex_unlock (cond->x); /* x.V() */
-  vortex_mutex_unlock (mutex); /* m.Release() */
-
-  w = scheme_wait_sema (cond->s, 1); /* try s.P() */
-  diff = timeval_difference_in_usec (&now, &at_start);
-  while (w == 0 && diff < microseconds) {
-    FUEL_WITH_PROGRESS ("timedwait while()");
-    gettimeofday (&now, NULL);
-    w = scheme_wait_sema (cond->s, 1); /* try s.P() again */
-    diff = timeval_difference_in_usec (&now, &at_start);
-  }
-
-  if(diff >= microseconds) {
-    /* waiting took too long, remove self from waiter count
-       and reacquire mutex m */
-    vortex_mutex_lock (cond->x);
-    cond->waiters--;
-    vortex_mutex_unlock (cond->x);
-    vortex_mutex_lock (mutex);
-    return axl_false;
-  }
-
-  /* If we hit this point, we waited less than the
-     time limit on semaphore s */
-  semaV(cond->h); /* h.V() */
-  vortex_mutex_lock (mutex); /* m.Acquire() */
-  return axl_true;
+  if (cond == NULL) return axl_false;
+  return cond->cv_timedwait (mutex, microseconds);
 }
 
 void vortex_cond_destroy   (VortexCond        * cond)
 {
-  /* DANGER, WILL ROBINSON!
-     How do we free the cond's semas? */
   if (cond == NULL) return;
   free (cond);
 }

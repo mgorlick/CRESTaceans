@@ -60,6 +60,12 @@
   vortex-mutex-lock
   vortex-mutex-unlock)
 
+(defvtx* (_fun _VortexMutex-pointer _MutexFun _MutexFun -> _void)
+  vortex-mutex-set-closures)
+
+(defvtx* (_fun _MutexSetup -> _void)
+  vortex-mutex-set-setup)
+
 (defvtx* (_fun _pointer -> _void)
   vortex-thread-set-reference)
 
@@ -68,3 +74,10 @@
 
 (defvtx* (_fun _VortexThreadDestroyFunc -> _void)
   vortex-thread-set-destroy)
+
+(defvtx* (_fun _VortexCond-pointer _CondSignal _CondSignal 
+               _CondWait _CondTimedWait -> _void)
+  vortex-cond-set-closures)
+
+(defvtx* (_fun _CondSetup -> _void)
+  vortex-cond-set-setup)

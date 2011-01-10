@@ -4849,7 +4849,7 @@ axl_bool      __vortex_channel_block_until_replies_are_received (VortexChannel *
 			VORTEX_COND_TIMEDWAIT (result, 
 					       channel->close_cond, 
 					       channel->close_mutex,
-					       500000);
+					       5000);
 			if (! result)
 				break;
 		} else {

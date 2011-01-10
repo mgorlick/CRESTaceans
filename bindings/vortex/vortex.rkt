@@ -36,14 +36,16 @@
     [(_ ctx-name 
         [use-logging?]
         body ...)
-     (let ([ctx-name (vortex-ctx-new)])
-       (if (vtx-false? (rkt:vortex-init-ctx ctx-name use-logging?))
-           (raise (make-exn:vtx:init "could not initialize vortex context"
-                                     (current-continuation-marks)))
-           (cleanup-and-return
-            (body ...)
-            ((vortex-exit-ctx ctx-name axl-true)))
-           ))]
+     (begin 
+       (rkt:vortex-setup)
+       (let ([ctx-name (vortex-ctx-new)])
+         (if (vtx-false? (rkt:vortex-init-ctx ctx-name use-logging?))
+             (raise (make-exn:vtx:init "could not initialize vortex context"
+                                       (current-continuation-marks)))
+             (cleanup-and-return
+              (body ...)
+              ((vortex-exit-ctx ctx-name axl-true)))
+             )))]
     ))
 
 (define-struct (exn:vtx:init exn:fail:user) ())

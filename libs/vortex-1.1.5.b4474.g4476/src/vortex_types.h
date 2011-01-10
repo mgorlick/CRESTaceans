@@ -851,16 +851,6 @@ do {\
 }while(0)
 
 /** 
- * @internal Definitions to accomodate the underlaying thread
- * interface to the Vortex thread API.
- */
-
-#include <pthread.h>
-#define __OS_THREAD_TYPE__ pthread_t
-#define __OS_MUTEX_TYPE__  pthread_mutex_t
-#define __OS_COND_TYPE__   pthread_cond_t
-
-/** 
  * @brief Thread definition, which encapsulates the os thread API,
  * allowing to provide a unified type for all threading
  * interface. 
@@ -871,7 +861,7 @@ typedef Scheme_Thread VortexThread;
  * @brief Mutex definition that encapsulates the underlaying mutex
  * API.
  */
-typedef Scheme_Object VortexMutex;
+typedef struct _VortexMutex VortexMutex;
 
 /** 
  * @brief Conditional variable mutex, encapsulating the underlaying
@@ -879,12 +869,7 @@ typedef Scheme_Object VortexMutex;
  * critical sections.
  */
 
-typedef struct {
-  VortexMutex* s;
-  VortexMutex* x;
-  VortexMutex* h;
-  int waiters;
-} VortexCond;
+typedef struct _VortexCond VortexCond;
 
 /** 
  * @brief Message queue implementation that allows to communicate

@@ -7,28 +7,27 @@
          "connection.rkt")
 (provide (all-defined-out))
 
-;; this function initializes a Vortex context in a way that needs to be done in order to glue all of the
-;; Racket compatibility modifications together. Here we make separate thread groups for different Vortex
-;; components, set up the thread creation system, potentially turn on logging and SSL, and initialize all
-;; the components. Most initialization is done on the C side but we need to initialize the reader, sequencer
-;; and thread pool here so that we can assign them to new thread groups.
+;; replace default vortex implementations of i/o and threading
+;; (which don't do anything) with Racket closures
+(define (rkt:vortex-setup)
+  ;; replacement of vortex C components with custom components written in racket
+  (vortex-mutex-set-setup rkt:vortex-mutex-setup)
+  (vortex-thread-set-create rkt:vortex-thread-create)
+  (vortex-cond-set-setup rkt:vortex-cond-setup)
+  (vortex-connection-set-listener-closures-setter rkt:vortex-connection-set-listener-mode-closures)
+  (vortex-connection-set-client-closures-setter rkt:vortex-connection-set-client-mode-closures))
 
-;; this function also transfers the i/o closures to Vortex so that Vortex Connections can use the Racket port i/o
-;; mechanisms.
-
+;; this function initializes a Vortex context in a way that glues all of the
+;; Racket compatibility modifications together. Here we make separate thread groups
+;; for different Vortex components, potentially turn on logging and SSL, and initialize all
+;; the components. Most initialization is done on the C side but we need to initialize the
+;; reader, sequencer and thread pool here so that we can assign them to new thread groups.
 (define/contract (rkt:vortex-init-ctx ctx use-logging?)
   (VortexCtx*? boolean? . -> . integer?) ; return must always be `axl_true' or `axl_false'
   
   (define sequencer-group (make-thread-group)) ; for sequencer
   (define reader-group (make-thread-group)) ; for reader
   (define tp-tg (make-thread-group)) ; for thread pool
-  
-  ;; replacement of vortex C components with custom components written in racket
-  (vortex-thread-set-create rkt:vortex-thread-create)
-  ;(vortex-thread-pool-set-new-task rkt:vortex-thread-pool-new-task)
-  ;(vortex-thread-pool-set-new-event rkt:vortex-thread-pool-new-event)
-  (vortex-connection-set-listener-closures-setter rkt:vortex-connection-set-listener-mode-closures)
-  (vortex-connection-set-client-closures-setter rkt:vortex-connection-set-client-mode-closures)
   
   (rkt:preinitialize-ctx ctx) ; performs all the steps of vortex_ctx_init except for what follows here...
   
@@ -38,7 +37,7 @@
     (vortex-sequencer-run ctx))
   (parameterize ([current-thread-group tp-tg])
     (vortex-thread-pool-init ctx 5)
-   )
+    )
   
   (vortex-ctx-mark-initialized ctx)
   (cond [use-logging? (vortex-log-enable ctx axl-true)])

@@ -264,3 +264,11 @@
 (define _NewTaskFunc (_fun _VortexCtx-pointer _VortexThreadFunc _axlPointer -> _void))
 (define _NewEventFunc (_fun _VortexCtx-pointer _long _VortexThreadAsyncEvent
                             _axlPointer _axlPointer -> _int))
+
+(define _CondSetup (_fun _VortexCond-pointer -> _void))
+(define _CondSignal (_fun -> _void))
+(define _CondWait (_fun _VortexMutex-pointer -> _axl-bool))
+(define _CondTimedWait (_fun _VortexMutex-pointer _long -> _axl-bool))
+
+(define _MutexSetup (_fun _VortexMutex-pointer -> _void))
+(define _MutexFun (_fun -> _void))

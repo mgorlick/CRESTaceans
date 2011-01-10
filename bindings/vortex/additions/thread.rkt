@@ -2,7 +2,9 @@
 
 (require (except-in ffi/unsafe ->)
          "../vtx/module.rkt")
-(provide (all-defined-out))
+(provide rkt:vortex-thread-create
+         rkt:vortex-mutex-setup
+         rkt:vortex-cond-setup)
 
 ;; partial thread replacement for vortex library
 
@@ -22,3 +24,109 @@
             (vortex-thread-set-reference thread*)
             (func user-data)))
   axl-true)
+
+(struct condvar (s x h
+                   [waiters #:mutable]))
+
+(define (cond-create)
+  (condvar (make-semaphore 0) ; s signals a thread to resume
+           (make-semaphore 1) ; x protects waiters count
+           (make-semaphore 0) ; h is handshake to ensure that correct threads drop through 
+           0))
+
+(define (cvcount cv)
+  (condvar-waiters cv))
+
+(define (cvinc cv)
+  (set-condvar-waiters! cv (add1 (condvar-waiters cv))))
+
+(define (cvdec cv)
+  (set-condvar-waiters! cv (sub1 (condvar-waiters cv))))
+
+(define (cvlock cv) ; P
+  (semaphore-wait (condvar-x cv)))
+
+(define (cvunlock cv) ; V
+  (semaphore-post (condvar-x cv)))
+
+(define (handshake-init cv) ; P
+  (semaphore-wait (condvar-h cv)))
+
+(define (handshake-end cv) ; V
+  (semaphore-post (condvar-h cv)))
+
+(define (signal-init cv) ; P
+  (semaphore-wait (condvar-s cv)))
+
+(define (signal-end cv) ; V
+  (semaphore-post (condvar-s cv)))
+
+(define (rkt:vortex-cond-setup vtx-cond-var*)
+  
+  (define cv (cond-create))
+  
+  (define (cond-signal)
+    (cvlock cv)
+    (cond [(> (cvcount cv) 0)
+           (cvdec cv)
+           (signal-end cv)
+           (handshake-init cv)])
+    (cvunlock cv))
+  
+  (define (cond-broadcast)
+    (cvlock cv)
+    (printf "broadcasting; waiters count = ~s~n" (cvcount cv))
+    (for/list ([i (in-range (cvcount cv))])
+      (printf "signalled #~s~n" i)
+      (signal-end cv))
+    (let loop ()
+      (when (> (cvcount cv) 0)
+        (cvdec cv)
+        (printf "dec'ed ~n")
+        (handshake-init cv)
+        (loop)))
+    (cvunlock cv))
+  
+  (define (cond-wait mutex)
+    (cvlock cv)
+    (cvinc cv)
+    (cvunlock cv)
+    (vortex-mutex-unlock mutex)
+    (signal-init cv)
+    (handshake-end cv)
+    (vortex-mutex-lock mutex)
+    axl-true
+    )
+  
+  (define (cond-timedwait mutex usecs)
+    (cvlock cv)
+    (cvinc cv)
+    (cvunlock cv)
+    (vortex-mutex-unlock mutex)
+    (let ([ready-or-not (sync/timeout (/ usecs 1000000) (semaphore-peek-evt (condvar-s cv)))])
+      (if (evt? ready-or-not)
+          (begin
+            (semaphore-wait (condvar-s cv))
+            (handshake-end cv)
+            (vortex-mutex-lock mutex)
+            axl-true)
+          (begin
+            (cvlock cv)
+            (cvdec cv)
+            (cvunlock cv)
+            (vortex-mutex-lock mutex)
+            axl-false))))
+  
+  (vortex-cond-set-closures vtx-cond-var* cond-signal cond-broadcast cond-wait cond-timedwait))
+
+(define (m-lock m)
+  (semaphore-wait m))
+
+(define (m-unlock m)
+  (semaphore-post m))
+
+(define (rkt:vortex-mutex-setup mutex*)
+  (define m (make-semaphore 1))
+  (define (unlock) (m-unlock m))
+  (define (lock) (m-lock m))
+  (vortex-mutex-set-closures mutex* lock unlock))

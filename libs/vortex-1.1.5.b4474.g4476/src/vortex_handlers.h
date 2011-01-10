@@ -1152,7 +1152,6 @@ typedef axl_bool (* VortexPayloadFeederHandler) (VortexCtx              * ctx,
 						 axlPointer               param1,
 						 axlPointer               param2,
 						 axlPointer               user_data);
-				      
 
 #endif
 

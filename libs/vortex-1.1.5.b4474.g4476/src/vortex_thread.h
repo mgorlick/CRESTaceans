@@ -60,6 +60,15 @@ void               vortex_thread_set_destroy (VortexThreadDestroyFunc destroy_fn
 
 void               vortex_thread_set_reference (VortexThread** t);
 
+typedef void (*MutexFun) (void);
+typedef void (*MutexSetup) (VortexMutex* mutex);
+
+void vortex_mutex_set_closures (VortexMutex* mutex,
+                               MutexFun lock,
+                               MutexFun unlock);
+
+void vortex_mutex_set_setup (MutexSetup s);
+
 axl_bool           vortex_mutex_create     (VortexMutex       ** mutex_def);
 
 axl_bool           vortex_mutex_destroy   (VortexMutex       * mutex_def);
@@ -67,6 +76,21 @@ axl_bool           vortex_mutex_destroy   (VortexMutex       * mutex_def);
 void               vortex_mutex_lock      (VortexMutex       * mutex_def);
 
 void               vortex_mutex_unlock    (VortexMutex       * mutex_def);
+
+typedef void (*CondSig) (void);
+typedef axl_bool (*CondWait) (VortexMutex* mutex);
+typedef axl_bool (*CondTimedWait) (VortexMutex* mutex, long microseconds);
+typedef void (*CondSetup) (VortexCond* cond);
+
+void vortex_cond_set_closures (VortexCond* cond,
+                               CondSig signal,
+                               CondSig broadcast,
+                               CondWait wait,
+                               CondTimedWait timedwait);
+
+void vortex_cond_setup (VortexCond* cond);
+
+void vortex_cond_set_setup (CondSetup s);
 
 axl_bool           vortex_cond_create     (VortexCond        ** cond);
 
