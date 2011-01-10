@@ -45,14 +45,12 @@ vortex_support.lo: vortex_support.c vortex.h /usr/include/string.h \
  /usr/include/sys/time.h /usr/include/sys/resource.h \
  /usr/include/bits/resource.h /usr/include/sys/poll.h \
  /usr/include/bits/poll.h /usr/include/sys/epoll.h vortex_types.h \
- /usr/include/pthread.h /usr/include/sched.h /usr/include/bits/sched.h \
- /usr/include/signal.h /usr/include/bits/pthreadtypes.h vortex_support.h \
- vortex_handlers.h vortex_ctx.h vortex_thread.h vortex_thread_pool.h \
- vortex_queue.h vortex_hash.h vortex_connection.h vortex_listener.h \
- vortex_frame_factory.h vortex_greetings.h vortex_profiles.h \
- vortex_channel.h vortex_channel_pool.h vortex_io.h vortex_reader.h \
- vortex_dtds.h vortex_sequencer.h vortex_errno.h vortex_payload_feeder.h \
- /usr/include/errno.h /usr/include/bits/errno.h \
+ vortex_support.h vortex_handlers.h vortex_ctx.h vortex_thread.h \
+ vortex_thread_pool.h vortex_queue.h vortex_hash.h vortex_connection.h \
+ vortex_listener.h vortex_frame_factory.h vortex_greetings.h \
+ vortex_profiles.h vortex_channel.h vortex_channel_pool.h vortex_io.h \
+ vortex_reader.h vortex_dtds.h vortex_sequencer.h vortex_errno.h \
+ vortex_payload_feeder.h /usr/include/errno.h /usr/include/bits/errno.h \
  /usr/include/linux/errno.h /usr/include/asm/errno.h \
  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
  vortex_ctx_private.h
@@ -244,16 +242,6 @@ vortex.h:
 /usr/include/sys/epoll.h:
 
 vortex_types.h:
-
-/usr/include/pthread.h:
-
-/usr/include/sched.h:
-
-/usr/include/bits/sched.h:
-
-/usr/include/signal.h:
-
-/usr/include/bits/pthreadtypes.h:
 
 vortex_support.h:
 

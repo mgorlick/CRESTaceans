@@ -51,7 +51,7 @@ PROGRAMS = $(bin_PROGRAMS)
 am_xml_rpc_gen_1_1_OBJECTS = exarg.$(OBJEXT) xml-rpc-gen.$(OBJEXT) \
 	xml-rpc-support.$(OBJEXT) xml-rpc-c-stub.$(OBJEXT) \
 	xml-rpc-autoconf.$(OBJEXT) xml-rpc-c-server.$(OBJEXT) \
-	xml-rpc-gen-translate.$(OBJEXT)
+	xml-rpc-gen-translate.$(OBJEXT) $(RACKET_LIBS)/libracket3m.so
 xml_rpc_gen_1_1_OBJECTS = $(am_xml_rpc_gen_1_1_OBJECTS)
 xml_rpc_gen_1_1_DEPENDENCIES = $(top_builddir)/src/libvortex-1.1.la
 DEFAULT_INCLUDES = -I. -I$(top_builddir)
@@ -167,7 +167,6 @@ SED = /bin/sed
 SET_MAKE = 
 SHELL = /bin/bash
 STRIP = strip
-TLS_LIBS = -lssl -lcrypto
 VERSION = 1.1.5.b4474.g4476
 VORTEX_VERSION = 1.1.5.b4474.g4476
 abs_builddir = /home/kylestrasser/prog/repositories/CRESTaceans/libs/vortex-1.1.5.b4474.g4476/xml-rpc-gen
@@ -236,7 +235,7 @@ c_files = reg-test03.c reg-test01a.c reg-test01.c reg-test02.c \
 	reg-test04.c reg-test05.c reg-test06.c reg-test07.c  _support.c 
 
 EXTRA_DIST = $(dtd_DATA) $(idl_files) $(xdl_files) $(c_files) Makefile.win
-INCLUDES = -g -Wall -ansi -I. -I/usr/racket/include/racket -I$(top_srcdir)/libvortex-1.1/src $(AXL_CFLAGS) $(PTHREAD_CFLAGS) -DVERSION=\""$(VORTEX_VERSION)"\" \
+INCLUDES = -g -Wall -ansi -I. -DMZ_PRECISE_GC -I$(RACKET_INCLUDES) -I$(top_srcdir)/src $(AXL_CFLAGS) $(PTHREAD_CFLAGS) -DVERSION=\""$(VORTEX_VERSION)"\" \
 	-DINSTALL_DIR=\"$(datadir)/libvortex-1.1\" -I$(top_srcdir)/src -D__axl_disable_broken_bool_def__  $(EXARG_FLAGS)
 
 xml_rpc_gen_1_1_SOURCES = exarg.h exarg.c xml-rpc-gen.c xml-rpc.h xml-rpc.dtd.h \

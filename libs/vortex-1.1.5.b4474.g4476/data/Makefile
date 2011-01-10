@@ -143,7 +143,6 @@ SED = /bin/sed
 SET_MAKE = 
 SHELL = /bin/bash
 STRIP = strip
-TLS_LIBS = -lssl -lcrypto
 VERSION = 1.1.5.b4474.g4476
 VORTEX_VERSION = 1.1.5.b4474.g4476
 abs_builddir = /home/kylestrasser/prog/repositories/CRESTaceans/libs/vortex-1.1.5.b4474.g4476/data

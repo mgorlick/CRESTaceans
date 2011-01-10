@@ -207,24 +207,6 @@ AC_ARG_ENABLE(vortex-log, [  --enable-vortex-log       Enable building Vortex Li
 	      enable_vortex_log=yes)
 AM_CONDITIONAL(ENABLE_VORTEX_LOG, test "x$enable_vortex_log" = "xyes")
 
-dnl check for tls building
-AC_ARG_ENABLE(tls-support, [  --disable-tls-support     Makes buidling Vortex Library TLS support (OpenSSL required)], 
-	      enable_tls_support="$enableval", 
-	      enable_tls_support=yes)
-if test x$enable_tls_support = xyes ; then
-   dnl check header needed
-   AC_CHECK_HEADER(openssl/ssl.h,,enable_tls_support=no)
-   if test x$enable_tls_support = xno ; then
-      AC_MSG_WARN([Cannot OpenSSL installation, disabling it. This will disable TLS profile support. ]) 
-      enable_tls_support=no
-   else
-      dnl configure additional TLS flags
-      TLS_LIBS="-lssl -lcrypto"
-      AC_SUBST(TLS_LIBS)
-   fi
-fi
-AM_CONDITIONAL(ENABLE_TLS_SUPPORT, test "x$enable_tls_support" = "xyes")
-
 dnl check for sasl building through GSASL
 AC_ARG_ENABLE(sasl-support, [  --disable-sasl-support    Makes Vortex Library to be built without SASL support], 
 	      enable_sasl_support="$enableval", 
@@ -351,12 +333,10 @@ tunnel/Makefile
 pull/Makefile
 xml-rpc/Makefile
 sasl/Makefile
-tls/Makefile
 http/Makefile
 alive/Makefile
 doc/Makefile
 doc/vortex-doc.doxygen
-test/Makefile
 xml-rpc-gen/Makefile
 data/Makefile
 logo/Makefile
@@ -365,7 +345,6 @@ vortex-xml-rpc-1.1.pc
 vortex-tunnel-1.1.pc
 vortex-pull-1.1.pc
 vortex-sasl-1.1.pc
-vortex-tls-1.1.pc
 vortex-http-1.1.pc
 vortex-alive-1.1.pc
 ])
@@ -399,17 +378,6 @@ else
    echo "     it is needed to have readline on this system. "
    echo "     Once installed run again configure process"
    echo "     using --enable-vortex-client option."
-fi
-if test x$enable_tls_support = xyes ; then
-   echo "   Build TLS profile support:                enabled"
-   echo "     (libvortex-tls-1.1)"
-else
-   echo "   Build TLS profile support:                disabled"
-   echo 
-   echo "     NOTE: To enable TLS profile support you have to"
-   echo "     install OpenSSL developement headers. "
-   echo "     Once installed run again configure process "
-   echo "     using --enable-tls-support option."
 fi
 if test x$enable_sasl_support = xyes ; then
    echo "   Build SASL profile support:               enabled"

@@ -14,25 +14,27 @@ vortex_http.lo: vortex_http.c vortex_http.h ../src/vortex.h \
  /usr/include/bits/stdio.h /usr/include/bits/stdio2.h \
  /usr/include/stdlib.h /usr/include/bits/stdlib.h \
  /usr/racket/include/racket/scheme.h /usr/racket/include/racket/sconfig.h \
- /usr/racket/include/racket/mzconfig.h /usr/include/setjmp.h \
+ /usr/racket/include/racket/mzconfig.h /usr/include/inttypes.h \
+ /usr/include/stdint.h /usr/include/bits/wchar.h /usr/include/setjmp.h \
  /usr/include/bits/setjmp.h /usr/include/bits/sigset.h \
  /usr/include/bits/setjmp2.h /usr/racket/include/racket/stypes.h \
+ /usr/racket/include/racket/schgc2obj.h \
  /usr/racket/include/racket/schthread.h \
- /usr/racket/include/racket/schexn.h /usr/racket/include/racket/schemef.h \
- /usr/local/include/axl/axl.h /usr/local/include/axl/axl_decl.h \
- /usr/local/include/axl/axl_config.h /usr/include/unistd.h \
- /usr/include/bits/posix_opt.h /usr/include/bits/confname.h \
- /usr/include/bits/unistd.h /usr/include/sys/types.h /usr/include/time.h \
- /usr/include/sys/stat.h /usr/include/bits/stat.h /usr/include/fcntl.h \
- /usr/include/bits/fcntl.h /usr/include/bits/fcntl2.h \
- /usr/include/ctype.h /usr/local/include/axl/axl_list.h \
- /usr/local/include/axl/axl_stack.h /usr/local/include/axl/axl_hash.h \
- /usr/local/include/axl/axl_stream.h /usr/local/include/axl/axl_doc.h \
- /usr/local/include/axl/axl_node.h /usr/local/include/axl/axl_dtd.h \
- /usr/local/include/axl/axl_error.h /usr/local/include/axl/axl_log.h \
- /usr/local/include/axl/axl_factory.h /usr/include/netdb.h \
- /usr/include/netinet/in.h /usr/include/stdint.h \
- /usr/include/bits/wchar.h /usr/include/sys/socket.h \
+ /usr/racket/include/racket/schexn.h \
+ /usr/racket/include/racket/schemegc2.h \
+ /usr/racket/include/racket/schemef.h /usr/local/include/axl/axl.h \
+ /usr/local/include/axl/axl_decl.h /usr/local/include/axl/axl_config.h \
+ /usr/include/unistd.h /usr/include/bits/posix_opt.h \
+ /usr/include/bits/confname.h /usr/include/bits/unistd.h \
+ /usr/include/sys/types.h /usr/include/time.h /usr/include/sys/stat.h \
+ /usr/include/bits/stat.h /usr/include/fcntl.h /usr/include/bits/fcntl.h \
+ /usr/include/bits/fcntl2.h /usr/include/ctype.h \
+ /usr/local/include/axl/axl_list.h /usr/local/include/axl/axl_stack.h \
+ /usr/local/include/axl/axl_hash.h /usr/local/include/axl/axl_stream.h \
+ /usr/local/include/axl/axl_doc.h /usr/local/include/axl/axl_node.h \
+ /usr/local/include/axl/axl_dtd.h /usr/local/include/axl/axl_error.h \
+ /usr/local/include/axl/axl_log.h /usr/local/include/axl/axl_factory.h \
+ /usr/include/netdb.h /usr/include/netinet/in.h /usr/include/sys/socket.h \
  /usr/include/sys/uio.h /usr/include/bits/uio.h \
  /usr/include/bits/socket.h /usr/include/bits/sockaddr.h \
  /usr/include/asm/socket.h /usr/include/asm-generic/socket.h \
@@ -43,8 +45,6 @@ vortex_http.lo: vortex_http.c vortex_http.h ../src/vortex.h \
  /usr/include/bits/select.h /usr/include/bits/time.h \
  /usr/include/sys/time.h /usr/include/sys/resource.h \
  /usr/include/bits/resource.h ../src/vortex_types.h \
- /usr/include/pthread.h /usr/include/sched.h /usr/include/bits/sched.h \
- /usr/include/signal.h /usr/include/bits/pthreadtypes.h \
  ../src/vortex_support.h ../src/vortex_handlers.h ../src/vortex_ctx.h \
  ../src/vortex_thread.h ../src/vortex_thread_pool.h ../src/vortex_queue.h \
  ../src/vortex_hash.h ../src/vortex_connection.h ../src/vortex_listener.h \
@@ -119,6 +119,12 @@ vortex_http.h:
 
 /usr/racket/include/racket/mzconfig.h:
 
+/usr/include/inttypes.h:
+
+/usr/include/stdint.h:
+
+/usr/include/bits/wchar.h:
+
 /usr/include/setjmp.h:
 
 /usr/include/bits/setjmp.h:
@@ -129,9 +135,13 @@ vortex_http.h:
 
 /usr/racket/include/racket/stypes.h:
 
+/usr/racket/include/racket/schgc2obj.h:
+
 /usr/racket/include/racket/schthread.h:
 
 /usr/racket/include/racket/schexn.h:
+
+/usr/racket/include/racket/schemegc2.h:
 
 /usr/racket/include/racket/schemef.h:
 
@@ -189,10 +199,6 @@ vortex_http.h:
 
 /usr/include/netinet/in.h:
 
-/usr/include/stdint.h:
-
-/usr/include/bits/wchar.h:
-
 /usr/include/sys/socket.h:
 
 /usr/include/sys/uio.h:
@@ -234,16 +240,6 @@ vortex_http.h:
 /usr/include/bits/resource.h:
 
 ../src/vortex_types.h:
-
-/usr/include/pthread.h:
-
-/usr/include/sched.h:
-
-/usr/include/bits/sched.h:
-
-/usr/include/signal.h:
-
-/usr/include/bits/pthreadtypes.h:
 
 ../src/vortex_support.h:
 

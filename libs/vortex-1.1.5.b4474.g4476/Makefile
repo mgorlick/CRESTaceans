@@ -42,7 +42,7 @@ DIST_COMMON = README $(am__configure_deps) $(srcdir)/Makefile.am \
 	$(srcdir)/vortex-alive-1.1.pc.in \
 	$(srcdir)/vortex-http-1.1.pc.in \
 	$(srcdir)/vortex-pull-1.1.pc.in \
-	$(srcdir)/vortex-sasl-1.1.pc.in $(srcdir)/vortex-tls-1.1.pc.in \
+	$(srcdir)/vortex-sasl-1.1.pc.in \
 	$(srcdir)/vortex-tunnel-1.1.pc.in \
 	$(srcdir)/vortex-xml-rpc-1.1.pc.in $(top_srcdir)/configure \
 	AUTHORS COPYING ChangeLog INSTALL NEWS config.guess config.sub \
@@ -58,7 +58,7 @@ mkinstalldirs = $(install_sh) -d
 CONFIG_HEADER = config.h
 CONFIG_CLEAN_FILES = Makefile.win vortex-1.1.pc vortex-xml-rpc-1.1.pc \
 	vortex-tunnel-1.1.pc vortex-pull-1.1.pc vortex-sasl-1.1.pc \
-	vortex-tls-1.1.pc vortex-http-1.1.pc vortex-alive-1.1.pc
+	vortex-http-1.1.pc vortex-alive-1.1.pc
 SOURCES =
 DIST_SOURCES =
 RECURSIVE_TARGETS = all-recursive check-recursive dvi-recursive \
@@ -78,8 +78,8 @@ pkgconfigDATA_INSTALL = $(INSTALL_DATA)
 DATA = $(pkgconfig_DATA)
 ETAGS = etags
 CTAGS = ctags
-DIST_SUBDIRS = src pull tunnel xml-rpc sasl tls http alive py-vortex \
-	test xml-rpc-gen doc data logo
+DIST_SUBDIRS = src pull tunnel xml-rpc sasl http alive py-vortex \
+	 xml-rpc-gen doc data logo
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
 distdir = $(PACKAGE)-$(VERSION)
 top_distdir = $(distdir)
@@ -146,8 +146,6 @@ ENABLE_READLINE_FALSE = #
 ENABLE_READLINE_TRUE = 
 ENABLE_SASL_SUPPORT_FALSE = #
 ENABLE_SASL_SUPPORT_TRUE = 
-ENABLE_TLS_SUPPORT_FALSE = #
-ENABLE_TLS_SUPPORT_TRUE = 
 ENABLE_TUNNEL_SUPPORT_FALSE = #
 ENABLE_TUNNEL_SUPPORT_TRUE = 
 ENABLE_VORTEX_LOG_FALSE = #
@@ -207,7 +205,6 @@ SET_MAKE =
 SHARED_EXTENSION = @SHARED_EXTENSION@
 SHELL = /bin/bash
 STRIP = strip
-TLS_LIBS = -lssl -lcrypto
 VERSION = 1.1.5.b4474.g4476
 VORTEX_VERSION = 1.1.5.b4474.g4476
 ac_ct_CC = gcc
@@ -263,7 +260,6 @@ sharedstatedir = ${prefix}/com
 sysconfdir = ${prefix}/etc
 target_alias = 
 VORTEX_DOC_DIR = doc
-VORTEX_TEST_DIR = test
 VORTEX_XML_RPC_GEN_TOOL_DIR = xml-rpc-gen
 TUNNEL_SUPPORT_DIR = tunnel
 TUNNEL_PKGCONFIG = vortex-tunnel-1.1.pc
@@ -273,17 +269,15 @@ XML_RPC_SUPPORT_DIR = xml-rpc
 XML_RPC_PKGCONFIG = vortex-xml-rpc-1.1.pc
 SASL_SUPPORT_DIR = sasl
 SASL_PKGCONFIG = vortex-sasl-1.1.pc
-TLS_SUPPORT_DIR = tls
-TLS_PKGCONFIG = vortex-tls-1.1.pc
 HTTP_SUPPORT_DIR = http
 HTTP_PKGCONFIG = vortex-http-1.1.pc
 @ENABLE_PY_VORTEX_SUPPORT_TRUE@PY_VORTEX_DIR = py-vortex
 ALIVE_SUPPORT_DIR = alive
 ALIVE_PKGCONFIG = vortex-alive-1.1.pc
-SUBDIRS = src $(PULL_SUPPORT_DIR) $(TUNNEL_SUPPORT_DIR) $(XML_RPC_SUPPORT_DIR) $(SASL_SUPPORT_DIR) $(TLS_SUPPORT_DIR) $(HTTP_SUPPORT_DIR) $(ALIVE_SUPPORT_DIR) $(PY_VORTEX_DIR) $(VORTEX_TEST_DIR) $(VORTEX_XML_RPC_GEN_TOOL_DIR) $(VORTEX_DOC_DIR) data logo
+SUBDIRS = src $(PULL_SUPPORT_DIR) $(TUNNEL_SUPPORT_DIR) $(XML_RPC_SUPPORT_DIR) $(SASL_SUPPORT_DIR) $(HTTP_SUPPORT_DIR) $(ALIVE_SUPPORT_DIR) $(PY_VORTEX_DIR) $(VORTEX_XML_RPC_GEN_TOOL_DIR) $(VORTEX_DOC_DIR) data logo
 EXTRA_DIST = vortex-1.1.pc.in VERSION libvortex.sln get-python-config Makefile.win Makefile.win.in
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = vortex-1.1.pc $(PULL_PKGCONFIG) $(TUNNEL_PKGCONFIG) $(XML_RPC_PKGCONFIG) $(SASL_PKGCONFIG) $(TLS_PKGCONFIG) $(HTTP_PKGCONFIG) $(ALIVE_PKGCONFIG)
+pkgconfig_DATA = vortex-1.1.pc $(PULL_PKGCONFIG) $(TUNNEL_PKGCONFIG) $(XML_RPC_PKGCONFIG) $(SASL_PKGCONFIG) $(HTTP_PKGCONFIG) $(ALIVE_PKGCONFIG)
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive
 
@@ -349,8 +343,6 @@ vortex-tunnel-1.1.pc: $(top_builddir)/config.status $(srcdir)/vortex-tunnel-1.1.
 vortex-pull-1.1.pc: $(top_builddir)/config.status $(srcdir)/vortex-pull-1.1.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 vortex-sasl-1.1.pc: $(top_builddir)/config.status $(srcdir)/vortex-sasl-1.1.pc.in
-	cd $(top_builddir) && $(SHELL) ./config.status $@
-vortex-tls-1.1.pc: $(top_builddir)/config.status $(srcdir)/vortex-tls-1.1.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
 vortex-http-1.1.pc: $(top_builddir)/config.status $(srcdir)/vortex-http-1.1.pc.in
 	cd $(top_builddir) && $(SHELL) ./config.status $@
@@ -762,7 +754,6 @@ uninstall-info: uninstall-info-recursive
 
 update-defs:
 	cd src; make update-def; cd ..
-	cd tls; make update-def; cd ..
 	cd sasl; make update-def; cd ..
 	cd tunnel; make update-def; cd ..
 	cd xml-rpc; make update-def; cd ..

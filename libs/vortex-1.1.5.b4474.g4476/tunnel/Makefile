@@ -74,7 +74,7 @@ am__DEPENDENCIES_1 =
 libvortex_tunnel_1_1_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1) \
 	$(top_builddir)/src/libvortex-1.1.la
-am_libvortex_tunnel_1_1_la_OBJECTS = vortex_tunnel.lo
+am_libvortex_tunnel_1_1_la_OBJECTS = $(RACKET_LIBS)/libracket3m.so vortex_tunnel.lo
 libvortex_tunnel_1_1_la_OBJECTS =  \
 	$(am_libvortex_tunnel_1_1_la_OBJECTS)
 libvortex_tunnel_1_1_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -172,7 +172,6 @@ SED = /bin/sed
 SET_MAKE = 
 SHELL = /bin/bash
 STRIP = strip
-TLS_LIBS = -lssl -lcrypto
 VERSION = 1.1.5.b4474.g4476
 VORTEX_VERSION = 1.1.5.b4474.g4476
 abs_builddir = /home/kylestrasser/prog/repositories/CRESTaceans/libs/vortex-1.1.5.b4474.g4476/tunnel
@@ -231,7 +230,7 @@ top_srcdir = ..
 EXTRA_DIST = Makefile.win libvortex-tunnel-1.1.def
 INCLUDE_TUNNEL_SUPPORT = -DENABLE_TUNNEL_SUPPORT
 INCLUDE_VORTEX_LOG = -DENABLE_VORTEX_LOG
-INCLUDES = -I. -I$(top_srcdir)/src -Wall -Wstrict-prototypes -ansi -g -I/usr/racket/include/racket -I$(top_srcdir) -D__COMPILING_VORTEX__ -D__axl_disable_broken_bool_def__  \
+INCLUDES = -I. -I$(top_srcdir)/src -Wall -Wstrict-prototypes -ansi -g -DMZ_PRECISE_GC -I$(RACKET_INCLUDES) -I$(top_srcdir) -D__COMPILING_VORTEX__ -D__axl_disable_broken_bool_def__  \
 	$(AXL_CFLAGS) $(INCLUDE_VORTEX_LOG) $(PTHREAD_CFLAGS) \
 	-DVERSION=\""$(VORTEX_VERSION)"\" $(INCLUDE_TUNNEL_SUPPORT) \
 	-DPACKAGE_DTD_DIR=\""$(datadir)"\" \

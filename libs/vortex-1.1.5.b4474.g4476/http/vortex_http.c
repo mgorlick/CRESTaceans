@@ -58,7 +58,7 @@ struct _VortexHttpSetup {
 	 * @internal reference counting.
 	 */
 	int           ref_count;
-	VortexMutex   mutex;
+	VortexMutex*   mutex;
 
 	/** 
 	 * @internal Proxy location.
@@ -116,11 +116,11 @@ axl_bool           vortex_http_setup_ref      (VortexHttpSetup * setup)
 
 	v_return_val_if_fail_msg (setup, axl_false, "Unable to update reference counting, setup reference is NULL");
 
-	vortex_mutex_lock (&setup->mutex);
+	vortex_mutex_lock (setup->mutex);
 
 	setup->ref_count++;
 
-	vortex_mutex_unlock (&setup->mutex);
+	vortex_mutex_unlock (setup->mutex);
 
 	return axl_true;
 }
@@ -137,19 +137,19 @@ void               vortex_http_setup_unref    (VortexHttpSetup * setup)
 
 
 	/* lock mutex */
-	vortex_mutex_lock (&setup->mutex);
+	vortex_mutex_lock (setup->mutex);
 
 	/* decrease ref count */
 	setup->ref_count--;
 	if (setup->ref_count != 0) {
-		vortex_mutex_unlock (&setup->mutex);
+		vortex_mutex_unlock (setup->mutex);
 		return;
 	}
-	vortex_mutex_unlock (&setup->mutex);
+	vortex_mutex_unlock (setup->mutex);
 
 	axl_free (setup->proxy_host);
 	axl_free (setup->proxy_port);
-	vortex_mutex_destroy (&setup->mutex);
+	vortex_mutex_destroy (setup->mutex);
 	axl_free (setup);
 	return;
 }

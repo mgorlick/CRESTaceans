@@ -73,7 +73,7 @@ LTLIBRARIES = $(lib_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 libvortex_1_1_la_DEPENDENCIES = $(am__DEPENDENCIES_1) \
 	$(am__DEPENDENCIES_1) $(am__DEPENDENCIES_1)
-am_libvortex_1_1_la_OBJECTS = /usr/racket/lib/libracket3m.so \
+am_libvortex_1_1_la_OBJECTS = $(RACKET_LIBS)/libracket3m.so \
 	vortex.lo vortex_ctx.lo \
 	vortex_support.lo vortex_connection.lo vortex_listener.lo \
 	vortex_handlers.lo vortex_frame_factory.lo vortex_greetings.lo \
@@ -178,7 +178,6 @@ SED = /bin/sed
 SET_MAKE = 
 SHELL = /bin/bash
 STRIP = strip
-TLS_LIBS = -lssl -lcrypto
 VERSION = 1.1.5.b4474.g4476
 VORTEX_VERSION = 1.1.5.b4474.g4476
 abs_builddir = /home/kylestrasser/prog/repositories/CRESTaceans/libs/vortex-1.1.5.b4474.g4476/src
@@ -240,7 +239,7 @@ INCLUDE_VORTEX_POLL = -DVORTEX_HAVE_POLL=1
 INCLUDE_VORTEX_EPOLL = -DVORTEX_HAVE_EPOLL=1
 INCLUDE_DEFAULT_EPOLL = -DDEFAULT_EPOLL 
 #INCLUDE_DEFAULT_POLL = -DDEFAULT_POLL 
-INCLUDES = -Wall -Wstrict-prototypes -DMZ_PRECISE_GC -ansi -g -I/usr/racket/include/racket -I$(top_srcdir) -D__COMPILING_VORTEX__ -D__axl_disable_broken_bool_def__  \
+INCLUDES = -Wall -Wstrict-prototypes -DMZ_PRECISE_GC -ansi -g -I$(RACKET_INCLUDES) -I$(top_srcdir) -D__COMPILING_VORTEX__ -D__axl_disable_broken_bool_def__  \
 	$(AXL_CFLAGS) $(INCLUDE_VORTEX_LOG) $(PTHREAD_CFLAGS) \
 	-DVERSION=\""$(VORTEX_VERSION)"\" \
 	-DPACKAGE_DTD_DIR=\""$(datadir)"\" \

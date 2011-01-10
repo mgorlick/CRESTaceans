@@ -25,16 +25,17 @@ xml-rpc-c-server.o: xml-rpc-c-server.c xml-rpc-c-server.h xml-rpc.h \
  /usr/local/include/axl/axl_node.h /usr/local/include/axl/axl_dtd.h \
  /usr/local/include/axl/axl_error.h /usr/local/include/axl/axl_log.h \
  /usr/local/include/axl/axl_factory.h exarg.h ../src/vortex.h \
- /usr/plt/full-5.0.1.2/include/scheme.h \
- /usr/plt/full-5.0.1.2/include/sconfig.h \
- /usr/plt/full-5.0.1.2/include/mzconfig.h /usr/include/setjmp.h \
+ /usr/racket/include/racket/scheme.h /usr/racket/include/racket/sconfig.h \
+ /usr/racket/include/racket/mzconfig.h /usr/include/inttypes.h \
+ /usr/include/stdint.h /usr/include/bits/wchar.h /usr/include/setjmp.h \
  /usr/include/bits/setjmp.h /usr/include/bits/sigset.h \
- /usr/include/bits/setjmp2.h /usr/plt/full-5.0.1.2/include/stypes.h \
- /usr/plt/full-5.0.1.2/include/schthread.h \
- /usr/plt/full-5.0.1.2/include/schexn.h \
- /usr/plt/full-5.0.1.2/include/schemef.h /usr/include/netdb.h \
- /usr/include/netinet/in.h /usr/include/stdint.h \
- /usr/include/bits/wchar.h /usr/include/sys/socket.h \
+ /usr/include/bits/setjmp2.h /usr/racket/include/racket/stypes.h \
+ /usr/racket/include/racket/schgc2obj.h \
+ /usr/racket/include/racket/schthread.h \
+ /usr/racket/include/racket/schexn.h \
+ /usr/racket/include/racket/schemegc2.h \
+ /usr/racket/include/racket/schemef.h /usr/include/netdb.h \
+ /usr/include/netinet/in.h /usr/include/sys/socket.h \
  /usr/include/sys/uio.h /usr/include/bits/uio.h \
  /usr/include/bits/socket.h /usr/include/bits/sockaddr.h \
  /usr/include/asm/socket.h /usr/include/asm-generic/socket.h \
@@ -45,8 +46,6 @@ xml-rpc-c-server.o: xml-rpc-c-server.c xml-rpc-c-server.h xml-rpc.h \
  /usr/include/bits/select.h /usr/include/bits/time.h \
  /usr/include/sys/time.h /usr/include/sys/resource.h \
  /usr/include/bits/resource.h ../src/vortex_types.h \
- /usr/include/pthread.h /usr/include/sched.h /usr/include/bits/sched.h \
- /usr/include/signal.h /usr/include/bits/pthreadtypes.h \
  ../src/vortex_support.h ../src/vortex_handlers.h ../src/vortex_ctx.h \
  ../src/vortex_thread.h ../src/vortex_thread_pool.h ../src/vortex_queue.h \
  ../src/vortex_hash.h ../src/vortex_connection.h ../src/vortex_listener.h \
@@ -170,11 +169,17 @@ exarg.h:
 
 ../src/vortex.h:
 
-/usr/plt/full-5.0.1.2/include/scheme.h:
+/usr/racket/include/racket/scheme.h:
 
-/usr/plt/full-5.0.1.2/include/sconfig.h:
+/usr/racket/include/racket/sconfig.h:
 
-/usr/plt/full-5.0.1.2/include/mzconfig.h:
+/usr/racket/include/racket/mzconfig.h:
+
+/usr/include/inttypes.h:
+
+/usr/include/stdint.h:
+
+/usr/include/bits/wchar.h:
 
 /usr/include/setjmp.h:
 
@@ -184,21 +189,21 @@ exarg.h:
 
 /usr/include/bits/setjmp2.h:
 
-/usr/plt/full-5.0.1.2/include/stypes.h:
+/usr/racket/include/racket/stypes.h:
 
-/usr/plt/full-5.0.1.2/include/schthread.h:
+/usr/racket/include/racket/schgc2obj.h:
 
-/usr/plt/full-5.0.1.2/include/schexn.h:
+/usr/racket/include/racket/schthread.h:
 
-/usr/plt/full-5.0.1.2/include/schemef.h:
+/usr/racket/include/racket/schexn.h:
+
+/usr/racket/include/racket/schemegc2.h:
+
+/usr/racket/include/racket/schemef.h:
 
 /usr/include/netdb.h:
 
 /usr/include/netinet/in.h:
-
-/usr/include/stdint.h:
-
-/usr/include/bits/wchar.h:
 
 /usr/include/sys/socket.h:
 
@@ -241,16 +246,6 @@ exarg.h:
 /usr/include/bits/resource.h:
 
 ../src/vortex_types.h:
-
-/usr/include/pthread.h:
-
-/usr/include/sched.h:
-
-/usr/include/bits/sched.h:
-
-/usr/include/signal.h:
-
-/usr/include/bits/pthreadtypes.h:
 
 ../src/vortex_support.h:
 

@@ -765,9 +765,6 @@ SASL_LIBS
 SASL_CFLAGS
 GSASL_LIBS
 GSASL_CFLAGS
-ENABLE_TLS_SUPPORT_FALSE
-ENABLE_TLS_SUPPORT_TRUE
-TLS_LIBS
 ENABLE_VORTEX_LOG_FALSE
 ENABLE_VORTEX_LOG_TRUE
 AXL_LIBS
@@ -913,7 +910,6 @@ enable_libtool_lock
 enable_vortex_client
 enable_vortex_doc
 enable_vortex_log
-enable_tls_support
 enable_sasl_support
 enable_xml_rpc_support
 enable_xml_rpc_support_gen
@@ -1566,7 +1562,6 @@ Optional Features:
   --enable-vortex-client    Enable vortex-client tool building default=yes
   --enable-vortex-doc       Enable building Vortex Library documentation (doxygen required) default=yes
   --enable-vortex-log       Enable building Vortex Library console debug log support default=yes
-  --disable-tls-support     Makes buidling Vortex Library TLS support (OpenSSL required)
   --disable-sasl-support    Makes Vortex Library to be built without SASL support
   --disable-xml-rpc-support    Makes Vortex Library to be built without XML-RPC (RFC3529) support
   --disable-xml-rpc-gen-tool    Makes Vortex Library to be built without xml-rpc-gen tool
@@ -11145,40 +11140,6 @@ else
 fi
 
 
-@%:@ Check whether --enable-tls-support was given.
-if test "${enable_tls_support+set}" = set; then :
-  enableval=$enable_tls_support; enable_tls_support="$enableval"
-else
-  enable_tls_support=yes
-fi
-
-if test x$enable_tls_support = xyes ; then
-      ac_fn_c_check_header_mongrel "$LINENO" "openssl/ssl.h" "ac_cv_header_openssl_ssl_h" "$ac_includes_default"
-if test "x$ac_cv_header_openssl_ssl_h" = x""yes; then :
-  
-else
-  enable_tls_support=no
-fi
-
-
-   if test x$enable_tls_support = xno ; then
-      { $as_echo "$as_me:${as_lineno-$LINENO}: WARNING: Cannot OpenSSL installation, disabling it. This will disable TLS profile support. " >&5
-$as_echo "$as_me: WARNING: Cannot OpenSSL installation, disabling it. This will disable TLS profile support. " >&2;} 
-      enable_tls_support=no
-   else
-            TLS_LIBS="-lssl -lcrypto"
-      
-   fi
-fi
- if test "x$enable_tls_support" = "xyes"; then
-  ENABLE_TLS_SUPPORT_TRUE=
-  ENABLE_TLS_SUPPORT_FALSE='#'
-else
-  ENABLE_TLS_SUPPORT_TRUE='#'
-  ENABLE_TLS_SUPPORT_FALSE=
-fi
-
-
 @%:@ Check whether --enable-sasl-support was given.
 if test "${enable_sasl_support+set}" = set; then :
   enableval=$enable_sasl_support; enable_sasl_support="$enableval"
@@ -11517,7 +11478,7 @@ case $host in
 esac
 	
 
-ac_config_files="$ac_config_files Makefile Makefile.win src/Makefile tunnel/Makefile pull/Makefile xml-rpc/Makefile sasl/Makefile tls/Makefile http/Makefile alive/Makefile doc/Makefile doc/vortex-doc.doxygen test/Makefile xml-rpc-gen/Makefile data/Makefile logo/Makefile vortex-1.1.pc vortex-xml-rpc-1.1.pc vortex-tunnel-1.1.pc vortex-pull-1.1.pc vortex-sasl-1.1.pc vortex-tls-1.1.pc vortex-http-1.1.pc vortex-alive-1.1.pc"
+ac_config_files="$ac_config_files Makefile Makefile.win src/Makefile tunnel/Makefile pull/Makefile xml-rpc/Makefile sasl/Makefile http/Makefile alive/Makefile doc/Makefile doc/vortex-doc.doxygen xml-rpc-gen/Makefile data/Makefile logo/Makefile vortex-1.1.pc vortex-xml-rpc-1.1.pc vortex-tunnel-1.1.pc vortex-pull-1.1.pc vortex-sasl-1.1.pc vortex-http-1.1.pc vortex-alive-1.1.pc"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -11662,10 +11623,6 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${ENABLE_VORTEX_LOG_TRUE}" && test -z "${ENABLE_VORTEX_LOG_FALSE}"; then
   as_fn_error "conditional \"ENABLE_VORTEX_LOG\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
-if test -z "${ENABLE_TLS_SUPPORT_TRUE}" && test -z "${ENABLE_TLS_SUPPORT_FALSE}"; then
-  as_fn_error "conditional \"ENABLE_TLS_SUPPORT\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${ENABLE_SASL_SUPPORT_TRUE}" && test -z "${ENABLE_SASL_SUPPORT_FALSE}"; then
@@ -12558,12 +12515,10 @@ do
     "pull/Makefile") CONFIG_FILES="$CONFIG_FILES pull/Makefile" ;;
     "xml-rpc/Makefile") CONFIG_FILES="$CONFIG_FILES xml-rpc/Makefile" ;;
     "sasl/Makefile") CONFIG_FILES="$CONFIG_FILES sasl/Makefile" ;;
-    "tls/Makefile") CONFIG_FILES="$CONFIG_FILES tls/Makefile" ;;
     "http/Makefile") CONFIG_FILES="$CONFIG_FILES http/Makefile" ;;
     "alive/Makefile") CONFIG_FILES="$CONFIG_FILES alive/Makefile" ;;
     "doc/Makefile") CONFIG_FILES="$CONFIG_FILES doc/Makefile" ;;
     "doc/vortex-doc.doxygen") CONFIG_FILES="$CONFIG_FILES doc/vortex-doc.doxygen" ;;
-    "test/Makefile") CONFIG_FILES="$CONFIG_FILES test/Makefile" ;;
     "xml-rpc-gen/Makefile") CONFIG_FILES="$CONFIG_FILES xml-rpc-gen/Makefile" ;;
     "data/Makefile") CONFIG_FILES="$CONFIG_FILES data/Makefile" ;;
     "logo/Makefile") CONFIG_FILES="$CONFIG_FILES logo/Makefile" ;;
@@ -12572,7 +12527,6 @@ do
     "vortex-tunnel-1.1.pc") CONFIG_FILES="$CONFIG_FILES vortex-tunnel-1.1.pc" ;;
     "vortex-pull-1.1.pc") CONFIG_FILES="$CONFIG_FILES vortex-pull-1.1.pc" ;;
     "vortex-sasl-1.1.pc") CONFIG_FILES="$CONFIG_FILES vortex-sasl-1.1.pc" ;;
-    "vortex-tls-1.1.pc") CONFIG_FILES="$CONFIG_FILES vortex-tls-1.1.pc" ;;
     "vortex-http-1.1.pc") CONFIG_FILES="$CONFIG_FILES vortex-http-1.1.pc" ;;
     "vortex-alive-1.1.pc") CONFIG_FILES="$CONFIG_FILES vortex-alive-1.1.pc" ;;
 
@@ -13957,17 +13911,6 @@ else
    echo "     it is needed to have readline on this system. "
    echo "     Once installed run again configure process"
    echo "     using --enable-vortex-client option."
-fi
-if test x$enable_tls_support = xyes ; then
-   echo "   Build TLS profile support:                enabled"
-   echo "     (libvortex-tls-1.1)"
-else
-   echo "   Build TLS profile support:                disabled"
-   echo 
-   echo "     NOTE: To enable TLS profile support you have to"
-   echo "     install OpenSSL developement headers. "
-   echo "     Once installed run again configure process "
-   echo "     using --enable-tls-support option."
 fi
 if test x$enable_sasl_support = xyes ; then
    echo "   Build SASL profile support:               enabled"
