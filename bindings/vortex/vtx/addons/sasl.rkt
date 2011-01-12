@@ -4,16 +4,21 @@
          "../libvortex.rkt")
 (provide (all-defined-out))
 
-(define SASL-GSSAPI "http://iana.org/beep/SASL/GSSAPI")
-(define SASL-KERBEROS-V4 "http://iana.org/beep/SASL/KERBEROS_V4")
 (define SASL-PLAIN "http://iana.org/beep/SASL/PLAIN")
 (define SASL-CRAM-MD5 "http://iana.org/beep/SASL/CRAM-MD5")
 (define SASL-DIGEST-MD5 "http://iana.org/beep/SASL/DIGEST-MD5")
 (define SASL-ANONYMOUS "http://iana.org/beep/SASL/ANONYMOUS")
 
+(define SASL-Anonymous-User-Data "__VORTEX_SASL_ANONYMOUS_USER_DATA")
+(define SASL-Plain-User-Data "__VORTEX_SASL_PLAIN_USER_DATA")
+(define SASL-External-User-Data "__VORTEX_SASL_EXTERNAL_USER_DATA")
+(define SASL-Cram-MD5-User-Data "__VORTEX_SASL_CRAM_MD5_USER_DATA")
+(define SASL-Digest-MD5-User-Data "__VORTEX_SASL_DIGEST_MD5_USER_DATA")
+
 (define SASL-Anonymous-Token "sasl:anonymous:token")
 (define SASL-AuthID "sasl:authid")
-(define SASL-is-Authenticated "sasl:is:authenticated")
+(define SASL-AuthZID "sasl:authzid")
+(define SASL-Is-Authenticated "sasl:is:authenticated")
 (define SASL-Method-Used "sasl:method:used")
 (define SASL-Realm "sasl:realm")
 
@@ -62,7 +67,8 @@
                         sasl-authorization-id = 2
                         sasl-password = 3
                         sasl-realm = 4
-                        sasl-anonymous-token = 5)))
+                        sasl-anonymous-token = 5
+                        sasl-prop-num = 6)))
 
 (defvtxs* (_fun _VortexCtx-pointer _string -> _axl-bool)
   vortex-sasl-accept-negotiation)
@@ -110,6 +116,9 @@
 (defvtxs* (_fun _VortexConnection-pointer _VortexSaslProperties -> _string)
   vortex-sasl-get-propertie)
 
+(defvtxs* (_fun _VortexConnection-pointer _VortexSaslProperties _string (_or-null _axlDestroyFunc) -> _axl-bool)
+  vortex-sasl-set-propertie)
+
 (defvtxs* (_fun _VortexConnection-pointer -> _axl-bool)
   vortex-sasl-is-authenticated)
 
@@ -121,7 +130,7 @@
   vortex-sasl-start-auth)
 
 (defvtxs* (_fun _VortexConnection-pointer _string
-                _VortexStatus 
+                (status : (_ptr o _VortexStatus))
                 (status-msg : (_ptr o _string)) -> _void
-                -> status-msg)
+                -> (values status status-msg))
   vortex-sasl-start-auth-sync)
