@@ -24,7 +24,7 @@
 ; opaque (application-specific) element, which is irrelevant for purposes of
 ; network exchange
 
-(contract-struct crest-url (u public-key swiss-num))
+(struct crest-url (u public-key swiss-num))
 
 (define (crest-url-scheme curl)
   (rfc:url-scheme (crest-url-u curl)))
@@ -71,9 +71,8 @@
     (let* ([rfc-url (rfc:string->url s)]
            [pub-key (rfc:path/param-path (first (rfc:url-path rfc-url)))]
            [swiss-num (rfc:path/param-path (second (rfc:url-path rfc-url)))])
-      (and (base64-url-encoded? pub-key)
-           (isnum? swiss-num)
-           (crest-url rfc-url pub-key swiss-num)))))
+      (let ([c (crest-url rfc-url pub-key swiss-num)])
+        (and (valid-crest-url? c) c)))))
 
 ; check to see that no one has constructed a CREST URL
 ; with URL components that don't match the duplicated
@@ -83,11 +82,8 @@
 ; so this just enforces the equality and encoding constraints
 ; on any functions that produce valid CREST URLs
 (define (valid-crest-url? curl)
-  (crest-url/dc [u rfc:url?]
-                [public-key (u) (and (base64-url-encoded? (first (rfc:url-path u)))
-                                     (string=? u (first (rfc:url-path u))))]
-                [swiss-num (u) (and (isnum? (second (rfc:url-path u)))
-                                    (string=? u (second (rfc:url-path u))))]))
+  (and (base64-url-encoded? (crest-url-public-key curl))
+       (isnum? (crest-url-swiss-num curl))))
 
 ; test whether a string represents a base64-URL-encoded value
 (define (base64-url-encoded? s)
@@ -101,23 +97,21 @@
 (define (crest-url->string curl)
   (rfc:url->string (crest-url-u curl)))
 
-(define u (string->crest-url "crest://alice@bob.org:8000/998ecf8427e/226155721/application/path;add2numbers;doitfast=please;hurryup?x=5;y=4#cont"))
-
 ; don't export `crest-url': disallow direct production of CREST URLs
 (provide/contract
  ; accessors
- [crest-url-host (valid-crest-url? . -> . string?)]
- [crest-url-port (valid-crest-url? . -> . number?)]
+ [crest-url-host (crest-url? . -> . string?)]
+ [crest-url-port (crest-url? . -> . number?)]
  [crest-url-path (valid-crest-url? . -> . (listof rfc:path/param?))]
  [crest-url-pathstring (valid-crest-url? . -> . path-string?)]
  [crest-url-public-key (valid-crest-url? . -> . string?)]
  [crest-url-swiss-num (valid-crest-url? . -> . string?)]
- [crest-url-query (valid-crest-url? . -> . (listof (cons/c symbol? (or/c string? #f))))]
- [crest-url-fragment (valid-crest-url? . -> . (or/c string? #f))]
+ [crest-url-query (crest-url? . -> . (listof (cons/c symbol? (or/c string? #f))))]
+ [crest-url-fragment (crest-url? . -> . (or/c string? #f))]
  ; extra stuff
- [valid-crest-url? contract?]
+ [valid-crest-url? ((or/c crest-url? #f) . -> . boolean?)]
  [base64-url-encoded? (string? . -> . boolean?)]
  [crest-url->string (valid-crest-url? . -> . string?)]
  ; allow string->crest-url to return #f for invalid URLs,
  ; so exceptions are not thrown deep in the peer
- [string->crest-url (string? . -> . (or/c valid-crest-url? #f))])
+ [string->crest-url (string? . -> . (or/c #f valid-crest-url?))])
