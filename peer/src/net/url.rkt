@@ -93,7 +93,7 @@
 
 ; test whether a string represents a base64-URL-encoded value
 (define (base64-url-encoded? s)
-  (regexp-match-exact? #rx"[0-9|A-Z|a-z|_]+" s))
+  (regexp-match-exact? #rx"[-|0-9|A-Z|a-z|_]+" s))
 
 (define (isnum? s)
   (regexp-match-exact? #rx"[0-9]+" s))

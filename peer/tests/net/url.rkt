@@ -10,6 +10,8 @@
    (test-case
     "Verify base64-URL-encoding recognizer"
     (check-pred base64-url-encoded? "Abcd1234")
+    (check-pred base64-url-encoded? "Abcd-")
+    (check-pred base64-url-encoded? "Abcd_")
     (check-pred false? (base64-url-encoded? "++333"))
    )
   (test-case
@@ -18,11 +20,11 @@
    (check-pred false? (isnum? "ab525")))
   (test-case
     "URL construction rejects non-base64-encoded public key"
-    (let ([u (string->crest-url "crest://bob.org:8000/9+98ec7e/226155721/path;add2num?x=5&y=4#cont")])
+    (let ([u (string->crest-url "crest://bob.org:8000/++333/226155721/path;add2num?x=5&y=4#cont")])
       (check-pred false? u)))
    (test-case
     "URL construction rejects non-numeric swiss number"
-    (let ([u (string->crest-url "crest://bob.org:8000/9998ec7e/22fff5721/path;add2num?x=5&y=4#cont")])
+    (let ([u (string->crest-url "crest://bob.org:8000/9998ec7e/ab525/path;add2num?x=5&y=4#cont")])
       (check-pred false? u)))
    (test-case
     "string->crest-url and crest-url->string are inverse functions"
