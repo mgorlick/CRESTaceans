@@ -26,6 +26,17 @@
      (let ([return-value (begin body ...)])
        cleanup ... return-value)]))
 
+(define-syntax new-ctx
+  (syntax-rules ()
+    [(_ use-logging? ...)
+     (let ()
+       (rkt:vortex-setup)
+       (let ([ctx-name (vortex-ctx-new)])
+         (when (vtx-false? (rkt:vortex-init-ctx ctx-name use-logging? ...))
+           (raise (make-exn:vtx:init "could not initialize vortex context"
+                                     (current-continuation-marks))))
+         ctx-name))]))
+
 ; with-vtx-ctx : identifier any ... -> ?
 ; initialize a vortex context and do operation(s) on that context.
 ; then clean up the context.
@@ -35,60 +46,61 @@
     [(_ ctx-name 
         [use-logging? ...]
         body ...)
-     (begin 
-       (rkt:vortex-setup)
-       (let ([ctx-name (vortex-ctx-new)])
-         (if (vtx-false? (rkt:vortex-init-ctx ctx-name use-logging? ...))
-             (raise (make-exn:vtx:init "could not initialize vortex context"
-                                       (current-continuation-marks)))
-             (cleanup-and-return
-              (body ...)
-              ((vortex-exit-ctx ctx-name axl-true)))
-             )))]
-    ))
+     (let ([ctx-name (new-ctx use-logging? ...)])
+       (cleanup-and-return
+        (body ...)
+        ((vortex-exit-ctx ctx-name axl-true)))
+       )]))
 
 (define-struct (exn:vtx:init exn:fail:user) ())
 
-; with-vtx-connection:
+(define-syntax doconn
+  (syntax-rules ()
+    [(_ connection-name on-connected (body ...) (cleanup ...))
+     ; sometimes the new connection bound to `connection-name' can be #f (null).
+     ; this DOES NOT MEAN that the connection was not created;
+     ; it means that you've spawned the connection in threaded
+     ; (async) mode, because you supplied a callback. If this is true,
+     ; the callback will need to call `vortex-connection-is-ok' inside it.
+     (cond
+       [(and (procedure? on-connected) (ptr-null? connection-name)) ; assume connection spawned in async mode
+        (body ...)]
+       [(ptr-null? connection-name) ; connection couldn't be created
+        (raise (make-exn:vtx:connection 
+                "unable to make connection for unknown reason" (current-continuation-marks)))]
+       [(vtx-false? (vortex-connection-is-ok connection-name axl-false)) ; connection isn't ok for some reason
+        (vortex-connection-close connection-name)
+        (raise (make-exn:vtx:connection
+                (format "unable to connect to remote server; error was ~s" 
+                        (vortex-connection-get-message connection-name))
+                (current-continuation-marks)))]
+       [else ; connection ok!
+        (cleanup-and-return
+         (body ...)
+         (cleanup ...))])]))
+
+; with-vtx-conn:
 ; identifier string string VortexConnectionNew any identifier any ... -> void
 ; supply the name of the connection, the arguments to vortex-connection-new,
 ; the name of the associated (valid) context, and anything to do after connecting
-; then connect, execute the steps after connecting, and exit vortex once completed
+; then connect, execute the steps after connecting, and clean up conn once done
 (define-syntax with-vtx-conn
   (syntax-rules ()
     [(_ connection-name 
         [ctx host port on-connected user-data]
         body ...)
      (let ([connection-name (vortex-connection-new ctx host port on-connected user-data)])
-       ; sometimes the new connection bound to `connection-name' can be #f (null).
-       ; this DOES NOT MEAN that the connection was not created;
-       ; it means that you've spawned the connection in threaded
-       ; (async) mode, because you supplied a callback. If this is true,
-       ; the callback will need to call `vortex-connection-is-ok' inside it.
-       ; here we only deal with the case where the connection is NOT threaded
-       ; (i.e., a null value for the `on-connected' callback was provided.)
-       (if (and (not (procedure? on-connected)) (ptr-null? connection-name))
-           ; assume that the connection spawned in async mode
-           (begin body ...)
-           
-           ; otherwise, check to see whether connection is ok or not
-           (if (vtx-false? (vortex-connection-is-ok connection-name axl-false))
-               ; exception case: connection not created
-               (begin 
-                 (vortex-connection-close connection-name)
-                 (raise (make-exn:vtx:connection
-                         (format "unable to connect to remote server; error was ~s" 
-                                 (vortex-connection-get-message connection-name))
-                         (current-continuation-marks))
-                        ))
-               
-               ; normal case: connection created
-               (cleanup-and-return
-                (body ...)
-                ((cond [(not (ptr-null? connection-name))
-                        (vortex-connection-close connection-name)]))
-                ))))]
-    ))
+       (doconn connection-name on-connected (body ...) ((vortex-connection-close connection-name))))]))
+
+; with-vtx-conn*:
+; like with-vtx-conn, but do not clean up the connection automatically
+(define-syntax with-vtx-conn*
+  (syntax-rules ()
+    [(_ connection-name 
+        [ctx host port on-connected user-data]
+        body ...)
+     (let ([connection-name (vortex-connection-new ctx host port on-connected user-data)])
+       (doconn connection-name on-connected (body ...) ('x)))]))
 
 (define-struct (exn:vtx:connection exn:fail:network) ())
 
@@ -176,6 +188,13 @@
       [(k [arg1 arg2 ...] e1 e2 ...)
        (with-syntax ([connection (datum->syntax #'k 'connection)])
          #'(with-vtx-conn connection [arg1 arg2 ...] e1 e2 ...))])))
+
+(define-syntax connection*
+  (lambda (x)
+    (syntax-case x ()
+      [(k [arg1 arg2 ...] e1 e2 ...)
+       (with-syntax ([connection (datum->syntax #'k 'connection)])
+         #'(with-vtx-conn* connection [arg1 arg2 ...] e1 e2 ...))])))
 
 (define-syntax channel
   (lambda (x)

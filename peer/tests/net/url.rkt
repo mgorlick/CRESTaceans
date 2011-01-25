@@ -1,8 +1,9 @@
+#! /usr/bin/env racket
 #lang racket
 
 (require "../../src/net/url.rkt"
          rackunit
-         rackunit/text-ui)
+         (only-in rackunit/text-ui run-tests))
 
 (define url-tests
   (test-suite 

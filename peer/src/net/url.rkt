@@ -1,10 +1,8 @@
-#lang racket/base
+#lang racket
 
 
 (require (prefix-in rfc: net/url)
-         racket/contract
-         racket/match
-         racket/list)
+         "base64-url.rkt")
 
 ; CREST URLs do not have the same semantics as RFC 2396 URLs
 ; but an RFC 2396-compliant parser can be used to parse one
@@ -91,10 +89,6 @@
        (base64-url-encoded? (crest-url-public-key curl))
        (isnum? (crest-url-swiss-num curl))))
 
-; test whether a string represents a base64-URL-encoded value
-(define (base64-url-encoded? s)
-  (regexp-match-exact? #rx"[-|0-9|A-Z|a-z|_]+" s))
-
 (define (isnum? s)
   (regexp-match-exact? #rx"[0-9]+" s))
 
@@ -103,6 +97,7 @@
 (define (crest-url->string curl)
   (rfc:url->string (crest-url-u curl)))
 
+(provide (all-from-out "base64-url.rkt"))
 (provide/contract
  ; accessors
  [crest-url-host (valid-crest-url? . -> . string?)]
@@ -115,7 +110,6 @@
  [crest-url-fragment (valid-crest-url? . -> . (or/c string? #f))]
  ; extra stuff
  [valid-crest-url? ((or/c crest-url? #f) . -> . boolean?)]
- [base64-url-encoded? (string? . -> . boolean?)]
  [isnum? (string? . -> . boolean?)]
  [crest-url->string (valid-crest-url? . -> . string?)]
  ; allow string->crest-url to return #f for invalid URLs,
