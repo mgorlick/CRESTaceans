@@ -24,6 +24,6 @@
     (beepcli-connect clan2client uri
                      clan2 #f #f)))
 
-(go #"F7fMEiCi1-3vuGiUXL30fSH50pFsz-ykYkRQo9_-iZHTKzSC_YtiaKhtbRuGtdXHEE1oHEWolZ5eXoRDXZ7AWpVsfqvD05fRN5bIifPZ5di_1t1B64tYmI-3Iwr8DJVaDMMxIL9eyFzsj1IigC9qz2spqVXfxCX3eSyg1nUJNM0"
+(go  #"MGTL3I_MqZaReo0cg0foQAYw2mlaYEixz3jluOcEwNz0q3xO70V1uexzq8ctrC-8pIN2AbS8zH4W4Xz7hhbcot1ef_fy_fgsdD1WD7itmWrKbxZjoS5FpUitFbfM1CV_U-GyDOlDCLinGb7ms5a9xhax5WKFUwoDWl2PnNTFHXw"
 )
 (showtime "Connected")

@@ -32,7 +32,7 @@
      (let ()
        (rkt:vortex-setup)
        (let ([ctx-name (vortex-ctx-new)])
-         (when (vtx-false? (rkt:vortex-init-ctx ctx-name use-logging? ...))
+         (when (not (rkt:vortex-init-ctx ctx-name use-logging? ...))
            (raise (make-exn:vtx:init "could not initialize vortex context"
                                      (current-continuation-marks))))
          ctx-name))]))
@@ -49,7 +49,7 @@
      (let ([ctx-name (new-ctx use-logging? ...)])
        (cleanup-and-return
         (body ...)
-        ((vortex-exit-ctx ctx-name axl-true)))
+        ((vortex-exit-ctx ctx-name #t)))
        )]))
 
 (define-struct (exn:vtx:init exn:fail:user) ())
@@ -68,7 +68,7 @@
        [(ptr-null? connection-name) ; connection couldn't be created
         (raise (make-exn:vtx:connection 
                 "unable to make connection for unknown reason" (current-continuation-marks)))]
-       [(vtx-false? (vortex-connection-is-ok connection-name axl-false)) ; connection isn't ok for some reason
+       [(not (vortex-connection-is-ok connection-name #f)) ; connection isn't ok for some reason
         (vortex-connection-close connection-name)
         (raise (make-exn:vtx:connection
                 (format "unable to connect to remote server; error was ~s" 
@@ -149,7 +149,7 @@
             [msgno-name (malloc _int 'raw)]
             [send-msg-and-wait-result ; now actually send it
              (vortex-channel-send-msg-and-wait* channel msg msgno-name wait-reply-name)])
-       (if (vtx-false? send-msg-and-wait-result)
+       (if (not send-msg-and-wait-result)
            (begin
              (vortex-channel-free-wait-reply wait-reply-name)
              (raise (make-exn:vtx:wait-and-reply "unable to send message"

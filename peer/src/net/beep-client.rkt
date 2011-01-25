@@ -40,7 +40,7 @@
          [remote-public-key (base64-url-decode ; remote-public-key-str already url-encoded
                              (s->b remote-public-key-str))] ; bytes?
          [this-public-key-urlenc (clan-pk-urlencoded aclan)] ; bytes? base64-url-encoded?
-         [this-shared-key-urlenc (base64-url-encode 
+         [this-shared-key-urlenc (base64-url-encode
                                   (compute-shared-key aclan remote-public-key))] ; bytes? base64-url-encoded?
          [this-public-key-str (b->s this-public-key-urlenc)] ; string?
          [this-shared-key-str (b->s this-shared-key-urlenc)]
@@ -57,7 +57,7 @@
  (vortex-sasl-set-propertie connection 'sasl-password this-shared-key-str #f)
  (let-values ([(status message) (vortex-sasl-start-auth-sync connection SASL-PLAIN)])
    (cond
-     [(vtx-true? (vortex-sasl-is-authenticated connection))
+     [(vortex-sasl-is-authenticated connection)
       (printf "authenticated with id ~a ~n" (vortex-sasl-get-propertie connection 'sasl-auth-id))
       (set-connection-reference! acli remote-public-key-str connection)]
      [else

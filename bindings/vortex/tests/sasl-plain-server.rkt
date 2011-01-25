@@ -6,12 +6,12 @@
 
 (define (sasl-plain-validation connection auth-id authorization-id password)
   (cond
-    [(and (string=? auth-id "bob") (string=? password "secret")) (printf "user authenticated~n") axl-true]
-    [else (printf "user not authenticated~n") axl-false]))
+    [(and (string=? auth-id "bob") (string=? password "secret")) (printf "user authenticated~n") #t]
+    [else (printf "user not authenticated~n") #f]))
 
 (define (frame-received channel connection frame user-data)
   (printf "A frame received on channel ~s~n" (vortex-channel-get-number channel))
-  (if (vtx-true? (vortex-sasl-is-authenticated connection))
+  (if (vortex-sasl-is-authenticated connection)
       (begin
         (printf "Connection is authenticated with method ~a~n" (vortex-sasl-auth-method-used connection))
         (printf "Data received: ~s~n" (vortex-frame-get-payload-string frame))
@@ -28,7 +28,7 @@
  (vortex-sasl-init context)
  (vortex-sasl-set-plain-validation context sasl-plain-validation)
  (let ([res (vortex-sasl-accept-negotiation context SASL-PLAIN)])
-   (if (vtx-false? res)
+   (if (not res)
        (printf "unable to accept SASL PLAIN profile~n")
        (printf "accepting SASL PLAIN~n")))
  (vortex-listener-new context "0.0.0.0" "44000" #f #f)

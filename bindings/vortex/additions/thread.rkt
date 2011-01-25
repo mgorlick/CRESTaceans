@@ -19,11 +19,11 @@
 
 ;; VortexThreadCreateFunc: VortexThread** VortexThreadFunc pointer -> axl_bool
 (define/contract (rkt:vortex-thread-create thread* func user-data)
-  (cpointer? procedure? cpointer? . -> . integer?)
+  (cpointer? procedure? cpointer? . -> . boolean?)
   (thread (lambda () 
             (vortex-thread-set-reference thread*)
             (func user-data)))
-  axl-true)
+  #t)
 
 ;; Condition variable implementation from (Birrell, 2003)
 (struct condvar (s x h
@@ -96,7 +96,7 @@
   ;; precondition: this thread holds `mutex'
   ;; wait for a signal on the condition variable
   (define/contract (cond-wait mutex)
-    (VortexMutex*? . -> . integer?)
+    (VortexMutex*? . -> . boolean?)
     (cvlock cv)
     (cvinc cv)
     (cvunlock cv)
@@ -104,7 +104,7 @@
     (signal-init cv)
     (handshake-end cv)
     (vortex-mutex-lock mutex)
-    axl-true
+    #t
     )
   
   ;; precondition: this thread holds `mutex'
@@ -123,7 +123,7 @@
   ;; if that is the case, it is not a problem since
   ;; it'll be successful on the next round through.
   (define/contract (cond-timedwait mutex usecs)
-    (VortexMutex*? integer? . -> . integer?)
+    (VortexMutex*? integer? . -> . boolean?)
     (cvlock cv)
     (cvinc cv)
     (cvunlock cv)
@@ -134,13 +134,13 @@
             (semaphore-wait (condvar-s cv))
             (handshake-end cv)
             (vortex-mutex-lock mutex)
-            axl-true)
+            #t)
           (begin
             (cvlock cv)
             (cvdec cv)
             (cvunlock cv)
             (vortex-mutex-lock mutex)
-            axl-false))))
+            #f))))
   
   (vortex-cond-set-closures vtx-cond-var* cond-signal cond-broadcast cond-wait cond-timedwait))
 

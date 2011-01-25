@@ -50,7 +50,7 @@
   
   (define (frame-received-with-msg channel connection frame user-data)
     (write* frame)
-    (cond [(vtx-false? (vortex-frame-get-more-flag frame))
+    (cond [(not (vortex-frame-get-more-flag frame))
            (printf "Last message received~n")
            (vortex-async-queue-push-intsignal (cast user-data _pointer _VortexAsyncQueue-pointer) 1)])
     )
@@ -78,7 +78,7 @@
        
        ; feeder profile requires deactivation of message reassembly. why? who knows
        (cond [(eq? uri FILE-TRANSFER-URI-FEEDER)
-              (vortex-channel-set-complete-flag channel axl-false)])
+              (vortex-channel-set-complete-flag channel #f)])
        (printf "Made channel~n")
        
        ; allow user to adjust # of times to download, and window size
@@ -91,7 +91,7 @@
        (printf "Window size = ~s bytes~n" size)
        (vortex-channel-set-window-size channel size)
        (printf "Window size after change: ~s bytes~n" (vortex-channel-get-window-size channel))
-       (vortex-channel-set-serialize channel axl-true)
+       (vortex-channel-set-serialize channel #t)
        (let loop ([c times])
          (printf "requesting file~n")
          (vortex-channel-send-msg* channel "send the message, please" #f)

@@ -23,7 +23,7 @@
 ;; the components. Most initialization is done on the C side but we need to initialize the
 ;; reader, sequencer and thread pool here so that we can assign them to new thread groups.
 (define/contract (rkt:vortex-init-ctx ctx use-logging? use-ssl? ssl-cert-path)
-  (VortexCtx*? boolean? boolean? (or/c path-string? false?) . -> . integer?) ; return must always be `axl_true' or `axl_false'
+  (VortexCtx*? boolean? boolean? (or/c path-string? false?) . -> . boolean?)
   
   (define sequencer-group (make-thread-group)) ; for sequencer
   (define reader-group (make-thread-group)) ; for reader
@@ -40,9 +40,9 @@
     )
   
   (vortex-ctx-mark-initialized ctx)
-  (cond [use-ssl? (vortex-ctx-set-ssl ctx axl-true ssl-cert-path)])
-  (cond [use-logging? (vortex-log-enable ctx axl-true)])
-  axl-true)
+  (cond [use-ssl? (vortex-ctx-set-ssl ctx #t ssl-cert-path)])
+  (cond [use-logging? (vortex-log-enable ctx #t)])
+  #t)
 
 (define/contract (rkt:preinitialize-ctx ctx)
   (VortexCtx*? . -> . any)

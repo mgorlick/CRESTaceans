@@ -5,17 +5,17 @@
 
 (define (start-channel num connection user-data)
   (printf "Starting channel ~s~n" num)
-  axl-true)
+  #t)
 
 (define (close-channel num connection user-data)
   (printf "Closing channel ~s~n" num)
-  axl-true)
+  #t)
 
 (define (on-accepted connection data)
   (printf "New connection accepted from ~a:~a~n"
           (vortex-connection-get-host connection)
           (vortex-connection-get-port connection))
-  axl-true)
+  #t)
 
 (define (frame-received channel connection frame user-data)
   (printf "A frame received on channel ~s~n" (vortex-channel-get-number channel))

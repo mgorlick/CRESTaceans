@@ -8,7 +8,7 @@
 (define-vtx-definer libaxl defaxl defaxl*)
 
 ; axl types
-(define _axl-bool _int)
+(define _axl-bool _bool)
 (define _axlPointer _pointer)
 (define _axlDestroyFunc (_fun _axlPointer -> _void))
 (define _axlEqualFunc (_fun _axlPointer _axlPointer -> _int))
@@ -28,15 +28,6 @@
 (define-cpointer-type _axlDtd-pointer)
 
 (define axlError*? (flat-named-contract 'axlError*? axlError-pointer?))
-
-(define axl-false 0)
-(define axl-true 1)
-
-(define-syntax-rule (vtx-false? v)
-  (= v axl-false))
-
-(define-syntax-rule (vtx-true? v)
-  (= v axl-true))
 
 (defaxl* (_fun -> _void)
   axl-init)

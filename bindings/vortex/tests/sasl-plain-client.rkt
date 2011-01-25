@@ -12,7 +12,7 @@
   (vortex-sasl-set-propertie connection 'sasl-auth-id "bob" #f)
   (vortex-sasl-set-propertie connection 'sasl-password "secret" #f)
   (let-values ([(status message) (vortex-sasl-start-auth-sync connection SASL-PLAIN)])
-    (if (vtx-true? (vortex-sasl-is-authenticated connection))
+    (if (vortex-sasl-is-authenticated connection)
         (begin
           (printf "authenticated with id ~s ~n" (vortex-sasl-get-propertie connection 'sasl-auth-id))
           (channel

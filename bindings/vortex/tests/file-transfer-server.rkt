@@ -39,11 +39,11 @@
     (vortex-channel-send-rpy channel buffer (vortex-frame-get-msgno frame))))
 
 (define (frame-received-with-feeder channel connection frame user-data)
-  (let ([feeder (vortex-payload-feeder-file FILE-TO-TRANSFER axl-false)])
+  (let ([feeder (vortex-payload-feeder-file FILE-TO-TRANSFER #f)])
     (vortex-channel-send-rpy-from-feeder channel feeder (vortex-frame-get-msgno frame))))
 
-(define (start-channel num connection user-data) axl-true)
-(define (close-channel num connection user-data) axl-true)
+(define (start-channel num connection user-data) #t)
+(define (close-channel num connection user-data) #t)
 
 (context
  [#f #f #f]

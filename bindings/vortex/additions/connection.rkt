@@ -113,12 +113,12 @@
 ; given a new connection, turn into client mode by registering function pointers
 ; to closures that close over the tcp listener.
 (define/contract (rkt:vortex-connection-set-client-mode-closures this-connection use-ssl? ssl-cert-path)
-  (VortexConnection*? integer? (or/c path-string? false?) . -> . void)
+  (VortexConnection*? boolean? (or/c path-string? false?) . -> . void)
   (define inports (make-hash))
   (define outports (make-hash))
   (define-values (connect addresses)
     (cond
-      [(vtx-true? use-ssl?) (values ssl-connect ssl-addresses)]
+      [use-ssl? (values ssl-connect ssl-addresses)]
       [else (values tcp-connect tcp-addresses)]))
   
   ;; given a new connection, a host and a port, connect
@@ -155,13 +155,13 @@
 ; given a new connection, turn it into listener mode by registering function pointers
 ; to closures that close over the tcp listener.
 (define/contract (rkt:vortex-connection-set-listener-mode-closures this-connection use-ssl? ssl-cert-path)
-  (VortexConnection*? integer? (or/c path-string? false?) . -> . void)
+  (VortexConnection*? boolean? (or/c path-string? false?) . -> . void)
   (define inports (make-hash))
   (define outports (make-hash))
   (define listeners (make-hash))
   (define-values (listen accept addresses)
     (cond
-      [(vtx-true? use-ssl?) (values ssl-listen ssl-accept ssl-addresses)]
+      [use-ssl? (values ssl-listen ssl-accept ssl-addresses)]
       [else (values tcp-listen tcp-accept tcp-addresses)]))
   
   ;; listen on the given host/port (both strings) and set the
@@ -175,7 +175,7 @@
          (if (eq? host #f)
              (hash-set! listeners key (listen (string->number port) 10000 #t))
              (hash-set! listeners key (listen (string->number port) 10000 host)))
-         (cond [(vtx-true? use-ssl?)
+         (cond [use-ssl?
                 (ssl-load-certificate-chain! (hash-ref listeners key) ssl-cert-path)
                 (ssl-load-private-key! (hash-ref listeners key) ssl-cert-path)])
          1)))

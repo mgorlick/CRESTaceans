@@ -46,7 +46,6 @@
   vortex-frame-get-content-size
   vortex-frame-get-id
   vortex-frame-get-mime-header-size
-  vortex-frame-get-more-flag
   vortex-frame-get-msgno
   vortex-frame-get-payload-size
   vortex-frame-ref-count)
@@ -109,6 +108,7 @@
   vortex-frame-mime-header-next)
 
 (defvtx* (_fun _VortexFrame-pointer -> _axl-bool)
+  vortex-frame-get-more-flag
   vortex-frame-mime-process
   vortex-frame-ref)
 

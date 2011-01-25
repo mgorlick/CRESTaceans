@@ -15,7 +15,7 @@
 (define/contract (rkt:vortex-thread-pool-new-task ctx fun data)
   (VortexCtx*? procedure? cpointer? . -> . integer?)
   (thread (lambda () (fun data)))
-  axl-true)
+  #t)
 
 ; in a similar fashion to new_task, just spawn a thread for the new event handler.
 ; the long is microseconds, so convert to ms, wait and pop the event after the 
@@ -30,7 +30,7 @@
      (let loop ()
        (sleep (/ delay-time 1000))
        (let ([stop-going (handler-fun context data1 data2)])
-         (if (vtx-false? stop-going)
+         (if (not stop-going)
              (void)
              (loop))))))
   0)

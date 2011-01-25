@@ -25,8 +25,8 @@
   (vortex-channel-finalize-ans-rpy channel (vortex-frame-get-msgno frame))
   )
 
-(define (start-channel num connection user-data) axl-true)
-(define (close-channel num connection user-data) axl-true)
+(define (start-channel num connection user-data) #t)
+(define (close-channel num connection user-data) #t)
 
 (context
  [#f #f #f]
