@@ -103,7 +103,7 @@
 (defvtx* (_fun _VortexConnection-pointer -> _VortexCtx-pointer)
   vortex-connection-get-ctx)
 
-(defvtx* (_fun _VortexConnection-pointer _string -> _axlPointer)
+(defvtx* (_fun _VortexConnection-pointer _string -> _bytes)
   vortex-connection-get-data)
 
 (defvtx* (_fun (_or-null _VortexConnection-pointer) -> _string)
@@ -204,10 +204,10 @@
                _VortexConnectionAction _axlPointer -> _void)
   vortex-connection-set-connection-actions)
 
-(defvtx* (_fun _VortexConnection-pointer _string _axlPointer -> _void)
+(defvtx* (_fun _VortexConnection-pointer _string _bytes -> _void)
   vortex-connection-set-data)
 
-(defvtx* (_fun _VortexConnection-pointer _string _axlPointer
+(defvtx* (_fun _VortexConnection-pointer _string _bytes
                _axlDestroyFunc _axlDestroyFunc -> _void)
   vortex-connection-set-data-full)
 
@@ -223,11 +223,13 @@
   vortex-connection-set-next-frame-size-handler)
 
 (defvtx* (_fun _VortexConnection-pointer _VortexConnectionOnClose -> _void)
-  vortex-connection-set-on-close)
+  vortex-connection-set-on-close
+  vortex-connection-pass-on-close-handler)
 
 (defvtx* (_fun _VortexConnection-pointer _VortexConnectionOnCloseFull
                _axlPointer -> _void)
-  vortex-connection-set-on-close-full)
+  vortex-connection-set-on-close-full
+  vortex-connection-pass-on-close-full-handler)
 
 (defvtx* (_fun _VortexConnection-pointer _VortexConnectionOnCloseFull
                _axl-bool _axlPointer -> _void)

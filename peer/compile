@@ -1,0 +1,3 @@
+#!/bin/sh
+
+find . -name *.rkt -print0 | xargs -0 raco make

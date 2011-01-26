@@ -3,11 +3,17 @@
 (require "net/base64-url.rkt"
          (planet vyzo/crypto))
 
-; a clan is a struct
-; with a thread identifier (clans only run in one thread),
-; a procedure to calculate the key the clan shares with
-; another clan (Diffie-Hellman), and a public key bytestring
-(struct clan (thd skcalc pk pk-urlencoded))
+;; CONSTRUCTION
+(define-struct/contract 
+  clan 
+  ([thd thread?] ; reference to thread the clan is running in
+   [shared-key-calculator (bytes? . -> . bytes?)]
+   [decryptor (bytes? bytes? . -> . bytes?)]
+   [encryptor (bytes? . -> . bytes?)]
+   [mac-valid? (bytes? bytes? . -> . boolean?)]
+   [pk bytes?]
+   [pk-urlencoded (and/c bytes? base64-url-encoded?)]
+   ))
 
 ; make-new-clan: -> clan
 ; create a clan with a randomly generated public and private key
@@ -15,36 +21,67 @@
 ; and validate a presented shared key
 ; precompute the encoded public shared key to avoid encoding it over and over again later
 (define (make-new-clan)
-  (let-values ([(my-private-key my-public-key) (generate-key dh:1024)])
-    (clan (current-thread) 
-          (make-shared-key-calculator my-private-key)
-          my-public-key 
-          (base64-url-encode my-public-key))))
+  
+  ; my-public-key is the key that will appear in the URLs that name members of this clan
+  ; my-private-key should never leave the lexical scope of `make-new-clan'!
+  (define-values (my-private-key my-public-key) (generate-key dh:1024))
+  
+  ; shared-key-calculator: bytestring -> bytestring
+  ; a procedure that calculates a shared key with a
+  ; given remote public key using the private key
+  (define shared-key-calculator (curry compute-key my-private-key))
+  
+  (define decryptor
+    (λ (any-message origin-public-key)
+      ;;; ... decrypt here ...
+      any-message))
+  
+  (define encryptor
+    (λ (any-message)
+      ;;; ... encrypt here ...
+      any-message))
+  
+  (define mac-validator
+    (λ (any-message any-mac)
+      ;;; ... generate hmac with key=sk ...
+      ;;; (= any-hmac my-hmac)
+      #t))
+  
+  (clan (current-thread) 
+        shared-key-calculator
+        decryptor
+        encryptor
+        mac-validator
+        my-public-key 
+        (base64-url-encode my-public-key)))
 
-; make-shared-key-calculator: a:bytestring b:bytestring -> bytestring
-; return a procedure that, given the local public key a and the
-; local private key b, calculates a shared key with a
-; given remote public key using the private key b
-(define (make-shared-key-calculator my-private-key)
-  (λ (any-public-key) ; any-shared-key will come from the URL of the other peer
-    (let ([our-shared-key (compute-key my-private-key any-public-key)])
-      our-shared-key)))
+;; OPERATIONS
 
-; compute-shared-key: clan bytestring -> bytestring
-; produce the shared key resulting from the Diffie-Hellman key exchange
-; between the clan and another clan supplying a public key
-(define (compute-shared-key aclan any-public-key)
-  ((clan-skcalc aclan) any-public-key))
+; encrypt: clan bytestring -> bytestring
+; encrypt a message with the given clan's credentials
+(define (clan-encrypt aclan bstr)
+  ((clan-encryptor aclan) bstr (clan-pk aclan)))
 
-; validate-shared-key: clan bytestring bytestring -> boolean
-; test whether the presented key is correct according to Diffie-Hellman
-(define (validate-shared-key aclan any-public-key any-shared-key)
-  (bytes=? (compute-shared-key aclan any-public-key) any-shared-key))
+; decrypt: clan bytestring bytestring -> bytestring
+; decrypt a message from a given public key
+; with the given clan's credentials
+(define (clan-decrypt aclan bstr any-public-key)
+  ((clan-decryptor aclan) bstr any-public-key))
+
+; validate: clan bytestring bytestring -> bytestring
+; ensure the data integrity and authenticity of a message
+; using the given clan's credentials
+(define (clan-validate aclan bstr mac)
+  ((clan-mac-valid? aclan) bstr mac))
 
 (provide/contract
+ ; construction stuff
+ [make-new-clan (-> clan?)]
  [clan? (any/c . -> . boolean?)]
  [clan-pk (clan? . -> . bytes?)]
  [clan-pk-urlencoded (clan? . -> . bytes?)]
- [make-new-clan (-> clan?)]
- [compute-shared-key (clan? bytes? . -> . bytes?)]
- [validate-shared-key (clan? bytes? bytes? . -> . boolean?)])
+ 
+ ; operations
+ [clan-encrypt (clan? bytes? . -> . (or/c #f bytes?))]
+ [clan-decrypt (clan? bytes? bytes? . -> . (or/c #f bytes?))]
+ [clan-validate (clan? bytes? bytes? . -> . boolean?)])

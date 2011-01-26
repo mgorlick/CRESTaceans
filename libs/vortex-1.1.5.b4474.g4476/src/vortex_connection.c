@@ -491,6 +491,10 @@ struct _VortexConnection {
    */
   VortexReceiveHandler receive;
 
+  VortexConnectionOnClose passed_on_close_handler;
+  VortexConnectionOnCloseFull passed_on_close_full_handler;
+  axlPointer passed_on_close_full_data;
+
   /** 
    * @brief On close handler
    */
@@ -1053,8 +1057,6 @@ VortexConnection * vortex_connection_new_empty            (VortexCtx *    ctx,
   /* creates a new connection */
   return vortex_connection_new_empty_from_connection (ctx, socket, NULL, role);
 }
-
-
 
 /** 
  * @internal
@@ -6124,6 +6126,7 @@ void vortex_connection_set_listener_mode_closures (VortexConnection* connection,
                                                    WriteClosure w, CloseClosure cl, GetSockNameClosure g,
                                                    GetHostUsedClosure h,
                                                    WaitReadClosure wr, WaitWriteClosure ww) {
+  vortex_mutex_lock (connection->handlers_mutex);
   connection->tcp_listen = l;
   connection->tcp_accept = a;
   connection->tcp_connect = NULL;
@@ -6134,12 +6137,14 @@ void vortex_connection_set_listener_mode_closures (VortexConnection* connection,
   connection->tcp_get_host_used = h;
   connection->tcp_wait_read = wr;
   connection->tcp_wait_write = ww;
+  vortex_mutex_unlock (connection->handlers_mutex);
 }
 
 void vortex_connection_set_client_mode_closures (VortexConnection* connection, ConnectClosure c,
                                                  ReadClosure r, WriteClosure w, CloseClosure cl,
                                                  GetSockNameClosure g, WaitReadClosure wr,
                                                  WaitWriteClosure ww) {
+  vortex_mutex_lock (connection->handlers_mutex);
   connection->tcp_listen = NULL;
   connection->tcp_accept = NULL;
   connection->tcp_connect = c;
@@ -6150,6 +6155,7 @@ void vortex_connection_set_client_mode_closures (VortexConnection* connection, C
   connection->tcp_get_host_used = NULL;
   connection->tcp_wait_read = wr;
   connection->tcp_wait_write = ww;
+  vortex_mutex_unlock (connection->handlers_mutex);
 }
 
 void vortex_connection_set_closures_default (VortexConnection* conn, axl_bool use_ssl, char* ssl_cert_path) {
@@ -6189,6 +6195,8 @@ void vortex_connection_share_closures (VortexConnection* source, VortexConnectio
   connection->tcp_get_host_used = source->tcp_get_host_used;
   connection->tcp_wait_read = source->tcp_wait_read;
   connection->tcp_wait_write = source->tcp_wait_write;
+  vortex_connection_set_on_close (connection, source->passed_on_close_handler);
+  vortex_connection_set_on_close_full (connection, source->passed_on_close_full_handler, source->passed_on_close_full_data);
 }
 
 
@@ -6220,6 +6228,16 @@ int vortex_connection_do_wait_write (VortexConnection* conn, int timeout) {
 
 axl_bool vortex_connection_is_connected (VortexConnection* conn) {
   return conn->is_connected;
+}
+
+void vortex_connection_pass_on_close_handler (VortexConnection* conn, VortexConnectionOnClose on_close_handler) {
+  conn->passed_on_close_handler = on_close_handler;
+}
+
+void vortex_connection_pass_on_close_full_handler (VortexConnection* conn, VortexConnectionOnCloseFull on_close_full_handler,
+                                                   axlPointer data) {
+  conn->passed_on_close_full_handler = on_close_full_handler;
+  conn->passed_on_close_full_data = data;
 }
 
 /* @} */

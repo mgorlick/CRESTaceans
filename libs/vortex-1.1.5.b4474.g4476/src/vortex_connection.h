@@ -452,6 +452,11 @@ int vortex_connection_do_wait_write (VortexConnection* conn, int timeout);
 
 void vortex_connection_share_closures (VortexConnection* source, VortexConnection* connection);
 
+void vortex_connection_pass_on_close_handler (VortexConnection* conn, VortexConnectionOnClose on_close_handler);
+
+void vortex_connection_pass_on_close_full_handler (VortexConnection* conn, VortexConnectionOnCloseFull on_close_full_handler,
+                                                   axlPointer data);
+
 axl_bool vortex_connection_is_connected (VortexConnection* conn);
 
 /** private API **/

@@ -1,9 +1,5 @@
 #lang racket
 
-; test whether a string represents a base64-URL-encoded value
-(define (base64-url-encoded? s)
-  (regexp-match-exact? #rx"[-|0-9|A-Z|a-z|_]+" s))
-
 ;; This code is adapted from net/base64-unit.rkt in the collections directory of Racket 5.0.
 
 (define ranges/mime
@@ -98,7 +94,13 @@
   (let ((encode (cdr codecs/url)))
     (lambda (source) (base64/encode encode source))))
 
+; test whether a string represents a base64-URL-encoded value
+(define (base64-url-encoded? s)
+  (cond
+    [(string? s) (regexp-match-exact? #rx"[-|0-9|A-Z|a-z|_]+" s)]
+    [(bytes? s) (regexp-match-exact? #rx#"[-|0-9|A-Z|a-z|_]+" s)]))
+
 (provide/contract
- [base64-url-encoded? (string? . -> . boolean?)]
+ [base64-url-encoded? ((or/c string? bytes?) . -> . boolean?)]
  [base64-url-encode (bytes? . -> . bytes?)]
  [base64-url-decode (bytes? . -> . bytes?)])
