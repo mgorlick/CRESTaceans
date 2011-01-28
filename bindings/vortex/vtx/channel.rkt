@@ -130,24 +130,28 @@
   vortex-channel-send-err
   vortex-channel-send-rpy)
 
-(defvtx* (_fun (c m p) :: 
+(defvtx* (_fun (c m) :: 
                (c : _VortexChannel-pointer)
                (m : _bytes)
                (_int = (bytes-length m))
-               (p : (_or-null _pointer)) -> _axl-bool)
+               (p : (_ptr o _int))
+               -> (r : _axl-bool)
+               -> (values r p))
   vortex-channel-send-msg)
 
-(defvtx* (_fun (c m p w) :: 
+(defvtx* (_fun (c m w) :: 
                (c : _VortexChannel-pointer)
                (m : _bytes)
                (_int = (bytes-length m))
-               (p : (_or-null _pointer))
-               (w : _WaitReplyData-pointer) -> _axl-bool)
+               (p : (_ptr o _int))
+               (w : _WaitReplyData-pointer)
+               -> (r : _axl-bool)
+               -> (values r p))
   vortex-channel-send-msg-and-wait)
 
-; send-**: versions of the send-* functions above that take Racket strings
+; send-[something]*: versions of the send-* functions above that take Racket strings
 ; and convert them to ASCII-encoded bytes before passing off to
-; send-*. Needed for most conventional string sending.
+; send-[something]. Needed for conventional string sending.
 
 ; (the versions above are for sending non-nul-terminated bytestrings (const void *),
 ; including binary data encoded in bytestreams)
@@ -162,11 +166,11 @@
 (define (vortex-channel-send-err* c m i)
   (vortex-channel-send-err c (string->bytes/latin-1 m) i))
 
-(define (vortex-channel-send-msg-and-wait* c m p w)
-  (vortex-channel-send-msg-and-wait c (string->bytes/latin-1 m) p w))
+(define (vortex-channel-send-msg-and-wait* c m w)
+  (vortex-channel-send-msg-and-wait c (string->bytes/latin-1 m) w))
 
-(define (vortex-channel-send-msg* c m p)
-  (vortex-channel-send-msg c (string->bytes/latin-1 m) p))
+(define (vortex-channel-send-msg* c m)
+  (vortex-channel-send-msg c (string->bytes/latin-1 m)))
 
 (defvtx* (_fun _VortexChannel-pointer (_or-null (_ptr io _int)) _string -> _axl-bool)
   vortex-channel-send-msgv)

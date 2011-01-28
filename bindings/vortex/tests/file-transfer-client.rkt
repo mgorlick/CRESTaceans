@@ -94,7 +94,7 @@
        (vortex-channel-set-serialize channel #t)
        (let loop ([c times])
          (printf "requesting file~n")
-         (vortex-channel-send-msg* channel "send the message, please" #f)
+         (vortex-channel-send-msg* channel "send the message, please")
          (vortex-async-queue-pop q)
          (printf "Transfer #~s done, pending: ~s more times~n" (- times c) (sub1 c))
          (cond

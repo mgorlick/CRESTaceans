@@ -7,9 +7,8 @@
 (define-struct/contract 
   clan 
   ([thd thread?] ; reference to thread the clan is running in
-   [shared-key-calculator (bytes? . -> . bytes?)]
-   [decryptor (bytes? bytes? . -> . bytes?)]
-   [encryptor (bytes? . -> . bytes?)]
+   [encrypter (bytes? bytes? . -> . (values bytes? bytes?))]
+   [decrypter (bytes? bytes? bytes? . -> . bytes?)]
    [mac-valid? (bytes? bytes? . -> . boolean?)]
    [pk bytes?]
    [pk-urlencoded (and/c bytes? base64-url-encoded?)]
@@ -22,6 +21,8 @@
 ; precompute the encoded public shared key to avoid encoding it over and over again later
 (define (make-new-clan)
   
+  (define *cipher-used* cipher:aes-256)
+  
   ; my-public-key is the key that will appear in the URLs that name members of this clan
   ; my-private-key should never leave the lexical scope of `make-new-clan'!
   (define-values (my-private-key my-public-key) (generate-key dh:1024))
@@ -31,42 +32,59 @@
   ; given remote public key using the private key
   (define shared-key-calculator (curry compute-key my-private-key))
   
-  (define decryptor
-    (λ (any-message origin-public-key)
-      ;;; ... decrypt here ...
-      any-message))
+  (define (docipher cipher any-message)
+    (bytes-append (cipher-update! cipher any-message)
+                  (cipher-final! cipher)))
   
-  (define encryptor
-    (λ (any-message)
-      ;;; ... encrypt here ...
-      any-message))
+  ; encrypter: bytestring bytestring -> bytestring
+  ; encrypt the message using the public key of the intended recipient
+  (define (encrypter any-message recipient-public-key)
+    (let-values ([(_ iv) (generate-key *cipher-used*)])
+      (let* ([shared-key (shared-key-calculator recipient-public-key)]
+             [cipher (cipher-encrypt *cipher-used* shared-key iv)]
+             [encrypted-message (docipher cipher any-message)])
+        (values encrypted-message iv))))
   
-  (define mac-validator
-    (λ (any-message any-mac)
-      ;;; ... generate hmac with key=sk ...
-      ;;; (= any-hmac my-hmac)
-      #t))
+  ; decrypter: bytestring bytestring bytestring -> bytestring
+  ; decrypt the message using the origin public key and the iv originally
+  ; used to encrypt it. only do this after verifying the MAC
+  (define (decrypter encrypted-message origin-public-key iv-used)
+    (let* ([shared-key (shared-key-calculator origin-public-key)]
+           [cipher (cipher-decrypt *cipher-used* shared-key iv-used)])
+      (docipher cipher encrypted-message)))
+  
+  (define (mac-calculator any-message recipient-public-key)
+    ; ...
+    #t)
+  
+  ; mac-validator:
+  (define (mac-validator any-message origin-public-key)
+    ;;; ... generate hmac with key=sk ...
+    ;;; (= any-hmac my-hmac)
+    #t)
   
   (clan (current-thread) 
-        shared-key-calculator
-        decryptor
-        encryptor
+        encrypter
+        decrypter
         mac-validator
         my-public-key 
         (base64-url-encode my-public-key)))
 
 ;; OPERATIONS
 
-; encrypt: clan bytestring -> bytestring
+; encrypt: clan bytestring -> (values bytestring bytestring)
 ; encrypt a message with the given clan's credentials
-(define (clan-encrypt aclan bstr)
-  ((clan-encryptor aclan) bstr (clan-pk aclan)))
+; returns the encrypted message and the initialization vector
+; used to encrypt it
+(define (clan-encrypt aclan msg recipient-public-key)
+  ((clan-encrypter aclan) msg recipient-public-key))
 
-; decrypt: clan bytestring bytestring -> bytestring
+; decrypt: clan bytestring bytestring bytestring -> bytestring
 ; decrypt a message from a given public key
+; and the initialization vector used to encrypt it
 ; with the given clan's credentials
-(define (clan-decrypt aclan bstr any-public-key)
-  ((clan-decryptor aclan) bstr any-public-key))
+(define (clan-decrypt aclan msg origin-public-key iv-used)
+  ((clan-decrypter aclan) msg origin-public-key iv-used))
 
 ; validate: clan bytestring bytestring -> bytestring
 ; ensure the data integrity and authenticity of a message
@@ -82,6 +100,6 @@
  [clan-pk-urlencoded (clan? . -> . bytes?)]
  
  ; operations
- [clan-encrypt (clan? bytes? . -> . (or/c #f bytes?))]
- [clan-decrypt (clan? bytes? bytes? . -> . (or/c #f bytes?))]
+ [clan-encrypt (clan? bytes? bytes? . -> . (values bytes? bytes?))]
+ [clan-decrypt (clan? bytes? bytes? bytes? . -> . (or/c #f bytes?))]
  [clan-validate (clan? bytes? bytes? . -> . boolean?)])

@@ -87,7 +87,7 @@
 (define _VortexIoWaitingFor
   (_enum '(read-operations = 1
                            write-operations = 2)))
-                           
+
 
 ; enum VortexIoWaitingType
 ;(define Vortex-Io-Wait-Select 1)
@@ -131,22 +131,23 @@
 ;(define VortexMemoryFail 16)
 
 (define _VortexStatus
-  (_enum '(error = 1
-                 ok = 2
-                 bind-error = 3
-                 wrong-reference = 4
-                 name-resolve-failure = 5
-                 socket-creation-error = 6
-                 socket-sanity-error = 7
-                 connection-error = 8
-                 connection-timeout-error = 9
-                 greetings-failure = 10
-                 xml-validation-error = 11
-                 connection-close-called = 12
-                 connection-forced-close = 13
-                 protocol-error = 14
-                 connection-filtered = 15
-                 memory-fail = 16)))
+  (_enum '(unknown-state = 0 
+                   error = 1
+                   ok = 2
+                   bind-error = 3
+                   wrong-reference = 4
+                   name-resolve-failure = 5
+                   socket-creation-error = 6
+                   socket-sanity-error = 7
+                   connection-error = 8
+                   connection-timeout-error = 9
+                   greetings-failure = 10
+                   xml-validation-error = 11
+                   connection-close-called = 12
+                   connection-forced-close = 13
+                   protocol-error = 14
+                   connection-filtered = 15
+                   memory-fail = 16)))
 
 ; enum VortexThreadConf
 ;(define Vortex-Thread-Conf-End 0)
@@ -167,12 +168,12 @@
 
 (define _WhatUpdate
   (_enum '(update-seq-no = 1
-                  update-msg-no = 2
-                  update-rpy-no = 4
-                  update-ans-no = 8
-                  update-rpy-no-written = 16
-                  decrease-msg-no = 32
-                  decrease-rpy-no = 64)))
+                         update-msg-no = 2
+                         update-rpy-no = 4
+                         update-ans-no = 8
+                         update-rpy-no-written = 16
+                         decrease-msg-no = 32
+                         decrease-rpy-no = 64)))
 
 ; enum VortexTunnelItem
 
@@ -194,4 +195,4 @@
 ; enum VortexConnectionHandler
 (define _VortexConnectionHandler
   (_enum '(connection-channel-add-handler = 1
-           connection-channel-remove-handler = 2)))
+                                          connection-channel-remove-handler = 2)))

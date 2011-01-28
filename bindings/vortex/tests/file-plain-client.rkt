@@ -53,11 +53,11 @@
    (connection 
     [context SERVER-HOST SERVER-PORT #f #f]
     (let ([q (vortex-async-queue-new)])
-      (channel
+      (channel*
        [connection 0 Plain-Profile-URI #f #f frame-received q #f #f]
        ; allow user to adjust # of times to download, and window size
        (printf "requesting file~n")
-       (vortex-channel-send-msg* channel "send the message, please" #f)
+       (vortex-channel-send-msg* channel "send the message, please")
        (vortex-async-queue-pop q)
        (vortex-async-queue-unref q)
        (close out)

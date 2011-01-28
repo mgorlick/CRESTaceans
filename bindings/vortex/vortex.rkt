@@ -104,35 +104,56 @@
 
 (define-struct (exn:vtx:connection exn:fail:network) ())
 
-; with-vtx-channel identifier VortexConnection-pointer int string
-;                  lambda pointer lambda pointer lambda pointer body ... -> ?
+; dochann identifier
+; [VortexConnection-pointer int string lambda pointer lambda pointer lambda pointer] 
+; [body ...]
+; [cleanup ...] -> ?
 ; pass the arguments to vortex-channel-new, bind the channel to the specified id,
-; then do whatever is specified with the channel in scope, then close the channel
-
+; then do whatever is specified with the channel in scope, then do whatever cleanup requested
 ; channel-new can return a null reference when in threaded mode (i.e., on-created is used)
-(define-syntax with-vtx-channel
+
+(define-syntax dochan
   (syntax-rules ()
     [(_ channel-name 
         [connection num profile on-close close-ptr on-frame-received fr-rec-ptr on-created created-ptr]
-        body ...)
+        [body ...]
+        [cleanup ...])
      (let ([channel-name 
             (vortex-channel-new connection num profile
                                 on-close close-ptr
                                 on-frame-received fr-rec-ptr
                                 on-created created-ptr
                                 )])
-       (if (and (not (procedure? on-created)) (ptr-null? channel-name))
+       (if (and (procedure? on-created) (ptr-null? channel-name))
            ; assume the channel spawned in async mode
            (begin body ...)
            
            ; otherwise, test to see whether channel was created or not
            (if (ptr-null? channel-name)
-               (raise (make-exn:vtx:channel "unable to create the channel" 
-                                            (current-continuation-marks)))
-               (cleanup-and-return 
+               (raise (make-exn:vtx:channel "unable to create the channel" (current-continuation-marks))) ; error case
+               (cleanup-and-return ; no-error case
                 (body ...) 
-                ((vortex-channel-close channel-name #f)))
+                (cleanup ...))
                )))]))
+
+; with-vtx-channel: initialize channel with provided name and args and
+; automatically clean up the channel resources when its name leaves lexical scope
+(define-syntax with-vtx-channel
+  (syntax-rules ()
+    [(_ channel-name 
+        [channel-args ...]
+        body ...)
+     (dochan channel-name (channel-args ...) (body ...) ((vortex-channel-close channel-name #f)))
+     ]))
+
+; with-vtx-channel*: like with-vtx-channel, but with no automatic resource cleanup
+(define-syntax with-vtx-channel*
+  (syntax-rules ()
+    [(_ channel-name
+        [channel-args ...]
+        body ...)
+     (dochan channel-name (channel-args ...) (body ...) ('nothing))
+     ]))
 
 (define-struct (exn:vtx:channel exn:fail:network) ())
 
@@ -145,27 +166,25 @@
     [(_ wait-reply-name msgno-name frame-name 
         [channel msg]
         body ...)
-     (let* ([wait-reply-name (vortex-channel-create-wait-reply)]  ; create a wait reply
-            [msgno-name (malloc _int 'raw)]
-            [send-msg-and-wait-result ; now actually send it
-             (vortex-channel-send-msg-and-wait* channel msg msgno-name wait-reply-name)])
-       (if (not send-msg-and-wait-result)
-           (begin
-             (vortex-channel-free-wait-reply wait-reply-name)
-             (raise (make-exn:vtx:wait-and-reply "unable to send message"
-                                                 (current-continuation-marks))))
-           ; now block until the reply arrives. the wait_reply object 
-           ; must not be freed after this function, because it has already been freed
-           (let ([frame-name (vortex-channel-wait-reply channel (ptr-ref msgno-name _int) wait-reply-name)])
-             (if (eq? #f frame-name)
-                 (begin 
-                   (vortex-frame-free frame-name)
-                   (raise (make-exn:vtx:wait-and-reply
-                           "there was an error while receiving the reply, or a timeout occured"
-                           (current-continuation-marks))))
-                 (cleanup-and-return (body ...) ((free msgno-name)))
-                 ))))]
-    ))
+     (let* ([wait-reply-name (vortex-channel-create-wait-reply)])  ; create a wait reply
+       (let-values ([(send-msg-and-wait-result msgno-name) ; now actually send it
+                     (vortex-channel-send-msg-and-wait* channel msg wait-reply-name)])
+         (if (not send-msg-and-wait-result)
+             (begin
+               (vortex-channel-free-wait-reply wait-reply-name)
+               (raise (make-exn:vtx:wait-and-reply "unable to send message"
+                                                   (current-continuation-marks))))
+             ; now block until the reply arrives. the wait_reply object 
+             ; must not be freed after this function, because it has already been freed
+             (let ([frame-name (vortex-channel-wait-reply channel msgno-name wait-reply-name)])
+               (if (eq? #f frame-name)
+                   (begin 
+                     (vortex-frame-free frame-name)
+                     (raise (make-exn:vtx:wait-and-reply
+                             "there was an error while receiving the reply, or a timeout occured"
+                             (current-continuation-marks))))
+                   (begin body ...)
+                   )))))]))
 
 (define-struct (exn:vtx:wait-and-reply exn:fail:network) ())
 
@@ -202,3 +221,10 @@
       [(k [arg1 arg2 ...] e1 e2 ...)
        (with-syntax ([channel (datum->syntax #'k 'channel)])
          #'(with-vtx-channel channel [arg1 arg2 ...] e1 e2 ...))])))
+
+(define-syntax channel*
+  (lambda (x)
+    (syntax-case x ()
+      [(k [arg1 arg2 ...] e1 e2 ...)
+       (with-syntax ([channel (datum->syntax #'k 'channel)])
+         #'(with-vtx-channel* channel [arg1 arg2 ...] e1 e2 ...))])))
