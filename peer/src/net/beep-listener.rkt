@@ -6,19 +6,17 @@
 
 (define s->b string->bytes/utf-8)
 
-(define (listen ip port active? encrypter decrypter [onready #f] [in-response #f])
+(define (listen ip port active? encrypter decrypter calculator validator [onready #f] [in-response #f])
   
   (define (frame-received channel connection frame user-data)
     ;; ... decrypt using the public key, 
     ;; build up a crest-message and send it 
     ;; to the manager who dispatches it to some clan ...
     (let* ([message (payload->beep-message (vortex-frame-get-payload-bytes frame))]
-           [body-decoded? (message-decrypt/decode! decrypter message)])
-      (printf "message: ~s~n" (beep-message-body message))
-      
+           [understand? (message-validate/decrypt/decode!? validator decrypter message)])
+      (printf "message (valid? + decoded? ~s): ~s~n" understand? (beep-message-body message))
       (when in-response
-          (in-response connection channel frame message))
-      ))
+          (in-response connection channel frame message))))
   
   (define (start-channel channel-number connection user-data) #t)
   (define (close-channel channel-number connection user-data) #t)
@@ -59,6 +57,8 @@
            (bytes? . -> . boolean?) ; active?
            (bytes? bytes? . -> . (values (or/c bytes? #f) (or/c bytes? #f))) ; encrypter
            (bytes? bytes? bytes? . -> . (or/c bytes? #f)) ; decrypter
+           (bytes? bytes? . -> . bytes?) ; calculator
+           (bytes? bytes? bytes? . -> . boolean?) ; validator 
            ] ; end mandatory arguments
           [(or/c procedure? #f)
            (or/c (VortexConnection*? VortexChannel*? VortexFrame*? beep-message? . -> . any/c) #f)] 

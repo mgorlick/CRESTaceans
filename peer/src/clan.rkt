@@ -9,7 +9,8 @@
   ([thd thread?] ; reference to thread the clan is running in
    [encrypter (bytes? bytes? . -> . (values bytes? bytes?))]
    [decrypter (bytes? bytes? bytes? . -> . bytes?)]
-   [mac-valid? (bytes? bytes? . -> . boolean?)]
+   [mac-calculator (bytes? bytes? . -> . bytes?)]
+   [mac-validator (bytes? bytes? bytes? . -> . boolean?)]
    [pk bytes?]
    [pk-urlencoded (and/c bytes? base64-url-encoded?)]
    ))
@@ -22,15 +23,25 @@
 (define (make-new-clan)
   
   (define *cipher-used* cipher:aes-256)
+  (define *digest-used* digest:sha512)
   
   ; my-public-key is the key that will appear in the URLs that name members of this clan
   ; my-private-key should never leave the lexical scope of `make-new-clan'!
   (define-values (my-private-key my-public-key) (generate-key dh:1024))
   
+  (define (make-memoized-key-calculator)
+    (let ([memoized-shared-keys (make-hash)])
+      (λ (any-public-key)
+        (if (hash-has-key? memoized-shared-keys any-public-key)
+            (hash-ref memoized-shared-keys any-public-key)
+            (let ([shared-key (compute-key my-private-key any-public-key)])
+              (hash-set! memoized-shared-keys any-public-key shared-key)
+              shared-key)))))
+  
   ; shared-key-calculator: bytestring -> bytestring
   ; a procedure that calculates a shared key with a
   ; given remote public key using the private key
-  (define shared-key-calculator (curry compute-key my-private-key))
+  (define shared-key-calculator (make-memoized-key-calculator))
   
   (define (docipher cipher any-message)
     (bytes-append (cipher-update! cipher any-message)
@@ -53,19 +64,17 @@
            [cipher (cipher-decrypt *cipher-used* shared-key iv-used)])
       (docipher cipher encrypted-message)))
   
-  (define (mac-calculator any-message recipient-public-key)
-    ; ...
-    #t)
+  (define (mac-calculator any-message remote-public-key)
+    (let ([shared-key (shared-key-calculator remote-public-key)])
+      (hmac *digest-used* shared-key any-message)))
   
-  ; mac-validator:
-  (define (mac-validator any-message origin-public-key)
-    ;;; ... generate hmac with key=sk ...
-    ;;; (= any-hmac my-hmac)
-    #t)
+  (define (mac-validator any-message origin-public-key any-mac)
+    (bytes=? any-mac (mac-calculator any-message origin-public-key)))
   
   (clan (current-thread) 
         encrypter
         decrypter
+        mac-calculator
         mac-validator
         my-public-key 
         (base64-url-encode my-public-key)))
@@ -89,8 +98,11 @@
 ; validate: clan bytestring bytestring -> bytestring
 ; ensure the data integrity and authenticity of a message
 ; using the given clan's credentials
-(define (clan-validate aclan bstr mac)
-  ((clan-mac-valid? aclan) bstr mac))
+(define (clan-mac-valid? aclan bstr origin-public-key mac)
+  ((clan-mac-validator aclan) bstr origin-public-key mac))
+
+(define (clan-mac-calc aclan bstr origin-public-key)
+  ((clan-mac-calculator aclan) bstr origin-public-key))
 
 (provide/contract
  ; construction stuff
@@ -102,4 +114,5 @@
  ; operations
  [clan-encrypt (clan? bytes? bytes? . -> . (values bytes? bytes?))]
  [clan-decrypt (clan? bytes? bytes? bytes? . -> . (or/c #f bytes?))]
- [clan-validate (clan? bytes? bytes? . -> . boolean?)])
+ [clan-mac-valid? (clan? bytes? bytes? bytes? . -> . boolean?)]
+ [clan-mac-calc (clan? bytes? bytes? . -> . bytes?)])

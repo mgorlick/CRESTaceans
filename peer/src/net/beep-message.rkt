@@ -3,9 +3,10 @@
 (require "base64-url.rkt")
 
 (define-struct 
-  beep-message (iv 
-                origin-pk
+  beep-message (origin-pk
                 receiver-pk
+                iv
+                mac
                 body)
   #:mutable
   #:transparent)
@@ -14,20 +15,23 @@
   (bytes-append #"OriginPK:" (beep-message-origin-pk message) #"\r\n"
                 #"ReceiverPK:" (beep-message-receiver-pk message) #"\r\n"
                 #"IV:" (beep-message-iv message) #"\r\n"
-                #"Content:" (beep-message-body message) #"\r\n"))
+                #"MAC:" (beep-message-mac message) #"\r\n"
+                #"Body:" (beep-message-body message) #"\r\n"))
 
 (define b64-ele #"[-|0-9|A-Z|a-z|_]+")
 (define crlf-ele #"\r\n")
-(define IV-ele #"IV:")
 (define OPK-ele #"OriginPK:")
 (define RPK-ele #"ReceiverPK:")
-(define Content-ele #"Content:")
+(define IV-ele #"IV:")
+(define MAC-ele #"MAC:")
+(define Body-ele #"Body:")
 
 (define b64-rx (byte-regexp b64-ele))
-(define IV-rx (byte-regexp (bytes-append IV-ele b64-ele crlf-ele)))
 (define OPK-rx (byte-regexp (bytes-append OPK-ele b64-ele crlf-ele)))
 (define RPK-rx (byte-regexp (bytes-append RPK-ele b64-ele crlf-ele)))
-(define Content-rx (byte-regexp (bytes-append Content-ele b64-ele crlf-ele)))
+(define IV-rx (byte-regexp (bytes-append IV-ele b64-ele crlf-ele)))
+(define MAC-rx (byte-regexp (bytes-append MAC-ele b64-ele crlf-ele)))
+(define Body-rx (byte-regexp (bytes-append Body-ele b64-ele crlf-ele)))
 
 (define (extract-field-value prior-result-list)
   (let ([value-list (regexp-match* b64-rx (first prior-result-list))])
@@ -40,19 +44,37 @@
   (let ([ivs (regexp-match IV-rx payload-bytes)]
         [opks (regexp-match OPK-rx payload-bytes)]
         [rpks (regexp-match RPK-rx payload-bytes)]
-        [cts (regexp-match Content-rx payload-bytes)])
+        [macs (regexp-match MAC-rx payload-bytes)]
+        [bodys (regexp-match Body-rx payload-bytes)])
     (cond
       [(or (empty? ivs)
-           (empty? cts)
+           (empty? bodys)
            (empty? opks)
-           (empty? rpks))
+           (empty? rpks)
+           (empty? macs))
        (error "payload parse error" payload-bytes)]
       [else 
        (let ([iv (extract-field-value ivs)]
              [opk (extract-field-value opks)]
              [rpk (extract-field-value rpks)]
-             [ct (extract-field-value cts)])
-         (beep-message iv opk rpk ct))])))
+             [body (extract-field-value bodys)]
+             [mac (extract-field-value macs)])
+         (beep-message opk rpk iv mac body))])))
+
+(define (message-validate/decrypt/decode!? mac-validation-function decryption-function m)
+  (if (message-mac-validate mac-validation-function m)
+      (message-decrypt/decode! decryption-function m)
+      #f))
+
+; message-mac-validate: given a mac validation function f:
+; (f body public-key mac) -> boolean
+; test whether a message m is valid according to f
+;
+; all relevant members of m are base64-url-encoded...for now
+(define (message-mac-validate f m)
+  (f (beep-message-body m) 
+     (base64-url-decode (beep-message-origin-pk m)) 
+     (base64-url-decode (beep-message-mac m))))
 
 ; message-decrypt/decode: given a decryption function f:
 ; (f body iv public-key) -> decrypted-body
@@ -73,6 +95,13 @@
           [message-bytes-encoded (base64-url-encode message-bytes-encrypted)])
       (values message-bytes-encoded iv-encoded))))
 
+; all args are base64-url-encoded...for now
+(define (mac-calculate/encode f msg-bytes remote-public-key-bytes)
+  (let ([mac (f msg-bytes (base64-url-decode remote-public-key-bytes))])
+    (if mac
+        (base64-url-encode mac)
+        #f)))
+
 (provide beep-message 
          beep-message? 
          beep-message-iv
@@ -86,4 +115,9 @@
                           bytes? bytes?
                           . -> . (values (or/c #f bytes?) (or/c #f bytes?)))]
  [message-decrypt/decode! ((bytes? bytes? bytes? . -> . (or/c #f bytes?))
-                           beep-message? . -> . boolean?)])
+                           beep-message? . -> . boolean?)]
+ [mac-calculate/encode ((bytes? bytes? . -> . bytes?)
+                        bytes? bytes? . -> . (or/c #f bytes?))]
+ [message-validate/decrypt/decode!? ((bytes? bytes? bytes? . -> . boolean?)
+                                     (bytes? bytes? bytes? . -> . (or/c #f bytes?))
+                                     beep-message? . -> . boolean?)])

@@ -11,16 +11,16 @@
 ; a beepcli (beep client) is a struct with a vortex context,
 ; a map of public keys->connections and
 ; a reference to the clan manager
-(struct beepcli (ctx conns chans encrypter decrypter validator))
+(struct beepcli (ctx conns chans encrypter decrypter calculator validator))
 
 ; make-beepcli
-(define (make-beepcli encrypt decrypt valid?)
+(define (make-beepcli encrypt decrypt calc valid?)
   (let ([context (new-ctx #f #f #f)])
     (vortex-sasl-init context)
     (beepcli context 
              (make-hash) ; --> (remotepk : bytestring . connection : VortexConnection-pointer)
              (make-hash) ; --> ((cons remotepk : string . swiss-number : string
-             encrypt decrypt valid?)))
+             encrypt decrypt calc valid?)))
 
 ;;; CONNECTIONS
 
@@ -95,8 +95,8 @@
 (define (beep/start-channel acli url aclan)
   (define (frame-received channel connection frame user-data)    
     (let* ([message (payload->beep-message (vortex-frame-get-payload-bytes frame))]
-           [body-decoded? (message-decrypt/decode! (beepcli-decrypter acli) message)])
-      (printf "message: ~s~n" (beep-message-body message))))
+           [understand? (message-validate/decrypt/decode!? (beepcli-validator acli) (beepcli-decrypter acli) message)])
+      (printf "message (valid? + decoded? ~s): ~s~n" understand? (beep-message-body message))))
   
   (let* ([context (beepcli-ctx acli)]
          [cu (string->crest-url url)]
@@ -135,8 +135,13 @@
                                           msg-bytes
                                           remote-public-key-bytes)])
       ; assemble payload
-      (let* ([message (beep-message iv-encoded local-public-key-encoded
-                                    remote-public-key-encoded msg-bytes-encoded)]
+      (let* ([mac-encoded (mac-calculate/encode 
+                           (beepcli-calculator acli) msg-bytes-encoded remote-public-key-encoded)]
+             [message (beep-message local-public-key-encoded
+                                    remote-public-key-encoded 
+                                    iv-encoded 
+                                    mac-encoded
+                                    msg-bytes-encoded)]
              [payload (beep-message->payload message)])
         (let-values ([(success? msgno) (vortex-channel-send-msg channel payload)])
           success?)))))
@@ -144,7 +149,8 @@
 (provide/contract
  [make-beepcli ((bytes? bytes? . -> . (values bytes? bytes?)) ; encrypter
                 (bytes? bytes? bytes? . -> . bytes?) ; decrypter
-                (bytes? bytes? . -> . bytes?) ; MAC validator
+                (bytes? bytes? . -> . bytes?) ; MAC calculator
+                (bytes? bytes? bytes? . -> . boolean?) ; MAC validator
                 . -> . beepcli?)]
  [beepcli? (any/c . -> . boolean?)]
  [beep/connect ([beepcli? string? clan?] [(or/c procedure? #f) any/c] . ->* . boolean?)]
