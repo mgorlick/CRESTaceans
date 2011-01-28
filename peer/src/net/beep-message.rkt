@@ -11,21 +11,29 @@
   #:transparent)
 
 (define (beep-message->payload message)
-  (bytes-append #"IV:" (beep-message-iv message) #"\r\n"
-                #"OriginPK:" (beep-message-origin-pk message) #"\r\n"
+  (bytes-append #"OriginPK:" (beep-message-origin-pk message) #"\r\n"
                 #"ReceiverPK:" (beep-message-receiver-pk message) #"\r\n"
+                #"IV:" (beep-message-iv message) #"\r\n"
                 #"Content:" (beep-message-body message) #"\r\n"))
 
 (define b64-ele #"[-|0-9|A-Z|a-z|_]+")
 (define crlf-ele #"\r\n")
+(define IV-ele #"IV:")
+(define OPK-ele #"OriginPK:")
+(define RPK-ele #"ReceiverPK:")
+(define Content-ele #"Content:")
+
 (define b64-rx (byte-regexp b64-ele))
-(define IV-rx (byte-regexp (bytes-append #"IV:" b64-ele crlf-ele)))
-(define Content-rx (byte-regexp (bytes-append #"Content:" b64-ele crlf-ele)))
-(define OPK-rx (byte-regexp (bytes-append #"OriginPK:" b64-ele crlf-ele)))
-(define RPK-rx (byte-regexp (bytes-append #"ReceiverPK:" b64-ele crlf-ele)))
+(define IV-rx (byte-regexp (bytes-append IV-ele b64-ele crlf-ele)))
+(define OPK-rx (byte-regexp (bytes-append OPK-ele b64-ele crlf-ele)))
+(define RPK-rx (byte-regexp (bytes-append RPK-ele b64-ele crlf-ele)))
+(define Content-rx (byte-regexp (bytes-append Content-ele b64-ele crlf-ele)))
 
 (define (extract-field-value prior-result-list)
-  (second (regexp-match* b64-rx (first prior-result-list))))
+  (let ([value-list (regexp-match* b64-rx (first prior-result-list))])
+    (cond
+      [(empty? value-list) (error "payload parse error" prior-result-list)]
+      [else (second value-list)])))
 
 ; payload->beep-message: bytes -> beep-message
 (define (payload->beep-message payload-bytes)
@@ -35,7 +43,9 @@
         [cts (regexp-match Content-rx payload-bytes)])
     (cond
       [(or (empty? ivs)
-           (empty? cts))
+           (empty? cts)
+           (empty? opks)
+           (empty? rpks))
        (error "payload parse error" payload-bytes)]
       [else 
        (let ([iv (extract-field-value ivs)]
