@@ -61,6 +61,12 @@
              [mac (extract-field-value macs)])
          (beep-message opk rpk iv mac body))])))
 
+; message-validate/decrypt/decode!?:
+;     (bytes bytes bytes -> boolean)
+;     (bytes bytes bytes -> bytes)
+; given mac validation and message decryption functions,
+; replace an encrypted message with an unencrypted message
+; but only if the mac validation function returns #t
 (define (message-validate/decrypt/decode!? mac-validation-function decryption-function m)
   (if (message-mac-validate mac-validation-function m)
       (message-decrypt/decode! decryption-function m)
@@ -89,6 +95,9 @@
             #t)
           #f))))
 
+; message-encrypt/encode: (bytes bytes bytes -> (values bytes bytes)) bytes bytes -> (values bytes bytes)
+; given a function f that encrypts an unencoded bytestring b based on the public key of the recipient,
+; call f and base64-url-encode the results
 (define (message-encrypt/encode f msg-bytes remote-public-key-bytes)
   (let-values ([(message-bytes-encrypted iv) (f msg-bytes remote-public-key-bytes)])
     (let ([iv-encoded (base64-url-encode iv)]
@@ -105,6 +114,7 @@
 (provide beep-message 
          beep-message? 
          beep-message-iv
+         beep-message-mac
          beep-message-body
          beep-message-origin-pk
          beep-message-receiver-pk)

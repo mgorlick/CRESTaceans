@@ -64,10 +64,14 @@
            [cipher (cipher-decrypt *cipher-used* shared-key iv-used)])
       (docipher cipher encrypted-message)))
   
+  ; mac-calculator: bytes bytes -> bytes
+  ; calculate the mac of a message using the recipient's public key
   (define (mac-calculator any-message remote-public-key)
     (let ([shared-key (shared-key-calculator remote-public-key)])
       (hmac *digest-used* shared-key any-message)))
   
+  ; mac-validator: bytes bytes bytes -> boolean
+  ; verify that the mac sent is valid with respect to the message sent
   (define (mac-validator any-message origin-public-key any-mac)
     (bytes=? any-mac (mac-calculator any-message origin-public-key)))
   
@@ -95,14 +99,17 @@
 (define (clan-decrypt aclan msg origin-public-key iv-used)
   ((clan-decrypter aclan) msg origin-public-key iv-used))
 
-; validate: clan bytestring bytestring -> bytestring
+; clan-mac-valid?: clan bytestring bytestring -> bytestring
 ; ensure the data integrity and authenticity of a message
 ; using the given clan's credentials
 (define (clan-mac-valid? aclan bstr origin-public-key mac)
   ((clan-mac-validator aclan) bstr origin-public-key mac))
 
-(define (clan-mac-calc aclan bstr origin-public-key)
-  ((clan-mac-calculator aclan) bstr origin-public-key))
+; clan-mac-calc: clan bytestring bytestring -> bytestring
+; calculate the MAC for a given message using the public key
+; of the recipient
+(define (clan-mac-calc aclan bstr recipient-public-key)
+  ((clan-mac-calculator aclan) bstr recipient-public-key))
 
 (provide/contract
  ; construction stuff
