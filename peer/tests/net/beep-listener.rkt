@@ -17,14 +17,15 @@
 (define calculator (curry clan-mac-calc my-clan))
 
 (define (in-response connection channel frame message)
-  (let ([local-public-key-encoded (beep-message-receiver-pk message)]
-        [remote-public-key-encoded (beep-message-origin-pk message)])
+  (let* ([local-public-key-encoded (beep-message-receiver-pk message)]
+         [remote-public-key-encoded (beep-message-origin-pk message)]
+         [remote-public-key-decoded (base64-url-decode remote-public-key-encoded)])
     (let-values ([(msg-bytes-encoded iv-encoded)
                   (message-encrypt/encode encrypter
-                                          (beep-message-body message)
-                                          (base64-url-decode remote-public-key-encoded))])
+                                          (beep-message-body message) ; just echo the message back
+                                          remote-public-key-decoded)])
       (let* ([mac-encoded (mac-calculate/encode 
-                           calculator msg-bytes-encoded remote-public-key-encoded)]
+                           calculator msg-bytes-encoded remote-public-key-decoded)]
              [reply (beep-message local-public-key-encoded
                                   remote-public-key-encoded 
                                   iv-encoded

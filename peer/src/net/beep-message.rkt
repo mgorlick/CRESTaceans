@@ -95,7 +95,7 @@
             #t)
           #f))))
 
-; message-encrypt/encode: (bytes bytes bytes -> (values bytes bytes)) bytes bytes -> (values bytes bytes)
+; message-encrypt/encode: (bytes bytes -> (values bytes bytes)) bytes bytes -> (values bytes bytes)
 ; given a function f that encrypts an unencoded bytestring b based on the public key of the recipient,
 ; call f and base64-url-encode the results
 (define (message-encrypt/encode f msg-bytes remote-public-key-bytes)
@@ -104,9 +104,10 @@
           [message-bytes-encoded (base64-url-encode message-bytes-encrypted)])
       (values message-bytes-encoded iv-encoded))))
 
-; all args are base64-url-encoded...for now
+; msg-bytes can be base64-url-encoded or not, but the choice needs to be
+; consistent end to end. remote-public-key-bytes MUST NOT be url-encoded
 (define (mac-calculate/encode f msg-bytes remote-public-key-bytes)
-  (let ([mac (f msg-bytes (base64-url-decode remote-public-key-bytes))])
+  (let ([mac (f msg-bytes remote-public-key-bytes)])
     (if mac
         (base64-url-encode mac)
         #f)))

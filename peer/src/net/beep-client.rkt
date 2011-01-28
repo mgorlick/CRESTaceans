@@ -49,7 +49,6 @@
          [local-public-key-b64-bytes (clan-pk-urlencoded aclan)] ; bytes? base64-url-encoded?
          [local-public-key-str (b->s local-public-key-b64-bytes)] ; string?
          ) ; string?
-    
     (connection*
      [context host port on-connect on-connect-data]
      ; auth-id is the local public key
@@ -92,6 +91,7 @@
 ; establish a connection to the remote clan member identified by the swiss number
 ; in the given url
 (define (beep/start-channel acli url aclan [on-received #f])
+  
   (define (frame-received channel connection frame user-data)    
     (let* ([message (payload->beep-message (vortex-frame-get-payload-bytes frame))]
            [understand? (message-validate/decrypt/decode!? (beepcli-validator acli) (beepcli-decrypter acli) message)])
@@ -138,7 +138,7 @@
                                           remote-public-key-bytes)])
       ; assemble payload
       (let* ([mac-encoded (mac-calculate/encode 
-                           (beepcli-calculator acli) msg-bytes-encoded remote-public-key-encoded)]
+                           (beepcli-calculator acli) msg-bytes-encoded remote-public-key-bytes)]
              [message (beep-message local-public-key-encoded
                                     remote-public-key-encoded 
                                     iv-encoded 

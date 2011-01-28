@@ -32,11 +32,11 @@
   (define (make-memoized-key-calculator)
     (let ([memoized-shared-keys (make-hash)])
       (λ (any-public-key)
-        (if (hash-has-key? memoized-shared-keys any-public-key)
-            (hash-ref memoized-shared-keys any-public-key)
-            (let ([shared-key (compute-key my-private-key any-public-key)])
-              (hash-set! memoized-shared-keys any-public-key shared-key)
-              shared-key)))))
+        (hash-ref memoized-shared-keys any-public-key
+                  (λ ()
+                    (let ([shared-key (compute-key my-private-key any-public-key)])
+                      (hash-set! memoized-shared-keys any-public-key shared-key)
+                      shared-key))))))
   
   ; shared-key-calculator: bytestring -> bytestring
   ; a procedure that calculates a shared key with a
@@ -64,11 +64,19 @@
            [cipher (cipher-decrypt *cipher-used* shared-key iv-used)])
       (docipher cipher encrypted-message)))
   
+  (define (make-memoized-mac-calculator)
+    (let ([memoized-macs (make-hash)])
+      (λ (any-message remote-public-key)
+        (hash-ref memoized-macs (cons any-message remote-public-key)
+                  (λ ()
+                    (let* ([shared-key (shared-key-calculator remote-public-key)]
+                           [mac (hmac *digest-used* shared-key any-message)])
+                      (hash-set! memoized-macs (cons any-message remote-public-key) mac)
+                      mac))))))
+  
   ; mac-calculator: bytes bytes -> bytes
   ; calculate the mac of a message using the recipient's public key
-  (define (mac-calculator any-message remote-public-key)
-    (let ([shared-key (shared-key-calculator remote-public-key)])
-      (hmac *digest-used* shared-key any-message)))
+  (define mac-calculator (make-memoized-mac-calculator))
   
   ; mac-validator: bytes bytes bytes -> boolean
   ; verify that the mac sent is valid with respect to the message sent
