@@ -12,7 +12,6 @@
 ; a map of public keys->connections and
 ; a reference to the clan manager
 (struct beepcli (ctx conns chans encrypter decrypter calculator validator))
-
 ; make-beepcli
 (define (make-beepcli encrypt decrypt calc valid?)
   (let ([context (new-ctx #f #f #f)])
@@ -92,11 +91,14 @@
 ; beep/start-channel: beepcli stringclan -> void
 ; establish a connection to the remote clan member identified by the swiss number
 ; in the given url
-(define (beep/start-channel acli url aclan)
+(define (beep/start-channel acli url aclan [on-received #f])
   (define (frame-received channel connection frame user-data)    
     (let* ([message (payload->beep-message (vortex-frame-get-payload-bytes frame))]
            [understand? (message-validate/decrypt/decode!? (beepcli-validator acli) (beepcli-decrypter acli) message)])
-      (printf "message (valid? + decoded? ~s): ~s~n" understand? (beep-message-body message))))
+      (printf "message (valid? + decoded? ~s): ~s~n" understand? (beep-message-body message))
+      (when on-received
+        (on-received connection channel frame message)))
+    (void))
   
   (let* ([context (beepcli-ctx acli)]
          [cu (string->crest-url url)]
@@ -155,6 +157,8 @@
  [beepcli? (any/c . -> . boolean?)]
  [beep/connect ([beepcli? string? clan?] [(or/c procedure? #f) any/c] . ->* . boolean?)]
  [beep/disconnect (beepcli? string? clan? . -> . boolean?)]
- [beep/start-channel (beepcli? string? clan? . -> . boolean?)]
+ [beep/start-channel ([beepcli? string? clan?]
+                      [(VortexConnection*? VortexChannel*? VortexFrame*? beep-message? . -> . any/c)]
+                      . ->* . boolean?)]
  [beep/close-channel (beepcli? string? clan? . -> . boolean?)]
  [beep/msg (beepcli? string? clan? string? . -> . boolean?)])

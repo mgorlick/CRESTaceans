@@ -2,16 +2,14 @@
 #lang racket
 
 (require "../../src/net/beep-client.rkt"
-         "../../src/net/connection-manager.rkt"
          "../../src/clan.rkt")
 
 (define (showtime s)
   (printf "~a: ~a~n" (current-process-milliseconds) s))
 
-(define rpk     #"N3S5j8MF2_uACRhtC3OBUrVxcM7fdHPGPvgWJJCo2aEOwwik6QGrXtGp9qR9MG7o49kbP2mEGHo5uBbDgv7fTYNoKJWbZeRHxxAvJo6l_nGnqiTPztxMjaBcAJdFF285KRpBrDzSD9x6d6j9VPw6_fEbOZ06J17kwhz7qKgWCyc")
+(define rpk     #"Y4ayloDwDlRkHgtjDKH3RF0_bZ7NPdH66rktV4sOzJpvLrhxi0jd4b-NJC7obcJMyeaOQFDOwVG0mJAluFiAbECpTL39MdJ4biCdaqkUzyJrs010Hn8qaWSsySs6EleZF6-nXBvPq_6bMhXCf_5WXafxEYnSJ6wz1KWvYvRYo_s")
 
 (define uri (string-append "crest://localhost:44037/" (bytes->string/utf-8 rpk) "/14123455"))
-
 (showtime "Start VM")
 (define my-clan (make-new-clan))
 (define my-client (make-beepcli
@@ -25,8 +23,9 @@
                    (curry clan-mac-valid? my-clan)
                    ))
 (beep/connect my-client uri my-clan #f #f)
-(beep/start-channel my-client uri my-clan)
+(define sema (make-semaphore 0))
+(beep/start-channel my-client uri my-clan
+                    (λ (connection channel frame message)
+                      (semaphore-post sema)))
 (beep/msg my-client uri my-clan "There is a cat in the box")
-
-(let ([sema (make-semaphore 0)])
-  (semaphore-wait sema))
+(semaphore-wait sema)
