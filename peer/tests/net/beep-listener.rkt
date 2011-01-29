@@ -26,11 +26,11 @@
                                           remote-public-key-decoded)])
       (let* ([mac-encoded (mac-calculate/encode 
                            calculator msg-bytes-encoded remote-public-key-decoded)]
-             [reply (beep-message local-public-key-encoded
-                                  remote-public-key-encoded 
-                                  iv-encoded
-                                  mac-encoded
-                                  msg-bytes-encoded)]
+             [reply (make-beep-message local-public-key-encoded
+                                       remote-public-key-encoded 
+                                       iv-encoded
+                                       mac-encoded
+                                       msg-bytes-encoded)]
              [payload (beep-message->payload reply)])
         (let-values ([(success? msgno) (vortex-channel-send-msg channel payload)])
           (void))))))

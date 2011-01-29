@@ -3,7 +3,7 @@
 (require "../../../bindings/vortex/vortex.rkt"
          "url.rkt"
          "../clan.rkt"
-         "beep-message.rkt")
+         "beep-message-typed.rkt")
 
 (define b->s bytes->string/utf-8)
 (define s->b string->bytes/utf-8)
@@ -34,6 +34,9 @@
 ; base64-url-encoded remote public key
 (define/contract (get-connection acli pk) [beepcli? string? . -> . (or/c VortexConnection*? #f)]
   (hash-ref (beepcli-conns acli) pk (λ () #f)))
+
+(define (remove-connection! acli pk)
+  (hash-remove (beepcli-conns acli) pk))
 
 ; beepcli-connect: beepcli string clan procedure any -> void
 ; connect the given beep client to the remote clan named by the given url
@@ -75,7 +78,7 @@
     (cond
       [(hash-has-key? conns remote-public-key-str)
        (vortex-connection-close (hash-ref conns remote-public-key-str))
-       (hash-remove! conns remote-public-key-str) 
+       (remove-connection! acli remote-public-key-str)
        #t]
       [else #f])))
 
@@ -86,6 +89,9 @@
 
 (define/contract (get-channel acli pk swissnum) [beepcli? string? string? . -> . VortexChannel*?]
   (hash-ref (beepcli-chans acli) (cons pk swissnum) (λ () #f)))
+
+(define (remove-channel! acli pk swissnum)
+  (hash-remove (beepcli-chans acli) (cons pk swissnum)))
 
 ; beep/start-channel: beepcli stringclan -> void
 ; establish a connection to the remote clan member identified by the swiss number
@@ -112,8 +118,13 @@
      )))
 
 (define (beep/close-channel acli url aclan)
-  ;; ... close channel here ...
-  #f)
+  (let* ([cu (string->crest-url url)]
+         [remote-public-key (crest-url-public-key cu)]
+         [swiss-number (crest-url-swiss-num cu)]
+         [channel (get-channel acli remote-public-key swiss-number)])
+    (remove-channel! acli remote-public-key swiss-number)
+    (vortex-channel-close channel #f)
+    #t))
 
 ;;; MESSAGES
 
@@ -139,11 +150,12 @@
       ; assemble payload
       (let* ([mac-encoded (mac-calculate/encode 
                            (beepcli-calculator acli) msg-bytes-encoded remote-public-key-bytes)]
-             [message (beep-message local-public-key-encoded
-                                    remote-public-key-encoded 
-                                    iv-encoded 
-                                    mac-encoded
-                                    msg-bytes-encoded)]
+             [message (make-beep-message 
+                       local-public-key-encoded
+                       remote-public-key-encoded 
+                       iv-encoded 
+                       mac-encoded
+                       msg-bytes-encoded)]
              [payload (beep-message->payload message)])
         (let-values ([(success? msgno) (vortex-channel-send-msg channel payload)])
           success?)))))

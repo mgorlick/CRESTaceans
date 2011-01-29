@@ -2,7 +2,7 @@
 
 (require "../../../bindings/vortex/vortex.rkt"
          "base64-url.rkt"
-         "beep-message.rkt")
+         "beep-message-typed.rkt")
 
 (define s->b string->bytes/utf-8)
 
@@ -50,7 +50,7 @@
      (void))))
 
 (provide (all-from-out "../../../bindings/vortex/vortex.rkt"
-                       "beep-message.rkt"))
+                       "beep-message-typed.rkt"))
 (provide/contract
  [listen ([string? ; host
            (or/c integer? string?) ; port
