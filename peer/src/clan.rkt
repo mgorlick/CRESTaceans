@@ -1,19 +1,29 @@
-#lang racket
+#lang typed/racket
 
-(require "net/base64-url-typed.rkt"
-         (planet vyzo/crypto))
+(require "net/base64-url-typed.rkt")
+(require/typed (planet vyzo/crypto)
+               [opaque Cipher !cipher?]
+               [opaque Digest !digest?]
+               [opaque DHParam !dh?]
+               [opaque DHKey dhkey?]
+               [hmac (Digest Bytes Bytes -> Bytes)]
+               [generate-key (DHParam -> (values DHKey Bytes))]
+               [compute-key (DHKey Bytes -> Bytes)]
+               [cipher:aes-256 Cipher]
+               [digest:sha512 Digest]
+               [dh:1024 DHParam])
 
 ;; CONSTRUCTION
-(define-struct/contract 
-  clan 
-  ([thd thread?] ; reference to thread the clan is running in
-   [encrypter (bytes? bytes? . -> . (values bytes? bytes?))]
-   [decrypter (bytes? bytes? bytes? . -> . bytes?)]
-   [mac-calculator (bytes? bytes? . -> . bytes?)]
-   [mac-validator (bytes? bytes? bytes? . -> . boolean?)]
-   [pk bytes?]
-   [pk-urlencoded (and/c bytes? base64-url-encoded?)]
-   ))
+(struct:
+ clan 
+ ([thd : Thread] ; reference to thread the clan is running in
+  ;[encrypter (bytes? bytes? . -> . (values bytes? bytes?))]
+  ;[decrypter (bytes? bytes? bytes? . -> . bytes?)]
+  [mac-calculator : (Bytes Bytes -> Bytes)]
+  [mac-validator : (Bytes Bytes Bytes -> Boolean)]
+  [pk : Bytes]
+  [pk-urlencoded : Bytes]
+  ))
 
 ; make-new-clan: -> clan
 ; create a clan with a randomly generated public and private key
@@ -29,8 +39,9 @@
   ; my-private-key should never leave the lexical scope of `make-new-clan'!
   (define-values (my-private-key my-public-key) (generate-key dh:1024))
   
+  (: make-memoized-key-calculator (-> (Bytes -> Bytes)))
   (define (make-memoized-key-calculator)
-    (let ([memoized-shared-keys (make-hash)])
+    (let: ([memoized-shared-keys : (HashTable Bytes Bytes) (make-hash)])
       (λ (any-public-key)
         (hash-ref memoized-shared-keys any-public-key
                   (λ ()
@@ -41,8 +52,10 @@
   ; shared-key-calculator: bytestring -> bytestring
   ; a procedure that calculates a shared key with a
   ; given remote public key using the private key
+  (: shared-key-calculator (Bytes -> Bytes))
   (define shared-key-calculator (make-memoized-key-calculator))
   
+  #|
   (define (docipher cipher any-message)
     (bytes-append (cipher-update! cipher any-message)
                   (cipher-final! cipher)))
@@ -62,10 +75,11 @@
   (define (decrypter encrypted-message origin-public-key iv-used)
     (let* ([shared-key (shared-key-calculator origin-public-key)]
            [cipher (cipher-decrypt *cipher-used* shared-key iv-used)])
-      (docipher cipher encrypted-message)))
+      (docipher cipher encrypted-message)))|#
   
+  (: make-memoized-mac-calculator (-> (Bytes Bytes -> Bytes)))
   (define (make-memoized-mac-calculator)
-    (let ([memoized-macs (make-hash)])
+    (let: ([memoized-macs : (HashTable (Pairof Bytes Bytes) Bytes) (make-hash)])
       (λ (any-message remote-public-key)
         (hash-ref memoized-macs (cons any-message remote-public-key)
                   (λ ()
@@ -76,16 +90,18 @@
   
   ; mac-calculator: bytes bytes -> bytes
   ; calculate the mac of a message using the recipient's public key
+  (: mac-calculator (Bytes Bytes -> Bytes))
   (define mac-calculator (make-memoized-mac-calculator))
   
   ; mac-validator: bytes bytes bytes -> boolean
   ; verify that the mac sent is valid with respect to the message sent
+  (: mac-validator (Bytes Bytes Bytes -> Boolean))
   (define (mac-validator any-message origin-public-key any-mac)
     (bytes=? any-mac (mac-calculator any-message origin-public-key)))
   
   (clan (current-thread) 
-        encrypter
-        decrypter
+        ;encrypter
+        ;decrypter
         mac-calculator
         mac-validator
         my-public-key 
@@ -93,6 +109,7 @@
 
 ;; OPERATIONS
 
+#|
 ; encrypt: clan bytestring -> (values bytestring bytestring)
 ; encrypt a message with the given clan's credentials
 ; returns the encrypted message and the initialization vector
@@ -105,21 +122,23 @@
 ; and the initialization vector used to encrypt it
 ; with the given clan's credentials
 (define (clan-decrypt aclan msg origin-public-key iv-used)
-  ((clan-decrypter aclan) msg origin-public-key iv-used))
+  ((clan-decrypter aclan) msg origin-public-key iv-used))|#
 
 ; clan-mac-valid?: clan bytestring bytestring -> bytestring
 ; ensure the data integrity and authenticity of a message
 ; using the given clan's credentials
+(: clan-mac-valid? (clan Bytes Bytes Bytes -> Boolean))
 (define (clan-mac-valid? aclan bstr origin-public-key mac)
   ((clan-mac-validator aclan) bstr origin-public-key mac))
 
 ; clan-mac-calc: clan bytestring bytestring -> bytestring
 ; calculate the MAC for a given message using the public key
 ; of the recipient
+(: clan-mac-calc (clan Bytes Bytes -> Bytes))
 (define (clan-mac-calc aclan bstr recipient-public-key)
   ((clan-mac-calculator aclan) bstr recipient-public-key))
 
-(provide/contract
+#|(provide/contract
  ; construction stuff
  [make-new-clan (-> clan?)]
  [clan? (any/c . -> . boolean?)]
@@ -130,4 +149,11 @@
  [clan-encrypt (clan? bytes? bytes? . -> . (values bytes? bytes?))]
  [clan-decrypt (clan? bytes? bytes? bytes? . -> . (or/c #f bytes?))]
  [clan-mac-valid? (clan? bytes? bytes? bytes? . -> . boolean?)]
- [clan-mac-calc (clan? bytes? bytes? . -> . bytes?)])
+ [clan-mac-calc (clan? bytes? bytes? . -> . bytes?)])|#
+
+(provide clan?
+         clan-mac-valid?
+         clan-mac-calc
+         make-new-clan
+         clan-pk
+         clan-pk-urlencoded)

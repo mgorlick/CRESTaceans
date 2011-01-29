@@ -2,21 +2,16 @@
 
 (require "../../../bindings/vortex/vortex.rkt"
          "base64-url-typed.rkt"
-         "beep-message-typed.rkt")
+         "beep-message-support.rkt")
 
 (define s->b string->bytes/utf-8)
 
-(define (listen ip port active? encrypter decrypter calculator validator [onready #f] [in-response #f])
+(define (listen ip port active? calculator validator [onready #f] [in-response #f])
   
   (define (frame-received channel connection frame user-data)
-    ;; ... decrypt using the public key, 
-    ;; build up a crest-message and send it 
-    ;; to the manager who dispatches it to some clan ...
-    (let* ([message (payload->beep-message (vortex-frame-get-payload-bytes frame))]
-           [understand? (message-validate/decrypt/decode!? validator decrypter message)])
+    (let-values ([(message understand?) (frame->message frame validator)])
       (printf "message (valid? + decoded? ~s): ~s~n" understand? (beep-message-body message))
-      (when in-response
-          (in-response connection channel frame message))))
+      (when in-response (in-response connection channel frame message))))
   
   (define (start-channel channel-number connection user-data) #t)
   (define (close-channel channel-number connection user-data) #t)
@@ -50,13 +45,11 @@
      (void))))
 
 (provide (all-from-out "../../../bindings/vortex/vortex.rkt"
-                       "beep-message-typed.rkt"))
+                       "beep-message-support.rkt"))
 (provide/contract
  [listen ([string? ; host
            (or/c integer? string?) ; port
            (bytes? . -> . boolean?) ; active?
-           (bytes? bytes? . -> . (values (or/c bytes? #f) (or/c bytes? #f))) ; encrypter
-           (bytes? bytes? bytes? . -> . (or/c bytes? #f)) ; decrypter
            (bytes? bytes? . -> . bytes?) ; calculator
            (bytes? bytes? bytes? . -> . boolean?) ; validator 
            ] ; end mandatory arguments

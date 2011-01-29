@@ -32,6 +32,17 @@
 (define (manager-get-clan m pk)
   (hash-ref (manager-clans m) pk))
 
+(provide/contract
+ [manager? (any/c . -> . boolean?)]
+ [make-manager (-> manager?)]
+ [manager-register-clan (manager? clan? . -> . void)]
+ [manager-unregister-clan (manager? clan? . -> . void)]
+ [manager-has-clan? (manager? bytes? . -> . void)]
+ ;[manager-decrypt (manager? bytes? bytes? bytes? bytes? . -> . (or/c bytes? #f))]
+ ;[manager-encrypt (manager? bytes? bytes? bytes? . -> . (values (or/c #f bytes?) (or/c #f bytes?)))]
+ )
+
+#|
 ; manager-decrypt: manager bytestring bytestring bytestring bytestring -> bytestring
 ; decrypt a message `bstr' from the clan identified by `origin-pk' and encrypted using `iv'
 ; using the credentials of the clan named by public key `pk'
@@ -48,14 +59,4 @@
 (define (manager-encrypt m pk bstr recipient-pk)
   (if (manager-has-clan? m pk)
       (clan-encrypt (manager-get-clan m pk) bstr recipient-pk)
-      (values #f #f)))
-
-(provide/contract
- [manager? (any/c . -> . boolean?)]
- [make-manager (-> manager?)]
- [manager-register-clan (manager? clan? . -> . void)]
- [manager-unregister-clan (manager? clan? . -> . void)]
- [manager-has-clan? (manager? bytes? . -> . void)]
- [manager-decrypt (manager? bytes? bytes? bytes? bytes? . -> . (or/c bytes? #f))]
- [manager-encrypt (manager? bytes? bytes? bytes? . -> . (values (or/c #f bytes?) (or/c #f bytes?)))]
- )
+      (values #f #f))) |#

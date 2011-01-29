@@ -7,7 +7,8 @@
 (define (showtime s)
   (printf "~a: ~a~n" (current-process-milliseconds) s))
 
-(define rpk       #"cQhBb4AQDfBT-w5cGp5hN4L6h1IVnxtV_teHFuwUO0kSmmDThNKhzJkmOuhDbpBRbYQq0LvHemaQH-YfQkhoEDSBVm_7A9rgBrT_RJF_sb485473ypWD1_PKr9x9PDY72sLhuJ0-1bxHejr3AAwdKKnS7zPcHYrYHo4jREFbjY8"
+(define rpk       #"bxKU-_N_qNLTaBhM1HIO0qlC80ISYOaNc0A26oyBIyOrpt23jG5YNYoEnKPMsf3FIAK1ws4UrEolVA_5U5IzIY1XMeS_cMNmhohqc2dmD4NWolNxpo4-fDOZJlh6rCVvt6_CFJnmFm6oDC-GJ30_9fWHF2jJl4IYz4kaYxaqxtY"
+
   )
 
 (define uri (string-append "crest://localhost:44037/" (bytes->string/utf-8 rpk) "/14123455"))
@@ -15,10 +16,6 @@
 (define my-clan (make-new-clan))
 (showtime "Clan made")
 (define my-client (make-beepcli
-                   ; encrypter
-                   (curry clan-encrypt my-clan)
-                   ; decrypter
-                   (curry clan-decrypt my-clan)
                    ; calculator
                    (curry clan-mac-calc my-clan)
                    ; validator
