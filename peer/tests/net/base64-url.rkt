@@ -1,6 +1,6 @@
 #lang racket
 
-(require "../../src/net/base64-url.rkt"
+(require "../../src/net/base64-url-typed.rkt"
          rackunit
          rackunit/text-ui
          (planet vyzo/crypto))

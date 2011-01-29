@@ -1,6 +1,6 @@
 #lang racket
 
-(require "base64-url.rkt")
+(require "base64-url-typed.rkt")
 
 (define-struct 
   beep-message (origin-pk
@@ -118,7 +118,8 @@
          beep-message-mac
          beep-message-body
          beep-message-origin-pk
-         beep-message-receiver-pk)
+         beep-message-receiver-pk
+         make-beep-message)
 (provide/contract
  [beep-message->payload (beep-message? . -> . bytes?)]
  [payload->beep-message (bytes? . -> . beep-message?)]

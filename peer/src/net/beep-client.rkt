@@ -52,8 +52,10 @@
          [local-public-key-b64-bytes (clan-pk-urlencoded aclan)] ; bytes? base64-url-encoded?
          [local-public-key-str (b->s local-public-key-b64-bytes)] ; string?
          ) ; string?
+    (printf "~a: Conversions finished~n" (current-process-milliseconds))
     (connection*
      [context host port on-connect on-connect-data]
+     (printf "~a: Connection negotiated~n" (current-process-milliseconds))
      ; auth-id is the local public key
      ; authorization-id is the remote public key
      ; password is the locally-computed shared key

@@ -3,7 +3,7 @@
 
 (require "../../src/net/beep-listener.rkt"
          "../../src/net/connection-manager.rkt"
-         "../../src/net/base64-url.rkt"
+         "../../src/net/base64-url-typed.rkt"
          "../../src/clan.rkt"
          )
 

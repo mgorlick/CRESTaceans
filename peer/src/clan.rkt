@@ -1,6 +1,6 @@
 #lang racket
 
-(require "net/base64-url.rkt"
+(require "net/base64-url-typed.rkt"
          (planet vyzo/crypto))
 
 ;; CONSTRUCTION

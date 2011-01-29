@@ -1,7 +1,7 @@
 #lang racket
 
 (require "../../../bindings/vortex/vortex.rkt"
-         "base64-url.rkt"
+         "base64-url-typed.rkt"
          "beep-message-typed.rkt")
 
 (define s->b string->bytes/utf-8)

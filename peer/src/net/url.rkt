@@ -2,7 +2,7 @@
 
 
 (require (prefix-in rfc: net/url)
-         "base64-url.rkt")
+         "base64-url-typed.rkt")
 
 ; CREST URLs do not have the same semantics as RFC 2396 URLs
 ; but an RFC 2396-compliant parser can be used to parse one
@@ -97,7 +97,7 @@
 (define (crest-url->string curl)
   (rfc:url->string (crest-url-u curl)))
 
-(provide (all-from-out "base64-url.rkt"))
+(provide (all-from-out "base64-url-typed.rkt"))
 (provide/contract
  ; accessors
  [crest-url-host (valid-crest-url? . -> . string?)]

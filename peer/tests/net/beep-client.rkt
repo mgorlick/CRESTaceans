@@ -5,10 +5,9 @@
          "../../src/clan.rkt")
 
 (define (showtime s)
-  (printf "~a: ~a~n" (current-milliseconds) s))
+  (printf "~a: ~a~n" (current-process-milliseconds) s))
 
-(define rpk       #"Wn5g9hv8xGHeJjNAVcpcRG5t9H35awBU0FFqmTqK4JTVHoWCGhD1bTZQ_SWU5zTe3nxneDwfjQRgxxETSIo3xJeKatnT33eZjddRrX402ZRUhozbHXAE5gsVx9_1fnRsLxCt3KUlou6sojtsvKZlyWCrduPUenXUGyI-fuBc5GY"
-
+(define rpk       #"ka2f3cmpnqVA35yE9M7zljDzTgkpk3kC6B7ealM0wQkWWbjlFdAjaQLOyUSDFxx4QtMvYf-xcDh4Xc1h9lL-OJLwTju1AUnC8EX84rXPze6Zi31_A--puA_UIFVyE3SUgmaiDSEBn8wKcDgNL-ExQHQNpSUZl5KTf-wtL3Ol0bM"
   )
 
 (define uri (string-append "crest://localhost:44037/" (bytes->string/utf-8 rpk) "/14123455"))
