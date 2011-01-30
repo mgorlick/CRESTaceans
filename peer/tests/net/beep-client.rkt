@@ -7,8 +7,7 @@
 (define (showtime s)
   (printf "~a: ~a~n" (current-process-milliseconds) s))
 
-(define rpk       #"bxKU-_N_qNLTaBhM1HIO0qlC80ISYOaNc0A26oyBIyOrpt23jG5YNYoEnKPMsf3FIAK1ws4UrEolVA_5U5IzIY1XMeS_cMNmhohqc2dmD4NWolNxpo4-fDOZJlh6rCVvt6_CFJnmFm6oDC-GJ30_9fWHF2jJl4IYz4kaYxaqxtY"
-
+(define rpk       #"d1Eh44f5lCYmZcUO_PahwaRtKlr7nFknLfpsyZGHd9AiB5fnUZPy9Jqz9QvZ4jVCON5ZnoQ0pMyq_Z7DF1NF63Am78nVzbeU5k1k3I82bHlMc75TlEEOQN8asDc0ZXG3k7chtchLtWdaL7-FxkPcRGvdScaG3bHYsiFM9RuBtDY"
   )
 
 (define uri (string-append "crest://localhost:44037/" (bytes->string/utf-8 rpk) "/14123455"))

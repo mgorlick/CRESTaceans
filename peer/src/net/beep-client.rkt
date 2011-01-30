@@ -17,7 +17,7 @@
   (let ([context (new-ctx #f #f #f)])
     (vortex-sasl-init context)
     (beepcli context 
-             (make-hash) ; --> (remotepk : bytestring . connection : VortexConnection-pointer)
+             (make-hash) ; --> ((string-append host ":" port) . connection : VortexConnection-pointer)
              (make-hash) ; --> ((cons remotepk : string . swiss-number : string
              calc valid?)))
 
@@ -25,21 +25,31 @@
 
 ; set-connection!: beepcli string vortex-connection -> void
 ; store the created connection in the beep client's list of connections
-; with the given base64-url-encoded remote public key
-(define/contract (set-connection! acli pk conn) [beepcli? string? VortexConnection*? . -> . void]
-  (hash-set! (beepcli-conns acli) pk conn))
+; with the given host:port
+(define/contract (set-connection! acli host/port conn) [beepcli? string? VortexConnection*? . -> . void]
+  (hash-set! (beepcli-conns acli) host/port conn))
 
 ; get-connection: beepcli string -> vortex-connection
-; get a reference to a current connection with the corresponding
-; base64-url-encoded remote public key
-(define/contract (get-connection acli pk) [beepcli? string? . -> . (or/c VortexConnection*? #f)]
-  (hash-ref (beepcli-conns acli) pk (λ () #f)))
+; get a reference to a current connection with the host:port
+(define/contract (get-connection acli host/port) [beepcli? string? . -> . (or/c VortexConnection*? #f)]
+  (hash-ref (beepcli-conns acli) host/port (λ () #f)))
 
-(define (remove-connection! acli pk)
-  (hash-remove (beepcli-conns acli) pk))
+(define (remove-connection! acli host/port)
+  (hash-remove (beepcli-conns acli) host/port))
+
+(define (get-host/portstring curl)
+  (let ([host (let ([h (crest-url-host curl)])
+                (if h
+                    h
+                    ":nohost:"))]
+        [port (let ([p (crest-url-port curl)])
+                (if p
+                    (number->string p)
+                    ":noport:"))])
+    (string-append host ":" port)))
 
 ; beepcli-connect: beepcli string clan procedure any -> void
-; connect the given beep client to the remote clan named by the given url
+; connect the given beep client to the host named by the given url
 ; using the credentials of the given local clan, and executing
 ; the given procedure on successful connectivity with the given data
 (define (beep/connect acli url aclan [on-connect #f] [on-connect-data #f])
@@ -53,51 +63,40 @@
          [local-public-key-str (b->s local-public-key-b64-bytes)] ; string?
          ) ; string?
     (printf "~a: Conversions finished~n" (current-process-milliseconds))
-    (connection*
-     [context host port on-connect on-connect-data]
-     (printf "~a: Connection negotiated~n" (current-process-milliseconds))
-     ; auth-id is the local public key
-     ; authorization-id is the remote public key
-     ; password is the locally-computed shared key
-     (vortex-sasl-set-propertie connection 'sasl-auth-id local-public-key-str #f)
-     (vortex-sasl-set-propertie connection 'sasl-password remote-public-key-str #f)
-     (let-values ([(status message) (vortex-sasl-start-auth-sync connection SASL-PLAIN)])
-       (printf "~a~n" message)
-       (cond
-         [(vortex-sasl-is-authenticated connection)
-          (set-connection! acli remote-public-key-str connection)
-          (vortex-connection-set-data connection "crest::local-public-key" local-public-key-b64-bytes)
-          (vortex-connection-set-data connection "crest::remote-public-key" remote-public-key-b64-bytes)
-          #t]
-         [else
-          (vortex-connection-close connection)
-          #f])))))
+    (with-handlers ([exn:vtx:connection? (λ (e) #f)])
+      (connection*
+       [context host port on-connect on-connect-data]
+       (printf "~a: Connection negotiated~n" (current-process-milliseconds))
+       (vortex-connection-set-data connection "crest::local-public-key" local-public-key-b64-bytes)
+       (vortex-connection-set-data connection "crest::remote-public-key" remote-public-key-b64-bytes)
+       (set-connection! acli (get-host/portstring cu) connection)
+       #t))))
 
 (define (beep/disconnect acli url aclan)
-  (let* ([conns (beepcli-conns acli)]
-         [cu (string->crest-url url)]
+  (let* ([cu (string->crest-url url)]
+         [hps (get-host/portstring cu)]
+         [conn (get-connection acli hps)]
          [remote-public-key-str (crest-url-public-key cu)])
-    (cond
-      [(hash-has-key? conns remote-public-key-str)
-       (vortex-connection-close (hash-ref conns remote-public-key-str))
-       (remove-connection! acli remote-public-key-str)
-       #t]
-      [else #f])))
+    (if conn
+        (begin 
+          (vortex-connection-close conn)
+          (remove-connection! acli remote-public-key-str hps)
+          #t)
+        #f)))
 
 ;;; CHANNELS
 
-(define/contract (set-channel! acli pk swissnum chan) [beepcli? string? string? VortexChannel*? . -> . void]
-  (hash-set! (beepcli-chans acli) (cons pk swissnum) chan))
+(define/contract (set-channel! acli hostport pk chan) [beepcli? string? string? VortexChannel*? . -> . void]
+  (hash-set! (beepcli-chans acli) (cons hostport pk) chan))
 
-(define/contract (get-channel acli pk swissnum) [beepcli? string? string? . -> . VortexChannel*?]
-  (hash-ref (beepcli-chans acli) (cons pk swissnum) (λ () #f)))
+(define/contract (get-channel acli hostport pk) [beepcli? string? string? . -> . (or/c #f VortexChannel*?)]
+  (hash-ref (beepcli-chans acli) (cons hostport pk) (λ () #f)))
 
-(define (remove-channel! acli pk swissnum)
-  (hash-remove (beepcli-chans acli) (cons pk swissnum)))
+(define/contract (remove-channel! acli pk hostport) [beepcli? string? string? . -> . void]
+  (hash-remove (beepcli-chans acli) (cons hostport pk)))
 
 ; beep/start-channel: beepcli stringclan -> void
-; establish a connection to the remote clan member identified by the swiss number
-; in the given url
+; establish a channel to the remote clan identified by the (pk . host/port)
 (define (beep/start-channel acli url aclan [on-received #f])
   
   (define (frame-received channel connection frame user-data)    
@@ -108,28 +107,29 @@
   
   (let* ([context (beepcli-ctx acli)]
          [cu (string->crest-url url)]
+         [connection (get-connection acli (get-host/portstring cu))]
          [remote-public-key (crest-url-public-key cu)]
-         [swiss-number (crest-url-swiss-num cu)]
-         [connection (get-connection acli remote-public-key)])
-    (channel*
-     [connection 0 Plain-Profile-URI #f #f frame-received #f #f #f]
-     (set-channel! acli remote-public-key swiss-number channel)
-     #t
-     )))
+         [swiss-number (crest-url-swiss-num cu)])
+    (with-handlers ([exn:vtx:channel? (λ (e) #f)])
+      (channel*
+       [connection 0 Plain-Profile-URI #f #f frame-received #f #f #f]
+       (set-channel! acli remote-public-key (get-host/portstring cu) channel)
+       #t
+       ))))
 
 (define (beep/close-channel acli url aclan)
   (let* ([cu (string->crest-url url)]
          [remote-public-key (crest-url-public-key cu)]
          [swiss-number (crest-url-swiss-num cu)]
          [channel (get-channel acli remote-public-key swiss-number)])
-    (remove-channel! acli remote-public-key swiss-number)
+    (remove-channel! acli remote-public-key (get-host/portstring cu))
     (vortex-channel-close channel #f)
     #t))
 
 ;;; MESSAGES
 
-;; beep/msg: send a string message to the computation identified
-; by the (remote-public-key . swiss-number) pair
+;; beep/msg: send a string message to the clan member identified
+; by the (remote-public-key . host/port) pair
 (define (beep/msg acli url aclan msg)
   
   (let* ([cu (string->crest-url url)]
@@ -137,19 +137,21 @@
          [remote-public-key-encoded (string->bytes/utf-8 remote-public-key)]
          [remote-public-key-bytes (base64-url-decode remote-public-key-encoded)]
          [swiss-number (crest-url-swiss-num cu)]
-         [channel (get-channel acli remote-public-key swiss-number)]
+         [channel (get-channel acli remote-public-key (get-host/portstring cu))]
          [local-public-key-encoded (clan-pk-urlencoded aclan)])
-    (let* ([msg-bytes-encoded (message-encode msg)]
-           [mac-encoded (mac-calculate/encode 
-                         (beepcli-calculator acli) msg-bytes-encoded remote-public-key-bytes)]
-           [message (make-beep-message 
-                     local-public-key-encoded
-                     remote-public-key-encoded 
-                     mac-encoded
-                     msg-bytes-encoded)]
-           [payload (beep-message->payload message)])
-      (let-values ([(success? msgno) (vortex-channel-send-msg channel payload)])
-        success?))))
+    (if channel
+        (let* ([msg-bytes-encoded (message-encode msg)]
+               [mac-encoded (mac-calculate/encode 
+                             (beepcli-calculator acli) msg-bytes-encoded remote-public-key-bytes)]
+               [message (make-beep-message 
+                         local-public-key-encoded
+                         remote-public-key-encoded 
+                         mac-encoded
+                         msg-bytes-encoded)]
+               [payload (beep-message->payload message)])
+          (let-values ([(success? msgno) (vortex-channel-send-msg channel payload)])
+            success?))
+        #f)))
 
 (provide/contract
  [make-beepcli ((bytes? bytes? . -> . bytes?) ; MAC calculator
