@@ -60,15 +60,11 @@
          [remote-public-key-str (crest-url-public-key cu)] ; string?
          [remote-public-key-b64-bytes (s->b remote-public-key-str)] ; bytes?
          [local-public-key-b64-bytes (clan-pk-urlencoded aclan)] ; bytes? base64-url-encoded?
-         [local-public-key-str (b->s local-public-key-b64-bytes)] ; string?
          ) ; string?
     (printf "~a: Conversions finished~n" (current-process-milliseconds))
     (with-handlers ([exn:vtx:connection? (λ (e) #f)])
       (connection*
        [context host port on-connect on-connect-data]
-       (printf "~a: Connection negotiated~n" (current-process-milliseconds))
-       (vortex-connection-set-data connection "crest::local-public-key" local-public-key-b64-bytes)
-       (vortex-connection-set-data connection "crest::remote-public-key" remote-public-key-b64-bytes)
        (set-connection! acli (get-host/portstring cu) connection)
        #t))))
 
@@ -105,11 +101,9 @@
       (when on-received (on-received connection channel frame message)))
     (void))
   
-  (let* ([context (beepcli-ctx acli)]
-         [cu (string->crest-url url)]
+  (let* ([cu (string->crest-url url)]
          [connection (get-connection acli (get-host/portstring cu))]
-         [remote-public-key (crest-url-public-key cu)]
-         [swiss-number (crest-url-swiss-num cu)])
+         [remote-public-key (crest-url-public-key cu)])
     (with-handlers ([exn:vtx:channel? (λ (e) #f)])
       (channel*
        [connection 0 Plain-Profile-URI #f #f frame-received #f #f #f]
@@ -120,8 +114,8 @@
 (define (beep/close-channel acli url aclan)
   (let* ([cu (string->crest-url url)]
          [remote-public-key (crest-url-public-key cu)]
-         [swiss-number (crest-url-swiss-num cu)]
-         [channel (get-channel acli remote-public-key swiss-number)])
+         [hps (get-host/portstring cu)]
+         [channel (get-channel acli remote-public-key hps)])
     (remove-channel! acli remote-public-key (get-host/portstring cu))
     (vortex-channel-close channel #f)
     #t))
@@ -136,7 +130,6 @@
          [remote-public-key (crest-url-public-key cu)]
          [remote-public-key-encoded (string->bytes/utf-8 remote-public-key)]
          [remote-public-key-bytes (base64-url-decode remote-public-key-encoded)]
-         [swiss-number (crest-url-swiss-num cu)]
          [channel (get-channel acli remote-public-key (get-host/portstring cu))]
          [local-public-key-encoded (clan-pk-urlencoded aclan)])
     (if channel
