@@ -14,7 +14,7 @@
                [string->url (String -> URL)]
                [url->string (URL -> String)]
                [path/param-param (Path/Param -> (Listof String))]
-               [path/param-path (Path/Param -> (U String Symbol))]
+               [path/param-path (Path/Param -> (U 'same 'up String))]
                )
 
 ; CREST URLs do not have the same semantics as RFC 2396 URLs
@@ -72,12 +72,11 @@
   
   (: path/param-path->string (Path/Param -> String))
   (define (path/param-path->string pp)
-    (match (path/param-path pp)
-      ['up ".."] 
-      ['same "."]
-      [else (let ([p (path/param-path pp)])
-              (cond [(symbol? p) (symbol->string p)]
-                    [else p]))]))
+    (let ([p (path/param-path pp)])
+      (cond
+        [(eq? 'up p) ".."] 
+        [(eq? 'same p) "."]
+        [else p])))
   
   (: param? (Path/Param -> Boolean))
   (define (param? pp) (not (empty? (path/param-param pp))))
