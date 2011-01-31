@@ -53,6 +53,10 @@
   (defcurl-lookup 'curl_easy_setopt (_fun _CURL-pointer _CURLOpt _string -> _CURLCode)))
 (define curl-easy-setopt-ptr
   (defcurl-lookup 'curl_easy_setopt (_fun _CURL-pointer _CURLOpt _pointer -> _CURLCode)))
+(define curl-easy-setopt-writefunction
+  (defcurl-lookup 'curl_easy_setopt (_fun _CURL-pointer _CURLOpt
+                                          (_fun _bytes _int _int _pointer -> _int)
+                                          -> _CURLCode)))
 
 (define (curl-easy-setopt handler option parameter)
   (cond
