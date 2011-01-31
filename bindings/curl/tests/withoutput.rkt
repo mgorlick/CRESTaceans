@@ -20,7 +20,7 @@
 (define HTTP/header/key-rx (byte-pregexp HTTP/header/key))
 
 (struct header (key value) #:transparent)
-(struct response-values (protocol/version code message) #:transparent)
+(struct response-line-values (protocol/version code message) #:transparent)
 
 (define curl (curl-easy-init))
 
@@ -50,7 +50,7 @@
   ; do the request
   (define body-port (open-output-bytes))
   (define headers-port (open-output-bytes))
-  (GET "http://www.yahoo.com" body-port headers-port)
+  (GET "http://www.google.com" body-port headers-port)
   
   ;;; ... process data from the output ports ...
   (let ([headers (get-output-bytes headers-port)]
@@ -59,21 +59,22 @@
     (printf "Body size: ~a~n" (bytes-length body))
     
     ;; let's do some header reading
-    (filter (λ (e) (not (false? e)))
-            (for/list ([line (in-lines (open-input-bytes headers))])
-              (cond
-                [(regexp-match-exact? HTTP/line-rx line)
-                 (let ([version (first (regexp-match HTTP/version-rx line))]
-                       [code (string->number (bytes->string/utf-8 (first (regexp-match HTTP/code-rx line))))]
-                       [message (first (regexp-match HTTP/message-rx line))])
-                   (response-values version code message))]
+    (filter-map (λ (line)
+                  (cond
+                    [(regexp-match-exact? HTTP/line-rx line)
+                     (let ([version (first (regexp-match HTTP/version-rx line))]
+                           [code (string->number (bytes->string/utf-8 (first (regexp-match HTTP/code-rx line))))]
+                           [message (first (regexp-match HTTP/message-rx line))])
+                       (response-line-values version code message))]
+                    
+                    [(regexp-match-exact? HTTP/header/line-rx line)
+                     (let* ([key (first (regexp-match HTTP/header/key-rx line))])
+                       (header (subbytes key 0 (- (bytes-length key) 1))
+                               (subbytes line (+ 1 (bytes-length key)))))]
+                    
+                    [else (printf "Unparseable line: ~a~n" line) #f]))
                 
-                [(regexp-match-exact? HTTP/header/line-rx line)
-                 (let* ([key (first (regexp-match HTTP/header/key-rx line))])
-                     (header (subbytes key 0 (- (bytes-length key) 1))
-                             (string->bytes/utf-8 (substring line (+ 1 (bytes-length key))))))]
-                [(or (equal? line #"") (equal? line #" ")) #f]
-                [else (printf "Unparseable line: ~a~n" line) #f])))))
+                (regexp-split #"\r\n" headers))))
 
 (my-program)
 (curl-easy-cleanup curl)
