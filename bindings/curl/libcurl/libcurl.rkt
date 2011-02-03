@@ -21,7 +21,6 @@
          ...))
 
 ;; general api
-;(defcurl curl-formadd (_fun _CURL-HTTPPost-pointer 
 (defcurl curl-formfree (_fun _CURL-HTTPPost-pointer -> _void))
 (defcurl curl-formget (_fun _CURL-HTTPPost-pointer _pointer _CURL-formget-callback -> _void))
 (defcurl curl-free (_fun _string -> _void))
@@ -47,6 +46,7 @@
 (defcurl curl-easy-unescape (_fun _CURL-pointer _string _int (o : (_ptr o _int))
                                   -> (s : _string)
                                   -> (values s o)))
+; setopt versions
 (define curl-easy-setopt-long 
   (defcurl-lookup 'curl_easy_setopt (_fun _CURL-pointer _CURLOpt _long -> _CURLCode)))
 (define curl-easy-setopt-string
@@ -64,6 +64,8 @@
     [(string? parameter) (curl-easy-setopt-string handler option parameter)]
     [else (curl-easy-setopt-ptr handler option parameter)]))
 
+; getinfo versions
+
 (define curl-easy-getinfo-string
   (defcurl-lookup 'curl_easy_getinfo (_fun _CURL-pointer _CURLInfo (out : (_ptr o _string))
                                            -> (res : _CURLCode) -> (values out res))))
@@ -74,3 +76,26 @@
 (define curl-easy-getinfo-double
   (defcurl-lookup 'curl_easy_getinfo (_fun _CURL-pointer _CURLInfo (out : (_ptr o _double))
                                            -> (res : _CURLCode) -> (values out res))))
+
+; formadd versions
+
+(define curl-formadd-first
+  (defcurl-lookup 'curl_formadd (_fun (first : (_ptr io (_or-null _CURL-HTTPPost-pointer)))
+                                      (last : (_ptr io (_or-null _CURL-HTTPPost-pointer)))
+                                      (_CURLformoption = 'copyname)
+                                      _string
+                                      (_CURLformoption = 'copycontents)
+                                      _string
+                                      (_CURLformoption = 'end)
+                                      -> (code : _CURLformcode)
+                                      -> (values code first last))))
+
+(define curl-formadd-copyname
+  (defcurl-lookup 'curl_formadd (_fun (first : (_ptr io _CURL-HTTPPost-pointer))
+                                      (last : (_ptr io _CURL-HTTPPost-pointer))
+                                      (_CURLformoption = 'copyname)
+                                      _string
+                                      (_CURLformoption = 'copycontents)
+                                      _string
+                                      (_CURLformoption = 'end)
+                                      -> _CURLformcode)))

@@ -289,6 +289,7 @@
    [CURLOPT_USERAGENT 18]
    [CURLOPT_COOKIE 22]
    [CURLOPT_HTTPHEADER 23]
+   [CURLOPT_HTTPPOST 24]
    [CURLOPT_SSLCERT 25]
    [CURLOPT_KEYPASSWD 26]
    [CURLOPT_QUOTE 28]
@@ -358,3 +359,39 @@
    [CURLOPT_SSH_KEYFUNCTION 184]))
 
 (define _CURLOpt _int)
+
+(define _CURLformoption
+  (_enum
+   '(nothing
+     copyname
+     ptrname
+     namelength
+     copycontents
+     ptrcontents
+     contentslength
+     filecontent
+     array
+     obsolete
+     file
+     buffer
+     bufferptr
+     bufferlength
+     contenttype
+     contentheader
+     filename
+     end
+     obsolete2
+     stream
+     lastentry)))
+
+(define _CURLformcode
+  (_enum
+   '(ok
+     memory
+     option-twice
+     null
+     unknown-option
+     incomplete
+     illegal-array
+     disabled
+     last)))
