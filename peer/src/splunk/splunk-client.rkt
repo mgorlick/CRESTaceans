@@ -1,52 +1,99 @@
 #! /usr/bin/env racket
 #lang racket
 
-(require xml)
-(require "../net/base64-url.rkt"
-         "../../../bindings/curl/libcurl/libcurl.rkt")
+(require "util.rkt"
+         "../util/xpath.rkt"
+         (planet neil/json-parsing:1:=1))
 
-(define login-url-path "/auth/login")
+(provide make-splunk-client
+         splunk-search)
 
-(struct splunk-client (curl service-base session-key))
+(define login-url-path "/services/auth/login")
+(define search-jobs-path "/services/search/jobs")
 
-(define-syntax-rule (define-write-to-outport id port)
-  (define (id bytes size nmemb *data)
-    (write-bytes bytes port 0 (* size nmemb))
-    (* nmemb size)))
+;; Client setup: make a client instance only after logging in
+;; and receiving a session key
+(define (make-splunk-client service-base-url username password)
+  (define login-url (string-append service-base-url login-url-path))
+  (define (login sc service-base username password)
+    (let-values ([(errorcode header-port body-port) 
+                  (POST-wwwform sc login-url `((username . ,username) (password . ,password)))])
+      (match errorcode
+        ['ok 
+         (let* ([response (output-port->xexpr body-port)])
+           (match (simple-xpath* '(sessionKey) response)
+             [(? string? a) a]
+             [_ (error (format "Couldn't login to splunk at ~a: (probably) incorrect credentials" 
+                               login-url))]))]
+        [_ (error (format "Couldn't login to splunk at ~a: error was ~a"
+                          login-url))])))
+  (define h (new-handle))
+  (let* ([sc (splunk-client h service-base-url #f)]
+         [session-key (login sc service-base-url username password)])
+    (set-splunk-client-session-key! sc session-key)
+    (reset-client/except-auth sc)
+    sc))
 
-(define (POST curl url x/www-form-urlencoded-string bodyport headerport)
-  (define-write-to-outport write-body bodyport)
-  (define-write-to-outport write-header headerport)
-  (curl-easy-setopt-writefunction curl CURLOPT_WRITEFUNCTION write-body)
-  (curl-easy-setopt-writefunction curl CURLOPT_HEADERFUNCTION write-header)
-  (curl-easy-setopt curl CURLOPT_URL url)
-  (curl-easy-setopt curl CURLOPT_POST 1)
-  (curl-easy-setopt curl CURLOPT_POSTFIELDS x/www-form-urlencoded-string)
-  (let ([res (curl-easy-perform curl)])
-    res))
+;; takes the result of a simple-xpath*/list selection on
+;; an s:dict and looks through the keys for a given name
+(define (find-in-s:dict-by-key-name key elems)
+  (let ([res (filter (λ (entry)
+                       (match entry
+                         [(list 's:key (list (list 'name (? (curry string=? key) k))) a) #t]
+                         [_ #f]))
+                     elems)])
+    (if (not (empty? res)) (first res) #f)))
 
-(define (login curl service-base username password)
-  (define body-port (open-output-bytes))
-  (define header-port (open-output-bytes))
-  (POST curl (string-append service-base login-url-path)
-        (format "username=~a&password=~a" username password)
-        body-port header-port)
+(define (splunk-search sc term)
+  (define search-url (string-append (splunk-client-base-url sc) search-jobs-path))
+  (define sk (splunk-client-session-key sc))
   
-  ;; chomp through the body looking for a session key
-  ;; expected form: (response () (sessionKey () "1d67d05afb0e43b9769d485b95c7c28f"))
-  (let* ([body (get-output-bytes body-port)]
-         [bytes (regexp-replace* #"\n" (regexp-replace* #"\r" body "") "")]
-         [response (xml->xexpr (document-element (read-xml (open-input-bytes bytes))))])
-    (match response
-      [(list 'response '() (list 'sessionKey '() a)) a]
-      [_ (error (format "Could not log in to splunk service at ~a" 
-                (string-append service-base login-url-path)))])))
-
-(define (make-splunk-client service-base username password)
-  (define curl (curl-easy-init))
-  (splunk-client
-   curl
-   service-base
-   (login curl service-base username password)))
-
-(make-splunk-client "http://ubuntu:8089/services" "admin" "morefuntocompute")
+  ;; we have to keep polling the job base URL until the results are in
+  ;; unfortunately, Splunk server does not return useful headers in that
+  ;; vein, so we have to keep requesting the whole /services/search/jobs/<jobid>
+  ;; page and parsing the whole thing until the "isDone" key is equal to "1"
+  ;; to ease the burden of doing this a little, sleep a little bit between
+  ;; requests and only try some number of times before giving up
+  
+  ;; the curl auth header is already attached to this when it is called,
+  ;; and before that it was reset, so we don't need to reset between calls
+  (define (poll-for-results sid tries)
+    (cond
+      [(= tries 0) (error "Gave up on polling for results: taking too long")]
+      [else 
+       (let-values
+           ([(errorcode header-port body-port)
+             (GET sc (string-append search-url "/" sid))])
+         (match errorcode
+           ['ok (let* ([response (output-port->xexpr body-port)]
+                       [is-done (string->number 
+                                 (third
+                                  (find-in-s:dict-by-key-name 
+                                   "isDone"
+                                   (simple-xpath*/list '(s:dict) response))))])
+                  (if (= is-done 1)
+                      (get-final-results sid)
+                      (begin
+                        (sleep 1)
+                        (poll-for-results sid (sub1 tries)))))]))]))
+  
+  (define (get-final-results sid)
+    (let-values ([(errorcode header-port body-port)
+                  (GET sc (string-append search-url "/" sid "/results?output_mode=json"))])
+      (match errorcode
+        ['ok (let ([response (get-output-bytes body-port)])
+               (reset-client/except-auth sc)
+               (json->sjson (open-input-bytes response)))])))
+  
+  (let-values ([(errorcode header-port body-port) 
+                (POST-wwwform sc search-url `((search . ,term)))])
+    (reset-client/except-auth sc)
+    (match errorcode
+      ['ok 
+       (let ([response (output-port->xexpr body-port)])
+         (let ([sid 
+                (match (simple-xpath* '(sid) response)
+                  [(? string? a) a]
+                  [_ (error "Couldn't start splunk job")])])
+           (values sid (poll-for-results sid 10))))]
+      [_ (error "Error requesting splunk job")])))

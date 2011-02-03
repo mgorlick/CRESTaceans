@@ -161,7 +161,7 @@
 
 (define-cstruct _CURL-SList
   ([data _string]
-   [next _CURL-SList]))
+   [next _CURL-SList-pointer]))
 
 (define-cpointer-type _CURL-HTTPPost-pointer)
 (define CURL-HTTPPost*? (flat-named-contract 'CURL-HTTPPost*? CURL-HTTPPost-pointer?))

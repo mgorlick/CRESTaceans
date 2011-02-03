@@ -27,7 +27,7 @@
 (defcurl curl-getdate (_fun _string ((_ptr i _time_t) = #f) -> _time_t))
 (defcurl curl-global-cleanup (_fun -> _void))
 (defcurl curl-global-init (_fun _long -> _CURLCode))
-(defcurl curl-slist-append (_fun _CURL-SList-pointer _string -> _CURL-SList-pointer))
+(defcurl curl-slist-append (_fun (_or-null _CURL-SList-pointer) _string -> _CURL-SList-pointer))
 (defcurl curl-slist-free-all (_fun _CURL-SList-pointer -> _void))
 (defcurl curl-unescape (_fun _string _int -> _string))
 (defcurl curl-version (_fun -> _string))
@@ -99,3 +99,11 @@
                                       _string
                                       (_CURLformoption = 'end)
                                       -> _CURLformcode)))
+
+(define (curl-slist-new s . ss)
+  (let ([head (curl-slist-append #f s)])
+    (if (not (empty? ss))
+        (let loop ([to-append ss] [current-head head])
+          (cond [(= (length ss) 1) (curl-slist-append current-head (first to-append))]
+                [else (loop (rest to-append) (curl-slist-append current-head (first to-append)))]))
+        head)))
