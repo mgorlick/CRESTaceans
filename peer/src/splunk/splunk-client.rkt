@@ -6,7 +6,9 @@
          (planet neil/json-parsing:1:=1))
 
 (provide make-splunk-client
-         splunk-search)
+         start-search
+         check-on-search
+         get-search-results)
 
 (define login-url-path "/services/auth/login")
 (define search-jobs-path "/services/search/jobs")
@@ -18,15 +20,13 @@
   (define (login sc service-base username password)
     (let-values ([(errorcode header-port body-port) 
                   (POST-wwwform sc login-url `((username . ,username) (password . ,password)))])
-      (match errorcode
-        ['ok 
-         (let* ([response (output-port->xexpr body-port)])
-           (match (simple-xpath* '(sessionKey) response)
-             [(? string? a) a]
-             [_ (error (format "Couldn't login to splunk at ~a: (probably) incorrect credentials" 
-                               login-url))]))]
-        [_ (error (format "Couldn't login to splunk at ~a: error was ~a"
-                          login-url))])))
+      (if (eq? errorcode 'ok)
+          (let* ([response (output-port->xexpr body-port)])
+            (match (simple-xpath* '(sessionKey) response)
+              [(? string? a) a]
+              [_ (error "Couldn't login to splunk: (probably) incorrect credentials. URL =" 
+                                login-url)]))
+          (error "Couldn't login to splunk at ~a: error was ~a" login-url errorcode))))
   (define h (new-handle))
   (let* ([sc (splunk-client h service-base-url #f)]
          [session-key (login sc service-base-url username password)])
@@ -44,56 +44,52 @@
                      elems)])
     (if (not (empty? res)) (first res) #f)))
 
-(define (splunk-search sc term)
+;; start a search job, returning the job ID so that the client
+;; can check up on that job again later
+;; we don't force a synchronous structure on waiting for job results
+;; because programmers may want to start several jobs and wait on them all
+;; simultaneously: let the library consumer handle it at a higher level
+(define (start-search sc term)
   (define search-url (string-append (splunk-client-base-url sc) search-jobs-path))
   (define sk (splunk-client-session-key sc))
-  
-  ;; we have to keep polling the job base URL until the results are in
-  ;; unfortunately, Splunk server does not return useful headers in that
-  ;; vein, so we have to keep requesting the whole /services/search/jobs/<jobid>
-  ;; page and parsing the whole thing until the "isDone" key is equal to "1"
-  ;; to ease the burden of doing this a little, sleep a little bit between
-  ;; requests and only try some number of times before giving up
-  
-  ;; the curl auth header is already attached to this when it is called,
-  ;; and before that it was reset, so we don't need to reset between calls
-  (define (poll-for-results sid tries)
-    (cond
-      [(= tries 0) (error "Gave up on polling for results: taking too long")]
-      [else 
-       (let-values
-           ([(errorcode header-port body-port)
-             (GET sc (string-append search-url "/" sid))])
-         (match errorcode
-           ['ok (let* ([response (output-port->xexpr body-port)]
-                       [is-done (string->number 
-                                 (third
-                                  (find-in-s:dict-by-key-name 
-                                   "isDone"
-                                   (simple-xpath*/list '(s:dict) response))))])
-                  (if (= is-done 1)
-                      (get-final-results sid)
-                      (begin
-                        (sleep 1)
-                        (poll-for-results sid (sub1 tries)))))]))]))
-  
-  (define (get-final-results sid)
-    (let-values ([(errorcode header-port body-port)
-                  (GET sc (string-append search-url "/" sid "/results?output_mode=json"))])
-      (match errorcode
-        ['ok (let ([response (get-output-bytes body-port)])
-               (reset-client/except-auth sc)
-               (json->sjson (open-input-bytes response)))])))
-  
-  (let-values ([(errorcode header-port body-port) 
-                (POST-wwwform sc search-url `((search . ,term)))])
+  (let-values ([(errorcode header-port body-port) (POST-wwwform sc search-url `((search . ,term)))])
     (reset-client/except-auth sc)
     (match errorcode
-      ['ok 
-       (let ([response (output-port->xexpr body-port)])
-         (let ([sid 
-                (match (simple-xpath* '(sid) response)
-                  [(? string? a) a]
-                  [_ (error "Couldn't start splunk job")])])
-           (values sid (poll-for-results sid 10))))]
-      [_ (error "Error requesting splunk job")])))
+      ['ok  (let* ([response (output-port->xexpr body-port)]
+                   [sid (match (simple-xpath* '(sid) response)
+                          [(? string? a) a]
+                          [_ (error "Couldn't start splunk job, raw response: " response)])])
+              sid)]
+      [_ (error "Error requesting splunk job: ~a" errorcode)])))
+
+;; we have to keep polling the job base URL until the results are in.
+;; unfortunately, Splunk server does not return useful headers in that
+;; regard, so we have to keep requesting the whole /services/search/jobs/<jobid>
+;; page and parsing the whole thing until the "isDone" key is equal to "1"
+(define (check-on-search sc sid)
+  (define job-url (string-append (splunk-client-base-url sc) search-jobs-path "/" sid))
+  (define sk (splunk-client-session-key sc))
+  (reset-client/except-auth sc)
+  (let-values
+      ([(errorcode header-port body-port) (GET sc job-url)])
+    (match errorcode
+      ['ok (let* ([response (output-port->xexpr body-port)]
+                  [is-done (third (find-in-s:dict-by-key-name 
+                                   "isDone" (simple-xpath*/list '(s:dict) response)))])
+             (string=? is-done "1"))]
+      [_ (error "Error checking on search results: " errorcode)])))
+
+;; once the search results are actually marked done we can retrieve them
+;; here we use JSON instead of XML because it's the one resource type that
+;; actually generates JSON (all the others report it as an invalid resource)
+(define (get-search-results sc sid)
+  (define job-results-url (string-append (splunk-client-base-url sc)
+                                         search-jobs-path "/" sid "/results?output_mode=json"))
+  (define sk (splunk-client-session-key sc))
+  (let-values ([(errorcode header-port body-port) (GET sc job-results-url)])
+    (reset-client/except-auth sc)
+    (match errorcode
+      ['ok (let ([response (get-output-bytes body-port)])
+             (reset-client/except-auth sc)
+             (json->sjson (open-input-bytes response)))]
+      [_ (error "Error retrieving or decodind search results: " errorcode)])))

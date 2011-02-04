@@ -32,17 +32,12 @@
 
 ;; attach all headers to the curl handle
 (define (attach-headers curl kv . kvs)
-  (let ([header-list (if (empty? kvs)
-                         (curl-slist-new kv)
-                         (apply curl-slist-new (cons kv kvs)))])
-    (curl-easy-setopt curl CURLOPT_HTTPHEADER header-list)))
+  (curl-easy-setopt curl CURLOPT_HTTPHEADER (apply curl-slist-new (cons kv kvs))))
 
 ;; urlencode a '((key . value) (key1 . value1)) data set
 (define (make-wwwform-post-data data)
-  (apply string-append (add-between 
-                        (map (λ (pair) (format "~a=~a" (car pair) (cdr pair))) 
-                             data) 
-                        "&")))
+  (apply string-append 
+         (add-between (map (λ (pair) (format "~a=~a" (car pair) (cdr pair))) data) "&")))
 
 ;; given an URL-encoded form, attach it to the given curl handle
 (define (attach-wwwform-post-data curl x/www-form-urlencoded-string)
@@ -58,6 +53,9 @@
 
 ;; do an HTTP GET or POST on the given url (depending on state of the curl handle)
 ;; using the credentials of the provided splunk client
+;; returns a (values code header-port body-port)
+;; where the header-port and body-port are output ports from which
+;; bytes can be read. they do not need to be closed.
 (define (perform sc url)
   (define curl (splunk-client-curl-handle sc))
   (define header-port (open-output-bytes))
@@ -75,7 +73,7 @@
 (struct splunk-client (curl-handle base-url [session-key #:mutable]))
 
 (define (attach-auth-header sc)
-  (attach-headers (splunk-client-curl-handle sc) 
+  (attach-headers (splunk-client-curl-handle sc)
                   (format "Authorization: Splunk ~a" (splunk-client-session-key sc))))
 
 (define (reset-client/except-auth sc)
