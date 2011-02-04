@@ -2,7 +2,9 @@
 
 (require xml
          "../util/xpath.rkt"
-         "../../../bindings/curl/libcurl/libcurl.rkt")
+         "../../../bindings/curl/libcurl/libcurl.rkt"
+         
+         (planet neil/json-parsing:1:=1))
 (provide (all-defined-out))
 
 ;; Remove all instances of #"\r", #"\n" and #"\t" plus extra whitespace
@@ -21,6 +23,9 @@
   (if strip?
       (bytes->xexpr (strip-crlf (get-output-bytes o)))
       (bytes->xexpr (get-output-bytes o))))
+
+(define (output-port->sjson o)
+  (json->sjson (open-input-bytes (get-output-bytes o))))
 
 ;; given an ID for a procedure and an output port to write to,
 ;; define a procedure that acts as a callback for 
