@@ -1,7 +1,6 @@
-#! /bin/bash
+#! /bin/sh
 
-gcc -fPIC -g -c -Wall wrap.c -lallegro
-gcc -shared -Wl,-soname,libracket-allegro-keyboard-wrap.so.1 -o libracket-allegro-keyboard-wrap.so.1.0.1 wrap.o -lc
-sudo cp libracket-allegro-keyboard-wrap.so.1.0.1 $RACKET_LIBS
-rm libracket-allegro-keyboard-wrap.so.1.0.1
-rm wrap.o
+THISDIR=$(dirname $0)
+gcc -fPIC -g -c -Wall -lallegro -o $THISDIR/wrap.o $THISDIR/wrap.c
+gcc -shared -Wl,-soname,libracket-allegro-keyboard-wrap.so.1 -o \
+	$THISDIR/libracket-allegro-keyboard-wrap.so.1.0.1 $THISDIR/wrap.o -lc

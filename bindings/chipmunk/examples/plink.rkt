@@ -84,11 +84,11 @@
     (for [(i (in-range steps))]
       (cpSpaceStep space dt)
       (for/list [(f fallers)]
-        (cpSpaceEachBody f))
+        (reset-body!? f))
       )))
 
 ; reset each falling body to the top of the screen if below the bottom
-(define (cpSpaceEachBody b)
+(define (reset-body!? b)
   (let* ((p (cpBody-p b))
          (x (cpVect-x p))
          (y (cpVect-y p)))
