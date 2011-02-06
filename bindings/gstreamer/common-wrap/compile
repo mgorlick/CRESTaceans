@@ -1,5 +1,0 @@
-#! /bin/sh
-
-THISDIR=$(dirname $0)
-gcc -fPIC -c -Wall $(pkg-config --cflags --libs gstreamer-0.10) -o $THISDIR/wrap.o $THISDIR/wrap.c
-ld -shared -soname libracket-gst.so.1 -o $THISDIR/libracket-gst.so.1.0 -lc $THISDIR/wrap.o

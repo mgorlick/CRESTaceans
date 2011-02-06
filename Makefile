@@ -1,3 +1,5 @@
+VPATH = bindings
+
 all: apps
 
 apps: peer
@@ -7,16 +9,15 @@ peer: bindings
 	find "peer" -name "*.rkt" -print0 | xargs -0 raco make -v
 
 bindings:
-	sh bindings/gstreamer/common-wrap/compile
 	find "bindings" -name "*.rkt" -print0 | xargs -0 raco make -v
+	cd bindings/gstreamer/common-wrap && make
 
 install:
-	find "bindings" -name "*.so*" -print0 | xargs -0 sudo cp -t $(RACKET_LIBS)
+	cd bindings/gstreamer/common-wrap && make install
 
 clean:
-	find "bindings" -name "*.so*" -print0 | xargs -0 rm -v
-	find "bindings" -name "*.o" -print0 | xargs -0 rm -v
 	find . -name "compiled" -type d -print0 | xargs -0 rm -rfv
+	cd bindings/gstreamer/common-wrap && make clean
 
 clean-junk:
 	find . -name *~ -print0 | xargs -0 rm

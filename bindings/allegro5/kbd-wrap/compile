@@ -1,6 +1,0 @@
-#! /bin/sh
-
-THISDIR=$(dirname $0)
-gcc -fPIC -g -c -Wall -lallegro -o $THISDIR/wrap.o $THISDIR/wrap.c
-gcc -shared -Wl,-soname,libracket-allegro-keyboard-wrap.so.1 -o \
-	$THISDIR/libracket-allegro-keyboard-wrap.so.1.0.1 $THISDIR/wrap.o -lc
