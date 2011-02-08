@@ -26,10 +26,10 @@
   (let ([loop (cast data* _gpointer _GMainLoop-pointer)]
         [type (gst_message_type msg*)])
     (cond
-      [(eq? type GST_MESSAGE_EOS) 
+      [(eq? type 'eos) 
        (printf "End of stream~n") 
        (g_main_loop_quit loop)]
-      [(eq? type GST_MESSAGE_ERROR)
+      [(eq? type 'error)
        (printf "Unknown error~n")
        (g_main_loop_quit loop)]
       [else #f])

@@ -10,15 +10,15 @@
 (define (event-loop pipe)
   (let ([bus (gst_element_get_bus pipe)])
     (let loop ()
-      (let* ([message (gst_bus_poll bus GST_MESSAGE_ANY -1)]
+      (let* ([message (gst_bus_poll bus 'any -1)]
              [type (gst_message_type message)])
         (cond
-          [(eq? type GST_MESSAGE_EOS)
+          [(eq? type 'eos)
            (printf "eos~n")
-           (gst_message_unref_w message)
+           ;(gst_message_unref_w message)
            #t]
-          [(or (eq? type GST_MESSAGE_WARNING)
-               (eq? type GST_MESSAGE_ERROR))
+          [(or (eq? type 'warning)
+               (eq? type 'error))
            (printf "error~n")
            (extract-and-print-error message)
            (gst_message_unref_w message)

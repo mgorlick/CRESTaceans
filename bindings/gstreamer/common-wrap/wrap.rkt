@@ -14,7 +14,7 @@
 
 (df signal_connect_message (_fun _gpointer _string VoidMessageType _gpointer -> _void))
 
-(df gst_message_type (_fun _GstMessage-pointer -> _int))
+(df gst_message_type (_fun _GstMessage-pointer -> _GstMessageType))
 
 (df gst_message_unref_w (_fun _GstMessage-pointer -> _void))
 

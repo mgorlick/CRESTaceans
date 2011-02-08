@@ -334,10 +334,10 @@
                              
                              (let ([bus (gst_element_get_bus pipe)])
                                (let loop ()
-                                 (let* ([message (gst_bus_poll bus GST_MESSAGE_ANY -1)]
+                                 (let* ([message (gst_bus_poll bus 'any -1)]
                                         [type (gst_message_type message)])
                                    (cond
-                                     [(eq? type GST_MESSAGE_EOS)
+                                     [(eq? type 'eos)
                                       (printf "eos~n")
                                       (gst_message_unref_w message)
                                       #t]
@@ -370,9 +370,9 @@
                              (let ([loop (cast data* _gpointer _GMainLoop-pointer)]
                                    [type (gst_message_type msg*)])
                                (cond
-                                 [(eq? type GST_MESSAGE_EOS) 
+                                 [(eq? type 'eos) 
                                   (g_main_loop_quit loop)]
-                                 [(eq? type GST_MESSAGE_ERROR)
+                                 [(eq? type 'error)
                                   (printf "Unknown error~n")
                                   (g_main_loop_quit loop)]
                                  [else #f])

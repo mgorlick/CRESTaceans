@@ -3,7 +3,8 @@
 (require "gst_base.rkt"
          "gst-structs-ffi.rkt"
          "GstObject-ffi.rkt"
-         "GstClock-ffi.rkt")
+         "GstClock-ffi.rkt"
+         "GstMessage-ffi.rkt")
 
 (provide (all-defined-out))
 
@@ -262,7 +263,7 @@ typedef enum {
   (define-gstreamer gst_element_found_tags_for_pad (_fun _GstElement-pointer _GstPad-pointer _GstTagList-pointer -> _void))
   
   ;void gst_element_message_full (GstElement *element, GstMessageType type, GQuark domain, gint code, gchar *text, gchar *debug, const gchar *file, const gchar *function, gint line);
-  (define-gstreamer gst_element_message_full (_fun _GstElement-pointer _int _GQuark _gint  _string _string _string _string _gint -> _void))
+  (define-gstreamer gst_element_message_full (_fun _GstElement-pointer _GstMessageType _GQuark _gint  _string _string _string _string _gint -> _void))
   
   ;gboolean            gst_element_post_message            (GstElement *element, GstMessage *message);
   (define-gstreamer gst_element_post_message (_fun _GstElement-pointer _GstMessage-pointer -> _gboolean))

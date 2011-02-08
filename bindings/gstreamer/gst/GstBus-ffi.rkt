@@ -3,7 +3,8 @@
 (require "gst_base.rkt"
          "gst-structs-ffi.rkt"
          "GstClock-ffi.rkt"
-         "GstObject-ffi.rkt")
+         "GstObject-ffi.rkt"
+         "GstMessage-ffi.rkt")
 
 (provide (all-defined-out))
 
@@ -50,13 +51,13 @@
   gst_bus_peek gst_bus_pop)
 
 ;GstMessage *        gst_bus_pop_filtered                (GstBus *bus, GstMessageType types);
-(define-gstreamer gst_bus_pop_filtered (_fun _GstBus-pointer _int -> _GstMessage-pointer))
+(define-gstreamer gst_bus_pop_filtered (_fun _GstBus-pointer _GstMessageType -> _GstMessage-pointer))
 
 ;GstMessage *        gst_bus_timed_pop                   (GstBus *bus, GstClockTime timeout);
 (define-gstreamer gst_bus_timed_pop (_fun _GstBus-pointer _GstClockTime -> _GstMessage-pointer))
 
 ;GstMessage *        gst_bus_timed_pop_filtered          (GstBus *bus, GstClockTime timeout, GstMessageType types);
-(define-gstreamer gst_bus_timed_pop_filtered (_fun _GstBus-pointer _GstClockTime _int -> _GstMessage-pointer))
+(define-gstreamer gst_bus_timed_pop_filtered (_fun _GstBus-pointer _GstClockTime _GstMessageType -> _GstMessage-pointer))
 
 ;void                gst_bus_set_flushing                (GstBus *bus, gboolean flushing);
 (define-gstreamer gst_bus_set_flushing (_fun _GstBus-pointer _gboolean -> _void))
@@ -91,5 +92,5 @@
 (define-gstreamer gst_bus_add_signal_watch_full (_fun _GstBus-pointer _gint -> _void))
 
 ;GstMessage*         gst_bus_poll                        (GstBus *bus, GstMessageType events, GstClockTimeDiff timeout);
-(define-gstreamer gst_bus_poll (_fun _GstBus-pointer _int _GstClockTimeDiff -> _GstMessage-pointer))
+(define-gstreamer gst_bus_poll (_fun _GstBus-pointer _GstMessageType _GstClockTimeDiff -> _GstMessage-pointer))
 
