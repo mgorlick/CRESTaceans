@@ -1,0 +1,7 @@
+#! /bin/sh
+
+mkdir -p so
+cp lib/x86/*.o so
+cp work/best/*.o so
+cd so
+gcc -shared -o libnacl.so -lc `find . -name "*.o"`
