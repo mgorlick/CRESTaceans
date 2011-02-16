@@ -10,9 +10,11 @@ peer: bindings
 
 bindings:
 	find "bindings" -name "*.rkt" -print0 | xargs -0 raco make -v
+	cd bindings/allegro5/kbd-wrap && make
 	cd bindings/gstreamer/common-wrap && make
 
 install:
+	cd bindings/allegro5/kbd-wrap && make install RACKET_LIBS=$(RACKET_LIBS)
 	cd bindings/gstreamer/common-wrap && make install RACKET_LIBS=$(RACKET_LIBS)
 
 clean:
