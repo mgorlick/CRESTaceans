@@ -19,7 +19,7 @@
 
 
 
- #|(provide/doc
+#|(provide/doc
 
 
  (proc-doc/names gst_bin_new
@@ -42,6 +42,9 @@
 (define-gstreamer*
   (_fun _GstBin-pointer _string -> _GstElement-pointer)
   gst_bin_get_by_name gst_bin_get_by_name_recurse_up)
+
+(define (gst_bin_get_by_name* bin name)
+  (gst_bin_get_by_name (cast bin _GstElement-pointer _GstBin-pointer) name))
 
 ;GstElement*         gst_bin_get_by_interface            (GstBin *bin, GType iface);
 (define-gstreamer gst_bin_get_by_interface (_fun _GstBin-pointer _GType -> _GstElement-pointer))

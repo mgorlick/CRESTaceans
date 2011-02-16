@@ -442,16 +442,25 @@
 (define g_type_init (get-ffi-obj 'g_type_init glib-lib (_fun -> _void)))
 
 ;void                g_object_set                        (gpointer object, const gchar *first_property_name, ...);
-(define g_object_set
-  (lambda (ptr . args)
-    (let* ([l (build-list (length args) values)]
-           [names (filter-map (lambda (x) (and (even? x) (list-ref args x))) l)]
-           [values (filter-map (lambda (x) (and (odd? x) (list-ref args x))) l)])
-      (map (lambda (name val) 
-             (g_object_set_1 ptr name val))
-           names values))))
+(define (g_object_set ptr . args)
+  (let* ([l (build-list (length args) values)]
+         [names (filter-map (lambda (x) (and (even? x) (list-ref args x))) l)]
+         [values (filter-map (lambda (x) (and (odd? x) (list-ref args x))) l)])
+    (map (lambda (name val) 
+           (g_object_set_1 ptr name val))
+         names values)))
 
-(define g_object_set_1
+(define (g_object_set_1 obj name val)
+  (cond
+    [(integer? val) (g_object_set_gint obj name val)]
+    [(string? val) (g_object_set_str obj name val)]))
+
+(define g_object_set_gint
+  (get-ffi-obj 'g_object_set glib-lib
+               (_fun _gpointer _string _gint
+                     (_string = #f) -> _void)))
+
+(define g_object_set_str
   (get-ffi-obj 'g_object_set glib-lib
                (_fun _gpointer _string _string 
                      (_string = #f) -> _void)))
