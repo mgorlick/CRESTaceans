@@ -1,0 +1,120 @@
+# System
+
+These functions are declared in the main Allegro header file:
+
+    #include <allegro5/allegro.h>
+
+## API: al_install_system
+
+Initialize the Allegro system. No other Allegro functions can be called
+before this (with one or two exceptions).
+
+The version field should always be set to ALLEGRO_VERSION_INT.
+
+If atexit_ptr is non-NULL, and if hasn't been done already,
+[al_uninstall_system] will be registered as an atexit
+function.
+
+Returns true if Allegro was successfully initialized by this function
+call (or already was initialized previously), false if Allegro cannot
+be used.
+
+See also: [al_init]
+
+## API: al_init
+
+Like [al_install_system], but automatically passes in the version and
+uses the atexit function visible in the current compilation unit.
+
+See also: [al_install_system]
+
+## API: al_uninstall_system
+
+Closes down the Allegro system.
+
+Note: al_uninstall_system() can be called without a corresponding
+[al_install_system] call, e.g. from atexit().
+
+## API: al_get_allegro_version
+
+Returns the (compiled) version of the Allegro library, packed into a single
+integer as groups of 8 bits in the form
+`(major << 24) | (minor << 16) | (revision << 8) | release`.
+
+You can use code like this to extract them:
+
+    uint32_t version = al_get_allegro_version();
+    int major = version >> 24;
+    int minor = (version >> 16) & 255;
+    int revision = (version >> 8) & 255;
+    int release = version & 255;
+
+The `release` number is 0 for an unofficial version and 1 or greater for
+an official release. For example "5.0.2[1]" would be the (first) official
+5.0.2 release while "5.0.2[0]" would be a compile of a version from the
+"5.0.2" branch before the official release.
+
+## API: al_get_standard_path
+
+Gets a system path, depending on the `id` parameter:
+
+id                            description
+----------------------------- ------------------------
+ALLEGRO_PROGRAM_PATH          Directory with the executed program.
+ALLEGRO_TEMP_PATH             Path to the directory for temporary files.
+ALLEGRO_SYSTEM_DATA_PATH      Data path for system-wide installation.
+ALLEGRO_USER_DATA_PATH        Data path for per-user installation.
+ALLEGRO_USER_HOME_PATH        Path to the user's home directory.
+ALLEGRO_USER_SETTINGS_PATH    Path to per-user settings directory.
+ALLEGRO_SYSTEM_SETTINGS_PATH  Path to system-wide settings directory.
+ALLEGRO_EXENAME_PATH          The full path to the executable. 
+
+
+Returns NULL on failure.  The returned path should be freed with
+[al_destroy_path].
+
+See also: [al_set_app_name], [al_set_org_name], [al_destroy_path]
+
+## API: al_set_app_name
+
+Sets the global application name.
+
+The application name is used by [al_get_standard_path] to build the full path to
+an application's files.
+
+This function may be called before [al_init] or [al_install_system].
+
+See also: [al_get_app_name], [al_set_org_name]
+
+## API: al_set_org_name
+
+Sets the global organization name.
+
+The organization name is used by [al_get_standard_path] to build the full path to
+an application's files.
+
+This function may be called before [al_init] or [al_install_system].
+
+See also: [al_get_org_name], [al_set_app_name]
+
+## API: al_get_app_name
+
+Returns the global application name string.
+
+See also: [al_set_app_name]
+
+## API: al_get_org_name
+
+Returns the global organization name string.
+
+See also: [al_set_org_name]
+
+## API: al_get_system_driver
+
+Returns the currently active system driver, or NULL.
+
+## API: al_get_system_config
+
+Returns the configuration for the installed system, if any, or NULL otherwise.
+This is mainly used for configuring Allegro and its addons.
+

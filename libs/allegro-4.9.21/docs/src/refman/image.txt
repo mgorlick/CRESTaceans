@@ -1,0 +1,30 @@
+# Image I/O addon
+
+These functions are declared in the following header file.
+Link with allegro_image.
+
+    #include <allegro5/allegro_image.h>
+    
+
+## API: al_init_image_addon
+
+Initializes the image addon.  This registers bitmap format handlers for
+[al_load_bitmap], [al_load_bitmap_f], [al_save_bitmap], [al_save_bitmap_f].
+
+The following types are built into the Allegro image addon and guaranteed to be
+available: BMP, PCX, TGA. Every platform also supports JPEG and PNG
+via external dependencies.
+
+Other formats may be available depending on the operating system and
+installed libraries, but are not guaranteed and should not be assumed to
+be universally available. 
+
+## API: al_shutdown_image_addon
+
+Shut down the image addon. This is done automatically at program exit,
+but can be called any time the user wishes as well.
+
+## API: al_get_allegro_image_version
+
+Returns the (compiled) version of the addon, in the same format as
+[al_get_allegro_version].

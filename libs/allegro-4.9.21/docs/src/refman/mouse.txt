@@ -1,0 +1,203 @@
+# Mouse
+
+These functions are declared in the main Allegro header file:
+
+    #include <allegro5/allegro.h>
+
+## API: ALLEGRO_MOUSE_STATE
+
+Public fields (read only):
+
+* x - mouse x
+* y - mouse y
+* w, z - Mouse wheel position (2D 'ball')
+
+buttons - mouse buttons
+
+See also: [al_get_mouse_state], [al_get_mouse_state_axis], [al_mouse_button_down]
+
+## API: al_install_mouse
+
+Install a mouse driver.
+
+Returns true if successful. If a driver was already installed, nothing
+happens and true is returned.
+
+## API: al_is_mouse_installed
+
+Returns true if [al_install_mouse] was called successfully.
+
+## API: al_uninstall_mouse
+
+Uninstalls the active mouse driver, if any.  This will
+automatically unregister the mouse event source with any event
+queues.
+
+This function is automatically called when Allegro is shut down.
+
+## API: al_get_mouse_num_axes
+
+Return the number of buttons on the mouse.
+
+## API: al_get_mouse_num_buttons
+
+Return the number of buttons on the mouse.
+
+## API: al_get_mouse_state
+
+Save the state of the mouse specified at the time the function
+is called into the given structure.
+
+See also: [ALLEGRO_MOUSE_STATE], [al_get_mouse_state_axis]
+
+## API: al_get_mouse_state_axis
+
+Extract the mouse axis value from the saved state.
+
+See also: [ALLEGRO_MOUSE_STATE], [al_get_mouse_state], [al_mouse_button_down]
+
+## API: al_mouse_button_down
+
+Return true if the mouse button specified was held down in the state
+specified.
+
+See also: [ALLEGRO_MOUSE_STATE], [al_get_mouse_state], [al_get_mouse_state_axis]
+
+## API: al_set_mouse_xy
+
+Try to position the mouse at the given coordinates on the given display.
+The mouse movement resulting from a successful move will generate an
+ALLEGRO_EVENT_MOUSE_WARPED event.
+
+Returns true on success, false on failure.
+
+See also: [al_set_mouse_z], [al_set_mouse_w]
+
+## API: al_set_mouse_z
+
+Set the mouse wheel position to the given value.
+
+Returns true on success, false on failure.
+
+See also: [al_set_mouse_w]
+
+## API: al_set_mouse_w
+
+Set the second mouse wheel position to the given value.
+
+Returns true on success, false on failure.
+
+See also: [al_set_mouse_z]
+
+## API: al_set_mouse_axis
+
+Set the given mouse axis to the given value.
+
+The axis number must not be 0 or 1, which are the X and Y axes.
+Use [al_set_mouse_xy] for that.
+
+Returns true on success, false on failure.
+
+See also: [al_set_mouse_xy], [al_set_mouse_z], [al_set_mouse_w]
+
+## API: al_get_mouse_event_source
+
+Retrieve the mouse event source.
+
+Returns NULL if the mouse subsystem was not installed.
+
+
+## Mouse cursors
+
+### API: al_create_mouse_cursor
+
+Create a mouse cursor from the bitmap provided.
+
+Returns a pointer to the cursor on success, or NULL on failure.
+
+See also: [al_set_mouse_cursor], [al_destroy_mouse_cursor]
+
+### API: al_destroy_mouse_cursor
+
+Free the memory used by the given cursor.
+
+Has no effect if `cursor` is NULL.
+
+See also: [al_create_mouse_cursor]
+
+### API: al_set_mouse_cursor
+
+Set the given mouse cursor to be the current mouse cursor for the given
+display.
+
+If the cursor is currently 'shown' (as opposed to 'hidden') the change is
+immediately visible.
+
+Returns true on success, false on failure.
+
+See also: [al_set_system_mouse_cursor], [al_show_mouse_cursor],
+[al_hide_mouse_cursor]
+
+### API: al_set_system_mouse_cursor
+
+Set the given system mouse cursor to be the current mouse cursor
+for the given display.  If the cursor is currently 'shown' (as opposed
+to 'hidden') the change is immediately visible.
+
+If the cursor doesn't exist on the current platform another cursor will be
+silently be substituted.
+
+The cursors are:
+
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_DEFAULT
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_ARROW
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_BUSY
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_QUESTION
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_EDIT
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_MOVE
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_RESIZE_N
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_RESIZE_W
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_RESIZE_S
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_RESIZE_E
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_RESIZE_NW
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_RESIZE_SW
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_RESIZE_SE
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_RESIZE_NE
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_PROGRESS
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_PRECISION
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_LINK
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_ALT_SELECT
+* ALLEGRO_SYSTEM_MOUSE_CURSOR_UNAVAILABLE
+
+Returns true on success, false on failure.
+
+See also: [al_set_mouse_cursor], [al_show_mouse_cursor], [al_hide_mouse_cursor]
+
+### API: al_get_mouse_cursor_position
+
+On platforms where this information is available, this function returns the
+global location of the mouse cursor, relative to the desktop. You should
+not normally use this function, as the information is not useful except
+for special scenarios as moving a window.
+
+Returns true on success, false on failure.
+
+### API: al_hide_mouse_cursor
+
+Hide the mouse cursor in the given display. This has no effect on what the
+current mouse cursor looks like; it just makes it disappear.
+
+Returns true on success (or if the cursor already was hidden), false
+otherwise.
+
+See also: [al_show_mouse_cursor]
+
+### API: al_show_mouse_cursor
+
+Make a mouse cursor visible in the given display.
+
+Returns true if a mouse cursor is shown as a result of the call (or one
+already was visible), false otherwise.
+
+See also: [al_hide_mouse_cursor]
+
