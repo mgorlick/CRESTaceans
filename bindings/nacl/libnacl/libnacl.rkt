@@ -94,10 +94,13 @@ e1 e3 e5 e7 e9 e11|#
   ;; the result is the hash after applying the operation to all items in the list
   ;; and is equivalent to, but faster than, making a new hash from a list of pairs
   (define (double-lookup k ahash)
-    (if (and (hash-has-key? ahash k) (hash-has-key? ahash (hash-ref ahash k)))
-        (hash-remove (hash-set ahash k (hash-ref ahash (hash-ref ahash k))) 
-                     (hash-ref ahash k))
+    (if (hash-has-key? ahash k) 
+        (let ([j (hash-ref ahash k)])
+          (if (hash-has-key? ahash j)
+              (hash-remove (hash-set ahash k (hash-ref ahash j)) j)
+              ahash))
         ahash))
+  
   (define (cleanup* ahash)
     (foldl double-lookup ahash (hash-keys ahash)))
   
@@ -105,12 +108,12 @@ e1 e3 e5 e7 e9 e11|#
 
 ; merge: given two hashtables with corresponding entries: H1: (K,J) and H2: (J,V)
 ; produce a new hashtable with entries (K,V)
-; remove all the entries (N,M) in H1 where M is not a key in H2
 (define (merge h1 h2)
   (define (merge-an-entry k h)
-    (if (hash-has-key? h2 (hash-ref h k))
-        (hash-set h k (hash-ref h2 (hash-ref h k)))
-        h))
+    (let ([j (hash-ref h k)])
+      (if (hash-has-key? h2 j)
+          (hash-set h k (hash-ref h2 j))
+          h)))
   (let ([h1-keys (hash-keys h1)])
     (foldl merge-an-entry h1 h1-keys)))
 
