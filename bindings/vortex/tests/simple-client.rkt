@@ -7,8 +7,7 @@
 
 (define (simple-client)
   (context
-   ;[#f #f #f]
-   [#f #t "/home/kylestrasser/racket/lib/racket/collects/openssl/test.pem"]
+   [#f #f #f]
    (printf "connecting to localhost:44016...~n")
    (connection 
     [context "localhost" "44016" #f #f]
