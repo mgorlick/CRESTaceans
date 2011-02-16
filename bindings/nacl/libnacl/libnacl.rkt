@@ -1,153 +1,116 @@
 #lang racket
 
-(require ffi/unsafe)
+(require "diviner.rkt"
+         ffi/unsafe
+         racket/runtime-path)
+(provide (all-defined-out))
 
-(define libnacl (ffi-lib "libnacl"))
+(define-runtime-path box-header "headers/crypto_box.h")
 
-(define-syntax (define-string-ids stx)
-  (syntax-case stx ()
-    [(k '([e1 . e2]))
-     (with-syntax ([e1-id (datum->syntax #'k (string->symbol (syntax->datum #'e1)))])
-       #'(define e1-id (if (regexp-match-exact? "[0-9]+" e2) (string->number e2) e2))
-       )]
-    [(k '([a1 . a2] b ...))
-     #'(begin (k '([a1 . a2]))
-              (k '(b ...)))]))
+(define cryptobox (get-real-names box-header))
 
-#|(define-string-ids '(("e1" . "2"))) ; -> (define e1 2)
-(define-string-ids '(("e3" . "e4") ("e5" . "e6")))
-(define-string-ids '(("e7" . "e8") ("e9" . "e10") ("e11" . "e12")))
-e1 e3 e5 e7 e9 e11|#
+(define-constants cryptobox
+  crypto-box-SECRETKEYBYTES crypto-box-PUBLICKEYBYTES crypto-box-ZEROBYTES
+  crypto-box-BEFORENMBYTES crypto-box-BOXZEROBYTES crypto-box-NONCEBYTES
+  crypto-box-IMPLEMENTATION crypto-box-PRIMITIVE)
 
-; read-lines: pathstring -> (listof string)
-; return all the lines in a file
-(define (read-lines prefix filepath)
-  (with-input-from-file (string-append prefix filepath)
-    (λ () (stream->list (in-lines)))))
-
-; find-includes: (listof string) -> (listof string)
-; return only the strings in the input list that match
-; C's #include preprocessor macro
-(define (find-includes filecontents)
-  (filter-map 
-   (λ (i) (and (regexp-match-exact? "^#include +\".*\\.h\"$" i) i))
-   filecontents))
-
-; find-defines: (listof string) -> (listof string)
-; return only the strings in the input list that match 
-; the simplest form of C's #define preprocessor macro
-; of form #define <identifier-or-number> <identifier-or-number>
-;; e.g., returned:
-;; #define CONSTANT1 CONSTANT2
-;; #define CONSTANT2 42
-;; not returned:
-;; #define CONSTANT1(x,y) ((x + y)
-(define (find-defines filecontents)
-  (filter-map 
-   (λ (i) (and (regexp-match-exact? "^#define +[A-Z|a-z|0-9|_]+ +\"?[-|A-Z|a-z|0-9|_|/]+\"?$" i) i))
-   filecontents))
-
-; find-included-defines: string -> (listof string)
-; returns the definitions (parsed according to the rules of `find-defines')
-; that would be imported in the given C #include string
-; example input: "#include \"helloworld.h\""
-(define (find-included-defines prefix i)
-  (find-defines (read-lines prefix (substring i 10 (- (string-length i) 1)))))
-
-; get-aliases: (listof string) -> (hash string string)
-; ake a list of lines of the format produced by `find-defines'
-; e.g., "#define CONSTANT1 CONSTANT2"
-; and return a hash map cons cell form of the definition
-; e.g., #hash(("CONSTANT1" . "CONSTANT2"))
-(define (get-aliases dfs)
-  (make-immutable-hash 
-   (map (λ (df)
-          (let ([matches (regexp-split " " df)])
-            (cons (second matches) (third matches))))
-        dfs)))
-
-; second-level-names: (listof string) -> (hash string string)
-; return the nested (i.e., #included)
-; #define definitions from the given input lines
-(define (second-level-names prefix lines)
-  ; assume we only want the first include. (in NaCl there's only one per file)
-  (get-aliases (find-included-defines prefix (first (find-includes lines)))))
-
-; top-level-names: (listof string) -> (hash string string)
-; return the #define definitions in the provided input list
-(define (top-level-names lines)
-  (get-aliases (find-defines lines)))
-
-; cleanup: remove all values J from hash table H
-; that also act as keys to H
-; and reassign all V in (J,V) to K in (K,J)
-; to yield a new hash of the form (K,V)
-; plus the extra rows that do not fall into this formulation
-; key1 -> key2   }
-; ke2 -> value2  } => key1 -> value2
-; key3 -> value3   => key3 -> val3
-(define (cleanup h)
+(define-functions cryptobox
+  #|C NaCl provides a crypto_box_keypair function callable as follows:
+     #include "crypto_box.h"
+     
+     unsigned char pk[crypto_box_PUBLICKEYBYTES];
+     unsigned char sk[crypto_box_SECRETKEYBYTES];
+     
+     crypto_box_keypair(pk,sk);
+The crypto_box_keypair function randomly generates a secret key and a corresponding public key. It puts the secret key into sk[0], sk[1], ..., sk[crypto_box_SECRETKEYBYTES-1] and puts the public key into pk[0], pk[1], ..., pk[crypto_box_PUBLICKEYBYTES-1]. It then returns 0.|#
   
-  ;; to foldl over an immutable hash means to do an operation on the 
-  ;; "current state" of that hash, yielding a new hash, then applying 
-  ;; the same operation to the next value in the list.
-  ;; the result is the hash after applying the operation to all items in the list
-  ;; and is equivalent to, but faster than, making a new hash from a list of pairs
-  (define (double-lookup k ahash)
-    (if (hash-has-key? ahash k) 
-        (let ([j (hash-ref ahash k)])
-          (if (hash-has-key? ahash j)
-              (hash-remove (hash-set ahash k (hash-ref ahash j)) j)
-              ahash))
-        ahash))
+  (crypto-box-keypair (_fun (pk : (_bytes o crypto-box-PUBLICKEYBYTES))
+                            (sk : (_bytes o crypto-box-SECRETKEYBYTES))
+                            -> (r : _int) -> (values pk sk r)))
   
-  (define (cleanup* ahash)
-    (foldl double-lookup ahash (hash-keys ahash)))
+  #|C NaCl also provides a crypto_box function callable as follows:
+
+     #include "crypto_box.h"
+     
+     const unsigned char pk[crypto_box_PUBLICKEYBYTES];
+     const unsigned char sk[crypto_box_SECRETKEYBYTES];
+     const unsigned char n[crypto_box_NONCEBYTES];
+     const unsigned char m[...]; unsigned long long mlen;
+     unsigned char c[...];
+     
+     crypto_box(c,m,mlen,n,pk,sk);
+
+The crypto_box function encrypts and authenticates a message m[0], ..., m[mlen-1] using the sender's secret key sk[0], sk[1], ..., sk[crypto_box_SECRETKEYBYTES-1], the receiver's public key pk[0], pk[1], ..., pk[crypto_box_PUBLICKEYBYTES-1], and a nonce n[0], n[1], ..., n[crypto_box_NONCEBYTES-1]. The crypto_box function puts the ciphertext into c[0], c[1], ..., c[mlen-1]. It then returns 0.|#
   
-  (cleanup* h))
+  (crypto-box (_fun (ciphertext : (_bytes o message-length))
+                    (message : _bytes)
+                    (message-length : _long = (bytes-length message))
+                    (nonce : _bytes) (pk : _bytes) (sk : _bytes)
+                    -> (r : _int) -> (values ciphertext r)))
+  
+  #|C NaCl also provides a crypto_box_open function callable as follows:
 
-; merge: given two hashtables with corresponding entries: H1: (K,J) and H2: (J,V)
-; produce a new hashtable with entries (K,V)
-(define (merge h1 h2)
-  (define (merge-an-entry k h)
-    (let ([j (hash-ref h k)])
-      (if (hash-has-key? h2 j)
-          (hash-set h k (hash-ref h2 j))
-          h)))
-  (let ([h1-keys (hash-keys h1)])
-    (foldl merge-an-entry h1 h1-keys)))
+     #include "crypto_box.h"
+     
+     const unsigned char pk[crypto_box_PUBLICKEYBYTES];
+     const unsigned char sk[crypto_box_SECRETKEYBYTES];
+     const unsigned char n[crypto_box_NONCEBYTES];
+     const unsigned char c[...]; unsigned long long clen;
+     unsigned char m[...];
+     
+     crypto_box_open(m,c,clen,n,pk,sk);
 
-; hash-values-filter: remove all entries in the hash
-; whose values match the regex
-(define (hash-values-filter ahash rx do-if-match)
-  (define (filter-matches key ahash)
-    (if (regexp-match-exact? rx (hash-ref ahash key))
-        (do-if-match ahash key)
-        ahash))
-  (foldl filter-matches ahash (hash-keys ahash)))
+The crypto_box_open function verifies and decrypts a ciphertext c[0], ..., c[clen-1] using the receiver's secret key sk[0], sk[1], ..., sk[crypto_box_SECRETKEYBYTES-1], the sender's public key pk[0], pk[1], ..., pk[crypto_box_PUBLICKEYBYTES-1], and a nonce n[0], ..., n[crypto_box_NONCEBYTES-1]. The crypto_box_open function puts the plaintext into m[0], m[1], ..., m[clen-1]. It then returns 0.|#
+  
+  (crypto-box-open (_fun (message : (_bytes o cipher-length))
+                         (ciphertext : _bytes)
+                         (cipher-length : _long = (bytes-length ciphertext))
+                         (nonce : _bytes) (pk : _bytes) (sk : _bytes)
+                         -> (r : _int) -> (values message r)))
+  
+  #|Applications that send several messages to the same receiver can gain speed by splitting crypto_box into two steps, crypto_box_beforenm and crypto_box_afternm. Similarly, applications that receive several messages from the same sender can gain speed by splitting crypto_box_open into two steps, crypto_box_beforenm and crypto_box_open_afternm.
 
-(define (hash-dequote-string-value ahash key)
-  (hash-set ahash key (regexp-replace* "\"" (hash-ref ahash key) "")))
+The crypto_box_beforenm function is callable as follows:
 
-; get-real-names: pathstring -> (hash string string)
-; return the final combination of "prettified" names and constants in the API
-; with their actual (installation-specific) values, for use in looking up
-; in the shared lib (or defining as constant)
-(define (get-real-names prefix filename)
-  (let ([lines (read-lines prefix filename)])
-    (hash-values-filter
-     (hash-values-filter 
-      (merge (top-level-names lines) 
-             (cleanup (second-level-names prefix lines)))
-      "\"-\"" hash-remove) ; get rid of "\"-\"" values
-     "\"[A-Z|a-z|0-9|_|/)]+\"" hash-dequote-string-value) ; replace "\"sha512\"" with "sha512"
-    ))
-
-(define get-from-headers (curry get-real-names "headers/"))
-
-(get-from-headers "crypto_box.h")
-(get-from-headers "crypto_hash.h")
-(get-from-headers "crypto_hashblocks.h")
-(get-from-headers "crypto_onetimeauth.h")
-(get-from-headers "crypto_secretbox.h")
-(get-from-headers "crypto_stream.h")
+     #include "crypto_box.h"
+     
+     unsigned char k[crypto_box_BEFORENMBYTES];
+     const unsigned char pk[crypto_box_PUBLICKEYBYTES];
+     const unsigned char sk[crypto_box_SECRETKEYBYTES];
+     
+     crypto_box_beforenm(k,pk,sk);|#
+  
+  (crypto-box-beforenm (_fun (k : (_bytes o crypto-box-BEFORENMBYTES))
+                             (pk : _bytes) (sk : _bytes)
+                             -> (r : _int) -> (values k r)))
+  
+  #|The crypto_box_afternm function is callable as follows:
+     #include "crypto_box.h"
+     
+     const unsigned char k[crypto_box_BEFORENMBYTES];
+     const unsigned char n[crypto_box_NONCEBYTES];
+     const unsigned char m[...]; unsigned long long mlen;
+     unsigned char c[...];
+     
+     crypto_box_afternm(c,m,mlen,n,k);|#
+  
+  (crypto-box-afternm (_fun (ciphertext : (_bytes o message-length))
+                            (message : _bytes) (message-length : _long = (bytes-length message))
+                            (n : _bytes) (k : _bytes)
+                            -> (r : _int) -> (values ciphertext r)))
+  
+  #|The crypto_box_afternm function is callable as follows:
+     #include "crypto_box.h"
+     
+     const unsigned char k[crypto_box_BEFORENMBYTES];
+     const unsigned char n[crypto_box_NONCEBYTES];
+     const unsigned char m[...]; unsigned long long mlen;
+     unsigned char c[...];
+     
+     crypto_box_afternm(c,m,mlen,n,k);|#
+  
+  (crypto-box-open-afternm (_fun (message : (_bytes o cipher-length))
+                                 (ciphertext : _bytes)
+                                 (cipher-length : _long = (bytes-length ciphertext))
+                                 (n : _bytes) (k : _bytes)
+                                 -> (r : _int) -> (values message r))))

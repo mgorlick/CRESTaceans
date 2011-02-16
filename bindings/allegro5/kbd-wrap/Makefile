@@ -13,7 +13,7 @@ so: wrap.o
 	cc $(CFLAGS) -o $@ $<
 
 install:
-	sudo cp $(SONAME).$(VERSION_FULL) $(RACKET_LIBS)
+	cp $(SONAME).$(VERSION_FULL) $(RACKET_LIBS)
 
 clean:
 	rm *.o

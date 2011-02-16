@@ -13,7 +13,7 @@ bindings:
 	cd bindings/gstreamer/common-wrap && make
 
 install:
-	cd bindings/gstreamer/common-wrap && make install
+	cd bindings/gstreamer/common-wrap && make install RACKET_LIBS=$(RACKET_LIBS)
 
 clean:
 	find . -name "compiled" -type d -print0 | xargs -0 rm -rfv
