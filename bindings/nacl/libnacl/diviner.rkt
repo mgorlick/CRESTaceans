@@ -1,4 +1,5 @@
-#lang typed/racket
+#lang racket
+
 (provide (all-defined-out))
 
 ; read-lines: pathstring -> (listof string)

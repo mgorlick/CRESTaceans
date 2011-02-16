@@ -5,6 +5,8 @@
          racket/runtime-path)
 (provide (all-defined-out))
 
+(define libnacl (ffi-lib "libnacl"))
+
 (define (und->dash name)
   (regexp-replaces name '((#rx"-" "_"))))
 
@@ -16,7 +18,7 @@
      (begin (define-constants ahash id1) (define-constants ahash id2 ...))]))
 
 (define-syntax define-functions
-  (syntax-rules (=)
+  (syntax-rules ()
     [(_ ahash (id funspec))
      (define id (get-ffi-obj (hash-ref ahash (und->dash 'id)) libnacl funspec))]
     [(_ ahash e1 e2 ...)
