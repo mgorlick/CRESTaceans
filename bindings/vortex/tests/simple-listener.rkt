@@ -29,7 +29,7 @@
   (define application-group (make-thread-group))
   (context
    ;[#f #f #f]
-   [#f #t "/usr/racket/lib/racket/collects/openssl/test.pem"]
+   [#f #t "/home/kylestrasser/racket/lib/racket/collects/openssl/test.pem"]
    (parameterize ([current-thread-group application-group])
      (printf "Server on~n")
      (vortex-profiles-register context Plain-Profile-URI start-channel #f
