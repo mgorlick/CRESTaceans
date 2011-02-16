@@ -1,10 +1,5 @@
-#lang racket
-
-(require ffi/unsafe
-         racket/runtime-path)
+#lang typed/racket
 (provide (all-defined-out))
-
-(define libnacl (ffi-lib "libnacl"))
 
 ; read-lines: pathstring -> (listof string)
 ; return all the lines in a file
@@ -122,22 +117,3 @@
       "\"-\"" hash-remove) ; get rid of "\"-\"" values
      "\"[A-Z|a-z|0-9|_|/)]+\"" hash-dequote-string-value) ; replace "\"sha512\"" with "sha512"
     ))
-
-(define (und->dash name)
-  (regexp-replaces name '((#rx"-" "_"))))
-(define (dash->und name)
-  (regexp-replaces name '((#rx"_" "-"))))
-
-(define-syntax define-constants
-  (syntax-rules ()
-    [(_ ahash id)
-     (define id (let ([v (hash-ref ahash (und->dash 'id))]) (or (string->number v) v)))]
-    [(_ ahash id1 id2 ...)
-     (begin (define-constants ahash id1) (define-constants ahash id2 ...))]))
-
-(define-syntax define-functions
-  (syntax-rules (=)
-    [(_ ahash (id funspec))
-     (define id (get-ffi-obj (hash-ref ahash (und->dash 'id)) libnacl funspec))]
-    [(_ ahash e1 e2 ...)
-     (begin (define-functions ahash e1) (define-functions ahash e2 ...))]))
