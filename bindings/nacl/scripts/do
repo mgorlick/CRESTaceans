@@ -37,8 +37,7 @@ mkdir -p "$top"
 mkdir -p "$bin"
 mkdir -p "$lib"
 mkdir -p "$include"
-
-cp -t $top "locate" "soize"
+mkdir -p $top/so
 
 # exec >"$top/log"
 # exec 2>&1
@@ -127,6 +126,9 @@ do
   okar-$abi cr "$lib/$abi/lib${project}.a" "$work/${project}_base.o"
   ( ranlib "$lib/$abi/lib${project}.a" || exit 0 )
 done
+
+rm -rf "$work"
+mkdir -p "$work"
 
 # loop over operations
 cat OPERATIONS \
@@ -339,6 +341,7 @@ do
 	    for f in *.o
 	    do
 	      cp -p "$f" "../best/${opi}-$f"
+	      cp -p "$f" "$top/so/${opi}-$f" # modification: also copy to so-building dir
 	    done
 	    cp -p "$op.h" "../$op.h"
 	    cp -p "$o.h" "../$o.h"
@@ -419,4 +422,10 @@ done
 
 echo "=== `date` === finishing"
 
-sh $top/soize
+cp do nmgrep soize "$2/scripts" # back up the current version of the scripts to the repo
+cp -t $top "nmgrep" "soize"
+cd $top
+find . -name "randombytes.o" -print0 | xargs -0 cp -t "so"
+./soize $1 # = racket lib folder
+cd $top
+find "include" -name "*.h" -print0 | xargs -0 cp -t "$2/libnacl/headers" # = nacl libnacl/header folder

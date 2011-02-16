@@ -1,7 +1,7 @@
 #! /bin/sh
 
-mkdir -p so
-cp lib/x86/*.o so
-cp work/best/*.o so
+echo $1
 cd so
+rm *wrapper*
 gcc -shared -o libnacl.so -lc `find . -name "*.o"`
+cp libnacl.so $1
