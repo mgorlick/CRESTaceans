@@ -7,6 +7,8 @@
 ; FFI
 (define chipmunk-lib (ffi-lib "libchipmunk"))
 
+;; Current version: supports commit r437 (-> libchipmunk.so.5.1)
+
 (define-syntax-rule (define-chipmunk obj typ)
   (define obj (get-ffi-obj 'obj chipmunk-lib typ)))
 (define-syntax-rule (define-chipmunk* typ obj ...)
