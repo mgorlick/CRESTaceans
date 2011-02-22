@@ -4,6 +4,8 @@
 (provide (all-defined-out))
 
 (define _ogg_int64 _int64)
+(define ogg64size (ctype-sizeof _ogg_int64))
+(define longsize (ctype-sizeof _long))
 
 (define-cstruct _oggpack-buffer
   ([endbyte _long]
