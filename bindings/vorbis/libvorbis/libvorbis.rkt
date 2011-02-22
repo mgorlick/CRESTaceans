@@ -7,8 +7,10 @@
 
 (define libvorbis (ffi-lib "libvorbis"))
 
+(define-syntax-rule (defvorbis+ binding obj typ)
+  (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) libvorbis typ)))
 (define-syntax-rule (defvorbis obj typ)
-  (define obj (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) libvorbis typ)))
+  (defvorbis+ obj obj typ))
 (define-syntax-rule (defvorbis* typ obj ...)
   (begin (defvorbis obj typ)
          ...))
@@ -98,6 +100,12 @@
 (defvorbis* (_fun _vorbis-info-pointer -> _void)
   vorbis-info-init
   vorbis-info-clear)
+
+(defvorbis+ vorbis-info-new vorbis-info-init
+  (_fun (i : (_ptr o _vorbis-info))
+        -> _void
+        -> i))
+
 (defvorbis vorbis-block-init (_fun _vorbis-dsp-state-pointer _vorbis-block-pointer -> _int))
 (defvorbis vorbis-block-clear (_fun _vorbis-block-pointer -> _int))
 (defvorbis* (_fun _vorbis-comment-pointer -> _void)
