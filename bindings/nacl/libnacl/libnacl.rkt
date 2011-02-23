@@ -63,7 +63,7 @@ The crypto_box function encrypts and authenticates a message m[0], ..., m[mlen-1
   
   (crypto-box (_fun (ciphertext : (_bytes o message-length))
                     (message : _bytes)
-                    (message-length : _long = (bytes-length message))
+                    (message-length : _ullong = (bytes-length message))
                     (nonce : _bytes) (pk : _bytes) (sk : _bytes)
                     -> (r : _int) -> (values ciphertext r)))
   
@@ -83,7 +83,7 @@ The crypto_box_open function verifies and decrypts a ciphertext c[0], ..., c[cle
   
   (crypto-box-open (_fun (message : (_bytes o cipher-length))
                          (ciphertext : _bytes)
-                         (cipher-length : _long = (bytes-length ciphertext))
+                         (cipher-length : _ullong = (bytes-length ciphertext))
                          (nonce : _bytes) (pk : _bytes) (sk : _bytes)
                          -> (r : _int) -> (values message r)))
   
@@ -114,7 +114,7 @@ The crypto_box_beforenm function is callable as follows:
      crypto_box_afternm(c,m,mlen,n,k);|#
   
   (crypto-box-afternm (_fun (ciphertext : (_bytes o message-length))
-                            (message : _bytes) (message-length : _long = (bytes-length message))
+                            (message : _bytes) (message-length : _ullong = (bytes-length message))
                             (n : _bytes) (k : _bytes)
                             -> (r : _int) -> (values ciphertext r)))
   
@@ -130,6 +130,6 @@ The crypto_box_beforenm function is callable as follows:
   
   (crypto-box-open-afternm (_fun (message : (_bytes o cipher-length))
                                  (ciphertext : _bytes)
-                                 (cipher-length : _long = (bytes-length ciphertext))
+                                 (cipher-length : _ullong = (bytes-length ciphertext))
                                  (n : _bytes) (k : _bytes)
                                  -> (r : _int) -> (values message r))))
