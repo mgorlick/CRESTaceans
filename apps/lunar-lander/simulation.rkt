@@ -49,7 +49,6 @@
               [shape (cpSpaceAddStaticShape space 
                                             (cpSegmentShapeNew staticBody 
                                                                real-v1 real-v2 100.0))])
-         (printf "Callback is a: ~s~n" first-callback)
          (cpSpaceAddCollisionHandler
           space (cpShape-collision_type ship) (cpShape-collision_type shape)
           first-callback
