@@ -135,6 +135,12 @@
 (defvorbis vorbis-synthesis-halfrate (_fun _vorbis-info-pointer _int -> _int))
 (defvorbis vorbis-synthesis-halfrate-p (_fun _vorbis-info-pointer -> _int))
 
+(defvorbis+ vorbis-dsp-state-new vorbis-synthesis-init
+  (_fun (d : (_ptr o _vorbis-dsp-state))
+        _vorbis-info-pointer
+        -> (r : _int)
+        -> (if (= r 0) d #f)))
+
 (defvorbis* (_fun _vorbis-block-pointer _ogg-packet-pointer -> _int)
   vorbis-synthesis
   vorbis-synthesis-trackonly)
