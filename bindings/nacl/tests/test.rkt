@@ -22,38 +22,24 @@
     (values pk sk)))
 
 (define (encrypt-message m receivers-pk senders-sk)
-  (let ([padded-message (bytes-append (make-bytes crypto-box-ZEROBYTES) m)]
-        [nonce (random-bytes crypto-box-NONCEBYTES)])
-    (printf "~a ~n" padded-message)
+  (let ([nonce (random-bytes crypto-box-NONCEBYTES)])
     (let-values ([(cipher r)
-                  (crypto-box padded-message nonce receivers-pk senders-sk)])
-      (printf "~a ~n" (bytes-length cipher))
+                  (crypto-box m nonce receivers-pk senders-sk)])
       (if (not (= 0 r))
           (error "Something is horribly wrong! No error codes in crypto box!")
           (values cipher nonce)))))
-
-(define (encrypt-test m n r-pk s-sk)
-   (let ([padded-message (bytes-append (make-bytes crypto-box-ZEROBYTES) m)])
-     (crypto-box padded-message n r-pk s-sk)))
 
 (define (decrypt-cipher c nonce senders-pk receivers-sk)
   (let-values ([(message r)
                 (crypto-box-open c nonce senders-pk receivers-sk)])
     (if (= -1 r)
-        (printf "Ciphertext verification failed. Message contents: ~a ~n" (bytes->string/latin-1 message))
+        (error "Ciphertext verification failed. Message contents: " (bytes->string/latin-1 message))
         message)))
 
 (define (test message)
   (let-values ([(cipher nonce) (encrypt-message message b-pk a-sk)])
-    (printf "~a~n" (bytes-length nonce))
-    (decrypt-cipher cipher nonce a-pk b-sk)))
-
-(define mynonce (random-bytes crypto-box-NONCEBYTES))
-(encrypt-test #"Hello" mynonce b-pk a-sk)
-(encrypt-test #"Hello" mynonce b-pk a-sk)
-(encrypt-test #"Hello" mynonce b-pk a-sk)
-(let-values ([(c r) (encrypt-test #"Hello" mynonce b-pk a-sk)])
-  (decrypt-cipher c mynonce a-pk b-sk))
+    (printf "Original message: ~a~n" message)
+    (printf "Decrypted message: ~a~n" (decrypt-cipher cipher nonce a-pk b-sk))))
 
 
 

@@ -61,11 +61,12 @@ The crypto_box_keypair function randomly generates a secret key and a correspond
 
 The crypto_box function encrypts and authenticates a message m[0], ..., m[mlen-1] using the sender's secret key sk[0], sk[1], ..., sk[crypto_box_SECRETKEYBYTES-1], the receiver's public key pk[0], pk[1], ..., pk[crypto_box_PUBLICKEYBYTES-1], and a nonce n[0], n[1], ..., n[crypto_box_NONCEBYTES-1]. The crypto_box function puts the ciphertext into c[0], c[1], ..., c[mlen-1]. It then returns 0.|#
   
-  (crypto-box (_fun (ciphertext : (_bytes o message-length))
-                    (message : _bytes)
+  (crypto-box (_fun (m n pk sk) ::
+                    (ciphertext : (_bytes o message-length))
+                    (message : _bytes = (bytes-append (make-bytes crypto-box-ZEROBYTES) m))
                     (message-length : _ullong = (bytes-length message))
-                    (nonce : _bytes) (pk : _bytes) (sk : _bytes)
-                    -> (r : _int) -> (values ciphertext r)))
+                    (n : _bytes) (pk : _bytes) (sk : _bytes)
+                    -> (r : _int) -> (values (subbytes ciphertext crypto-box-BOXZEROBYTES) r)))
   
   #|C NaCl also provides a crypto_box_open function callable as follows:
 
@@ -81,11 +82,12 @@ The crypto_box function encrypts and authenticates a message m[0], ..., m[mlen-1
 
 The crypto_box_open function verifies and decrypts a ciphertext c[0], ..., c[clen-1] using the receiver's secret key sk[0], sk[1], ..., sk[crypto_box_SECRETKEYBYTES-1], the sender's public key pk[0], pk[1], ..., pk[crypto_box_PUBLICKEYBYTES-1], and a nonce n[0], ..., n[crypto_box_NONCEBYTES-1]. The crypto_box_open function puts the plaintext into m[0], m[1], ..., m[clen-1]. It then returns 0.|#
   
-  (crypto-box-open (_fun (message : (_bytes o cipher-length))
-                         (ciphertext : _bytes)
+  (crypto-box-open (_fun (c n pk sk) :: 
+                         (message : (_bytes o cipher-length))
+                         (ciphertext : _bytes = (bytes-append (make-bytes crypto-box-BOXZEROBYTES) c))
                          (cipher-length : _ullong = (bytes-length ciphertext))
-                         (nonce : _bytes) (pk : _bytes) (sk : _bytes)
-                         -> (r : _int) -> (values message r)))
+                         (n : _bytes) (pk : _bytes) (sk : _bytes)
+                         -> (r : _int) -> (values (subbytes message crypto-box-ZEROBYTES) r)))
   
   #|Applications that send several messages to the same receiver can gain speed by splitting crypto_box into two steps, crypto_box_beforenm and crypto_box_afternm. Similarly, applications that receive several messages from the same sender can gain speed by splitting crypto_box_open into two steps, crypto_box_beforenm and crypto_box_open_afternm.
 
