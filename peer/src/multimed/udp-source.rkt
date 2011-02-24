@@ -7,13 +7,12 @@
 
 ;; UDP source component
 
-(define (udp-socket port)
-  (let ([s (udp-open-socket)])
-    (udp-bind! s #f port)
-    s))
-
-(define/contract (udp-source port . sinks)
-  ([number?] #:rest (listof thread?) . ->* . void)
+(define (udp-source port parent . sinks)
+  (define (udp-socket port)
+    (let ([s (udp-open-socket)])
+      (udp-bind! s #f port)
+      s))
+  
   (let ([sock (udp-socket port)]
         [buffer (make-bytes 10000)])
     (let loop ()

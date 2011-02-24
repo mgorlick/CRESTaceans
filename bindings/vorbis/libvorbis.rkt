@@ -110,8 +110,8 @@
 (defvorbis vorbis-block-clear (_fun _vorbis-block-pointer -> _int))
 (defvorbis+ vorbis-block-new vorbis-block-init
   (_fun _vorbis-dsp-state-pointer (b : (_ptr o _vorbis-block))
-        -> _int
-        -> b))
+        -> (r : _int)
+        -> (if (= r 0) b r)))
 
 (defvorbis* (_fun _vorbis-comment-pointer -> _void)
   vorbis-comment-init
@@ -139,11 +139,13 @@
   (_fun (d : (_ptr o _vorbis-dsp-state))
         _vorbis-info-pointer
         -> (r : _int)
-        -> (if (= r 0) d #f)))
+        -> (if (= r 0) d r)))
 
 (defvorbis* (_fun _vorbis-block-pointer _ogg-packet-pointer -> _int)
   vorbis-synthesis
   vorbis-synthesis-trackonly)
-(defvorbis* (_fun _vorbis-dsp-state-pointer (_ptr io (_ptr io _float)) -> _int)
+(defvorbis* (_fun _vorbis-dsp-state-pointer (samples : (_ptr o _pointer))
+                                                     -> (r : _int)
+                                                     -> (values r samples))
   vorbis-synthesis-pcmout
   vorbis-synthesis-lapout)
