@@ -145,7 +145,11 @@
   vorbis-synthesis
   vorbis-synthesis-trackonly)
 (defvorbis* (_fun _vorbis-dsp-state-pointer (samples : (_ptr o _pointer))
-                                                     -> (r : _int)
-                                                     -> (values r samples))
+                  -> (r : _int)
+                  -> (values r samples))
   vorbis-synthesis-pcmout
   vorbis-synthesis-lapout)
+
+(defvorbis+ vorbis-synthesis-pcmout-countonly vorbis-synthesis-pcmout
+  (_fun _vorbis-dsp-state-pointer (samples : _pointer = #f)
+        -> _int))
