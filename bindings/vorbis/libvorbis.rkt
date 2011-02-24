@@ -6,6 +6,7 @@
          (all-from-out "oggpack.rkt"))
 
 (define libvorbis (ffi-lib "libvorbis"))
+(define libvorbis/adds (ffi-lib "libracket-vorbis-adds" "1.0"))
 
 (define-syntax-rule (defvorbis+ binding obj typ)
   (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) libvorbis typ)))
@@ -13,6 +14,14 @@
   (defvorbis+ obj obj typ))
 (define-syntax-rule (defvorbis* typ obj ...)
   (begin (defvorbis obj typ)
+         ...))
+
+(define-syntax-rule (defvorbis~+ binding obj typ)
+  (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) libvorbis/adds typ)))
+(define-syntax-rule (defvorbis~ obj typ)
+  (defvorbis~+ obj obj typ))
+(define-syntax-rule (defvorbis~* typ obj ...)
+  (begin (defvorbis~ obj typ)
          ...))
 
 (define-cstruct _alloc-chain
@@ -152,4 +161,20 @@
 
 (defvorbis+ vorbis-synthesis-pcmout-countonly vorbis-synthesis-pcmout
   (_fun _vorbis-dsp-state-pointer (samples : _pointer = #f)
+        -> _int))
+
+(defvorbis~ copy-buffer-to-packet
+  (_fun (packet box bufferlen) :: 
+        (packet : _ogg-packet-pointer)
+        (box : (_box (_list io _ubyte bufferlen)))
+        -> _void))
+
+(defvorbis~ print-buffer
+  (_fun _ogg-packet-pointer -> _void))
+
+(defvorbis~ pcmout-wrapper
+  (_fun (a b c d) ::
+        (a : _vorbis-dsp-state-pointer)
+        (b : (_box (_vector io _float c)))
+        (d : _int)
         -> _int))

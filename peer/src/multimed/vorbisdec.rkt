@@ -10,9 +10,8 @@
 
 (define (go)
   (define pid (current-thread))
-  (launch-threads ([t1 (vorbis-decode pid)]
-                   [t2 (udp-source 44000 pid t1)])
-                  (vector t1 t2)))
+  (launch-threads ([t2 (udp-source 44000 pid pid)])
+                  (vorbis-decode #f)))
 
 ;; Vorbis decoder component
 
@@ -20,7 +19,11 @@
   (make-ogg-packet buffer len (if (equal? #x1 (bytes-ref buffer 0)) 1 0) 0 -1 0))
 
 (define (data-packet buffer len)
-  (make-ogg-packet buffer len 0 0 -1 0))
+  (define p (make-ogg-packet (make-bytes len 255) len 0 0 -1 0))
+  (copy-buffer-to-packet p (box (bytes->list buffer)) len)
+  (print-buffer p)
+  (printf "~a~n" buffer)
+  p)
 
 (struct vorbisdec
   ([initialized? #:mutable]
@@ -37,38 +40,37 @@
     [(parent) (vorbis-decode (new-vorbis-decoder) parent)]
     [(vdec parent)
      (receive/match
-      [(list (? thread? thd) (? bytes? buffer))
-       (match (handle-vorbis-buffer! buffer vdec)
+      [(list (? thread? thd) (? bytes? buffer) (? integer? len))
+       (match (handle-vorbis-buffer! buffer vdec len)
          ['ok (vorbis-decode vdec parent)]
          ['fatal (printf "fatal error~n") #f]
          ['done #t])])]))
 
-(define (handle-vorbis-buffer! buffer vdec)
-  (let* ([len (bytes-length buffer)]
-         [typ (if (zero? len) 'empty (if (= 1 (bitwise-and 1 (bytes-ref buffer 0))) 'header 'data))])
+(define (handle-vorbis-buffer! buffer vdec len)
+  (let* ([typ (if (zero? len) 'empty (if (= 1 (bitwise-and 1 (bytes-ref buffer 0))) 'header 'data))])
     (match (cons typ (vorbisdec-initialized? vdec))
       [(cons 'empty #f) 'fatal] ; empty header is fatal
-      [(cons 'header #f) (header-packet! (header-packet buffer len) vdec)] ; non-empty header
+      [(cons 'header #f) (header-packet! (bytes-ref buffer 0) (header-packet buffer len) vdec)] ; non-empty header
       [(cons 'data #f) 'ok] ; data packet received before header initialization finished. skip
       [(cons 'empty #t) 'ok] ; empty da ta packet, but headers ok (since already initialized). just skip
       [(cons 'header #t) 'ok] ; looks like a header but we've initialized already? whatever. throw it away
       [(cons 'data #t) (data-packet! (data-packet buffer len) vdec)] ; non-empty data
       )))
 
-(define (header-packet! pkt vdec)
-  (match (bytes-ref (ogg-packet-packet pkt) 0)
+(define (header-packet! firstbyte pkt vdec)
+  (match firstbyte
     [#x01 (printf "identification packet~n")
           (if (= (vorbis-synthesis-idheader pkt) 1) 
               (begin (headerin pkt vdec)
                      'ok)
               'fatal)]
-[#x03 (printf "comment packet~n")
-      (headerin pkt vdec)
-      'ok]
-[#x05 (printf "type packet~n")
-      (headerin pkt vdec)
-      (type-packet! pkt vdec)]
-[_ (printf "unknown packet~n") 'ok]))
+    [#x03 (printf "comment packet~n")
+          (headerin pkt vdec)
+          'ok]
+    [#x05 (printf "type packet~n")
+          (headerin pkt vdec)
+          (type-packet! pkt vdec)]
+    [_ (printf "unknown packet~n") 'ok]))
 
 (define (headerin pkt vdec)
   (vorbis-synthesis-headerin (vorbisdec-info vdec) (vorbisdec-comment vdec) pkt))
@@ -88,11 +90,17 @@
 (define (data-packet! pkt vdec)
   (define block (vorbisdec-block vdec))
   (define dsp-state (vorbisdec-dsp-state vdec))
+  (define channels (vorbis-info-channels (vorbisdec-info vdec)))
   (vorbis-synthesis block pkt)
   (vorbis-synthesis-blockin dsp-state block)
-  (let-values ([(count* samples) (vorbis-synthesis-pcmout dsp-state)])
-    (vorbis-synthesis-read dsp-state count*)
-    (printf "~a~n" count*))
+  (let ([count (vorbis-synthesis-pcmout-countonly dsp-state)])
+    (when (> count 0)
+      (define storage (box (make-vector count 0.0)))
+      (let-values ([(count*) (pcmout-wrapper dsp-state storage count channels)])
+        ;(pcmout-wrapper dsp-state storage count channels)])
+        (vorbis-synthesis-read dsp-state count*)
+        )))
+  
   'ok)
 
 (define pipeline (go))

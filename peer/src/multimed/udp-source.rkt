@@ -19,5 +19,5 @@
       (let*-values 
           ([(len addr port) (udp-receive! sock buffer)]
            [(subbuffer) (bytes->immutable-bytes (subbytes buffer 0 len))])
-        (to-all sinks <- subbuffer)
+        (to-all sinks <- subbuffer len)
         (loop)))))

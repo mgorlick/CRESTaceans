@@ -15,7 +15,7 @@
    [storage _long]))
 
 (define-cstruct _ogg-packet
-  ([packet _bytes]
+  ([packet _pointer]
    [bytes _long]
    [b-o-s _long]
    [e-o-s _long]
