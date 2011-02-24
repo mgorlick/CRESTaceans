@@ -21,8 +21,8 @@
 (define (data-packet buffer len)
   (define p (make-ogg-packet (make-bytes len 255) len 0 0 -1 0))
   (copy-buffer-to-packet p (box (bytes->list buffer)) len)
-  (print-buffer p)
-  (printf "~a~n" buffer)
+  ;(print-buffer p)
+  ;(printf "~a~n" buffer)
   p)
 
 (struct vorbisdec
