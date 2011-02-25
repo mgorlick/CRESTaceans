@@ -1,5 +1,6 @@
 #lang at-exp racket/base
 
+(require ffi/unsafe)
 (require "gst_base.rkt")
 
 (provide (all-defined-out))

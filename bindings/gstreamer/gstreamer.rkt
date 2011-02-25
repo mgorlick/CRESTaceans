@@ -1,6 +1,7 @@
 #lang racket
 
-(require "gst/gstreamer.rkt"
+(require ffi/unsafe
+         "gst/gstreamer.rkt"
          "common-wrap/wrap.rkt")
 (provide (all-defined-out)
          (all-from-out "gst/gstreamer.rkt"

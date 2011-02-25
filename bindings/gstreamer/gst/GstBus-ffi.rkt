@@ -1,5 +1,6 @@
 #lang racket
 
+(require ffi/unsafe)
 (require "gst_base.rkt"
          "gst-structs-ffi.rkt"
          "GstClock-ffi.rkt"
@@ -54,7 +55,7 @@
 (define-gstreamer gst_bus_pop_filtered (_fun _GstBus-pointer _GstMessageType -> _GstMessage-pointer))
 
 ;GstMessage *        gst_bus_timed_pop                   (GstBus *bus, GstClockTime timeout);
-(define-gstreamer gst_bus_timed_pop (_fun _GstBus-pointer _GstClockTime -> _GstMessage-pointer))
+(define-gstreamer gst_bus_timed_pop (_fun _GstBus-pointer _GstClockTime -> (_or-null _GstMessage-pointer)))
 
 ;GstMessage *        gst_bus_timed_pop_filtered          (GstBus *bus, GstClockTime timeout, GstMessageType types);
 (define-gstreamer gst_bus_timed_pop_filtered (_fun _GstBus-pointer _GstClockTime _GstMessageType -> _GstMessage-pointer))
@@ -92,5 +93,5 @@
 (define-gstreamer gst_bus_add_signal_watch_full (_fun _GstBus-pointer _gint -> _void))
 
 ;GstMessage*         gst_bus_poll                        (GstBus *bus, GstMessageType events, GstClockTimeDiff timeout);
-(define-gstreamer gst_bus_poll (_fun _GstBus-pointer _GstMessageType _GstClockTimeDiff -> _GstMessage-pointer))
+(define-gstreamer gst_bus_poll (_fun _GstBus-pointer _GstMessageType _GstClockTimeDiff -> (_or-null _GstMessage-pointer)))
 

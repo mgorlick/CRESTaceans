@@ -1,5 +1,6 @@
 #lang racket
 
+(require ffi/unsafe)
 (require "gst_base.rkt"
          "gst-structs-ffi.rkt"
          "GstBin-ffi.rkt"

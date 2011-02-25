@@ -1,5 +1,6 @@
 #lang racket
 
+(require ffi/unsafe)
 (provide (all-defined-out))
 
 ;#define             GST_DISABLE_GST_DEBUG

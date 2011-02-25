@@ -1,5 +1,6 @@
 #lang racket
 
+(require ffi/unsafe)
 (require scheme/foreign)
 (unsafe!)
 

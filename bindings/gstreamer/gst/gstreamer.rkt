@@ -4,9 +4,11 @@
 ;;adapted from the GStreamer bindings for Guile.
 
 
+(require ffi/unsafe)
 (require "gstreamer-ffi.rkt")
 
-(provide (all-defined-out) (all-from-out "gstreamer-ffi.rkt"))
+(provide (all-defined-out) 
+         (all-from-out "gstreamer-ffi.rkt"))
 
 (define (add bin . args)
   (for-each (lambda (element) (gst_bin_add bin element)) args))

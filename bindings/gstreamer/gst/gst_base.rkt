@@ -10,7 +10,6 @@
  ;           scribble/manual)
 
 (provide (all-defined-out) 
-         (all-from-out ffi/unsafe) 
          ;(all-from-out scribble/srcdoc)
          ;(all-from-out racket/contract)
          (all-from-out "glib-ffi.rkt"))

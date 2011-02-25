@@ -1,5 +1,6 @@
 #lang at-exp racket
 
+(require ffi/unsafe)
 (require "gst_base.rkt"
          "gst-structs-ffi.rkt"
          "GstElement-ffi.rkt")
