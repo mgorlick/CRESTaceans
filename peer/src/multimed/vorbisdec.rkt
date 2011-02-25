@@ -2,14 +2,10 @@
 #lang racket
 
 (require "util.rkt"
-         "udp-source.rkt"
          "../../../bindings/vorbis/libvorbis.rkt"
          (planet bzlib/thread:1:0))
 
-(define (go)
-  (define pid (current-thread))
-  (launch-threads ([t2 (udp-source 44000 pid pid)])
-                  (vorbis-decode #f)))
+(provide (all-defined-out))
 
 ;; Vorbis decoder component
 
@@ -18,11 +14,15 @@
     [(parent) (vorbis-decode (vorbisdec-new) parent)]
     [(vdec parent)
      (receive/match
+      [(list (? thread? thd) (? symbol? command))
+       (to-all parent <- vdec)]
+      
       [(list (? thread? thd) (? bytes? buffer) (? integer? len))
        (match (handle-vorbis-buffer! buffer vdec len)
          ['ok (vorbis-decode vdec parent)]
-         ['fatal (printf "fatal error~n") #f]
-         ['done #t])])]))
+         ['fatal #f])]
+      
+      )]))
 
 (define (packet-type buffer len)
   (cond [(zero? len) 'empty]
@@ -31,7 +31,7 @@
 
 (define (handle-vorbis-buffer! buffer vdec len)
   (match (cons (packet-type buffer len) (vorbisdec-is-init vdec))
-    [(cons 'empty #f) 'fatal] ; empty header is fatal
+    [(cons 'empty #f) (printf "fatal error: empty header~n") 'fatal] ; empty header is fatal
     [(cons 'header #f) (header-packet! buffer len vdec)] ; non-empty header
     [(cons 'data #f) 'ok] ; data packet received before initialization finished. skip
     [(cons 'empty #t) 'ok] ; empty data packet, but headers ok. just skip
@@ -45,7 +45,7 @@
 (define (header-packet! buffer len vdec)
   (match (header-packet-in vdec (bytestring->uchar** buffer) len)
     [(or 1 3 5) 'ok]
-    [_ 'fatal]))
+    [any (printf "fatal error in decoding header: ~a~n" any) 'fatal]))
 
 (define (data-packet! buffer len vdec)
   (let* ([ct (data-packet-blockin vdec (bytestring->uchar** buffer) len)])
@@ -55,6 +55,4 @@
              [read-count (data-packet-pcmout vdec storage ct)])
         (when (= read-count 128) (printf "~a~n" storage))
         )))
-    'ok)
-
-(define pipeline (go))
+  'ok)
