@@ -1,20 +1,20 @@
 #lang racket
 
-(require ffi/unsafe
-         "oggpack.rkt")
-(provide (all-defined-out)
-         (all-from-out "oggpack.rkt"))
+(require ;"oggpack.rkt"
+ ffi/unsafe)
+(provide ;(all-from-out "oggpack.rkt")
+ (all-defined-out))
 
-(define libvorbis (ffi-lib "libvorbis"))
-(define libvorbis/adds (ffi-lib "libracket-vorbis-adds" "1.0"))
+;(define libvorbis (ffi-lib "libvorbis"))
+(define libvorbis/adds (ffi-lib "libracket-vorbis-wrapper"))
 
-(define-syntax-rule (defvorbis+ binding obj typ)
+#|(define-syntax-rule (defvorbis+ binding obj typ)
   (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) libvorbis typ)))
 (define-syntax-rule (defvorbis obj typ)
   (defvorbis+ obj obj typ))
 (define-syntax-rule (defvorbis* typ obj ...)
   (begin (defvorbis obj typ)
-         ...))
+         ...))|#
 
 (define-syntax-rule (defvorbis~+ binding obj typ)
   (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) libvorbis/adds typ)))
@@ -24,9 +24,7 @@
   (begin (defvorbis~ obj typ)
          ...))
 
-(define-cstruct _alloc-chain
-  ([ptr _pointer] ; XXX problematic
-   [next _alloc-chain-pointer]))
+#|(define-cpointer-type _alloc-chain-pointer)
 
 (define-cstruct _vorbis-info
   ([version _int]
@@ -89,21 +87,6 @@
    [comments _int]
    [vendor _string]))
 
-(define OV_FALSE -1)
-(define OV_EOF -2)
-(define OV_HOLE -3)
-(define OV_EREAD -128)
-(define OV_EFAULT -129)
-(define OV_EIMPL -130)
-(define OV_EINVAL -131)
-(define OV_ENOTVORBIS -132)
-(define OV_EBADHEADER -133)
-(define OV_EVERSION -134)
-(define OV_ENOTAUDIO -135)
-(define OV_EBADPACKET -136)
-(define OV_EBADLINK -137)
-(define OV_ENOSEEK -138)
-
 ;; codec.h
 ;; general
 (defvorbis* (_fun _vorbis-info-pointer -> _void)
@@ -161,20 +144,47 @@
 
 (defvorbis+ vorbis-synthesis-pcmout-countonly vorbis-synthesis-pcmout
   (_fun _vorbis-dsp-state-pointer (samples : _pointer = #f)
+        -> _int))|#
+
+(define OV_FALSE -1)
+(define OV_EOF -2)
+(define OV_HOLE -3)
+(define OV_EREAD -128)
+(define OV_EFAULT -129)
+(define OV_EIMPL -130)
+(define OV_EINVAL -131)
+(define OV_ENOTVORBIS -132)
+(define OV_EBADHEADER -133)
+(define OV_EVERSION -134)
+(define OV_ENOTAUDIO -135)
+(define OV_EBADPACKET -136)
+(define OV_EBADLINK -137)
+(define OV_ENOSEEK -138)
+
+;;; additions for building decoder
+
+(define-cpointer-type _vorbisdec-pointer)
+
+(defvorbis~ vorbisdec-new (_fun -> _vorbisdec-pointer))
+(defvorbis~ vorbisdec-delete (_fun _vorbisdec-pointer -> _void))
+(defvorbis~ vorbisdec-is-init (_fun _vorbisdec-pointer -> _bool))
+
+(defvorbis~ header-packet-in
+  (_fun (dec buff len) ::
+        (dec : _vorbisdec-pointer)
+        (buff : (_box (_list io _ubyte len)))
+        (len : _long)
         -> _int))
 
-(defvorbis~ copy-buffer-to-packet
-  (_fun (packet box bufferlen) :: 
-        (packet : _ogg-packet-pointer)
-        (box : (_box (_list io _ubyte bufferlen)))
-        -> _void))
+(defvorbis~ data-packet-blockin
+  (_fun (dec c d) ::
+        (dec : _vorbisdec-pointer)
+        (c : (_box (_list io _ubyte d)))
+        (d : _long)
+        -> _int))
 
-(defvorbis~ print-buffer
-  (_fun _ogg-packet-pointer -> _void))
-
-(defvorbis~ pcmout-wrapper
-  (_fun (a b c d) ::
-        (a : _vorbis-dsp-state-pointer)
-        (b : (_box (_vector io _float c)))
-        (d : _int)
+(defvorbis~ data-packet-pcmout
+  (_fun (dec c d) ::
+        (dec : _vorbisdec-pointer)
+        (c : (_box (_list io _float d)))
         -> _int))
