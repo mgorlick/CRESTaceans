@@ -22,7 +22,7 @@ install:
 		$(RACKET_LIBS)/$(SONAME).$(VERSION_MAJOR)
 
 clean:
-	rm *.o
-	rm $(SONAME).$(VERSION_FULL)
+	rm -rf *.o
+	rm -rf $(SONAME).$(VERSION_FULL)
 
 .PHONY: all so clean install

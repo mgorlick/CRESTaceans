@@ -16,7 +16,7 @@ install:
 	cp $(SONAME).$(VERSION_FULL) $(RACKET_LIBS)
 
 clean:
-	rm *.o
-	rm $(SONAME).$(VERSION_FULL)
+	rm -rf *.o
+	rm -rf $(SONAME).$(VERSION_FULL)
 
 .PHONY: all so clean install
