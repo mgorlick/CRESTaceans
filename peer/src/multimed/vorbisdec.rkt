@@ -1,10 +1,8 @@
-#! /usr/bin/env racket
 #lang racket
 
 (require "util.rkt"
          "../../../bindings/vorbis/libvorbis.rkt"
          (planet bzlib/thread:1:0))
-
 (provide (all-defined-out))
 
 ;; Vorbis decoder component
@@ -14,7 +12,7 @@
     [(parent) (vorbis-decode (vorbisdec-new) parent)]
     [(vdec parent)
      (receive/match
-      [(list (? thread? thd) (? symbol? command))
+      [(list (? thread? thd) (? (curry equal? 'clone-state-and-die) command))
        (to-all parent <- vdec)]
       
       [(list (? thread? thd) (? bytes? buffer) (? integer? len))
