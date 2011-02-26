@@ -1,7 +1,8 @@
 #! /usr/bin/env racket
 #lang racket
 
-(require "../gstreamer.rkt")
+(require "../gstreamer.rkt"
+         ffi/unsafe)
 (provide (all-defined-out))
 
 ; elementary pausing and resuming via command line interaction
