@@ -70,8 +70,8 @@
 (define (restart thd)
   (to-all thd <- 'restart))
 
-(define driver (start 5000))
+(define pipeline (start 5000))
 (sleep 2)
-(pause/switch-port driver 5001)
+(pause/switch-port pipeline 5001)
 ;(sleep 2)
 ;(restart driver)

@@ -18,11 +18,12 @@
 
 (define-syntax launch-threads
   (syntax-rules ()
-    [(_ ([id1 f1] ... [idn fn]) body ...)
+    [(_ [id1 name1 f1] ...)
      (let* ([id1 (thread (λ () f1))]
-            ...
-            [idn (thread (λ () fn))])
-       body ...)]))
+            ...)
+       (make-immutable-hash `((name1 . ,id1)
+                              ...
+                              )))]))
 
 (define (pipeline-kill lthread)
   (stream-for-each kill-thread lthread))

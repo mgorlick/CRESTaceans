@@ -13,7 +13,7 @@
     [(vdec parent)
      (receive/match
       [(list (? thread? thd) (? (curry equal? 'clone-state-and-die) command))
-       (to-all parent <- vdec)]
+       (to-all parent <- 'state-report vdec)]
       
       [(list (? thread? thd) (? bytes? buffer) (? integer? len))
        (match (handle-vorbis-buffer! buffer vdec len)

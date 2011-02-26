@@ -19,8 +19,7 @@
     (let loop ()
       (receive/match
        [(list (? thread? thd) (? (curry equal? 'clone-state-and-die) command))
-        (printf "UDP source got kill command~n")
-        (to-all parent <- sock)
+        (to-all parent <- 'state-report sock)
         (to-all sinks <- command)]
        
        [after 0

@@ -9,11 +9,12 @@
 
 ;; start: launch a UDP listener on a given socket, which forwards each packet
 ;; to the thread mailbox of a Vorbis decoder running in a separate thread
-(define (start port)
+(define (start port [initial-vorbis-state #f])
   (define pid (current-thread))
-  (launch-threads ([t1 (vorbis-decode pid)]
-                   [t2 (udp-source port pid t1)])
-                  (make-immutable-hash `(("udp-source" . ,t2) ("vorbisdec" . ,t1)))))
+  (launch-threads [t1 "vorbisdec" (if initial-vorbis-state 
+                                      (vorbis-decode initial-vorbis-state pid)
+                                      (vorbis-decode pid))]
+                  [t2 "udpsource" (udp-source port pid t1)]))
 
 ;; pause/move/restart:
 ;; first, send the clone-state-and-die message to the head of the pipeline, which causes
@@ -27,35 +28,19 @@
 ;; third, start a new instance of each component in the old pipeline, yielding a new
 ;; pipeline. unlike before, we explicitly provide initialization component states
 ;; when the component requires it (e.g., the codec state for the vorbis decoder).
-(define (pause/move/restart thds new-port)
+(define (pause/move/restart pipeline new-port)
+  
+  (define (receive-state-report component-key states)
+    (receive/match
+     [(list (? (curry equal? (dict-ref states component-key)) thread) 'state-report newstate)
+      (hash-set states component-key newstate)]))
   
   (define (gather-states)
-    (let ([states (make-immutable-hash '())])
-      (let loop ([states states])
-        (receive/match
-         [(list (? (curry equal? (dict-ref thds "udp-source")) udpsrc) state)
-          (let ([states* (hash-set states "udp-source" state)])
-            (printf "got UDP state~n")
-            (if (not (= (dict-count thds) (dict-count states*)))
-                (loop states*)
-                states*))]
-         
-         [(list (? (curry equal? (dict-ref thds "vorbisdec")) vorbisdec) state)
-          (let ([states* (hash-set states "vorbisdec" state)])
-            (printf "got Vorbis dec state~n")
-            (if (not (= (dict-count thds) (dict-count states*)))
-                (loop states*)
-                states*))]
-         ))))
+    (foldl receive-state-report pipeline (dict-keys pipeline)))
   
-  (to-all (dict-ref thds "udp-source") <- 'clone-state-and-die)
-  (let ([states (gather-states)]
-        [pid (current-thread)])
-    (printf "gathered states~n")
-    (dict-for-each states (λ (k v) (printf "state: ~a, ~a~n" k v)))
-    (launch-threads ([t1 (vorbis-decode (dict-ref states "vorbisdec") pid)]
-                     [t2 (udp-source new-port pid t1)])
-                    (make-immutable-hash `(("udp-source" . ,t2) ("vorbisdec" . ,t1))))))
+  (to-all (dict-ref pipeline "udpsource") <- 'clone-state-and-die)
+  (let ([states (gather-states)])
+    (start new-port (dict-ref states "vorbisdec"))))
 
 (define pipeline (start 5000))
 
