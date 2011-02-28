@@ -186,5 +186,5 @@
 (defvorbis~ data-packet-pcmout
   (_fun (dec c d) ::
         (dec : _vorbisdec-pointer)
-        (c : (_box (_list io _float d)))
+        (c : (_box (_list io _uint d)))
         -> _int))

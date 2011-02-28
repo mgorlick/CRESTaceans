@@ -19,7 +19,6 @@
        (match (handle-vorbis-buffer! buffer vdec len)
          ['ok (vorbis-decode vdec parent)]
          ['fatal #f])]
-      
       )]))
 
 (define (packet-type buffer len)
@@ -28,13 +27,13 @@
         [else 'data]))
 
 (define (handle-vorbis-buffer! buffer vdec len)
-  (match (cons (packet-type buffer len) (vorbisdec-is-init vdec))
-    [(cons 'empty #f) (printf "fatal error: empty header~n") 'fatal] ; empty header is fatal
-    [(cons 'header #f) (header-packet! buffer len vdec)] ; non-empty header
-    [(cons 'data #f) 'ok] ; data packet received before initialization finished. skip
-    [(cons 'empty #t) 'ok] ; empty data packet, but headers ok. just skip
-    [(cons 'header #t) 'ok] ; looks like a header but we've initialized. skip
-    [(cons 'data #t) (data-packet! buffer len vdec)] ; non-empty data
+  (match* ((packet-type buffer len) (vorbisdec-is-init vdec))
+    [('empty #f) (printf "fatal error: empty header~n") 'fatal] ; empty header is fatal
+    [('header #f) (header-packet! buffer len vdec)] ; non-empty header
+    [('data #f) 'ok] ; data packet received before initialization finished. skip
+    [('empty #t) 'ok] ; empty data packet, but headers ok. just skip
+    [('header #t) 'ok] ; looks like a header but we've initialized. skip
+    [('data #t) (data-packet! buffer len vdec)] ; non-empty data
     ))
 
 (define (bytestring->uchar** buffer)
@@ -49,7 +48,7 @@
   (let* ([ct (data-packet-blockin vdec (bytestring->uchar** buffer) len)])
     (printf "ct = ~a~n" ct)
     (when (> ct 0)
-      (let* ([storage (box (make-list ct 0.0))]
+      (let* ([storage (box (make-list ct 0))]
              [read-count (data-packet-pcmout vdec storage ct)])
         (when (= read-count 128) (printf "~a~n" storage))
         )))

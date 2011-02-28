@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include <vorbis/codec.h>
+#include "codec_internal.h"
 
 typedef struct vorbisdec {
   int is_init;
@@ -174,18 +176,18 @@ int data_packet_blockin (vorbisdec* dec, unsigned char** buff, long buff_len) {
    or -1 if the decoder initially reported an incorrect count
    (don't expect this error case to happen, but...). */
 
-int data_packet_pcmout (vorbisdec* dec, float** v) {
+int data_packet_pcmout (vorbisdec* dec, uint** v) {
 
   float** pcm;
   int j, k;
   int channels = dec->vi->channels;
   int sample_count = vorbis_synthesis_pcmout (dec->vd, &pcm);
-  float* p = *v;
+  uint* p = *v;
   
   if (sample_count > 0) {
     for (j = 0; j < sample_count; j++) {
       for (k = 0; k < channels; k++) {
-        *p++ = pcm[k][j];
+        *p++ = (uint) floorf(255.0 * 0.5 * (1+pcm[k][j]));
       }
     }
   }
