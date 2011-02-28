@@ -52,6 +52,6 @@
     (when (> ct 0)
       (let* ([samples (box (make-list ct 0))]
              [sample-ct (data-packet-pcmout vdec samples ct)])
-        (audio-out* (unbox samples) ct)
+        (audio-out (unbox samples) ct)
         )))
   'ok)

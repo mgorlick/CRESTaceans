@@ -4,8 +4,7 @@
          (prefix-in sf: (planet synx/ao/sample-format-struct))
          ffi/unsafe)
 
-(provide audio-out
-         audio-out*)
+(provide audio-out)
 
 (define lib (ffi-lib "libao" "4"))
 (define play* (get-ffi-obj "ao_play" lib (_fun (device samples len) ::
@@ -18,9 +17,6 @@
 (define device (open #:format vorbis-format))
 
 (define (audio-out samples ct)
-  (play device (list->bytes samples)))
-
-(define (audio-out* samples ct)
   (play* device samples ; each sample = 16-bit unsigned int
                         (* 2 ct) ; 16 bit audio = 2 bytes/sample
                         ))
