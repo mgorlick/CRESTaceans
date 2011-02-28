@@ -1,32 +1,35 @@
 #lang racket
 
 (require "util.rkt"
+         "aoout.rkt"
          "../../../bindings/vorbis/libvorbis.rkt"
          (planet bzlib/thread:1:0))
 (provide (all-defined-out))
 
 ;; Vorbis decoder component
 
-(define vorbis-decode
-  (case-lambda
-    [(parent) (vorbis-decode (vorbisdec-new) parent)]
-    [(vdec parent)
-     (receive/match
-      [(list (? thread? thd) (? (curry equal? 'clone-state-and-die) command))
-       (to-all parent <- 'state-report vdec)]
-      
-      [(list (? thread? thd) (? bytes? buffer) (? integer? len))
-       (match (handle-vorbis-buffer! buffer vdec len)
-         ['ok (vorbis-decode vdec parent)]
-         ['fatal #f])]
-      )]))
+(define/contract (vorbis-decode parent [vdec #f] [sinks #f])
+  ([thread?] [(or/c #f vorbisdec-pointer?) (or/c #f (listof thread?))] . ->* .  void)
+  
+  (when (not vdec)
+    (vorbis-decode parent (vorbisdec-new)))
+  
+  (receive/match
+   [(list (? thread? thd) 'clone-state-and-die)
+    (to-all parent <- 'state-report vdec)]
+   
+   [(list (? thread? thd) (? bytes? buffer) (? integer? len))
+    (match (handle-vorbis-buffer! vdec buffer len)
+      ['ok (vorbis-decode parent vdec)]
+      ['fatal #f])]
+   ))
 
 (define (packet-type buffer len)
   (cond [(zero? len) 'empty]
         [(= 1 (bitwise-and 1 (bytes-ref buffer 0))) 'header]
         [else 'data]))
 
-(define (handle-vorbis-buffer! buffer vdec len)
+(define (handle-vorbis-buffer! vdec buffer len)
   (match* ((packet-type buffer len) (vorbisdec-is-init vdec))
     [('empty #f) (printf "fatal error: empty header~n") 'fatal] ; empty header is fatal
     [('header #f) (header-packet! buffer len vdec)] ; non-empty header
@@ -46,10 +49,9 @@
 
 (define (data-packet! buffer len vdec)
   (let* ([ct (data-packet-blockin vdec (bytestring->uchar** buffer) len)])
-    (printf "ct = ~a~n" ct)
     (when (> ct 0)
       (let* ([storage (box (make-list ct 0))]
              [read-count (data-packet-pcmout vdec storage ct)])
-        (when (= read-count 128) (printf "~a~n" storage))
+        (play* (list->bytes (unbox storage)))
         )))
   'ok)

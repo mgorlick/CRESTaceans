@@ -122,6 +122,7 @@ int header_packet_in (vorbisdec* dec, unsigned char** buff, long buff_len) {
       break;
     case 0x05:
       hi = vorbis_synthesis_headerin (dec->vi, dec->vc, &pkt);
+      print_stream_info (dec);
       if (hi == 0) init = vorbisdec_finish_init (dec);
       break;
     default: /* not a valid header packet */

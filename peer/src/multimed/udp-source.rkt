@@ -7,7 +7,7 @@
 
 ;; UDP source component
 
-(define (udp-source port parent . sinks)
+(define (udp-source parent port . sinks)
   (define (udp-socket port)
     (let ([s (udp-open-socket)])
       (udp-bind! s #f port)
@@ -18,9 +18,9 @@
          [buffer (make-bytes 10000)])
     (let loop ()
       (receive/match
-       [(list (? thread? thd) (? (curry equal? 'clone-state-and-die) command))
+       [(list (? thread? thd) 'clone-state-and-die)
         (to-all parent <- 'state-report sock)
-        (to-all sinks <- command)]
+        (to-all sinks <- 'clone-state-and-die)]
        
        [after 0
               (if (sync/timeout 0 evt)

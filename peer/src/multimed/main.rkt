@@ -11,10 +11,8 @@
 ;; to the thread mailbox of a Vorbis decoder running in a separate thread
 (define (start port [initial-vorbis-state #f])
   (define pid (current-thread))
-  (launch-threads [t1 "vorbisdec" (if initial-vorbis-state 
-                                      (vorbis-decode initial-vorbis-state pid)
-                                      (vorbis-decode pid))]
-                  [t2 "udpsource" (udp-source port pid t1)]))
+  (launch-threads [t1 "vorbisdec" (vorbis-decode pid initial-vorbis-state)]
+                  [t2 "udpsource" (udp-source pid port t1)]))
 
 ;; pause/move/restart:
 ;; first, send the clone-state-and-die message to the head of the pipeline, which causes
