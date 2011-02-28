@@ -169,7 +169,7 @@ int data_packet_blockin (vorbisdec* dec, unsigned char** buff, long buff_len) {
 }
 
 /* data_packet_pcmout: after calling header_packet_blockin with a new buffer,
-   use its return value to instantiate a float list/vector/array/...
+   use its return value to instantiate a list/vector/array/...
    and pass a point to it to data_packet_pcmout to actually retrieve the
    available values.
 
@@ -177,18 +177,22 @@ int data_packet_blockin (vorbisdec* dec, unsigned char** buff, long buff_len) {
    or -1 if the decoder initially reported an incorrect count
    (don't expect this error case to happen, but...). */
 
-int data_packet_pcmout (vorbisdec* dec, uint** v) {
+int data_packet_pcmout (vorbisdec* dec, int16_t** v) {
 
   float** pcm;
   int j, k;
   int channels = dec->vi->channels;
   int sample_count = vorbis_synthesis_pcmout (dec->vd, &pcm);
-  uint* p = *v;
+  int16_t* p = *v;
   
   if (sample_count > 0) {
     for (j = 0; j < sample_count; j++) {
       for (k = 0; k < channels; k++) {
-        *p++ = (uint) floorf(255.0 * 0.5 * (1+pcm[k][j]));
+        int s  = (int) floorf (0.5 + 32767.0 * pcm[k][j]);
+        if (s > 32767) s = 32767;
+        if (s < -32768) s = -32768;
+        *p = (int16_t) s;
+        p++;
       }
     }
   }

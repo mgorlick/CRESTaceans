@@ -50,8 +50,8 @@
 (define (data-packet! buffer len vdec)
   (let* ([ct (data-packet-blockin vdec (bytestring->uchar** buffer) len)])
     (when (> ct 0)
-      (let* ([storage (box (make-list ct 0))]
-             [read-count (data-packet-pcmout vdec storage ct)])
-        (play* (list->bytes (unbox storage)))
+      (let* ([samples (box (make-list ct 0))]
+             [sample-ct (data-packet-pcmout vdec samples ct)])
+        (audio-out* (unbox samples) ct)
         )))
   'ok)
