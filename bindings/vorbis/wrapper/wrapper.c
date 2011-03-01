@@ -61,6 +61,22 @@ void vorbisdec_delete (vorbisdec* dec) {
   free (dec);
 }
 
+vorbis_info* vorbisdec_get_info (vorbisdec* dec) {
+  return dec->vi;
+}
+
+vorbis_comment* vorbisdec_get_comment (vorbisdec* dec) {
+  return dec->vc;
+}
+
+vorbis_dsp_state* vorbisdec_get_dsp_state (vorbisdec* dec) {
+  return dec->vd;
+}
+
+vorbis_block* vorbisdec_get_block (vorbisdec* dec) {
+  return dec->vb;
+}
+
 int vorbisdec_is_init (vorbisdec* dec) {
   return dec->is_init;
 }

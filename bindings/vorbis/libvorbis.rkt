@@ -1,20 +1,20 @@
 #lang racket
 
-(require ;"oggpack.rkt"
- ffi/unsafe)
-(provide ;(all-from-out "oggpack.rkt")
- (all-defined-out))
+(require "oggpack.rkt"
+         ffi/unsafe)
+(provide (all-from-out "oggpack.rkt")
+         (all-defined-out))
 
-;(define libvorbis (ffi-lib "libvorbis"))
+(define libvorbis (ffi-lib "libvorbis"))
 (define libvorbis/adds (ffi-lib "libracket-vorbis-wrapper"))
 
-#|(define-syntax-rule (defvorbis+ binding obj typ)
+(define-syntax-rule (defvorbis+ binding obj typ)
   (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) libvorbis typ)))
 (define-syntax-rule (defvorbis obj typ)
   (defvorbis+ obj obj typ))
 (define-syntax-rule (defvorbis* typ obj ...)
   (begin (defvorbis obj typ)
-         ...))|#
+         ...))
 
 (define-syntax-rule (defvorbis~+ binding obj typ)
   (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) libvorbis/adds typ)))
@@ -24,7 +24,58 @@
   (begin (defvorbis~ obj typ)
          ...))
 
-#|(define-cpointer-type _alloc-chain-pointer)
+;; codec_internal.h
+
+#|(define-cstruct _private-state
+  ([ve _envelope-lookup-pointer]
+   [window (_list io _int 2)]
+   [transform (_list io (_ptr io (_ptr io _vorbis-look-transform-pointer)) 2)]
+   [fft-look (_list io _drft-lookup 2)]
+   [modebits _int]
+   [flr (_ptr io (_ptr io _vorbis-look-floor))]
+   [residue (_ptr io (_ptr io _vorbis-look-residue))]
+   [psy (_ptr io _vorbis-look-psy)]
+   [psy-g-look (_ptr io _vorbis-look-psy-global)]
+   [header _pointer] ; unsigned char* - only on encoding side
+   [header1 _pointer] ; unsigned char* - only on encoding side
+   [header2 _pointer] ; unsigned char* - only on encoding side
+   [bms _bitrate-manager-state]
+   [sample-count _ogg-int64]
+   ))
+
+(define-cstruct _codec-setup-info
+  ([blocksizes (_list io _long 2)]
+   [modes _int]
+   [maps _int]
+   [floors _int]
+   [residues _int]
+   [books _int]
+   [psys _int] ; encode only
+   [mode-param (_list io _vorbis-info-mode-pointer 64)]
+   [map-type (_list io _int 64)]
+   [map-param (_list io _vorbis-info-mapping-pointer 64)]
+   [floor-type (_list io _int 64)]
+   [floor-param (_list io _vorbis-info-floor-pointer 64)]
+   [residue-type (_list io _int 64)]
+   [residue-param (_list io _vorbis-info-residue-pointer 64)]
+   [book-param (_list io _static-codebook-pointer 256)]
+   [fullbooks _codebook-pointer]
+   [psy-param (_list io _vorbis-info-psy-pointer 4)]
+   [psy_g_param _vorbis-info-psy-global]
+   [bi _bitrate-manager-info]
+   [hi _highlevel-encode-setup]
+   [halfrate-flag _int]))
+
+(define-cstruct _vorbis-blockinternal
+  ([pcmdelay (_ptr io (_ptr io _float))]
+   [ampmax _float]
+   [blocktype _int]
+   [packetblob (_list io _oggpack-buffer-pointer 15)])) ; "packetblobs/2 points to the opb in the main vorbis_block"
+
+;; codec.h
+(define-cstruct _alloc-chain
+  ([ptr _pointer]
+   [next _alloc-chain-pointer]))
 
 (define-cstruct _vorbis-info
   ([version _int]
@@ -34,7 +85,7 @@
    [bitrate-nominal _long]
    [bitrate-lower _long]
    [bitrate-window _long]
-   [codec-setup _pointer])) ; XXX problematic
+   [codec-setup _pointer])) ; XXX codec_setup_info-pointer
 
 (define-cstruct _vorbis-dsp-state
   ([analysisp _int]
@@ -56,7 +107,7 @@
    [time-bits _ogg_int64]
    [floor-bits _ogg_int64]
    [res-bits _ogg_int64]
-   [backend-state _pointer])) ; XXX problematic
+   [backend-state _pointer])) ; XXX private_state-pointer
 
 (define-cstruct _vorbis-block
   ([pcm (_ptr io (_ptr io _float))]
@@ -70,7 +121,7 @@
    [granulepos _ogg_int64]
    [sequence _ogg_int64]
    [vd _vorbis-dsp-state-pointer]
-   [localstore _pointer] ; XXX problematic
+   [localstore _pointer] ; XXX not sure - don't think it matters - realloced every time a block is used
    [localtop _long]
    [localalloc _long]
    [totaluse _long]
@@ -79,17 +130,17 @@
    [time-bits _long]
    [floor-bits _long]
    [res-bits _long]
-   [internal _pointer])) ; XXX problematic
+   [internal _vorbis-blockinternal-pointer]))
 
 (define-cstruct _vorbis-comment
-  ([user-comments (_ptr io _string)]
+  ([user-comments (_list i _string)]
    [comment-lengths (_ptr io _int)]
    [comments _int]
-   [vendor _string]))
+   [vendor _string]))|#
 
 ;; codec.h
 ;; general
-(defvorbis* (_fun _vorbis-info-pointer -> _void)
+#|(defvorbis* (_fun _vorbis-info-pointer -> _void)
   vorbis-info-init
   vorbis-info-clear)
 (defvorbis+ vorbis-info-new vorbis-info-init
@@ -165,9 +216,18 @@
 
 (define-cpointer-type _vorbisdec-pointer)
 
+(define-cpointer-type _vorbis-info-pointer)
+(define-cpointer-type _vorbis-comment-pointer)
+(define-cpointer-type _vorbis-dsp-state-pointer)
+(define-cpointer-type _vorbis-block-pointer)
+
 (defvorbis~ vorbisdec-new (_fun -> _vorbisdec-pointer))
 (defvorbis~ vorbisdec-delete (_fun _vorbisdec-pointer -> _void))
 (defvorbis~ vorbisdec-is-init (_fun _vorbisdec-pointer -> _bool))
+(defvorbis~ vorbisdec-get-info (_fun _vorbisdec-pointer -> _vorbis-info-pointer))
+(defvorbis~ vorbisdec-get-comment (_fun _vorbisdec-pointer -> _vorbis-comment-pointer))
+(defvorbis~ vorbisdec-get-dsp-state (_fun _vorbisdec-pointer -> _vorbis-dsp-state-pointer))
+(defvorbis~ vorbisdec-get-block (_fun _vorbisdec-pointer -> _vorbis-block-pointer))
 
 (defvorbis~ header-packet-in
   (_fun (dec buff len) ::

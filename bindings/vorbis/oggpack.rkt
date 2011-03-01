@@ -10,8 +10,8 @@
 (define-cstruct _oggpack-buffer
   ([endbyte _long]
    [endbit _long]
-   [buffer _string]
-   [ptr _string]
+   [buffer _pointer] ; unsigned char*
+   [ptr _pointer] ; unsigned char*
    [storage _long]))
 
 (define-cstruct _ogg-packet

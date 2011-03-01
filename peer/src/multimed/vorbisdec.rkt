@@ -16,7 +16,7 @@
   
   (receive/match
    [(list (? thread? thd) 'clone-state-and-die)
-    (to-all parent <- 'state-report vdec)]
+    (to-all parent <- 'state-report (handle-state-report vdec))]
    
    [(list (? thread? thd) (? bytes? buffer) (? integer? len))
     (match (handle-vorbis-buffer! vdec buffer len)
@@ -55,3 +55,15 @@
         (audio-out (unbox samples) ct)
         )))
   'ok)
+
+(define (handle-state-report vdec)
+  (let ([vi (vorbisdec-get-info vdec)]
+        [vc (vorbisdec-get-comment vdec)]
+        [vd (vorbisdec-get-dsp-state vdec)]
+        [vb (vorbisdec-get-block vdec)]
+        [init? (vorbisdec-is-init vdec)])
+    ;(printf "vi->rate = ~a~n" (vorbis-info-channels vi))
+    ;(printf "vc->comments = ~a~n" (vorbis-comment-comments vc))
+    ;(printf "vd->W = ~a~n" (vorbis-dsp-state-W vd))
+    ;(printf "vb->totaluse = ~a~n" (vorbis-block-totaluse vb))
+  vdec))
