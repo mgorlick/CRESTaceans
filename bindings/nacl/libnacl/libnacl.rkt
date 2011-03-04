@@ -115,10 +115,12 @@ The crypto_box_beforenm function is callable as follows:
      
      crypto_box_afternm(c,m,mlen,n,k);|#
   
-  (crypto-box-afternm (_fun (ciphertext : (_bytes o message-length))
-                            (message : _bytes) (message-length : _ullong = (bytes-length message))
+  (crypto-box-afternm (_fun (m n k) ::
+                            (ciphertext : (_bytes o message-length))
+                            (message : _bytes = (bytes-append (make-bytes crypto-box-ZEROBYTES) m)) 
+                            (message-length : _ullong = (bytes-length message))
                             (n : _bytes) (k : _bytes)
-                            -> (r : _int) -> (values ciphertext r)))
+                            -> (r : _int) -> (values (subbytes ciphertext crypto-box-BOXZEROBYTES) r)))
   
   #|The crypto_box_afternm function is callable as follows:
      #include "crypto_box.h"
@@ -130,8 +132,9 @@ The crypto_box_beforenm function is callable as follows:
      
      crypto_box_afternm(c,m,mlen,n,k);|#
   
-  (crypto-box-open-afternm (_fun (message : (_bytes o cipher-length))
-                                 (ciphertext : _bytes)
+  (crypto-box-open-afternm (_fun (c n k) ::
+                                 (message : (_bytes o cipher-length))
+                                 (ciphertext : _bytes = (bytes-append (make-bytes crypto-box-BOXZEROBYTES) c))
                                  (cipher-length : _ullong = (bytes-length ciphertext))
                                  (n : _bytes) (k : _bytes)
-                                 -> (r : _int) -> (values message r))))
+                                 -> (r : _int) -> (values (subbytes message crypto-box-ZEROBYTES) r))))
