@@ -8,21 +8,18 @@
 
 ;; Vorbis decoder component
 
-(define/contract (vorbis-decode parent [vdec #f] [sinks #f])
-  ([thread?] [(or/c #f vorbisdec-pointer?) (or/c #f (listof thread?))] . ->* .  void)
-  
-  (when (not vdec)
-    (vorbis-decode parent (vorbisdec-new)))
-  
-  (receive/match
-   [(list (? thread? thd) 'clone-state-and-die)
-    (to-all parent <- 'state-report (handle-state-report vdec))]
-   
-   [(list (? thread? thd) (? bytes? buffer) (? integer? len))
-    (match (handle-vorbis-buffer! vdec buffer len)
-      ['ok (vorbis-decode parent vdec)]
-      ['fatal #f])]
-   ))
+(define/contract (vorbis-decode parent [vdec (vorbisdec-new)] [sinks #f])
+  ([thread?] [vorbisdec-pointer? (or/c #f (listof thread?))] . ->* .  void)
+  (let loop ([vdec vdec])
+    (receive/match
+     [(list (? thread? thd) 'clone-state-and-die)
+      (to-all parent <- 'state-report (handle-state-report vdec))]
+     
+     [(list (? thread? thd) (? bytes? buffer) (? integer? len))
+      (match (handle-vorbis-buffer! vdec buffer len)
+        ['ok (loop vdec)]
+        ['fatal #f])]
+     )))
 
 (define (packet-type buffer len)
   (cond [(zero? len) 'empty]
@@ -66,4 +63,4 @@
     ;(printf "vc->comments = ~a~n" (vorbis-comment-comments vc))
     ;(printf "vd->W = ~a~n" (vorbis-dsp-state-W vd))
     ;(printf "vb->totaluse = ~a~n" (vorbis-block-totaluse vb))
-  vdec))
+    vdec))
