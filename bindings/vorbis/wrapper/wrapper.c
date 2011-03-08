@@ -111,8 +111,10 @@ void print_stream_info (vorbisdec* dec) {
    packet and type packet in order. Once all three have been called,
    the vorbisdec* is ready to use for synthesizing data packets.
 
-   returns a negative num if error processing header packet; 1 if header packet
-   was successfully processed. */
+   returns a negative num if error processing header packet; or
+   0, 1, or 2, to signify the type of header packet processed.
+   successive calls to header_packet_in MUST return 0, 1, and 2 in order
+  for the subsequent decoding to work. */
 int header_packet_in (vorbisdec* dec, unsigned char** buff, long buff_len) {
 
   ogg_packet pkt;
@@ -135,18 +137,21 @@ int header_packet_in (vorbisdec* dec, unsigned char** buff, long buff_len) {
       break;
     case 0x03:
       hi = vorbis_synthesis_headerin (dec->vi, dec->vc, &pkt);
+      if (hi == 0) hi = 1;
       break;
     case 0x05:
       hi = vorbis_synthesis_headerin (dec->vi, dec->vc, &pkt);
       print_stream_info (dec);
-      if (hi == 0) init = vorbisdec_finish_init (dec);
+      if (hi == 0) {
+        init = vorbisdec_finish_init (dec);
+        hi = 2;
+      }
       break;
     default: /* not a valid header packet */
       hi = -1;
       break;
   }
 
-  if (hi == 0 && init == 0) return 1;
   return hi;
 }
 

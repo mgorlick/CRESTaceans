@@ -25,7 +25,7 @@
          ...))
 
 ;; bitrate.h
-
+#|
 (define-cstruct _bitrate-manager-state
   ([managed _int]
    [avg-reservoir _long]
@@ -350,7 +350,7 @@
   ([user-comments (_list i _string)]
    [comment-lengths (_ptr io _int)]
    [comments _int]
-   [vendor _string]))
+   [vendor _string]))|#
 
 ;; codec.h
 ;; general
@@ -438,10 +438,10 @@
 (defvorbis~ vorbisdec-new (_fun -> _vorbisdec-pointer))
 (defvorbis~ vorbisdec-delete (_fun _vorbisdec-pointer -> _void))
 (defvorbis~ vorbisdec-is-init (_fun _vorbisdec-pointer -> _bool))
-(defvorbis~ vorbisdec-get-info (_fun _vorbisdec-pointer -> _vorbis-info-pointer))
+#|(defvorbis~ vorbisdec-get-info (_fun _vorbisdec-pointer -> _vorbis-info-pointer))
 (defvorbis~ vorbisdec-get-comment (_fun _vorbisdec-pointer -> _vorbis-comment-pointer))
 (defvorbis~ vorbisdec-get-dsp-state (_fun _vorbisdec-pointer -> _vorbis-dsp-state-pointer))
-(defvorbis~ vorbisdec-get-block (_fun _vorbisdec-pointer -> _vorbis-block-pointer))
+(defvorbis~ vorbisdec-get-block (_fun _vorbisdec-pointer -> _vorbis-block-pointer))|#
 
 (defvorbis~ header-packet-in
   (_fun (dec buff len) ::
@@ -462,3 +462,6 @@
         (dec : _vorbisdec-pointer)
         (c : (_box (_list io _int16 d)))
         -> _int))
+
+(define (bytestring->uchar** buffer)
+  (box (bytes->list buffer)))
