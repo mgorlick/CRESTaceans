@@ -20,7 +20,6 @@
   (let ([fmt (sf:make 16 rate channels 
                       (match endian ['native native-endian] ['little little-endian] ['big big-endian])
                       (match channels [1 monaural] [2 LR]))])
-    (printf "opened device~n")
     (open #:format fmt)))
 
 (define (audio-out device samples ct)
@@ -28,6 +27,4 @@
          (* 2 ct) ; 16 bit audio = 2 bytes/sample
          ))
 
-(define (close-device d)
-  (printf "closed device~n")
-  (close d))
+(define close-device close)

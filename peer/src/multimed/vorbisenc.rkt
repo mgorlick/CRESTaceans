@@ -73,5 +73,5 @@
   (to-all thd <- 'restart))
 
 (define pipeline (start 5000))
-(sleep 2)
+(sleep 3)
 (pause/switch-port pipeline 5001)
