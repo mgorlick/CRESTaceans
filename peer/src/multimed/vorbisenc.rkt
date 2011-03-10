@@ -19,9 +19,9 @@
       (cond
         [message (let ([type (gst_message_type message)])
                    (match type
-                   ['eos (printf "eos~n") (unref message) #f]
-                   [(or 'warning 'error) (unref message #:is-error? #t) #f]
-                   [_  (printf "else: ~a~n" type) (unref message) #t]))]
+                     ['eos (printf "eos~n") (unref message) #f]
+                     [(or 'warning 'error) (unref message #:is-error? #t) #f]
+                     [_  (printf "else: ~a~n" type) (unref message) #t]))]
         [else #t])))
   
   (define (pause-bin/switch port)
@@ -57,7 +57,9 @@
              #f
              (let-values ([(bin error)
                            (gst_parse_launch
-                            (string-append "audiotestsrc ! vorbisenc ! "
+                            (string-append "audiotestsrc wave=3 ! "
+                                           "audioconvert ! audio/x-raw-int,channels=2 ! "
+                                           "audioconvert ! vorbisenc ! "
                                            "udpsink name=udpsink host=127.0.0.1 port=" (number->string port)))])
                (gst_element_set_state bin GST_STATE_PLAYING)
                (restartable-evt-loop bin)
@@ -73,5 +75,3 @@
 (define pipeline (start 5000))
 (sleep 2)
 (pause/switch-port pipeline 5001)
-;(sleep 2)
-;(restart driver)

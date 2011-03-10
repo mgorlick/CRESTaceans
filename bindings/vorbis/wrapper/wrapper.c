@@ -3,7 +3,6 @@
 #include <string.h>
 #include <math.h>
 #include <vorbis/codec.h>
-#include "codec_internal.h"
 
 typedef struct vorbisdec {
   int is_init;
@@ -54,27 +53,15 @@ int vorbisdec_finish_init (vorbisdec* dec) {
 }
 
 void vorbisdec_delete (vorbisdec* dec) {
+  vorbis_block_clear (dec->vb);
+  vorbis_dsp_clear (dec->vd);
+  vorbis_comment_clear (dec->vc);
+  vorbis_info_clear (dec->vi);
   free (dec->vb);
   free (dec->vd);
   free (dec->vc);
   free (dec->vi);
   free (dec);
-}
-
-vorbis_info* vorbisdec_get_info (vorbisdec* dec) {
-  return dec->vi;
-}
-
-vorbis_comment* vorbisdec_get_comment (vorbisdec* dec) {
-  return dec->vc;
-}
-
-vorbis_dsp_state* vorbisdec_get_dsp_state (vorbisdec* dec) {
-  return dec->vd;
-}
-
-vorbis_block* vorbisdec_get_block (vorbisdec* dec) {
-  return dec->vb;
 }
 
 int vorbisdec_is_init (vorbisdec* dec) {
@@ -209,7 +196,7 @@ int data_packet_pcmout (vorbisdec* dec, int16_t** v) {
   if (sample_count > 0) {
     for (j = 0; j < sample_count; j++) {
       for (k = 0; k < channels; k++) {
-        int s  = (int) floorf (0.5 + 32767.0 * pcm[k][j]);
+        int32_t s  = (int32_t) floorf (0.5 + 32767.0 * pcm[k][j]);
         if (s > 32767) s = 32767;
         if (s < -32768) s = -32768;
         *p = (int16_t) s;
@@ -220,6 +207,14 @@ int data_packet_pcmout (vorbisdec* dec, int16_t** v) {
 
   if (vorbis_synthesis_read (dec->vd, sample_count) < 0) return -1;
   return sample_count;
+}
+
+int stream_channels (vorbisdec* dec) {
+  return dec->vi->channels;
+}
+
+int stream_rate (vorbisdec* dec) {
+  return dec->vi->rate;
 }
 
 int main (void) {

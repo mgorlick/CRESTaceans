@@ -44,4 +44,4 @@
 
 (define pipeline (start 5000))
 
-(define (pmr) (pause/move/restart pipeline 5001))
+(define (pmr) (set! pipeline (pause/move/restart pipeline 5001)))

@@ -13,20 +13,22 @@
       (udp-bind! s #f port)
       s))
   
+  (define buffer (make-bytes 10000))
+  (define reader-sema (make-semaphore 1))
+  
   (let* ([sock (udp-socket port)]
-         [evt (udp-receive-ready-evt sock)]
-         [buffer (make-bytes 10000)])
-    (let loop ()
-      (receive/match
-       [(list (? thread? thd) 'clone-state-and-die)
-        (to-all parent <- 'state-report sock)
-        (to-all sinks <- 'clone-state-and-die)]
-       
-       [after 0
-              (if (sync/timeout 0 evt)
-                  (let*-values 
-                      ([(len addr port) (udp-receive! sock buffer)]
-                       [(subbuffer) (bytes->immutable-bytes (subbytes buffer 0 len))])
-                    (to-all sinks <- subbuffer len)
-                    (loop))
-                  (loop))]))))
+         [reader-thd (thread (λ ()
+                               (let loop ()
+                                 ;(semaphore-wait sema)
+                                 (let*-values ([(len addr port) (udp-receive!* sock buffer)])
+                                   (when len (to-all sinks <- (subbytes buffer 0 len) len)))
+                                 ;(semaphore-post sema)
+                                 (loop)))
+                             )])
+    (receive/match
+     [(list (? thread? thd) 'clone-state-and-die)
+      ;(semaphore-wait sema)
+      (kill-thread reader-thd)
+      ;(semaphore-post sema)
+      (to-all parent <- 'state-report sock)
+      (to-all sinks <- 'clone-state-and-die)])))
