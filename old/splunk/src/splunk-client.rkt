@@ -1,7 +1,7 @@
 #lang racket
 
 (require "util.rkt"
-         "../util/xpath.rkt")
+         "xpath.rkt")
 (provide make-splunk-client
          start-search
          check-on-search
