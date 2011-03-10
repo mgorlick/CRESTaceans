@@ -3,6 +3,7 @@
 (require "util.rkt"
          "vorbisdec-private.rkt"
          "../../../bindings/vorbis/libvorbis.rkt"
+         data/queue
          (planet bzlib/thread:1:0))
 (provide vorbis-decode)
 
@@ -12,34 +13,50 @@
   ([thread?] [vdec-state? (or/c #f (listof thread?))] . ->* . void)
   
   (define vdec (vorbisdec-new))
-  
   (when (reinitialize? localstate)
     (reinitialize! localstate (curry header-packet! vdec)))
   
-  (let loop ([c (sub1 (packetcount localstate))])
-    
-    ; when all header packets are processed, buffer packets in the mailbox 
-    ; before starting data packet processing so that production outpaces consumption
-    (when (= c 3) (sleep 1))
-    
+  (define qtex (make-semaphore 1))
+  (define q (make-queue))
+  
+  (define (decode-vorbis-packets)
+    (let loop ([c (sub1 (packetcount localstate))])
+      (cond
+        [(< (queue-length q) 10)
+         (loop (add1 c))]
+        [else 
+         (semaphore-wait qtex)
+         (match-let ([`(,buffer . ,len) (dequeue! q)])
+           (semaphore-post qtex)
+           (match (handle-vorbis-buffer! vdec localstate buffer len)
+             ['ok (loop (add1 c))]
+             ['fatal #f]))])))
+  
+  (define decoder-thread (thread decode-vorbis-packets))
+  
+  (let loop ()
     (receive/match
      [(list thd buffer len)
-      (match (handle-vorbis-buffer! vdec localstate buffer len)
-        ['ok (loop (add1 c))]
-        ['fatal #f])]
+      (semaphore-wait qtex)
+      (enqueue! q (cons buffer len))
+      (semaphore-post qtex)
+      (loop)]
      
      [(list (? thread? thd) 'clone-state-and-die)
+      (semaphore-wait qtex)
+      (kill-thread decoder-thread)
+      (semaphore-post qtex)
       (vorbisdec-delete vdec)
       (cleanup! localstate)
       (to-all parent <- 'state-report localstate)])))
+
+(define buffer-process/c (vorbisdec-pointer? vdec-state? bytes? integer? . -> . symbol?))
 
 (define/contract (packet-type buffer len)
   (bytes? integer? . -> . symbol?)
   (cond [(= 1 (bitwise-and 1 (bytes-ref buffer 0))) 'header]
         [(not (zero? len)) 'data]
         [else 'empty]))
-
-(define buffer-process/c (vorbisdec-pointer? vdec-state? bytes? integer? . -> . symbol?))
 
 (define/contract (handle-vorbis-buffer! vdec localstate buffer len)
   buffer-process/c
