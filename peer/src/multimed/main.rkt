@@ -1,7 +1,6 @@
 #lang racket
 
 (require "util.rkt"
-         "udp-source.rkt"
          "vorbisdec.rkt"
          (planet bzlib/thread:1:0))
 
@@ -12,9 +11,8 @@
 (define (start port [initial-vorbis-state #f])
   (define pid (current-thread))
   (launch-threads [t1 "vorbisdec" (if initial-vorbis-state
-                                      (vorbis-decode pid initial-vorbis-state)
-                                      (vorbis-decode pid))]
-                  [t2 "udpsource" (udp-source pid port t1)]))
+                                      (vorbis-decode pid port initial-vorbis-state)
+                                      (vorbis-decode pid port))]))
 
 ;; pause/move/restart:
 ;; first, send the clone-state-and-die message to the head of the pipeline, which causes
@@ -38,7 +36,7 @@
   (define (gather-states)
     (foldl receive-state-report pipeline (dict-keys pipeline)))
   
-  (to-all (dict-ref pipeline "udpsource") <- 'clone-state-and-die)
+  (to-all (dict-ref pipeline "vorbisdec") <- 'clone-state-and-die)
   (let ([states (gather-states)])
     (start new-port (dict-ref states "vorbisdec"))))
 

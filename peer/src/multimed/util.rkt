@@ -2,6 +2,21 @@
 
 (provide (all-defined-out))
 
+(define-syntax dotimes
+  (syntax-rules ()
+    [(_ n expr ...)
+     (for ([i (in-range n)]) expr ...)]))
+
+(define-syntax signal/count
+  (syntax-rules (:)
+    [(_ sema (c : condexpr))
+     (when condexpr (semaphore-post sema) (set! c (add1 c)))]))
+
+(define-syntax signal-wait/count
+  (syntax-rules ()
+    [(_ sema ct)
+     (dotimes ct (semaphore-wait sema))]))
+
 (define (threadize . args)
   (cons (current-thread) args))
 
