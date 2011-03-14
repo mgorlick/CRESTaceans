@@ -81,10 +81,7 @@
 (defvorbis~ ogg-packet-new (_fun -> _ogg-packet-pointer))
 (defvorbis~ ogg-packet-delete (_fun _ogg-packet-pointer -> _void))
 (defvorbis~ ogg-packet-size (_fun _ogg-packet-pointer -> _long))
-(defvorbis~ ogg-packet-copy-data (_fun (p b) :: 
-                                       (p : _ogg-packet-pointer)
-                                       (b : (_box (_list io _ubyte (ogg-packet-size p))))
-                                       -> _void))
+(defvorbis~ ogg-packet-data (_fun (p : _ogg-packet-pointer) -> (_bytes o (ogg-packet-size p))))
 
 ;;; additions for building encoder
 

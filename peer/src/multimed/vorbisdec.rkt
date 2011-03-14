@@ -9,7 +9,7 @@
 
 ;; Vorbis decoder component
 
-(define BUFFER-AHEAD 20)
+(define BUFFER-AHEAD 0)
 
 (define/contract (vorbis-decode parent port [localstate (make-vdec-state)])
   ([thread? integer?] [vdec-state?] . ->* . void)
@@ -42,6 +42,7 @@
           [c 0])
       (λ (decoder)
         (let-values ([(len addr port) (udp-receive! sock udp-buffer)])
+          (printf "a packet came in (len ~a)~n" len)
           (thread-send decoder (subbytes udp-buffer 0 len))
           (signal/count qct (c : (< c BUFFER-AHEAD)))
           (receive-packets decoder)))))
@@ -82,7 +83,7 @@
     [('header #f) (header-packet! vdec localstate buffer len)]
     
     ;; the nasty fatal state: can't recover from missing header
-    [('empty #f) (printf "fatal error: empty header~n") 'fatal]
+    [('empty #f) 'fatal]
     
     ;; we can skip the state transition associated with a packet that causes one of these. 
     [('data #f) 'ok]
@@ -93,7 +94,6 @@
 (define/contract (header-packet! vdec localstate buffer len) buffer-process/c
   (match (header-packet-in vdec (bytestring->uchar** buffer) len)
     [(? (λ (i) (and (>= i 0) (< i 3))) typenum)
-     (printf "header packet successful~n")
      (handle-headerpkt! localstate buffer len typenum (stream-rate vdec) (stream-channels vdec))
      'ok]
     [any 'fatal]))

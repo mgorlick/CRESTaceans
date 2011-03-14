@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <ogg/ogg.h>
 
 ogg_packet* ogg_packet_new (void) {
@@ -14,11 +15,6 @@ long ogg_packet_size (ogg_packet* p) {
   return p->bytes;
 }
 
-void ogg_packet_copy_data (ogg_packet* p, unsigned char** buffer) {
-  long i;
-  long j = p->bytes;
-  unsigned char* d = p->packet;
-  unsigned char* b = *buffer;
-
-  for (i = 0; i < j; i++) *b++ = *d++;
+unsigned char* ogg_packet_data (ogg_packet* p) {
+  return p->packet;
 }
