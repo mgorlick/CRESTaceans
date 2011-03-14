@@ -6,8 +6,7 @@
 
 (provide (all-defined-out))
 
-;; start: launch a UDP listener on a given socket, which forwards each packet
-;; to the thread mailbox of a Vorbis decoder running in a separate thread
+
 (define (start port [initial-vorbis-state #f])
   (define pid (current-thread))
   (launch-threads [t1 "vorbisdec" (if initial-vorbis-state
@@ -31,7 +30,7 @@
   (define (receive-state-report component-key states)
     (receive/match
      [(list (? (curry equal? (dict-ref states component-key)) thread) 'state-report newstate)
-      (hash-set states component-key newstate)]))
+      (dict-set states component-key newstate)]))
   
   (define (gather-states)
     (foldl receive-state-report pipeline (dict-keys pipeline)))
