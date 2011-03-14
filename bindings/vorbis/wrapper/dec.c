@@ -4,7 +4,7 @@
 #include <math.h>
 #include <vorbis/codec.h>
 
-typedef struct vorbisdec {
+typedef struct {
   int is_init;
   vorbis_info* vi;
   vorbis_comment* vc;
@@ -21,11 +21,11 @@ vorbisdec* vorbisdec_new (void) {
   vorbis_block* vb;
   vorbisdec* dec;
   
-  dec = malloc (sizeof (struct vorbisdec));
-  vc = malloc (sizeof (struct vorbis_comment));
-  vi = malloc (sizeof (struct vorbis_info));
-  vd = malloc (sizeof (struct vorbis_dsp_state));
-  vb = malloc (sizeof (struct vorbis_block));
+  dec = malloc (sizeof (vorbisdec));
+  vc = malloc (sizeof (vorbis_comment));
+  vi = malloc (sizeof (vorbis_info));
+  vd = malloc (sizeof (vorbis_dsp_state));
+  vb = malloc (sizeof (vorbis_block));
 
   dec->is_init = 0;
   dec->vi = vi;

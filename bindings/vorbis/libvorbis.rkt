@@ -1,28 +1,28 @@
 #lang racket
 
-(require "oggpack.rkt"
-         ffi/unsafe)
-(provide (all-from-out "oggpack.rkt")
-         (all-defined-out))
+(require ffi/unsafe)
+(provide (except-out (all-defined-out)
+                     defvorbis~
+                     defvorbis~+
+                     defvorbis~*
+                     libvorbis/adds))
 
-(define libvorbis (ffi-lib "libvorbis"))
-(define libvorbis/adds (ffi-lib "libracket-vorbis-wrapper"))
-
+#|(define libvorbis (ffi-lib "libvorbis"))
 (define-syntax-rule (defvorbis+ binding obj typ)
   (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) libvorbis typ)))
 (define-syntax-rule (defvorbis obj typ)
   (defvorbis+ obj obj typ))
 (define-syntax-rule (defvorbis* typ obj ...)
   (begin (defvorbis obj typ)
-         ...))
+         ...))|#
 
+(define libvorbis/adds (ffi-lib "libracket-vorbis-wrapper"))
 (define-syntax-rule (defvorbis~+ binding obj typ)
   (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) libvorbis/adds typ)))
 (define-syntax-rule (defvorbis~ obj typ)
   (defvorbis~+ obj obj typ))
 (define-syntax-rule (defvorbis~* typ obj ...)
-  (begin (defvorbis~ obj typ)
-         ...))
+  (begin (defvorbis~ obj typ) ...))
 
 (define OV_FALSE -1)
 (define OV_EOF -2)
@@ -72,3 +72,40 @@
 
 (define (bytestring->uchar** buffer)
   (box (bytes->list buffer)))
+
+
+;;; ogg packet helpers
+
+(define-cpointer-type _ogg-packet-pointer)
+
+(defvorbis~ ogg-packet-new (_fun -> _ogg-packet-pointer))
+(defvorbis~ ogg-packet-delete (_fun _ogg-packet-pointer -> _void))
+(defvorbis~ ogg-packet-size (_fun _ogg-packet-pointer -> _long))
+(defvorbis~ ogg-packet-copy-data (_fun (p b) :: 
+                                       (p : _ogg-packet-pointer)
+                                       (b : (_box (_list io _ubyte (ogg-packet-size p))))
+                                       -> _void))
+
+;;; additions for building encoder
+
+(define-cpointer-type _vorbisenc-pointer)
+
+(define _vorbisenc-process-block (_fun _ogg-packet-pointer -> _bool))
+
+(defvorbis~ vorbisenc-new (_fun -> _vorbisenc-pointer))
+(defvorbis~ vorbisenc-delete (_fun _vorbisenc-pointer -> _void))
+(defvorbis~ vorbisenc-is-init (_fun _vorbisenc-pointer -> _bool))
+
+(defvorbis~ vorbisenc-init (_fun _vorbisenc-pointer
+                                 _ogg-packet-pointer
+                                 _ogg-packet-pointer
+                                 _ogg-packet-pointer
+                                 -> _int))
+
+(defvorbis~ vorbisenc-encode-pcm-samples
+  (_fun (enc samples ct callback) ::
+        (enc : _vorbisenc-pointer)
+        (samples : (_list io _ubyte ct))
+        (ct : _long)
+        (callback : _vorbisenc-process-block)
+        -> _int))
