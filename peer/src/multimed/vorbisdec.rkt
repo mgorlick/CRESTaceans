@@ -42,7 +42,7 @@
           [c 0])
       (λ (decoder)
         (let-values ([(len addr port) (udp-receive! sock udp-buffer)])
-          (printf "a packet came in (len ~a)~n" len)
+          ;(printf "a packet came in (len ~a)~n" len)
           (thread-send decoder (subbytes udp-buffer 0 len))
           (signal/count qct (c : (< c BUFFER-AHEAD)))
           (receive-packets decoder)))))
@@ -77,19 +77,15 @@
 
 (define/contract (handle-vorbis-buffer! vdec localstate buffer len) buffer-process/c
   (match* ((packet-type buffer len) (vorbisdec-is-init vdec))
-    
-    ;; "normal" states: non-empty, initialized with headers before processing data
+    ;; "normal" states: non-empty packet, dec initialized with headers before processing data
     [('data #t) (data-packet! vdec localstate buffer len)]
     [('header #f) (header-packet! vdec localstate buffer len)]
-    
     ;; the nasty fatal state: can't recover from missing header
-    [('empty #f) 'fatal]
-    
+    [('empty #f) (printf "empty/fatal~n") 'fatal]
     ;; we can skip the state transition associated with a packet that causes one of these. 
-    [('data #f) 'ok]
-    [('header #t) 'ok]
-    [('empty #t) 'ok]
-    ))
+    [('data #f) (printf "data/skip~n") 'ok]
+    [('header #t) (printf "header/skip~n") 'ok]
+    [('empty #t) (printf "empty/skip~n") 'ok]))
 
 (define/contract (header-packet! vdec localstate buffer len) buffer-process/c
   (match (header-packet-in vdec (bytestring->uchar** buffer) len)
@@ -104,6 +100,7 @@
            (let* ([total-samples (* ct (stream-channels vdec))]
                   [output-buffer (storage localstate)]
                   [sample-ct (data-packet-pcmout vdec output-buffer total-samples)])
+             (printf "decoded ~a samples (planned ~a, buffer size ~a)~n" sample-ct total-samples  len)
              (audio-out! localstate total-samples))
            'ok]
           [(zero? ct) 'ok]

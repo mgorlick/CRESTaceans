@@ -58,8 +58,7 @@
              (let-values ([(bin error)
                            (gst_parse_launch
                             (string-append "audiotestsrc wave=3 ! "
-                                           "audioconvert ! audio/x-raw-int,channels=2 ! "
-                                           "audioconvert ! vorbisenc ! "
+                                           "audioconvert ! audio/x-raw-float,channels=1,endiannes=4321,signed=false ! "
                                            "udpsink name=udpsink host=127.0.0.1 port=" (number->string port)))])
                (gst_element_set_state bin GST_STATE_PLAYING)
                (restartable-evt-loop bin)

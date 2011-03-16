@@ -5,7 +5,7 @@
 #include <vorbis/vorbisenc.h>
 
 int RATE = 44100;
-int CHANNELS = 2;
+int CHANNELS = 1;
 float QUALITY = 0.5;
 
 typedef struct {
@@ -73,22 +73,22 @@ int vorbisenc_init (vorbisenc* enc, vorbisenc_process_packet_ft f) {
 
   r = vorbis_analysis_headerout (enc->vd, enc->vc, &id, &comment, &codebook);
   if (r == 0) {
+    vorbis_block_init (enc->vd, enc->vb);
+    enc->is_init = 1;
     f (&id, VORBIS_ID_PACKET);
     f (&comment, VORBIS_COMMENT_PACKET);
     f (&codebook, VORBIS_CODEBOOK_PACKET);
-    vorbis_block_init (enc->vd, enc->vb);
-    enc->is_init = 1;
   }
   return r;
 }
 
 long bytes_to_floats_htno (unsigned char* buffer, long buffer_length, /* input parameters */
-                           float samples[]) /* output parameters */
-{
+                           float samples[]) /* output parameters */ {
   long i, j;
   
   for (i = 0, j = 0; i < buffer_length; i += sizeof (uint32_t), j++) {
     samples[j] = (float) ntohl ((uint32_t) buffer[i]);
+    /* printf ("sample: %f\n", samples[j]); */
   }
   return j;
 
@@ -96,6 +96,8 @@ long bytes_to_floats_htno (unsigned char* buffer, long buffer_length, /* input p
 
 int vorbisenc_encode_pcm_samples (vorbisenc* enc, unsigned char* buffer, long buffer_length,
                                    vorbisenc_process_packet_ft f) {
+  printf ("encoding samples (buffer length %ld)\n", buffer_length);
+
   int r, keep_going = 1; /* error signals */
   long i, j;
 
@@ -108,6 +110,8 @@ int vorbisenc_encode_pcm_samples (vorbisenc* enc, unsigned char* buffer, long bu
 
   ogg_packet op;
 
+  printf ("found %ld samples\n", sample_count);
+  
   /* assume that the buffer represents a single-channel stream
      and duplicate the buffer into two channels */
   for (i = 0; i < CHANNELS; i++) {
@@ -116,13 +120,14 @@ int vorbisenc_encode_pcm_samples (vorbisenc* enc, unsigned char* buffer, long bu
     }
   }
   
-  if ((r = vorbis_analysis_wrote (enc->vd, 0)) < 0) {
+  if ((r = vorbis_analysis_wrote (enc->vd, sample_count)) < 0) {
     printf ("sample encoding failed when calling vorbis_analysis_wrote, ct = %ld, error = %d\n", sample_count, r);
     return r;
   }
 
   while (keep_going && (r = vorbis_analysis_blockout (enc->vd, enc->vb)) == 1) {
     r = vorbis_analysis (enc->vb, &op);
+    printf ("made a new packet (payload bytecount %ld)\n", op.bytes);
     if (r < 0) {
       printf ("sample encoding failed when calling vorbis_analysis, ct = %ld, error = %d\n", sample_count, r);
       keep_going = 0;

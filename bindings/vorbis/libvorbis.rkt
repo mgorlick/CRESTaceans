@@ -100,9 +100,8 @@
 (defvorbis~ vorbisenc-init (_fun _vorbisenc-pointer _vorbisenc-process-block -> _int))
 
 (defvorbis~ vorbisenc-encode-pcm-samples
-  (_fun (enc samples ct callback) ::
-        (enc : _vorbisenc-pointer)
-        (samples : (_list io _ubyte ct))
-        (ct : _long)
+  (_fun (enc : _vorbisenc-pointer)
+        (samples : _bytes)
+        (ct : _long = (bytes-length samples))
         (callback : _vorbisenc-process-block)
         -> _int))
