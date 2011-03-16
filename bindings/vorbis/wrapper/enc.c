@@ -96,27 +96,27 @@ long bytes_to_floats_htno (unsigned char* buffer, long buffer_length, /* input p
 
 int vorbisenc_encode_pcm_samples (vorbisenc* enc, unsigned char* buffer, long buffer_length,
                                    vorbisenc_process_packet_ft f) {
-  printf ("encoding samples (buffer length %ld)\n", buffer_length);
-
   int r, keep_going = 1; /* error signals */
   long i, j;
 
   /* assume the buffer has already been aligned
      so that buffer[0] starts the first float */
-  float samples[buffer_length / (sizeof (uint32_t))];
+
+  /*float samples[buffer_length / (sizeof (uint32_t))];
+    long sample_count = bytes_to_floats_htno (buffer, buffer_length, samples);*/
+  long sample_count = buffer_length / (sizeof (float));
   
-  long sample_count = bytes_to_floats_htno (buffer, buffer_length, samples);
   float **vorbis_input = vorbis_analysis_buffer (enc->vd, sample_count);
 
   ogg_packet op;
-
-  printf ("found %ld samples\n", sample_count);
   
   /* assume that the buffer represents a single-channel stream
-     and duplicate the buffer into two channels */
+     and duplicate the buffer into N channels */
   for (i = 0; i < CHANNELS; i++) {
+    float* data = (float*) buffer;
     for (j = 0; j < sample_count; j++) {
-      vorbis_input[i][j] = samples[j];
+      /*vorbis_input[i][j] = samples[j];*/
+      vorbis_input[i][j] = *data++;
     }
   }
   

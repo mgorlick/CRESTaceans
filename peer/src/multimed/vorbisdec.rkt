@@ -9,7 +9,7 @@
 
 ;; Vorbis decoder component
 
-(define BUFFER-AHEAD 0)
+(define BUFFER-AHEAD 20)
 
 (define/contract (vorbis-decode parent port [localstate (make-vdec-state)])
   ([thread? integer?] [vdec-state?] . ->* . void)
