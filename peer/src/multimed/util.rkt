@@ -2,6 +2,16 @@
 
 (provide (all-defined-out))
 
+(define-syntax λ-loop
+  (syntax-rules ()
+    [(λ-loop ([b1 v1] ...)
+             expr ...) (let ([b1 v1] ...)
+                         (λ-loop expr ...))]
+    [(λ-loop expr ...) (λ ()
+                         (let loop ()
+                           expr ...
+                           (loop)))]))
+
 (define-syntax dotimes
   (syntax-rules ()
     [(_ n expr ...)
