@@ -23,7 +23,12 @@ typedef enum {
   VORBIS_CODEBOOK_PACKET,
   VORBIS_DATA_PACKET
 } vorbis_packet_type;
- 
+
+typedef enum {
+  VORBIS_NAIVE,
+  VORBIS_NTOH
+} vorbis_byte_conversion_type;
+
 typedef int (*vorbisenc_process_packet_ft) (ogg_packet* p, vorbis_packet_type t);
 
 vorbisenc* vorbisenc_new (void) {
@@ -83,28 +88,30 @@ int vorbisenc_init (vorbisenc* enc, vorbisenc_process_packet_ft f) {
   return r;
 }
 
-int vorbisenc_encode_pcm_samples (vorbisenc* enc, float data[], long data_length,
-                                   vorbisenc_process_packet_ft f) {
+int vorbisenc_encode_pcm_samples (vorbisenc* enc, unsigned char* buffer, long buffer_length,
+                                  vorbis_byte_conversion_type b, vorbisenc_process_packet_ft f) {
   int r, keep_going = 1; /* error signals */
   long i, j;
-
-  /* assume the buffer has already been aligned
-     so that buffer[0] starts the first float */
-
-  /*float samples[buffer_length / (sizeof (uint32_t))];
-    long sample_count = bytes_to_floats_htno (buffer, buffer_length, samples);*/
-
-  float data[buffer_length];
-  long sample_count = bstofs_naive (buffer, buffer_length, &(data)); 
-  float **vorbis_input = vorbis_analysis_buffer (enc->vd, sample_count);
-
   ogg_packet op;
+  float samples[buffer_length];
+  long sample_count;
+
+  switch (b) {
+    case VORBIS_NAIVE:
+      sample_count = bstofs_naive (buffer, buffer_length, samples);
+      break;
+    default:
+      sample_count = bstofs_ntoh (buffer, buffer_length, samples);
+      break;
+  }
+
+  float **vorbis_input = vorbis_analysis_buffer (enc->vd, sample_count);
   
   /* assume that the buffer represents a single-channel stream
      and duplicate the buffer into N channels */
   for (j = 0; j < sample_count; j++) {
     for (i = 0; i < CHANNELS; i++) {  
-        vorbis_input[i][j] = data[j];
+        vorbis_input[i][j] = samples[j];
     }
   }
   

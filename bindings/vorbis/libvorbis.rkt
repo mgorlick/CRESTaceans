@@ -91,6 +91,11 @@
      codebook
      data)))
 
+(define _conversion-type
+  (_enum
+   '(naive
+     ntoh)))
+
 (define _vorbisenc-process-block (_fun _ogg-packet-pointer _ogg-packet-type -> _bool))
 
 (defvorbis~ vorbisenc-new (_fun -> _vorbisenc-pointer))
@@ -100,8 +105,10 @@
 (defvorbis~ vorbisenc-init (_fun _vorbisenc-pointer _vorbisenc-process-block -> _int))
 
 (defvorbis~ vorbisenc-encode-pcm-samples
-  (_fun (enc : _vorbisenc-pointer)
-        (samples : _bytes)
-        (ct : _long = (bytes-length samples))
+  (_fun (enc buffer conv callback) ::
+        (enc : _vorbisenc-pointer)
+        (buffer : _bytes)
+        (_long = (bytes-length buffer))
+        (conv : _conversion-type)
         (callback : _vorbisenc-process-block)
-        -> _int))
+        -> _bool))
