@@ -88,7 +88,6 @@ long bytes_to_floats_htno (unsigned char* buffer, long buffer_length, /* input p
   
   for (i = 0, j = 0; i < buffer_length; i += sizeof (uint32_t), j++) {
     samples[j] = (float) ntohl ((uint32_t) buffer[i]);
-    /* printf ("sample: %f\n", samples[j]); */
   }
   return j;
 
@@ -127,7 +126,6 @@ int vorbisenc_encode_pcm_samples (vorbisenc* enc, unsigned char* buffer, long bu
 
   while (keep_going && (r = vorbis_analysis_blockout (enc->vd, enc->vb)) == 1) {
     r = vorbis_analysis (enc->vb, &op);
-    printf ("made a new packet (payload bytecount %ld)\n", op.bytes);
     if (r < 0) {
       printf ("sample encoding failed when calling vorbis_analysis, ct = %ld, error = %d\n", sample_count, r);
       keep_going = 0;

@@ -81,11 +81,11 @@
     [('data #t) (data-packet! vdec localstate buffer len)]
     [('header #f) (header-packet! vdec localstate buffer len)]
     ;; the nasty fatal state: can't recover from missing header
-    [('empty #f) (printf "empty/fatal~n") 'fatal]
+    [('empty #f) 'fatal]
     ;; we can skip the state transition associated with a packet that causes one of these. 
-    [('data #f) (printf "data/skip~n") 'ok]
-    [('header #t) (printf "header/skip~n") 'ok]
-    [('empty #t) (printf "empty/skip~n") 'ok]))
+    [('data #f) 'ok]
+    [('header #t) 'ok]
+    [('empty #t) 'ok]))
 
 (define/contract (header-packet! vdec localstate buffer len) buffer-process/c
   (match (header-packet-in vdec (bytestring->uchar** buffer) len)
@@ -100,7 +100,6 @@
            (let* ([total-samples (* ct (stream-channels vdec))]
                   [output-buffer (storage localstate)]
                   [sample-ct (data-packet-pcmout vdec output-buffer total-samples)])
-             (printf "decoded ~a samples (planned ~a, buffer size ~a)~n" sample-ct total-samples  len)
              (audio-out! localstate total-samples))
            'ok]
           [(zero? ct) 'ok]
