@@ -77,27 +77,27 @@
 ;;; ogg packet helpers
 
 (define-cpointer-type _ogg-packet-pointer)
-
-(defvorbis~ ogg-packet-new (_fun -> _ogg-packet-pointer))
-(defvorbis~ ogg-packet-delete (_fun _ogg-packet-pointer -> _void))
+(defvorbis~ ogg-packet-copy (_fun _ogg-packet-pointer -> _ogg-packet-pointer))
 (defvorbis~ ogg-packet-size (_fun _ogg-packet-pointer -> _long))
 (defvorbis~ ogg-packet-data (_fun (p : _ogg-packet-pointer) -> (_bytes o (ogg-packet-size p))))
 
 ;;; additions for building encoder
 
 (define-cpointer-type _vorbisenc-pointer)
+(define _ogg-packet-type
+  (_enum
+   '(id
+     comment
+     codebook
+     data)))
 
-(define _vorbisenc-process-block (_fun _ogg-packet-pointer -> _bool))
+(define _vorbisenc-process-block (_fun _ogg-packet-pointer _ogg-packet-type -> _bool))
 
 (defvorbis~ vorbisenc-new (_fun -> _vorbisenc-pointer))
 (defvorbis~ vorbisenc-delete (_fun _vorbisenc-pointer -> _void))
 (defvorbis~ vorbisenc-is-init (_fun _vorbisenc-pointer -> _bool))
 
-(defvorbis~ vorbisenc-init (_fun _vorbisenc-pointer
-                                 _ogg-packet-pointer
-                                 _ogg-packet-pointer
-                                 _ogg-packet-pointer
-                                 -> _int))
+(defvorbis~ vorbisenc-init (_fun _vorbisenc-pointer _vorbisenc-process-block -> _int))
 
 (defvorbis~ vorbisenc-encode-pcm-samples
   (_fun (enc samples ct callback) ::

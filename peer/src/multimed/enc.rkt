@@ -25,7 +25,7 @@
     (udp-write)))
 
 (define (make-write-callback writer-thread)
-    (λ (packet)
+    (λ (packet type)
       (thread-send writer-thread (ogg-packet-data packet))
       #t))
 
@@ -35,11 +35,5 @@
 (define output-packet (make-write-callback udp-writer))
 
 (define enc (vorbisenc-new))
-(define id (ogg-packet-new))
-(define comment (ogg-packet-new))
-(define codebook (ogg-packet-new))
-(vorbisenc-init enc id comment codebook)
-(output-packet id)
-(output-packet comment)
-(output-packet codebook)
+(vorbisenc-init enc output-packet)
 ;(vorbisenc-delete enc)
