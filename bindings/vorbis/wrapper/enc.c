@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <arpa/inet.h>
 #include <vorbis/codec.h>
 #include <vorbis/vorbisenc.h>
+
+#include "conversions.h"
 
 int RATE = 44100;
 int CHANNELS = 1;
@@ -82,17 +83,6 @@ int vorbisenc_init (vorbisenc* enc, vorbisenc_process_packet_ft f) {
   return r;
 }
 
-long bytes_to_floats_htno (unsigned char* buffer, long buffer_length, /* input parameters */
-                           float samples[]) /* output parameters */ {
-  long i, j;
-  
-  for (i = 0, j = 0; i < buffer_length; i += sizeof (uint32_t), j++) {
-    samples[j] = (float) ntohl ((uint32_t) buffer[i]);
-  }
-  return j;
-
-}
-
 int vorbisenc_encode_pcm_samples (vorbisenc* enc, unsigned char* buffer, long buffer_length,
                                    vorbisenc_process_packet_ft f) {
   int r, keep_going = 1; /* error signals */
@@ -103,19 +93,18 @@ int vorbisenc_encode_pcm_samples (vorbisenc* enc, unsigned char* buffer, long bu
 
   /*float samples[buffer_length / (sizeof (uint32_t))];
     long sample_count = bytes_to_floats_htno (buffer, buffer_length, samples);*/
-  long sample_count = buffer_length / (sizeof (float));
-  
+
+  float data[buffer_length];
+  long sample_count = bstofs_naive (buffer, buffer_length, data); 
   float **vorbis_input = vorbis_analysis_buffer (enc->vd, sample_count);
 
   ogg_packet op;
   
   /* assume that the buffer represents a single-channel stream
      and duplicate the buffer into N channels */
-  for (i = 0; i < CHANNELS; i++) {
-    float* data = (float*) buffer;
-    for (j = 0; j < sample_count; j++) {
-      /*vorbis_input[i][j] = samples[j];*/
-      vorbis_input[i][j] = *data++;
+  for (j = 0; j < sample_count; j++) {
+    for (i = 0; i < CHANNELS; i++) {  
+        vorbis_input[i][j] = data[j];
     }
   }
   

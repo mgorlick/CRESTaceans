@@ -7,7 +7,7 @@ LIBDEPS = /usr/lib/libvorbisenc.so /usr/lib/libvorbis.so
 
 all: so
 
-so: dec.o enc.o ogg.o
+so: dec.o enc.o ogg.o conversions.o
 	cc -shared $(LDFLAGS) \
 		-o $(SONAME).$(VERSION_FULL) \
 		 $(LIBDEPS) $^
