@@ -83,7 +83,7 @@ int vorbisenc_init (vorbisenc* enc, vorbisenc_process_packet_ft f) {
   return r;
 }
 
-int vorbisenc_encode_pcm_samples (vorbisenc* enc, unsigned char* buffer, long buffer_length,
+int vorbisenc_encode_pcm_samples (vorbisenc* enc, float data[], long data_length,
                                    vorbisenc_process_packet_ft f) {
   int r, keep_going = 1; /* error signals */
   long i, j;
@@ -95,7 +95,7 @@ int vorbisenc_encode_pcm_samples (vorbisenc* enc, unsigned char* buffer, long bu
     long sample_count = bytes_to_floats_htno (buffer, buffer_length, samples);*/
 
   float data[buffer_length];
-  long sample_count = bstofs_naive (buffer, buffer_length, data); 
+  long sample_count = bstofs_naive (buffer, buffer_length, &(data)); 
   float **vorbis_input = vorbis_analysis_buffer (enc->vd, sample_count);
 
   ogg_packet op;
