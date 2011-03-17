@@ -24,10 +24,12 @@
       (udp-send socket buffer))))
 
 (define (make-encoder float-conversion-type receiver)
-  (λ-loop ([output-packet (make-packet-out-callback receiver)]
-           [enc (let ([e (vorbisenc-new)]) (vorbisenc-init e output-packet) e)])
-    (let ([buffer (thread-receive)])
-      (vorbisenc-encode-pcm-samples enc buffer float-conversion-type output-packet))))
+  (let ([enc (vorbisenc-new)]
+        [output-packet (make-packet-out-callback receiver)])
+    (vorbisenc-init enc output-packet)
+    (λ-loop
+        (let ([buffer (thread-receive)])
+          (vorbisenc-encode-pcm-samples enc buffer float-conversion-type output-packet)))))
 
 ;; encoder stuff
 (define (make-packet-out-callback receiver)
