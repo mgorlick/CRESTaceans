@@ -2,6 +2,7 @@
 #lang racket
 
 (require "../../../bindings/vorbis/libvorbis.rkt"
+         "udp.rkt"
          "util.rkt")
 
 ;; constants
@@ -12,17 +13,6 @@
 (define float-conversion-type 'naive) ;; handles gstreamer's peculiarity wrt network float serialization
 
 ;; component setup
-(define (make-udp-reader inbound-host inbound-port receiver)
-  (λ-loop ([socket (let ([s (udp-open-socket)]) (udp-bind! s inbound-host inbound-port) s)]
-           [buffer (make-bytes 1000000)])
-    (let-values ([(len addr port) (udp-receive! socket buffer)])
-      (thread-send receiver (subbytes buffer 0 len)))))
-
-(define (make-udp-writer outbound-host outbound-port)
-  (λ-loop ([socket (let ([s (udp-open-socket)]) (udp-connect! s outbound-host outbound-port) s)])
-    (let ([buffer (thread-receive)])
-      (udp-send socket buffer))))
-
 (define (make-encoder float-conversion-type receiver)
   (let ([enc (vorbisenc-new)]
         [output-packet (make-packet-out-callback receiver)])

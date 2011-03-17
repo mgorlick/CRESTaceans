@@ -1,9 +1,9 @@
 #lang racket
 
 (require "util.rkt"
+         "udp.rkt"
          "vorbisdec-private.rkt"
          "../../../bindings/vorbis/libvorbis.rkt"
-         racket/async-channel
          (planet bzlib/thread:1:0))
 (provide vorbis-decode)
 
@@ -17,45 +17,8 @@
   (define vdec (vorbisdec-new))
   (when (reinitialize? localstate) (reinitialize! localstate (curry header-packet! vdec)))
   
-  ;; the problem we're trying to solve here is that, if you let the decoder start decoding too
-  ;; soon after you start to receive packets, you'll probably get a situation where the
-  ;; decoder processes packets right after they are stuffed into the channel.
-  
-  ;; this is *bad*, because it means that there'll be audible time delays between decoding 
-  ;; packets, since decoding a packet is faster than the I/O of receiving it through the port,
-  ;; and playback happens asynchronously in another pthread, so the decoder will happily march along
-  ;; queueing decoded packets into that pthread.
-  
-  ;; instead, we just prebuffer N packets before the start of decoding.
-  ;; complication: N may change from machine to machine, or connection to connection. you don't
-  ;; *appear* to need to prebuffer again once the decoding starts, but this may change.
-  
-  ;; this implementation uses counted semaphores to signal when the prebuffering is complete (as opposed to checking
-  ;; a mutable global counter) because waking a thread up and putting it back to sleep is faster
-  ;; than checking a counter and looping (i.e., starves the producer thread less during initial prebuffering).
-  
-  (define qct (make-semaphore 0))
-  
-  (define receive-packets
-    (let ([sock (let ([s (udp-open-socket)]) (udp-bind! s #f port) s)]
-          [udp-buffer (make-bytes 10000)]
-          [c 0])
-      (λ (decoder)
-        (let-values ([(len addr port) (udp-receive! sock udp-buffer)])
-          ;(printf "a packet came in (len ~a)~n" len)
-          (thread-send decoder (subbytes udp-buffer 0 len))
-          (signal/count qct (c : (< c BUFFER-AHEAD)))
-          (receive-packets decoder)))))
-  
-  (define (decode-packets)
-    (let ([buffer (thread-receive)])
-      (cond [(bytes? buffer)
-             (match (handle-vorbis-buffer! vdec localstate buffer (bytes-length buffer))
-               ['ok (decode-packets)]
-               ['fatal #f])])))
-  
-  (define decoder-thread (thread (λ () (signal-wait/count qct BUFFER-AHEAD) (decode-packets))))
-  (define receiver-thread (thread (λ () (receive-packets decoder-thread))))
+  (define decoder-thread (thread (make-decoder vdec localstate)))
+  (define receiver-thread (thread (make-udp-reader #f port decoder-thread)))
   
   (receive/match
    [(list (? thread? thd) 'clone-state-and-die)
@@ -67,40 +30,45 @@
     (cleanup! localstate)
     (to-all parent <- 'state-report localstate)]))
 
-(define buffer-process/c (vorbisdec-pointer? vdec-state? bytes? integer? . -> . symbol?))
+(define (make-decoder vdec localstate)
+  (λ ()
+    ;; do prebuffering
+    (let ([buffered-packets (for/list ([i (in-range BUFFER-AHEAD)])
+                              (thread-receive))])
+      (map (curry handle-vorbis-buffer! vdec localstate) buffered-packets)
+      ;; prebuffering done
+      (let loop ()
+        (let ([buffer (thread-receive)])
+          (handle-vorbis-buffer! vdec localstate buffer))
+        (loop)))))
 
-(define/contract (packet-type buffer len)
-  (bytes? integer? . -> . symbol?)
-  (cond [(= 1 (bitwise-and 1 (bytes-ref buffer 0))) 'header]
-        [(not (zero? len)) 'data]
-        [else 'empty]))
-
-(define/contract (handle-vorbis-buffer! vdec localstate buffer len) buffer-process/c
+(define (handle-vorbis-buffer! vdec localstate buffer)
+  (define len (bytes-length buffer))
   (match* ((packet-type buffer len) (vorbisdec-is-init vdec))
     ;; "normal" states: non-empty packet, dec initialized with headers before processing data
     [('data #t) (data-packet! vdec localstate buffer len)]
     [('header #f) (header-packet! vdec localstate buffer len)]
     ;; the nasty fatal state: can't recover from missing header
-    [('empty #f) 'fatal]
-    ;; we can skip the state transition associated with a packet that causes one of these. 
-    [('data #f) 'ok]
-    [('header #t) 'ok]
-    [('empty #t) 'ok]))
+    [('empty #f) (raise (make-exn:fail "fatal: found an empty packet where a header packet was expected"))]
+    ;; we can skip the state transition for anything else
+    [(_ _) (void)]))
 
-(define/contract (header-packet! vdec localstate buffer len) buffer-process/c
+(define (packet-type buffer len)
+  (cond [(zero? len) 'empty]
+        [(= 1 (bitwise-and 1 (bytes-ref buffer 0))) 'header]
+        [else 'data]))
+
+(define (header-packet! vdec localstate buffer len)
   (match (header-packet-in vdec (bytestring->uchar** buffer) len)
     [(? (λ (i) (and (>= i 0) (< i 3))) typenum)
-     (handle-headerpkt! localstate buffer len typenum (stream-rate vdec) (stream-channels vdec))
-     'ok]
-    [any 'fatal]))
+     (handle-headerpkt! localstate buffer len typenum (stream-rate vdec) (stream-channels vdec))]
+    [_ (raise (make-exn:fail "fatal: packet looked like a header, but couldn't process it"))]))
 
-(define/contract (data-packet! vdec localstate buffer len) buffer-process/c
+(define (data-packet! vdec localstate buffer len)
   (let ([ct (data-packet-blockin vdec (bytestring->uchar** buffer) len)])
     (cond [(positive? ct)
            (let* ([total-samples (* ct (stream-channels vdec))]
                   [output-buffer (storage localstate)]
                   [sample-ct (data-packet-pcmout vdec output-buffer total-samples)])
-             (audio-out! localstate total-samples))
-           'ok]
-          [(zero? ct) 'ok]
-          [(negative? ct) 'fatal])))
+             (audio-out! localstate total-samples))]
+          [else (void)])))
