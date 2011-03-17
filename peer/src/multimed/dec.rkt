@@ -8,10 +8,9 @@
 
 (define (udp-in>>decoder in-port [initial-vorbis-state #f])
   (define pid (current-thread))
-  (launch-threads [t2 "vorbis-decoder" (if initial-vorbis-state
-                                           (make-vorbis-decoder pid initial-vorbis-state)
-                                           (make-vorbis-decoder pid))]
-                  [t1 "udp-reader" (make-udp-reader pid #f in-port t2)]))
+  (define decoder (if initial-vorbis-state (make-vorbis-decoder pid initial-vorbis-state) (make-vorbis-decoder pid)))
+  (make-pipeline (["vorbis-decoder" : t2 decoder]
+                  ["udp-reader"     : t1 (make-udp-reader pid #f in-port t2)])))
 
 (define (decoder:pause/move/restart pipeline new-port)
   (command/killswitch (current-thread) (dict-ref pipeline "udp-reader"))

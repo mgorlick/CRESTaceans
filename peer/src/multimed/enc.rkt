@@ -8,9 +8,9 @@
 
 (define (udp-in>>encoder>>udp-out in-host in-port encoder-setup out-host out-port)
   (define pid (current-thread))
-  (launch-threads [t3 "udp-writer" (make-udp-writer pid out-host out-port)]
-                  [t2 "vorbis-encoder" (make-vorbis-encoder pid encoder-setup t3)]
-                  [t1 "udp-reader" (make-udp-reader pid in-host in-port t2)]))
+  (make-pipeline (["udp-writer"     : t3 (make-udp-writer pid out-host out-port)]
+                  ["vorbis-encoder" : t2 (make-vorbis-encoder pid encoder-setup t3)]
+                  ["udp-reader"     : t1 (make-udp-reader pid in-host in-port t2)])))
 
 (define (encoder:pause/move/restart pipeline in-host in-port out-host out-port)
   (command/killswitch (current-thread) (dict-ref pipeline "udp-reader"))

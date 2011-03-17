@@ -10,11 +10,12 @@
     (and (thread? thd) (equal? signaller thd))))
 
 ;;; starting a pipeline
-(define-syntax launch-threads
-  (syntax-rules ()
-    [(_ [id1 name1 thunk1] ...)
+(define-syntax make-pipeline
+  (syntax-rules (:)
+    [(_ ([name1 : id1 thunk1] ...) expr ...)
      (let* ([id1 (thread thunk1)]
             ...)
+       expr ...
        `((name1 . ,id1)
          ...
          ))]))
