@@ -5,16 +5,17 @@
 
 #include "conversions.h"
 
-int RATE = 44100;
-int CHANNELS = 1;
-float QUALITY = 0.5;
-
 typedef struct {
-  int is_init;
   vorbis_info* vi;
   vorbis_comment* vc;
   vorbis_dsp_state* vd;
   vorbis_block* vb;
+
+  int is_init;
+  
+  int channels;
+  int rate;
+  float quality;
 } vorbisenc;
 
 typedef enum {
@@ -31,7 +32,7 @@ typedef enum {
 
 typedef int (*vorbisenc_process_packet_ft) (ogg_packet* p, vorbis_packet_type t);
 
-vorbisenc* vorbisenc_new (void) {
+vorbisenc* vorbisenc_new (int channels, int rate, float quality) {
 
   vorbisenc* enc;
 
@@ -41,10 +42,13 @@ vorbisenc* vorbisenc_new (void) {
   enc->vc = malloc (sizeof (vorbis_comment));
   enc->vd = malloc (sizeof (vorbis_dsp_state));
   enc->vb = malloc (sizeof (vorbis_block));
+  enc->channels = channels;
+  enc->rate = rate;
+  enc->quality = quality;
 
   vorbis_info_init (enc->vi);
   vorbis_comment_init (enc->vc);
-  vorbis_encode_init_vbr (enc->vi, CHANNELS, RATE, QUALITY); 
+  vorbis_encode_init_vbr (enc->vi, channels, rate, quality); 
   vorbis_analysis_init (enc->vd, enc->vi);
 
   return enc;
@@ -110,7 +114,7 @@ int vorbisenc_encode_pcm_samples (vorbisenc* enc, unsigned char* buffer, long bu
   /* assume that the buffer represents a single-channel stream
      and duplicate the buffer into N channels */
   for (j = 0; j < sample_count; j++) {
-    for (i = 0; i < CHANNELS; i++) {  
+    for (i = 0; i < enc->channels; i++) {  
         vorbis_input[i][j] = samples[j];
     }
   }
