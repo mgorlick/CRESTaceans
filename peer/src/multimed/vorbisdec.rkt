@@ -3,8 +3,7 @@
 (require "util.rkt"
          "vorbisdec-private.rkt"
          "../../../bindings/vorbis/libvorbis.rkt"
-         data/queue
-         (planet bzlib/thread:1:0))
+         data/queue)
 (provide make-vorbis-decoder)
 
 (define *BUFFER-AHEAD* 20)
@@ -19,42 +18,36 @@
       (when (reinitialize? localstate)
         (reinitialize! localstate (curry header-packet! vdec)))
       (let loop ()
-        (cond [(receive/killswitch is-signaller?) (vorbisdec-delete vdec)
-                                                  (cleanup! localstate)
-                                                  ;; need to also salvage packets sitting in mailbox here
-                                                  (reply/state-report signaller localstate)]
-              [(prebuffer-add?! q) (loop)]
-              [(prebuffer-decode?! q vdec localstate) (loop)]
-              [(not (prebuffering? q)) (let ([pkt/? (receive/packet)])
-                                         (when pkt/? (handle-vorbis-buffer! vdec localstate pkt/?)))
-                                       (loop)]
-              [else (loop)])))))
+        (let ([packet-or-die (receive-killswitch/whatever is-signaller? #:block? #t)])
+          (cond
+            [(die? packet-or-die) (vorbisdec-delete vdec)
+                                  (cleanup! localstate)
+                                  ;; need to also salvage packets sitting in mailbox here
+                                  (reply/state-report signaller localstate)]
+            [(bytes? packet-or-die)
+             (cond [(prebuffer-add?! q packet-or-die) (loop)]
+                   [(prebuffer-decode?! q vdec localstate) (thread-rewind-receive (list packet-or-die))
+                                                           (loop)]
+                   [else (handle-vorbis-buffer! vdec localstate packet-or-die)
+                         (loop)])]
+            [(no-message? packet-or-die) (loop)]))))))
 
-(define/contract (receive/packet)
-  (-> bytes?)
-  (receive/match [(? bytes? packet) packet]))
-
-(define (prebuffering? q)
-  (<= (queue-length q) *BUFFER-AHEAD*))
-
-(define (empty-prebuffer? q)
+(define (do-empty-prebuffer? q)
   (= (queue-length q) *BUFFER-AHEAD*))
 
-(define (more-prebuffer? q)
+(define (do-more-prebuffer? q)
   (< (queue-length q) *BUFFER-AHEAD*))
 
-(define (prebuffer-add?! q)
-  (cond [(more-prebuffer? q)
-         (let ([pkt/? (receive/packet)])
-           (if pkt/?
-               (enqueue! q pkt/?)
-               #t))]
+(define (prebuffer-add?! q pkt)
+  (cond [(do-more-prebuffer? q)
+         (enqueue! q pkt)
+         #t]
         [else #f]))
 
 (define (prebuffer-decode?! q vdec localstate)
-  (cond [(empty-prebuffer? q)
+  (cond [(do-empty-prebuffer? q)
          (map (curry handle-vorbis-buffer! vdec localstate) (queue->list q))
-         (enqueue! q #"ENDPREBUFFER")
+         (enqueue! q #"ENDPREBUFFER") ; bleh, hack
          #t]
         [else #f]))
 

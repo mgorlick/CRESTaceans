@@ -1,7 +1,6 @@
 #lang racket
 
-(require "util.rkt"
-         (planet bzlib/thread:1:0))
+(require "util.rkt")
 (provide make-udp-reader
          make-udp-writer)
 
@@ -11,15 +10,15 @@
         [buffer (make-bytes 1000000)]
         [is-signaller? (make-thread-id-verifier signaller)])
     (λ ()
-      (printf "listening on ~a:~a~n" inbound-host inbound-port)
       (let loop ()
-        (cond [(receive/killswitch is-signaller?) (udp-close socket)
-                                                  ;; ... retrieve packets in socket before closing ...
-                                                  (reply/state-report signaller #f)
-                                                  (command/killswitch signaller receiver)]
-              [else (let-values ([(len addr port) (udp-receive!* socket buffer)])
-                      (when len (thread-send receiver (subbytes buffer 0 len))))
-                    (loop)])))))
+        (let ([signal (receive-killswitch/whatever is-signaller? #:block? #f)])
+          (cond [(die? signal) (udp-close socket)
+                               ;; ... retrieve packets in socket before closing ...
+                               (reply/state-report signaller #f)
+                               (command/killswitch signaller receiver)]
+                [(no-message? signal) (let-values ([(len addr port) (udp-receive! socket buffer)])
+                                        (when len (thread-send receiver (subbytes buffer 0 len))))
+                                      (loop)]))))))
 
 (define/contract (make-udp-writer signaller remote-host remote-port)
   (thread? string? exact-nonnegative-integer? . -> . (-> void))
@@ -27,12 +26,8 @@
         [is-signaller? (make-thread-id-verifier signaller)])
     (λ ()
       (let loop ()
-        (cond [(receive/killswitch is-signaller?) (udp-close socket)
-                                                  (reply/state-report signaller #f)]
-              [else (let ([buffer/? (receive/buffer)])
-                      (when buffer/? (udp-send socket buffer/?))
-                      (loop))])))))
-
-(define/contract (receive/buffer)
-  (-> bytes?)
-  (receive/match [buff buff]))
+        (let ([buffer-or-die (receive-killswitch/whatever is-signaller? #:block? #t)])
+          (cond [(die? buffer-or-die) (udp-close socket)
+                                      (reply/state-report signaller #f)]
+                [(bytes? buffer-or-die) (udp-send socket buffer-or-die)
+                                        (loop)]))))))

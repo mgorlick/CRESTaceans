@@ -27,13 +27,18 @@
   (thread? thread? . -> . void)
   (thread-send receiver (list reply-to killswitch)))
 
-;; given a procedure that checks the validity of a killswitch source
-;; look for one in the mbox and report whether it's valid or not
-(define/contract (receive/killswitch id?)
-  ((any/c . -> . boolean?) . -> . boolean?)
-  #f)
-  ;(receive/match [(list (? id? thd) (? (λ (sym) (equal? sym killswitch)) ks)) #t]
-  ;               [after 0 #f]))
+;; receive a killswitch, or, like, whatever, man. test the output for die?
+(define/contract (receive-killswitch/whatever id? #:block? [block? #t])
+  ([(any/c . -> . boolean?)] [#:block? boolean?] . ->* . (or/c boolean? any/c))
+  (receive/match [(list (? id? thd) ? symbol? ks) ks]
+                 [whatever whatever]
+                 [after (if block? +inf.0 0) 'no-message]))
+
+(define (die? s)
+  (equal? s killswitch))
+
+(define (no-message? s)
+  (equal? s 'no-message))
 
 ;;; gathering up state reports from a pipeline after a killswitch
 (define state-report 'state-report)
