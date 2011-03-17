@@ -14,9 +14,9 @@
         (let ([signal (receive-killswitch/whatever is-signaller? #:block? #f)])
           (cond [(die? signal) (udp-close socket)
                                ;; ... retrieve packets in socket before closing ...
-                               (reply/state-report signaller #f)
-                               (command/killswitch signaller receiver)]
-                [(no-message? signal) (let-values ([(len addr port) (udp-receive! socket buffer)])
+                               (command/killswitch signaller receiver)
+                               (reply/state-report signaller #f)]
+                [(no-message? signal) (let-values ([(len addr port) (udp-receive!* socket buffer)])
                                         (when len (thread-send receiver (subbytes buffer 0 len))))
                                       (loop)]))))))
 

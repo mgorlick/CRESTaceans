@@ -71,6 +71,8 @@
 (define (restart thd)
   (thread-send thd (list (current-thread) 'restart)))
 
-(define pcm/pipeline (start 4999))
-;(sleep 3)
-;(p/s pcm/pipeline 4998)
+(define pcmpl (start 4999))
+(sleep 3)
+(p/s pcmpl 4998)
+
+(define (pcm/r) (restart pcmpl))

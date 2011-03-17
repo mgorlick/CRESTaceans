@@ -4,6 +4,7 @@
 (require "udp.rkt"
          "vorbisenc.rkt"
          "util.rkt")
+(provide (all-defined-out))
 
 (define (udp-in>>encoder>>udp-out in-host in-port encoder-setup out-host out-port)
   (define pid (current-thread))

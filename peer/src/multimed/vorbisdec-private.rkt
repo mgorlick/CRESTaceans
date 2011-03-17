@@ -60,8 +60,8 @@
 
 ; ASSUMPTION: header packets weren't stored out of order
 ; (since lower layer should signal if this property were violated)
-(define (reinitialize! localstate header-packet!)
-  (vdec-state? (vdec-state? bytes? integer? . -> . symbol?) . -> . void)
+(define/contract (reinitialize! localstate header-packet!)
+  (vdec-state? (vdec-state? bytes? integer? . -> . void) . -> . void)
   (set-vdec-state-storage! localstate (box (make-list 10000 0)))
   (let ([ct (packetcount localstate)]
         [info (vdec-info-packet localstate)]
@@ -77,6 +77,6 @@
 
 ; cleanup! should only be called when the state is about to migrate
 (define (cleanup! localstate)
-  (close-device (vdec-state-device localstate))
+  (when (vdec-state-device localstate) (close-device (vdec-state-device localstate)))
   (set-vdec-state-storage! localstate #f)
   (set-vdec-state-device! localstate #f))

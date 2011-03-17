@@ -53,10 +53,11 @@ int vorbisdec_finish_init (vorbisdec* dec) {
 }
 
 void vorbisdec_delete (vorbisdec* dec) {
-  vorbis_block_clear (dec->vb);
+  if (dec->is_init)  vorbis_block_clear (dec->vb);
   vorbis_dsp_clear (dec->vd);
   vorbis_comment_clear (dec->vc);
   vorbis_info_clear (dec->vi);
+
   free (dec->vb);
   free (dec->vd);
   free (dec->vc);
