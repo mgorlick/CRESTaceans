@@ -7,12 +7,13 @@
 ;; constants
 (define outbound-host "127.0.0.1")
 (define outbound-port 5000)
+(define inbound-host #f)
 (define inbound-port 4999)
 (define float-conversion-type 'naive) ;; handles gstreamer's peculiarity wrt network float serialization
 
 ;; component setup
-(define (make-udp-reader inbound-port receiver)
-  (λ-loop ([socket (let ([s (udp-open-socket)]) (udp-bind! s #f inbound-port) s)]
+(define (make-udp-reader inbound-host inbound-port receiver)
+  (λ-loop ([socket (let ([s (udp-open-socket)]) (udp-bind! s inbound-host inbound-port) s)]
            [buffer (make-bytes 1000000)])
     (let-values ([(len addr port) (udp-receive! socket buffer)])
       (thread-send receiver (subbytes buffer 0 len)))))
@@ -38,4 +39,4 @@
 ;; read from UDP in -> encode into vorbis -> write to UDP out
 (define udp-writer (thread (make-udp-writer outbound-host outbound-port)))
 (define encoder (thread (make-encoder float-conversion-type udp-writer)))
-(define udp-reader (thread (make-udp-reader inbound-port encoder)))
+(define udp-reader (thread (make-udp-reader inbound-host inbound-port encoder)))
