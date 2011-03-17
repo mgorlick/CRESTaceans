@@ -1,44 +1,22 @@
 #lang racket
 
 (require "util.rkt"
-         "vorbisdec.rkt"
-         (planet bzlib/thread:1:0))
+         "udp.rkt"
+         "vorbisdec.rkt")
 
 (provide (all-defined-out))
 
-
-(define (start port [initial-vorbis-state #f])
+(define (udp-in>>decoder in-port [initial-vorbis-state #f])
   (define pid (current-thread))
-  (launch-threads [t1 "vorbisdec" (if initial-vorbis-state
-                                      (vorbis-decode pid port initial-vorbis-state)
-                                      (vorbis-decode pid port))]))
+  (launch-threads [t2 "vorbis-decoder" (if initial-vorbis-state
+                                           (make-vorbis-decoder pid initial-vorbis-state)
+                                           (make-vorbis-decoder pid))]
+                  [t1 "udp-reader" (make-udp-reader pid #f in-port t2)]))
 
-;; pause/move/restart:
-;; first, send the clone-state-and-die message to the head of the pipeline, which causes
-;; the component there to (1) forward the message to its sinks, and
-;; (2) report its current state to this thread. the state-reporting constraint
-;; holds true for all threads which listen for clone-state-and-die messages.
+(define (decoder:pause/move/restart pipeline new-port)
+  (command/killswitch (current-thread) (dict-ref pipeline "udp-reader"))
+  (let ([states (gather-states pipeline)])
+    (udp-in>>decoder new-port (dict-ref states "vorbis-decoder"))))
 
-;; second, wait for all the states to come in. this function expects every
-;; element in the pipeline to report a state.
-
-;; third, start a new instance of each component in the old pipeline, yielding a new
-;; pipeline. unlike before, we explicitly provide initialization component states
-;; when the component requires it (e.g., the codec state for the vorbis decoder).
-(define (pause/move/restart pipeline new-port)
-  
-  (define (receive-state-report component-key states)
-    (receive/match
-     [(list (? (curry equal? (dict-ref states component-key)) thread) 'state-report newstate)
-      (dict-set states component-key newstate)]))
-  
-  (define (gather-states)
-    (foldl receive-state-report pipeline (dict-keys pipeline)))
-  
-  (to-all (dict-ref pipeline "vorbisdec") <- 'clone-state-and-die)
-  (let ([states (gather-states)])
-    (start new-port (dict-ref states "vorbisdec"))))
-
-(define pipeline (start 5000))
-
-(define (pmr) (set! pipeline (pause/move/restart pipeline 5001)))
+(define decode-pipeline (udp-in>>decoder 5000))
+(define (d/pmr) (set! decode-pipeline (decoder:pause/move/restart decode-pipeline 5001)))

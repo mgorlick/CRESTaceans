@@ -1,38 +1,20 @@
 #! /usr/bin/env racket
 #lang racket
 
-(require "../../../bindings/vorbis/libvorbis.rkt"
-         "udp.rkt"
+(require "udp.rkt"
+         "vorbisenc.rkt"
          "util.rkt")
 
-;; constants
-(define outbound-host "127.0.0.1")
-(define outbound-port 5000)
-(define inbound-host #f)
-(define inbound-port 4999)
+(define (udp-in>>encoder>>udp-out in-host in-port encoder-setup out-host out-port)
+  (define pid (current-thread))
+  (launch-threads [t3 "udp-writer" (make-udp-writer pid out-host out-port)]
+                  [t2 "vorbis-encoder" (make-vorbis-encoder pid encoder-setup t3)]
+                  [t1 "udp-reader" (make-udp-reader pid in-host in-port t2)]))
 
-(define channels 1)
-(define rate 44100)
-(define quality 0.5)
-(define float-conversion-type 'naive) ;; handles gstreamer's peculiarity wrt network float serialization
+(define (encoder:pause/move/restart pipeline in-host in-port out-host out-port)
+  (command/killswitch (current-thread) (dict-ref pipeline "udp-reader"))
+  (let ([states (gather-states pipeline)])
+    (udp-in>>encoder>>udp-out in-host in-port (dict-ref states "vorbis-encoder") out-host out-port)))
 
-;; component setup
-(define (make-encoder channels rate quality float-conversion-type receiver)
-  (let ([enc (vorbisenc-new channels rate quality)]
-        [output-packet (make-packet-out-callback receiver)])
-    (vorbisenc-init enc output-packet)
-    (λ-loop
-        (let ([buffer (thread-receive)])
-          (vorbisenc-encode-pcm-samples enc buffer float-conversion-type output-packet)))))
-
-;; encoder stuff
-(define (make-packet-out-callback receiver)
-  (λ (packet type)
-    (thread-send receiver (ogg-packet-data packet))
-    #t))
-
-;; a pipeline for processing PCM:
-;; read from UDP in -> encode into vorbis -> write to UDP out
-(define udp-writer (thread (make-udp-writer outbound-host outbound-port)))
-(define encoder (thread (make-encoder channels rate quality float-conversion-type udp-writer)))
-(define udp-reader (thread (make-udp-reader inbound-host inbound-port encoder)))
+(define encode-pipeline (udp-in>>encoder>>udp-out #f 4999 (encoder-settings 1 44100 1.0 'naive) "127.0.0.1" 5000))
+(define (e/pmr) (set! encode-pipeline (encoder:pause/move/restart encode-pipeline #f 4998 "127.0.0.1" 5001)))

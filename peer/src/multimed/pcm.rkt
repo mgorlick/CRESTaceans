@@ -66,11 +66,11 @@
                (gst_object_unref bin))))))
 
 (define (p/s thd port)
-  (to-all thd <- 'pause/switch-port port))
+  (thread-send thd (list (current-thread) 'pause/switch-port port)))
 
 (define (restart thd)
-  (to-all thd <- 'restart))
+  (thread-send thd (list (current-thread) 'restart)))
 
-(define pipeline (start 4999))
+(define pcm/pipeline (start 4999))
 ;(sleep 3)
-;(p/s pipeline 5001)
+;(p/s pcm/pipeline 4998)
