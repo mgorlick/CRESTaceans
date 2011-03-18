@@ -47,7 +47,6 @@
 ;; components are required to reply with some state, though it may be empty
 (define/contract (reply/state-report reply-to state)
   (thread? any/c . -> . void)
-  (printf "~a sent state report to ~a~n" (current-thread) reply-to)
   (thread-send reply-to (list (current-thread) state-report state)))
 
 ;; receives one state report from the thread matching the thread handle identifier encoded in id?
@@ -59,7 +58,6 @@
 ;; where 'whatever' is what the thread identified by the thread handle sends in a state report
 (define/contract (receive-state-report component-id thread-handle states)
   (string? thread? dict? . -> . dict?)
-  (printf "waiting on state report from ~a~n" component-id)
   (dict-set states component-id (receive/state-report (make-thread-id-verifier thread-handle))))
 
 ;; gather-states: a kind of map over a pipeline, yielding a dict of (string . any) from the
