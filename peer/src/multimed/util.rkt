@@ -10,6 +10,12 @@
     (and (thread? thd) (equal? signaller thd))))
 
 ;;; starting a pipeline
+;; for each { name : identifier thunk } tuple, starts a thread with the thunk,
+;; temporarily binds teh thread to the identifier (for use in subsequent pipeline elements)
+;; and then produces a dict? with the (name . thread) pairs.
+;; in addition, the dict? is guaranteed to contain the pipeline elements in the order they are
+;; specified in the let-like bindings (which is usually right-to-left, since later pipeline
+;; elements have to be specified earlier)
 (define-syntax make-pipeline
   (syntax-rules (:)
     [(_ ([name1 : id1 thunk1] ...) expr ...)
@@ -28,9 +34,11 @@
   (thread? thread? . -> . void)
   (thread-send receiver (list reply-to killswitch)))
 
-;; receive a killswitch, or, like, whatever, man. test the output for die?
+;; receive a killswitch, or, like, whatever, man. at minimum, 
+;; the pipeline element must test the output for die?
+;; and if #:block? is #f, the pipeline element must test for no-message?
 (define/contract (receive-killswitch/whatever id? #:block? [block? #t])
-  ([(any/c . -> . boolean?)] [#:block? boolean?] . ->* . (or/c boolean? any/c))
+  ([(any/c . -> . boolean?)] [#:block? boolean?] . ->* . any)
   (receive/match [(list (? id? thd) (? symbol? ks)) ks]
                  [whatever whatever]
                  [after (if block? +inf.0 0) 'no-message]))
