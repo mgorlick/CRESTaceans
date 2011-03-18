@@ -16,15 +16,12 @@
     (λ ()
       (vorbisenc-init enc output-packet)
       (let loop ()
-        (let ([packet-or-die (receive-killswitch/whatever is-signaller? #:block? #f)])
-          (cond [(die? packet-or-die) 
-                 (vorbisenc-delete enc)
-                 (reply/state-report signaller setup)
-                 (command/killswitch signaller receiver)]
-                [(bytes? packet-or-die)
-                 (vorbisenc-encode-pcm-samples enc packet-or-die (encoder-settings-fl setup) output-packet)
-                 (loop)]
-                [(no-message? packet-or-die) (loop)]))))))
+        (match (receive-killswitch/whatever is-signaller?)
+          [(? bytes? buffer) (vorbisenc-encode-pcm-samples enc buffer (encoder-settings-fl setup) output-packet)
+                             (loop)]
+          [(? die? sig) (vorbisenc-delete enc)
+                        (reply/state-report signaller setup)
+                        (command/killswitch signaller receiver)])))))
 
 ;; encoder stuff
 (define (make-packet-out-callback receiver)

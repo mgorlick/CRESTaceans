@@ -18,19 +18,18 @@
       (when (reinitialize? localstate)
         (reinitialize! localstate (curry header-packet! vdec)))
       (let loop ()
-        (let ([packet-or-die (receive-killswitch/whatever is-signaller? #:block? #t)])
-          (cond
-            [(die? packet-or-die) (vorbisdec-delete vdec)
-                                  (cleanup! localstate)
-                                  ;; need to also salvage packets sitting in mailbox here
-                                  (reply/state-report signaller localstate)]
-            [(bytes? packet-or-die)
-             (cond [(prebuffer-add?! q packet-or-die) (loop)]
-                   [(prebuffer-decode?! q vdec localstate) (thread-rewind-receive (list packet-or-die))
-                                                           (loop)]
-                   [else (handle-vorbis-buffer! vdec localstate packet-or-die)
-                         (loop)])]
-            [(no-message? packet-or-die) (loop)]))))))
+        (match (receive-killswitch/whatever is-signaller?)
+          [(? bytes? packet) (cond [(not (prebuffering? q)) (handle-vorbis-buffer! vdec localstate packet)]
+                                   [(prebuffer-add?! q packet) (prebuffer-decode?! q vdec localstate)])
+                             (loop)]
+          [(? die? sig) (vorbisdec-delete vdec)
+                        (cleanup! localstate)
+                        ;; need to also salvage packets sitting in mailbox here
+                        (reply/state-report signaller localstate)])))))
+
+(define (prebuffering? q)
+  (or (do-empty-prebuffer? q)
+      (do-more-prebuffer? q)))
 
 (define (do-empty-prebuffer? q)
   (= (queue-length q) *BUFFER-AHEAD*))

@@ -11,14 +11,14 @@
         [is-signaller? (make-thread-id-verifier signaller)])
     (λ ()
       (let loop ()
-        (let ([signal (receive-killswitch/whatever is-signaller? #:block? #f)])
-          (cond [(die? signal) (udp-close socket)
-                               ;; ... retrieve packets in socket before closing ...
-                               (command/killswitch signaller receiver)
-                               (reply/state-report signaller #f)]
-                [(no-message? signal) (let-values ([(len addr port) (udp-receive!* socket buffer)])
-                                        (when len (thread-send receiver (subbytes buffer 0 len))))
-                                      (loop)]))))))
+        (match (receive-killswitch/whatever is-signaller? #:block? #f)
+          [(? no-message? sig) (let-values ([(len addr port) (udp-receive!* socket buffer)])
+                                 (when len (thread-send receiver (subbytes buffer 0 len))))
+                               (loop)]
+          [(? die? sig) (udp-close socket)
+                        ;; ... retrieve packets in socket before closing ...
+                        (command/killswitch signaller receiver)
+                        (reply/state-report signaller #f)])))))
 
 (define/contract (make-udp-writer signaller remote-host remote-port)
   (thread? string? exact-nonnegative-integer? . -> . (-> void))
@@ -26,8 +26,9 @@
         [is-signaller? (make-thread-id-verifier signaller)])
     (λ ()
       (let loop ()
-        (let ([buffer-or-die (receive-killswitch/whatever is-signaller? #:block? #t)])
-          (cond [(die? buffer-or-die) (udp-close socket)
-                                      (reply/state-report signaller #f)]
-                [(bytes? buffer-or-die) (udp-send socket buffer-or-die)
-                                        (loop)]))))))
+        (match (receive-killswitch/whatever is-signaller?)
+          [(? bytes? buffer) (udp-send socket buffer)
+                             (loop)]
+          [(? die? sig) (udp-close socket)
+                        ;; ... retrieve packets in mailbox before dying ...
+                        (reply/state-report signaller #f)])))))
