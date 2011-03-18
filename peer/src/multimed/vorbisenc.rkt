@@ -17,11 +17,11 @@
       (vorbisenc-init enc output-packet)
       (let loop ()
         (match (receive-killswitch/whatever is-signaller?)
-          [(? bytes? buffer) (vorbisenc-encode-pcm-samples enc buffer (encoder-settings-fl setup) output-packet)
-                             (loop)]
           [(? die? sig) (vorbisenc-delete enc)
                         (reply/state-report signaller setup)
-                        (command/killswitch signaller receiver)])))))
+                        (command/killswitch signaller receiver)]
+          [(? bytes? buffer) (vorbisenc-encode-pcm-samples enc buffer (encoder-settings-fl setup) output-packet)
+                             (loop)])))))
 
 ;; encoder stuff
 (define (make-packet-out-callback receiver)
