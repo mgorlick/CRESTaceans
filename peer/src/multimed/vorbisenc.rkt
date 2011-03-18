@@ -10,11 +10,10 @@
 ;; component setup
 (define/contract (make-vorbis-encoder signaller setup receiver)
   (thread? encoder-settings? thread? . -> . (-> void))
-  (let ([enc (vorbisenc-new (encoder-settings-channels setup) (encoder-settings-rate setup) (encoder-settings-quality setup))]
-        [output-packet (make-packet-out-callback receiver)]
-        [is-signaller? (make-thread-id-verifier signaller)])
+  (let* ([output-packet (make-packet-out-callback receiver)]
+         [enc (vorbisenc-init (encoder-settings-channels setup) (encoder-settings-rate setup) (encoder-settings-quality setup) output-packet)]
+         [is-signaller? (make-thread-id-verifier signaller)])
     (λ ()
-      (vorbisenc-init enc output-packet)
       (let loop ()
         (match (receive-killswitch/whatever is-signaller?)
           [(? die? sig) (vorbisenc-delete enc)

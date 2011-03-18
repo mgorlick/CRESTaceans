@@ -98,11 +98,10 @@
 
 (define _vorbisenc-process-block (_fun _ogg-packet-pointer _ogg-packet-type -> _bool))
 
-(defvorbis~ vorbisenc-new (_fun _int _int _float -> _vorbisenc-pointer))
 (defvorbis~ vorbisenc-delete (_fun _vorbisenc-pointer -> _void))
 (defvorbis~ vorbisenc-is-init (_fun _vorbisenc-pointer -> _bool))
 
-(defvorbis~ vorbisenc-init (_fun _vorbisenc-pointer _vorbisenc-process-block -> _int))
+(defvorbis~ vorbisenc-init (_fun _int _int _float _vorbisenc-process-block -> _vorbisenc-pointer))
 
 (defvorbis~ vorbisenc-encode-pcm-samples
   (_fun (enc buffer conv callback) ::

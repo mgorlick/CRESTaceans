@@ -74,7 +74,10 @@ int vorbisenc_is_init (vorbisenc* enc) {
   return enc->is_init;
 }
 
-int vorbisenc_init (vorbisenc* enc, vorbisenc_process_packet_ft f) {
+vorbisenc* vorbisenc_init (int channels, int rate, float quality,
+                           vorbisenc_process_packet_ft f) {
+
+  vorbisenc* enc = vorbisenc_new (channels, rate, quality);
   int r;
 
   ogg_packet id;
@@ -89,7 +92,7 @@ int vorbisenc_init (vorbisenc* enc, vorbisenc_process_packet_ft f) {
     f (&comment, VORBIS_COMMENT_PACKET);
     f (&codebook, VORBIS_CODEBOOK_PACKET);
   }
-  return r;
+  return enc;
 }
 
 int vorbisenc_encode_pcm_samples (vorbisenc* enc, unsigned char* buffer, long buffer_length,
