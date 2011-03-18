@@ -4,10 +4,10 @@
 (provide make-udp-reader
          make-udp-writer)
 
-(define/contract (make-udp-reader signaller inbound-host inbound-port receiver)
+(define/contract (make-udp-reader signaller inbound-host inbound-port receiver [buffer-size 1000000])
   (thread? (or/c #f string) exact-nonnegative-integer? thread? . -> . (-> void))
   (let* ([socket (let ([s (udp-open-socket)]) (udp-bind! s inbound-host inbound-port) s)]
-         [buffer (make-bytes 1000000)]
+         [buffer (make-bytes buffer-size)]
          [is-signaller? (make-thread-id-verifier signaller)]
          [real-reader (thread (λ () (let loop () (let-values ([(len addr port) (udp-receive! socket buffer)])
                                                    (thread-send receiver (subbytes buffer 0 len)))
