@@ -3,7 +3,7 @@
 (require "../../../bindings/vorbis/libvorbis.rkt"
          "util.rkt")
 
-(provide (all-defined-out)) 
+(provide (all-defined-out))
 
 (struct encoder-settings (channels rate quality fl))
 

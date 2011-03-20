@@ -18,7 +18,7 @@
          [is-signaller? (make-thread-id-verifier signaller)])
     (λ ()
       (let: loop : Void ()
-            (match (sync2/t mailbox-evt socket-evt)
+            (match (sync* mailbox-evt socket-evt)
               [(list len _ _) (thread-send receiver (subbytes buffer 0 len))
                               (loop)]
               [(? evt? _) (match (receive-killswitch/whatever is-signaller?)
