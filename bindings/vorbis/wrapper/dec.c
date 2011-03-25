@@ -154,7 +154,7 @@ int header_packet_in (vorbisdec* dec, unsigned char** buff, long buff_len) {
 int data_packet_blockin (vorbisdec* dec, unsigned char** buff, long buff_len) {
 
   ogg_packet pkt;
-  int syn, bi;
+  int res;
   
   if (buff_len < 0 || !dec->is_init) {
     return -1;
@@ -167,14 +167,9 @@ int data_packet_blockin (vorbisdec* dec, unsigned char** buff, long buff_len) {
   pkt.granulepos = -1;
   pkt.packetno = 0;
   
-  syn = vorbis_synthesis (dec->vb, &pkt);
-  
-  if (syn == 0) {
-    bi = vorbis_synthesis_blockin (dec->vd, dec->vb);
-    if (bi == 0) {
-      return vorbis_synthesis_pcmout (dec->vd, NULL);
-    } else return bi;
-  } else return syn;
+  if ((res = vorbis_synthesis (dec->vb, &pkt)) != 0) return res;
+  if ((res = vorbis_synthesis_blockin (dec->vd, dec->vb)) != 0) return res;
+  return vorbis_synthesis_pcmout (dec->vd, NULL);
 }
 
 /* data_packet_pcmout: after calling header_packet_blockin with a new buffer,
