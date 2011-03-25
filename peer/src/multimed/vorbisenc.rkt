@@ -23,7 +23,7 @@
                              (loop)])))))
 
 ;; encoder stuff
-(define (make-packet-out-callback receiver)
+(define/contract (make-packet-out-callback receiver)
   (thread? . -> . (ogg-packet-pointer? symbol? . -> . boolean?))
   (λ (packet type)
     (thread-send receiver (ogg-packet-data packet))
