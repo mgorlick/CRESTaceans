@@ -70,12 +70,10 @@ int vorbisdec_is_init (vorbisdec* dec) {
 }
 
 /* print_buffer here for testing purposes */
-void print_buffer (unsigned char** buff, long buff_len) {
+void print_buffer (unsigned char *buff, long buff_len) {
   
   int i;
-  unsigned char* buff_pos;
-
-  buff_pos = *buff;
+  unsigned char* buff_pos = buff;
   printf ("buffer (size %ld): [BEGIN]", buff_len);
   for (i = 0; i < buff_len; i++) {
     printf ("%uc", *buff_pos);
@@ -103,7 +101,7 @@ void print_stream_info (vorbisdec* dec) {
    0, 1, or 2, to signify the type of header packet processed.
    successive calls to header_packet_in MUST return 0, 1, and 2 in order
   for the subsequent decoding to work. */
-int header_packet_in (vorbisdec* dec, unsigned char** buff, long buff_len) {
+int header_packet_in (vorbisdec* dec, unsigned char *buff, long buff_len) {
 
   ogg_packet pkt;
   int hi, init = 0;
@@ -112,14 +110,14 @@ int header_packet_in (vorbisdec* dec, unsigned char** buff, long buff_len) {
     return -1;
   }
   
-  pkt.packet = *buff;
+  pkt.packet = buff;
   pkt.bytes = buff_len;
-  pkt.b_o_s = (*buff[0] == 0x1) ? 1 : 0;
+  pkt.b_o_s = (buff[0] == 0x1) ? 1 : 0;
   pkt.e_o_s = 0;
   pkt.granulepos = -1;
   pkt.packetno = 0;
   
-  switch (*buff[0]) {
+  switch (buff[0]) {
     case 0x01:
       hi = vorbis_synthesis_headerin (dec->vi, dec->vc, &pkt);
       break;
@@ -136,8 +134,7 @@ int header_packet_in (vorbisdec* dec, unsigned char** buff, long buff_len) {
       }
       break;
     default: /* not a valid header packet */
-      hi = -1;
-      break;
+      hi = -1;      break;
   }
 
   return hi;
@@ -151,7 +148,7 @@ int header_packet_in (vorbisdec* dec, unsigned char** buff, long buff_len) {
    returns -1 if error processing data packet; or 0 or other non-negative
    number to indicate how many samples are available to read. decoder
    must call data_packet_pcmout after data_packet_blockin returns. */
-int data_packet_blockin (vorbisdec* dec, unsigned char** buff, long buff_len) {
+int data_packet_blockin (vorbisdec* dec, unsigned char *buff, long buff_len) {
 
   ogg_packet pkt;
   int res;
@@ -160,7 +157,7 @@ int data_packet_blockin (vorbisdec* dec, unsigned char** buff, long buff_len) {
     return -1;
   }
   
-  pkt.packet = *buff;
+  pkt.packet = buff;
   pkt.bytes = buff_len;
   pkt.b_o_s = 0;
   pkt.e_o_s = 0;

@@ -70,14 +70,14 @@
 
 (define/contract (header-packet! vdec localstate buffer len)
   (vorbisdec-pointer? vdec-state? bytes? exact-nonnegative-integer? . -> . void)
-  (match (header-packet-in vdec (bytestring->uchar** buffer) len)
+  (match (header-packet-in vdec buffer len)
     [(? (λ (i) (and (>= i 0) (< i 3))) typenum)
      (handle-headerpkt! localstate buffer len typenum (stream-rate vdec) (stream-channels vdec))]
     [_ (raise (fail "fatal: expected a header, but couldn't process it"))]))
 
 (define (data-packet! vdec localstate buffer len)
   (vorbisdec-pointer? vdec-state? bytes? exact-nonnegative-integer? . -> . void)
-  (let ([ct (data-packet-blockin vdec (bytestring->uchar** buffer) len)])
+  (let ([ct (data-packet-blockin vdec buffer len)])
     (cond [(positive? ct)
            (let* ([total-samples (* ct (stream-channels vdec))]
                   [output-buffer (storage localstate)]
