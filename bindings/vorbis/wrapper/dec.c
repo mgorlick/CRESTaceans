@@ -169,6 +169,10 @@ int data_packet_blockin (vorbisdec* dec, unsigned char *buff, long buff_len) {
   return vorbis_synthesis_pcmout (dec->vd, NULL);
 }
 
+int data_packet_notify_nodata (vorbisdec *dec) {
+  return vorbis_synthesis_read (dec->vd, 0);
+}
+
 /* data_packet_pcmout: after calling header_packet_blockin with a new buffer,
    use its return value to instantiate a list/vector/array/...
    and pass a point to it to data_packet_pcmout to actually retrieve the
@@ -178,18 +182,18 @@ int data_packet_blockin (vorbisdec* dec, unsigned char *buff, long buff_len) {
    or -1 if the decoder initially reported an incorrect count
    (don't expect this error case to happen, but...). */
 
-int data_packet_pcmout (vorbisdec* dec, int16_t** v) {
+int data_packet_pcmout (vorbisdec *dec, int16_t **v) {
 
-  float** pcm;
+  float **pcm;
   int j, k;
   int channels = dec->vi->channels;
   int sample_count = vorbis_synthesis_pcmout (dec->vd, &pcm);
-  int16_t* p = *v;
+  int16_t *p = *v;
   
   if (sample_count > 0) {
     for (j = 0; j < sample_count; j++) {
       for (k = 0; k < channels; k++) {
-        int32_t s  = (int32_t) floorf (0.5 + 32767.0 * pcm[k][j]);
+        int32_t s = (int32_t) 32767.0 * pcm[k][j];
         if (s > 32767) s = 32767;
         if (s < -32768) s = -32768;
         *p = (int16_t) s;
@@ -202,11 +206,11 @@ int data_packet_pcmout (vorbisdec* dec, int16_t** v) {
   return sample_count;
 }
 
-int stream_channels (vorbisdec* dec) {
+int stream_channels (vorbisdec *dec) {
   return dec->vi->channels;
 }
 
-int stream_rate (vorbisdec* dec) {
+int stream_rate (vorbisdec *dec) {
   return dec->vi->rate;
 }
 

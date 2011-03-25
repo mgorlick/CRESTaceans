@@ -78,11 +78,11 @@
 (define (data-packet! vdec localstate buffer len)
   (vorbisdec-pointer? vdec-state? bytes? exact-nonnegative-integer? . -> . void)
   (let ([ct (data-packet-blockin vdec buffer len)])
-    (cond [(positive? ct)
-           (let* ([total-samples (* ct (stream-channels vdec))]
-                  [output-buffer (storage localstate)]
-                  [sample-ct (data-packet-pcmout vdec output-buffer total-samples)])
-             (audio-out! localstate total-samples))]
+    (cond [(positive? ct) (let* ([total-samples (* ct (stream-channels vdec))]
+                                 [output-buffer (storage localstate)]
+                                 [sample-ct (data-packet-pcmout vdec output-buffer total-samples)])
+                            (audio-out! localstate total-samples))]
+          [(zero? ct) (data-packet-notify-nodata vdec)]
           [else (void)])))
 
 (define (fail str)
