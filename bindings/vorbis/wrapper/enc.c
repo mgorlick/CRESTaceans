@@ -97,8 +97,8 @@ vorbisenc* vorbisenc_init (int channels, int rate, float quality,
 
 int vorbisenc_encode_pcm_samples (vorbisenc* enc, unsigned char* buffer, long buffer_length,
                                   vorbis_byte_conversion_type b, vorbisenc_process_packet_ft f) {
-  int r, keep_going = 1; /* error signals */
-  long i, j;
+  int r, s = 1; /* error signals */
+  long i, j, k = 0;
   ogg_packet op;
   float samples[buffer_length];
   long sample_count;
@@ -114,11 +114,10 @@ int vorbisenc_encode_pcm_samples (vorbisenc* enc, unsigned char* buffer, long bu
 
   float **vorbis_input = vorbis_analysis_buffer (enc->vd, sample_count);
   
-  /* assume that the buffer represents a single-channel stream
-     and duplicate the buffer into N channels */
+  /* this deinterleaves the samples: assume they were interleaved in the input buffer */
   for (j = 0; j < sample_count; j++) {
     for (i = 0; i < enc->channels; i++) {  
-        vorbis_input[i][j] = samples[j];
+        vorbis_input[i][j] = samples[k++];
     }
   }
   
@@ -127,17 +126,13 @@ int vorbisenc_encode_pcm_samples (vorbisenc* enc, unsigned char* buffer, long bu
     return r;
   }
 
-  while (keep_going && (r = vorbis_analysis_blockout (enc->vd, enc->vb)) == 1) {
+  while ((s = vorbis_analysis_blockout (enc->vd, enc->vb)) == 1) {
     r = vorbis_analysis (enc->vb, &op);
     if (r < 0) {
-      printf ("sample encoding failed when calling vorbis_analysis, ct = %ld, error = %d\n", sample_count, r);
-      keep_going = 0;
+      break;
     } else {
-      keep_going = f (&op, VORBIS_DATA_PACKET);
-      if (keep_going < 1) {
-        printf ("higher layer signaled premature end of encoding from callback return val, ct = %ld", sample_count);
-      }
-    }
+      f (&op, VORBIS_DATA_PACKET);
+   }
   }
 
   if (r < 0) {

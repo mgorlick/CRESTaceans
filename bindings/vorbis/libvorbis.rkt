@@ -50,15 +50,15 @@
 (defvorbis~ header-packet-in
   (_fun (dec buff len) ::
         (dec : _vorbisdec-pointer)
-        (buff : (_box (_list io _ubyte len)))
+        ((_list io _ubyte len) = (bytes->list buff))
         (len : _long)
         -> _int))
 
 (defvorbis~ data-packet-blockin
-  (_fun (dec c d) ::
+  (_fun (dec buff len) ::
         (dec : _vorbisdec-pointer)
-        (c : (_box (_list io _ubyte d)))
-        (d : _long)
+        ((_list io _ubyte len) = (bytes->list buff))
+        (len : _long)
         -> _int))
 
 (defvorbis~ data-packet-pcmout
@@ -69,10 +69,6 @@
 
 (defvorbis~ stream-channels (_fun _vorbisdec-pointer -> _int))
 (defvorbis~ stream-rate (_fun _vorbisdec-pointer -> _int))
-
-(define (bytestring->uchar** buffer)
-  (box (bytes->list buffer)))
-
 
 ;;; ogg packet helpers
 
