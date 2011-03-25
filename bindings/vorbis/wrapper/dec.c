@@ -161,7 +161,7 @@ int data_packet_blockin (vorbisdec* dec, unsigned char *buff, long buff_len) {
   pkt.bytes = buff_len;
   pkt.b_o_s = 0;
   pkt.e_o_s = 0;
-  pkt.granulepos = -1;
+  pkt.granulepos = 0;
   pkt.packetno = 0;
   
   if ((res = vorbis_synthesis (dec->vb, &pkt)) != 0) return res;
@@ -190,19 +190,17 @@ int data_packet_pcmout (vorbisdec *dec, int16_t **v) {
   int sample_count = vorbis_synthesis_pcmout (dec->vd, &pcm);
   int16_t *p = *v;
   
-  if (sample_count > 0) {
-    for (j = 0; j < sample_count; j++) {
-      for (k = 0; k < channels; k++) {
-        int32_t s = (int32_t) 32767.0 * pcm[k][j];
-        if (s > 32767) s = 32767;
-        if (s < -32768) s = -32768;
-        *p = (int16_t) s;
-        p++;
-      }
+  for (j = 0; j < sample_count; j++) {
+    for (k = 0; k < channels; k++) {
+      int32_t s = (int32_t) 32767.0 * pcm[k][j];
+      if (s > 32767) s = 32767;
+      if (s < -32768) s = -32768;
+      *p = (int16_t) s;
+      p++;
     }
   }
 
-  if (vorbis_synthesis_read (dec->vd, sample_count) < 0) return -1;
+    if (vorbis_synthesis_read (dec->vd, sample_count) < 0) return -1;
   return sample_count;
 }
 
