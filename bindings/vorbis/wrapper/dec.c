@@ -163,11 +163,9 @@ int data_packet_blockin (vorbisdec* dec, unsigned char *buff, long buff_len) {
   
   if ((res = vorbis_synthesis (dec->vb, &pkt)) != 0) return res;
   if ((res = vorbis_synthesis_blockin (dec->vd, dec->vb)) != 0) return res;
-  return vorbis_synthesis_pcmout (dec->vd, NULL);
-}
-
-int data_packet_notify_nodata (vorbisdec *dec) {
-  return vorbis_synthesis_read (dec->vd, 0);
+  if ((res = vorbis_synthesis_pcmout (dec->vd, NULL)) != 0) return res;
+  else if (res == 0) vorbis_synthesis_read (dec->vd, 0);
+  return res;
 }
 
 /* data_packet_pcmout: after calling header_packet_blockin with a new buffer,
@@ -182,22 +180,20 @@ int data_packet_notify_nodata (vorbisdec *dec) {
 int data_packet_pcmout (vorbisdec *dec, int16_t **v) {
 
   float **pcm;
-  int j, k;
-  int channels = dec->vi->channels;
-  int sample_count = vorbis_synthesis_pcmout (dec->vd, &pcm);
   int16_t *p = *v;
+  int j, k, channels = dec->vi->channels;
+  int sample_count = vorbis_synthesis_pcmout (dec->vd, &pcm);
   
   for (j = 0; j < sample_count; j++) {
     for (k = 0; k < channels; k++) {
-      int32_t s = (int32_t) floorf (0.5 + 32767.0 * pcm[k][j]);
+      int32_t s = (int32_t) rint (32767.f * pcm[k][j]);
       if (s > 32767) s = 32767;
       if (s < -32768) s = -32768;
-      *p = (int16_t) s;
-      p++;
+      *p++ = (int16_t) s;
     }
   }
 
-    if (vorbis_synthesis_read (dec->vd, sample_count) < 0) return -1;
+  if (vorbis_synthesis_read (dec->vd, sample_count) < 0) return -1;
   return sample_count;
 }
 

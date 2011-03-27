@@ -14,9 +14,8 @@
   (let* ([vdec (vorbisdec-new)]
          [is-signaller? (make-thread-id-verifier signaller)]
          [proc! (curry handle-vorbis-buffer! vdec localstate)])
+    (when (reinitialize? localstate) (reinitialize! localstate (curry header-packet! vdec)))
     (λ ()
-      (when (reinitialize? localstate)
-        (reinitialize! localstate (curry header-packet! vdec)))
       (let loop ([p (make-prebuffer *BUFFER-AHEAD*)])
         (match (receive-killswitch/whatever is-signaller?)
           [(? bytes? packet) (cond [(prebuffer-more? p) (loop (prebuffer-do p packet proc!))]
@@ -47,19 +46,19 @@
 
 (define/contract (header-packet! vdec localstate buffer len)
   (vorbisdec-pointer? vdec-state? bytes? exact-nonnegative-integer? . -> . void)
-  (match (header-packet-in vdec buffer len)
-    [(? (λ (i) (and (>= i 0) (< i 3))) typenum)
-     (handle-headerpkt! localstate buffer len typenum (stream-rate vdec) (stream-channels vdec))]
-    [_ (fail "fatal: expected a header, but couldn't process it")]))
+  (let ([r (header-packet-in vdec buffer len)])
+    (cond
+      [(exact-nonnegative-integer? r)
+       (handle-headerpkt! localstate buffer len r (stream-rate vdec) (stream-channels vdec))]
+      [else (fail "fatal: expected a header, but couldn't process it")])))
 
 (define/contract (data-packet! vdec localstate buffer len)
   (vorbisdec-pointer? vdec-state? bytes? exact-nonnegative-integer? . -> . void)
   (let ([ct (data-packet-blockin vdec buffer len)])
-    (cond [(positive? ct) (let* ([total-samples (* ct (stream-channels vdec))]
-                                 [output-buffer (storage localstate)]
-                                 [sample-ct (data-packet-pcmout vdec output-buffer total-samples)])
-                            (audio-out! localstate total-samples))]
-          [(zero? ct) (data-packet-notify-nodata vdec)]
+    (cond [(positive? ct)
+           (let* ([total-samples (* ct (stream-channels vdec))]
+                  [sample-ct (data-packet-pcmout vdec (storage localstate) total-samples)])
+             (audio-out! localstate total-samples))]
           [else (void)])))
 
 (define (fail str)
