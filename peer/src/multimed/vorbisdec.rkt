@@ -58,7 +58,7 @@
     [('data #t) (data-packet! vdec localstate buffer len)]
     [('header #f) (header-packet! vdec localstate buffer len)]
     ;; the nasty fatal state: can't recover from missing header
-    [('empty #f) (fail "fatal: found an empty packet where a header packet was expected" (current-continuation-marks))]
+    [('empty #f) (fail "fatal: found an empty packet where a header packet was expected")]
     ;; we can skip the state transition for anything else
     [(_ _) (void)]))
 
@@ -73,7 +73,7 @@
   (match (header-packet-in vdec buffer len)
     [(? (λ (i) (and (>= i 0) (< i 3))) typenum)
      (handle-headerpkt! localstate buffer len typenum (stream-rate vdec) (stream-channels vdec))]
-    [_ (raise (fail "fatal: expected a header, but couldn't process it"))]))
+    [_ (fail "fatal: expected a header, but couldn't process it")]))
 
 (define/contract (data-packet! vdec localstate buffer len)
   (vorbisdec-pointer? vdec-state? bytes? exact-nonnegative-integer? . -> . void)
