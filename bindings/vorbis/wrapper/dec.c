@@ -40,12 +40,12 @@ vorbisdec* vorbisdec_new (void) {
 
 int vorbisdec_finish_init (vorbisdec* dec) {
 
-  int si, bi;
+  int res;
   
-  si = vorbis_synthesis_init (dec->vd, dec->vi);
-  if (si == 0) {
-    bi = vorbis_block_init (dec->vd, dec->vb);
-    if (bi == 0) {
+  res = vorbis_synthesis_init (dec->vd, dec->vi);
+  if (res == 0) {
+    res = vorbis_block_init (dec->vd, dec->vb);
+    if (res == 0) {
       dec->is_init = 1;
       return 0;
     } else return -1;
@@ -192,7 +192,7 @@ int data_packet_pcmout (vorbisdec *dec, int16_t **v) {
   
   for (j = 0; j < sample_count; j++) {
     for (k = 0; k < channels; k++) {
-      int32_t s = (int32_t) 32767.0 * pcm[k][j];
+      int32_t s = (int32_t) floorf (0.5 + 32767.0 * pcm[k][j]);
       if (s > 32767) s = 32767;
       if (s < -32768) s = -32768;
       *p = (int16_t) s;
