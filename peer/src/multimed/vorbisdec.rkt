@@ -75,7 +75,7 @@
      (handle-headerpkt! localstate buffer len typenum (stream-rate vdec) (stream-channels vdec))]
     [_ (raise (fail "fatal: expected a header, but couldn't process it"))]))
 
-(define (data-packet! vdec localstate buffer len)
+(define/contract (data-packet! vdec localstate buffer len)
   (vorbisdec-pointer? vdec-state? bytes? exact-nonnegative-integer? . -> . void)
   (let ([ct (data-packet-blockin vdec buffer len)])
     (cond [(positive? ct) (let* ([total-samples (* ct (stream-channels vdec))]
