@@ -104,7 +104,7 @@ void print_stream_info (vorbisdec* dec) {
 int header_packet_in (vorbisdec* dec, unsigned char *buff, long buff_len) {
 
   ogg_packet pkt;
-  int hi, init = 0;
+  int hi;
 
   if (buff_len < 1) {
     return -1;
@@ -112,7 +112,7 @@ int header_packet_in (vorbisdec* dec, unsigned char *buff, long buff_len) {
   
   pkt.packet = buff;
   pkt.bytes = buff_len;
-  pkt.b_o_s = (buff[0] == 0x1) ? 1 : 0;
+  pkt.b_o_s = (buff[0] == 0x01) ? 1 : 0;
   pkt.e_o_s = 0;
   pkt.granulepos = -1;
   pkt.packetno = 0;
@@ -120,23 +120,20 @@ int header_packet_in (vorbisdec* dec, unsigned char *buff, long buff_len) {
   switch (buff[0]) {
     case 0x01:
       hi = vorbis_synthesis_headerin (dec->vi, dec->vc, &pkt);
+      if (hi == 0) return 0;
       break;
     case 0x03:
       hi = vorbis_synthesis_headerin (dec->vi, dec->vc, &pkt);
-      if (hi == 0) hi = 1;
+      if (hi == 0) return 1;
       break;
     case 0x05:
       hi = vorbis_synthesis_headerin (dec->vi, dec->vc, &pkt);
       print_stream_info (dec);
-      if (hi == 0) {
-        init = vorbisdec_finish_init (dec);
-        hi = 2;
-      }
+      if (hi == 0 && (hi = vorbisdec_finish_init (dec)) == 0) return 2;
       break;
     default: /* not a valid header packet */
-      hi = -1;      break;
+      hi = -1;
   }
-
   return hi;
 }
 
