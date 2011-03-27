@@ -71,7 +71,7 @@
   (thread-send thd (list (current-thread) 'restart)))
 
 (define oggpl (start 5000))
-(sleep 1)
-(p/s oggpl 5001)
+;(sleep 1)
+;(p/s oggpl 5001)
 
 (define (ogg/r) (restart oggpl))
