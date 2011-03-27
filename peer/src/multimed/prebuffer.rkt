@@ -8,6 +8,8 @@
                (< (length (prebuffer-q p)) size))
              '()))
 
+(define useless-prebuffer (prebuffer (λ (_) #f) '()))
+
 (define (prebuffer-more? p)
   ((prebuffer-do-more? p) p))
 
@@ -24,4 +26,4 @@
 (define (prebuffer-do-for-each p fun)
   (match p
     [(prebuffer f l) (for-each fun (reverse l))
-                     (prebuffer (λ (_) #f) '())]))
+                     useless-prebuffer]))
