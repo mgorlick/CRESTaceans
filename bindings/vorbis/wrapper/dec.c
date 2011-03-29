@@ -137,10 +137,9 @@ int header_packet_in (vorbisdec* dec, unsigned char *buff, long buff_len) {
   return hi;
 }
 
-/* header_packet_blockin: process one of the header packets in the stream
-   (identified by (buffer[0] && 1 == 0). decoder should call this with
-   any non-empty data packets after header_packet_in has been successfully
-   called three times with the three header packets.
+/* header_packet_blockin: process one of the header packets in the stream.
+   decoder should call this with any non-empty data packets after header_packet_in
+   has been successfully called three times with the three header packets.
 
    returns -1 if error processing data packet; or 0 or other non-negative
    number to indicate how many samples are available to read. decoder
