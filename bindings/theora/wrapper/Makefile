@@ -7,7 +7,7 @@ LIBDEPS = /usr/lib/libtheoradec.so /usr/lib/libtheoraenc.so /usr/lib/libtheora.s
 
 all: so
 
-so: dec.o
+so: dec.o enc.o
 	cc -shared $(LDFLAGS) \
 		-o $(SONAME).$(VERSION_FULL) \
 		 $(LIBDEPS) $^
