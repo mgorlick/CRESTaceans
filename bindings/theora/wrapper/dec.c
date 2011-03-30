@@ -47,14 +47,14 @@ void theoradec_delete (TheoraDec* dec) {
   free (dec);
 }
 
-int theoradec_headerin (TheoraDec* dec, unsigned char* buffer, int buffer_length) {
+int theoradec_headerin (TheoraDec* dec, unsigned char* buffer, long buffer_length) {
 
   ogg_packet p;
   int r;
   
   p.packet = buffer;
   p.bytes = buffer_length;
-  p.b_o_s = 0;
+  p.b_o_s = (dec->setup == NULL) ? 1 : 0;
   p.e_o_s = 0;
   p.granulepos = 0;
   p.packetno = 0;
@@ -64,7 +64,7 @@ int theoradec_headerin (TheoraDec* dec, unsigned char* buffer, int buffer_length
   return r;
 }
 
-int theoradec_datain (TheoraDec* dec, unsigned char* buffer, int buffer_length) {
+int theoradec_datain (TheoraDec* dec, unsigned char* buffer, long buffer_length) {
   ogg_packet p;
   int r;
   
