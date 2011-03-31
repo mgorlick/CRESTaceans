@@ -1,9 +1,9 @@
 #lang racket
 
-(require "util.rkt"
-         "prebuffer.rkt"
+(require "../util.rkt"
+         "../prebuffer.rkt"
          "vorbisdec-private.rkt"
-         "../../../bindings/vorbis/libvorbis.rkt")
+         "../../../../bindings/vorbis/libvorbis.rkt")
 (provide make-vorbis-decoder)
 
 (define *BUFFER-AHEAD* 20)

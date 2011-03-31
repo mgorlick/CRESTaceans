@@ -1,7 +1,7 @@
 #lang racket
 
-(require "../../../bindings/vorbis/libvorbis.rkt"
-         "util.rkt")
+(require "../../../../bindings/vorbis/libvorbis.rkt"
+         "../util.rkt")
 
 (provide (all-defined-out))
 

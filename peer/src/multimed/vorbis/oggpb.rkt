@@ -1,7 +1,7 @@
 #lang racket
 
-(require "util.rkt"
-         "../../../bindings/gstreamer/gstreamer.rkt"
+(require "../util.rkt"
+         "../../../../bindings/gstreamer/gstreamer.rkt"
          (planet bzlib/thread:1:0))
 (provide (all-defined-out))
 

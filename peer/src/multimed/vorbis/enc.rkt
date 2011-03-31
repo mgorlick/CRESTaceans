@@ -1,10 +1,10 @@
 #! /usr/bin/env racket
 #lang racket
 
-(require "udp-write.rkt"
-         "udp-read.rkt"
+(require "../udp-write.rkt"
+         "../udp-read.rkt"
          "vorbisenc.rkt"
-         "util.rkt")
+         "../util.rkt")
 (provide (all-defined-out))
 
 (define (udp-in>>encoder>>udp-out in-host in-port encoder-setup out-host out-port)
