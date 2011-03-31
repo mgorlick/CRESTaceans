@@ -1,77 +1,30 @@
 #lang racket
 
-(require "util.rkt"
-         "../../../bindings/gstreamer/gstreamer.rkt"
-         (planet bzlib/thread:1:0))
+(require "../../../bindings/vorbis/libvorbis.rkt"
+         "util.rkt")
+
 (provide (all-defined-out))
 
-(define (restartable-evt-loop bin)
-  
-  (define bus (gst_element_get_bus bin))
-  
-  (define (unref m #:is-error? [is-error? #f])
-    (when is-error? (printf "error/warning:~n") (extract-and-print-error m))
-    (gst_message_unref_w m))
-  
-  (define/contract (handle-a-message)
-    (-> boolean?)
-    (let ([message (gst_bus_timed_pop bus 0)])
-      (cond
-        [message (let ([type (gst_message_type message)])
-                   (match type
-                   ['eos (printf "eos~n") (unref message) #f]
-                   [(or 'warning 'error) (unref message #:is-error? #t) #f]
-                   [_  (printf "else: ~a~n" type) (unref message) #t]))]
-        [else #t])))
-  
-  (define (pause-bin/switch port)
-    (printf "Pausing...~n")
-    (gst_element_set_state bin GST_STATE_PAUSED)
-    (let ([udpsink (gst_bin_get_by_name* bin "udpsink")])
-      (g_object_set udpsink "port" port)))
-  
-  (define (restart-bin)
-    (printf "Restarting...~n")
-    (gst_element_set_state bin GST_STATE_PLAYING))
-  
-  (let loop ([paused? #f])
-    (receive/match
-     [(list (? thread? t) 'pause/switch-port (? integer? port))
-      (pause-bin/switch port)
-      (loop #t)]
-     
-     [(list (? thread? t) 'restart)
-      (restart-bin)
-      (loop #f)]
-     
-     [after 0
-            (if paused?
-                (loop paused?)
-                (when (handle-a-message)
-                  (loop paused?)))]
-     )))
+(struct encoder-settings (channels rate quality fl))
 
-(define (start port)
-  (thread (λ () 
-            (with-gst-init
-             #f
-             (let-values ([(bin error)
-                           (gst_parse_launch
-                            (string-append "audiotestsrc ! vorbisenc ! "
-                                           "udpsink name=udpsink host=127.0.0.1 port=" (number->string port)))])
-               (gst_element_set_state bin GST_STATE_PLAYING)
-               (restartable-evt-loop bin)
-               (gst_element_set_state bin GST_STATE_NULL)
-               (gst_object_unref bin))))))
+;; component setup
+(define/contract (make-vorbis-encoder signaller setup receiver)
+  (thread? encoder-settings? thread? . -> . (-> void))
+  (let* ([output-packet (make-packet-out-callback receiver)]
+         [enc (vorbisenc-init (encoder-settings-channels setup) (encoder-settings-rate setup) (encoder-settings-quality setup) output-packet)]
+         [is-signaller? (make-thread-id-verifier signaller)])
+    (λ ()
+      (let loop ()
+        (match (receive-killswitch/whatever is-signaller?)
+          [(? die? sig) (vorbisenc-delete enc)
+                        (reply/state-report signaller setup)
+                        (command/killswitch signaller receiver)]
+          [(? bytes? buffer) (vorbisenc-encode-pcm-samples enc buffer (encoder-settings-fl setup) output-packet)
+                             (loop)])))))
 
-(define (pause/switch-port thd port)
-  (to-all thd <- 'pause/switch-port port))
-
-(define (restart thd)
-  (to-all thd <- 'restart))
-
-(define pipeline (start 5000))
-(sleep 2)
-(pause/switch-port pipeline 5001)
-;(sleep 2)
-;(restart driver)
+;; encoder stuff
+(define (make-packet-out-callback receiver)
+  (thread? . -> . (ogg-packet-pointer? symbol? . -> . boolean?))
+  (λ (packet type)
+    (thread-send receiver (ogg-packet-data packet))
+    #t))

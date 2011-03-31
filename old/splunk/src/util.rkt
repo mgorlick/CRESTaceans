@@ -1,10 +1,9 @@
 #lang racket
 
 (require xml
-         "../util/xpath.rkt"
          "../../../bindings/curl/libcurl/libcurl.rkt"
-         
          (planet neil/json-parsing:1:=1))
+
 (provide (all-defined-out))
 
 ;; Remove all instances of #"\r", #"\n" and #"\t" plus extra whitespace

@@ -15,16 +15,16 @@
   (case-lambda
     [(width height)
      (receive/match
-      [(list (? thread? sender) 'start-request (? thread? rules) (? (listof thread?) sinks))
+      [(list (? thread? sender) 'start-request (? (listof thread?) sinks))
        (thread-send sender (list (current-thread) 'start-notification))
-       (init width height rules sinks)])]
+       (init width height sinks)])]
     
     ; rules is ONE THREAD, while sinks is a list of threads
-    [(width height rules sinks) 
+    [(width height sinks) 
      
      ; ENVIRONMENT SETUP
      
-     (define world-gravity (cpv 0.0 15.0))
+     (define world-gravity (cpv 0.0 5.0))
      
      (define height-factor ; the point on the y-axis where we start generating land 
        (/ (* 8.0 height) 10))
@@ -46,16 +46,10 @@
      (define (make-ground-shape v1 v2 space staticBody height width ship)
        (let* ([real-v1 (cpv (cpVect-x v1) (+ (cpVect-y v1) 100))]
               [real-v2 (cpv (cpVect-x v2) (+ (cpVect-y v2) 100))]
-              [shape (cpSpaceAddStaticShape space 
-                                            (cpSegmentShapeNew staticBody 
-                                                               real-v1 real-v2 100.0))])
+              [shape (cpSpaceAddStaticShape space (cpSegmentShapeNew staticBody real-v1 real-v2 100.0))])
          (cpSpaceAddCollisionHandler
           space (cpShape-collision_type ship) (cpShape-collision_type shape)
-          first-callback
-          second-callback
-          third-callback
-          fourth-callback
-          #f)
+          first-callback second-callback third-callback fourth-callback #f)
          (set-cpShape-e! shape 1.0)
          (set-cpShape-u! shape 1.0)))
      
@@ -78,19 +72,15 @@
             (make-ground-shape last v2 space staticBody height width ship)
             (cons (vector end-width (+ end-height offset-for-display))
                   (make-ground width height space staticBody ship
-                               (cpv end-width end-height)))
-            )]
-         ))
+                               (cpv end-width end-height))))]))
      
      ; SHIP SETUP
      
-     (define nfuel 5000) ; starting fuel
+     (define nfuel 10000) ; starting fuel
      ; location of ship vertices with respect to center
      (define tris (vector (cpv 15.0 15.0) (cpv 0.0 -15.0) (cpv -15.0 15.0)))
      
-     (define starting-point
-       (cpv (exact->inexact (/ width 8)) 
-            (exact->inexact (/ height 8))))
+     (define starting-point (cpv (exact->inexact (/ width 8)) (exact->inexact (/ height 8))))
      (define starting-angle 270.0)
      
      ; make-ship: rational rational cpSpace -> cpBody
@@ -103,8 +93,7 @@
            (set-cpShape-e! shape 1.0)
            (set-cpShape-u! shape 1.0)
            (cpSpaceAddShape space shape)
-           (cons body shape))
-         ))
+           (cons body shape))))
      
      ; SIMULATION START
      
@@ -120,40 +109,31 @@
        (dict-set! state "game" 'active)
        (dict-set! state "ground" 
                   (cons (vector 0.0 height-factor)
-                        (make-ground width height space staticBody (cdr ship) 
-                                     (cpv 0.0 height-factor))))
+                        (make-ground width height space staticBody (cdr ship) (cpv 0.0 height-factor))))
        (manage-update state width height 0.0 0.0 sinks)
        (cpBodyApplyImpulse (car ship) (cpv 2500.0 0.0) cpvzero)
        (set-simple-form! state)
-       (update-loop state width height rules sinks)
-       (printf "simulation freeing and shutting down~n")
+       (update-loop state width height sinks)
        (cpSpaceFreeChildren space)
        (cpSpaceFree space))]))
 
 ; update-loop: dict? rational? rational? listof-thread? -> void
 ; respond to control signal if there is one, else update with no control signal
-(define (update-loop state width height rules sinks)
+(define (update-loop state width height sinks)
   (receive/match
-   [(list (? thread? sender) 'permit-update! mvmt-coef rotate-coef newstate)
-    (manage-update newstate width height mvmt-coef rotate-coef sinks)
-    (update-loop newstate width height rules sinks)]
-   
    [(list (? thread? sender) 'event-control (? integer? mvmt-coef) (? integer? rotate-coef))
-    (request-update-permission state mvmt-coef rotate-coef rules)
-    (update-loop state width height rules sinks)]
+    (let-values ([(newstate mvmt-amt rotate-amt) (do-mvmt state mvmt-coef rotate-coef)])
+      (manage-update newstate width height mvmt-amt rotate-amt sinks)
+      (update-loop newstate width height sinks))]
    
    [(list (? thread? sender) 'shutdown)
-    #f
-    ]
+    (void)]
    
-   
-   ))
-
-(define (request-update-permission state mvmt-coef rotate-coef rules)
-  (thread-send rules (list (current-thread) 'permit-update? state mvmt-coef rotate-coef)))
+   [after 0.0001
+          (manage-update state width height 0.0 0.0 sinks)
+          (update-loop state width height sinks)]))
 
 (define (manage-update state width height mvmt-coef rotate-coef sinks)
-  ;(sleep 0.005)
   (update state width height mvmt-coef rotate-coef)
   (set-simple-form! state)
   (for/list ([s sinks])
@@ -162,13 +142,12 @@
 ; update: dict? rational? rational? integer? integer? -> void
 (define (update state width height mvmt-coef rotate-coef)
   (let* ([steps 3]
-         [dt (/ (1.0 . / . 60.0) steps)]
+         [dt (/ (/ 1.0 60.0) steps)]
          [space (dict-ref state "space")]
          [ship (dict-ref state "ship")]
          [fuel (dict-ref state "player")])
     (for [(i (in-range steps))]
-      (cpSpaceStep space dt)
-      )
+      (cpSpaceStep space dt))
     (cpBodySetAngle ship (+ rotate-coef (angle ship)))
     (cpBodyApplyImpulse ship (cpv (impulse-xcoef ship mvmt-coef)
                                   (impulse-ycoef ship mvmt-coef)) cpvzero)
@@ -176,8 +155,7 @@
       [(>= (xpos ship) width) 
        (set-xpos! ship (- (xpos ship) width))]
       [(< (xpos ship) 0.0)
-       (set-xpos! ship (+ (xpos ship) width))])
-    ))
+       (set-xpos! ship (+ (xpos ship) width))])))
 
 (define (deg->rad d)
   (* d ( / pi 180)))
@@ -224,23 +202,48 @@
 (define first-callback 
   (newCollisionHandler 
    (lambda (arbiter space data)
-     ;(printf "callback 1~n")
      1)))
 
 (define second-callback
   (newCollisionHandler 
    (lambda (arbiter space data)
-     ;(printf "callback 2~n")
      1)))
 
 (define third-callback
   (newCollisionHandler2 
    (lambda (arbiter space data)
-     ;(printf "callback 3~n")
      (void))))
 
 (define fourth-callback
   (newCollisionHandler2
    (lambda (a b c)
-     ;(printf "callback 4~n")
      (void))))
+
+;;; rules for allowing thrusting
+
+(define mvmt-price 5)
+(define rotate-price 1)
+
+(define (do-mvmt state mvmt-coef rotate-coef)
+  (let ((rotate-amt (allow-rotate-amt (get-fuel state) rotate-coef)))
+    (subt-fuel! state rotate-amt rotate-price)
+    (let ((mvmt-amt (allow-mvmt-amt (get-fuel state) mvmt-coef)))
+      (subt-fuel! state mvmt-amt mvmt-price)
+      (values state mvmt-amt rotate-amt))))
+
+(define (get-fuel state)
+  (dict-ref state "player"))
+
+(define (allow-rotate-amt fuel coef)
+  (if (>= fuel (* rotate-price (abs coef)))
+      coef
+      (* coef (/ fuel rotate-price))))
+
+(define (allow-mvmt-amt fuel coef)
+  (if (>= fuel (* mvmt-price (abs coef))) 
+      coef
+      (* coef (/ fuel mvmt-price))))
+
+(define (subt-fuel! state amt price)
+  (dict-set! state "player" (- (get-fuel state) (* price (abs amt))))
+  state)

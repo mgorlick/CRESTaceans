@@ -1,6 +1,6 @@
 #lang racket
 
-(require "../../src/splunk/util.rkt"
+(require "../src/util.rkt"
          rackunit
          rackunit/text-ui)
 

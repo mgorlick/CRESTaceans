@@ -3,9 +3,8 @@
 #include <string.h>
 #include <math.h>
 #include <vorbis/codec.h>
-#include "codec_internal.h"
 
-typedef struct vorbisdec {
+typedef struct {
   int is_init;
   vorbis_info* vi;
   vorbis_comment* vc;
@@ -22,11 +21,11 @@ vorbisdec* vorbisdec_new (void) {
   vorbis_block* vb;
   vorbisdec* dec;
   
-  dec = malloc (sizeof (struct vorbisdec));
-  vc = malloc (sizeof (struct vorbis_comment));
-  vi = malloc (sizeof (struct vorbis_info));
-  vd = malloc (sizeof (struct vorbis_dsp_state));
-  vb = malloc (sizeof (struct vorbis_block));
+  dec = malloc (sizeof (vorbisdec));
+  vc = malloc (sizeof (vorbis_comment));
+  vi = malloc (sizeof (vorbis_info));
+  vd = malloc (sizeof (vorbis_dsp_state));
+  vb = malloc (sizeof (vorbis_block));
 
   dec->is_init = 0;
   dec->vi = vi;
@@ -54,27 +53,16 @@ int vorbisdec_finish_init (vorbisdec* dec) {
 }
 
 void vorbisdec_delete (vorbisdec* dec) {
+  if (dec->is_init)  vorbis_block_clear (dec->vb);
+  vorbis_dsp_clear (dec->vd);
+  vorbis_comment_clear (dec->vc);
+  vorbis_info_clear (dec->vi);
+
   free (dec->vb);
   free (dec->vd);
   free (dec->vc);
   free (dec->vi);
   free (dec);
-}
-
-vorbis_info* vorbisdec_get_info (vorbisdec* dec) {
-  return dec->vi;
-}
-
-vorbis_comment* vorbisdec_get_comment (vorbisdec* dec) {
-  return dec->vc;
-}
-
-vorbis_dsp_state* vorbisdec_get_dsp_state (vorbisdec* dec) {
-  return dec->vd;
-}
-
-vorbis_block* vorbisdec_get_block (vorbisdec* dec) {
-  return dec->vb;
 }
 
 int vorbisdec_is_init (vorbisdec* dec) {
@@ -111,8 +99,10 @@ void print_stream_info (vorbisdec* dec) {
    packet and type packet in order. Once all three have been called,
    the vorbisdec* is ready to use for synthesizing data packets.
 
-   returns a negative num if error processing header packet; 1 if header packet
-   was successfully processed. */
+   returns a negative num if error processing header packet; or
+   0, 1, or 2, to signify the type of header packet processed.
+   successive calls to header_packet_in MUST return 0, 1, and 2 in order
+  for the subsequent decoding to work. */
 int header_packet_in (vorbisdec* dec, unsigned char** buff, long buff_len) {
 
   ogg_packet pkt;
@@ -135,18 +125,21 @@ int header_packet_in (vorbisdec* dec, unsigned char** buff, long buff_len) {
       break;
     case 0x03:
       hi = vorbis_synthesis_headerin (dec->vi, dec->vc, &pkt);
+      if (hi == 0) hi = 1;
       break;
     case 0x05:
       hi = vorbis_synthesis_headerin (dec->vi, dec->vc, &pkt);
       print_stream_info (dec);
-      if (hi == 0) init = vorbisdec_finish_init (dec);
+      if (hi == 0) {
+        init = vorbisdec_finish_init (dec);
+        hi = 2;
+      }
       break;
     default: /* not a valid header packet */
       hi = -1;
       break;
   }
 
-  if (hi == 0 && init == 0) return 1;
   return hi;
 }
 
@@ -204,7 +197,7 @@ int data_packet_pcmout (vorbisdec* dec, int16_t** v) {
   if (sample_count > 0) {
     for (j = 0; j < sample_count; j++) {
       for (k = 0; k < channels; k++) {
-        int s  = (int) floorf (0.5 + 32767.0 * pcm[k][j]);
+        int32_t s  = (int32_t) floorf (0.5 + 32767.0 * pcm[k][j]);
         if (s > 32767) s = 32767;
         if (s < -32768) s = -32768;
         *p = (int16_t) s;
@@ -215,6 +208,14 @@ int data_packet_pcmout (vorbisdec* dec, int16_t** v) {
 
   if (vorbis_synthesis_read (dec->vd, sample_count) < 0) return -1;
   return sample_count;
+}
+
+int stream_channels (vorbisdec* dec) {
+  return dec->vi->channels;
+}
+
+int stream_rate (vorbisdec* dec) {
+  return dec->vi->rate;
 }
 
 int main (void) {

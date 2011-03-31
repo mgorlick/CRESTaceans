@@ -1,69 +1,89 @@
 #lang racket
 
 (require "util.rkt"
-         "aoout.rkt"
+         "vorbisdec-private.rkt"
          "../../../bindings/vorbis/libvorbis.rkt"
-         (planet bzlib/thread:1:0))
-(provide (all-defined-out))
+         data/queue)
+(provide make-vorbis-decoder)
+
+(define *BUFFER-AHEAD* 20)
 
 ;; Vorbis decoder component
+(define/contract (make-vorbis-decoder signaller [localstate (make-vdec-state)])
+  ([thread?] [vdec-state?] . ->* . (-> void))
+  (let ([vdec (vorbisdec-new)]
+        [q (make-queue)]
+        [is-signaller? (make-thread-id-verifier signaller)])
+    (λ ()
+      (when (reinitialize? localstate)
+        (reinitialize! localstate (curry header-packet! vdec)))
+      (let loop ()
+        (match (receive-killswitch/whatever is-signaller?)
+          [(? bytes? packet) (cond [(not (prebuffering? q)) (handle-vorbis-buffer! vdec localstate packet)]
+                                   [(prebuffer-add?! q packet) (prebuffer-decode?! q vdec localstate)])
+                             (loop)]
+          [(? die? sig) (vorbisdec-delete vdec)
+                        (cleanup! localstate)
+                        ;; need to also salvage packets sitting in mailbox here
+                        (reply/state-report signaller localstate)])))))
 
-(define/contract (vorbis-decode parent [vdec #f] [sinks #f])
-  ([thread?] [(or/c #f vorbisdec-pointer?) (or/c #f (listof thread?))] . ->* .  void)
-  
-  (when (not vdec)
-    (vorbis-decode parent (vorbisdec-new)))
-  
-  (receive/match
-   [(list (? thread? thd) 'clone-state-and-die)
-    (to-all parent <- 'state-report (handle-state-report vdec))]
-   
-   [(list (? thread? thd) (? bytes? buffer) (? integer? len))
-    (match (handle-vorbis-buffer! vdec buffer len)
-      ['ok (vorbis-decode parent vdec)]
-      ['fatal #f])]
-   ))
+(define (prebuffering? q)
+  (or (do-empty-prebuffer? q)
+      (do-more-prebuffer? q)))
 
-(define (packet-type buffer len)
+(define (do-empty-prebuffer? q)
+  (= (queue-length q) *BUFFER-AHEAD*))
+
+(define (do-more-prebuffer? q)
+  (< (queue-length q) *BUFFER-AHEAD*))
+
+(define (prebuffer-add?! q pkt)
+  (cond [(do-more-prebuffer? q)
+         (enqueue! q pkt)
+         #t]
+        [else #f]))
+
+(define (prebuffer-decode?! q vdec localstate)
+  (cond [(do-empty-prebuffer? q)
+         (map (curry handle-vorbis-buffer! vdec localstate) (queue->list q))
+         (enqueue! q #"ENDPREBUFFER") ; bleh, hack
+         #t]
+        [else #f]))
+
+(define/contract (handle-vorbis-buffer! vdec localstate buffer)
+  (vorbisdec-pointer? vdec-state? bytes? . -> . void)
+  (define len (bytes-length buffer))
+  (match* ((packet-type buffer len) (vorbisdec-is-init vdec))
+    ;; "normal" states: non-empty packet, dec initialized with headers before processing data
+    [('data #t) (data-packet! vdec localstate buffer len)]
+    [('header #f) (header-packet! vdec localstate buffer len)]
+    ;; the nasty fatal state: can't recover from missing header
+    [('empty #f) (fail "fatal: found an empty packet where a header packet was expected" (current-continuation-marks))]
+    ;; we can skip the state transition for anything else
+    [(_ _) (void)]))
+
+(define/contract (packet-type buffer len)
+  (bytes? exact-nonnegative-integer? . -> . symbol?)
   (cond [(zero? len) 'empty]
         [(= 1 (bitwise-and 1 (bytes-ref buffer 0))) 'header]
         [else 'data]))
 
-(define (handle-vorbis-buffer! vdec buffer len)
-  (match* ((packet-type buffer len) (vorbisdec-is-init vdec))
-    [('empty #f) (printf "fatal error: empty header~n") 'fatal] ; empty header is fatal
-    [('header #f) (header-packet! buffer len vdec)] ; non-empty header
-    [('data #f) 'ok] ; data packet received before initialization finished. skip
-    [('empty #t) 'ok] ; empty data packet, but headers ok. just skip
-    [('header #t) 'ok] ; looks like a header but we've initialized. skip
-    [('data #t) (data-packet! buffer len vdec)] ; non-empty data
-    ))
-
-(define (bytestring->uchar** buffer)
-  (box (bytes->list buffer)))
-
-(define (header-packet! buffer len vdec)
+(define/contract (header-packet! vdec localstate buffer len)
+  (vorbisdec-pointer? vdec-state? bytes? exact-nonnegative-integer? . -> . void)
   (match (header-packet-in vdec (bytestring->uchar** buffer) len)
-    [(or 1 3 5) 'ok]
-    [any (printf "fatal error in decoding header: ~a~n" any) 'fatal]))
+    [(? (λ (i) (and (>= i 0) (< i 3))) typenum)
+     (handle-headerpkt! localstate buffer len typenum (stream-rate vdec) (stream-channels vdec))]
+    [_ (raise (fail "fatal: expected a header, but couldn't process it"))]))
 
-(define (data-packet! buffer len vdec)
-  (let* ([ct (data-packet-blockin vdec (bytestring->uchar** buffer) len)])
-    (when (> ct 0)
-      (let* ([samples (box (make-list ct 0))]
-             [sample-ct (data-packet-pcmout vdec samples ct)])
-        (audio-out (unbox samples) ct)
-        )))
-  'ok)
+(define (data-packet! vdec localstate buffer len)
+  (vorbisdec-pointer? vdec-state? bytes? exact-nonnegative-integer? . -> . void)
+  (let ([ct (data-packet-blockin vdec (bytestring->uchar** buffer) len)])
+    (cond [(positive? ct)
+           (let* ([total-samples (* ct (stream-channels vdec))]
+                  [output-buffer (storage localstate)]
+                  [sample-ct (data-packet-pcmout vdec output-buffer total-samples)])
+             (audio-out! localstate total-samples))]
+          [else (void)])))
 
-(define (handle-state-report vdec)
-  (let ([vi (vorbisdec-get-info vdec)]
-        [vc (vorbisdec-get-comment vdec)]
-        [vd (vorbisdec-get-dsp-state vdec)]
-        [vb (vorbisdec-get-block vdec)]
-        [init? (vorbisdec-is-init vdec)])
-    ;(printf "vi->rate = ~a~n" (vorbis-info-channels vi))
-    ;(printf "vc->comments = ~a~n" (vorbis-comment-comments vc))
-    ;(printf "vd->W = ~a~n" (vorbis-dsp-state-W vd))
-    ;(printf "vb->totaluse = ~a~n" (vorbis-block-totaluse vb))
-  vdec))
+(define (fail str)
+  (raise (make-exn:fail str (current-continuation-marks))))
