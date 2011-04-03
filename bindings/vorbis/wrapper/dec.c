@@ -5,7 +5,8 @@
 #include <vorbis/codec.h>
 
 typedef struct {
-  int is_init;
+  int block_is_init;
+  int dsp_is_init;
   vorbis_info* vi;
   vorbis_comment* vc;
   vorbis_dsp_state* vd;
@@ -27,7 +28,8 @@ vorbisdec* vorbisdec_new (void) {
   vd = malloc (sizeof (vorbis_dsp_state));
   vb = malloc (sizeof (vorbis_block));
 
-  dec->is_init = 0;
+  dec->block_is_init = 0;
+  dec->dsp_is_init = 0;
   dec->vi = vi;
   dec->vc = vc;
   dec->vd = vd;
@@ -44,17 +46,18 @@ int vorbisdec_finish_init (vorbisdec* dec) {
   
   res = vorbis_synthesis_init (dec->vd, dec->vi);
   if (res == 0) {
+    dec->dsp_is_init = 1;
     res = vorbis_block_init (dec->vd, dec->vb);
     if (res == 0) {
-      dec->is_init = 1;
+      dec->block_is_init = 1;
       return 0;
     } else return -1;
   } else return -1;
 }
 
 void vorbisdec_delete (vorbisdec* dec) {
-  if (dec->is_init)  vorbis_block_clear (dec->vb);
-  vorbis_dsp_clear (dec->vd);
+  if (dec->block_is_init) vorbis_block_clear (dec->vb);
+  if (dec->dsp_is_init) vorbis_dsp_clear (dec->vd);
   vorbis_comment_clear (dec->vc);
   vorbis_info_clear (dec->vi);
 
@@ -66,7 +69,7 @@ void vorbisdec_delete (vorbisdec* dec) {
 }
 
 int vorbisdec_is_init (vorbisdec* dec) {
-  return dec->is_init;
+  return dec->block_is_init && dec->dsp_is_init;
 }
 
 /* print_buffer here for testing purposes */
@@ -149,7 +152,7 @@ int data_packet_blockin (vorbisdec* dec, unsigned char *buff, long buff_len) {
   ogg_packet pkt;
   int res;
   
-  if (buff_len < 0 || !dec->is_init) {
+  if (buff_len < 0 || !dec->block_is_init || !dec->dsp_is_init) {
     return -1;
   }
   
@@ -185,14 +188,13 @@ int data_packet_pcmout (vorbisdec *dec, int16_t **v) {
   
   for (j = 0; j < sample_count; j++) {
     for (k = 0; k < channels; k++) {
-      int32_t s = (int32_t) rint (32767.f * pcm[k][j]);
+      int32_t s = rint (32767.f * pcm[k][j]);
       if (s > 32767) s = 32767;
       if (s < -32768) s = -32768;
       *p++ = (int16_t) s;
     }
   }
-
-  if (vorbis_synthesis_read (dec->vd, sample_count) < 0) return -1;
+  vorbis_synthesis_read (dec->vd, sample_count);
   return sample_count;
 }
 
