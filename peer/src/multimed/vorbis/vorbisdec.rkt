@@ -6,7 +6,7 @@
          "../../../../bindings/vorbis/libvorbis.rkt")
 (provide make-vorbis-decoder)
 
-(define *BUFFER-AHEAD* 20)
+(define *BUFFER-AHEAD* 30)
 
 ;; Vorbis decoder component
 (define/contract (make-vorbis-decoder signaller [localstate (make-vdec-state)])
@@ -18,11 +18,10 @@
     (λ ()
       (let loop ([p (make-prebuffer *BUFFER-AHEAD*)])
         (match (receive-killswitch/whatever is-signaller?)
-          [(? bytes? packet) (cond [(prebuffer-more? p) (loop (prebuffer-do p packet proc!))]
-                                   [else (proc! packet)
-                                         (loop p)])]
+          [(? bytes? packet) (cond [(not (prebuffer-more? p)) (proc! packet)
+                                                              (loop p)]
+                                   [else (loop (prebuffer-do p packet proc!))])]
           [(? die? sig) (vorbisdec-delete vdec)
-                        (cleanup! localstate)
                         ;; need to also salvage packets sitting in mailbox here
                         (reply/state-report signaller localstate)])))))
 
@@ -54,12 +53,7 @@
 
 (define/contract (data-packet! vdec localstate buffer len)
   (vorbisdec-pointer? vdec-state? bytes? exact-nonnegative-integer? . -> . void)
-  (let ([ct (data-packet-blockin vdec buffer len)])
-    (cond [(positive? ct)
-           (let* ([total-samples (* ct (stream-channels vdec))]
-                  [sample-ct (data-packet-pcmout vdec (storage localstate) total-samples)])
-             (audio-out! localstate total-samples))]
-          [else (void)])))
+  (data-packet-blockin vdec buffer len))
 
 (define (fail str)
   (raise (make-exn:fail str (current-continuation-marks))))

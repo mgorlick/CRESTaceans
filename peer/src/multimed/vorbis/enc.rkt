@@ -18,5 +18,5 @@
   (let ([states (gather-states pipeline)])
     (udp-in>>encoder>>udp-out in-host in-port (dict-ref states "vorbis-encoder") out-host out-port)))
 
-(define encode-pipeline (udp-in>>encoder>>udp-out #f 4999 (encoder-settings 1 44100 1.0 'naive) "127.0.0.1" 5000))
+(define encode-pipeline (udp-in>>encoder>>udp-out #f 4999 (encoder-settings 2 44100 1.0 'naive) "127.0.0.1" 5000))
 (define (e/pmr) (set! encode-pipeline (encoder:pause/move/restart encode-pipeline #f 4998 "127.0.0.1" 5001)))
