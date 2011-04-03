@@ -3,6 +3,8 @@
 (require ffi/unsafe
          "../vorbis/libvorbis.rkt")
 
+(provide (all-defined-out))
+
 (define theora (ffi-lib "libracket-theora-wrapper"))
 (define-syntax-rule (deftheora+ binding obj typ)
   (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) theora typ)))
@@ -50,7 +52,7 @@
    [fps-numerator _uint32]
    [fps-denominator _uint32]
    [aspect-numerator _uint32]
-   [aspect-denomintator _uint32]))
+   [aspect-denominator _uint32]))
 
 (define-cstruct _th-image-plane
   ([width _int]
@@ -66,18 +68,18 @@
 (deftheora theoradec-delete (_fun _theoradec-pointer -> _void))
 
 (deftheora theoradec-header-in (_fun (dec buff) ::
-                                    (dec : _theoradec-pointer)
-                                    (buff : _bytes)
-                                    (_long = (bytes-length buff))
-                                    -> _bool))
+                                     (dec : _theoradec-pointer)
+                                     (buff : _bytes)
+                                     (_long = (bytes-length buff))
+                                     -> _bool))
 
 (deftheora theoradec-data-in (_fun (dec ibuff obuff obl) ::
-                                  (dec : _theoradec-pointer)
-                                  (ibuff : _bytes)
-                                  (_long = (bytes-length ibuff))
-                                  (obuff : (_box (_list io _ubyte obl)))
-                                  (obl : _long)
-                                  -> _bool))
+                                   (dec : _theoradec-pointer)
+                                   (ibuff : _bytes)
+                                   (_long = (bytes-length ibuff))
+                                   (obuff : (_box (_list io _ubyte obl)))
+                                   (obl : _long)
+                                   -> _bool))
 
 ;;; encoding stuff
 
