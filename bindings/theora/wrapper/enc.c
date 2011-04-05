@@ -3,6 +3,8 @@
 #include <stdint.h>
 #include <theora/theoraenc.h>
 
+#include "enc_settings.h"
+
 typedef struct TheoraEnc {
   th_info* info;
   th_comment* comment;
@@ -29,6 +31,32 @@ TheoraEnc* theoraenc_new (void) {
     printf ("ERROR: couldn't alloc enc in theoraenc_new\n");
     return NULL;
   }
+  
+  /* hardcodes based on the example gstreamer v4l2 -> theora pipeline settings */
+  enc->info->frame_width = enc_frame_width;
+  enc->info->frame_height = enc_frame_height;
+  enc->info->pic_width = enc_pic_width;
+  enc->info->pic_height = enc_pic_height;
+  enc->info->fps_numerator = enc_fps_numerator;
+  enc->info->fps_denominator = enc_fps_denominator;
+  enc->info->quality = enc_quality;
+  enc->info->target_bitrate = enc_target_bitrate;
+  enc->info->keyframe_granule_shift = enc_keyframe_granule_shift;
+  
+  /* stuff that was already hardcoded in gstreamer's theora encoder */
+  enc->info->aspect_numerator = 0;
+  enc->info->aspect_denominator = 0;
+  enc->info->pixel_fmt = TH_PF_420;
+  enc->info->colorspace = TH_CS_UNSPECIFIED;
+  
+  th_enc_ctx* ctx = th_encode_alloc (enc->info);
+  if (ctx) {
+    enc->ctx = ctx;
+  } else {
+    printf ("ERROR: couldn't alloc encoder ctx in theoraenc_init\n");
+    return NULL;
+  }
+  
   return enc;
 }
 
@@ -53,36 +81,6 @@ th_info* theoraenc_info (TheoraEnc *enc) {
   return enc->info;
 }
 
-int theoraenc_init (TheoraEnc *enc) {
-  if (!enc) return 0;
-
-  /* hardcodes based on the example gstreamer v4l2 -> theora pipeline settings */
-  enc->info->frame_width = 640;
-  enc->info->frame_height = 480;
-  enc->info->pic_width = 640;
-  enc->info->pic_height = 480;
-  enc->info->fps_numerator = 30;
-  enc->info->fps_denominator = 1;
-  enc->info->quality = 48;
-  enc->info->target_bitrate = 0;
-  enc->info->keyframe_granule_shift = 6;
-  
-  /* stuff that was already hardcoded in gstreamer's theora encoder */
-  enc->info->aspect_numerator = 0;
-  enc->info->aspect_denominator = 0;
-  enc->info->pixel_fmt = TH_PF_420;
-  enc->info->colorspace = TH_CS_UNSPECIFIED;
-  
-  th_enc_ctx* ctx = th_encode_alloc (enc->info);
-  if (ctx) {
-    enc->ctx = ctx;
-    return 1;
-  } else {
-    printf ("ERROR: couldn't alloc encoder ctx in theoraenc_init\n");
-    return 0;
-  }
-}
-
 int theoraenc_foreach_header (TheoraEnc *enc, theoraenc_each_packet f) {
   int r = 1;
   ogg_packet p;
@@ -101,12 +99,20 @@ int theoraenc_foreach_header (TheoraEnc *enc, theoraenc_each_packet f) {
   return 1;
 }
 
+/* WARNING: ALL THIS ASSUMES PIXEL FORMAT:
+   V4L2_PIX_FMT_YUYV
+   which *most likely* corresponds to
+   TH_PF_422, which is GST_VIDEO_FORMAT_Y42B according to gsttheoraenc.c
+   CHANGE CALCULATIONS IF THIS CHANGES! */
+
 #define ROUND_UP_2(num) (((num)+1)&~1)
 #define ROUND_UP_4(num) (((num)+3)&~3)
+#define ROUND_UP_8(num) (((num)+7)&~7)
 
 int get_height (int component_index, int frame_height) {
-  if (component_index == 0) return frame_height;
-  else return ROUND_UP_2 (frame_height) / 2;
+  /* if (component_index == 0) return frame_height;
+     else return ROUND_UP_2 (frame_height) / 2; */
+  return frame_height;
 }
 
 int get_width (int component_index, int frame_width) {
@@ -120,18 +126,18 @@ int get_offset (int component_index, int pic_width, int pic_height) {
     case 0:
       return 0;
     case 1:
-      return ROUND_UP_4 (pic_width) * ROUND_UP_4 (pic_height);
+      return ROUND_UP_4 (pic_width) * pic_height;
     case 2:
-      return ROUND_UP_4 (pic_width) * ROUND_UP_4 (pic_height) +
-          ROUND_UP_4 (ROUND_UP_2 (pic_width) / 2) * (ROUND_UP_2 (pic_height) / 2);
+      return pic_height * (ROUND_UP_4 (pic_width) + (ROUND_UP_8 (pic_width) / 2));
     default:
-      return -1;
+      printf ("get_offset called with invalid YCBCR component index\n");
+      return 0;
   }
 }
 
 int get_row_stride (int component_index, int pic_width) {
   if (component_index == 0) return ROUND_UP_4 (pic_width);
-  else return ROUND_UP_4 (ROUND_UP_2 (pic_width) / 2);
+  else return (ROUND_UP_8 (pic_width) / 2);
 }
 
 void init_ycbcr (th_ycbcr_buffer y, th_info* info, uint8_t *data) {

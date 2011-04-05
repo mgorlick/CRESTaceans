@@ -85,9 +85,19 @@
 
 (deftheora theoraenc-new (_fun -> _theoraenc-pointer))
 (deftheora theoraenc-delete (_fun _theoraenc-pointer -> _void))
-(deftheora theoraenc-init (_fun _theoraenc-pointer -> _bool))
-(deftheora theoraenc-info (_fun _theoraenc-pointer -> _th-info-pointer))
 
-(deftheora theoraenc-foreach-header (_fun _theoraenc-pointer _theoraenc-each-packet -> _bool))
+(deftheora theoraenc-foreach-header (_fun _theoraenc-pointer
+                                          _theoraenc-each-packet -> _bool))
 
-(deftheora theoraenc-data-in (_fun _theoraenc-pointer _ycbcr-buffer _theoraenc-each-packet -> _bool))
+(deftheora theoraenc-data-in (_fun _theoraenc-pointer 
+                                   _bytes _long
+                                   _theoraenc-each-packet -> _bool))
+
+;; video capture
+
+(define-cpointer-type _v4l2-reader-pointer)
+
+(deftheora v4l2-reader-setup (_fun -> _v4l2-reader-pointer))
+(deftheora v4l2-reader-delete (_fun _v4l2-reader-pointer -> _void))
+
+(deftheora v4l2-reader-read (_fun _v4l2-reader-pointer -> _void))
