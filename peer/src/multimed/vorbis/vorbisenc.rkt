@@ -26,5 +26,5 @@
 (define/contract (make-packet-out-callback receiver)
   (thread? . -> . (ogg-packet-pointer? symbol? . -> . boolean?))
   (λ (packet type)
-    (thread-send receiver (ogg-packet-data packet))
+    (thread-send receiver (bytes-copy (ogg-packet-data packet)))
     #t))

@@ -63,7 +63,7 @@ vorbisenc* vorbisenc_new (int channels, int rate, float quality) {
 
   /* step 1 */
   vorbis_info_init (enc->vi);
-  vorbis_encode_init_vbr (enc->vi, channels, rate, 0.5);
+  vorbis_encode_init_vbr (enc->vi, channels, rate, 1.0);
   /* step 2 */
   vorbis_analysis_init (enc->vd, enc->vi);
   vorbis_block_init (enc->vd, enc->vb);
@@ -91,6 +91,7 @@ vorbisenc* vorbisenc_init (int channels, int rate, float quality,
     /* step 4 */
     enc->is_init = 1;
   }
+  
   return enc;
 }
 
@@ -98,23 +99,23 @@ int vorbisenc_encode_pcm_samples (vorbisenc* enc,
                                   unsigned char* buffer, long buffer_length,
                                   vorbis_byte_conversion_type b,
                                   vorbisenc_process_packet_ft f) {
-  int r, s = 1; /* error signals */
-  long i, j;
-  ogg_packet *op = enc->op;
-  float *samples = enc->sample_buffer;
-  long size;
-  float **vorbis_input;
+  int r; /* error signals */
+  long i, j, size;
+  float **vorbis_input, *samples = enc->sample_buffer;
 
-  switch (b) {
+  /*switch (b) {
     case VORBIS_NAIVE:
       size = bstofs_naive (buffer, buffer_length, enc->channels, samples);
       break;
     default:
       size = bstofs_ntoh (buffer, buffer_length, enc->channels, samples);
       break;
-  }
+      }*/
 
   /* step 5.1 */
+  samples = (float *) buffer;
+  size = buffer_length / (enc->channels * sizeof (float));
+    
   vorbis_input = vorbis_analysis_buffer (enc->vd, size);
   
   /* this deinterleaves the samples:
@@ -131,19 +132,23 @@ int vorbisenc_encode_pcm_samples (vorbisenc* enc,
   }
 
   /* step 5.2 */
-  while ((s = vorbis_analysis_blockout (enc->vd, enc->vb)) == 1) {
-    /* step 5.2.1, don't need to do 5.2.2 & 5.2.3
-       since we're not using bitrate managed mode */
-    r = vorbis_analysis (enc->vb, op);
+  while (vorbis_analysis_blockout (enc->vd, enc->vb)) {
+    /* step 5.2.1 */
+    r = vorbis_analysis (enc->vb, NULL);
     if (r < 0) {
       break;
     } else {
-      f (op, VORBIS_DATA_PACKET);
+      /* 5.2.2 and 5.2.3 */
+      vorbis_bitrate_addblock (enc->vb);
+      while (vorbis_bitrate_flushpacket (enc->vd, enc->op)) {
+        f (enc->op, VORBIS_DATA_PACKET);
+      }
+      
       /* don't free unowned memory in ogg_packet_delete
          if it's called after this func returns
          since the op's buffer points to libvorbis memory */
-      op->packet = NULL; 
-      op->bytes = 0;
+      enc->op->packet = NULL; 
+      enc->op->bytes = 0;
    }
   }
 

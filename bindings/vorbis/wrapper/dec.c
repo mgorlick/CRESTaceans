@@ -192,15 +192,6 @@ int header_packet_in (vorbisdec* dec, unsigned char *buff, long buff_len) {
   return hi;
 }
 
-/* data_packet_pcmout: after calling header_packet_blockin with a new buffer,
-   use its return value to instantiate a list/vector/array/...
-   and pass a point to it to data_packet_pcmout to actually retrieve the
-   available values.
-
-   returns a count of the samples actually put into the provided storage,
-   or -1 if the decoder initially reported an incorrect count
-   (don't expect this error case to happen, but...). */
-
 inline int16_t float_to_int16 (float v) {
   int32_t s;
   s = 32767 * v;
@@ -214,11 +205,12 @@ int data_packet_pcmout (vorbisdec *dec) {
   float **pcm;
   int i, j, k = 0;
   int sample_count = vorbis_synthesis_pcmout (dec->vd, &pcm);
+  int16_t sample;
   char *buffer = dec->sample_buffer;
   
   for (j = 0; j < sample_count; j++) {
     for (i = 0; i < dec->vi->channels; i++) {
-      int16_t sample = float_to_int16 (pcm[i][j]);
+      sample = float_to_int16 (pcm[i][j]);
       buffer[k] = sample & 0xff;
       buffer[k+1] = (sample >> 8) & 0xff;
       k += 2;
@@ -244,6 +236,7 @@ int data_packet_blockin (vorbisdec* dec, unsigned char *buff, long buff_len) {
   int res;
   
   if (buff_len < 0 || !vorbisdec_is_init (dec)) {
+    printf ("Error: trying to use uninitialized vorbis decoder\n");
     return -1;
   }
 
