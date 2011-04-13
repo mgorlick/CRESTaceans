@@ -6,7 +6,7 @@
          "../../../../bindings/vorbis/libvorbis.rkt")
 (provide make-vorbis-decoder)
 
-(define *BUFFER-AHEAD* 30)
+(define *BUFFER-AHEAD* 0)
 
 ;; Vorbis decoder component
 (define/contract (make-vorbis-decoder signaller [localstate (make-vdec-state)])
