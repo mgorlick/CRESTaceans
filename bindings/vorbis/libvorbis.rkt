@@ -61,12 +61,6 @@
         (len : _long)
         -> _int))
 
-(defvorbis~ data-packet-pcmout
-  (_fun (dec c d) ::
-        (dec : _vorbisdec-pointer)
-        (c : (_box (_list io _int16 d)))
-        -> _int))
-
 (defvorbis~ stream-channels (_fun _vorbisdec-pointer -> _int))
 (defvorbis~ stream-rate (_fun _vorbisdec-pointer -> _int))
 

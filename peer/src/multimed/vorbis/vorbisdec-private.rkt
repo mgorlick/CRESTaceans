@@ -1,24 +1,17 @@
 #lang racket
 
-(require "aoout.rkt")
-
 (provide make-vdec-state
          vdec-state?
-         storage
          packetcount
          handle-headerpkt!
-         audio-out!
          reinitialize?
-         reinitialize!
-         cleanup!)
+         reinitialize!)
 
-;; implementation details of header tracking, sample buffer and audio output device storage/use
-(struct vdec-state (headers storage device) #:mutable)
+;; implementation details of header tracking storage/use
+(struct vdec-state (headers) #:mutable)
 
 (define (make-vdec-state)
-  (vdec-state (make-vector 3) (box (make-list 10000 0)) #f))
-
-(define storage vdec-state-storage)
+  (vdec-state (make-vector 3)))
 
 (struct headerpkt (buffer len))
 
@@ -36,19 +29,9 @@
 (define (packetcount localstate)
   (stream-length (stream-filter headerpkt? (vdec-state-headers localstate))))
 
-(define (store-device! localstate rate channels endianness)
-  (set-vdec-state-device! localstate (make-device rate channels endianness)))
-
 (define (handle-headerpkt! localstate buffer len typenum rate channels)
   (unless (complete? localstate) 
-    (store-packet! localstate typenum buffer len))
-  (when (= typenum 2) 
-    (store-device! localstate rate channels 'native)))
-
-(define (audio-out! localstate total-samples)
-  (audio-out (vdec-state-device localstate) 
-             (unbox (vdec-state-storage localstate)) 
-             total-samples))
+    (store-packet! localstate typenum buffer len)))
 
 ; reinitialize the local state for the decoding thread if any header packets
 ; are present. VERY IMPORTANT ASSUMPTION: no header packets get dropped 
@@ -62,7 +45,6 @@
 ; (since lower layer should signal if this property were violated)
 (define/contract (reinitialize! localstate header-packet!)
   (vdec-state? (vdec-state? bytes? integer? . -> . void) . -> . void)
-  (set-vdec-state-storage! localstate (box (make-list 10000 0)))
   (let ([ct (packetcount localstate)]
         [info (vdec-info-packet localstate)]
         [comment (vdec-comment-packet localstate)]
@@ -74,9 +56,3 @@
         (when (> ct 2)
           (header-packet! localstate (headerpkt-buffer codebook) (headerpkt-len codebook))))))
   (void))
-
-; cleanup! should only be called when the state is about to migrate
-(define (cleanup! localstate)
-  (when (vdec-state-device localstate) (close-device (vdec-state-device localstate)))
-  (set-vdec-state-storage! localstate #f)
-  (set-vdec-state-device! localstate #f))

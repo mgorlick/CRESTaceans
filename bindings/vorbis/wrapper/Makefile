@@ -2,8 +2,8 @@ SONAME = libracket-vorbis-wrapper.so
 VERSION_MAJOR = 1
 VERSION_FULL = 1.0
 LDFLAGS = -Wl,-soname,$(SONAME).$(VERSION_MAJOR)
-CFLAGS = -fPIC -c -g -Wall $$(pkg-config --cflags --libs vorbisenc)
-LIBDEPS = /usr/lib/libvorbisenc.so /usr/lib/libvorbis.so
+CFLAGS = -fPIC -c -g -Wall $$(pkg-config --cflags --libs vorbisenc) $$(pkg-config --cflags --libs ao)
+LIBDEPS = /usr/lib/libvorbisenc.so /usr/lib/libvorbis.so /usr/lib/libao.so
 
 all: so
 
