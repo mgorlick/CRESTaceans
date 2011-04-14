@@ -22,7 +22,9 @@
                                                               (loop p)]
                                    [else (loop (prebuffer-do p packet proc!))])]
           [(? die? sig) (vorbisdec-delete vdec)
-                        ;; need to also salvage packets sitting in mailbox here
+                        ;; Don't need to worry about packets in mailbox:
+                        ;; Assume downstream producer has not done any more useful
+                        ;; work after forwarding die signal
                         (reply/state-report signaller localstate)])))))
 
 (define/contract (handle-vorbis-buffer! vdec localstate buffer)
