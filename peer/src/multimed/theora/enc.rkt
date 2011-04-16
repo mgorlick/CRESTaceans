@@ -1,3 +1,4 @@
+#! /usr/bin/env racket
 #lang racket
 
 (require "../util.rkt"
@@ -6,7 +7,10 @@
          "../../../../bindings/theora/theora.rkt"
          "../../../../bindings/vorbis/libvorbis.rkt")
 
-(define pid (current-thread))
+(provide (all-defined-out)
+         (all-from-out "../../../../bindings/theora/theora.rkt"))
+
+#|(define pid (current-thread))
 
 (define p (make-pipeline (["udp-writer" : t2 (make-udp-writer pid "127.0.0.1" 5000)]
                           ["udp-reader" : t1 (make-udp-reader pid #f 4999 pid)])))
@@ -26,4 +30,8 @@
   (let ([bytes (thread-receive)])
     (printf "new data packet in (size ~a)~n" (bytes-length bytes))
     (theoraenc-data-in e bytes (bytes-length bytes) a-packet))
-  (loop))
+  (loop))|#
+
+(define v (v4l2-reader-setup))
+(v4l2-reader-read v)
+(v4l2-reader-delete v)
