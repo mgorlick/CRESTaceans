@@ -20,14 +20,13 @@ typedef struct mmap_buffer {
 typedef struct v4l2_reader {
   int fd;
   size_t mmap_buffer_count;
-  mmap_buffer *buffers;
+  mmap_buffer *mmap_buffers;
 } v4l2_reader;
 
-inline void prep (struct v4l2_buffer *buffer, int index) {
+inline void prep (struct v4l2_buffer *buffer) {
   memset (buffer, 0, sizeof (struct v4l2_buffer));
   buffer->type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   buffer->memory = V4L2_MEMORY_MMAP;
-  buffer->index = index;
 }
 
 inline void log_err (char *msg) {
@@ -56,11 +55,11 @@ void v4l2_reader_delete (v4l2_reader *v) {
   
   if (!v) return;
 
-  if (v->buffers) {
+  if (v->mmap_buffers) {
     for (i = 0; i < v->mmap_buffer_count; i++) {
-      munmap (v->buffers[i].start, v->buffers[i].length);
+      munmap (v->mmap_buffers[i].start, v->mmap_buffers[i].length);
     }
-    free (v->buffers);
+    free (v->mmap_buffers);
   }
   close (v->fd);
   free (v);
@@ -73,7 +72,7 @@ v4l2_reader* v4l2_reader_new (void) {
   if (v) {
     if (v->fd > -1) close (v->fd);
     v->mmap_buffer_count = 0;
-    v->buffers = NULL;
+    v->mmap_buffers = NULL;
   }
   return v;
 }
@@ -126,7 +125,6 @@ int v4l2_reader_open (v4l2_reader *v) {
 
   /* some cameras don't allow changing frame rates. try it... */
   if ((stream.parm.capture.capability & V4L2_CAP_TIMEPERFRAME) == 1) {
-    /* FIXME: check framerate fraction */
     stream.parm.capture.timeperframe.numerator = enc_fps_numerator;
     stream.parm.capture.timeperframe.denominator = enc_fps_denominator;
 
@@ -163,7 +161,7 @@ void v4l2_reader_make_buffers (v4l2_reader *v) {
   }
 
   printf ("using %d buffers\n", reqbuf.count);
-  v->buffers = calloc (reqbuf.count, sizeof (mmap_buffer));
+  v->mmap_buffers = calloc (reqbuf.count, sizeof (mmap_buffer));
   v->mmap_buffer_count = reqbuf.count;
 
   for (i = 0; i < reqbuf.count; i++) {  
@@ -176,51 +174,53 @@ void v4l2_reader_make_buffers (v4l2_reader *v) {
       perror ("VIDIOC_QUERYBUF set failed\n");
     }
     
-    v->buffers[i].length = buffer.length;
-    v->buffers[i].start = mmap (NULL, buffer.length,
+    v->mmap_buffers[i].length = buffer.length;
+    v->mmap_buffers[i].start = mmap (NULL, buffer.length,
                                 PROT_READ | PROT_WRITE,
                                 MAP_SHARED, v->fd, buffer.m.offset);
-    if (MAP_FAILED == v->buffers[i].start) {
+    if (MAP_FAILED == v->mmap_buffers[i].start) {
       perror ("error starting buffer mapping\n");
     }
   }
 
   for (i = 0; i < v->mmap_buffer_count; i++) {
-    printf ("buffer %d length: %d\n", i, v->buffers[i].length);
+    printf ("buffer %d length: %d\n", i, v->mmap_buffers[i].length);
   }
 }
 
-void v4l2_reader_start_stream (v4l2_reader *v) {
+int v4l2_reader_start_stream (v4l2_reader *v) {
   int i = V4L2_BUF_TYPE_VIDEO_CAPTURE;
 
   if (ioctl (v->fd, VIDIOC_STREAMON, &i) < 0) {
     log_err ("starting streaming on device");
+    return -1;
   } else {
-    printf ("started streaming on device\n");
+    /*printf ("started streaming on device\n");*/
+    return 1;
   }
 }
 
-void v4l2_reader_enqueue_buffers (v4l2_reader *v) {
+int v4l2_reader_enqueue_buffers (v4l2_reader *v) {
   struct v4l2_buffer buffer;
 
-  prep (&buffer, 0);
+  prep (&buffer);
+  buffer.index = 0;
   if (ioctl (v->fd, VIDIOC_QBUF, &buffer) < 0) {
     log_err ("queuing buffer");
+    return -1;
   } else {
-    printf ("enqueued buffer\n");
+    return 1;
   }
 }
 
-void v4l2_reader_dequeue_buffers (v4l2_reader *v) {
-  struct v4l2_buffer buffer;
-
-  prep (&buffer, 0);
-  if (ioctl (v->fd, VIDIOC_DQBUF, &buffer) < 0) {
-    log_err ("dequeuing buffer"); 
+int v4l2_reader_dequeue_buffers (v4l2_reader *v,
+                                 struct v4l2_buffer *buffer) {
+  prep (buffer);
+  if (ioctl (v->fd, VIDIOC_DQBUF, buffer) < 0) {
+    log_err ("dequeuing buffer");
+    return -1;
   } else {
-    printf ("frame = %d, index = %d, flags = %d, used %d\n",
-            buffer.sequence, buffer.index,
-            buffer.flags, buffer.bytesused);
+    return buffer->bytesused;
   }
 }
 
@@ -237,7 +237,6 @@ v4l2_reader* v4l2_reader_setup (void) {
     v4l2_reader_start_stream (v);
     v4l2_reader_enqueue_buffers (v);
   }
-  
   return v;
 }
 
@@ -249,18 +248,34 @@ int is_ready (v4l2_reader *v) {
   pfd.events = POLLIN;
 
   res = poll (&pfd, 1, -1);
-  printf ("poll result: %d fds available\n", res);
-  printf ("revents has error? %d\n", (pfd.revents & POLLERR));
-  printf ("ready to read? %d\n", (pfd.revents & POLLIN));
-  return pfd.revents & POLLIN;
-
+  
+  if (res > 0)
+    return pfd.revents & POLLIN;
+  else 
+    return 0;
 }
 
-void v4l2_reader_read (v4l2_reader *v) {
+unsigned char * v4l2_reader_get_frame (v4l2_reader *v,
+                                       /* output */
+                                       int *size,
+                                       int *framenum) {
+  int used;
+  struct v4l2_buffer buffer;
   
-  while (is_ready (v)) {
-    
+  if (is_ready (v) &&
+      0 < (used = v4l2_reader_dequeue_buffers (v, &buffer))) {
+    *size = buffer.bytesused;
+    *framenum = buffer.sequence;
+    return v->mmap_buffers[0].start;
+  } else {
+    *size = 0;
+    *framenum = -1;
+    return NULL;
   }
+}
+
+void v4l2_reader_reset (v4l2_reader *v) {
+  v4l2_reader_enqueue_buffers (v);
 }
 
 int main (void) { return 0; }

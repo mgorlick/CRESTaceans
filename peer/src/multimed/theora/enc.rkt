@@ -33,5 +33,7 @@
   (loop))|#
 
 (define v (v4l2-reader-setup))
-(v4l2-reader-read v)
+(let loop ()
+  (printf "~a~n" (bytes-length (v4l2-reader-get-frame-data v)))
+  (loop))
 (v4l2-reader-delete v)

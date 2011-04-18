@@ -99,5 +99,14 @@
 
 (deftheora v4l2-reader-setup (_fun -> _v4l2-reader-pointer))
 (deftheora v4l2-reader-delete (_fun _v4l2-reader-pointer -> _void))
+(deftheora v4l2-reader-get-frame 
+  (_fun _v4l2-reader-pointer
+        (size : (_ptr o _int))
+        (framenum : (_ptr o _int))
+        -> (r : (_bytes o size))))
+(deftheora v4l2-reader-reset (_fun _v4l2-reader-pointer -> _void))
 
-(deftheora v4l2-reader-read (_fun _v4l2-reader-pointer -> _void))
+(define (v4l2-reader-get-frame-data v)
+  (let ([bytes (bytes-copy (v4l2-reader-get-frame v))])
+    (v4l2-reader-reset v)
+    bytes))
