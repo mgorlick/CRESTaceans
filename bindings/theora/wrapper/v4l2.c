@@ -84,17 +84,15 @@ int v4l2_reader_open (v4l2_reader *v) {
   
   v->fd = open ("/dev/video0", O_RDWR);
 
-  printf ("fd = %d\n", v->fd);
-
   /* set pixel format, width, height, fps */
   /* try setting format and size */
   memset (&format, 0x00, sizeof (struct v4l2_format));
   format.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   if (ioctl (v->fd, VIDIOC_G_FMT, &format) < 0) {
-    perror ("Couldn't get video format info\n");
+    log_err ("get video format info");
     return -1;
   }
-
+  
   if (format.type != V4L2_BUF_TYPE_VIDEO_CAPTURE ||
       format.fmt.pix.width != enc_frame_width ||
       format.fmt.pix.height != enc_frame_height ||
@@ -109,14 +107,10 @@ int v4l2_reader_open (v4l2_reader *v) {
     if ((err = ioctl (v->fd, VIDIOC_S_FMT, &format)) < 0) {
       log_err ("setting pixel format and frame dimensions");
       return -1;
-    } else {
-      printf ("changed format info from default\n");
-      printf ("video capture set to %dx%d size\n",
-              enc_frame_width, enc_frame_height);
-      printf ("video capture set to %d format\n",
-              format.fmt.pix.pixelformat);
     }
   }
+
+  printf ("colorspace: %d\n", format.fmt.pix.colorspace);
   
   /* stream params: first set type and get output params */
   memset (&stream, 0x00, sizeof (struct v4l2_streamparm));
@@ -129,20 +123,32 @@ int v4l2_reader_open (v4l2_reader *v) {
     stream.parm.capture.timeperframe.denominator = enc_fps_denominator;
 
     if (ioctl (v->fd, VIDIOC_S_PARM, &stream) < 0) {
-      printf ("error setting framerate\n");
-      /* don't return -1 here.
-         just accept the lower framerate */
-    } else {
-      printf ("changed framerate settings\n");
+      perror ("error setting framerate\n");
+      /* don't return -1 here. just accept the lower framerate */
     }
   }
-
-  ioctl (v->fd, VIDIOC_G_PARM, &stream);
-  printf ("video stream set to %3.2f fps\n",
-          ((float) stream.parm.capture.timeperframe.denominator /
-           (float) stream.parm.capture.timeperframe.numerator));
   
   return 1;
+}
+
+void v4l2_reader_get_params (v4l2_reader *v,
+                             /* output */
+                             int *frame_width,
+                             int *frame_height,
+                             int *fps_num,
+                             int *fps_denom,
+                             int *req_buffer_size) {
+  struct v4l2_streamparm stream;
+  struct v4l2_format format;
+
+  ioctl (v->fd, VIDIOC_G_PARM, &stream);
+  ioctl (v->fd, VIDIOC_G_FMT, &format);
+  
+  *frame_width = format.fmt.pix.width;
+  *frame_height = format.fmt.pix.height;
+  *fps_num = stream.parm.capture.timeperframe.numerator;
+  *fps_denom = stream.parm.capture.timeperframe.denominator;
+  *req_buffer_size = *frame_width * *frame_height * 2;
 }
 
 void v4l2_reader_make_buffers (v4l2_reader *v) {
