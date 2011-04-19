@@ -1,4 +1,3 @@
-#! /usr/bin/env racket
 #lang racket
 
 (require "../util.rkt"
@@ -7,8 +6,7 @@
          "../../../../bindings/theora/theora.rkt"
          "../../../../bindings/vorbis/libvorbis.rkt")
 
-(provide (all-defined-out)
-         (all-from-out "../../../../bindings/theora/theora.rkt"))
+(provide (all-defined-out))
 
 #|(define pid (current-thread))
 
@@ -31,9 +29,3 @@
     (printf "new data packet in (size ~a)~n" (bytes-length bytes))
     (theoraenc-data-in e bytes (bytes-length bytes) a-packet))
   (loop))|#
-
-(define v (v4l2-reader-setup))
-(let loop ()
-  (printf "~a~n" (bytes-length (v4l2-reader-get-frame-data v)))
-  (loop))
-(v4l2-reader-delete v)

@@ -3,7 +3,7 @@
 (require (planet bzlib/thread:1:0))
 (provide (all-defined-out))
 
-(define-syntax (define-thread id body ...)
+(define-syntax-rule (define-thread id body ...)
   (define id (thread (λ () body ...))))
 
 ;; receive/killswitch and receive/state-report expect a procedure like what make-thread-id-verifier makes

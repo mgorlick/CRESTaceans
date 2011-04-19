@@ -98,15 +98,39 @@
 (define-cpointer-type _v4l2-reader-pointer)
 
 (deftheora v4l2-reader-setup (_fun -> _v4l2-reader-pointer))
+
 (deftheora v4l2-reader-delete (_fun _v4l2-reader-pointer -> _void))
+
+(deftheora v4l2-reader-get-params
+  (_fun _v4l2-reader-pointer
+        (frame-width : (_ptr o _int))
+        (frame-height : (_ptr o _int))
+        (fps-num : (_ptr o _int))
+        (fps-denom : (_ptr o _int))
+        (buffer-ct : (_ptr o _int))
+        -> _void
+        -> (values frame-width frame-height fps-num fps-denom buffer-ct)))
+
+;; get a valid pointer to the memory mapped bytestring with its size
+;; and index number tracked. mmapped buffer is not requeued until
+;; v4l2-reader-enqueue-buffer is called with the index number returned 
+;; by v4l2-reader-get-frame-data
 (deftheora v4l2-reader-get-frame 
   (_fun _v4l2-reader-pointer
         (size : (_ptr o _int))
         (framenum : (_ptr o _int))
-        -> (r : (_bytes o size))))
-(deftheora v4l2-reader-reset (_fun _v4l2-reader-pointer -> _void))
+        (index : (_ptr o _int))
+        -> (r : _pointer)
+        -> (values (cast r _pointer (_bytes o size)) framenum index)))
 
-(define (v4l2-reader-get-frame-data v)
-  (let ([bytes (bytes-copy (v4l2-reader-get-frame v))])
-    (v4l2-reader-reset v)
-    bytes))
+;; requeue the buffer into the memory mapping queue once the downstream
+;; consumers are done with its data
+(deftheora v4l2-reader-enqueue-buffer
+  (_fun _v4l2-reader-pointer _int -> _bool))
+
+;; a disposal is a thunk which 'disposes' of the frame data
+;; contract: a downstream consumer must execute λdisposal thunk
+;; when it is the last consumer in the chain to use the buffer
+;; and the V4L2Frame manufacturer guarantees that executing λdisposal
+;; will eventually requeue the buffer for later reuse
+(struct V4L2Frame (data framenum λdisposal))

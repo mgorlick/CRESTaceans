@@ -12,6 +12,8 @@
 
 #include "enc_settings.h"
 
+#define BUFFERS_REQUESTED 20
+
 typedef struct mmap_buffer {
   void *start;
   size_t length;
@@ -30,8 +32,9 @@ inline void prep (struct v4l2_buffer *buffer) {
 }
 
 inline void log_err (char *msg) {
-      printf ("error (%s): ", msg);
-    switch (errno) {
+  int i = errno;
+  printf ("error (%s): ", msg);
+    switch (i) {
       case EINVAL:
         printf ("EINVAL");
         break;
@@ -45,7 +48,7 @@ inline void log_err (char *msg) {
         printf ("EIO");
         break;
       default:
-        printf ("unknown error %d", errno);
+        printf ("unknown error %d", i);
     }
     printf ("\n");
 }
@@ -90,7 +93,7 @@ int v4l2_reader_open (v4l2_reader *v) {
   format.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   if (ioctl (v->fd, VIDIOC_G_FMT, &format) < 0) {
     log_err ("get video format info");
-    return -1;
+    return 0;
   }
   
   if (format.type != V4L2_BUF_TYPE_VIDEO_CAPTURE ||
@@ -106,7 +109,7 @@ int v4l2_reader_open (v4l2_reader *v) {
 
     if ((err = ioctl (v->fd, VIDIOC_S_FMT, &format)) < 0) {
       log_err ("setting pixel format and frame dimensions");
-      return -1;
+      return 0;
     }
   }
 
@@ -137,7 +140,7 @@ void v4l2_reader_get_params (v4l2_reader *v,
                              int *frame_height,
                              int *fps_num,
                              int *fps_denom,
-                             int *req_buffer_size) {
+                             int *buffer_count) {
   struct v4l2_streamparm stream;
   struct v4l2_format format;
 
@@ -148,22 +151,22 @@ void v4l2_reader_get_params (v4l2_reader *v,
   *frame_height = format.fmt.pix.height;
   *fps_num = stream.parm.capture.timeperframe.numerator;
   *fps_denom = stream.parm.capture.timeperframe.denominator;
-  *req_buffer_size = *frame_width * *frame_height * 2;
+  *buffer_count = v->mmap_buffer_count;
 }
 
-void v4l2_reader_make_buffers (v4l2_reader *v) {
+int v4l2_reader_make_buffers (v4l2_reader *v) {
   int i;
   struct v4l2_requestbuffers reqbuf;
   struct v4l2_buffer buffer;
       
   memset (&reqbuf, 0, sizeof (struct v4l2_requestbuffers));
   reqbuf.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-  reqbuf.count = 1;
+  reqbuf.count = BUFFERS_REQUESTED;
   reqbuf.memory = V4L2_MEMORY_MMAP;
 
   if (ioctl (v->fd, VIDIOC_REQBUFS, &reqbuf) < 0) {
     log_err ("requesting mmap buffers");
-    return;
+    return 0;
   }
 
   printf ("using %d buffers\n", reqbuf.count);
@@ -171,13 +174,12 @@ void v4l2_reader_make_buffers (v4l2_reader *v) {
   v->mmap_buffer_count = reqbuf.count;
 
   for (i = 0; i < reqbuf.count; i++) {  
-    memset (&buffer, 0, sizeof (buffer));
-    buffer.type = reqbuf.type;
-    buffer.memory = V4L2_MEMORY_MMAP;
+    prep (&buffer);
     buffer.index = i;
     
     if (-1 == ioctl (v->fd, VIDIOC_QUERYBUF, &buffer)) {
       perror ("VIDIOC_QUERYBUF set failed\n");
+      return 0;
     }
     
     v->mmap_buffers[i].length = buffer.length;
@@ -186,12 +188,11 @@ void v4l2_reader_make_buffers (v4l2_reader *v) {
                                 MAP_SHARED, v->fd, buffer.m.offset);
     if (MAP_FAILED == v->mmap_buffers[i].start) {
       perror ("error starting buffer mapping\n");
+      return 0;
     }
   }
 
-  for (i = 0; i < v->mmap_buffer_count; i++) {
-    printf ("buffer %d length: %d\n", i, v->mmap_buffers[i].length);
-  }
+  return 1;
 }
 
 int v4l2_reader_start_stream (v4l2_reader *v) {
@@ -199,49 +200,41 @@ int v4l2_reader_start_stream (v4l2_reader *v) {
 
   if (ioctl (v->fd, VIDIOC_STREAMON, &i) < 0) {
     log_err ("starting streaming on device");
-    return -1;
+    return 0;
   } else {
     /*printf ("started streaming on device\n");*/
     return 1;
   }
 }
 
-int v4l2_reader_enqueue_buffers (v4l2_reader *v) {
+int v4l2_reader_enqueue_buffer (v4l2_reader *v, int index) {
   struct v4l2_buffer buffer;
 
   prep (&buffer);
-  buffer.index = 0;
+  buffer.index = index;
+  
   if (ioctl (v->fd, VIDIOC_QBUF, &buffer) < 0) {
     log_err ("queuing buffer");
-    return -1;
+    return 0;
   } else {
     return 1;
   }
 }
 
-int v4l2_reader_dequeue_buffers (v4l2_reader *v,
-                                 struct v4l2_buffer *buffer) {
-  prep (buffer);
-  if (ioctl (v->fd, VIDIOC_DQBUF, buffer) < 0) {
-    log_err ("dequeuing buffer");
-    return -1;
-  } else {
-    return buffer->bytesused;
-  }
-}
-
 v4l2_reader* v4l2_reader_setup (void) {
   v4l2_reader *v;
+  int i;
 
   v = v4l2_reader_new ();
   if (!v) return NULL;
-  if (v4l2_reader_open (v) < 1) {
+  if (! (v4l2_reader_open (v))) {
     perror ("could not open device. reader not deleted yet!\n");
   } else {
-    printf ("successfully made v4l2 reader\n");
     v4l2_reader_make_buffers (v);
     v4l2_reader_start_stream (v);
-    v4l2_reader_enqueue_buffers (v);
+    for (i = 0; i < v->mmap_buffer_count; i++) {
+      v4l2_reader_enqueue_buffer (v, i);
+    }
   }
   return v;
 }
@@ -257,31 +250,48 @@ int is_ready (v4l2_reader *v) {
   
   if (res > 0)
     return pfd.revents & POLLIN;
-  else 
+  else {
+    log_err ("polling device");
     return 0;
+  }
+}
+
+int v4l2_reader_dequeue_buffer (v4l2_reader *v, struct v4l2_buffer *buffer) {
+
+  prep (buffer);
+  
+  if (ioctl (v->fd, VIDIOC_DQBUF, buffer) < 0) {
+    log_err ("dequeuing buffer");
+    return 0;
+  } else {
+    return 1;
+  }
 }
 
 unsigned char * v4l2_reader_get_frame (v4l2_reader *v,
                                        /* output */
                                        int *size,
-                                       int *framenum) {
-  int used;
+                                       int *framenum,
+                                       int *index) {
   struct v4l2_buffer buffer;
   
-  if (is_ready (v) &&
-      0 < (used = v4l2_reader_dequeue_buffers (v, &buffer))) {
-    *size = buffer.bytesused;
-    *framenum = buffer.sequence;
-    return v->mmap_buffers[0].start;
+  if (is_ready (v)) {
+    if (0 < v4l2_reader_dequeue_buffer (v, &buffer)) {
+      *size = buffer.bytesused;
+      *framenum = buffer.sequence;
+      *index = buffer.index;
+      return v->mmap_buffers[buffer.index].start;
+    } else {
+      log_err ("couldn't dequeue anything");
+    }
   } else {
-    *size = 0;
-    *framenum = -1;
-    return NULL;
+    log_err ("not ready");
   }
-}
 
-void v4l2_reader_reset (v4l2_reader *v) {
-  v4l2_reader_enqueue_buffers (v);
+  *size = 0;
+  *framenum = -1;
+  *index = -1;
+  return NULL;
 }
 
 int main (void) { return 0; }
