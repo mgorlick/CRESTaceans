@@ -3,7 +3,8 @@
 (require ffi/unsafe
          "../vorbis/libvorbis.rkt")
 
-(provide (all-defined-out))
+(provide (all-defined-out)
+         ogg-packet-data)
 
 (define theora (ffi-lib "libracket-theora-wrapper"))
 (define-syntax-rule (deftheora+ binding obj typ)
@@ -127,10 +128,3 @@
 ;; consumers are done with its data
 (deftheora v4l2-reader-enqueue-buffer
   (_fun _v4l2-reader-pointer _int -> _bool))
-
-;; a disposal is a thunk which 'disposes' of the frame data
-;; contract: a downstream consumer must execute λdisposal thunk
-;; when it is the last consumer in the chain to use the buffer
-;; and the V4L2Frame manufacturer guarantees that executing λdisposal
-;; will eventually requeue the buffer for later reuse
-(struct V4L2Frame (data framenum λdisposal))

@@ -16,6 +16,7 @@
             (match (receive-killswitch/whatever is-signaller?)
               [(? bytes? buffer) (udp-send socket buffer)
                                  (loop)]
-              [(? (λ (s) (and (symbol? s) (die? s))) sig) (udp-close socket)
-                                                          ;; ... retrieve packets in mailbox before dying ...
-                                                          (reply/state-report signaller #f)])))))
+              [(? symbol? sig) 
+               (when (die? sig)
+                 (udp-close socket)
+                 (reply/state-report signaller #f))])))))

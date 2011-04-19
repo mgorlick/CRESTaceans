@@ -21,15 +21,18 @@ TheoraEnc* theoraenc_new (void) {
     enc->info = malloc (sizeof (th_info));
     enc->comment = malloc (sizeof (th_comment));
     enc->ctx = NULL;
-    if (enc->info && enc->comment) {
-      th_info_init (enc->info);
-      th_comment_init (enc->comment);
-    }
-  }
-
-  if (!enc || !enc->info || !enc->comment) {
+  } else {
     printf ("ERROR: couldn't alloc enc in theoraenc_new\n");
     return NULL;
+  }
+  
+  if (enc->info && enc->comment) {
+    th_info_init (enc->info);
+    th_comment_init (enc->comment);
+  } else {
+    printf ("ERROR: couldn't alloc info/comment in theoraenc_new\n");
+    free (enc);
+    return NULL;    
   }
   
   /* hardcodes based on the example gstreamer v4l2 -> theora pipeline settings */
@@ -46,14 +49,14 @@ TheoraEnc* theoraenc_new (void) {
   /* stuff that was already hardcoded in gstreamer's theora encoder */
   enc->info->aspect_numerator = 0;
   enc->info->aspect_denominator = 0;
-  enc->info->pixel_fmt = TH_PF_420;
-  enc->info->colorspace = TH_CS_UNSPECIFIED;
+  enc->info->pixel_fmt = TH_PF_422;
+  enc->info->colorspace = TH_CS_ITU_REC_470M;
   
   th_enc_ctx* ctx = th_encode_alloc (enc->info);
   if (ctx) {
     enc->ctx = ctx;
   } else {
-    printf ("ERROR: couldn't alloc encoder ctx in theoraenc_init\n");
+    printf ("ERROR: couldn't alloc ctx in theoraenc_new\n");
     return NULL;
   }
   
@@ -102,7 +105,7 @@ int theoraenc_foreach_header (TheoraEnc *enc, theoraenc_each_packet f) {
 /* WARNING: ALL THIS ASSUMES PIXEL FORMAT:
    V4L2_PIX_FMT_YUYV
    which *most likely* corresponds to
-   TH_PF_422, which is GST_VIDEO_FORMAT_Y42B according to gsttheoraenc.c
+   TH_PF_422
    CHANGE CALCULATIONS IF THIS CHANGES! */
 
 #define ROUND_UP_2(num) (((num)+1)&~1)
@@ -140,37 +143,37 @@ int get_row_stride (int component_index, int pic_width) {
   else return (ROUND_UP_8 (pic_width) / 2);
 }
 
-void init_ycbcr (th_ycbcr_buffer y, th_info* info, uint8_t *data) {
+void init_ycbcr (th_ycbcr_buffer y, th_info* info, unsigned char *data) {
 
   int i;
   
   for (i = 0; i < 3; i++) {
-    y[i].width = get_width (i, info->frame_width);
     y[i].height = get_height (i, info->frame_height);
-    y[i].data = data + get_offset (i, info->pic_width, info->pic_height);
+    y[i].width = get_width (i, info->frame_width);
     y[i].stride = get_row_stride (i, info->pic_width);
+    y[i].data = data + get_offset (i, info->pic_width, info->pic_height);
+    /*printf ("y[%d].height = %d\n", i, y[i].height);
+    printf ("y[%d].width = %d\n", i, y[i].width);
+    printf ("y[%d].stride = %d\n", i, y[i].stride);
+    printf ("y[%d].data = %p (offset %d)\n", i, y[i].data, y[i].data - data);*/
   }
 }
 
 int theoraenc_data_in (TheoraEnc *enc, unsigned char *buffer, long buffer_length,
                        theoraenc_each_packet f) {
   
-  int r = 1;
   ogg_packet p;
   th_ycbcr_buffer y;
+  
+  if (!enc) return -1;
 
   init_ycbcr (y, enc->info, buffer);
   
-  if (!enc) return -1;
   th_encode_ycbcr_in (enc->ctx, y);
 
-  while ((r = th_encode_packetout (enc->ctx, 0, &p))) {    
-      f (&p);
-  }
-
-  if (r < 0) {
-    printf ("Error flushing header packets\n");
-    return 0;
+  while (th_encode_packetout (enc->ctx, 0, &p)) {
+    /*printf ("enc: a packet of size %ld\n", p.bytes);*/
+    f (&p);
   }
 
   return 1;
