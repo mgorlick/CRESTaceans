@@ -27,7 +27,7 @@
   (= 3 (packetcount localstate)))
 
 (define (packetcount localstate)
-  (stream-length (stream-filter headerpkt? (vdec-state-headers localstate))))
+  (vector-length (vector-filter headerpkt? (vdec-state-headers localstate))))
 
 (define (handle-headerpkt! localstate buffer len typenum rate channels)
   (unless (complete? localstate) 
