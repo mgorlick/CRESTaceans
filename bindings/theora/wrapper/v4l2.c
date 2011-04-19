@@ -126,10 +126,14 @@ int v4l2_reader_open (v4l2_reader *v) {
     stream.parm.capture.timeperframe.denominator = enc_fps_denominator;
 
     if (ioctl (v->fd, VIDIOC_S_PARM, &stream) < 0) {
-      perror ("error setting framerate\n");
+      log_err ("setting framerate");
       /* don't return -1 here. just accept the lower framerate */
     }
   }
+
+  printf ("framerate set to %2.2f fps\n",
+          ((float) stream.parm.capture.timeperframe.denominator /
+           (float) stream.parm.capture.timeperframe.numerator));
   
   return 1;
 }
@@ -178,7 +182,7 @@ int v4l2_reader_make_buffers (v4l2_reader *v) {
     buffer.index = i;
     
     if (-1 == ioctl (v->fd, VIDIOC_QUERYBUF, &buffer)) {
-      perror ("VIDIOC_QUERYBUF set failed\n");
+      log_err ("VIDIOC_QUERYBUF");
       return 0;
     }
     
@@ -187,7 +191,7 @@ int v4l2_reader_make_buffers (v4l2_reader *v) {
                                 PROT_READ | PROT_WRITE,
                                 MAP_SHARED, v->fd, buffer.m.offset);
     if (MAP_FAILED == v->mmap_buffers[i].start) {
-      perror ("error starting buffer mapping\n");
+      log_err ("starting buffer mapping");
       return 0;
     }
   }
@@ -202,7 +206,6 @@ int v4l2_reader_start_stream (v4l2_reader *v) {
     log_err ("starting streaming on device");
     return 0;
   } else {
-    /*printf ("started streaming on device\n");*/
     return 1;
   }
 }
@@ -241,17 +244,13 @@ v4l2_reader* v4l2_reader_setup (void) {
 
 int is_ready (v4l2_reader *v) {
   struct pollfd pfd;
-  int res;
 
   pfd.fd = v->fd;
   pfd.events = POLLIN;
-
-  res = poll (&pfd, 1, -1);
   
-  if (res > 0)
+  if (poll (&pfd, 1, -1) > 0) {
     return pfd.revents & POLLIN;
-  else {
-    log_err ("polling device");
+  } else {
     return 0;
   }
 }
@@ -276,7 +275,7 @@ unsigned char * v4l2_reader_get_frame (v4l2_reader *v,
   struct v4l2_buffer buffer;
   
   if (is_ready (v)) {
-    if (0 < v4l2_reader_dequeue_buffer (v, &buffer)) {
+    if (v4l2_reader_dequeue_buffer (v, &buffer)) {
       *size = buffer.bytesused;
       *framenum = buffer.sequence;
       *index = buffer.index;
@@ -284,8 +283,6 @@ unsigned char * v4l2_reader_get_frame (v4l2_reader *v,
     } else {
       log_err ("couldn't dequeue anything");
     }
-  } else {
-    log_err ("not ready");
   }
 
   *size = 0;

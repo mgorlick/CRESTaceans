@@ -12,7 +12,7 @@
       ;; ... do something with data ...
       (when (= (modulo framenum 30) 0)
         (printf "got ~a bytes for frame #~a~n" (bytes-length data) framenum))
-      ;; assume this is the last consumer to use the buffer in this address space -
+      ;; this is the last consumer to use the buffer in this address space -
       ;; ok to dispose of it by calling the disposal thunk
       (λdisposal))
     (loop)))
@@ -56,14 +56,10 @@
                   (reply/state-report signaller #f)]
       [else (semaphore-wait v-sema)
             (let-values ([(d f i) (v4l2-reader-get-frame v)])
-              (cond 
-                [d (thread-send receiver (make-frame d f i))
-                   (pool-remove! i)
-                   (semaphore-post v-sema)
-                   (loop)]
-                [else (semaphore-post v-sema)
-                      (printf "Error: null reference from v4l2 API. ")
-                      (printf "Check that buffers are being requeued after use.~n")
-                      ]))])))
+              (when d
+                (thread-send receiver (make-frame d f i)))
+              (pool-remove! i))
+            (semaphore-post v-sema)
+            (loop)])))
 
 (make-reader (current-thread) some-downstream-consumer)
