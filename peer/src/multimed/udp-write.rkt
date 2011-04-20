@@ -9,12 +9,12 @@
 
 (: make-udp-writer (Thread String Exact-Nonnegative-Integer -> (-> Void)))
 (define (make-udp-writer signaller remote-host remote-port)
-  (let ([socket (let ([s (udp-open-socket #f #f)]) (udp-connect! s remote-host remote-port) s)]
+  (let ([socket (udp-open-socket #f #f)]
         [is-signaller? (make-thread-id-verifier signaller)])
     (λ ()
       (let: loop : Void ()
             (match (receive-killswitch/whatever is-signaller?)
-              [(? bytes? buffer) (udp-send socket buffer)
+              [(? bytes? buffer) (udp-send-to socket remote-host remote-port buffer)
                                  (loop)]
               [(? symbol? sig) 
                (when (die? sig)
