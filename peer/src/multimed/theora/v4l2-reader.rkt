@@ -1,4 +1,3 @@
-#! /usr/bin/env racket
 #lang racket
 
 (require "../util.rkt"
@@ -7,16 +6,20 @@
 
 (provide make-v4l2-reader)
 
-(define (make-v4l2-reader signaller receiver)
+(define/contract (make-v4l2-reader signaller receiver)
+  (thread? thread? . -> . (-> void))
   (λ ()
     (define v (v4l2-reader-setup))
     (define v-sema (make-semaphore 1)) ; protect v4l2 reader and pool representation
     (define-values (w h fn fd buffer-ct) (v4l2-reader-get-params v))
     
+    (define in-pool-range/c (between/c 0 (sub1 buffer-ct)))
+    ; FIXME: turn contracts back on here once performance is tuned
     (define pool (for/set ([i (in-range buffer-ct)]) i))
+    (define (pool-has? i) (set-member? pool i))
     (define (pool-add! i) (set! pool (set-add pool i)))
     (define (pool-remove! i) (set! pool (set-remove pool i)))
-    (define (pool-has? i) (set-member? pool i))
+    
     (define-thread pool-helper
       (let loop ()
         (let ([index (thread-receive)])
@@ -38,16 +41,29 @@
     
     (define is-signaller? (make-thread-id-verifier signaller))
     
+    (define (grab-frame)
+      (semaphore-wait v-sema)
+      (let-values ([(d f i) (v4l2-reader-get-frame v)])
+        (when d
+          (thread-send receiver (make-frame d f i))
+          (pool-remove! i)
+          ))
+      (semaphore-post v-sema))
+    
+    (define (cleanup)
+      (semaphore-wait v-sema)
+      (kill-thread pool-helper)
+      (v4l2-reader-delete v)
+      (semaphore-post v-sema)
+      (command/killswitch signaller receiver)
+      (reply/state-report signaller #f))
+    
+    (printf "size is ~ax~a~n" w h)
+    (printf "time per frame is ~a/~a~n" fn fd)
+    (printf "using ~a buffers~n" buffer-ct)
+    
     (let loop ()
       (match (receive-killswitch/whatever is-signaller? #:block? #f)
-        [(? die? _) (semaphore-wait v-sema)
-                    (kill-thread pool-helper)
-                    (v4l2-reader-delete v)
-                    (command/killswitch signaller receiver)
-                    (reply/state-report signaller #f)]
-        [(? no-message? _) (semaphore-wait v-sema)
-                           (let-values ([(d f i) (v4l2-reader-get-frame v)])
-                             (when d (thread-send receiver (make-frame d f i)))
-                             (pool-remove! i))
-                           (semaphore-post v-sema)
-                           (loop)]))))
+        [(? no-message? _) (grab-frame)]
+        [(? die? _) (cleanup)])
+      (loop))))

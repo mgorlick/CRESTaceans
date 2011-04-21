@@ -1,3 +1,4 @@
+#! /usr/bin/env racket
 #lang racket
 
 (require "../util.rkt"
@@ -19,7 +20,9 @@
           [(bytes? r) (printf "got ~a bytes~n" (bytes-length r))
                       (loop)])))))
 
-(define p (make-pipeline (;["udpsink"    : t3 (make-udp-writer pid "127.0.0.1" 5000)]
-                          ["fakesink"    : t3 (make-fakesink pid)]
+(define p (make-pipeline (["udpsink"    : t3 (make-udp-writer pid "127.0.0.1" 5000)]
+                          ;["fakesink"    : t3 (make-fakesink pid)]
                           ["theoraenc"   : t2 (make-theora-encoder pid t3)]
                           ["v4l2-reader" : t1 (make-v4l2-reader pid t2)])))
+
+(semaphore-wait (make-semaphore))
