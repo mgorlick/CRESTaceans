@@ -67,6 +67,7 @@
 
 (deftheora theoradec-new (_fun -> _theoradec-pointer))
 (deftheora theoradec-delete (_fun _theoradec-pointer -> _void))
+(deftheora theoradec-ready-for-data (_fun _theoradec-pointer -> _bool))
 
 (deftheora theoradec-header-in (_fun (dec buff) ::
                                      (dec : _theoradec-pointer)
@@ -74,12 +75,10 @@
                                      (_long = (bytes-length buff))
                                      -> _bool))
 
-(deftheora theoradec-data-in (_fun (dec ibuff obuff obl) ::
+(deftheora theoradec-data-in (_fun (dec ibuff) ::
                                    (dec : _theoradec-pointer)
                                    (ibuff : _bytes)
                                    (_long = (bytes-length ibuff))
-                                   (obuff : (_box (_list io _ubyte obl)))
-                                   (obl : _long)
                                    -> _bool))
 
 ;;; encoding stuff

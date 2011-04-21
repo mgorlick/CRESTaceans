@@ -1,8 +1,11 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include <theora/theoradec.h>
 
 typedef struct TheoraDec {
-  int have_a_header;
+  int have_comment;
+  int have_id;
+  int have_type;
   th_info* info;
   th_comment* comment;
   th_setup_info* setup;
@@ -14,7 +17,10 @@ TheoraDec* theoradec_new (void) {
   TheoraDec *dec = malloc (sizeof (TheoraDec));
   
   if (dec) {
-    dec->have_a_header = 0;
+    dec->have_comment = 0;
+    dec->have_id = 0;
+    dec->have_type = 0;
+    
     dec->info = malloc (sizeof (th_info));
     dec->comment = malloc (sizeof (th_comment));
     dec->setup = NULL;
@@ -50,32 +56,55 @@ void theoradec_delete (TheoraDec *dec) {
   free (dec);
 }
 
-int theoradec_header_in (TheoraDec *dec, unsigned char *buffer, long buffer_length) {
+int theoradec_header_in (TheoraDec *dec,
+                         unsigned char *buffer, long buffer_length) {
 
   ogg_packet p;
   int r;
   th_dec_ctx *ctx;
 
-  if (!dec) return -1;
+  if (!dec) return 0;
   
   p.packet = buffer;
   p.bytes = buffer_length;
-  p.b_o_s = (!(dec->have_a_header)) ? 1 : 0;
+  p.b_o_s = (buffer[0] == 0x80) ? 1 : 0;
   p.e_o_s = 0;
   p.granulepos = 0;
   p.packetno = 0;
+  
+  switch (buffer[0]) {
+    case 0x80:
+      printf ("identification packet\n");
+      dec->have_id = 1;
+      break;
+    case 0x81:
+      printf ("comment packet\n");
+      dec->have_comment = 1;
+      break;
+    case 0x82:
+      printf ("type packet\n");
+      dec->have_type = 1;
+      break;
+    default:
+      printf ("unknown header packet found\n");
+      break;
+    }
+    
 
   r = th_decode_headerin (dec->info, dec->comment, &dec->setup, &p);
-  dec->have_a_header = 1;
   if (r == 0) {
     ctx = th_decode_alloc (dec->info, dec->setup);
     if (ctx) {
       dec->ctx = ctx;
     } else {
-      return -1;
+      return 0;
     }
   }
-  return r;
+
+  return 1;
+}
+int theoradec_ready_for_data (TheoraDec *dec) {
+  return dec->have_comment & dec->have_type & dec->have_id;
 }
 
 void theoradec_ycbcr_to_buffer (TheoraDec *dec, th_ycbcr_buffer y,
@@ -99,26 +128,28 @@ void theoradec_ycbcr_to_buffer (TheoraDec *dec, th_ycbcr_buffer y,
   }
 }
 
-int theoradec_data_in (TheoraDec *dec, unsigned char *buffer, long buffer_length,
-                       unsigned char **out, long *out_written) {
+int theoradec_data_in (TheoraDec *dec,
+                       unsigned char *buffer, long buffer_length) {
   ogg_packet p;
   int r;
   th_ycbcr_buffer y;
 
-  if (!dec) return -1;
+  if (!dec) return 0;
   
   p.packet = buffer;
   p.bytes = buffer_length;
   p.b_o_s = 0;
   p.e_o_s = 0;
-  p.granulepos = 0;
+  p.granulepos = -1;
   p.packetno = 0;
 
   r = th_decode_packetin (dec->ctx, &p, NULL);
 
   if (r == 0) {
     r = th_decode_ycbcr_out (dec->ctx, y);
+#if 0
     theoradec_ycbcr_to_buffer (dec, y, out, out_written);
+#endif
   }
 
   return r;
