@@ -10,4 +10,4 @@
 
 #define enc_quality 20
 #define enc_target_bitrate 0
-#define enc_keyframe_granule_shift 31
+#define enc_keyframe_granule_shift 6
