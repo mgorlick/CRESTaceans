@@ -8,6 +8,6 @@
 #define enc_fps_numerator 30
 #define enc_fps_denominator 1
 
-#define enc_quality 20
+#define enc_quality 0
 #define enc_target_bitrate 0
 #define enc_keyframe_granule_shift 6

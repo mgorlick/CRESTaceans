@@ -61,7 +61,7 @@
    [stride _int]
    [data _pointer]))
 
-(define _ycbcr-buffer (_list o _th-image-plane 3))
+(define _ycbcr-buffer (_vector o _th-image-plane 3))
 
 ;;; decoding stuff
 
