@@ -1,8 +1,8 @@
 #lang racket
 
 (require "../util.rkt"
-         "../../../../bindings/theora/theora.rkt"
-         "structs.rkt")
+         "../structs.rkt"
+         "../../../../bindings/theora/theora.rkt")
 
 (provide make-theora-encoder)
 
@@ -10,11 +10,11 @@
   (λ ()
     (define is-signaller? (make-thread-id-verifier signaller))
     (define e (theoraenc-new))
+    
     (define (flush packet)
       (let* ([data (ogg-packet-data packet)]
              [len (bytes-length data)])
-        (when (> len 0)
-          (thread-send receiver (bytes-copy data)))))
+        (when (> len 0) (thread-send receiver (bytes-copy data)))))
     
     (theoraenc-foreach-header e flush)
     (let loop ()
@@ -22,7 +22,7 @@
         [(? die? _) (theoraenc-delete e) 
                     (command/killswitch signaller receiver)
                     (reply/state-report signaller #f)]
-        [(VideoFrameBuffer data framenum λdisposal)
+        [(FrameBuffer data framenum λdisposal)
          (theoraenc-data-in e data (bytes-length data) flush)
          (λdisposal)
          (loop)]))))

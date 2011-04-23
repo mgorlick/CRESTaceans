@@ -5,12 +5,16 @@
 ;; a disposal is a thunk which 'disposes' of the frame data
 ;; contract: a downstream consumer must execute λdisposal thunk
 ;; when it is the last consumer in the chain to use the buffer
-;; and the VideoFrameBuffer manufacturer guarantees that executing λdisposal
+;; and the FrameBuffer manufacturer guarantees that executing λdisposal
 ;; will eventually requeue the buffer for later reuse
-(struct: VideoFrameBuffer ([data : Bytes]
-                      [framenum : Exact-Nonnegative-Integer]
-                      [λdisposal : (-> Void)]))
+(struct: FrameBuffer
+         ; we'd like to be able to say (a) FrameBuffer
+         ; to let the framenum be whatever, but then we couldn't
+         ; match against it in untyped code
+         ([data : Bytes]
+          [framenum : Number]
+          [λdisposal : (-> Void)]))
 
 ; hack. untyped modules get confused when trying to refer to
 ; the data constructor aliased to the type name
-(define make-VideoFrameBuffer VideoFrameBuffer)
+(define make-FrameBuffer FrameBuffer)

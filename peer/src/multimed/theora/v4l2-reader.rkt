@@ -1,8 +1,8 @@
 #lang racket
 
 (require "../util.rkt"
-         "../../../../bindings/theora/theora.rkt"
-         "structs.rkt")
+         "../structs.rkt"
+         "../../../../bindings/theora/theora.rkt")
 
 (provide make-v4l2-reader)
 
@@ -32,7 +32,7 @@
         (loop)))
     
     (define (make-frame data num i)
-      (make-VideoFrameBuffer data num (λ () (requeue i))))
+      (make-FrameBuffer data num (λ () (requeue i))))
     
     (define (requeue i)
       (with-handlers ([exn:fail? (λ (e) (void))]) 
