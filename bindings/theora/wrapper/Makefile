@@ -2,15 +2,13 @@ SONAME = libracket-theora-wrapper.so
 VERSION_MAJOR = 1
 VERSION_FULL = 1.0
 LDFLAGS = -Wl,-soname,$(SONAME).$(VERSION_MAJOR)
-CFLAGS = -fPIC -c -g -O3 -Wall $$(pkg-config --cflags --libs theoraenc) $$(pkg-config --cflags --libs theora)
-LIBDEPS = /usr/lib/libtheoradec.so /usr/lib/libtheoraenc.so /usr/lib/libtheora.so
+CFLAGS = -fPIC -c -g -O3 -Wall
+LIBDEPS = $$(pkg-config --cflags --libs theora theoraenc theoradec)
 
 all: so
 
 so: dec.o enc.o v4l2.o
-	cc -shared $(LDFLAGS) \
-		-o $(SONAME).$(VERSION_FULL) \
-		 $(LIBDEPS) $^
+	cc -shared $(LDFLAGS) -o $(SONAME).$(VERSION_FULL) $(LIBDEPS) $^
 
 %.o: %.c
 	cc $(CFLAGS) -o $@ $<
