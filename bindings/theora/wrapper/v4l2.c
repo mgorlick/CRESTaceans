@@ -3,7 +3,6 @@
 #include <string.h>
 #include <fcntl.h>
 #include <unistd.h>
-#include <errno.h>
 #include <sys/poll.h>
 #include <sys/types.h>
 #include <sys/ioctl.h>
@@ -11,6 +10,7 @@
 #include <linux/videodev2.h>
 
 #include "enc_settings.h"
+#include "misc.h"
 
 #define BUFFERS_REQUESTED 20
 
@@ -37,28 +37,6 @@ inline void prep (v4l2_buffer *buffer) {
   buffer->memory = V4L2_MEMORY_MMAP;
 }
 
-inline void log_err (char *msg) {
-  int i = errno;
-  printf ("error (%s): ", msg);
-    switch (i) {
-      case EINVAL:
-        printf ("EINVAL");
-        break;
-      case EAGAIN:
-        printf ("EAGAIN");
-        break;
-      case ENOMEM:
-        printf ("ENOMEM");
-        break;
-      case EIO:
-        printf ("EIO");
-        break;
-      default:
-        printf ("unknown error %d", i);
-    }
-    printf ("\n");
-}
-
 void v4l2_reader_delete (v4l2_reader *v) {
   int i;
   
@@ -79,7 +57,7 @@ v4l2_reader* v4l2_reader_new (void) {
 
   v = malloc (sizeof (v4l2_reader));
   if (v) {
-    if (v->fd > -1) close (v->fd);
+    v->fd = -1;
     v->mmap_buffer_count = 0;
     v->mmap_buffers = NULL;
   }
@@ -223,8 +201,8 @@ int v4l2_reader_make_buffers (v4l2_reader *v) {
     
     v->mmap_buffers[i].length = buffer.length;
     v->mmap_buffers[i].start = mmap (NULL, buffer.length,
-                                PROT_READ | PROT_WRITE,
-                                MAP_SHARED, v->fd, buffer.m.offset);
+                                     PROT_READ | PROT_WRITE,
+                                     MAP_SHARED, v->fd, buffer.m.offset);
     if (MAP_FAILED == v->mmap_buffers[i].start) {
       log_err ("starting buffer mapping");
       return 0;
@@ -234,10 +212,10 @@ int v4l2_reader_make_buffers (v4l2_reader *v) {
   return 1;
 }
 
-inline int v4l2_reader_start_stream (v4l2_reader *v) {
+int v4l2_reader_start_stream (v4l2_reader *v) {
   int i = V4L2_BUF_TYPE_VIDEO_CAPTURE;
 
-  if (ioctl (v->fd, VIDIOC_STREAMON, &i) < 0) {
+  if (0 > ioctl (v->fd, VIDIOC_STREAMON, &i)) {
     log_err ("starting streaming on device");
     return 0;
   } else {
@@ -245,13 +223,13 @@ inline int v4l2_reader_start_stream (v4l2_reader *v) {
   }
 }
 
-inline int v4l2_reader_enqueue_buffer (v4l2_reader *v, int index) {
+int v4l2_reader_enqueue_buffer (v4l2_reader *v, int index) {
   v4l2_buffer buffer;
 
   prep (&buffer);
   buffer.index = index;
   
-  if (ioctl (v->fd, VIDIOC_QBUF, &buffer) < 0) {
+  if (0 > ioctl (v->fd, VIDIOC_QBUF, &buffer)) {
     log_err ("queuing buffer");
     return 0;
   } else {
@@ -259,25 +237,42 @@ inline int v4l2_reader_enqueue_buffer (v4l2_reader *v, int index) {
   }
 }
 
-v4l2_reader* v4l2_reader_setup (void) {
-  v4l2_reader *v;
-  int i;
+int v4l2_reader_dosetup (v4l2_reader *v) {
+  int res, i;
 
-  v = v4l2_reader_new ();
-  if (!v) return NULL;
-  if (! (v4l2_reader_open (v))) {
-    perror ("could not open device. reader not deleted yet!\n");
-  } else {
-    v4l2_reader_make_buffers (v);
-    v4l2_reader_start_stream (v);
-    for (i = 0; i < v->mmap_buffer_count; i++) {
-      v4l2_reader_enqueue_buffer (v, i);
-    }
+  res = v4l2_reader_open (v) &&
+      v4l2_reader_make_buffers (v) &&
+      v4l2_reader_start_stream (v);
+
+  if (!res) return 0;
+
+  for (i = 0; i < v->mmap_buffer_count; i++) {
+    res &= v4l2_reader_enqueue_buffer (v, i);
   }
-  return v;
+
+  return res;
 }
 
-inline int is_ready (v4l2_reader *v) {
+v4l2_reader* v4l2_reader_setup (void) {
+
+  v4l2_reader *v = v4l2_reader_new ();
+  
+  if (!v) {
+    log_err ("couldn't create reader");
+    return NULL;
+  }
+  
+  if (!(v4l2_reader_dosetup (v))) {
+    log_err ("reader setup");
+    v4l2_reader_delete (v);
+    return NULL;
+  }
+  
+  return v;
+}
+ 
+
+int is_ready (v4l2_reader *v) {
   pollfd pfd;
 
   pfd.fd = v->fd;
@@ -290,9 +285,8 @@ inline int is_ready (v4l2_reader *v) {
   }
 }
 
-inline int v4l2_reader_dequeue_buffer (v4l2_reader *v,
-                                       v4l2_buffer *buffer) {
-
+int v4l2_reader_dequeue_buffer (v4l2_reader *v,
+                                v4l2_buffer *buffer) {
   prep (buffer);
   
   if (ioctl (v->fd, VIDIOC_DQBUF, buffer) < 0) {
@@ -325,6 +319,7 @@ unsigned char * v4l2_reader_get_frame (v4l2_reader *v,
   *framenum = -1;
   *index = -1;
   return NULL;
+  
 }
 
 int main (void) { return 0; }
