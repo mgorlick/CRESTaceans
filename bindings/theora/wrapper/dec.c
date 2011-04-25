@@ -55,6 +55,9 @@ typedef struct TheoraDec {
   
 } TheoraDec;
 
+int video_init (TheoraDec *dec);
+void video_display (TheoraDec *dec, th_ycbcr_buffer yuv);
+
 int theoradec_ready_for_data (TheoraDec *dec) {
   return dec->have_comment & dec->have_type & dec->have_id;
 }
@@ -113,35 +116,6 @@ init_err:
   return NULL;
 }
 
-int init_SDL_stuff (TheoraDec *dec) {
-  /* this function taken from example in libtheora-1.1 distribution */
-  int w, h;
-
-  w = (dec->info->pic_x + dec->info->frame_width + 1 & ~1) - (dec->info->pic_x & ~1);
-  h = (dec->info->pic_y + dec->info->frame_height + 1 & ~1) - (dec->info->pic_y & ~1);
-
-  dec->screen = SDL_SetVideoMode (w, h, 0, SDL_SWSURFACE);
-
-  if (dec->screen == NULL) goto init_err;
-
-  if (dec->info->pixel_fmt == TH_PF_422)
-    dec->yuv_overlay = SDL_CreateYUVOverlay (w, h, SDL_YUY2_OVERLAY, dec->screen);
-  else
-    dec->yuv_overlay = SDL_CreateYUVOverlay (w, h, SDL_YV12_OVERLAY, dec->screen);
-
-  if (dec->yuv_overlay == NULL) goto init_err;
-
-  dec->rect.x = 0;
-  dec->rect.y = 0;
-  dec->rect.w = w;
-  dec->rect.h = h;
-
-  SDL_DisplayYUVOverlay (dec->yuv_overlay, &(dec->rect));
-  
-init_err:
-  return 0;
-}
-
 int theoradec_header_in (TheoraDec *dec,
                          unsigned char *buffer, long buffer_length) {
 
@@ -191,7 +165,7 @@ int theoradec_header_in (TheoraDec *dec,
   if (theoradec_ready_for_data (dec)) {
     dec->ctx = th_decode_alloc (dec->info, dec->setup);
     if (dec->ctx == NULL) goto setup_ctx_err;
-    if (!(init_SDL_stuff (dec))) goto setup_SDL_err;
+    if (1 != (video_init (dec))) goto setup_SDL_err;
   }
 
   return 1;
@@ -209,66 +183,8 @@ setup_ctx_err:
   return 0;
 
 setup_SDL_err:
-  printf ("Couldn't initialize SDL objects.\n");
+  printf ("Error setting up SDL components.\n");
   return 0;
-}
-
-void display (TheoraDec *dec, th_ycbcr_buffer yuv) {
-  /* this function taken from example in libtheora-1.1 distribution */
-  int i;
-  int y_offset, uv_offset;
-
-  th_decode_ycbcr_out (dec->ctx, yuv);
-  
-  /* Lock SDL_yuv_overlay */
-  if (SDL_MUSTLOCK(dec->screen)) {
-    if (0 > SDL_LockSurface(dec->screen)) return;
-  }
-  if (0 > SDL_LockYUVOverlay(dec->yuv_overlay)) return;
-  
-  /* let's draw the data on a SDL screen (*screen) */
-  /* deal with border stride */
-  /* reverse u and v for SDL */
-  /* and crop input properly, respecting the encoded frame rect */
-  /* problems may exist for odd frame rect for some encodings */
-
-  y_offset = (dec->info->pic_x & ~1) + yuv[0].stride * (dec->info->pic_y & ~1);
-
-  if (dec->info->pixel_fmt == TH_PF_422) {
-    uv_offset= (dec->info->pic_x/2) + (yuv[1].stride) * (dec->info->pic_y);
-    /* SDL doesn't have a planar 4:2:2 */ 
-    for (i = 0; i < dec->yuv_overlay->h ;i++) {
-      int j;
-      char *in_y = (char *) yuv[0].data + y_offset + yuv[0].stride * i;
-      char *out = (char *) (dec->yuv_overlay->pixels[0] + dec->yuv_overlay->pitches[0] * i);
-      for (j = 0; j < dec->yuv_overlay->w ;j++)
-        out[j*2] = in_y[j];
-      char *in_u = (char *) yuv[1].data + uv_offset + yuv[1].stride*i;
-      char *in_v = (char *) yuv[2].data + uv_offset + yuv[2].stride*i;
-      for (j = 0; j < dec->yuv_overlay->w >> 1; j++) {
-        out[j*4+1] = in_u[j];
-        out[j*4+3] = in_v[j];
-      }
-    }
-  } else {
-    uv_offset= (dec->info->pic_x/2) + (yuv[1].stride) * (dec->info->pic_y/2);
-    for(i = 0; i < dec->yuv_overlay->h; i++)
-      memcpy(dec->yuv_overlay->pixels[0] + dec->yuv_overlay->pitches[0] * i,
-             yuv[0].data + y_offset+yuv[0].stride * i,
-             dec->yuv_overlay->w);
-    for(i = 0; i < dec->yuv_overlay->h/2; i++){
-      memcpy(dec->yuv_overlay->pixels[1] + dec->yuv_overlay->pitches[1] * i,
-             yuv[2].data + uv_offset + yuv[2].stride * i,
-             dec->yuv_overlay->w/2);
-      memcpy(dec->yuv_overlay->pixels[2] + dec->yuv_overlay->pitches[2] * i,
-             yuv[1].data + uv_offset+yuv[1].stride * i,
-             dec->yuv_overlay->w/2);
-    }
-  }
-  
-  if (SDL_MUSTLOCK(dec->screen)) SDL_UnlockSurface(dec->screen);
-  SDL_UnlockYUVOverlay(dec->yuv_overlay);
-  SDL_DisplayYUVOverlay(dec->yuv_overlay, &(dec->rect));
 }
 
 int theoradec_data_in (TheoraDec *dec,
@@ -290,10 +206,103 @@ int theoradec_data_in (TheoraDec *dec,
   r = th_decode_packetin (dec->ctx, &p, &gp);
 
   if (r == 0) {
-    display (dec, yuv);
+    video_display (dec, yuv);
   } else {
     doc (r);
   }
 
   return r == 0 ? 1 : 0;
+}
+
+int video_init (TheoraDec *dec) {
+  /* this function taken from example in libtheora-1.1 distribution */
+  int w, h;
+
+  w = (dec->info->pic_x + dec->info->frame_width + 1 & ~1) - (dec->info->pic_x & ~1);
+  h = (dec->info->pic_y + dec->info->frame_height + 1 & ~1) - (dec->info->pic_y & ~1);
+
+  dec->screen = SDL_SetVideoMode (w, h, 0, SDL_SWSURFACE);
+
+  if (dec->screen == NULL) goto screen_init_err;
+
+  if (dec->info->pixel_fmt == TH_PF_422)
+    dec->yuv_overlay = SDL_CreateYUVOverlay (w, h, SDL_YUY2_OVERLAY, dec->screen);
+  else
+    dec->yuv_overlay = SDL_CreateYUVOverlay (w, h, SDL_YV12_OVERLAY, dec->screen);
+
+  if (dec->yuv_overlay == NULL) goto overlay_init_err;
+
+  dec->rect.x = 0;
+  dec->rect.y = 0;
+  dec->rect.w = w;
+  dec->rect.h = h;
+
+  SDL_DisplayYUVOverlay (dec->yuv_overlay, &(dec->rect));
+  return 1;
+  
+screen_init_err:
+  printf ("Error initializing SDL screen: %s\n", SDL_GetError());
+  
+overlay_init_err:
+  printf ("Error initializing SDL overlay: %s\n", SDL_GetError());
+  return 0;
+}
+
+
+void video_display (TheoraDec *dec, th_ycbcr_buffer yuv) {
+  /* this function taken from example in libtheora-1.1 distribution */
+  int i;
+  int y_offset, uv_offset;
+
+  th_decode_ycbcr_out (dec->ctx, yuv);
+  
+  /* Lock SDL_yuv_overlay */
+  if (SDL_MUSTLOCK(dec->screen)) {
+    if (0 > SDL_LockSurface(dec->screen)) return;
+  }
+  if (0 > SDL_LockYUVOverlay(dec->yuv_overlay)) return;
+  
+  /* let's draw the data on a SDL screen (*screen) */
+  /* deal with border stride */
+  /* reverse u and v for SDL */
+  /* and crop input properly, respecting the encoded frame rect */
+  /* problems may exist for odd frame rect for some encodings */
+
+  y_offset = (dec->info->pic_x & ~1) + yuv[0].stride * (dec->info->pic_y & ~1);
+
+  if (dec->info->pixel_fmt == TH_PF_422) {
+    uv_offset = (dec->info->pic_x/2) + (yuv[1].stride) * (dec->info->pic_y);
+    /* SDL doesn't have a planar 4:2:2 */ 
+    for (i = 0; i < dec->yuv_overlay->h ;i++) {
+      int j;
+      char *in_y = (char *) yuv[0].data + y_offset + yuv[0].stride * i;
+      char *out = (char *) (dec->yuv_overlay->pixels[0] + dec->yuv_overlay->pitches[0] * i);
+      for (j = 0; j < dec->yuv_overlay->w ;j++)
+        out[j*2] = in_y[j];
+      char *in_u = (char *) yuv[1].data + uv_offset + yuv[1].stride*i;
+      char *in_v = (char *) yuv[2].data + uv_offset + yuv[2].stride*i;
+      for (j = 0; j < dec->yuv_overlay->w >> 1; j++) {
+        out[j*4+1] = in_u[j];
+        out[j*4+3] = in_v[j];
+      }
+    }
+  } else {
+    uv_offset = (dec->info->pic_x/2) + (yuv[1].stride) * (dec->info->pic_y/2);
+    for(i = 0; i < dec->yuv_overlay->h; i++)
+      memcpy(dec->yuv_overlay->pixels[0] + dec->yuv_overlay->pitches[0] * i,
+             yuv[0].data + y_offset+yuv[0].stride * i,
+             dec->yuv_overlay->w);
+    for(i = 0; i < dec->yuv_overlay->h/2; i++){
+      memcpy(dec->yuv_overlay->pixels[1] + dec->yuv_overlay->pitches[1] * i,
+             yuv[2].data + uv_offset + yuv[2].stride * i,
+             dec->yuv_overlay->w/2);
+      memcpy(dec->yuv_overlay->pixels[2] + dec->yuv_overlay->pitches[2] * i,
+             yuv[1].data + uv_offset+yuv[1].stride * i,
+             dec->yuv_overlay->w/2);
+    }
+  }
+  
+  if (SDL_MUSTLOCK(dec->screen)) SDL_UnlockSurface(dec->screen);
+  SDL_UnlockYUVOverlay(dec->yuv_overlay);
+  SDL_DisplayYUVOverlay(dec->yuv_overlay, &(dec->rect));
 }
