@@ -17,8 +17,8 @@
 (let loop ()
   (let ([bytes (thread-receive)])
     (printf "Bytes in: ~a~n" (bytes-length bytes))
-    (printf "~a~n" (cond [(not (theoradec-ready-for-data d)) (theoradec-header-in d bytes)]
-                         [else (theoradec-data-in d bytes)]))
+    (cond [(not (theoradec-ready-for-data d)) (theoradec-header-in d bytes)]
+          [else (theoradec-data-in d bytes)])
     (loop)))
 
 (theoradec-delete d)

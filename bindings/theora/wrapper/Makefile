@@ -3,7 +3,7 @@ VERSION_MAJOR = 1
 VERSION_FULL = 1.0
 LDFLAGS = -Wl,-soname,$(SONAME).$(VERSION_MAJOR)
 CFLAGS = -fPIC -c -g -O3 -Wall
-LIBDEPS = $$(pkg-config --cflags --libs theora theoraenc theoradec)
+LIBDEPS = $$(pkg-config --cflags --libs theora theoraenc theoradec sdl)
 
 all: so
 
