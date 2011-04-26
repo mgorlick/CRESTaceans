@@ -1,11 +1,14 @@
 #lang racket
 
-(require  ffi/unsafe
-          "vtx/module.rkt"
+(require  "vtx/module.rkt"
           "additions/init.rkt")
 (provide
- (all-defined-out)
- (all-from-out "vtx/module.rkt"))
+ (except-out (all-defined-out)
+             cleanup-and-return
+             doconn
+             dochan)
+ (except-out (all-from-out "vtx/module.rkt")
+             vortex-ctx-new))
 
 (define (ptr-null? ptr)
   (eq? #f ptr))
@@ -63,7 +66,8 @@
      ; (async) mode, because you supplied a callback. If this is true,
      ; the callback will need to call `vortex-connection-is-ok' inside it.
      (cond
-       [(and (procedure? on-connected) (ptr-null? connection-name)) ; assume connection spawned in async mode
+       [(and (procedure? on-connected)
+             (ptr-null? connection-name)) ; assume connection spawned in async mode
         (body ...)]
        [(ptr-null? connection-name) ; connection couldn't be created
         (raise (make-exn:vtx:connection 
@@ -90,7 +94,8 @@
         [ctx host port on-connected user-data]
         body ...)
      (let ([connection-name (vortex-connection-new ctx host port on-connected user-data)])
-       (doconn connection-name on-connected (body ...) ((vortex-connection-close connection-name))))]))
+       (doconn connection-name on-connected (body ...) 
+               ((vortex-connection-close connection-name))))]))
 
 ; with-vtx-conn*:
 ; like with-vtx-conn, but do not clean up the connection automatically
@@ -130,7 +135,8 @@
            
            ; otherwise, test to see whether channel was created or not
            (if (ptr-null? channel-name)
-               (raise (make-exn:vtx:channel "unable to create the channel" (current-continuation-marks))) ; error case
+               (raise (make-exn:vtx:channel "unable to create the channel" 
+                                            (current-continuation-marks))) ; error case
                (cleanup-and-return ; no-error case
                 (body ...) 
                 (cleanup ...))
@@ -143,7 +149,8 @@
     [(_ channel-name 
         [channel-args ...]
         body ...)
-     (dochan channel-name (channel-args ...) (body ...) ((vortex-channel-close channel-name #f)))
+     (dochan channel-name (channel-args ...) (body ...)
+             ((vortex-channel-close channel-name #f)))
      ]))
 
 ; with-vtx-channel*: like with-vtx-channel, but with no automatic resource cleanup
@@ -152,7 +159,8 @@
     [(_ channel-name
         [channel-args ...]
         body ...)
-     (dochan channel-name (channel-args ...) (body ...) ('nothing))
+     (dochan channel-name (channel-args ...) (body ...) 
+             ('nothing))
      ]))
 
 (define-struct (exn:vtx:channel exn:fail:network) ())

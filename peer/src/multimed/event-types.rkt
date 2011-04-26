@@ -8,6 +8,7 @@
 
 (require/typed racket
                [sync (Event Event * -> Any)]
+               [sync/timeout (Natural Event Event * -> Any)]
                [thread-receive-evt (-> Event)])
 
 (define-syntax sync*
@@ -15,6 +16,15 @@
     [(_ ea ...)
      (let ([result (sync (Eventof-e ea) ...)])
        (cond [((Eventof-p ea) result) result]
+             ...
+             [else (raise (format "sync exception: post-sync type didn't match a declarated `eventof' type: ~a~n" result))]))]))
+
+(define-syntax sync/timeout*
+  (syntax-rules ()
+    [(_ timeout ea ...)
+     (let ([result (sync/timeout timeout (Eventof-e ea) ...)])
+       (cond [(not result) result]
+             [((Eventof-p ea) result) result]
              ...
              [else (raise (format "sync exception: post-sync type didn't match a declarated `eventof' type: ~a~n" result))]))]))
 
@@ -27,4 +37,5 @@
          Eventof-p
          evt?
          sync*
+         sync/timeout*
          thread-receive-evt/t)

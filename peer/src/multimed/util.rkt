@@ -3,19 +3,27 @@
 (require (planet bzlib/thread:1:0))
 (provide (all-defined-out))
 
-;; receive/killswitch and receive/state-report expect a procedure like what make-thread-id-verifier makes
+(define-syntax-rule (define-thread id body ...)
+  (define id (thread (λ () body ...))))
+
+;; receive/killswitch and receive/state-report expect a procedure made by
+;; make-thread-id-verifier
 (define/contract (make-thread-id-verifier signaller)
   (thread? . -> . (any/c . -> . boolean?))
   (λ (thd) 
     (and (thread? thd) (equal? signaller thd))))
 
+;;; -------------------
 ;;; starting a pipeline
-;; for each { name : identifier thunk } tuple, starts a thread with the thunk,
-;; temporarily binds teh thread to the identifier (for use in subsequent pipeline elements)
-;; and then produces a dict? with the (name . thread) pairs.
-;; in addition, the dict? is guaranteed to contain the pipeline elements in the order they are
-;; specified in the let-like bindings (which is usually right-to-left, since later pipeline
-;; elements have to be specified earlier)
+;; for each { name : identifier thunk } let*-like binding, 
+;; starts a thread with the thunk, binds the thread to the identifier
+;; and then produces a dict with the (name . thread) pairs.
+;; any exprs following the let*-like bindings are evaluated 
+;; for their side effects before the dict is produced.
+;; in addition, the dict is guaranteed to contain the pipeline elements
+;; in the order they are specified in the let*-like bindings 
+;; (which is usually right-to-left, since later pipeline
+;; elements have to be specified earlier).
 (define-syntax make-pipeline
   (syntax-rules (:)
     [(_ ([name1 : id1 thunk1] ...) expr ...)
@@ -26,31 +34,32 @@
          ...
          ))]))
 
-;;; signals for pipeline control
+;;; ------------------------------------------------
+;;; signals for pipeline control from the flowmaster
 (define killswitch 'clone/die)
+(define die? (curry equal? killswitch))
+(define no-message 'no-message)
+(define no-message? (curry equal? no-message))
 
 ;; send a killswitch, or pass on a received killswitch to the next element of the pipeline
 (define/contract (command/killswitch reply-to receiver)
   (thread? thread? . -> . void)
   (thread-send receiver (list reply-to killswitch)))
 
-;; receive a killswitch, or, like, whatever, man. at minimum, 
+;; receive a killswitch, or whatever else. at minimum, 
 ;; the pipeline element must test the output for die?
 ;; and if #:block? is #f, the pipeline element must test for no-message?
 (define/contract (receive-killswitch/whatever id? #:block? [block? #t])
   ([(any/c . -> . boolean?)] [#:block? boolean?] . ->* . any)
-  (receive/match [(list (? id? thd) (? symbol? ks)) ks]
+  (receive/match [(list (? id? thd) (? symbol? cntrl)) cntrl]
                  [whatever whatever]
-                 [after (if block? +inf.0 0) 'no-message]))
+                 [after (if block? +inf.0 0) no-message]))
 
-(define (die? s)
-  (equal? s killswitch))
-
-(define (no-message? s)
-  (equal? s 'no-message))
-
+;;; -------------------------------------------------------------
 ;;; gathering up state reports from a pipeline after a killswitch
 (define state-report 'state-report)
+(define state-report? (curry equal? state-report))
+
 ;; pipeline components use reply/state-report to respond to a killswitch. all pipeline
 ;; components are required to reply with some state, though it may be empty
 (define/contract (reply/state-report reply-to state)
@@ -60,7 +69,10 @@
 ;; receives one state report from the thread matching the thread handle identifier encoded in id?
 (define/contract (receive/state-report id?)
   ((any/c . -> . boolean?) . -> . any/c)
-  (receive/match [(list (? id? thd) (? (λ (sym) (equal? sym state-report)) sr) state) state]))
+  (receive/match [(list (? id? thd) 
+                        (? state-report? sr)
+                        state)
+                  state]))
 
 ;; receive-state-report: functionally store the (string . whatever) in the dict,
 ;; where 'whatever' is what the thread identified by the thread handle sends in a state report

@@ -1,13 +1,13 @@
-SONAME = libracket-vorbis-wrapper.so
+SONAME = libracket-theora-wrapper.so
 VERSION_MAJOR = 1
 VERSION_FULL = 1.0
 LDFLAGS = -Wl,-soname,$(SONAME).$(VERSION_MAJOR)
-CFLAGS = -fPIC -c -g -Wall -O3
-LIBDEPS = $$(pkg-config --cflags --libs ao vorbis vorbisenc)
+CFLAGS = -fPIC -c -g -O3 -Wall
+LIBDEPS = $$(pkg-config --cflags --libs theora theoraenc theoradec sdl)
 
 all: so
 
-so: dec.o enc.o ogg.o conversions.o
+so: dec.o enc.o v4l2.o
 	cc -shared $(LDFLAGS) -o $(SONAME).$(VERSION_FULL) $(LIBDEPS) $^
 
 %.o: %.c
