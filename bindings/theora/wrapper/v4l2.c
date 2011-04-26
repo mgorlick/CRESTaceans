@@ -12,7 +12,7 @@
 #include "enc_settings.h"
 #include "misc.h"
 
-#define BUFFERS_REQUESTED 20
+int BUFFERS_REQUESTED = 30;
 
 typedef struct mmap_buffer {
   void *start;
@@ -79,14 +79,14 @@ int v4l2_reader_open (v4l2_reader *v) {
   }
   
   if (format.type != V4L2_BUF_TYPE_VIDEO_CAPTURE ||
-      format.fmt.pix.width != enc_frame_width ||
-      format.fmt.pix.height != enc_frame_height ||
+      format.fmt.pix.width != enc_pic_width ||
+      format.fmt.pix.height != enc_pic_height ||
       format.fmt.pix.pixelformat != V4L2_PIX_FMT_YUYV) {
     printf ("changing camera settings: \n\tsize = %dx%d\n\tpixelformat=%d\n",
-            enc_frame_width, enc_frame_height, V4L2_PIX_FMT_YUYV);
+            enc_pic_width, enc_pic_height, V4L2_PIX_FMT_YUYV);
     format.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-    format.fmt.pix.width = enc_frame_width;
-    format.fmt.pix.height = enc_frame_height;
+    format.fmt.pix.width = enc_pic_width;
+    format.fmt.pix.height = enc_pic_height;
     format.fmt.pix.pixelformat = V4L2_PIX_FMT_YUYV;
     format.fmt.pix.field = 1;
 
