@@ -10,9 +10,9 @@
 #define ROUND_UP_8(num) (((num)+7)&~7)
 
 typedef struct TheoraEnc {
-  th_info* info;
-  th_comment* comment;
-  th_enc_ctx* ctx;
+  th_info *info;
+  th_comment *comment;
+  th_enc_ctx *ctx;
 } TheoraEnc;
 
 typedef int (*theoraenc_each_packet) (ogg_packet *p);
@@ -56,10 +56,8 @@ TheoraEnc* theoraenc_new (void) {
   enc->info->pixel_fmt = TH_PF_422;
   enc->info->colorspace = TH_CS_UNSPECIFIED;
   
-  th_enc_ctx* ctx = th_encode_alloc (enc->info);
-  if (ctx) {
-    enc->ctx = ctx;
-  } else {
+  enc->ctx = th_encode_alloc (enc->info);
+  if (enc->ctx == NULL) {
     printf ("ERROR: couldn't alloc ctx in theoraenc_new\n");
     return NULL;
   }
@@ -84,24 +82,16 @@ void theoraenc_delete (TheoraEnc *enc) {
 }
 
 th_info* theoraenc_info (TheoraEnc *enc) {
-  if (!enc) return NULL;
-  return enc->info;
+  return (enc == NULL) ? NULL : enc->info;
 }
 
 int theoraenc_foreach_header (TheoraEnc *enc, theoraenc_each_packet f) {
-  int r = 1;
   ogg_packet p;
 
   if (!enc) return 0;
-  while (r > 0) {
-    r = th_encode_flushheader (enc->ctx, enc->comment, &p);
-    if (r > 0) {
-      f (&p); 
-    } else if (r < 0) {
-      printf ("ERROR: couldn't flush a header packet in theoraenc_foreach_header\n");
-      return 0;
-    }
-  }
+
+  while (th_encode_flushheader (enc->ctx, enc->comment, &p) > 0)
+    f (&p);
   
   return 1;
 }
@@ -113,14 +103,13 @@ int theoraenc_foreach_header (TheoraEnc *enc, theoraenc_each_packet f) {
    CHANGE CALCULATIONS IF THIS CHANGES! */
 
 inline int get_height (int component_index, int frame_height) {
-  /* if (component_index == 0) return frame_height;
-     else return ROUND_UP_2 (frame_height) / 2; */
   return frame_height;
 }
 
 inline int get_width (int component_index, int frame_width) {
-  if (component_index == 0) return frame_width;
-  else return ROUND_UP_2 (frame_width) / 2;
+  return (component_index == 0) ?
+      frame_width :
+      ROUND_UP_2 (frame_width) / 2;
 }
 
 inline int get_offset (int component_index, int pic_width, int pic_height) {
@@ -143,7 +132,7 @@ inline int get_row_stride (int component_index, int pic_width) {
   else return (ROUND_UP_8 (pic_width) / 2);
 }
 
-void init_ycbcr (th_ycbcr_buffer y, th_info* info, unsigned char *data) {
+void init_ycbcr (th_ycbcr_buffer y, th_info *info, unsigned char *data) {
 
   int i;
   
@@ -152,10 +141,6 @@ void init_ycbcr (th_ycbcr_buffer y, th_info* info, unsigned char *data) {
     y[i].width = get_width (i, info->frame_width);
     y[i].stride = get_row_stride (i, info->pic_width);
     y[i].data = data + get_offset (i, info->pic_width, info->pic_height);
-    /* printf ("y[%d].height = %d\n", i, y[i].height);
-    printf ("y[%d].width = %d\n", i, y[i].width);
-    printf ("y[%d].stride = %d\n", i, y[i].stride);
-    printf ("y[%d].data = %p (offset %d)\n", i, y[i].data, y[i].data - data); */
   }
 }
 
@@ -165,16 +150,13 @@ int theoraenc_data_in (TheoraEnc *enc, unsigned char *buffer, long buffer_length
   ogg_packet p;
   th_ycbcr_buffer y;
   
-  if (!enc) return -1;
+  if (!enc) return 0;
 
   init_ycbcr (y, enc->info, buffer);
   
-  th_encode_ycbcr_in (enc->ctx, y);
-
-  while (th_encode_packetout (enc->ctx, 0, &p)) {
-    /*printf ("enc: a packet of size %ld\n", p.bytes);*/
-    f (&p);
-  }
-
+  if (0 == th_encode_ycbcr_in (enc->ctx, y))
+    while (th_encode_packetout (enc->ctx, 0, &p))
+      f (&p);
+  
   return 1;
 }
