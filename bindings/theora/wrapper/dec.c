@@ -59,7 +59,7 @@ int video_init (TheoraDec *dec);
 void video_display (TheoraDec *dec, th_ycbcr_buffer yuv);
 
 int theoradec_ready_for_data (TheoraDec *dec) {
-  return dec->have_comment & dec->have_type & dec->have_id;
+  return dec->have_comment && dec->have_type && dec->have_id;
 }
 
 void theoradec_delete (TheoraDec *dec) {
@@ -134,7 +134,6 @@ int theoradec_header_in (TheoraDec *dec,
   switch (buffer[0]) {
     case 0x80:
       if (dec->have_id) goto already_have;
-
       if (0 > (r = th_decode_headerin (dec->info, dec->comment, &(dec->setup), &p)))
         goto header_err;
       dec->have_id = 1;
@@ -142,7 +141,6 @@ int theoradec_header_in (TheoraDec *dec,
 
     case 0x81:
       if (dec->have_comment) goto already_have;
-
       if (0 > (r = th_decode_headerin (dec->info, dec->comment, &(dec->setup), &p)))
         goto header_err;
       dec->have_comment = 1;
@@ -150,22 +148,20 @@ int theoradec_header_in (TheoraDec *dec,
 
     case 0x82:
       if (dec->have_type) goto already_have;
-
       if (0 > (r = th_decode_headerin (dec->info, dec->comment, &(dec->setup), &p)))
         goto header_err;
       dec->have_type = 1;
       break;
       
     default:
-      printf ("unknown header packet found\n");
+      printf ("unknown header packet found, returning early.\n");
       return 1;
-      break;
   }
 
   if (theoradec_ready_for_data (dec)) {
     dec->ctx = th_decode_alloc (dec->info, dec->setup);
     if (dec->ctx == NULL) goto setup_ctx_err;
-    if (1 != (video_init (dec))) goto setup_SDL_err;
+    if (!(video_init (dec))) goto setup_SDL_err;
   }
 
   return 1;
@@ -194,7 +190,7 @@ int theoradec_data_in (TheoraDec *dec,
   ogg_int64_t gp;
   th_ycbcr_buffer yuv;
 
-  if (!dec || !(dec->info) ||  !(dec->ctx)) return 0;
+  if (!dec || !(dec->info) || !(dec->ctx)) return 0;
   
   p.packet = buffer;
   p.bytes = buffer_length;
@@ -202,15 +198,14 @@ int theoradec_data_in (TheoraDec *dec,
   p.e_o_s = 0;
   p.granulepos = -1;
   p.packetno = 0;
-  
-  r = th_decode_packetin (dec->ctx, &p, &gp);
 
-  if (r == 0) {
+  if (0 == (r = th_decode_packetin (dec->ctx, &p, &gp))) {
+    th_decode_ycbcr_out (dec->ctx, yuv);
     video_display (dec, yuv);
   } else {
     doc (r);
   }
-
+  
   return r == 0 ? 1 : 0;
 }
 
@@ -232,8 +227,8 @@ int video_init (TheoraDec *dec) {
 
   if (dec->yuv_overlay == NULL) goto overlay_init_err;
 
-  dec->rect.x = 0;
-  dec->rect.y = 0;
+  dec->rect.x = dec->info->pic_x;
+  dec->rect.y = dec->info->pic_y;
   dec->rect.w = w;
   dec->rect.h = h;
 
@@ -253,8 +248,6 @@ void video_display (TheoraDec *dec, th_ycbcr_buffer yuv) {
   /* this function taken from example in libtheora-1.1 distribution */
   int i;
   int y_offset, uv_offset;
-
-  th_decode_ycbcr_out (dec->ctx, yuv);
   
   /* Lock SDL_yuv_overlay */
   if (SDL_MUSTLOCK(dec->screen)) {
@@ -273,11 +266,11 @@ void video_display (TheoraDec *dec, th_ycbcr_buffer yuv) {
   if (dec->info->pixel_fmt == TH_PF_422) {
     uv_offset = (dec->info->pic_x/2) + (yuv[1].stride) * (dec->info->pic_y);
     /* SDL doesn't have a planar 4:2:2 */ 
-    for (i = 0; i < dec->yuv_overlay->h ;i++) {
+    for (i = 0; i < dec->yuv_overlay->h; i++) {
       int j;
       char *in_y = (char *) yuv[0].data + y_offset + yuv[0].stride * i;
       char *out = (char *) (dec->yuv_overlay->pixels[0] + dec->yuv_overlay->pitches[0] * i);
-      for (j = 0; j < dec->yuv_overlay->w ;j++)
+      for (j = 0; j < dec->yuv_overlay->w; j++)
         out[j*2] = in_y[j];
       char *in_u = (char *) yuv[1].data + uv_offset + yuv[1].stride*i;
       char *in_v = (char *) yuv[2].data + uv_offset + yuv[2].stride*i;
@@ -288,17 +281,17 @@ void video_display (TheoraDec *dec, th_ycbcr_buffer yuv) {
     }
   } else {
     uv_offset = (dec->info->pic_x/2) + (yuv[1].stride) * (dec->info->pic_y/2);
-    for(i = 0; i < dec->yuv_overlay->h; i++)
-      memcpy(dec->yuv_overlay->pixels[0] + dec->yuv_overlay->pitches[0] * i,
-             yuv[0].data + y_offset+yuv[0].stride * i,
-             dec->yuv_overlay->w);
-    for(i = 0; i < dec->yuv_overlay->h/2; i++){
-      memcpy(dec->yuv_overlay->pixels[1] + dec->yuv_overlay->pitches[1] * i,
-             yuv[2].data + uv_offset + yuv[2].stride * i,
-             dec->yuv_overlay->w/2);
-      memcpy(dec->yuv_overlay->pixels[2] + dec->yuv_overlay->pitches[2] * i,
-             yuv[1].data + uv_offset+yuv[1].stride * i,
-             dec->yuv_overlay->w/2);
+    for (i = 0; i < dec->yuv_overlay->h; i++)
+      memcpy (dec->yuv_overlay->pixels[0] + dec->yuv_overlay->pitches[0] * i,
+              yuv[0].data + y_offset+yuv[0].stride * i,
+              dec->yuv_overlay->w);
+    for (i = 0; i < dec->yuv_overlay->h/2; i++) {
+      memcpy (dec->yuv_overlay->pixels[1] + dec->yuv_overlay->pitches[1] * i,
+              yuv[2].data + uv_offset + yuv[2].stride * i,
+              dec->yuv_overlay->w/2);
+      memcpy (dec->yuv_overlay->pixels[2] + dec->yuv_overlay->pitches[2] * i,
+              yuv[1].data + uv_offset+yuv[1].stride * i,
+              dec->yuv_overlay->w/2);
     }
   }
   

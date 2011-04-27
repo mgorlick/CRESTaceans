@@ -272,13 +272,13 @@ v4l2_reader* v4l2_reader_setup (void) {
 }
  
 
-int is_ready (v4l2_reader *v) {
+int v4l2_reader_is_ready (v4l2_reader *v) {
   pollfd pfd;
 
   pfd.fd = v->fd;
   pfd.events = POLLIN;
   
-  if (poll (&pfd, 1, -1) > 0) {
+  if (poll (&pfd, 1, 0) > 0) {
     return pfd.revents & POLLIN;
   } else {
     return 0;
@@ -304,22 +304,18 @@ unsigned char * v4l2_reader_get_frame (v4l2_reader *v,
                                        int *index) {
   v4l2_buffer buffer;
   
-  if (is_ready (v)) {
-    if (v4l2_reader_dequeue_buffer (v, &buffer)) {
+  if (v4l2_reader_dequeue_buffer (v, &buffer)) {
       *size = buffer.bytesused;
       *framenum = buffer.sequence;
       *index = buffer.index;
       return v->mmap_buffers[buffer.index].start;
-    } else {
-      log_err ("couldn't dequeue anything");
-    }
   }
-
+  
+  log_err ("couldn't dequeue anything");
   *size = 0;
   *framenum = -1;
   *index = -1;
-  return NULL;
-  
+  return NULL; 
 }
 
 int main (void) { return 0; }

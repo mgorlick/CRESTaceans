@@ -70,13 +70,14 @@ TheoraEnc* theoraenc_new (void) {
   
   enc->ctx = th_encode_alloc (enc->info);
   if (enc->ctx == NULL) {
-    printf ("ERROR: couldn't alloc ctx in theoraenc_new\n");
+    printf ("Couldn't make a theora context in theoraenc_new.\n");
+    printf ("The most likely cause is specifying illegal theora encoder settings.\n");
+    printf ("Check the libtheora th_info documentation.\n");
     free (enc);
     return NULL;
   }
 
-  enc->postconv_buffer = calloc (enc_frame_width * enc_frame_height * TOFMT_BYTES_PER_PIXEL,
-                                 (sizeof (unsigned char)));
+  enc->postconv_buffer = calloc (PCONV_BUFFER_TOTAL_SIZE, (sizeof (unsigned char)));
   
   if (enc->postconv_buffer == NULL) {
     printf ("ERROR: couldn't alloc reserve buffer in theoraenc_new\n");
@@ -179,10 +180,7 @@ int theoraenc_data_in (TheoraEnc *enc, unsigned char *buffer,
   
   if (!enc) return 0;
 
-  memset (enc->postconv_buffer, 0x00,
-          enc_frame_width * enc_frame_height * TOFMT_BYTES_PER_PIXEL);
-  yuv422_to_yuv420p (enc->postconv_buffer, buffer,
-                     enc->info->frame_width, enc->info->frame_height);
+  yuv422_to_yuv420p (enc->postconv_buffer, buffer, enc_frame_width, enc_frame_height);
   init_ycbcr (y, enc->info, enc->postconv_buffer);
   
   if (0 == th_encode_ycbcr_in (enc->ctx, y))

@@ -111,6 +111,9 @@
         -> _void
         -> (values frame-width frame-height fps-num fps-denom buffer-ct)))
 
+(deftheora v4l2-reader-is-ready
+  (_fun _v4l2-reader-pointer -> _bool))
+
 ;; get a valid pointer to the memory mapped bytestring with its size
 ;; and index number tracked. mmapped buffer is not requeued until
 ;; v4l2-reader-enqueue-buffer is called with the index number returned 

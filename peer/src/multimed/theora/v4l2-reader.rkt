@@ -43,12 +43,16 @@
     
     (define (grab-frame)
       (semaphore-wait v-sema)
-      (let-values ([(d f i) (v4l2-reader-get-frame v)])
-        (when d
-          (thread-send receiver (make-frame d f i))
-          (pool-remove! i)
-          ))
-      (semaphore-post v-sema))
+      (cond
+        [(v4l2-reader-is-ready v)
+         (let-values ([(d f i) (v4l2-reader-get-frame v)])
+           (when d
+             (thread-send receiver (make-frame d f i))
+             (pool-remove! i))
+           (semaphore-post v-sema))]
+        [else
+         (semaphore-post v-sema)
+         (sleep 0.01)]))
     
     (define (cleanup)
       (semaphore-wait v-sema)
