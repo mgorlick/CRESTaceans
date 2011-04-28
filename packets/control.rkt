@@ -5,6 +5,7 @@
 
 (provide (prefix-out control/ (all-defined-out)))
 
+;; ---------
 ;; UTILITIES
 ;; ---------
 (: 16thbiton (Integer -> Integer))
@@ -27,13 +28,46 @@
    {([b : Bytes] [signed? : Boolean])
     (integer-bytes->integer b signed? #t)}))
 
+;; bytes/32bit: bytes-appends the byte representation of
+;; all of the naturals supplied
+;; after converting to unsigned 4-byte numbers
+(: bytes/32bit (Natural * -> Bytes))
+(define (bytes/32bit . ns) (foldl bytes-append #"" (map (λ: ([i : Natural]) (i->b i 4)) ns)))
+
+;; session managers should catch exn:fail when they
+;; try to parse control packets
+(: raise-parse-error (String -> Nothing))
+(define (raise-parse-error str)
+  (raise (make-exn:fail str (current-continuation-marks))))
+
+;; this function's chief purpose is to trick the compiler
+;; into typechecking successfully, but it also yells at us
+;; at runtime if the compiler's paranoia was valid! amazing!
+(: natcheck (Number -> Natural))
+(define (natcheck v)
+  (if (exact-nonnegative-integer? v) v
+      (raise-parse-error "Found negative number where natural should have been")))
+
+;; take32: take 32 bits of data starting at `s' and 
+;; convert data to natural number. raise exn if not natural number
+(: take32 (Bytes Natural -> Natural))
+(define (take32 b s) (natcheck (b->i (subbytes b s (+ 4 s)))))
+(: take32/signed (Bytes Natural -> Integer))
+(define (take32/signed b s) (b->i (subbytes b s (+ 4 s)) #t))
+
+;; take128: take 128 bits of data starting at `s' and 
+;; convert data to natural number. raise exn if not natural number
+(: take128 (Bytes Natural -> Natural))
+(define (take128 b s) (natcheck (b->i (subbytes b s (+ 16 s)))))
+
 ;; -------------
 ;; SERIALIZATION
 ;; -------------
 (: packet->bytes (ControlPacket -> Bytes))
 (define (packet->bytes p)
   (bytes-append (typeline-bytes p) (additional-bytes p) 
-                (timestamp-bytes p) (destID-bytes p) (controlinfo-bytes p)))
+                (timestamp-bytes p) (destID-bytes p) 
+                (controlinfo-bytes p)))
 
 ; line 1 of the control header packet:
 ; 1 bit set to 1 + 15 bits of ctrl code + 16 bits reserved
@@ -62,30 +96,20 @@
 
 (: controlinfo-bytes (ControlPacket -> Bytes))
 (define (controlinfo-bytes p)
-  (cond [(or (KeepAlive? p) (Shutdown? p) (ACK2? p) (LightACK? p)) #""]
-        [(NAK? p) (i->b (NAK-lossInfo p) 4)]
-        [(DropReq? p) (bytes-append (i->b (DropReq-firstSeqNo p) 4)
-                                    (i->b (DropReq-lastSeqNo p) 4))]
-        [(MedACK? p) (bytes-append (i->b (MedACK-lastSeqNo p) 4)
-                                   (i->b (MedACK-RTT p) 4)
-                                   (i->b (MedACK-RTTVariance p) 4))]
-        [(FullACK? p) (bytes-append (i->b (MedACK-lastSeqNo p) 4)
-                                    (i->b (MedACK-RTT p) 4)
-                                    (i->b (MedACK-RTTVariance p) 4)
-                                    (i->b (FullACK-availBuffBytes p) 4)
-                                    (i->b (FullACK-receiveRate p) 4)
-                                    (i->b (FullACK-linkCap p) 4))]
-        [(Handshake? p)
-         (match p
-           [(Handshake _ _ u s i m1 m2 ct ch syn pip)
-            (bytes-append (i->b u 4) (i->b (SocketType->Nat s) 4)
-                          (i->b m1 4) (i->b m2 4) (i->b ct 4 #t)
-                          (i->b ch 4) (i->b syn 4) (i->b pip 16))])]))
+  (match p
+    [(or (KeepAlive _ _) (Shutdown _ _) (ACK2 _ _ _) (LightACK _ _ _)) #""]
+    [(NAK _ _ li) (bytes/32bit li)]
+    [(DropReq _ _ _ f l) (bytes/32bit f l)]
+    [(MedACK _ _ _ ls rtt rttv) (bytes/32bit ls rtt rttv)]
+    [(FullACK _ _ _ ls rtt rttv abb rr lc) (bytes/32bit ls rtt rttv abb rr lc)]
+    [(Handshake _ _ u s i m1 m2 ct ch syn pip)
+     (bytes-append (bytes/32bit u (SocketType->Nat s) m1 m2) 
+                   (i->b ct 4 #t) (bytes/32bit ch syn)
+                   (i->b pip 16))]))
 
 ;; ---------------
 ;; DESERIALIZATION
 ;; ---------------
-
 (: bytes->packet (Bytes -> ControlPacket))
 (define (bytes->packet b)
   (match (16thbitoff (integer-bytes->integer b #f #t 0 2))
@@ -96,27 +120,6 @@
     [#x5 (deserialize/shutdown b)]
     [#x6 (deserialize/ack2 b)]
     [#x7 (deserialize/dropreq b)]))
-
-(: raise-parse-error (String -> Nothing))
-(define (raise-parse-error str)
-  (raise (make-exn:fail str (current-continuation-marks))))
-
-(: natcheck (Number -> Natural))
-(define (natcheck v)
-  (if (exact-nonnegative-integer? v) v
-      (raise-parse-error "Found negative number where natural should have been")))
-
-;; take32: take 32 bits of data starting at `s' and 
-;; convert data to natural number. raise exn if not natural number
-(: take32 (Bytes Natural -> Natural))
-(define (take32 b s) (natcheck (b->i (subbytes b s (+ 4 s)))))
-(: take32/signed (Bytes Natural -> Integer))
-(define (take32/signed b s) (b->i (subbytes b s (+ 4 s)) #t))
-
-;; take128: take 128 bits of data starting at `s' and 
-;; convert data to natural number. raise exn if not natural number
-(: take128 (Bytes Natural -> Natural))
-(define (take128 b s) (natcheck (b->i (subbytes b s (+ 16 s)))))
 
 ;; the `additional info' field in the UDT control header
 (: additional (Bytes -> Natural))
@@ -187,6 +190,9 @@
     [else(DropReq (timestamp b) (destid b) (additional b) 
                   (take32 b 16) (take32 b 20))]))
 
+;; -----
+;; TESTS
+;; -----
 (define sp (Shutdown 5 5))
 (define kap (KeepAlive (abs (sub1 (expt 2 32))) 55555))
 (time (bytes->packet (packet->bytes sp)))
