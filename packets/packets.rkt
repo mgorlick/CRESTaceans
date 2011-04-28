@@ -28,14 +28,33 @@
 
 (define-type SocketType (U 'Stream 'Dgram))
 
-(: SocketType->Nat (SocketType -> Natural))
-(define/match (SocketType->Nat s)
-  ['Stream 0]
-  ['Dgram 1])
-(: Nat->SocketType (Natural -> SocketType))
-(define/match (Nat->SocketType i)
-  [0 'Stream]
-  [1 'Dgram])
+(: SType->Nat (SocketType -> Natural))
+(define (SType->Nat s)
+  (cond [(equal? s 'Stream) 0]
+        [(equal? s 'Dgram) 1]))
+  
+(: Nat->SType (Natural -> SocketType))
+(define (Nat->SType i)
+  (cond [(equal? i 0) 'Stream]
+        [(equal? i 1) 'Dgram]
+        [else (raise-parse-error (format "Invalid value for socket type: ~a" i))]))
+
+(define-type ConnectionType (U 'Deny 'Accept 'CSReq 'RDVReq))
+
+(: CType->Nat (ConnectionType -> Natural))
+(define (CType->Nat c)
+  (cond [(equal? c 'Deny) 0]
+        [(equal? c 'Accept) 1]
+        [(equal? c 'CSReq) 2]
+        [(equal? c 'RDVReq) 3]))
+
+(: Nat->CType (Natural -> ConnectionType))
+(define (Nat->CType i)
+  (cond [(equal? i 0) 'Deny]
+        [(equal? i 1) 'Accept]
+        [(equal? i 2) 'CSReq]
+        [(equal? i 3) 'RDVReq]
+        [else (raise-parse-error (format "Invalid value for connection type: ~a" i))]))
 
 (struct: Shutdown Packet () #:transparent)
 
@@ -52,7 +71,7 @@
                            [initSeqNo : Natural]
                            [maxPacketSize : Natural]
                            [maxFlowWindowSize : Natural]
-                           [connectionType : Integer] ; XXX fixme convert to union once valid values known
+                           [connectionType : ConnectionType]
                            [channelID : Natural]
                            [SYNcookie : Natural]) #:transparent)
 #|[peerIP : Natural] 

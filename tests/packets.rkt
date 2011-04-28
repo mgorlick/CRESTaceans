@@ -1,3 +1,4 @@
+#! /usr/bin/env racket
 #lang racket
 
 (require rackunit
@@ -38,10 +39,14 @@
   
   (test-case
    "Handshake: Present Control fields, no Additional field"
-   (define hp1 (make-Handshake 55 0 4 'Dgram 0 top32 top32 1 55 67))
-   (define hp2 (make-Handshake 0 123 0 'Stream 592395 0 1 -1 top32 top32))
+   (define hp1 (make-Handshake 55 0 4 'Dgram 0 top32 top32 'CSReq 55 67))
+   (define hp2 (make-Handshake 0 123 0 'Stream 592395 0 1 'RDVReq top32 top32))
+   (define hp3 (make-Handshake 55 0 4 'Stream 0 top32 top32 'Deny 55 67))
+   (define hp4 (make-Handshake 0 123 0 'Dgram 592395 0 1 'Accept top32 top32))
    (check-equal? hp1 (roundtrip hp1))
-   (check-equal? hp2 (roundtrip hp2)))
+   (check-equal? hp2 (roundtrip hp2))
+   (check-equal? hp3 (roundtrip hp3))
+   (check-equal? hp4 (roundtrip hp4)))
   
   (test-case
    "Medium ACK: Present Control fields, present Additional field"
