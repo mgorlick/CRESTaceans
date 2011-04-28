@@ -8,10 +8,10 @@
 ;; -------------
 ;; SERIALIZATION
 ;; -------------
-(: packet->bytes (ControlPacket -> Bytes))
-(define (packet->bytes p)
-  (bytes-append (typeline-bytes p) (additional-bytes p) 
-                (timestamp-bytes p) (destID-bytes p) 
+(: cpacket->bytes (ControlPacket -> Bytes))
+(define (cpacket->bytes p)
+  (bytes-append (typeline-bytes p) (additional-bytes p)
+                (timestamp-bytes p) (destid-bytes p) 
                 (controlinfo-bytes p)))
 
 ; line 1 of the control header packet:
@@ -25,7 +25,7 @@
                          [(Shutdown? p) #x5]
                          [(ACK2? p) #x6] 
                          [(DropReq? p) #x7]))
-  (bytes-append (i->b (16thbiton ctrlcode) 2) #"\0\0"))
+  (bytes-append (i->b (biton 15 ctrlcode) 2) #"\0\0"))
 
 ; line 2 of the control header packet: depends on packet type
 (: additional-bytes (ControlPacket -> Bytes))
@@ -34,14 +34,6 @@
         [(ACK2? p) (make32 (ACK2-ACKNo p))]
         [(DropReq? p) (make32 (DropReq-messageID p))]
         [else #"\0\0\0\0"]))
-
-; line 3 of the control header packet
-(: timestamp-bytes (ControlPacket -> Bytes))
-(define (timestamp-bytes p) (make32 (Packet-stamp p)))
-
-; line 4 of the control header packet
-(: destID-bytes (ControlPacket -> Bytes))
-(define (destID-bytes p) (make32 (Packet-destID p)))
 
 (: controlinfo-bytes (ControlPacket -> Bytes))
 (define (controlinfo-bytes p)
@@ -57,9 +49,9 @@
 ;; ---------------
 ;; DESERIALIZATION
 ;; ---------------
-(: bytes->packet (Bytes -> ControlPacket))
-(define (bytes->packet b)
-  (match (16thbitoff (integer-bytes->integer b #f #t 0 2))
+(: bytes->cpacket (Bytes -> ControlPacket))
+(define (bytes->cpacket b)
+  (match (bitoff 15 (integer-bytes->integer b #f #t 0 2))
     [#x0 (deserialize/handshake b)]
     [#x1 (deserialize/keepalive b)]
     [#x2 (deserialize/ack b)]
@@ -71,18 +63,6 @@
 ;; the `additional info' field in the UDT control header
 (: additional (Bytes -> Natural))
 (define (additional b) (take32 b 4))
-
-;; the `timestamp' field in the UDT control header
-(: timestamp (Bytes -> Natural))
-(define (timestamp b) (take32 b 8))
-
-;; the `destination socket ID' field in the UDT control header
-(: destid (Bytes -> Natural))
-(define (destid b) (take32 b 12))
-
-;; all packets must be at least 128 bits long
-(: lacks-full-header? (Bytes -> Boolean))
-(define (lacks-full-header? b) (< (bytes-length b) 16))
 
 (: deserialize/keepalive (Bytes -> KeepAlive))
 (define (deserialize/keepalive b)

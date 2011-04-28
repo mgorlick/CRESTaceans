@@ -1,12 +1,31 @@
 #lang typed/racket
 
-(require "util.rkt"
-         "dm.rkt")
+(require "util.rkt")
 
 (provide (all-defined-out))
 
 (struct: Packet ([stamp : Natural]
                  [destID : Natural]) #:transparent)
+
+; line 3 of the header packet
+(: timestamp-bytes (Packet -> Bytes))
+(define (timestamp-bytes p) (make32 (Packet-stamp p)))
+
+; line 4 of the header packet
+(: destid-bytes (Packet -> Bytes))
+(define (destid-bytes p) (make32 (Packet-destID p)))
+
+;; the `timestamp' field in the UDT header
+(: timestamp (Bytes -> Natural))
+(define (timestamp b) (take32 b 8))
+
+;; the `destination socket ID' field in the UDT header
+(: destid (Bytes -> Natural))
+(define (destid b) (take32 b 12))
+
+;; all packets must be at least 128 bits long
+(: lacks-full-header? (Bytes -> Boolean))
+(define (lacks-full-header? b) (< (bytes-length b) 16))
 
 ;;; ------------
 ;;; DATA PACKETS
@@ -17,7 +36,10 @@
 (struct: DataPacket Packet ([seqNo : Natural] ; 31 bits
                             [msgNo : Natural] ; 29 bits
                             [posn : Posn]
-                            [inOrder? : Boolean]) #:transparent)
+                            [inOrder? : Boolean]
+                            [body : Bytes]) #:transparent)
+
+(define make-DataPacket DataPacket)
 
 ;;; ---------------
 ;;; CONTROL PACKETS
