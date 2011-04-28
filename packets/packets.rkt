@@ -37,37 +37,51 @@
   [0 'Stream]
   [1 'Dgram])
 
+(struct: Shutdown Packet () #:transparent)
+
+(struct: KeepAlive Packet () #:transparent)
+
+(struct: LightACK Packet ([ACKNo : Natural]) #:transparent)
+
+(struct: ACK2 Packet ([ACKNo : Natural]) #:transparent)
+
+(struct: NAK Packet ([lossInfo : Natural]) #:transparent)
+
 (struct: Handshake Packet ([udtVersion : Natural]
                            [socketType : SocketType]
                            [initSeqNo : Natural]
                            [maxPacketSize : Natural]
                            [maxFlowWindowSize : Natural]
-                           [connectionType : Integer]
+                           [connectionType : Integer] ; XXX fixme convert to union once valid values known
                            [channelID : Natural]
-                           [SYNcookie : Natural]
-                           [peerIP : Natural] ; 128 bits
-                           ) #:transparent)
-
-(struct: KeepAlive Packet ())
-
-(struct: LightACK Packet ([ACKNo : Natural]))
-(struct: MedACK LightACK ([lastSeqNo : Natural]
-                          [RTT : Natural]
-                          [RTTVariance : Natural]))
-(struct: FullACK MedACK ([availBuffBytes : Natural]
-                         [receiveRate : Natural]
-                         [linkCap : Natural]))
-(define-type ACK (U LightACK MedACK FullACK))
-(define-predicate ACK? ACK)
-
-(struct: NAK Packet ([lossInfo : Natural]))
-
-(struct: ACK2 Packet ([ACKNo : Natural]))
+                           [SYNcookie : Natural]) #:transparent)
+#|[peerIP : Natural] 
+XXX fixme skipping for now, 
+like Java impl) #:transparent) |#
 
 (struct: DropReq Packet ([messageID : Natural]
                          [firstSeqNo : Natural]
-                         [lastSeqNo : Natural]))
+                         [lastSeqNo : Natural]) #:transparent)
 
-(struct: Shutdown Packet ())
+(struct: MedACK LightACK ([lastSeqNo : Natural]
+                          [RTT : Natural]
+                          [RTTVariance : Natural]) #:transparent)
+
+(struct: FullACK MedACK ([availBuffBytes : Natural]
+                         [receiveRate : Natural]
+                         [linkCap : Natural]) #:transparent)
+
+(define-type ACK (U LightACK MedACK FullACK))
+(define-predicate ACK? ACK)
+
+(define make-Handshake Handshake)
+(define make-Shutdown Shutdown)
+(define make-KeepAlive KeepAlive)
+(define make-LightACK LightACK)
+(define make-MedACK MedACK)
+(define make-FullACK FullACK)
+(define make-NAK NAK)
+(define make-ACK2 ACK2)
+(define make-DropReq DropReq)
 
 ;; XXX Fixme implement user defined control packet

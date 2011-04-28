@@ -3,7 +3,7 @@
 (require "util.rkt"
          "packets.rkt")
 
-(provide (prefix-out control/ (all-defined-out)))
+(provide (all-defined-out))
 
 ;; ---------
 ;; UTILITIES
@@ -32,7 +32,9 @@
 ;; all of the naturals supplied
 ;; after converting to unsigned 4-byte numbers
 (: bytes/32bit (Natural * -> Bytes))
-(define (bytes/32bit . ns) (foldl bytes-append #"" (map (λ: ([i : Natural]) (i->b i 4)) ns)))
+(define (bytes/32bit . ns) 
+  (foldl (λ: ([b : Bytes] [acc : Bytes])
+             (bytes-append acc b)) #"" (map (λ: ([i : Natural]) (i->b i 4)) ns)))
 
 ;; session managers should catch exn:fail when they
 ;; try to parse control packets
@@ -54,11 +56,6 @@
 (define (take32 b s) (natcheck (b->i (subbytes b s (+ 4 s)))))
 (: take32/signed (Bytes Natural -> Integer))
 (define (take32/signed b s) (b->i (subbytes b s (+ 4 s)) #t))
-
-;; take128: take 128 bits of data starting at `s' and 
-;; convert data to natural number. raise exn if not natural number
-(: take128 (Bytes Natural -> Natural))
-(define (take128 b s) (natcheck (b->i (subbytes b s (+ 16 s)))))
 
 ;; -------------
 ;; SERIALIZATION
@@ -97,15 +94,14 @@
 (: controlinfo-bytes (ControlPacket -> Bytes))
 (define (controlinfo-bytes p)
   (match p
-    [(or (KeepAlive _ _) (Shutdown _ _) (ACK2 _ _ _) (LightACK _ _ _)) #""]
     [(NAK _ _ li) (bytes/32bit li)]
     [(DropReq _ _ _ f l) (bytes/32bit f l)]
-    [(MedACK _ _ _ ls rtt rttv) (bytes/32bit ls rtt rttv)]
     [(FullACK _ _ _ ls rtt rttv abb rr lc) (bytes/32bit ls rtt rttv abb rr lc)]
-    [(Handshake _ _ u s i m1 m2 ct ch syn pip)
-     (bytes-append (bytes/32bit u (SocketType->Nat s) m1 m2) 
-                   (i->b ct 4 #t) (bytes/32bit ch syn)
-                   (i->b pip 16))]))
+    [(MedACK _ _ _ ls rtt rttv) (bytes/32bit ls rtt rttv)]
+    [(Handshake _ _ u type initseqno m1 m2 ct ch syn #|pip|#)
+     (bytes-append (bytes/32bit u (SocketType->Nat type) initseqno m1 m2)
+                   (i->b ct 4 #t) (bytes/32bit ch syn))]
+    [(or (KeepAlive _ _) (Shutdown _ _) (ACK2 _ _ _) (LightACK _ _ _)) #""]))
 
 ;; ---------------
 ;; DESERIALIZATION
@@ -137,16 +133,6 @@
 (: lacks-full-header? (Bytes -> Boolean))
 (define (lacks-full-header? b) (< (bytes-length b) 16))
 
-(: deserialize/handshake (Bytes -> Handshake))
-(define (deserialize/handshake b)
-  (cond [(< (bytes-length b) 64) ; header + ip + 8x32bit fields
-         (raise-parse-error "Invalid handshake packet length")]
-        [else (Handshake (timestamp b) (destid b) (take32 b 16) 
-                         (Nat->SocketType (take32 b 20))
-                         (take32 b 24) (take32 b 28) (take32 b 32)
-                         (take32/signed b 36) (take32 b 40) (take32 b 44)
-                         (take128 b 48))]))
-
 (: deserialize/keepalive (Bytes -> KeepAlive))
 (define (deserialize/keepalive b)
   (cond [(lacks-full-header? b) (raise-parse-error "Invalid keep-alive length")]
@@ -156,6 +142,34 @@
 (define (deserialize/shutdown b)
   (cond [(lacks-full-header? b) (raise-parse-error "Invalid shutdown length")]
         [else (Shutdown (timestamp b) (destid b))]))
+
+(: deserialize/nak (Bytes -> NAK))
+(define (deserialize/nak b)
+  (cond [(< (bytes-length b) 20) (raise-parse-error "Invalid nak length")]
+        [else (NAK (timestamp b) (destid b) (take32 b 16))]))
+
+(: deserialize/ack2 (Bytes -> ACK2))
+(define (deserialize/ack2 b)
+  (cond [(lacks-full-header? b) (raise-parse-error "Invalid ack2 length")]
+        [else (ACK2 (timestamp b) (destid b) (additional b))]))
+
+(: deserialize/dropreq (Bytes -> DropReq))
+(define (deserialize/dropreq b)
+  (cond [(< (bytes-length b) 24) (raise-parse-error "Invalid drop request length")]
+        [else (DropReq (timestamp b) (destid b) (additional b) 
+                       (take32 b 16) (take32 b 20))]))
+
+(: deserialize/handshake (Bytes -> Handshake))
+(define (deserialize/handshake b)
+  (cond [(< (bytes-length b) 48) ; version for skipping ip
+         ;(< (bytes-length b) 64) ; header + ip + 8x32bit fields
+         (raise-parse-error "Invalid handshake packet length")]
+        [else (Handshake (timestamp b) (destid b) (take32 b 16) 
+                         (Nat->SocketType (take32 b 20))
+                         (take32 b 24) (take32 b 28) (take32 b 32)
+                         (take32/signed b 36) (take32 b 40) (take32 b 44)
+                         ;(take128 b 48)
+                         )]))
 
 (: deserialize/ack (Bytes -> ACK))
 (define (deserialize/ack b)
@@ -170,30 +184,3 @@
          (FullACK (timestamp b) (destid b) (additional b)
                   (take32 b 16) (take32 b 20) (take32 b 24)
                   (take32 b 28) (take32 b 32) (take32 b 36))]))
-
-(: deserialize/nak (Bytes -> NAK))
-(define (deserialize/nak b)
-  (cond
-    [(< (bytes-length b) 20) (raise-parse-error "Invalid nak length")]
-    [else (NAK (timestamp b) (destid b) (take32 b 16))]))
-
-(: deserialize/ack2 (Bytes -> ACK2))
-(define (deserialize/ack2 b)
-  (cond
-    [(< (bytes-length b) 20) (raise-parse-error "Invalid ack2 length")]
-    [else (ACK2 (timestamp b) (destid b) (additional b))]))
-
-(: deserialize/dropreq (Bytes -> DropReq))
-(define (deserialize/dropreq b)
-  (cond
-    [(< (bytes-length b) 24) (raise-parse-error "Invalid drop request length")]
-    [else(DropReq (timestamp b) (destid b) (additional b) 
-                  (take32 b 16) (take32 b 20))]))
-
-;; -----
-;; TESTS
-;; -----
-(define sp (Shutdown 5 5))
-(define kap (KeepAlive (abs (sub1 (expt 2 32))) 55555))
-(time (bytes->packet (packet->bytes sp)))
-(time (bytes->packet (packet->bytes kap)))
