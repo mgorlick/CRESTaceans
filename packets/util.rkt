@@ -32,8 +32,8 @@
     (integer-bytes->integer b signed? #t)}))
 
 ;; calls parameters of f in reverse order
-(: fromR (All (a b) (a a -> b) -> (a a -> b)))
-(define (fromR f) (λ: ([a1 : a] [a2 : a]) (f a2 a1)))
+(: fromR (All (a b c) (a b -> c) -> (b a -> c)))
+(define (fromR f) (λ: ([e2 : b] [e1 : a]) (f e1 e2)))
 
 ;; bytes/32bit: bytes-appends the byte representation of
 ;; all of the naturals supplied
