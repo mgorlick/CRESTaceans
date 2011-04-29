@@ -7,7 +7,8 @@
          "../packets/util.rkt"
          "../packets/packets.rkt"
          "../packets/control.rkt"
-         "../packets/data.rkt")
+         "../packets/data.rkt"
+         "../packets/send-data.rkt")
 
 (define ctrl-serialization-tests
   (let ([roundtrip (compose bytes->cpacket cpacket->bytes)]
@@ -137,7 +138,36 @@
       (check-pred has-min-header? only/unordered)
       (check-equal? only/unordered (roundtrip only/unordered))))))
 
+(define msg-construction-tests
+  (let ()
+    (define origSeq 49)
+    (define origMsg 99)
+    (define topSeq (biggest 31))
+    (define topMsg (biggest 29))
+    (define-values (p0 lSeq lMsg) (makeMessage origSeq origMsg 5 #"A message"))
+    (define-values (lop0 lSeq2 lMsg2) (makeMultipart lSeq lMsg 5 '(#"Hello" #"World" #"!")))
+    (define-values (lop1 lSeq3 lMsg3) (makeMultipart lSeq2 lMsg2 5 '(#"Foo" #"Bar" #"Baz" #"Quux")))
+    (define-values (p8 lSeq4 lMsg4) (makeMessage lSeq3 lMsg3 5 #"Not a robot"))
+    (define-values (lop2 lSeq5 lMsg5) (makeMultipart lSeq4 lMsg4 5 '(#"Hello" #"fellow" #"cosmonauts")))
+    (define-values (px lSeq6 lMsg6) (makeMessage topSeq topMsg 5 #"Wrap around"))
+    (test-suite
+     "Message construction tests"
+     (test-case
+      "Message and sequence numbers increase by 1 for single message"
+      (check-equal? lSeq (add1 origSeq))
+      (check-equal? lMsg (add1 origMsg)))
+     (test-case
+      "Message increases by 1 and sequence by n for n-part message"
+      (check-equal? lSeq2 (+ 3 lSeq))
+      (check-equal? lMsg2 (add1 lMsg)))
+     (test-case
+      "Sequence and message numbers wrap around"
+      (check-equal? lSeq6 0)
+      (check-equal? lMsg6 0)))))
+
 (displayln "Control packet serialization tests:")
 (time (run-tests ctrl-serialization-tests))
 (displayln "Message serialization tests:")
 (time (run-tests msg-serialization-tests))
+(displayln "Message construction tests:")
+(time (run-tests msg-construction-tests))

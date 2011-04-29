@@ -18,13 +18,29 @@
 (: bitoff (Integer Integer -> Integer))
 (define (bitoff n m) (& m (~ (<< 1 n))))
 
+(: make-timestamp (-> Natural))
+(define (make-timestamp)
+  0)
+
 ;; the biggest unsigned int that can fit into n bits
 (: biggest (Natural -> Natural))
-(define (biggest n) (abs (sub1 (expt 2 n))))
+(define biggest
+  (let: ([h : (HashTable Natural Natural) (make-hash '())])
+    (λ (n)
+      (hash-ref h n (λ ()
+                      (define v (abs (sub1 (expt 2 n))))
+                      (hash-set! h n v)
+                      v)))))
 
 (define top32 (biggest 32))
 (define top31 (biggest 31))
 (define top29 (biggest 29))
+
+(: wrappedSucc (Natural Natural -> Natural))
+(define (wrappedSucc n bits)
+  (if (> (add1 n) (biggest bits))
+      0
+      (add1 n)))
 
 ;; calls parameters of f in reverse order
 (: fromR (All (a b c) (a b -> c) -> (b a -> c)))

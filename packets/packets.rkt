@@ -39,6 +39,12 @@
                             [inOrder? : Boolean]
                             [body : Bytes]) #:transparent)
 
+(struct: FstPacket DataPacket () #:transparent)
+(struct: MidPacket DataPacket () #:transparent)
+(struct: LstPacket DataPacket () #:transparent)
+
+(struct: SinglePacket DataPacket () #:transparent)
+
 (define make-DataPacket DataPacket)
 
 ;;; ---------------
@@ -100,9 +106,9 @@ like Java impl) #:transparent) |#
 
 (struct: ACK2 Packet ([ACKNo : Natural]) #:transparent)
 
-(struct: NAK Packet ([lossInfo : Natural]) #:transparent)
+(struct: NAK Packet ([lossInfo : Natural]) #:transparent) ; XXX array of ints
 
-(struct: LightACK Packet ([ACKNo : Natural]) #:transparent)
+(struct: LightACK Packet ([ACKNo : Natural]) #:transparent) ; XXX also has lseqno
 
 (struct: MedACK Packet ([ACKNo : Natural]
                         [lastSeqNo : Natural]
