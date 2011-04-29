@@ -25,7 +25,7 @@
                          [(Shutdown? p) #x5]
                          [(ACK2? p) #x6] 
                          [(DropReq? p) #x7]))
-  (bytes-append (i->b (biton 15 ctrlcode) 2) #"\0\0"))
+  (bytes-append (integer->integer-bytes (biton 15 ctrlcode) 2 #f #t) #"\0\0"))
 
 ; line 2 of the control header packet: depends on packet type
 (: additional-bytes (ControlPacket -> Bytes))

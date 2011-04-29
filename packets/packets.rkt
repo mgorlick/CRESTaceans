@@ -31,21 +31,26 @@
 ;;; DATA PACKETS
 ;;; ------------
 
-(define-type Posn (U 'First 'Middle 'Last 'Only))
 
-(struct: DataPacket Packet ([seqNo : Natural] ; 31 bits
-                            [msgNo : Natural] ; 29 bits
-                            [posn : Posn]
-                            [inOrder? : Boolean]
-                            [body : Bytes]) #:transparent)
+(struct: DPacket Packet ([seqNo : Natural] ; 31 bits
+                         [msgNo : Natural] ; 29 bits
+                         [inOrder? : Boolean]
+                         [body : Bytes]) #:transparent)
 
-(struct: FstPacket DataPacket () #:transparent)
-(struct: MidPacket DataPacket () #:transparent)
-(struct: LstPacket DataPacket () #:transparent)
+;; these are separate types so they can share the implementation of DPacket (e.g., accessors)
+(struct: FstPacket DPacket () #:transparent)
+(struct: MidPacket DPacket () #:transparent)
+(struct: LstPacket DPacket () #:transparent)
+(struct: SinglePacket DPacket () #:transparent)
 
-(struct: SinglePacket DataPacket () #:transparent)
+;; ... then this is used to constrain the actual allowed types of data packets
+;; (i.e., no one can construct a DPacket which does not carry its positionality as a type)
+(define-type DataPacket (U FstPacket MidPacket LstPacket SinglePacket))
 
-(define make-DataPacket DataPacket)
+(define make-FstPacket FstPacket)
+(define make-MidPacket MidPacket)
+(define make-LstPacket LstPacket)
+(define make-SinglePacket SinglePacket)
 
 ;;; ---------------
 ;;; CONTROL PACKETS

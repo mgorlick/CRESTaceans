@@ -91,53 +91,53 @@
      (test-case
       "First message, ordered stream"
       (define first/ordered
-        (make-DataPacket 2555 0 top31 top29 'First #t #"I had to let him go."))
+        (make-FstPacket 2555 0 top31 top29 #t #"I had to let him go."))
       (check-pred has-min-header? first/ordered)
       (check-equal? first/ordered (roundtrip first/ordered)))
      
      (test-case
       "Middle message, ordered stream"
       (define mid/ordered
-        (make-DataPacket 2555 0 0 top29 'Middle #t #"Don't disturb my friend. He's dead tired."))
+        (make-MidPacket 2555 0 0 top29 #t #"Don't disturb my friend. He's dead tired."))
       (check-pred has-min-header? mid/ordered)
       (check-equal? mid/ordered (roundtrip mid/ordered)))
      
      (test-case
       "Last message, ordered stream"
       (define last/ordered
-        (make-DataPacket top32 0 top31 0 'Last #t #"Let off some steam, Bennett."))
+        (make-LstPacket top32 0 top31 0 #t #"Let off some steam, Bennett."))
       (check-pred has-min-header? last/ordered)
       (check-equal? last/ordered (roundtrip last/ordered)))
      
      (test-case
       "Only message, ordered stream"
       (define only/ordered
-        (make-DataPacket 555123 top32 0 top29 'Only #t
+        (make-SinglePacket 555123 top32 0 top29 #t
                          #"I eat Green Berets for breakfast, and right now, I'm very hungry!"))
       (check-pred has-min-header? only/ordered)
       (check-equal? only/ordered (roundtrip only/ordered)))
      
      (test-case
       "First message, unordered stream"
-      (define first/unordered (make-DataPacket 2324 513 top31 top29 'First #f #"No."))
+      (define first/unordered (make-FstPacket 2324 513 top31 top29 #f #"No."))
       (check-pred has-min-header? first/unordered)
       (check-equal? first/unordered (roundtrip first/unordered)))
      
      (test-case
       "Middle message, unordered stream"
-      (define mid/unordered (make-DataPacket 372582 65535 0 top29 'Middle #f #"Wrong!"))
+      (define mid/unordered (make-MidPacket 372582 65535 0 top29 #f #"Wrong!"))
       (check-pred has-min-header? mid/unordered)
       (check-equal? mid/unordered (roundtrip mid/unordered)))
      
      (test-case
       "Last message, unordered stream"
-      (define last/unordered (make-DataPacket 32525 32768 top31 5555 'Last #f #"I lied."))
+      (define last/unordered (make-LstPacket 32525 32768 top31 5555 #f #"I lied."))
       (check-pred has-min-header? last/unordered)
       (check-equal? last/unordered (roundtrip last/unordered)))
      
      (test-case
       "Only message, unordered stream"
-      (define only/unordered (make-DataPacket 0 4412468 0 top29 'Only #f #"I let him go."))
+      (define only/unordered (make-SinglePacket 0 4412468 0 top29 #f #"I let him go."))
       (check-pred has-min-header? only/unordered)
       (check-equal? only/unordered (roundtrip only/unordered))))))
 

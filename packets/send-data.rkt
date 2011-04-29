@@ -20,7 +20,7 @@
 (define (makeMessage lastSeqNo lastMsgNo destID data)
   (define thisSeq (wrappedSucc lastSeqNo 31))
   (define thisMsg (wrappedSucc lastMsgNo 29))
-  (values (SinglePacket (make-timestamp) destID thisSeq thisMsg 'Only #t data) thisSeq thisMsg))
+  (values (SinglePacket (make-timestamp) destID thisSeq thisMsg #t data) thisSeq thisMsg))
 
 ;; makeMultipart: like makeMessage, but takes a list of messages to send instead of a single message,
 ;; and returns a list of packets instead of a single packet. also returns new last sequence and message numbers
@@ -35,7 +35,7 @@
   ;; ContinueMultipart and an EndMultipart
   (: startMultipart (Bytes -> (values FstPacket ContinueMultipart EndMultipart)))
   (define (startMultipart data)
-    (values (FstPacket (make-timestamp) destID thisSeq thisMsg 'First ordered? data)
+    (values (FstPacket (make-timestamp) destID thisSeq thisMsg ordered? data)
             (make-Continuable thisSeq) (make-Endable thisSeq)))
   
   ;; make-Continuable: given the last sequence number used, produces a continuation that
@@ -45,7 +45,7 @@
   (define (make-Continuable lastSeq)
     (λ: ([next-data : Bytes])
         (define nextSeq (wrappedSucc lastSeq 31))
-        (values (MidPacket (make-timestamp) destID nextSeq thisMsg 'Middle ordered? next-data)
+        (values (MidPacket (make-timestamp) destID nextSeq thisMsg ordered? next-data)
                 (make-Continuable nextSeq) (make-Endable nextSeq))))
   
   ;; make-Endable: given the last sequence number, produces a continuation that
@@ -55,7 +55,7 @@
   (define (make-Endable lastSeq)
     (λ: ([next-data : Bytes])
         (define nextSeq (wrappedSucc lastSeq 31))
-        (values (LstPacket (make-timestamp) destID nextSeq thisMsg 'Last ordered? next-data) nextSeq thisMsg)))
+        (values (LstPacket (make-timestamp) destID nextSeq thisMsg ordered? next-data) nextSeq thisMsg)))
   
   ;; make the first packet of the multipart message. 
   ;; then make all the middle packet, following the 

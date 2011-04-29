@@ -11,25 +11,21 @@
 ;; -------------
 (: dpacket->bytes (DataPacket -> Bytes))
 (define (dpacket->bytes p)
-  (bytes-append (seqno-bytes p) (msgno-bytes p) (timestamp-bytes p) (destid-bytes p) (DataPacket-body p)))
+  (bytes-append (seqno-bytes p) (msgno-bytes p) (timestamp-bytes p) (destid-bytes p) (DPacket-body p)))
 
 (: seqno-bytes (DataPacket -> Bytes))
-(define (seqno-bytes p) (make32 (natcheck (bitoff 31 (DataPacket-seqNo p)))))
+(define (seqno-bytes p) (make32 (natcheck (bitoff 31 (DPacket-seqNo p)))))
 
 (: msgno-bytes (DataPacket -> Bytes))
 (define (msgno-bytes p)
-  (make32
-   (setbit/posn (DataPacket-posn p)
-                (setbit/ordered (DataPacket-inOrder? p)
-                                (DataPacket-msgNo p)))))
+  (make32 (setbit/posn p (setbit/ordered (DPacket-inOrder? p) (DPacket-msgNo p)))))
 
-(: setbit/posn (Posn Integer -> Integer))
-(define (setbit/posn posn n)
-  (match posn
-    ['First  (biton  31 (bitoff 30 n))]
-    ['Middle (bitoff 31 (bitoff 30 n))]
-    ['Last   (bitoff 31 (biton  30 n))]
-    ['Only   (biton  31 (biton  30 n))]))
+(: setbit/posn (DataPacket Integer -> Integer))
+(define (setbit/posn p n)
+  (cond [(FstPacket? p)    (biton  31 (bitoff 30 n))]
+        [(MidPacket? p)    (bitoff 31 (bitoff 30 n))]
+        [(LstPacket? p)    (bitoff 31 (biton  30 n))]
+        [(SinglePacket? p) (biton  31 (biton  30 n))]))
 
 (: setbit/ordered (Boolean Integer -> Integer))
 (define (setbit/ordered inorder? n)
@@ -44,9 +40,9 @@
 (: bytes->dpacket (Bytes -> DataPacket))
 (define (bytes->dpacket b)
   (cond [(lacks-full-header? b) (raise-parse-error "Invalid data packet")]
-        [else (DataPacket (timestamp b) (destid b) (seqno b) (msgno b)
-                          (Nat->Posn (take32 b 4)) (bitwise-bit-set? (take32 b 4) 29)
-                          (subbytes b 16))]))
+        [else ((typecons b) (timestamp b) (destid b) (seqno b) (msgno b)
+                            (bitwise-bit-set? (take32 b 4) 29)
+                            (subbytes b 16))]))
 
 (: msgno (Bytes -> Natural))
 (define (msgno b) (natcheck (bitoff 31 (bitoff 30 (bitoff 29 (take32 b 4))))))
@@ -54,10 +50,10 @@
 (: seqno (Bytes -> Natural))
 (define (seqno b) (natcheck (bitoff 31 (take32 b 0))))
 
-(: Nat->Posn (Natural -> Posn))
-(define (Nat->Posn n)
-  (match (bitwise-bit-field n 30 32)
-    [2 'First] ; (1 0)
-    [0 'Middle] ; (0 0)
-    [1 'Last] ; (0 1)
-    [3 'Only])) ; (1 1)
+(: typecons (Bytes -> (Natural Natural Natural Natural Boolean Bytes -> DataPacket)))
+(define (typecons b)
+  (match (bitwise-bit-field (take32 b 4) 30 32)
+    [2 FstPacket]
+    [0 MidPacket]
+    [1 LstPacket]
+    [3 SinglePacket]))
