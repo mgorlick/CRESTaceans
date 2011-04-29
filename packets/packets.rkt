@@ -106,7 +106,7 @@ like Java impl) #:transparent) |#
 
 (struct: ACK2 Packet ([ACKNo : Natural]) #:transparent)
 
-(struct: NAK Packet ([lossInfo : Natural]) #:transparent) ; XXX array of ints
+(struct: NAK Packet ([lossInfo : (Listof Natural)]) #:transparent)
 
 (struct: LightACK Packet ([ACKNo : Natural]) #:transparent) ; XXX also has lseqno
 

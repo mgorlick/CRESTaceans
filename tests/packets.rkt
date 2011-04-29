@@ -42,9 +42,12 @@
      
      (test-case
       "NAK: Present Control fields, no Additional field"
-      (define nakp (make-NAK top32 top32 top32))
+      (define nakp (make-NAK top32 top32 (list top32)))
+      (define nakp2 (make-NAK top32 top32 (list 0 1 2 3)))
       (check-pred has-min-header? nakp)
-      (check-equal? nakp (roundtrip nakp)))
+      (check-pred has-min-header? nakp2)
+      (check-equal? nakp (roundtrip nakp))
+      (check-equal? nakp2 (roundtrip nakp2)))
      
      (test-case
       "Handshake: Present Control fields, no Additional field"

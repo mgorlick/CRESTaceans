@@ -41,7 +41,7 @@
 (: controlinfo-bytes (ControlPacket -> Bytes))
 (define (controlinfo-bytes p)
   (match p
-    [(NAK _ _ li) (bytes/32bit li)]
+    [(NAK _ _ li) (apply bytes-append (map make32 li))]
     [(DropReq _ _ _ f l) (bytes/32bit f l)]
     [(FullACK _ _ _ ls rtt rttvar abb rr lc) (bytes/32bit ls rtt rttvar abb rr lc)]
     [(MedACK _ _ _ ls rtt rttv) (bytes/32bit ls rtt rttv)]
@@ -81,8 +81,14 @@
 
 (: deserialize/nak (Bytes -> NAK))
 (define (deserialize/nak b)
+  (: nats (Bytes -> (Listof Natural)))
+  (define (nats b)
+    (let: loop : (Listof Natural) ([c : Natural 16])
+      (if (< (bytes-length b) (+ c 4))
+          empty
+          (cons (take32 b c) (loop (+ c 4))))))
   (cond [(< (bytes-length b) 20) (raise-parse-error "Invalid nak length")]
-        [else (NAK (timestamp b) (destid b) (take32 b 16))]))
+        [else (NAK (timestamp b) (destid b) (nats b))]))
 
 (: deserialize/ack2 (Bytes -> ACK2))
 (define (deserialize/ack2 b)
