@@ -48,7 +48,9 @@
    {([b : Bytes])
     (integer-bytes->integer b #f #t)}
    {([b : Bytes] [signed? : Boolean])
-    (integer-bytes->integer b signed? #t)}))
+    (integer-bytes->integer b signed? #t)}
+   {([b : Bytes] [signed? : Boolean] [start : Natural] [end : Natural])
+    (integer-bytes->integer b signed? #t start end)}))
 
 ;; make32: make 32 bits of byte data from an unsigned int
 (: make32 (Integer -> Bytes))
@@ -74,4 +76,4 @@
 ;; take32: take 32 bits of data starting at `s' and 
 ;; convert data to natural number. raise exn if not natural number
 (: take32 (Bytes Natural -> Natural))
-(define (take32 b s) (natcheck (b->i (subbytes b s (+ 4 s)))))
+(define (take32 b s) (natcheck (b->i b #f s (+ 4 s))))

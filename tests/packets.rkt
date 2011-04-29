@@ -137,5 +137,7 @@
       (check-pred has-min-header? only/unordered)
       (check-equal? only/unordered (roundtrip only/unordered))))))
 
+(displayln "Control packet serialization tests:")
 (time (run-tests ctrl-serialization-tests))
+(displayln "Message serialization tests:")
 (time (run-tests msg-serialization-tests))

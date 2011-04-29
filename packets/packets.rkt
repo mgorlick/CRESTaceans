@@ -54,7 +54,7 @@
 (define (SType->Nat s)
   (cond [(equal? s 'Stream) 0]
         [(equal? s 'Dgram) 1]))
-  
+
 (: Nat->SType (Natural -> SocketType))
 (define (Nat->SType i)
   (cond [(equal? i 0) 'Stream]
@@ -82,12 +82,6 @@
 
 (struct: KeepAlive Packet () #:transparent)
 
-(struct: LightACK Packet ([ACKNo : Natural]) #:transparent)
-
-(struct: ACK2 Packet ([ACKNo : Natural]) #:transparent)
-
-(struct: NAK Packet ([lossInfo : Natural]) #:transparent)
-
 (struct: Handshake Packet ([udtVersion : Natural]
                            [socketType : SocketType]
                            [initSeqNo : Natural]
@@ -104,11 +98,22 @@ like Java impl) #:transparent) |#
                          [firstSeqNo : Natural]
                          [lastSeqNo : Natural]) #:transparent)
 
-(struct: MedACK LightACK ([lastSeqNo : Natural]
-                          [RTT : Natural]
-                          [RTTVariance : Natural]) #:transparent)
+(struct: ACK2 Packet ([ACKNo : Natural]) #:transparent)
 
-(struct: FullACK MedACK ([availBuffBytes : Natural]
+(struct: NAK Packet ([lossInfo : Natural]) #:transparent)
+
+(struct: LightACK Packet ([ACKNo : Natural]) #:transparent)
+
+(struct: MedACK Packet ([ACKNo : Natural]
+                        [lastSeqNo : Natural]
+                        [RTT : Natural]
+                        [RTTVariance : Natural]) #:transparent)
+
+(struct: FullACK Packet ([ACKNo : Natural]
+                         [lastSeqNo : Natural]
+                         [RTT : Natural]
+                         [RTTVariance : Natural]
+                         [availBuffBytes : Natural]
                          [receiveRate : Natural]
                          [linkCap : Natural]) #:transparent)
 

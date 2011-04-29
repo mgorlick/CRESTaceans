@@ -30,28 +30,30 @@
 ; line 2 of the control header packet: depends on packet type
 (: additional-bytes (ControlPacket -> Bytes))
 (define (additional-bytes p)
-  (cond [(ACK? p) (make32 (LightACK-ACKNo p))]
-        [(ACK2? p) (make32 (ACK2-ACKNo p))]
-        [(DropReq? p) (make32 (DropReq-messageID p))]
-        [else #"\0\0\0\0"]))
+  (match p
+    [(LightACK _ _ ackno) (make32 ackno)]
+    [(MedACK _ _ ackno _ _ _) (make32 ackno)]
+    [(FullACK _ _ ackno _ _ _ _ _ _) (make32 ackno)]
+    [(ACK2 _ _ ackno) (make32 ackno)]
+    [(DropReq _ _ mid _ _) (make32 mid)]
+    [_ #"\0\0\0\0"]))
 
 (: controlinfo-bytes (ControlPacket -> Bytes))
 (define (controlinfo-bytes p)
   (match p
     [(NAK _ _ li) (bytes/32bit li)]
     [(DropReq _ _ _ f l) (bytes/32bit f l)]
-    [(FullACK _ _ _ ls rtt rttv abb rr lc) (bytes/32bit ls rtt rttv abb rr lc)]
+    [(FullACK _ _ _ ls rtt rttvar abb rr lc) (bytes/32bit ls rtt rttvar abb rr lc)]
     [(MedACK _ _ _ ls rtt rttv) (bytes/32bit ls rtt rttv)]
-    [(Handshake _ _ u sockt isq m1 m2 cont ch syn)
-     (bytes/32bit u (SType->Nat sockt) isq m1 m2 (CType->Nat cont) ch syn)]
-    [(or (KeepAlive _ _) (Shutdown _ _) (ACK2 _ _ _) (LightACK _ _ _)) #""]))
+    [(Handshake _ _ u st isq m1 m2 ct ch syn) (bytes/32bit u (SType->Nat st) isq m1 m2 (CType->Nat ct) ch syn)]
+    [_ #""]))
 
 ;; ---------------
 ;; DESERIALIZATION
 ;; ---------------
 (: bytes->cpacket (Bytes -> ControlPacket))
 (define (bytes->cpacket b)
-  (match (bitoff 15 (integer-bytes->integer b #f #t 0 2))
+  (match (type b)
     [#x0 (deserialize/handshake b)]
     [#x1 (deserialize/keepalive b)]
     [#x2 (deserialize/ack b)]
@@ -59,6 +61,9 @@
     [#x5 (deserialize/shutdown b)]
     [#x6 (deserialize/ack2 b)]
     [#x7 (deserialize/dropreq b)]))
+
+(: type (Bytes -> Integer))
+(define (type b) (bitoff 15 (integer-bytes->integer b #f #t 0 2)))
 
 ;; the `additional info' field in the UDT control header
 (: additional (Bytes -> Natural))

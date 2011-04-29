@@ -11,9 +11,7 @@
 ;; -------------
 (: dpacket->bytes (DataPacket -> Bytes))
 (define (dpacket->bytes p)
-  (bytes-append (seqno-bytes p) (msgno-bytes p)
-                (timestamp-bytes p) (destid-bytes p)
-                (DataPacket-body p)))
+  (bytes-append (seqno-bytes p) (msgno-bytes p) (timestamp-bytes p) (destid-bytes p) (DataPacket-body p)))
 
 (: seqno-bytes (DataPacket -> Bytes))
 (define (seqno-bytes p) (make32 (natcheck (bitoff 31 (DataPacket-seqNo p)))))
@@ -35,9 +33,9 @@
 
 (: setbit/ordered (Boolean Integer -> Integer))
 (define (setbit/ordered inorder? n)
-  (match inorder?
-    [#t (biton  29 n)]
-    [#f (bitoff 29 n)]))
+  (if inorder?
+      (biton  29 n)
+      (bitoff 29 n)))
 
 ;; ---------------
 ;; DESERIALIZATION
