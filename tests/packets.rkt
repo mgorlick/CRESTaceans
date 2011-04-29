@@ -36,7 +36,7 @@
      
      (test-case
       "Light ACK: No Control fields, present Additional field"
-      (define lakp (make-LightACK 6553 top32 29))
+      (define lakp (make-LightACK 6553 top32 29 top32))
       (check-pred has-min-header? lakp)
       (check-equal? lakp (roundtrip lakp)))
      

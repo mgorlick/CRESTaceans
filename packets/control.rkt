@@ -31,7 +31,7 @@
 (: additional-bytes (ControlPacket -> Bytes))
 (define (additional-bytes p)
   (match p
-    [(LightACK _ _ ackno) (make32 ackno)]
+    [(LightACK _ _ ackno _) (make32 ackno)]
     [(MedACK _ _ ackno _ _ _) (make32 ackno)]
     [(FullACK _ _ ackno _ _ _ _ _ _) (make32 ackno)]
     [(ACK2 _ _ ackno) (make32 ackno)]
@@ -45,6 +45,7 @@
     [(DropReq _ _ _ f l) (bytes/32bit f l)]
     [(FullACK _ _ _ ls rtt rttvar abb rr lc) (bytes/32bit ls rtt rttvar abb rr lc)]
     [(MedACK _ _ _ ls rtt rttv) (bytes/32bit ls rtt rttv)]
+    [(LightACK _ _ _ ls) (bytes/32bit ls)]
     [(Handshake _ _ u st isq m1 m2 ct ch syn) (bytes/32bit u (SType->Nat st) isq m1 m2 (CType->Nat ct) ch syn)]
     [_ #""]))
 
@@ -109,8 +110,8 @@
 
 (: deserialize/ack (Bytes -> ACK))
 (define (deserialize/ack b)
-  (cond [(lacks-full-header? b) (raise-parse-error "Invalid ack length")]
-        [(< (bytes-length b) 28) (LightACK (timestamp b) (destid b) (additional b))]
+  (cond [(< (bytes-length b) 20) (raise-parse-error "Invalid ack length")]
+        [(< (bytes-length b) 28) (LightACK (timestamp b) (destid b) (additional b) (take32 b 16))]
         [(< (bytes-length b) 40) (MedACK (timestamp b) (destid b) (additional b)
                                          (take32 b 16) (take32 b 20) (take32 b 24))]
         [else (FullACK (timestamp b) (destid b) (additional b)

@@ -108,7 +108,8 @@ like Java impl) #:transparent) |#
 
 (struct: NAK Packet ([lossInfo : (Listof Natural)]) #:transparent)
 
-(struct: LightACK Packet ([ACKNo : Natural]) #:transparent) ; XXX also has lseqno
+(struct: LightACK Packet ([ACKNo : Natural]
+                          [lastSeqNo : Natural]) #:transparent)
 
 (struct: MedACK Packet ([ACKNo : Natural]
                         [lastSeqNo : Natural]
