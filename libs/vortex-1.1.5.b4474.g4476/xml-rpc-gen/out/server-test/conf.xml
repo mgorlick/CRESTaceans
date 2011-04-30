@@ -1,6 +1,0 @@
-<vortex-listener>
-  <listener>
-     <hostname>0.0.0.0</hostname>
-     <port>44000</port>
-  </listener>
-</vortex-listener>

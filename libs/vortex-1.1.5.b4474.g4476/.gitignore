@@ -1,8 +1,0 @@
-Makefile
-Makefile.win
-*.Plo
-.deps
-*.pc
-xml-rpc-gen-1.1
-config.log
-config.status
