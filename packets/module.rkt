@@ -2,9 +2,16 @@
 
 (require "packets.rkt"
          "data.rkt"
-         "control.rkt")
+         "control.rkt"
+         "send-data.rkt"
+         "util.rkt")
 
-(provide (all-defined-out))
+(provide (all-defined-out)
+         (all-from-out "packets.rkt"
+                       "data.rkt"
+                       "control.rkt"
+                       "send-data.rkt"
+                       "util.rkt"))
 
 (: bytes->packet (Bytes -> (Option (U DataPacket ControlPacket))))
 (define (bytes->packet b)

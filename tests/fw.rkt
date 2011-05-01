@@ -2,11 +2,7 @@
 
 (require rackunit
          rackunit/text-ui
-         "../packets/util.rkt"
-         "../packets/packets.rkt"
-         "../packets/recv.rkt"
-         "../packets/control.rkt"
-         "../packets/data.rkt")
+         "../packets/module.rkt")
 
 (provide (all-defined-out))
 
