@@ -4,11 +4,7 @@
 (require rackunit
          rackunit/text-ui
          rackunit/gui
-         "../packets/util.rkt"
-         "../packets/packets.rkt"
-         "../packets/control.rkt"
-         "../packets/data.rkt"
-         "../packets/send-data.rkt")
+         "../packets/module.rkt")
 
 (define ctrl-serialization-tests
   (let ([roundtrip (compose bytes->cpacket cpacket->bytes)]
