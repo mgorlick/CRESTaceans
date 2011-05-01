@@ -11,14 +11,14 @@
 ;; -------------
 (: dpacket->bytes (DataPacket -> Bytes))
 (define (dpacket->bytes p)
-  (bytes-append (seqno-bytes p) (msgno-bytes p) (timestamp-bytes p) (destid-bytes p) (DPacket-body p)))
+  (bytes-append (seqno-bytes p) (msgno-bytes p) (timestamp-bytes p) (destid-bytes p) (DataPacket-body p)))
 
 (: seqno-bytes (DataPacket -> Bytes))
-(define (seqno-bytes p) (make32 (natcheck (bitoff 31 (DPacket-seqNo p)))))
+(define (seqno-bytes p) (make32 (natcheck (bitoff 31 (DataPacket-seqNo p)))))
 
 (: msgno-bytes (DataPacket -> Bytes))
 (define (msgno-bytes p)
-  (make32 (setbit/posn p (setbit/ordered (DPacket-inOrder? p) (DPacket-msgNo p)))))
+  (make32 (setbit/posn p (setbit/ordered (DataPacket-inOrder? p) (DataPacket-msgNo p)))))
 
 (: setbit/posn (DataPacket Integer -> Integer))
 (define (setbit/posn p n)

@@ -90,30 +90,26 @@
      "Round-tripping of data message serialization and deserialization"
      (test-case
       "First message, ordered stream"
-      (define first/ordered
-        (make-FstPacket 2555 0 top31 top29 #t #"I had to let him go."))
+      (define first/ordered (make-FstPacket 2555 0 top31 top29 #t #"I had to let him go."))
       (check-pred has-min-header? first/ordered)
       (check-equal? first/ordered (roundtrip first/ordered)))
      
      (test-case
       "Middle message, ordered stream"
-      (define mid/ordered
-        (make-MidPacket 2555 0 0 top29 #t #"Don't disturb my friend. He's dead tired."))
+      (define mid/ordered (make-MidPacket 2555 0 0 top29 #t #"Don't disturb my friend. He's dead tired."))
       (check-pred has-min-header? mid/ordered)
       (check-equal? mid/ordered (roundtrip mid/ordered)))
      
      (test-case
       "Last message, ordered stream"
-      (define last/ordered
-        (make-LstPacket top32 0 top31 0 #t #"Let off some steam, Bennett."))
+      (define last/ordered (make-LstPacket top32 0 top31 0 #t #"Let off some steam, Bennett."))
       (check-pred has-min-header? last/ordered)
       (check-equal? last/ordered (roundtrip last/ordered)))
      
      (test-case
       "Only message, ordered stream"
-      (define only/ordered
-        (make-SinglePacket 555123 top32 0 top29 #t
-                         #"I eat Green Berets for breakfast, and right now, I'm very hungry!"))
+      (define only/ordered (make-SinglePacket 555123 top32 0 top29 #t
+                                              #"I eat Green Berets for breakfast, and right now, I'm very hungry!"))
       (check-pred has-min-header? only/ordered)
       (check-equal? only/ordered (roundtrip only/ordered)))
      

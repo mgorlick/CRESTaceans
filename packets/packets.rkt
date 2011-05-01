@@ -2,7 +2,12 @@
 
 (require "util.rkt")
 
-(provide (all-defined-out))
+(provide (except-out (all-defined-out)
+                     DPacket
+                     DPacket-seqNo
+                     DPacket-msgNo
+                     DPacket-inOrder?
+                     DPacket-body))
 
 (struct: Packet ([stamp : Natural]
                  [destID : Natural]) #:transparent)
@@ -46,6 +51,11 @@
 ;; ... then this is used to constrain the actual allowed types of data packets
 ;; (i.e., no one can construct a DPacket which does not carry its positionality as a type)
 (define-type DataPacket (U FstPacket MidPacket LstPacket SinglePacket))
+(define DataPacket-body DPacket-body)
+(define DataPacket-seqNo DPacket-seqNo)
+(define DataPacket-msgNo DPacket-msgNo)
+(define DataPacket-inOrder? DPacket-inOrder?)
+(define-predicate DataPacket? DataPacket)
 
 (define make-FstPacket FstPacket)
 (define make-MidPacket MidPacket)
@@ -55,10 +65,6 @@
 ;;; ---------------
 ;;; CONTROL PACKETS
 ;;; ---------------
-
-(define-type ControlPacket (U Handshake KeepAlive ACK ACK2 NAK
-                              Shutdown DropReq))
-
 (define-type SocketType (U 'Stream 'Dgram))
 
 (: SType->Nat (SocketType -> Natural))
@@ -141,5 +147,8 @@ like Java impl) #:transparent) |#
 (define make-NAK NAK)
 (define make-ACK2 ACK2)
 (define make-DropReq DropReq)
+
+(define-type ControlPacket (U Handshake KeepAlive ACK ACK2 NAK Shutdown DropReq))
+(define-predicate ControlPacket? ControlPacket)
 
 ;; XXX Fixme implement user defined control packet
