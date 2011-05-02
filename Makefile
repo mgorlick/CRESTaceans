@@ -1,6 +1,6 @@
-all: apps
+all: c r
 
-apps: peer
+r: peer
 	find "apps" -name "*.rkt" -print0 | xargs -0 raco make -v
 
 peer: bindings
@@ -8,6 +8,8 @@ peer: bindings
 
 bindings:
 	find "bindings" -name "*.rkt" -print0 | xargs -0 raco make -v
+
+c:
 	cd bindings/allegro5/kbd-wrap && make
 	cd bindings/gstreamer/common-wrap && make
 	cd bindings/vorbis/wrapper && make
@@ -29,4 +31,4 @@ clean:
 clean-junk:
 	find . -name *~ -print0 | xargs -0 rm
 
-.PHONY: apps peer bindings install clean clean-junk
+.PHONY: apps peer bindings c install clean clean-junk
