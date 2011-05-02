@@ -2,7 +2,7 @@
 #lang racket
 
 (require "../util.rkt"
-         "../udp-write.rkt"
+         "../udtsink.rkt"
          "theoraenc.rkt"
          "v4l2-reader.rkt")
 
@@ -25,4 +25,4 @@
                           ["theoraenc"   : t2 (make-theora-encoder pid pid)]
                           ["v4l2-reader" : t1 (make-v4l2-reader pid t2)])))
 
-((make-udp-writer pid "127.0.0.1" 5000))
+((make-udt-writer pid "127.0.0.1" 5000))

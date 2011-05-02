@@ -1,13 +1,13 @@
 #! /usr/bin/env racket
 #lang racket
 
-(require "../udp-read.rkt"
+(require "../udtsrc.rkt"
          "../../../../bindings/theora/theora.rkt"
          "../util.rkt")
 
 (define (udp-in>>theora-decoder port)
   (define pid (current-thread))
-  (make-pipeline (["udp-reader" : t1 (make-udp-reader pid #f port pid)])))
+  (make-pipeline (["udt-reader" : t1 (make-udt-reader pid #f port pid)])))
 
 (define pipeline (udp-in>>theora-decoder 5000))
 
