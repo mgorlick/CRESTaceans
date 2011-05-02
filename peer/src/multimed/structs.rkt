@@ -12,7 +12,7 @@
          ; to let the framenum be whatever, but then we couldn't
          ; match against it in untyped code
          ([data : Bytes]
-          [framenum : Number]
+          [size : Natural]
           [λdisposal : (-> Void)]))
 
 ; hack. untyped modules get confused when trying to refer to

@@ -31,8 +31,8 @@
           (semaphore-post v-sema))
         (loop)))
     
-    (define (make-frame data num i)
-      (make-FrameBuffer data num (λ () (requeue i))))
+    (define (make-frame data size i)
+      (make-FrameBuffer data size (λ () (requeue i))))
     
     (define (requeue i)
       (with-handlers ([exn:fail? (λ (e) (void))]) 
@@ -45,9 +45,9 @@
       (semaphore-wait v-sema)
       (cond
         [(v4l2-reader-is-ready v)
-         (let-values ([(d f i) (v4l2-reader-get-frame v)])
+         (let-values ([(d f s i) (v4l2-reader-get-frame v)])
            (when d
-             (thread-send receiver (make-frame d f i))
+             (thread-send receiver (make-frame d s i)) ; throw away framenum for now
              (pool-remove! i))
            (semaphore-post v-sema))]
         [else

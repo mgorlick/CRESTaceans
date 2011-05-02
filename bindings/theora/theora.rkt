@@ -4,7 +4,8 @@
          "../vorbis/libvorbis.rkt")
 
 (provide (all-defined-out)
-         ogg-packet-data)
+         ogg-packet-data
+         ogg-packet-size)
 
 (define theora (ffi-lib "libracket-theora-wrapper"))
 (define-syntax-rule (deftheora+ binding obj typ)
@@ -124,7 +125,7 @@
         (framenum : (_ptr o _int))
         (index : (_ptr o _int))
         -> (r : _pointer)
-        -> (values (cast r _pointer (_bytes o size)) framenum index)))
+        -> (values (cast r _pointer (_bytes o size)) framenum size index)))
 
 ;; requeue the buffer into the memory mapping queue once the downstream
 ;; consumers are done with its data

@@ -10,7 +10,7 @@
 
 (define pid (current-thread))
 
-(define p (make-pipeline (["udtsink"     : t3 (make-udt-writer pid "127.0.0.1" 5000)]
+(define p (make-pipeline (["udtsink"     : t3 (make-udt-writer pid "127.0.0.1" 5000)];"128.195.58.146" 5000)]
                           ["theoraenc"   : t2 (make-theora-encoder pid t3)]
                           ["v4l2-reader" : t1 (make-v4l2-reader pid t2)])))
 
