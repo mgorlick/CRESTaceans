@@ -9,16 +9,27 @@
 ;; -------------
 ;; SERIALIZATION
 ;; -------------
-(: dpacket->bytes (DataPacket -> Bytes))
-(define (dpacket->bytes p)
-  (bytes-append (seqno-bytes p) (msgno-bytes p) (timestamp-bytes p) (destid-bytes p) (DataPacket-body p)))
+(: dpacket->bytes (DataPacket Bytes -> Natural))
+(define (dpacket->bytes p buffer)
+  (write-seqno-bytes! p buffer)
+  (write-msgno-bytes! p buffer)
+  (write-timestamp-bytes! p buffer)
+  (write-destid-bytes! p buffer)
+  (bytes-copy! buffer 16 (DataPacket-body p))
+  (+ 16 (bytes-length (DataPacket-body p))))
 
+;; functional versions
 (: seqno-bytes (DataPacket -> Bytes))
 (define (seqno-bytes p) (make32 (natcheck (bitoff 31 (DataPacket-seqNo p)))))
-
 (: msgno-bytes (DataPacket -> Bytes))
-(define (msgno-bytes p)
-  (make32 (setbit/posn p (setbit/ordered (DataPacket-inOrder? p) (DataPacket-msgNo p)))))
+(define (msgno-bytes p) (make32 (setbit/posn p (setbit/ordered (DataPacket-inOrder? p) (DataPacket-msgNo p)))))
+
+;; imperative versions
+(: write-seqno-bytes! (DataPacket Bytes -> Bytes))
+(define (write-seqno-bytes! p buffer) (write32! (bitoff 31 (DataPacket-seqNo p)) buffer 0))
+(: write-msgno-bytes! (DataPacket Bytes -> Bytes))
+(define (write-msgno-bytes! p buffer)
+  (write32! (setbit/posn p (setbit/ordered (DataPacket-inOrder? p) (DataPacket-msgNo p))) buffer 4))
 
 (: setbit/posn (DataPacket Integer -> Integer))
 (define (setbit/posn p n)
@@ -37,12 +48,14 @@
 ;; DESERIALIZATION
 ;; ---------------
 
-(: bytes->dpacket (Bytes -> DataPacket))
-(define (bytes->dpacket b)
-  (cond [(lacks-full-header? b) (raise-parse-error "Invalid data packet")]
-        [else ((typecons b) (timestamp b) (destid b) (seqno b) (msgno b)
-                            (bitwise-bit-set? (take32 b 4) 29)
-                            (subbytes b 16))]))
+(: bytes->dpacket (Bytes Natural -> DataPacket))
+(define (bytes->dpacket b amt)
+  (cond [(< amt 16) (raise-parse-error "Invalid data packet")]
+        [else ((typecons b) 
+               (timestamp b) (destid b) (seqno b) (msgno b)
+               (bitwise-bit-set? (take32 b 4) 29)
+               (subbytes b 16 amt)
+               )]))
 
 (: msgno (Bytes -> Natural))
 (define (msgno b) (natcheck (bitoff 31 (bitoff 30 (bitoff 29 (take32 b 4))))))

@@ -16,9 +16,15 @@
 (: timestamp-bytes (Packet -> Bytes))
 (define (timestamp-bytes p) (make32 (Packet-stamp p)))
 
+(: write-timestamp-bytes! (Packet Bytes -> Bytes))
+(define (write-timestamp-bytes! p buffer) (write32! (Packet-stamp p) buffer 8))
+
 ; line 4 of the header packet
 (: destid-bytes (Packet -> Bytes))
 (define (destid-bytes p) (make32 (Packet-destID p)))
+
+(: write-destid-bytes! (Packet Bytes -> Bytes))
+(define (write-destid-bytes! p buffer) (write32! (Packet-destID p) buffer 12))
 
 ;; the `timestamp' field in the UDT header
 (: timestamp (Bytes -> Natural))
