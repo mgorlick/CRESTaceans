@@ -13,14 +13,13 @@
                        "send-data.rkt"
                        "util.rkt"))
 
-(: bytes->packet (Bytes -> (Option (U DataPacket ControlPacket))))
-(define (bytes->packet b)
-  (with-handlers ([exn:fail? (λ (e) #f)])
-    (if (bitwise-bit-set? (integer-bytes->integer b #f #t 0 2) 15)
-        (bytes->cpacket b)
-        (bytes->dpacket b))))
+(: bytes->packet (Bytes Natural -> (U DataPacket ControlPacket)))
+(define (bytes->packet buffer amt)
+  (if (bitwise-bit-set? (integer-bytes->integer buffer #f #t 0 2) 15)
+      (bytes->cpacket buffer amt)
+      (bytes->dpacket buffer amt)))
 
-(: packet->bytes ((U DataPacket ControlPacket) -> Bytes))
-(define (packet->bytes p)
-  (cond [(DataPacket? p) (dpacket->bytes p)]
-        [(ControlPacket? p) (cpacket->bytes p)]))
+(: packet->bytes ((U DataPacket ControlPacket) Bytes -> Natural))
+(define (packet->bytes p buffer)
+  (cond [(DataPacket? p) (dpacket->bytes p buffer)]
+        [(ControlPacket? p) (cpacket->bytes p buffer)]))

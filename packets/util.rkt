@@ -58,6 +58,11 @@
   (cond [(>= i 0) (integer->integer-bytes i 4 #f #t)]
         [else (integer->integer-bytes i 4 #t #t)]))
 
+(: write32! (Integer Bytes Natural -> Bytes))
+(define (write32! i buf loc)
+  (cond [(>= i 0) (integer->integer-bytes i 4 #f #t buf loc)]
+        [else (integer->integer-bytes i 4 #t #t buf loc)]))
+
 ;; bytes/32bit: bytes-appends the byte representation of
 ;; all of the naturals supplied
 ;; after converting to unsigned 4-byte numbers
@@ -67,9 +72,9 @@
 ;; this function's chief purpose is to trick the compiler
 ;; into typechecking successfully, but it also yells at us
 ;; at runtime if the compiler's paranoia was valid! amazing!
-(: natcheck (Number -> Natural))
+(: natcheck (Integer -> Natural))
 (define (natcheck v)
-  (if (exact-nonnegative-integer? v)
+  (if (>= v 0)
       v
       (raise-parse-error "Found negative number where natural should have been")))
 
