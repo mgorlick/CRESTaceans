@@ -121,7 +121,7 @@ int vorbisdec_finish_init (vorbisdec* dec) {
       format.channels = dec->vi->channels;
       format.rate = dec->vi->rate;
       format.byte_format = AO_FMT_NATIVE;
-      format.matrix = (dec->vi->channels == 1 ? "M" : "L,R");
+      /* format.matrix = (dec->vi->channels == 1 ? "M" : "L,R"); */
 
       /* open up the driver */
       default_driver = ao_default_driver_id ();
