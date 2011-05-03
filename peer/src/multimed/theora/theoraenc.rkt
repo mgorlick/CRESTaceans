@@ -11,12 +11,12 @@
   (λ ()
     (define is-signaller? (make-thread-id-verifier signaller))
     (define e (theoraenc-new))
-    (define-values (handler request-ch fulfill-ch) (make-bufferpool-handler 20 (* 1024 1024)))
+    (define-values (handler λrequest) (make-bufferpool-handler 20 (* 1024 1024)))
     
     (define (flush packet)
       (let* ([len (ogg-packet-size packet)])
         (when (> len 0)
-          (let-values ([(buffer λdisposal) (request-buffer request-ch fulfill-ch)])
+          (let-values ([(buffer λdisposal) (λrequest)])
             (bytes-copy! buffer 0 (ogg-packet-data packet) 0 len)
             (thread-send receiver (make-FrameBuffer buffer len λdisposal))))))
     

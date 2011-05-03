@@ -1,68 +1,63 @@
-#lang racket
+#lang typed/racket
 
-(require racket/async-channel)
+(require "asynch-wrap.rkt")
+(provide make-bufferpool-handler)
 
-(provide make-bufferpool-handler
-         request-buffer
-         return?
-         fulfill?
-         request?)
+;; this implementation uses two channels to avoid messing with the pipeline component thread's
+;; mailbox (which is effectively a work queue and should not be disturbted).
+;; one channel is used by pipeline elements to request buffers and return them to the handler.
+;; the other is used by the handler to fulfill buffer requests.
+(define-type FulfillmentMessage (List Bytes 'FRQ))
+(define-type RequestMessage 'RQB)
+(define-predicate fulfill? FulfillmentMessage)
+(define-predicate request? RequestMessage)
 
-;(define-type Fulfillment (List Bytes 'FulfillRequest))
-;(define-type Request 'RequestBuffer)
-;(define-predicate fulfill? Fulfillment)
-;(define-predicate request? Request)
+(define-type BufferReturn (-> Void))
+(define-type ReturnMessage (List Bytes 'RTB))
+(define-predicate return? ReturnMessage)
+(define-predicate request/return? (U RequestMessage ReturnMessage))
 
-;(define-type BufferReturn (-> Void))
-;(define-type Return (List Bytes 'Return))
-;(define-predicate return? Return)
+(define-type RequestChannel (AsyncChannelof (U RequestMessage ReturnMessage)))
+(define-type FulfillChannel (AsyncChannelof FulfillmentMessage))
 
-(define (return? a)
-  (and (list? a)
-       (= (length a) 2)
-       (bytes? (car a))
-       (equal? 'Return (cadr a))))
-
-(define (fulfill? a)
-  (and (list? a)
-       (= (length a) 2)
-       (bytes? (car a))
-       (equal? 'FulfillRequest (cadr a))))
-
-(define (request? a)
-  (equal? 'RequestBuffer a))
-
-;(: make-bufferpool-handler (Natural Natural -> Thread))
+;; return two values: the handler thread (in case you need to kill it off)
+;; and a thunk that lets you request a buffer.
+;; this hides the slight messiness of two channels since
+;; applications just need to re-run the thunk every time they want a buffer
+(: make-bufferpool-handler (Natural Natural -> (values Thread (-> (values Bytes BufferReturn)))))
 (define (make-bufferpool-handler count size)
-  (define requestch (make-async-channel))
-  (define fulfillch (make-async-channel))
-  (define handler (thread
-                   (λ ()
-                     (define pool (for/list ([i (in-range count)]) (make-bytes size)))
-                     (let loop ([pool pool])
-                       (let ([m (async-channel-get requestch)])
-                         (match m
-                           [(? return? msg) (loop (cons (car msg) pool))]
-                           [(? request? msg)
-                            (cond [(empty? pool) (thread-rewind-receive (list msg))
-                                                 (loop pool)]
-                                  [else (async-channel-put fulfillch (list (car pool) 'FulfillRequest))
-                                        (loop (cdr pool))])]
-                           [m (printf "Buffer pool handler dropping misplaced message: ~a~n" m)
-                              (loop pool)]))))))
-  (values handler requestch fulfillch))
+  (define: requestch : RequestChannel (make-async-channel* request/return?))
+  (define: fulfillch : FulfillChannel (make-async-channel* fulfill?))
+  (define: pool : (Listof Bytes) (for/list ([i (in-range count)]) (make-bytes size)))
+  (define handler
+    (thread
+     (λ ()
+       (let loop ([pool pool])
+         (let ([msg (async-channel-get* requestch)])
+           ;; a buffer is returned. attach it to the pool of tracked buffers and loop
+           (cond [(return? msg) (loop (cons (car msg) pool))]
+                 [(request? msg)
+                  ;; a request is returned. if the pool is empty right now,
+                  ;; put the request back into the request channel and get it
+                  ;; later when the pool is non-empty
+                  (cond [(empty? pool) (async-channel-put* requestch msg)
+                                       (loop pool)]
+                        ;; the pool isn't empty: fulfill the request and stop keeping track
+                        ;; of the buffer until it's returned by the BufferReturn thunk
+                        [else (async-channel-put* fulfillch (list (car pool) 'FRQ))
+                              (loop (cdr pool))])]))))))
+  (values handler (λ () (request-buffer requestch fulfillch))))
 
-;(: request-buffer (Thread -> (values Bytes BufferReturn)))
+;; request-buffer: return the buffer requested, plus a thunk to return the buffer back to the pool
+(: request-buffer (RequestChannel FulfillChannel -> (values Bytes BufferReturn)))
 (define (request-buffer requestch fulfillch)
-  (async-channel-put requestch 'RequestBuffer)
+  (async-channel-put* requestch 'RQB)
   (let loop ()
-    (let ([m (async-channel-get fulfillch)])
-      (match m
-        [(? fulfill? msg) (values (car msg) (make-return-thunk (car msg) requestch))]
-        [other (printf "Buffer requester dropping misplaced message: ~a~n" other)]))))
+    (let ([msg (async-channel-get* fulfillch)])
+      (values (car msg) (make-return-thunk (car msg) requestch)))))
 
-;(: make-return-thunk (Bytes Thread -> BufferReturn))
+(: make-return-thunk (Bytes RequestChannel -> BufferReturn))
 (define (make-return-thunk buffer requestch)
   (λ ()
-    (async-channel-put requestch (list buffer 'Return))
+    (async-channel-put* requestch (list buffer 'RTB))
     (void)))
