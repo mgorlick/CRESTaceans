@@ -4,7 +4,7 @@
 (provide make-bufferpool-handler)
 
 ;; this implementation uses two channels to avoid messing with the pipeline component thread's
-;; mailbox (which is effectively a work queue and should not be disturbted).
+;; mailbox (which is effectively a work queue and should not be disturbed or filled with anything else).
 ;; one channel is used by pipeline elements to request buffers and return them to the handler.
 ;; the other is used by the handler to fulfill buffer requests.
 (define-type FulfillmentMessage (List Bytes 'FRQ))
