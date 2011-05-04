@@ -161,6 +161,7 @@ int theoradec_header_in (TheoraDec *dec,
   if (theoradec_ready_for_data (dec)) {
     dec->ctx = th_decode_alloc (dec->info, dec->setup);
     if (dec->ctx == NULL) goto setup_ctx_err;
+    if (!(video_init (dec))) goto setup_SDL_err;
   }
 
   return 1;
@@ -176,6 +177,10 @@ already_have:
 setup_ctx_err:
   printf ("Error setting up decoding context.\n");
   return 0;
+
+setup_SDL_err:
+  printf ("Error setting up SDL components.\n");
+  return 0;
 }
 
 int theoradec_data_in (TheoraDec *dec,
@@ -186,9 +191,6 @@ int theoradec_data_in (TheoraDec *dec,
   th_ycbcr_buffer yuv;
 
   if (!dec || !(dec->info) || !(dec->ctx)) return 0;
-
-  if (!dec->screen)
-    if (!(video_init (dec))) goto setup_SDL_err;
   
   p.packet = buffer;
   p.bytes = buffer_length;
@@ -205,10 +207,6 @@ int theoradec_data_in (TheoraDec *dec,
   }
   
   return r == 0 ? 1 : 0;
-
-  setup_SDL_err:
-  printf ("Error setting up SDL components.\n");
-  return 0;
 }
 
 int video_init (TheoraDec *dec) {
@@ -234,7 +232,7 @@ int video_init (TheoraDec *dec) {
   dec->rect.w = w;
   dec->rect.h = h;
 
-  SDL_DisplayYUVOverlay (dec->yuv_overlay, &(dec->rect));
+  /*SDL_DisplayYUVOverlay (dec->yuv_overlay, &(dec->rect));*/
   return 1;
   
 screen_init_err:

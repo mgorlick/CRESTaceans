@@ -3,7 +3,11 @@
 (require ffi/unsafe
          "../vorbis/libvorbis.rkt")
 
-(provide (all-defined-out)
+(provide (rename-out [theoradec-pointer? theoradec?]
+                     [theoraenc-pointer? theoraenc?]
+                     [theoradec-ready-for-data theoradec-ready-for-data?])
+         (all-defined-out)
+                     
          ogg-packet-data
          ogg-packet-size)
 
