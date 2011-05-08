@@ -54,6 +54,7 @@ VP8Enc* vp8enc_new (void) {
   enc->n_frames = 1;
 
   vpx_img_alloc (&enc->image, VPX_IMG_FMT_I420, cfg.g_w, cfg.g_h, 0);
+  
   for (i = 0; i < 3; i++)
     enc->image.planes[i] = enc->image.planes[0] +
         get_offset (i, enc->image.w, enc->image.h);
