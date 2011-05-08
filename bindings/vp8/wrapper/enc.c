@@ -2,9 +2,10 @@
 #include <string.h>
 #include <stdio.h>
 
-#define VPX_CODEC_DISABLE_COMPAT 1
 #include <vpx/vpx_encoder.h>
 #include <vpx/vp8cx.h>
+#include <vpx/vp8dx.h>
+#include <vpx/vpx_decoder.h>
 
 #include "enc_settings.h"
 
@@ -15,6 +16,10 @@
 #define ROUND_UP_X(v,x) (((v) + GEN_MASK(x)) & ~GEN_MASK(x))
 #define DIV_ROUND_UP_X(v,x) (((v) + GEN_MASK(x)) >> (x))
 
+inline int get_offset (int component_index, int pic_width, int pic_height);
+static void yuv422_to_yuv420p (unsigned char *dest, unsigned char *src,
+                               int width, int height);
+
 typedef struct VP8Enc {
   vpx_codec_ctx_t codec;
   vpx_image_t image;
@@ -23,27 +28,10 @@ typedef struct VP8Enc {
   int n_frames;
 } VP8Enc;
 
-typedef void (*vp8enc_foreach_frame) (long size, uint8_t *buffer);
-
-void reprep_YUYV (vpx_image_t *image) {
-
-  int delta_cb, delta_cr, s;
-
-  /* salvage s from the alloc fun to check alloc size */
-  s = image->stride[VPX_PLANE_Y];
-  printf ("size of prealloced buffer = %d\n",
-          (image->fmt & VPX_IMG_FMT_PLANAR) ?
-          image->h * image->w * image->bps / 8 :
-          image->h * s);
-
-  /* YUYV support in vp8 is broken, it thinks xcs and ycs for YUYV = 0 */
-  image->x_chroma_shift = image->y_chroma_shift = 1;
-  delta_cb = ROUND_UP_4 (image->w) * ROUND_UP_X (image->h, image->y_chroma_shift);
-  delta_cr = ROUND_UP_4 (DIV_ROUND_UP_X (image->w, image->x_chroma_shift))
-      * DIV_ROUND_UP_X (image->h, image->y_chroma_shift);
-}
+typedef void (*vp8enc_foreach_frame) (size_t size, unsigned char *buffer);
 
 VP8Enc* vp8enc_new (void) {
+  int i;
   vpx_codec_err_t status;
   vpx_codec_enc_cfg_t cfg;
   VP8Enc *enc;
@@ -59,14 +47,16 @@ VP8Enc* vp8enc_new (void) {
   cfg.g_timebase.num = enc_fps_denominator;
   cfg.g_timebase.den = enc_fps_numerator;
   cfg.kf_min_dist = 0;
-  cfg.kf_max_dist = (1<<enc_keyframe_granule_shift);
+  cfg.kf_max_dist = 0;
 
   enc->width = cfg.g_w;
   enc->height = cfg.g_h;
   enc->n_frames = 1;
 
-  vpx_img_alloc (&enc->image, VPX_IMG_FMT_YUY2, cfg.g_w, cfg.g_h, 0);
-  /* reprep_YUYV (&enc->image); */
+  vpx_img_alloc (&enc->image, VPX_IMG_FMT_I420, cfg.g_w, cfg.g_h, 0);
+  for (i = 0; i < 3; i++)
+    enc->image.planes[i] = enc->image.planes[0] +
+        get_offset (i, enc->image.w, enc->image.h);
   status = vpx_codec_enc_init (&enc->codec, &vpx_codec_vp8_cx_algo, &cfg, 0);
   if (status != VPX_CODEC_OK) goto no_init;
 
@@ -88,7 +78,7 @@ no_init:
 }
 
 /* Assume YUY2 for these calculations! */
-void buffer_to_image_YUYV (long size, unsigned char *buffer, vpx_image_t *image) {
+void buffer_to_image_YUYV (size_t size, unsigned char *buffer, vpx_image_t *image) {
 
   int delta_cb, delta_cr;
 
@@ -113,24 +103,71 @@ void buffer_to_image_YUYV (long size, unsigned char *buffer, vpx_image_t *image)
           image->stride[VPX_PLANE_V]);
 }
 
-int vp8enc_encode (VP8Enc *enc, long size, unsigned char *buffer,
-                   vp8enc_foreach_frame f) {
+inline int get_offset (int component_index, int pic_width, int pic_height) {
+  switch (component_index) {
+    case 0:
+      return 0;
+    case 1:
+      return ROUND_UP_4 (pic_width) * ROUND_UP_2 (pic_height);
+    case 2:
+      return ROUND_UP_4 (pic_width) * ROUND_UP_2 (pic_height) +
+        ROUND_UP_4 (ROUND_UP_2 (pic_width) / 2) *
+          (ROUND_UP_2 (pic_height) / 2);
+    default: /* error */
+      return 0;
+  }
+}
+
+void peek (size_t size, unsigned char* data) {
+  
+  vpx_codec_stream_info_t stream_info;
+  vpx_codec_err_t status;
+  
+  memset (&stream_info, 0, sizeof (stream_info));
+  stream_info.sz = sizeof (stream_info);
+  
+  status = vpx_codec_peek_stream_info (&vpx_codec_vp8_dx_algo,
+                                       data, size, &stream_info);
+  
+  if (!stream_info.is_kf) {
+    printf ("Encoder: Not a keyframe. Skipping...\n");
+    return;
+  }
+
+    printf ("Encoder: stream info? %d %d %d %d\n", stream_info.w,
+          stream_info.h,
+          stream_info.sz,
+          stream_info.is_kf);
+      
+
+  if (status != VPX_CODEC_OK) {
+    printf ("Encoder: Error getting stream info: %s\n",
+            vpx_codec_err_to_string (status));
+  }
+}
+
+int vp8enc_encode (VP8Enc *enc, size_t size, unsigned char *buffer,
+                   unsigned char *out, size_t *written) {
 
   const vpx_codec_cx_pkt_t *pkt;
   vpx_codec_err_t status;
   vpx_codec_iter_t iter = NULL;
   int flags = 0;
   
-  buffer_to_image_YUYV (size, buffer, &enc->image);
-  printf ("encoding buffer %d, size %ld\n", enc->n_frames, size);
-  /* XXX Fixme set force keyframe flag here */
-  status = vpx_codec_encode (&enc->codec, &enc->image, enc->n_frames++, 1, flags, 10000);
+  yuv422_to_yuv420p (enc->image.img_data, buffer, enc->image.w, enc->image.h);
+  
+  /* XXX fixme set force-keyframe flag only when commanded */
+  flags |= VPX_EFLAG_FORCE_KF;
+  
+  status = vpx_codec_encode (&enc->codec, &enc->image, enc->n_frames++, 1, flags, 0);
   if (status != VPX_CODEC_OK) goto no_frame;
   
   while (NULL != (pkt = vpx_codec_get_cx_data (&enc->codec, &iter))) {
+    
     switch (pkt->kind) {
       case VPX_CODEC_CX_FRAME_PKT:
-        f (pkt->data.frame.sz, pkt->data.frame.buf);
+        memcpy (out, pkt->data.frame.buf, pkt->data.frame.sz);
+        *written = pkt->data.frame.sz;
         break;
       default:
         printf ("Found some non-data packet, type %d\n", pkt->kind);
@@ -143,4 +180,79 @@ int vp8enc_encode (VP8Enc *enc, long size, unsigned char *buffer,
 no_frame:
   printf ("Couldn't encode buffer: %s\n", vpx_codec_err_to_string (status));
   return 0;
+}
+
+inline int get_row_stride (int component_index, int pic_width) {
+  return (component_index == 0) ?
+      ROUND_UP_4 (pic_width) :
+      ROUND_UP_4 (ROUND_UP_2 (pic_width) / 2);
+}
+
+/* this function pieced together from gstreamer ffmpegcolorspace component */
+static void yuv422_to_yuv420p (unsigned char *dest,
+                               unsigned char *src,
+                               int width, int height) {
+  const unsigned char *p, *p1;
+  unsigned char *lum, *cr, *cb, *lum1, *cr1, *cb1;
+  int w;
+  
+  int dest_stride[3] = { get_row_stride (0, width),
+                         get_row_stride (1, width),
+                         get_row_stride (2, width) };
+
+  /* this stuff specific to I420 and others in family */
+  int x_chroma_shift = 1;
+  int y_chroma_shift = 1;
+  int offset_cb = ROUND_UP_4 (width) * ROUND_UP_X (height, y_chroma_shift);
+  int offset_cr = ROUND_UP_4 (DIV_ROUND_UP_X (width, x_chroma_shift))
+      * DIV_ROUND_UP_X (height, y_chroma_shift);
+  
+  /* src_stride calculation specific to YUV422 and others in family */
+  int src_stride = ROUND_UP_4 (width * 2);
+  
+  p1 = src;
+  lum1 = dest;
+  cb1 = dest + offset_cb;
+  cr1 = cb1 + offset_cr;
+  
+  for (; height >= 1; height -= 2) {
+    p = p1;
+    lum = lum1;
+    cb = cb1;
+    cr = cr1;
+    for (w = width; w >= 2; w -= 2) {
+      lum[0] = p[0];
+      cb[0] = p[1];
+      lum[1] = p[2];
+      cr[0] = p[3];
+      p += 4;
+      lum += 2;
+      cb++;
+      cr++;
+    }
+    if (w) {
+      lum[0] = p[0];
+      cb[0] = p[1];
+      cr[0] = p[3];
+    }
+    p1 += src_stride;
+    lum1 += dest_stride[0];
+    if (height > 1) {
+      p = p1;
+      lum = lum1;
+      for (w = width; w >= 2; w -= 2) {
+        lum[0] = p[0];
+        lum[1] = p[2];
+        p += 4;
+        lum += 2;
+      }
+      if (w) {
+        lum[0] = p[0];
+      }
+      p1 += src_stride;
+      lum1 += dest_stride[0];
+    }
+    cb1 += dest_stride[1];
+    cr1 += dest_stride[2];
+  }
 }

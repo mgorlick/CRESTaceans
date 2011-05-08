@@ -16,6 +16,9 @@
     (let loop ()
       (match (receive-killswitch/whatever is-signaller?)
         [(? die? _) (reply/state-report signaller #f)]
+        [(? bytes? pkt)
+         (vp8dec-decode d (bytes-length pkt) pkt)
+         (loop)]
         [(FrameBuffer data size λdisposal)
          (vp8dec-decode d size data)
          (λdisposal)

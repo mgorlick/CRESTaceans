@@ -2,7 +2,6 @@
 #include <string.h>
 #include <stdio.h>
 
-#define VPX_CODEC_DISABLE_COMPAT 1
 #include <vpx/vpx_decoder.h>
 #include <vpx/vp8dx.h>
 
@@ -15,7 +14,7 @@ typedef struct VP8Dec {
 
 /* XXX fixme vp8dec_delete */
 
-VP8Dec* vp8dec_new (void) {
+VP8Dec* vp8dec_new (void) {  
   VP8Dec *dec = malloc (sizeof (VP8Dec));
   dec->is_init = 0;
   dec->width = 0;
@@ -24,24 +23,31 @@ VP8Dec* vp8dec_new (void) {
   return dec;
 }
 
-int vp8dec_init (VP8Dec *dec, long size,
+int vp8dec_init (VP8Dec *dec, size_t size,
                  unsigned char *data) {
 
   vpx_codec_stream_info_t stream_info;
   vpx_codec_err_t status;
   int flags = 0;
-  
+
   memset (&stream_info, 0, sizeof (stream_info));
   stream_info.sz = sizeof (stream_info);
   
   status = vpx_codec_peek_stream_info (&vpx_codec_vp8_dx_algo, data, size, &stream_info);
   
   if (!stream_info.is_kf) {
-    printf ("Not a keyframe. Skipping...\n");
+    printf ("Decoder: Not a keyframe. Skipping...\n");
     return 0;
   }
+
+    printf ("Decoder: stream info? %d %d %d %d\n", stream_info.w,
+          stream_info.h,
+          stream_info.sz,
+          stream_info.is_kf);
+      
+
   if (status != VPX_CODEC_OK) {
-    printf ("Error getting stream info: %s\n", vpx_codec_err_to_string (status));
+    printf ("Decoder: Error getting stream info: %s\n", vpx_codec_err_to_string (status));
     return 0;
   }
 
@@ -60,12 +66,12 @@ int vp8dec_init (VP8Dec *dec, long size,
   return 1;
 }
 
-int vp8dec_decode (VP8Dec *dec, long size,
+int vp8dec_decode (VP8Dec *dec, size_t size,
                    unsigned char *data) {
   vpx_image_t *img;
   vpx_codec_err_t status;
   vpx_codec_iter_t iter = NULL;
-
+  
   if (0 == dec->is_init) vp8dec_init (dec, size, data);
 
   if (0 == dec->is_init)
@@ -87,6 +93,6 @@ int vp8dec_decode (VP8Dec *dec, long size,
   return 1;
 
 not_initialized:
-  printf ("Skipping frame. Decoder not initialized yet.\n");
+  /* printf ("Skipping frame. Decoder not initialized yet.\n"); */
   return 0;
 }
