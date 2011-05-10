@@ -7,7 +7,7 @@ LIBDEPS = $$(pkg-config --cflags --libs sdl)
 
 all: so
 
-so: enc.o dec.o /usr/lib/libvpx.a
+so: enc.o dec.o v4l2.o /usr/lib/libvpx.a
 	cc -shared $(LDFLAGS) -o $(SONAME).$(VERSION_FULL) $(LIBDEPS) $^
 
 %.o: %.c

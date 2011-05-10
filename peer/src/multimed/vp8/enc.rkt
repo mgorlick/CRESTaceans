@@ -5,7 +5,7 @@
          "../udtsink.rkt"
          "vp8enc.rkt"
          "vp8dec.rkt"
-         "../theora/v4l2-reader.rkt")
+         "v4l2-reader.rkt")
 
 (provide (all-defined-out))
 

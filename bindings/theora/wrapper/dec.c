@@ -261,6 +261,8 @@ void video_display (TheoraDec *dec, th_ycbcr_buffer yuv) {
   /* and crop input properly, respecting the encoded frame rect */
   /* problems may exist for odd frame rect for some encodings */
 
+  printf ("buffer wxh: %dx%d\n", yuv[0].width, yuv[0].height);
+  
   y_offset = (dec->info->pic_x & ~1) + yuv[0].stride * (dec->info->pic_y & ~1);
 
   if (dec->info->pixel_fmt == TH_PF_422) {
@@ -281,10 +283,12 @@ void video_display (TheoraDec *dec, th_ycbcr_buffer yuv) {
     }
   } else {
     uv_offset = (dec->info->pic_x/2) + (yuv[1].stride) * (dec->info->pic_y/2);
-    for (i = 0; i < dec->yuv_overlay->h; i++)
+    printf ("executing I420 display, y off = %d, uv off = %d\n", y_offset, uv_offset);
+    for (i = 0; i < dec->yuv_overlay->h; i++) {
       memcpy (dec->yuv_overlay->pixels[0] + dec->yuv_overlay->pitches[0] * i,
               yuv[0].data + y_offset+yuv[0].stride * i,
               dec->yuv_overlay->w);
+    }
     for (i = 0; i < dec->yuv_overlay->h/2; i++) {
       memcpy (dec->yuv_overlay->pixels[1] + dec->yuv_overlay->pitches[1] * i,
               yuv[2].data + uv_offset + yuv[2].stride * i,
@@ -293,6 +297,8 @@ void video_display (TheoraDec *dec, th_ycbcr_buffer yuv) {
               yuv[1].data + uv_offset+yuv[1].stride * i,
               dec->yuv_overlay->w/2);
     }
+
+    printf ("strides: %d, %d, %d\n", yuv[0].stride, yuv[1].stride, yuv[2].stride);
   }
   
   if (SDL_MUSTLOCK(dec->screen)) SDL_UnlockSurface(dec->screen);

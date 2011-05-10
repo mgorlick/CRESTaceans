@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-
+#include <stdint.h>
 #include <vpx/vpx_encoder.h>
 #include <vpx/vp8cx.h>
 
@@ -21,7 +21,7 @@ static void yuv422_to_yuv420p (unsigned char *dest, unsigned char *src,
 
 typedef struct VP8Enc {
   vpx_codec_ctx_t codec;
-  vpx_image_t image;
+  vpx_image_t *image;
   int width;
   int height;
   int n_frames;
@@ -43,24 +43,35 @@ VP8Enc* vp8enc_new (void) {
   cfg.g_h = enc_frame_height;
   cfg.g_timebase.num = enc_fps_denominator;
   cfg.g_timebase.den = enc_fps_numerator;
-  cfg.kf_min_dist = 0;
-  cfg.kf_max_dist = 0;
 
+  /* keyframes */
+  cfg.kf_mode = VPX_KF_AUTO;
+  cfg.kf_min_dist = 0;
+  cfg.kf_max_dist = enc_fps_numerator;
+
+  /* quality settings */
+  cfg.rc_target_bitrate = cfg.g_w * cfg.g_h / 333;
+  cfg.g_threads = 4;
+  cfg.g_pass = VPX_RC_ONE_PASS;
+  cfg.g_lag_in_frames = 0;
+  cfg.g_usage = VPX_CQ;
+
+  status = vpx_codec_enc_init (&enc->codec, &vpx_codec_vp8_cx_algo, &cfg, 0);
+  if (status != VPX_CODEC_OK) goto no_init;
+
+  vpx_codec_control (&enc->codec, VP8E_SET_CQ_LEVEL, 63);
+
+  /* pixel-format-specific offset and stride settings */
+  enc->image = vpx_img_alloc (NULL, VPX_IMG_FMT_VPXI420, cfg.g_w, cfg.g_h, 0);
+  for (i = 0; i < 3; i++) {
+    enc->image->planes[i] = enc->image->img_data + get_offset (i, cfg.g_w, cfg.g_h);
+    enc->image->stride[i] = get_row_stride (i, cfg.g_w);
+  }
+
+  /* tracking values for conversion and encoding later */
   enc->width = cfg.g_w;
   enc->height = cfg.g_h;
   enc->n_frames = 0;
-
-  vpx_img_alloc (&enc->image, VPX_IMG_FMT_I420, cfg.g_w, cfg.g_h, 0);
-  enc->image.planes[0] = enc->image.img_data;
-  for (i = 1; i < 3; i++) {
-    printf ("planes[%d] offset = %d\n", i, get_offset (i, cfg.g_w, cfg.g_h));
-    printf ("planes[%d] stride = %d\n", i, get_row_stride (i, cfg.g_w));
-    enc->image.planes[i] = enc->image.planes[0] + get_offset (i, cfg.g_w, cfg.g_h);
-    enc->image.stride[i] = get_row_stride (i, cfg.g_w);
-  }
-  
-  status = vpx_codec_enc_init (&enc->codec, &vpx_codec_vp8_cx_algo, &cfg, 0);
-  if (status != VPX_CODEC_OK) goto no_init;
 
   return enc;
     
@@ -74,24 +85,8 @@ no_enc_alloc:
   
 no_init:
   printf ("Couldn't initialize codec: %s\n", vpx_codec_err_to_string (status));
-  vpx_img_free (&enc->image);
   free (enc);
   return NULL;
-}
-
-/* Assume YUY2 for these calculations! */
-void buffer_to_image_YUYV (size_t size, unsigned char *buffer, vpx_image_t *image) {
-
-  int delta_cb, delta_cr;
-  image->x_chroma_shift = image->y_chroma_shift = 1;
-  
-  delta_cb = ROUND_UP_4 (image->w) * ROUND_UP_X (image->h, 1);
-  delta_cr = ROUND_UP_4 (DIV_ROUND_UP_X (image->w, 1))
-      * DIV_ROUND_UP_X (image->h, 1);
-
-  image->planes[VPX_PLANE_Y] = buffer;
-  image->planes[VPX_PLANE_U] = image->planes[VPX_PLANE_Y] + delta_cb;
-  image->planes[VPX_PLANE_V] = image->planes[VPX_PLANE_U] + delta_cr;
 }
 
 inline int get_offset (int component_index, int pic_width, int pic_height) {
@@ -123,12 +118,12 @@ int vp8enc_encode (VP8Enc *enc, size_t size, unsigned char *buffer,
   vpx_codec_iter_t iter = NULL;
   int flags = 0;
   
-  yuv422_to_yuv420p (enc->image.img_data, buffer, enc->width, enc->height);
-  
+  yuv422_to_yuv420p (enc->image->img_data, buffer, enc->width, enc->height);
+
   /* XXX fixme set force-keyframe flag only when commanded */
-  flags |= VPX_EFLAG_FORCE_KF;
+  /* if (enc->n_frames % 7 == 0) flags |= VPX_EFLAG_FORCE_KF; */
   
-  status = vpx_codec_encode (&enc->codec, &enc->image, enc->n_frames++, 1, flags, 10000);
+  status = vpx_codec_encode (&enc->codec, enc->image, enc->n_frames++, 1, flags, VPX_DL_REALTIME);
   if (status != VPX_CODEC_OK) goto no_frame;
   
   while (NULL != (pkt = vpx_codec_get_cx_data (&enc->codec, &iter))) {
@@ -136,6 +131,7 @@ int vp8enc_encode (VP8Enc *enc, size_t size, unsigned char *buffer,
       case VPX_CODEC_CX_FRAME_PKT:
         memcpy (out, pkt->data.frame.buf, pkt->data.frame.sz);
         *written = pkt->data.frame.sz;
+        printf ("packet size %d\n", *written);
         break;
       default:
         printf ("Found some non-data packet, type %d\n", pkt->kind);
