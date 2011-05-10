@@ -50,7 +50,7 @@ VP8Enc* vp8enc_new (void) {
   cfg.kf_max_dist = enc_fps_numerator;
 
   /* quality settings */
-  cfg.rc_target_bitrate = cfg.g_w * cfg.g_h / 333;
+  cfg.rc_target_bitrate = cfg.g_w * cfg.g_h / 500;
   cfg.g_threads = 4;
   cfg.g_pass = VPX_RC_ONE_PASS;
   cfg.g_lag_in_frames = 0;
