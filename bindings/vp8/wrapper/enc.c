@@ -14,10 +14,10 @@
 #define ROUND_UP_X(v,x) (((v) + GEN_MASK(x)) & ~GEN_MASK(x))
 #define DIV_ROUND_UP_X(v,x) (((v) + GEN_MASK(x)) >> (x))
 
-inline int get_offset (int component_index, int pic_width, int pic_height);
-inline int get_row_stride (int component_index, int pic_width);
-static void yuv422_to_yuv420p (unsigned char *dest, unsigned char *src,
-                               int width, int height);
+inline int get_offset (const int component_index, const int pic_width, const int pic_height);
+inline int get_row_stride (const int component_index, const int pic_width);
+static void yuv422_to_yuv420p (unsigned char *dest, const unsigned char *src,
+                               const int width, const int height);
 
 typedef struct VP8Enc {
   vpx_codec_ctx_t codec;
@@ -44,14 +44,19 @@ VP8Enc* vp8enc_new (void) {
   cfg.g_timebase.num = enc_fps_denominator;
   cfg.g_timebase.den = enc_fps_numerator;
 
-  /* keyframes */
+  /* keyframes: in theory this sets the keyframe rate minimum at one/sec */
   cfg.kf_mode = VPX_KF_AUTO;
   cfg.kf_min_dist = 0;
   cfg.kf_max_dist = enc_fps_numerator;
 
   /* quality settings */
+  /* the target bitrate here is a little bit arbitrary, but it offers
+     a decent balance. probably needs to change if res increases */
   cfg.rc_target_bitrate = cfg.g_w * cfg.g_h / 500;
   cfg.g_threads = 4;
+  /* these three settings disable the behavior where the first ~10-20MB
+     of data gets produced in 50-75MB chunks, therefore speeding up
+     the start of stream and reducing variation in picture quality */
   cfg.g_pass = VPX_RC_ONE_PASS;
   cfg.g_lag_in_frames = 0;
   cfg.g_usage = VPX_CQ;
@@ -59,7 +64,12 @@ VP8Enc* vp8enc_new (void) {
   status = vpx_codec_enc_init (&enc->codec, &vpx_codec_vp8_cx_algo, &cfg, 0);
   if (status != VPX_CODEC_OK) goto no_init;
 
-  vpx_codec_control (&enc->codec, VP8E_SET_CQ_LEVEL, 63);
+  int ctrls[] = { VP8E_SET_CQ_LEVEL, VP8E_SET_TUNING };
+  int vals[] = { 63, VP8_TUNE_PSNR };
+  for (i = 0; i < sizeof (ctrls) / sizeof (*ctrls); i++) {
+    status = vpx_codec_control_ (&enc->codec, ctrls[i], vals[i]);
+    if (status != VPX_CODEC_OK) printf ("Couldn't set setting %d, proceeding anyway\n", i);
+  }
 
   /* pixel-format-specific offset and stride settings */
   enc->image = vpx_img_alloc (NULL, VPX_IMG_FMT_VPXI420, cfg.g_w, cfg.g_h, 0);
@@ -89,7 +99,7 @@ no_init:
   return NULL;
 }
 
-inline int get_offset (int component_index, int pic_width, int pic_height) {
+inline int get_offset (const int component_index, const int pic_width, const int pic_height) {
   switch (component_index) {
     case 0:
       return 0;
@@ -104,13 +114,13 @@ inline int get_offset (int component_index, int pic_width, int pic_height) {
   }
 }
 
-inline int get_row_stride (int component_index, int pic_width) {
+inline int get_row_stride (const int component_index, const int pic_width) {
   return (component_index == 0) ?
       ROUND_UP_4 (pic_width) :
       ROUND_UP_4 (ROUND_UP_2 (pic_width) / 2);
 }
 
-int vp8enc_encode (VP8Enc *enc, size_t size, unsigned char *buffer,
+int vp8enc_encode (VP8Enc *enc, size_t size, const unsigned char *buffer,
                    unsigned char *out, size_t *written) {
 
   const vpx_codec_cx_pkt_t *pkt;
@@ -148,7 +158,7 @@ no_frame:
 
 /* this function pieced together from gstreamer ffmpegcolorspace component */
 static void yuv422_to_yuv420p (unsigned char *dest,
-                               unsigned char *src,
+                               const unsigned char *src,
                                int width, int height) {
   const unsigned char *p, *p1;
   unsigned char *lum, *cr, *cb, *lum1, *cr1, *cb1;

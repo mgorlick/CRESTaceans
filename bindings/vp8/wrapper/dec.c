@@ -16,8 +16,8 @@ typedef struct VP8Dec {
   SDL_Rect rect;
 } VP8Dec;
 
-int init_video (VP8Dec *dec, vpx_image_t *img);
-void display_video (VP8Dec *dec, vpx_image_t *img);
+int init_video (VP8Dec *dec, const vpx_image_t *img);
+void display_video (VP8Dec *dec, const vpx_image_t *img);
 
 /* XXX fixme vp8dec_delete */
 
@@ -25,23 +25,18 @@ VP8Dec* vp8dec_new (void) {
   VP8Dec *dec = malloc (sizeof (VP8Dec));
   dec->is_init = 0;
   dec->vid_is_init = 0;
-  dec->width = 0;
-  dec->height = 0;
   dec->codec = malloc (sizeof (vpx_codec_ctx_t));
-
   dec->screen = NULL;
   dec->yuv_overlay = NULL;
-  
   if (0 > SDL_Init (SDL_INIT_VIDEO)) {
     printf ("Unable to init SDL: %s\n", SDL_GetError ());
     return NULL;
   }
-  
   return dec;
 }
 
-int vp8dec_init (VP8Dec *dec, size_t size,
-                 unsigned char *data) {
+int vp8dec_init (VP8Dec *dec, const size_t size,
+                 const unsigned char *data) {
 
   vpx_codec_stream_info_t si;
   vpx_codec_err_t status;
@@ -54,10 +49,6 @@ int vp8dec_init (VP8Dec *dec, size_t size,
   
   if (!si.is_kf) goto not_kf;
   if (status != VPX_CODEC_OK) goto no_stream_info;
-
-  printf ("Decoder: stream info? %d %d %d %d\n", si.w, si.h, si.sz, si.is_kf);
-  dec->width = si.w;
-  dec->height = si.h;
 
   cfg.threads = 2;
   cfg.h = si.h;
@@ -85,7 +76,7 @@ no_init:
 
 }
 
-void is_kf (size_t size, unsigned char *data) {
+void is_kf (const size_t size, const unsigned char *data) {
   vpx_codec_stream_info_t si;
   vpx_codec_err_t status;
 
@@ -96,8 +87,8 @@ void is_kf (size_t size, unsigned char *data) {
   printf ("is kf? %d\n", si.is_kf);
 }
 
-int vp8dec_decode (VP8Dec *dec, size_t size,
-                   unsigned char *data) {
+int vp8dec_decode (VP8Dec *dec, const size_t size,
+                   const unsigned char *data) {
   vpx_image_t *img;
   vpx_codec_err_t status;
   vpx_codec_iter_t iter = NULL;
@@ -113,8 +104,6 @@ int vp8dec_decode (VP8Dec *dec, size_t size,
   if (status != VPX_CODEC_OK) goto no_decode;
 
   while (NULL != (img = vpx_codec_get_frame (dec->codec, &iter))) {
-    /*printf ("image info:\n\twxh = %dx%d\n\tdwxdw = %dx%d\n",
-      img->w, img->h, img->d_w, img->d_h);*/
     if (0 == dec->vid_is_init) {
       init_video (dec, img);
       if (0 == dec->vid_is_init) goto no_video;
@@ -124,7 +113,6 @@ int vp8dec_decode (VP8Dec *dec, size_t size,
   return 1;
 
 not_initialized:
-  printf ("Skipping frame. Decoder not initialized yet.\n");
   return 0;
 no_decode:
   printf ("Failed to decode frame: %s\n", vpx_codec_err_to_string (status));
@@ -133,7 +121,7 @@ no_video:
   return 0;
 
 }
-int init_video (VP8Dec *dec, vpx_image_t *img) {
+int init_video (VP8Dec *dec, const vpx_image_t *img) {
 
   int w, h, ov_w, ov_h;
   w = img->d_w;
@@ -163,10 +151,8 @@ overlay_init_err:
   return 0;
 }
 
-void display_video (VP8Dec *dec, vpx_image_t *img) {
+void display_video (VP8Dec *dec, const vpx_image_t *img) {
   int i;
-
-  /*  printf ("strides: %d, %d, %d\n", img->stride[0], img->stride[1], img->stride[2]); */
   
   /* Lock SDL_yuv_overlay */
   if (SDL_MUSTLOCK(dec->screen)) {
