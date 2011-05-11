@@ -12,10 +12,10 @@
 
 (define pid (current-thread))
 
-(define p (make-pipeline (["udtsink"     : t3 (make-udt-writer pid "127.0.0.1" 5000)]
-                          ["vp8dec"      : t5 (make-vp8-decoder pid)]
-                          ["fork"        : t4 (make-fork pid (list t3 t5))]
-                          ["vp8"         : t2 (make-vp8-encoder pid t4)]
+(define p (make-pipeline (["udtsink"     : t5 (make-udt-writer pid "127.0.0.1" 5000)]
+                          ["vp8dec"      : t4 (make-vp8-decoder pid)]
+                          ["fork"        : t3 (make-fork pid (list t4 t5))]
+                          ["vp8"         : t2 (make-vp8-encoder pid t3)]
                           ["v4l2-reader" : t1 (make-v4l2-reader pid t2)])))
 
 (semaphore-wait (make-semaphore))

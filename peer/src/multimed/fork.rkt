@@ -1,27 +1,49 @@
-#lang racket
+#lang typed/racket
 
-(require "util.rkt"
+(require "util-types.rkt"
          "structs.rkt")
 
-(provide make-fork)
+(require/typed "util.rkt"
+               [receive-killswitch/whatever ((Any -> Boolean) -> (U Bytes Symbol FrameBuffer))])
 
-(define/contract (make-fork signaller thds)
-  (thread? (listof thread?) . -> . (-> void))
+(provide make-fork
+         fork/add
+         fork/remove)
+
+(define-type AddRcvr (List 'AddRcvr Thread))
+(define-type RmvRcvr (List 'RmvRcvr Thread))
+(define-predicate add-rcvr? AddRcvr)
+(define-predicate rmv-rcvr? RmvRcvr)
+
+(: fork/add (Thread Thread -> Void))
+(define (fork/add fork thd)
+  (thread-send fork (cons 'AddRcvr thd))
+  (void))
+
+(: fork/remove (Thread Thread -> Void))
+(define (fork/remove fork thd)
+  (thread-send fork (cons 'RmvRcvr thd))
+  (void))
+
+(: make-fork (Thread (Listof Thread) -> (-> Void)))
+(define (make-fork signaller thds)
   (define is-signaller? (make-thread-id-verifier signaller))
   (λ ()
     (let loop ([thds thds])
-      (match (receive-killswitch/whatever is-signaller?)
-        [(? die? _) (for-each (curry command/killswitch signaller) thds)
-                    (reply/state-report signaller #f)]
-        
-        [(? bytes? b) (for-each (λ (t) (thread-send t bytes)) thds)
-                      (loop thds)]
-        ;; pooling buffers and copying an incoming buffer to N outgoing buffers doesn't scale
-        ;; in this case it's better to just let the GC handle it
-        [(FrameBuffer bytes size λdisposal)
-         (define outbuf (subbytes bytes 0 size))
-         (for-each (λ (t)
-                     (thread-send t (make-FrameBuffer outbuf size (λ () (void)))))
-                   thds)
-         (λdisposal)
-         (loop thds)]))))
+      (let ([m (receive-killswitch/whatever is-signaller?)])
+        (cond [(add-rcvr? m) (loop (cons (car m) thds))]
+              [(rmv-rcvr? m) (loop (filter (λ: ([t : Thread]) (not (equal? t (car m)))) thds))]
+              [(die? m) (for-each (curry command/killswitch signaller) thds)
+                        (reply/state-report signaller #f)]
+              
+              [(bytes? m) (for-each (λ: ([t : Thread]) (thread-send t m)) thds)
+                          (loop thds)]
+              ;; pooling buffers and copying an incoming buffer to N outgoing buffers doesn't scale
+              ;; in this case it's better to just let the GC handle it
+              [(FrameBuffer? m) (match-let ([(FrameBuffer bytes size λdisposal) m])
+                                  (define outbuf (subbytes bytes 0 size))
+                                  (map (λ: ([t : Thread])
+                                           (thread-send t (FrameBuffer outbuf size (λ () (void)))))
+                                       thds)
+                                  (λdisposal)
+                                  (loop thds))])))))

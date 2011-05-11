@@ -41,10 +41,14 @@
 (define no-message 'no-message)
 (define no-message? (curry equal? no-message))
 
+(define/contract (command reply-to receiver command)
+  (thread? thread? symbol? . -> . void)
+  (thread-send receiver (list reply-to command)))
+
 ;; send a killswitch, or pass on a received killswitch to the next element of the pipeline
 (define/contract (command/killswitch reply-to receiver)
   (thread? thread? . -> . void)
-  (thread-send receiver (list reply-to killswitch)))
+  (command reply-to receiver killswitch))
 
 ;; receive a killswitch, or whatever else. at minimum, 
 ;; the pipeline element must test the output for die?

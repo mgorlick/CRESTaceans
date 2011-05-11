@@ -3,7 +3,7 @@
 (require/typed "util.rkt"
                [command/killswitch (Thread Thread -> Void)]
                [reply/state-report (Thread Any -> Void)]
-               [die? (Symbol -> Boolean)]
-               [no-message? (Symbol -> Boolean)]
+               [die? (Any -> Boolean)]
+               [no-message? (Any -> Boolean)]
                [make-thread-id-verifier (Thread -> (Any -> Boolean))])
 (provide (all-defined-out))
