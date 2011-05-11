@@ -135,13 +135,14 @@ int vp8enc_encode (VP8Enc *enc, size_t size, const unsigned char *buffer,
   
   status = vpx_codec_encode (&enc->codec, enc->image, enc->n_frames++, 1, flags, VPX_DL_REALTIME);
   if (status != VPX_CODEC_OK) goto no_frame;
-  
-  while (NULL != (pkt = vpx_codec_get_cx_data (&enc->codec, &iter))) {
+
+  /* XXX fixme this only takes the first packet from the iterator
+     and discards the rest corresponding to the input buffer */
+  if (NULL != (pkt = vpx_codec_get_cx_data (&enc->codec, &iter))) {
     switch (pkt->kind) {
       case VPX_CODEC_CX_FRAME_PKT:
         memcpy (out, pkt->data.frame.buf, pkt->data.frame.sz);
         *written = pkt->data.frame.sz;
-        printf ("packet size %d\n", *written);
         break;
       default:
         printf ("Found some non-data packet, type %d\n", pkt->kind);

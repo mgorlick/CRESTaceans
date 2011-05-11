@@ -97,9 +97,7 @@ int vp8dec_decode (VP8Dec *dec, const size_t size,
     vp8dec_init (dec, size, data);
     if (0 == dec->is_init) goto not_initialized;
   }
-
-  is_kf (size, data);
-
+  
   status = vpx_codec_decode (dec->codec, data, size, NULL, 0);
   if (status != VPX_CODEC_OK) goto no_decode;
 
