@@ -4,14 +4,14 @@
          "structs.rkt")
 
 (require/typed "util.rkt"
-               [receive-killswitch/whatever ((Any -> Boolean) -> (U Bytes Symbol FrameBuffer))])
+               [receive-killswitch/whatever ((Any -> Boolean) -> (U Symbol AddRcvr RmvRcvr Bytes FrameBuffer))])
 
 (provide make-fork
          fork/add
          fork/remove)
 
-(define-type AddRcvr (List 'AddRcvr Thread))
-(define-type RmvRcvr (List 'RmvRcvr Thread))
+(define-type AddRcvr (Pair 'AddRcvr Thread))
+(define-type RmvRcvr (Pair 'RmvRcvr Thread))
 (define-predicate add-rcvr? AddRcvr)
 (define-predicate rmv-rcvr? RmvRcvr)
 
@@ -31,8 +31,8 @@
   (λ ()
     (let loop ([thds thds])
       (let ([m (receive-killswitch/whatever is-signaller?)])
-        (cond [(add-rcvr? m) (loop (cons (car m) thds))]
-              [(rmv-rcvr? m) (loop (filter (λ: ([t : Thread]) (not (equal? t (car m)))) thds))]
+        (cond [(add-rcvr? m) (loop (cons (cdr m) thds))]
+              [(rmv-rcvr? m) (loop (filter (λ: ([t : Thread]) (not (equal? t (cdr m)))) thds))]
               [(die? m) (for-each (curry command/killswitch signaller) thds)
                         (reply/state-report signaller #f)]
               
