@@ -99,8 +99,6 @@ int v4l2_reader_open (v4l2_reader *v) {
   memset (&format, 0x00, sizeof format);
   format.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   ioctl (v->fd, VIDIOC_G_FMT, &format);
-  printf ("pixel format: %d\n", format.fmt.pix.pixelformat);
-  printf ("colorspace: %d\n", format.fmt.pix.colorspace);
 
 #if 0
   v4l2_streamparm stream;

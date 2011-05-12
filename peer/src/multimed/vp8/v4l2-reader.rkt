@@ -67,10 +67,6 @@
       (v4l2-reader-delete v)
       (reply/state-report signaller #f))
     
-    (printf "size is ~ax~a~n" w h)
-    (printf "time per frame is ~a/~a~n" fn fd)
-    (printf "using ~a buffers~n" buffer-ct)
-    
     (let loop ()
       (match (receive-killswitch/whatever is-signaller? #:block? #f)
         [(? no-message? _) (grab-frame) (loop)]

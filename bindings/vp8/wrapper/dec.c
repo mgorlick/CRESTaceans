@@ -19,8 +19,6 @@ typedef struct VP8Dec {
 int init_video (VP8Dec *dec, const vpx_image_t *img);
 void display_video (VP8Dec *dec, const vpx_image_t *img);
 
-/* XXX fixme vp8dec_delete */
-
 void vp8dec_delete (VP8Dec *dec) {
   if (dec == NULL) return;
 
@@ -139,8 +137,6 @@ int init_video (VP8Dec *dec, const vpx_image_t *img) {
   if (dec->screen == NULL) goto screen_init_err;
   dec->yuv_overlay = SDL_CreateYUVOverlay (w, h, SDL_YV12_OVERLAY, dec->screen);
   if (dec->yuv_overlay == NULL) goto overlay_init_err;
-
-  printf ("made SDL overlay: %dx%d\n", dec->yuv_overlay->w, dec->yuv_overlay->h);
 
   dec->rect.x = 0;
   dec->rect.y = 0;
