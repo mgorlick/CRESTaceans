@@ -12,6 +12,6 @@
   (make-pipeline (["vp8dec"     : t2 (make-vp8-decoder pid)]
                   ["udt-reader" : t1 (make-udt-reader pid #f port t2)])))
 
-(define pipeline (udp-in>>theora-decoder 5000))
+(define pipeline (udp-in>>theora-decoder 7500))
 
 (semaphore-wait (make-semaphore))
