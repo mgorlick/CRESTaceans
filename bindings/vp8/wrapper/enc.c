@@ -24,7 +24,7 @@ typedef struct VP8Enc {
   vpx_image_t *image;
   int width;
   int height;
-  int n_frames;
+  vpx_codec_pts_t n_frames;
 } VP8Enc;
 
 void vp8enc_delete (VP8Enc *enc) {
@@ -127,13 +127,17 @@ inline int get_row_stride (const int component_index, const int pic_width) {
       ROUND_UP_4 (ROUND_UP_2 (pic_width) / 2);
 }
 
-int vp8enc_encode (VP8Enc *enc, size_t size, const unsigned char *buffer,
-                   unsigned char *out, size_t *written) {
+int vp8enc_encode (VP8Enc *enc,
+                   const size_t size, const unsigned char *buffer,
+                   const size_t outsize, unsigned char *out,
+                   size_t *written) {
 
   const vpx_codec_cx_pkt_t *pkt;
   vpx_codec_err_t status;
   vpx_codec_iter_t iter = NULL;
-  int flags = 0;
+  vpx_fixed_buf_t fbuff = { out, outsize };
+  vpx_enc_frame_flags_t flags = 0;
+  int need_extra_copy = 0;
   
   yuv422_to_yuv420p (enc->image->img_data, buffer, enc->width, enc->height);
 
@@ -143,12 +147,15 @@ int vp8enc_encode (VP8Enc *enc, size_t size, const unsigned char *buffer,
   status = vpx_codec_encode (&enc->codec, enc->image, enc->n_frames++, 1, flags, VPX_DL_REALTIME);
   if (status != VPX_CODEC_OK) goto no_frame;
 
+  status = vpx_codec_set_cx_data_buf (&enc->codec, &fbuff, 0, 0);
+  if (status != VPX_CODEC_OK) need_extra_copy = 1;
+
   /* XXX fixme this only takes the first packet from the iterator
      and discards the rest corresponding to the input buffer */
   if (NULL != (pkt = vpx_codec_get_cx_data (&enc->codec, &iter))) {
     switch (pkt->kind) {
       case VPX_CODEC_CX_FRAME_PKT:
-        memcpy (out, pkt->data.frame.buf, pkt->data.frame.sz);
+        if (need_extra_copy) memcpy (out, pkt->data.frame.buf, pkt->data.frame.sz);
         *written = pkt->data.frame.sz;
         break;
       default:

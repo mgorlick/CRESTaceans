@@ -7,12 +7,14 @@
 
 (provide make-vp8-encoder)
 
+(define BUFSIZE (* 1024 1024))
+
 (define/contract (make-vp8-encoder signaller receiver)
   (thread? thread? . -> . (-> void))
   
   (define is-signaller? (make-thread-id-verifier signaller))
   (define e (vp8enc-new))
-  (define-values (handler λrequest) (make-bufferpool-handler 20 (* 1024 1024)))
+  (define-values (handler λrequest) (make-bufferpool-handler 20 BUFSIZE))
   
   (λ ()
     (let loop ()
@@ -22,7 +24,7 @@
                     (reply/state-report signaller #f)]
         [(FrameBuffer data size λdisposal)
          (let-values ([(outbuff λreturn) (λrequest)])
-           (let ([written (vp8enc-encode e size data outbuff)])
+           (let ([written (vp8enc-encode e size data BUFSIZE outbuff)])
              (thread-send receiver (make-FrameBuffer outbuff written λreturn))))
          (λdisposal)
          (loop)]))))

@@ -26,6 +26,8 @@
   (fork-add fork (dict-ref p "loc"))
   p)
 
+(add-local!)
+
 (define (add-remote!)
   (set! p (pipeline-add p "rmt" (make-udt-writer pid "128.195.58.146" 5000)))
   (fork-add fork (dict-ref p "rmt"))
