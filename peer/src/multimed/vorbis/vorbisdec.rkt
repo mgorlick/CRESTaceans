@@ -2,12 +2,9 @@
 
 (require "../util.rkt"
          "../structs.rkt"
-         "../prebuffer.rkt"
          "vorbisdec-private.rkt"
          "../../../../bindings/vorbis/libvorbis.rkt")
 (provide make-vorbis-decoder)
-
-(define *BUFFER-AHEAD* 0)
 
 ;; Vorbis decoder component
 (define/contract (make-vorbis-decoder signaller [localstate (make-vdec-state)])
@@ -15,31 +12,25 @@
   
   (define vdec (vorbisdec-new))
   (define is-signaller? (make-thread-id-verifier signaller))
-  (define proc! (curry handle-vorbis-buffer! vdec localstate))
   
   (when (reinitialize? localstate) (reinitialize! localstate (curry header-packet! vdec)))
   (λ ()
-    (let loop ([p (make-prebuffer *BUFFER-AHEAD*)])
+    (let loop ()
       (match (receive-killswitch/whatever is-signaller?)
-        [(? bytes? packet)
-         (decode-or-prebuffer loop proc! p packet)]
+        [(? bytes? packet) (handle-vorbis-buffer! vdec localstate packet (bytes-length packet))
+                           (loop)]
         [(FrameBuffer packet size λdisposal)
-         (decode-or-prebuffer (λ (p) (λdisposal) (loop p)) proc! p (subbytes packet 0 size))]
+         (handle-vorbis-buffer! vdec localstate packet size)
+         (λdisposal)
+         (loop)]
         [(? die? sig) (vorbisdec-delete vdec)
                       ;; Don't need to worry about packets in mailbox:
                       ;; Assume downstream producer has not done any more useful
                       ;; work after forwarding die signal
                       (reply/state-report signaller localstate)]))))
 
-(define/contract (decode-or-prebuffer loop proc! p packet)
-  ((prebuffer? . -> . void) (bytes? . -> . void) prebuffer? bytes? . -> . void)
-  (cond [(not (prebuffer-more? p)) (proc! packet)
-                                   (loop p)]
-        [else (loop (prebuffer-do p packet proc!))]))
-
-(define/contract (handle-vorbis-buffer! vdec localstate buffer)
-  (vorbisdec-pointer? vdec-state? bytes? . -> . void)
-  (define len (bytes-length buffer))
+(define/contract (handle-vorbis-buffer! vdec localstate buffer len)
+  (vorbisdec-pointer? vdec-state? bytes? exact-nonnegative-integer? . -> . void)
   (match* ((packet-type buffer len) (vorbisdec-is-init vdec))
     ;; "normal" states: non-empty packet, dec initialized with headers before processing data
     [('data #t) (data-packet! vdec localstate buffer len)]

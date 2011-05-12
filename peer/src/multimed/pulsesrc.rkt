@@ -7,7 +7,7 @@
 
 (provide make-pulsesrc)
 
-(define BUFFSIZE 1024)
+(define BUFFSIZE 4096)
 
 (define/contract (make-pulsesrc signaller receiver)
   (thread? thread? . -> . (-> void))
