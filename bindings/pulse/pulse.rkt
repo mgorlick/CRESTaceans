@@ -17,5 +17,5 @@
 (defpulse pulsesrc-new (_fun -> _pulsesrc-pointer))
 (defpulse pulsesrc-delete (_fun _pulsesrc-pointer -> _void))
 (defpulse pulsesrc-read (_fun _pulsesrc-pointer
-                              _size_t _bytes (_ptr o _size_t)
+                              _size_t _bytes
                               -> _bool))

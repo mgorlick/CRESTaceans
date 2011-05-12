@@ -37,6 +37,5 @@
 (define/contract (make-packet-out-callback receiver)
   (thread? . -> . (ogg-packet-pointer? symbol? . -> . boolean?))
   (λ (packet type)
-    (printf "packet size: ~a~n" (ogg-packet-size packet))
     (thread-send receiver (bytes-copy (ogg-packet-data packet)))
     #t))
