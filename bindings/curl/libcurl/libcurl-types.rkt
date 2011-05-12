@@ -1,6 +1,7 @@
 #lang racket
 
-(require ffi/unsafe)
+(require ffi/unsafe
+         "../../ctypes.rkt")
 (provide (except-out (all-defined-out)
                      CURLInfo-String
                      CURLInfo-Long
@@ -167,7 +168,6 @@
 (define CURL-HTTPPost*? (flat-named-contract 'CURL-HTTPPost*? CURL-HTTPPost-pointer?))
 
 (define _time_t _int)
-(define _size_t _int)
 (define _CURL-formget-callback (_fun _void _string _size_t -> _size_t))
 
 (define LONG 0)

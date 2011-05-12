@@ -2,7 +2,8 @@
 
 (require ffi/unsafe
          ffi/unsafe/cvector
-         (only-in '#%foreign ffi-callback))
+         (only-in '#%foreign ffi-callback)
+         "../ctypes.rkt")
 
 ; FFI
 (define chipmunk-lib (ffi-lib "libchipmunk"))
@@ -23,7 +24,6 @@
 (define _cpFloat _double)
 (define cpFloat? real?)
 (define _cpDataPointer _pointer) ; XXX
-(define _size_t _ulong) ; XXX
 (define _cpHashValue _size_t)
 
 ;; Chipmunk Vectors

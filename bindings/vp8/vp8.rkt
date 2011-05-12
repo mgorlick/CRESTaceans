@@ -1,6 +1,7 @@
 #lang racket
 
-(require ffi/unsafe)
+(require ffi/unsafe
+         "../ctypes.rkt")
 (provide (except-out (all-defined-out)
                      defvp8
                      defvp8+
@@ -13,8 +14,6 @@
   (defvp8+ obj obj typ))
 (define-syntax-rule (defvp8* typ obj ...)
   (begin (defvp8 obj typ) ...))
-
-(define _size_t _uint32)
 
 (define-cpointer-type _vp8enc-pointer)
 

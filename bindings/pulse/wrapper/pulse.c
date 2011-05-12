@@ -40,3 +40,13 @@ no_pa:
   free (src);
   return NULL;
 }
+
+int pulsesrc_read (PulseSrc *src, const size_t size, unsigned char *buff, size_t *written) {
+  int error;
+
+  if (0 > (*written = pa_simple_read(s, buff, size, &error))) {
+    fprintf(stderr, __FILE__": pa_simple_read() failed: %s\n", pa_strerror(error));
+    return 0;
+  }
+  return 1;
+}
