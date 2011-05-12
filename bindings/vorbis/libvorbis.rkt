@@ -94,10 +94,10 @@
 (defvorbis~ vorbisenc-init (_fun _int _int _float _vorbisenc-process-block -> _vorbisenc-pointer))
 
 (defvorbis~ vorbisenc-encode-pcm-samples
-  (_fun (enc buffer conv callback) ::
+  (_fun (enc buffer size conv callback) ::
         (enc : _vorbisenc-pointer)
         (buffer : _bytes)
-        (_long = (bytes-length buffer))
+        (size : _long)
         (conv : _conversion-type)
         (callback : _vorbisenc-process-block)
         -> _bool))
