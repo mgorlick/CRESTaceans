@@ -34,6 +34,10 @@
          ...
          ))]))
 
+(define/contract (pipeline-add p name thunk)
+  (dict? string? (-> void) . -> . dict?)
+  (cons `(,name . ,(thread thunk)) p))
+
 ;;; ------------------------------------------------
 ;;; signals for pipeline control from the flowmaster
 (define killswitch 'clone/die)
@@ -82,6 +86,7 @@
 ;; where 'whatever' is what the thread identified by the thread handle sends in a state report
 (define/contract (receive-state-report component-id thread-handle states)
   (string? thread? dict? . -> . dict?)
+  (printf "getting state from ~a~n" component-id)
   (dict-set states component-id (receive/state-report (make-thread-id-verifier thread-handle))))
 
 ;; gather-states: a kind of map over a pipeline, yielding a dict of (string . any) from the

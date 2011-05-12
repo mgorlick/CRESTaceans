@@ -21,6 +21,14 @@ void display_video (VP8Dec *dec, const vpx_image_t *img);
 
 /* XXX fixme vp8dec_delete */
 
+void vp8dec_delete (VP8Dec *dec) {
+  if (dec == NULL) return;
+
+  if (dec->codec != NULL) free (dec->codec);
+  SDL_Quit ();
+  free (dec);
+}
+
 VP8Dec* vp8dec_new (void) {  
   VP8Dec *dec = malloc (sizeof (VP8Dec));
   dec->is_init = 0;

@@ -18,3 +18,5 @@
 ; hack. untyped modules get confused when trying to refer to
 ; the data constructor aliased to the type name
 (define make-FrameBuffer FrameBuffer)
+
+(define voidthunk (λ () (void)))

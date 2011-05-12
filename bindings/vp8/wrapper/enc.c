@@ -27,6 +27,13 @@ typedef struct VP8Enc {
   int n_frames;
 } VP8Enc;
 
+void vp8enc_delete (VP8Enc *enc) {
+  if (enc == NULL) return;
+
+  if (enc->image != NULL) vpx_img_free (enc->image);
+  free (enc);
+}
+
 VP8Enc* vp8enc_new (void) {
   int i;
   vpx_codec_err_t status;

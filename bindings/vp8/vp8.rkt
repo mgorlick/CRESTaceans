@@ -19,12 +19,14 @@
 (define-cpointer-type _vp8enc-pointer)
 
 (defvp8 vp8enc-new (_fun -> _vp8enc-pointer))
+(defvp8 vp8enc-delete (_fun _vp8enc-pointer -> _void))
 (defvp8 vp8enc-encode (_fun _vp8enc-pointer _size_t _bytes _bytes (written : (_ptr o _size_t))
                             -> (r : _bool)
                             -> (if r written #f)))
 
 (define-cpointer-type _vp8dec-pointer)
 (defvp8 vp8dec-new (_fun -> _vp8dec-pointer))
+(defvp8 vp8dec-delete (_fun _vp8dec-pointer -> _void))
 (defvp8 vp8dec-decode (_fun _vp8dec-pointer _size_t _bytes -> _bool))
 
 ;; video capture

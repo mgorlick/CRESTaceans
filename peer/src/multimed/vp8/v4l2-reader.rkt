@@ -55,11 +55,16 @@
          (sleep 0.01)]))
     
     (define (cleanup)
+      (command/killswitch signaller receiver)
       (semaphore-wait v-sema)
       (kill-thread pool-helper)
-      (v4l2-reader-delete v)
       (semaphore-post v-sema)
-      (command/killswitch signaller receiver)
+      ;; HACK: we need to wait for the next elements
+      ;; of the pipeline to free themselves before we kill
+      ;; the buffer so they're not writing to freed mmapped memory
+      ;; since this is video one second should be enough.
+      (sleep 1)
+      (v4l2-reader-delete v)
       (reply/state-report signaller #f))
     
     (printf "size is ~ax~a~n" w h)
@@ -68,6 +73,5 @@
     
     (let loop ()
       (match (receive-killswitch/whatever is-signaller? #:block? #f)
-        [(? no-message? _) (grab-frame)]
-        [(? die? _) (cleanup)])
-      (loop))))
+        [(? no-message? _) (grab-frame) (loop)]
+        [(? die? _) (cleanup)]))))

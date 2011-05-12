@@ -17,7 +17,8 @@
   (λ ()
     (let loop ()
       (match (receive-killswitch/whatever is-signaller?)
-        [(? die? _) (command/killswitch signaller receiver)
+        [(? die? _) (vp8enc-delete e)
+                    (command/killswitch signaller receiver)
                     (reply/state-report signaller #f)]
         [(FrameBuffer data size λdisposal)
          (let-values ([(outbuff λreturn) (λrequest)])

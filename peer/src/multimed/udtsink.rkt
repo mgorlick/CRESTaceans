@@ -14,16 +14,18 @@
 (define (make-udt-writer signaller remote-host remote-port)
   (let ([socket (udp-open-socket #f #f)]
         [is-signaller? (make-thread-id-verifier signaller)]
-        [initSeqNo 0]
-        [initMsgNo 0]
         [storage (make-bytes (* 1024 1024))])
     (λ ()
-      (let: loop : Void ([lstSeqNo : Natural initSeqNo] [lstMsgNo : Natural initMsgNo])
+      (let: loop : Void ([lstSeqNo : Natural 0] [lstMsgNo : Natural 0])
         (match (receive-killswitch/whatever is-signaller?)
+          [(? die? sig)
+           (reply/state-report signaller #f)
+           (udp-close socket)]
+          
           [(FrameBuffer buffer size λdisposal)
            (let-values ([(pkt seqNo msgNo) (makeMessage lstSeqNo lstMsgNo 0 #"")])
-             (define written (packet->bytes pkt storage))
-             (bytes-copy! storage 16 buffer 0 size)
+             (define written (packet->bytes pkt storage)) ; write the header
+             (bytes-copy! storage 16 buffer 0 size) ; write the body
              (λdisposal)
              (with-handlers ([exn:fail? (λ (e) (printf "Error ~a: packet size is ~a~n" e (bytes-length buffer)))])
                (udp-send-to socket remote-host remote-port storage 0 (+ size written)))
@@ -35,8 +37,4 @@
                (define written (packet->bytes pkt storage))
                (udp-send-to socket remote-host remote-port storage 0 written))
              (loop seqNo msgNo))]
-          
-          [(? symbol? sig) 
-           (when (die? sig)
-             (udp-close socket)
-             (reply/state-report signaller #f))])))))
+          )))))
