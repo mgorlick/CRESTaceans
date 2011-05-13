@@ -1,6 +1,7 @@
 #lang racket
 
-(require ffi/unsafe)
+(require ffi/unsafe
+         "../ctypes.rkt")
 (provide (except-out (all-defined-out)
                      defvorbis~
                      defvorbis~+
@@ -67,9 +68,14 @@
 ;;; ogg packet helpers
 
 (define-cpointer-type _ogg-packet-pointer)
+(define-cpointer-type _ogg-demux-pointer)
+(define _ogg-packet-for-each (_fun _ogg-packet-pointer -> _void))
 (defvorbis~ ogg-packet-copy (_fun _ogg-packet-pointer -> _ogg-packet-pointer))
 (defvorbis~ ogg-packet-size (_fun _ogg-packet-pointer -> _long))
 (defvorbis~ ogg-packet-data (_fun (p : _ogg-packet-pointer) -> (_bytes o (ogg-packet-size p))))
+(defvorbis~ ogg-demux-new (_fun -> _ogg-demux-pointer))
+(defvorbis~ ogg-demux-delete (_fun _ogg-demux-pointer -> _void))
+(defvorbis~ ogg-demux-data (_fun _ogg-demux-pointer _size_t _bytes _ogg-packet-for-each -> _bool))
 
 ;;; additions for building encoder
 
