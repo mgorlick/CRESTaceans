@@ -1,6 +1,9 @@
-#lang racket
+#lang racket/base
 
-(require "msg.rkt")
+(require racket/match
+         racket/contract
+         racket/tcp
+         "msg.rkt")
 
 (define/contract (handle bytes)
   (bytes? . -> . (or/c bytes? #f))
@@ -49,7 +52,9 @@
 (define-values (i o) (tcp-accept tcp))
 
 (let loop ()
-  (let ([bytes (read-bytes-line i 'return-linefeed)])
-    (with-handlers ([exn:fail:beep:frame? (λ (e) (printf "error: ~a~n" e))])
-      (handle bytes))
-    (loop)))
+  (with-handlers ([exn:fail:beep:frame? (λ (e) (printf "error: ~a~n" e))])
+    (let ([bytes (read-bytes-line i 'return-linefeed)])
+      (if (bytes? bytes) 
+          (handle bytes)
+          (raise-frame-warning "found eof"))))
+    (loop))

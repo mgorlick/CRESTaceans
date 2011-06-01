@@ -1,16 +1,33 @@
-#lang racket
+#lang racket/base
 
-(require unstable/contract
-         unstable/dict)
+(require racket/contract
+         racket/function
+         racket/dict
+         racket/provide
+         unstable/contract
+         unstable/dict
+         "modular-arithmetic.rkt")
 
-(provide (all-defined-out))
+(struct response (beeptype url status-code status-msg mime headers remotepk payload))
 
-(define top (compose sub1 (curry expt 2)))
-(define top32 (top 32))
-(define top31 (top 31))
-(define uint32/c (opt/c (and/c exact-integer? (between/c 0 top32)))) ; 2^32 - 1
-(define uint31/c (opt/c (and/c exact-integer? (between/c 0 top31)))) ; 2^31 - 1
-(define rec-byteslist/c (recursive-contract (or/c bytes? (listof rec-byteslist/c))))
+(provide/contract
+ [struct response ([beeptype bytes?] ; e.g., #"ANS" this could be one-of/c but it's easier to extend this way
+                   [url bytes?]
+                   [status-code number?] ; e.g., 200
+                   [status-msg bytes?] ; e.g., #"OK"
+                   [mime bytes?]
+                   [headers (listof (cons/c bytes? bytes?))]
+                   [remotepk bytes?] ; public key of the sender
+                   [payload bytes?])])
+
+(provide (except-out (all-defined-out)
+                     frame-header
+                     struct:response
+                     (matching-identifiers-out #rx"^response*" (all-defined-out))))
+
+(define-modular-arithmetic 32 #f)
+(define-modular-arithmetic 31 #f)
+(define rec-byteslist/c (or/c bytes? (recursive-contract (listof rec-byteslist/c))))
 
 (define number->bytes (compose string->bytes/utf-8 number->string))
 (define bytes->number (compose string->number bytes->string/utf-8))
@@ -27,7 +44,6 @@
 ;; -------
 ;; SENDING
 ;; -------
-
 
 (define/contract (seq-header channelno ackno window)
   (uint31/c uint32/c uint31/c . -> . rec-byteslist/c)
@@ -80,8 +96,7 @@
 
 (define/contract (raise-frame-warning a)
   (string? . -> . void)
-  (raise (exn:fail:beep:frame (format "malformed frame warning: ~a" a)
-                              (current-continuation-marks))))
+  (raise (exn:fail:beep:frame (format "malformed frame warning: ~a" a) (current-continuation-marks))))
 
 ;; utilities for reading & parsing received frames
 
@@ -93,6 +108,8 @@
       (void)
       (raise-frame-warning "parameters in header are syntactically incorrect")))
 
+;; check to make sure that the continuation indicator token is one of two
+;; note: still need to check validity for specific message & channel state
 (define/contract (iscont-syntax-valid? v) ; RFC 3080 2.2.1.1 error
   (bytes? . -> . void)
   (if (or (equal? FINISHMSG v) (equal? CONTINUEMSG v))
