@@ -25,18 +25,6 @@
                      struct:response
                      (matching-identifiers-out #rx"^response*" (all-defined-out))))
 
-(define-modular-arithmetic 32 #f)
-(define-modular-arithmetic 31 #f)
-(define rec-byteslist/c (or/c bytes? (recursive-contract (listof rec-byteslist/c))))
-
-(define number->bytes (compose string->bytes/utf-8 number->string))
-(define bytes->number (compose string->number bytes->string/utf-8))
-(define (contind->boolean i)
-  (if (equal? i CONTINUEMSG)
-      #t
-      #f))
-
-
 ; RFC 3080 section 2.2.1.1 constants
 (define SP #" ")
 (define COLON #": ")
@@ -45,6 +33,15 @@
 (define TRAILER #"END\r\n")
 ; RFC 2045 section 2.1 constants
 (define CRLF #"\r\n")
+
+(define-modular-arithmetic 32 #f)
+(define-modular-arithmetic 31 #f)
+(define rec-byteslist/c (or/c bytes? (recursive-contract (listof rec-byteslist/c))))
+
+(define number->bytes (compose string->bytes/utf-8 number->string))
+(define bytes->number (compose string->number bytes->string/utf-8))
+(define contind->boolean (curry equal? CONTINUEMSG))
+(define sum (curry apply +))
 
 ;; -------
 ;; SENDING
@@ -83,16 +80,15 @@
 
 (define/contract (rec-byteslist-length bstr-or-list)
   (rec-byteslist/c . -> . exact-nonnegative-integer?)
-  (cond [(list? bstr-or-list) (foldl + 0 (map rec-byteslist-length bstr-or-list))]
+  (cond [(list? bstr-or-list) (sum (map rec-byteslist-length bstr-or-list))]
         [(bytes? bstr-or-list) (bytes-length bstr-or-list)]))
-
 
 ;; write the representation produced by `frame-header' to the output port.
 ;; return a count of the bytes written.
 (define/contract (write-rec-byteslist oport bstr-or-list)
   (output-port? rec-byteslist/c . -> . exact-nonnegative-integer?)
   (define (w* oport bstr-or-list)
-    (cond [(list? bstr-or-list) (foldl + 0 (map (curry w* oport) bstr-or-list))]
+    (cond [(list? bstr-or-list) (sum (map (curry w* oport) bstr-or-list))]
           [(bytes? bstr-or-list) (write-bytes bstr-or-list oport)]))
   (let ([ct (w* oport bstr-or-list)])
     (flush-output oport)

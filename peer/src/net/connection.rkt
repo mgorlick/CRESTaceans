@@ -38,6 +38,16 @@
      (printf "sequence ackno: ~a~n" ?ackno)
      #f]|#
     
+    [(list #"MSG" ?channel ?msgno ?iscont ?seqno ?size)
+     (printf "MSG: msgno, seqno (+ size): ~a, ~a (+ ~a)~n" ?msgno ?seqno ?size)
+     (bytenums-syntax-valid? ?channel ?msgno ?seqno ?size)
+     (iscont-syntax-valid? ?iscont)
+     (send the-channel new-msg-frame
+           (bytes->number ?msgno)
+           (bytes->number ?seqno)
+           (contind->boolean ?iscont)
+           (read-payload/end (bytes->number ?size) i))]
+    
     [(list (? normal-msg-type? ?type) ?channel ?msgno ?iscont ?seqno ?size)
      (printf "non-ans msg seqno ~a: ~a + ~a~n" ?type ?seqno ?size)
      (bytenums-syntax-valid? ?channel ?msgno ?seqno ?size)
@@ -46,7 +56,7 @@
      (void)]
     
     [(list #"ANS" ?channel ?msgno ?iscont ?seqno ?size ?ansno)
-     (printf "ans msg seqno: ~a + ~a, ansno ~a~n" ?seqno ?size ?ansno)
+     (printf "ANS: msg, seqno (+ size): ~a, ~a (+ ~a), ansno ~a~n" ?msgno ?seqno ?size ?ansno)
      (bytenums-syntax-valid? ?channel ?msgno ?seqno ?size ?ansno)
      (iscont-syntax-valid? ?iscont)
      (let* ([msgno (bytes->number ?msgno)]
@@ -54,7 +64,6 @@
             [ansno (bytes->number ?ansno)]
             [size (bytes->number ?size)]
             [payload (read-payload/end size i)])
-       (printf "invoking channel~n")
        (send the-channel new-ans-frame msgno seqno ansno (contind->boolean ?iscont) payload))]
     
     [(list #"NUL" ?channel ?msgno #"." ?seqno #"0")

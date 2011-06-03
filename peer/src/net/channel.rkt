@@ -2,9 +2,9 @@
 
 (require racket/dict
          racket/contract
-         racket/tcp
          racket/match
          racket/class
+         racket/function
          unstable/contract
          data/queue
          "msg.rkt"
@@ -73,11 +73,22 @@
     (define/public (get-remote-pk)
       remote-public-key)
     
+    ;; note that most of these error-case catching functions assume
+    ;; a serialized nature of message writing
+    ;; which is to say, all frames of message A are written before
+    ;; any frame of message B is written
+    
     ; 2.2.1.1 errors clause 4
+    ; this doesn't make sense:
+    ; suppose I send message 5
+    ; you never reply to message 5, purposefully
+    ; then 2^32-1 messages later we hit message 5 again
+    ; spec implies that it should be rejected
     ;(define (msg-not-used-already? msgno)
     ;  #t)
     
     ; 2.2.1.1 errors clause 5
+    ;; prevent receiving a reply from a reply that was already received
     (define (didnt-already-get-reply? type msgno)
       (match type
         [#"ERR" (> msgno last-err-enqueued-no)]
@@ -90,65 +101,49 @@
       (<= msgno largest-written-msg-no))
     
     ; 2.2.1.1 errors clause 7
+    ;; prevents inequivalent-by-type messages from sharing a message number
+    ;; over a single iteration of the message number space
     (define (type-code-ok? type msgno)
       (if (equal? msgno last-seen-msgno)
           (equal? type last-seen-type)
           #t))
     
-    ; 2.2.1.1 errors clause 8, slightly weaker enforcement than spec
-    (define (nul-ok?)
-      (equal? last-seen-type #"ANS"))
+    ; 2.2.1.1 errors clause 8
+    ;; prevents non-ANS/NUL messages from being delivered inside an ANS sequence
+    (define (in-ans-mode? msgno)
+      (if (equal? last-seen-type #"ANS")
+          (equal? last-seen-msgno msgno)
+          #t))
     
     ; 2.2.1.1 errors clause 9
+    ;; prevents continued frames from appending with different message frames
     (define (continuation-ok? msgno)
       (if last-frame-continues?
           (equal? msgno last-seen-msgno)
           #t))
     
     ; 2.2.1.1 errors clause 10
+    ;; prevents sequence number desynchronization
     (define (valid-seqno? seqno payload-size)
       (=/u32 seqno next-expected-seqno))
     
-    (define/public (new-ans-frame msgno seqno ansno more? payload) ; error clauses: 6, 7, 9, 10
-      (printf "new ANS frame~n")
-      (cond
-        [(and (valid-seqno? seqno (bytes-length payload))
-              (continuation-ok? msgno)
-              (type-code-ok? #"ANS" msgno)
-              (sent-msg-no? msgno))
-         (printf "frame is OK~n")
-         (if more?
-             (new-ans-frame/continued msgno seqno ansno payload)
-             (new-ans-frame/finish msgno seqno ansno payload))]
-        [else
-         (raise-frame-warning (format
-                               "invalid ans frame (valid seqno? ~a; continuation ok? ~a; type code ok? ~a; sent msg no? ~a)"
-                               (valid-seqno? seqno (bytes-length payload))
-                               (continuation-ok? msgno)
-                               (type-code-ok? #"ANS" msgno)
-                               (sent-msg-no? msgno)))]))
+    (define (update-expected-seqno! len)
+      (set! next-expected-seqno (+/u32 next-expected-seqno len)))
     
-    ; an ANS with a #"*" continuation indicator
-    (define/contract (new-ans-frame/continued msgno seqno ansno payload)
-      (uint31/c uint32/c uint31/c bytes? . -> . void)
-      (if (dict-has-key? pending-frames msgno)
-          (dict-set! pending-frames msgno (merge-frames (dict-ref pending-frames msgno) payload))
-          (dict-set! pending-frames msgno (frame-temp #"ANS" payload)))
-      (set! last-seen-msgno msgno)
-      (set! last-frame-continues? #t)
-      (set! last-seen-type #"ANS")
-      (set! next-expected-seqno (+ next-expected-seqno (bytes-length payload))))
+    (define (process/continue msgno seqno payload type)
+      (process-frame msgno seqno payload type (curry dict-set! pending-frames msgno) #t))
     
-    ; an ANS with a #"." continuation indicator
-    (define/contract (new-ans-frame/finish msgno seqno ansno payload)
-      (uint31/c uint32/c uint31/c bytes? . -> . void)
-      (if (dict-has-key? pending-frames msgno)
-          (enqueue-complete-frame (merge-frames (dict-ref pending-frames msgno) payload))
-          (enqueue-complete-frame (frame-temp #"ANS" payload)))
-      (set! last-seen-msgno msgno)
-      (set! last-frame-continues? #f)
-      (set! last-seen-type #"ANS")
-      (set! next-expected-seqno (+ next-expected-seqno (bytes-length payload))))
+    (define (process/finish msgno seqno payload type)
+      (process-frame msgno seqno payload type enqueue-complete-frame #f))
+    
+    (define (process-frame msgno seqno payload type handlefun continue?)
+      (begin (if (dict-has-key? pending-frames msgno)
+                 (handlefun (merge-frames (dict-ref pending-frames msgno) payload))
+                 (handlefun (frame-temp type payload)))
+             (set! last-seen-msgno msgno)
+             (set! last-frame-continues? continue?)
+             (set! last-seen-type type)
+             (update-expected-seqno! (bytes-length payload))))
     
     ;; call when ready to deliver a complete message to user space
     ;; takes a frame-temp and turns it into a real response
@@ -157,24 +152,53 @@
       (let ([response (frame-temp->response ft remote-public-key)])
         (semaphore-wait message-queue-lock)
         (enqueue! message-queue response)
-        (printf "enqueued: ~a~n" response)
+        (printf "enqueued: ~s~n" response)
         (semaphore-post message-queue-lock)))
+    
+    (define/public (new-ans-frame msgno seqno ansno more? payload) ; error clauses: 6, 7, 9, 10
+      (cond
+        [(and (valid-seqno? seqno (bytes-length payload))
+              (continuation-ok? msgno)
+              (type-code-ok? #"ANS" msgno)
+              (sent-msg-no? msgno))
+         (if more?
+             (process/continue msgno seqno payload #"ANS")
+             (process/finish msgno seqno payload #"ANS"))]
+        [else
+         (raise-frame-warning (format
+                               "invalid ans frame (valid seqno? ~a; continuation ok? ~a; type code ok? ~a; sent msg no? ~a)"
+                               (valid-seqno? seqno (bytes-length payload))
+                               (continuation-ok? msgno)
+                               (type-code-ok? #"ANS" msgno)
+                               (sent-msg-no? msgno)))]))
     
     (define/public (new-nul-frame msgno seqno)
       (cond
         [(valid-seqno? seqno 0)
-         (if (and (sent-msg-no? msgno) (nul-ok?))
+         (if (and (sent-msg-no? msgno) (in-ans-mode? msgno))
              (begin
+               ; enqueue any partially-finished ANS message in the pending frame dict?
                (set! last-seen-msgno msgno)
                (set! last-frame-continues? #f)
-               (set! last-seen-type #"NUL")
-               ; enqueue any partially-finished ANS message in the pending frame dict?
-               )
-             (raise-frame-warning "NUL not ok"))]
-        [else (raise-frame-warning "invalid sequence number on a nul frame")]))
+               (set! last-seen-type #"NUL"))
+             (raise-frame-warning
+              (format "NUL not ok (sent the msgno? ~a; in ans mode? ~a)" (sent-msg-no? msgno) (in-ans-mode?))))]
+        [else (raise-frame-warning
+               (format "invalid sequence number on a nul frame (got seq ~a, expected ~a)" seqno next-expected-seqno))]))
     
     (define/public (new-msg-frame msgno seqno more? payload)
-      'y)
+      (cond
+        [(and (valid-seqno? seqno (bytes-length payload))
+              (type-code-ok? #"MSG" msgno)
+              (continuation-ok? msgno))
+         (if more?
+             (process/continue msgno seqno payload #"MSG")
+             (process/finish msgno seqno payload #"MSG"))]
+        [else (raise-frame-warning
+               (format "invalid msg frame (seq ok? ~a; type ok? ~a; continuation ok? ~a)"
+                       (valid-seqno? seqno (bytes-length payload))
+                       (type-code-ok? #"MSG" msgno)
+                       (continuation-ok? msgno)))]))
     
     (define/public (new-rpy-frame msgno seqno more? payload)
       'x)

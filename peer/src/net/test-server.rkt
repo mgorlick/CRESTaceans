@@ -4,7 +4,7 @@
          "msg.rkt"
          "connection.rkt")
 
-(define tcp (tcp-listen 5006))
+(define tcp (tcp-listen 5004))
 (define-values (i o) (tcp-accept tcp))
 
 (let loop ()
