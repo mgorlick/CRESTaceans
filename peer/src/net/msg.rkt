@@ -8,7 +8,7 @@
          unstable/dict
          "modular-arithmetic.rkt")
 
-(struct response (beeptype url status-code status-msg mime headers remotepk payload))
+(struct response (beeptype url status-code status-msg mime headers remotepk payload) #:transparent)
 
 (provide/contract
  [struct response ([beeptype bytes?] ; e.g., #"ANS" this could be one-of/c but it's easier to extend this way
@@ -16,7 +16,7 @@
                    [status-code number?] ; e.g., 200
                    [status-msg bytes?] ; e.g., #"OK"
                    [mime bytes?]
-                   [headers (listof (cons/c bytes? bytes?))]
+                   [headers (hash/c bytes? bytes?)]
                    [remotepk bytes?] ; public key of the sender
                    [payload bytes?])])
 
@@ -31,6 +31,11 @@
 
 (define number->bytes (compose string->bytes/utf-8 number->string))
 (define bytes->number (compose string->number bytes->string/utf-8))
+(define (contind->boolean i)
+  (if (equal? i CONTINUEMSG)
+      #t
+      #f))
+
 
 ; RFC 3080 section 2.2.1.1 constants
 (define SP #" ")
@@ -81,22 +86,32 @@
   (cond [(list? bstr-or-list) (foldl + 0 (map rec-byteslist-length bstr-or-list))]
         [(bytes? bstr-or-list) (bytes-length bstr-or-list)]))
 
+
 ;; write the representation produced by `frame-header' to the output port.
 ;; return a count of the bytes written.
 (define/contract (write-rec-byteslist oport bstr-or-list)
   (output-port? rec-byteslist/c . -> . exact-nonnegative-integer?)
-  (cond [(list? bstr-or-list) (foldl + 0 (map (curry write-rec-byteslist oport) bstr-or-list))]
-        [(bytes? bstr-or-list) (write-bytes bstr-or-list oport)]))
+  (define (w* oport bstr-or-list)
+    (cond [(list? bstr-or-list) (foldl + 0 (map (curry w* oport) bstr-or-list))]
+          [(bytes? bstr-or-list) (write-bytes bstr-or-list oport)]))
+  (let ([ct (w* oport bstr-or-list)])
+    (flush-output oport)
+    ct))
 
 ;; ---------
 ;; RECEIVING
 ;; ---------
 
 (struct exn:fail:beep:frame exn:fail:network ())
+(struct exn:fail:beep:message exn:fail:network ())
 
 (define/contract (raise-frame-warning a)
   (string? . -> . void)
   (raise (exn:fail:beep:frame (format "malformed frame warning: ~a" a) (current-continuation-marks))))
+
+(define/contract (raise-message-warning a)
+  (string? . -> . void)
+  (raise (exn:fail:beep:message (format "malformed message warning: ~a" a) (current-continuation-marks))))
 
 ;; utilities for reading & parsing received frames
 
