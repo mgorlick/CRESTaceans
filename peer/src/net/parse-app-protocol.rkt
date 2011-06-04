@@ -18,7 +18,7 @@
 ;; the "main" application logic parsing locus. the rest of the functions here
 ;; are private helpers so this code doesn't look _too_ disgusting.
 (define/contract (payload->response beeptype rpk txt)
-  (bytes? bytes? bytes? . -> . response?)
+  (symbol? bytes? bytes? . -> . response?)
   ; restrict our future parsing to the header only - so we don't find \r\n in body
   (let ([where-CRLF (regexp-match-positions hd-bd-delimit-rx txt)])
     (cond

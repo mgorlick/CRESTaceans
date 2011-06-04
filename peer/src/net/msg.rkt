@@ -11,7 +11,7 @@
 (struct response (beeptype url status-code status-msg mime headers remotepk payload) #:transparent)
 
 (provide/contract
- [struct response ([beeptype bytes?] ; e.g., #"ANS" this could be one-of/c but it's easier to extend this way
+ [struct response ([beeptype symbol?] ; e.g., 'ans this could be one-of/c but it's easier to extend this way
                    [url bytes?]
                    [status-code number?] ; e.g., 200
                    [status-msg bytes?] ; e.g., #"OK"
@@ -113,8 +113,8 @@
 
 ;; check to make sure that the numeric bitstring tokens are valid
 ;; note: doesn't check for the specific bit-size-based value constraints
-(define/contract (bytenums-syntax-valid? . nums) ; RFC 3080 2.2.1.1 error
-  ([] #:rest (listof bytes?) . ->* . void)
+(define/contract (bytenums-syntax-valid? nums) ; RFC 3080 2.2.1.1 error
+  ((listof bytes?) . -> . void)
   (if (andmap (curry regexp-match-exact? #"[0-9]+") nums)
       (void)
       (raise-frame-warning "parameters in header are syntactically incorrect")))

@@ -11,12 +11,12 @@
 (define payload3 #"Body begins here")
 (define payload4 #"\r\nthis is the rest of the body.")
 
-(define-values (i o) (tcp-connect "localhost" 5004))
+(define-values (i o) (tcp-connect "localhost" 50000))
 
 (define seq 0)
 
 (define/contract (write-frame/update-seq! beepheader . bls)
-  ([rec-byteslist/c] #:rest (listof rec-byteslist/c) . ->* . void)
+  ([rec-byteslist/c] #:rest rec-byteslist/c . ->* . void)
   (write-rec-byteslist o beepheader)
   (let ([seqchange (write-rec-byteslist o bls)])
     (write-rec-byteslist o TRAILER)
@@ -32,7 +32,9 @@
 
 (write-frame/update-seq! (nul-header 0 0 seq))
 
-(write-frame/update-seq! (msg-header 0 1 #f seq (rec-byteslist-length (list payload1 #"\r\n" payload3)))
+(write-frame/update-seq! (rpy-header 0 1 #f seq (rec-byteslist-length (list payload1 #"\r\n" payload3)))
                          payload1
                          #"\r\n"
                          payload3)
+
+;(write-frame/update-seq! (msg-header 0 1 #f 

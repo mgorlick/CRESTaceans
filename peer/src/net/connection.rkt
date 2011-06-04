@@ -2,12 +2,7 @@
 
 (require racket/match
          racket/contract
-         racket/tcp
          racket/class
-         data/queue
-         racket/dict
-         unstable/dict
-         unstable/contract
          "msg.rkt"
          "channel.rkt")
 
@@ -26,10 +21,12 @@
 ;; the goal is to only pass on potentially invalid messages to the channel layer which need
 ;; channel-specific state to validate.
 
+(define (check-frame-syntax iscont . bytenums)
+  (and (iscont-syntax-valid? iscont)
+       (bytenums-syntax-valid? bytenums)))
+
 (define/contract (handle-frame bytes i)
   (bytes? input-port? . -> . void)
-  (define (normal-msg-type? t)
-    (or (equal? t #"MSG") (equal? t #"RPY") (equal? t #"ERR")))
   
   (printf "processing line: ~a~n" bytes)
   (match (regexp-split #" " bytes)
@@ -40,25 +37,36 @@
     
     [(list #"MSG" ?channel ?msgno ?iscont ?seqno ?size)
      (printf "MSG: msgno, seqno (+ size): ~a, ~a (+ ~a)~n" ?msgno ?seqno ?size)
-     (bytenums-syntax-valid? ?channel ?msgno ?seqno ?size)
-     (iscont-syntax-valid? ?iscont)
+     (check-frame-syntax ?iscont ?channel ?msgno ?seqno ?size)
      (send the-channel new-msg-frame
            (bytes->number ?msgno)
            (bytes->number ?seqno)
            (contind->boolean ?iscont)
            (read-payload/end (bytes->number ?size) i))]
     
-    [(list (? normal-msg-type? ?type) ?channel ?msgno ?iscont ?seqno ?size)
-     (printf "non-ans msg seqno ~a: ~a + ~a~n" ?type ?seqno ?size)
-     (bytenums-syntax-valid? ?channel ?msgno ?seqno ?size)
-     (iscont-syntax-valid? ?iscont)
-     (read-payload/end (bytes->number ?size) i)
-     (void)]
+    [(list #"RPY" ?channel ?msgno ?iscont ?seqno ?size)
+     (printf "RPY: msgno, seqno (+ size): ~a, ~a (+ ~a)~n" ?msgno ?seqno ?size)
+     (check-frame-syntax ?iscont ?channel ?msgno ?seqno ?size)
+     (let ([pl (read-payload/end (bytes->number ?size) i)])
+       (printf "got rpy payload~n")
+       (send the-channel new-rpy-frame
+             (bytes->number ?msgno)
+             (bytes->number ?seqno)
+             (contind->boolean ?iscont)
+             pl))]
+    
+    [(list #"ERR" ?channel ?msgno ?iscont ?seqno ?size)
+     (printf "ERR: msgno, seqno (+ size): ~a, ~a (+ ~a)~n" ?msgno ?seqno ?size)
+     (check-frame-syntax ?iscont ?channel ?msgno ?seqno ?size)
+     (send the-channel new-err-frame
+           (bytes->number ?msgno)
+           (bytes->number ?seqno)
+           (contind->boolean ?iscont)
+           (read-payload/end (bytes->number ?size) i))]
     
     [(list #"ANS" ?channel ?msgno ?iscont ?seqno ?size ?ansno)
      (printf "ANS: msg, seqno (+ size): ~a, ~a (+ ~a), ansno ~a~n" ?msgno ?seqno ?size ?ansno)
-     (bytenums-syntax-valid? ?channel ?msgno ?seqno ?size ?ansno)
-     (iscont-syntax-valid? ?iscont)
+     (check-frame-syntax ?iscont ?channel ?msgno ?seqno ?size ?ansno)
      (let* ([msgno (bytes->number ?msgno)]
             [seqno (bytes->number ?seqno)]
             [ansno (bytes->number ?ansno)]
@@ -67,7 +75,7 @@
        (send the-channel new-ans-frame msgno seqno ansno (contind->boolean ?iscont) payload))]
     
     [(list #"NUL" ?channel ?msgno #"." ?seqno #"0")
-     (bytenums-syntax-valid? ?channel ?msgno ?seqno)
+     (bytenums-syntax-valid? (list ?channel ?msgno ?seqno))
      (read-end i)
      (send the-channel new-nul-frame (bytes->number ?msgno) (bytes->number ?seqno))
      (void)]
