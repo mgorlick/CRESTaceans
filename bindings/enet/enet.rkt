@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 
 (require ffi/unsafe
          "../ctypes.rkt")
@@ -67,37 +67,27 @@
 
 ;; Host
 (define ENetMaxPeerCount (sub1 (expt 2 12))) ; any higher than this and enet_host_create returns null
-(defenet enet-host-create (_fun (_or-null _ENetAddress-pointer)
-                                _size_t _size_t _uint32 _uint32 -> _ENetHost-pointer))
+(defenet enet-host-create (_fun (_or-null _ENetAddress-pointer) _size_t _size_t _uint32 _uint32
+                                -> _ENetHost-pointer))
 (defenet enet-host-destroy (_fun _ENetHost-pointer -> _void))
 (defenet enet-host-flush (_fun _ENetHost-pointer -> _void))
-(defenet enet-host-service (_fun _ENetHost-pointer (e : (_ptr o _ENetEvent)) _uint32 -> (r : _int)
-                                 -> (ptr/or-null r e)))
-(defenet enet-host-check-events (_fun _ENetHost-pointer (e : (_ptr o _ENetEvent)) -> (r : _int)
-                                      -> (ptr/or-null r e)))
-(defenet enet-host-connect (_fun _ENetHost-pointer _ENetAddress-pointer _size_t _uint32 -> _ENetPeer-pointer))
+(defenet enet-host-connect-by-name (_fun _ENetHost-pointer _string _uint16 _size_t _uint32 -> _ENetPeer-pointer))
 (defenet enet-host-broadcast (_fun _ENetHost-pointer _uint8 _ENetPacket-pointer -> _void))
 (defenet enet-host-bandwidth-limit (_fun _ENetHost-pointer _uint32 _uint32 -> _void))
 (defenet enet-host-channel-limit (_fun _ENetHost-pointer _size_t -> _void))
+(defenet enet-host-service (_fun _ENetHost-pointer (e : (_ptr o _ENetEvent)) _uint32
+                                 -> (r : _int)
+                                 -> (ptr/or-null r e)))
 
 ;; Peer
 (defenet enet-peer-send (_fun _ENetPeer-pointer _uint8 _ENetPacket-pointer -> _enet-bool))
-(defenet enet-peer-receive (_fun _ENetPeer-pointer (channelID : (_ptr o _uint8)) -> (packet : _ENetPacket-pointer)
-                                 -> (values packet channelID)))
 (defenet enet-peer-disconnect (_fun _ENetPeer-pointer _uint32 -> _void))
 (defenet enet-peer-disconnect-later (_fun _ENetPeer-pointer _uint32 -> _void))
 (defenet enet-peer-disconnect-now (_fun _ENetPeer-pointer _uint32 -> _void))
 
 ;; Address
 (defenet enet-address-set-host (_fun _ENetAddress-pointer _string -> _enet-bool))
-(defenet+ enet-address-get-hostnum
-  enet-address-set-host (_fun (name) :: 
-                              (v : (_ptr o _ENetAddress))
-                              (name : _string)
-                              -> (r : _enet-bool)
-                              -> (and r (ENetAddress-host v))))
-
-(define enet-address-destroy free)
+(defenet enet-address-get-host-binary (_fun _string -> _uint32))
 
 (define (host/port->addr host port)
   (define addr (make-ENetAddress 0 port))
@@ -105,12 +95,9 @@
   (if (enet-address-set-host addr host)
       addr
       #f))
-
 (define (addr->host/port addr)
   (cons (ENetAddress-host addr) (ENetAddress-port addr)))
-
-(define (peer->host/port peer)
-  (addr->host/port (ENetPeer-address peer)))
+(define peer->host/port (compose addr->host/port ENetPeer-address))
 
 ;; Packets
 (defenet+ enet-packet-create/bytes enet-packet-create
@@ -120,6 +107,8 @@
         (flags : _ENetPacketFlag)
         -> _ENetPacket-pointer))
 (defenet enet-packet-destroy (_fun _ENetPacket-pointer -> _void))
+
+(define event-port (compose ENetAddress-port ENetPeer-address ENetEvent-peer))
 
 (define (get-packet-data p)
   (cast (ENetPacket-data p) _pointer (_bytes o (ENetPacket-dataLength p))))
