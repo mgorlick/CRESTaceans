@@ -1,7 +1,10 @@
-#lang typed/racket
+#lang typed/racket/base
 
 (require "util-types.rkt"
-         "structs.rkt")
+         "structs.rkt"
+         (only-in typed/racket
+                  curry
+                  match-let))
 
 (require/typed "util.rkt"
                [receive-killswitch/whatever ((Any -> Boolean) -> (U Symbol AddRcvr RmvRcvr Bytes FrameBuffer))])

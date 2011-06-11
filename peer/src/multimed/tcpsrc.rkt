@@ -1,8 +1,12 @@
-#lang racket
+#lang racket/base
 
 (require "util.rkt"
          "structs.rkt"
-         "bufferpool.rkt")
+         "bufferpool.rkt"
+         racket/match
+         racket/contract
+         racket/tcp
+         racket/port)
 
 (provide make-tcp-src)
 

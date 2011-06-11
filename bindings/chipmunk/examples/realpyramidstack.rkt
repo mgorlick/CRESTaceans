@@ -1,7 +1,7 @@
-#lang racket
+#lang racket/base
 
 (require "../chipmunk.rkt"
-         )
+         racket/match)
 
 ; port of chipmunk's pyramid stack demo
 (cpInitChipmunk)

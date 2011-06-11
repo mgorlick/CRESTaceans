@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 
 (require "../libnacl/libnacl.rkt")
 (require "../libnacl/crypto-box.rkt")

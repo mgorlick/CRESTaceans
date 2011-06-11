@@ -1,6 +1,9 @@
-#lang racket
+#lang racket/base
 
-(require (planet bzlib/thread:1:0))
+(require (planet bzlib/thread:1:0)
+         racket/contract
+         racket/dict
+         racket/function)
 (provide (all-defined-out))
 
 (define-syntax-rule (define-thread id body ...)

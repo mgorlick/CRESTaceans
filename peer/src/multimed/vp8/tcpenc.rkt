@@ -1,11 +1,12 @@
 #! /usr/bin/env racket
-#lang racket
+#lang racket/base
 
 (require "../util.rkt"
          "../tcpsink.rkt"
          "../fork.rkt"
          "vp8enc.rkt"
-         "v4l2-reader.rkt")
+         "v4l2-reader.rkt"
+         racket/dict)
 
 (provide (all-defined-out)
          (all-from-out "../fork.rkt"

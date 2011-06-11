@@ -1,6 +1,6 @@
-#lang racket
+#lang racket/base
 
-(require "../chipmunk.rkt")
+(require racket/local racket/match "../chipmunk.rkt")
 
 (cpInitChipmunk)
 (cpResetShapeIdCounter)

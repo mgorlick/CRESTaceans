@@ -1,6 +1,7 @@
-#lang racket
+#lang racket/base
 
 (require ffi/unsafe
+         racket/list
          "libcurl-types.rkt")
 
 (define libcurl (ffi-lib "libcurl" "4"))

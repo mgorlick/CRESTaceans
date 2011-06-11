@@ -1,6 +1,7 @@
-#lang racket
+#lang racket/base
 
 (require "../chipmunk.rkt"
+         racket/math
          2htdp/image
          2htdp/universe)
 

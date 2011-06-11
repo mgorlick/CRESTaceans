@@ -1,9 +1,10 @@
-#lang racket
+#lang racket/base
 
 (require "../../../bindings/pulse/pulse.rkt"
          "util.rkt"
          "structs.rkt"
-         "bufferpool.rkt")
+         "bufferpool.rkt"
+         racket/contract)
 
 (provide make-pulsesrc)
 

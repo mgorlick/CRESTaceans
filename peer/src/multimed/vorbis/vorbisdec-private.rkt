@@ -1,5 +1,7 @@
-#lang racket
+#lang racket/base
 
+(require racket/vector
+         racket/contract)
 (provide make-vdec-state
          vdec-state?
          packetcount

@@ -1,5 +1,7 @@
-#lang racket
+#lang racket/base
 
+(require racket/list
+         racket/stream)
 (provide (all-defined-out))
 
 ; read-lines: pathstring -> (listof string)

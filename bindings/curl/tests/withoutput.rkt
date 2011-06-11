@@ -1,7 +1,8 @@
 #! /usr/bin/env racket
-#lang racket
+#lang racket/base
 
 (require "../libcurl/libcurl.rkt"
+         racket/list
          ffi/unsafe)
 
 (define HTTP/version #"^[A-Z|a-z]+/[0|1]\\.[0|1|9]")

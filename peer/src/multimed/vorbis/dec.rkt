@@ -1,8 +1,9 @@
-#lang racket
+#lang racket/base
 
 (require "../util.rkt"
          "../udp-read.rkt"
-         "vorbisdec.rkt")
+         "vorbisdec.rkt"
+         racket/dict)
 
 (provide (all-defined-out))
 

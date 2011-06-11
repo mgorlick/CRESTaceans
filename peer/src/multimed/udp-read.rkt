@@ -1,8 +1,10 @@
-#lang typed/racket
+#lang typed/racket/base
 
 (require "udp-types.rkt"
          "event-types.rkt"
-         "util-types.rkt")
+         "util-types.rkt"
+         (only-in typed/racket
+                  match))
 
 (require/typed "util.rkt"
                [receive-killswitch/whatever ((Any -> Boolean) -> Symbol)])

@@ -1,9 +1,12 @@
-#lang racket
+#lang racket/base
 
 (require "../util.rkt"
          "../structs.rkt"
          "vorbisdec-private.rkt"
-         "../../../../bindings/vorbis/libvorbis.rkt")
+         "../../../../bindings/vorbis/libvorbis.rkt"
+         racket/contract
+         racket/function
+         racket/match)
 (provide make-vorbis-decoder)
 
 ;; Vorbis decoder component

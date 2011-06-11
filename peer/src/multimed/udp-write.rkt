@@ -1,7 +1,8 @@
-#lang typed/racket
+#lang typed/racket/base
 
 (require "util-types.rkt"
-         "udp-types.rkt")
+         "udp-types.rkt"
+         (only-in typed/racket match))
 (provide make-udp-writer)
 
 (require/typed "util.rkt"

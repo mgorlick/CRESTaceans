@@ -1,6 +1,7 @@
-#lang typed/racket
+#lang typed/racket/base
 
-(require "asynch-wrap.rkt")
+(require "asynch-wrap.rkt"
+         (only-in typed/racket empty?))
 (provide make-bufferpool-handler)
 
 ;; this implementation uses two channels to avoid messing with the pipeline component thread's

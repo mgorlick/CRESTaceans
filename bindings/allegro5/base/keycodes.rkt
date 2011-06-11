@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 
 (provide (prefix-out Allegro- (all-defined-out)))
 

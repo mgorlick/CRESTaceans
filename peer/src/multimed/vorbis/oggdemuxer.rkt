@@ -1,14 +1,15 @@
-#lang racket
+#lang racket/base
 
 (require "../../../../bindings/vorbis/libvorbis.rkt"
          "../structs.rkt"
-         "../util.rkt")
+         "../util.rkt"
+         racket/contract)
 
 (provide make-ogg-demuxer)
 
 (define READSIZE 8192)
 
-(define (make-ogg-demuxer signaller filename receiver)
+(define/contract (make-ogg-demuxer signaller filename receiver)
   (thread? path-string? thread? . -> . (-> void))
   
   (define d (ogg-demux-new))

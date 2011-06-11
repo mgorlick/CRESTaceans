@@ -1,4 +1,4 @@
-#lang typed/racket
+#lang typed/racket/base
 
 (require/typed racket/async-channel
                [opaque AsyncChannel async-channel?]

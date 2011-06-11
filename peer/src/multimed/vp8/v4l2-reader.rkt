@@ -1,8 +1,11 @@
-#lang racket
+#lang racket/base
 
 (require "../util.rkt"
          "../structs.rkt"
-         "../../../../bindings/vp8/vp8.rkt")
+         "../../../../bindings/vp8/vp8.rkt"
+         racket/contract
+         racket/set
+         racket/match)
 
 (provide make-v4l2-reader)
 

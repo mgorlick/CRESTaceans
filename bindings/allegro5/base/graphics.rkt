@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 
 (require "graphics-bitmap.rkt"
          "graphics-blend-clip-util.rkt"

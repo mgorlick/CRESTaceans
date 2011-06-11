@@ -1,5 +1,5 @@
 #! /usr/bin/racket
-#lang racket
+#lang racket/base
 (require ffi/unsafe
          ffi/unsafe/cvector
          "allegro5.rkt")

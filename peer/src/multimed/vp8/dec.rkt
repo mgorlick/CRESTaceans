@@ -1,5 +1,5 @@
 #! /usr/bin/env racket
-#lang racket
+#lang racket/base
 
 (require "../udp-read.rkt"
          "../util.rkt"

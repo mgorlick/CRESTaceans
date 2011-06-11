@@ -1,6 +1,7 @@
-#lang racket
+#lang racket/base
 
 (require ffi/unsafe
+				 (except-in racket/contract ->)
          "../../ctypes.rkt")
 (provide (except-out (all-defined-out)
                      CURLInfo-String

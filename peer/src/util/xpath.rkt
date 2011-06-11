@@ -1,4 +1,9 @@
-#lang racket
+#lang racket/base
+
+(require racket/match
+         racket/list
+         racket/function
+         racket/dict)
 
 ; XPath-like functionality for selecting on xexprs
 ; taken from Racket's
