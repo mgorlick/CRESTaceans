@@ -2,7 +2,7 @@
 #lang racket
 
 (require "../util.rkt"
-         "../udtsink.rkt"
+         "../udp-write.rkt"
          "../fork.rkt"
          "vp8enc.rkt"
          "v4l2-reader.rkt")
@@ -22,13 +22,13 @@
 (define fork (dict-ref p "fork"))
 
 (define (add-local!)
-  (set! p (pipeline-add p "loc" (make-udt-writer pid "127.0.0.1" 7500)))
+  (set! p (pipeline-add p "loc" (make-udp-writer pid "127.0.0.1" 7500)))
   (fork-add fork (dict-ref p "loc"))
   p)
 
 (add-local!)
 
 (define (add-remote!)
-  (set! p (pipeline-add p "rmt" (make-udt-writer pid "128.195.58.146" 7500)))
+  (set! p (pipeline-add p "rmt" (make-udp-writer pid "128.195.58.146" 7500)))
   (fork-add fork (dict-ref p "rmt"))
   p)

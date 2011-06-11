@@ -1,7 +1,7 @@
 #lang racket
 
 (require "../util.rkt"
-         "../udtsrc.rkt"
+         "../udp-read.rkt"
          "vorbisdec.rkt")
 
 (provide (all-defined-out))
@@ -10,10 +10,10 @@
   (define pid (current-thread))
   (define decoder (if initial-vorbis-state (make-vorbis-decoder pid initial-vorbis-state) (make-vorbis-decoder pid)))
   (make-pipeline (["vorbis-decoder" : t2 decoder]
-                  ["udt-reader"     : t1 (make-udt-reader pid #f in-port t2)])))
+                  ["udp-reader"     : t1 (make-udp-reader pid #f in-port t2)])))
 
 (define (decoder:pause/move/restart pipeline new-port)
-  (command/killswitch (current-thread) (dict-ref pipeline "udt-reader"))
+  (command/killswitch (current-thread) (dict-ref pipeline "udp-reader"))
   (let ([states (gather-states pipeline)])
     (udp-in>>decoder new-port (dict-ref states "vorbis-decoder"))))
 

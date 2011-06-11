@@ -10,7 +10,7 @@
 (define (tcp-in>>theora-decoder port [theora-dec-state #f])
   (define pid (current-thread))
   (make-pipeline (["vp8dec"     : t2 (make-vp8-decoder pid)]
-                  ["udt-reader" : t1 (make-tcp-src pid #f port t2)])))
+                  ["tcp-reader" : t1 (make-tcp-src pid #f port t2)])))
 
 (define pipeline (tcp-in>>theora-decoder 7500))
 
