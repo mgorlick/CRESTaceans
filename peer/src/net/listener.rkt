@@ -3,6 +3,7 @@
 (require "../../../bindings/enet/enet.rkt"
          racket/contract
          racket/match
+         racket/list
          racket/function
          racket/async-channel)
 
@@ -39,7 +40,8 @@
           (enet-peer-send peer 0 (enet-packet-create/bytes data 'reliable))
           ; peer not connected yet. queue up the message in the racket-level queue
           ; (don't submit it to enet yet since enet will silently throw it away before the peer finishes connection)
-          (begin (enet-host-connect-by-name enet-host hostname port 1 0)
+          (begin (unless (any-suspended? susp-messages hostname port)
+                   (enet-host-connect-by-name enet-host hostname port 1 0))
                  (suspend-message susp-messages hostname port
                                   (enet-packet-create/bytes data '(reliable)))))))
   
@@ -97,19 +99,21 @@
   (hash-remove! peers (peer->host/port peer*)))
 
 ;; ip.port -> list of message functions
+(define/contract (any-suspended? susps hostname portnum)
+  (suspmessageHT/c string? port/c . -> . boolean?)
+  (hash-has-key? susps (cons (enet-address-get-host-binary hostname) portnum)))
+
 (define/contract (suspend-message susps hostname portnum packet)
   (suspmessageHT/c string? port/c cpointer? . -> . void)
   ;; for all entries in susps a given ip.port is either
-  ;; 1. not present
+  ;; 1. not present (i.e., start with empty list produced by (list))
   ;; 2. a nonempty list
-  (hash-update! susps (cons (enet-address-get-host-binary hostname) portnum)
-                (λ (pkts) (cons packet pkts))
-                (λ () (list packet))))
+  (hash-update! susps (cons (enet-address-get-host-binary hostname) portnum) (curry cons packet) list))
 
 (define/contract (get-susp-messages/clear-entry! susps addr)
   (suspmessageHT/c cpointer? . -> . (listof cpointer?))
   (define key (addr->host/port addr))
-  (let ([msgs (hash-ref susps key (λ () '()))])
+  (let ([msgs (hash-ref susps key list)])
     (hash-remove! susps key)
     msgs))
 

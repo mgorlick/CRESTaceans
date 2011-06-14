@@ -20,8 +20,7 @@
 ;;  for a brief overview of McKinlay's implementation. The source code is available at
 ;;  http://suneido.svn.sourceforge.net/viewvc/suneido/jsuneido/src/suneido/util/PersistentMap.java?view=markup ).
 
-(require
- (lib "accomplice/compiler/persistent/trie.rkt"))
+(require "trie.rkt")
 
 (provide
  ; Type test.

@@ -556,6 +556,13 @@
 
     ; Generic list sort.
     (cons 'sort mischief/sort)
+    
+    ; I/O
+    (define/global/N 'printf printf)
+    
+    ; threading
+    (define/global/1 'sleep sleep)
+    (define/global/1 'thread thread)
 
     ; Debugging only.
     (define/global/1 'display display)

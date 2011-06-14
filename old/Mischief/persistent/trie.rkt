@@ -231,7 +231,8 @@
     (if (slot/free? t mask)
         ; No such key in this trie.
         (let ((extension
-               (trie/construct (|| (trie/map t) mask) (add1 (trie/length t)))))
+               (trie/construct (|| (trie/map t) mask)
+                               (add1 (trie/length t)))))
           (vector-copy! extension TRIE/SLOT/OFFSET t TRIE/SLOT/OFFSET midpoint)
           (vector-set!  extension midpoint (cons key value))
           (when (< i (slots/occupied t))
@@ -448,7 +449,7 @@
             (beta/slot  (&& (>>> key/hash   shift) #x01f)))
         (if (= alpha/slot beta/slot)
             ; Collision again so generate a (sub)trie and try again.
-            (let ((subtrie (trie/construct 0 (<<< 1 alpha/slot) 1)))
+            (let ((subtrie (trie/construct (<<< 1 alpha/slot) 1)))
               (trie/slot! subtrie 0 (child/new alpha alpha/hash key value key/hash (+ 5 shift)))
               subtrie)
             
