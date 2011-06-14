@@ -11,18 +11,21 @@
 (define (deserialize/recompile bstr [be BASELINE])
   (deserialize (read (open-input-bytes bstr)) be #f))
 
+(define (deserialize/recompile/start expr-bstr . args)
+  (define fun (mischief/start (deserialize/recompile expr-bstr)))
+  
+  (if (equal? (sub1 (procedure-arity fun))
+              (length args)) ; first arg is always the continuation k
+      (thread (λ () (apply fun (cons rtk/RETURN args))))
+      (error (format "Generated code expects a different number of args: ~a" (sub1 (procedure-arity fun))))))
+
 ;; enet stuff
 
 (define reply-channel (make-async-channel))
-(define request-channel (run-listener "localhost" 1234 reply-channel))
+(define request-channel (run-listener "127.16.121.134" 1234 reply-channel))
 
-(define (cc) (call/cc call/cc))
-
-(define t 0)
-
-(let loop ()
+(let loop ([t 0])
   (match (async-channel-get reply-channel)
     [(response host port data)
-     (thread (λ () ((mischief/start (deserialize/recompile data)) (cc) t)))
-     (set! t (add1 t))
-     (loop)]))
+     (deserialize/recompile/start data t)
+     (loop (add1 t))]))

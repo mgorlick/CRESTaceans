@@ -6,32 +6,26 @@
          "../../old/Mischief/xserialize.rkt"
          racket/async-channel)
 
-
-(define (compile/serialize expr)
-  (serialize (mischief/compile expr)))
-
-(define z 1)
-
 ;; enet stuff
-(define port-to-use (with-handlers ([exn:fail? (λ (e) 5000)])
-                      (string->number (vector-ref (current-command-line-arguments) 0))))
-
+(define port (with-handlers ([exn? (λ (e) 5000)]) (string->number (vector-ref (current-command-line-arguments) 0))))
 (define reply-channel (make-async-channel))
-(define request-channel (run-listener "localhost" port-to-use reply-channel))
+(define request-channel (run-listener "127.16.121.134" port reply-channel))
 
+(define (compile/serialize/send host port expr)
+  (define o (open-output-bytes))
+  (write (serialize (mischief/compile expr)) o)
+  (async-channel-put request-channel (list 'send host port (get-output-bytes o))))
 
 (define (send-gremlin)
-  (define o (open-output-bytes))
-  (write (compile/serialize
-          `(lambda (t)
-             (let loop ([x ,z])
-               (sleep 1)
-               (printf "Gremlin number ~a has taken ~a of your lug nuts~n" t x)
-               (loop (add1 x)))))
-         o)
-  (async-channel-put request-channel (list 'send "localhost" 1234 (get-output-bytes o))))
+  (define z 1)
+  (compile/serialize/send "127.16.121.134" 1234
+                          `(lambda (t)
+                             (let loop ([x ,z])
+                               (sleep 0.5)
+                               (printf "Gremlin number ~a took ~a of your lug nuts~n" t x)
+                               (loop (add1 x))))))
 
 (let loop ()
-  (sleep 2)
+  (sleep 1)
   (send-gremlin)
   (loop))

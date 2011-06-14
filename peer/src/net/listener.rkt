@@ -5,7 +5,8 @@
          racket/match
          racket/list
          racket/function
-         racket/async-channel)
+         racket/async-channel
+         racket/future)
 
 (provide (all-defined-out))
 
@@ -35,29 +36,27 @@
   
   (define/contract (send-message hostname port data)
     (string? port/c bytes? . -> . void)
+    ;(define to-write-out (future (λ () (preprocess-message-out data))))
     (let ([peer (lookup-peer enet-peers hostname port)])
+      (define pkt (enet-packet-create/bytes (preprocess-message-out data) 'reliable))
       (if peer
-          (enet-peer-send peer 0 (enet-packet-create/bytes data 'reliable))
+          (enet-peer-send peer 0 pkt)
           ; peer not connected yet. queue up the message in the racket-level queue
           ; (don't submit it to enet yet since enet will silently throw it away before the peer finishes connection)
           (begin (unless (any-suspended? susp-messages hostname port)
                    (enet-host-connect-by-name enet-host hostname port 1 0))
-                 (suspend-message susp-messages hostname port
-                                  (enet-packet-create/bytes data '(reliable)))))))
+                 (suspend-message susp-messages hostname port pkt)))))
   
   (define event-loop
     (thread
      (λ ()
        (let loop ()
-         
-         ;; first look for an outgoing message
-         (match (sync/timeout 0 request-channel)
+         (match (sync/timeout 0.010 request-channel)
+           [#f #f]
            [(list 'send (? string? host) (? exact-nonnegative-integer? port) (? bytes? data))
             (send-message host port data)]
-           [#f #f]
            [any (printf "Listener dropping outgoing message: ~a~n" any)])
          
-         ;; then look for an incoming event
          (let ([event (enet-host-service enet-host 0)])
            (when event
              (match (ENetEvent-type event)
@@ -79,7 +78,7 @@
                  reply-channel
                  (response "localhost"
                            (event-port event)
-                           (preprocess-message (copy-packet-data (ENetEvent-packet event)))))
+                           (preprocess-message-in (get-packet-data (ENetEvent-packet event)))))
                 (enet-packet-destroy (ENetEvent-packet event))])))
          (loop)))))
   
@@ -117,6 +116,17 @@
     (hash-remove! susps key)
     msgs))
 
-(define/contract (preprocess-message data)
-  (bytes? . -> . any/c)
-  data)
+;; preprocessing to send/recv: message -> gzip -> base64/url -> write out
+(require file/gzip
+         file/gunzip
+         "base64-url-typed.rkt")
+
+(define (preprocess-message-in data)
+  (define o (open-output-bytes))
+  (inflate (open-input-bytes (base64-url-decode data)) o)
+  (get-output-bytes o))
+
+(define (preprocess-message-out data)
+  (define o (open-output-bytes))
+  (deflate (open-input-bytes data) o)
+  (base64-url-encode (get-output-bytes o)))
