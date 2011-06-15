@@ -13,9 +13,8 @@
 (define (deserialize/recompile bstr [be BASELINE])
   (deserialize (read (open-input-bytes bstr)) be #f))
 
-(define (deserialize/recompile/start expr-bstr . args)
-  (define fun (mischief/start (deserialize/recompile expr-bstr)))
-  
+(define (start expr . args)
+  (define fun (mischief/start expr-bstr))
   (if (equal? (sub1 (procedure-arity fun))
               (length args)) ; first arg is always the continuation k
       (thread (λ () (apply fun (cons rtk/RETURN args))))
@@ -29,5 +28,9 @@
 (let loop ([t 0])
   (match (async-channel-get reply-channel)
     [(response host port data)
-     (deserialize/recompile/start data t)
+     (define message (deserialize/recompile data))
+     (match message
+       [(vector 'tuple '(mischief message ask) #"SPAWN" an-url body a b c)
+        (start body t)]
+       [anyelse (printf "~a~n" anyelse)])
      (loop (add1 t))]))
