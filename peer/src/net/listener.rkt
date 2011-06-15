@@ -4,9 +4,7 @@
          racket/contract
          racket/match
          racket/list
-         racket/function
-         racket/async-channel
-         racket/future)
+         racket/function)
 
 (provide (all-defined-out))
 
@@ -16,8 +14,8 @@
 (define peersHT/c (hash/c (cons/c exact-nonnegative-integer? port/c) cpointer?))
 (define suspmessageHT/c (hash/c (cons/c exact-nonnegative-integer? port/c) (listof cpointer?)))
 
-(define/contract (run-listener host port reply-channel)
-  (string? port/c async-channel? . -> . async-channel?)
+(define/contract (run-listener host port reply-thread)
+  (string? port/c thread? . -> . thread?)
   
   (define x #f)
   (define y #f)
@@ -41,8 +39,6 @@
   ;; call enet-peer-send immediately afterward
   (define/contract susp-messages suspmessageHT/c (make-hash))
   
-  (define request-channel (make-async-channel))
-  
   (define/contract (send-message hostname port data)
     (string? port/c bytes? . -> . void)
     (unless x (init-test!))
@@ -65,11 +61,15 @@
   (define event-loop
     (thread
      (λ ()
+       (define tre (thread-receive-evt))
+       (define tre? (curry equal? tre))
        (let loop ()
-         (match (sync/timeout 0.010 request-channel)
+         (match (sync/timeout 0.010 tre)
            [#f #f]
-           [(list 'send (? string? host) (? exact-nonnegative-integer? port) (? bytes? data))
-            (send-message host port data)]
+           [(? tre? e)
+            (match (thread-receive)
+              [(list 'send (? string? host) (? exact-nonnegative-integer? port) (? bytes? data))
+               (send-message host port data)])]
            [any (printf "Listener dropping outgoing message: ~a~n" any)])
          
          (let ([event (enet-host-service enet-host 0)])
@@ -92,19 +92,20 @@
                 (unless y (init-test!))
                 (set! y (add1 y))
                 (when (= 0 (modulo y 1000))
+                  (collect-garbage)
                   (printf "~a messages recvd in ~a seconds (~a messages/sec)~n"
                           y (/ (- (current-inexact-milliseconds) start-time) 1000)
                           (/ y (/ (- (current-inexact-milliseconds) start-time) 1000))))
                 
-                (async-channel-put
-                 reply-channel
+                (thread-send
+                 reply-thread
                  (response "localhost"
                            (event-port event)
                            (preprocess-message-in (get-packet-data (ENetEvent-packet event)))))
                 (enet-packet-destroy (ENetEvent-packet event))])))
          (loop)))))
   
-  request-channel)
+  event-loop)
 
 ;; ip.port -> peer functions
 (define/contract (lookup-peer peers hostname portnum)

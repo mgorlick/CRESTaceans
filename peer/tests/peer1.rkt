@@ -4,30 +4,30 @@
 (require "../src/net/listener.rkt"
          "../../old/Mischief/z.rkt"
          "../../old/Mischief/xserialize.rkt"
-         "../../old/Mischief/message.rkt"
-         "../../old/Mischief/tuple.rkt"
-         racket/async-channel)
+         "../../old/Mischief/message.rkt")
 
 ;; enet stuff
 (define port
   (with-handlers ([exn:fail? (λ (e) 5000)])
     (string->number (vector-ref (current-command-line-arguments) 0))))
-(define reply-channel (make-async-channel))
-(define request-channel (run-listener "128.195.59.191" port reply-channel))
+
+(define request-thread (run-listener "localhost" port (current-thread)))
+
+
 
 (define (compile/serialize/spawn host port expr)
   (define o (open-output-bytes))
   (define msg (message/ask/new #"SPAWN" #"/someurl" (mischief/compile expr) '()))
   (write (serialize msg) o)
-  (async-channel-put request-channel (list 'send host port (get-output-bytes o))))
+  (thread-send request-thread (list 'send host port (get-output-bytes o))))
 
 (define (compile/serialize/post host port expr)
   (define o (open-output-bytes))
   (define msg (message/ask/new #"POST" #"/someurl" (mischief/compile expr) '()))
   (write (serialize msg) o)
-  (async-channel-put request-channel (list 'send host port (get-output-bytes o))))
+  (thread-send request-thread (list 'send host port (get-output-bytes o))))
 
-(define *RHOST* "128.195.58.146")
+(define *RHOST* "localhost")
 (define *RPORT* 1234)
 
 (define (send-gremlin)
@@ -46,5 +46,5 @@
 
 (let loop ()
   ;(sleep 1)
-  (post-gremlin-name "Bob")
+  (post-gremlin-name (make-bytes 10000))
   (loop))

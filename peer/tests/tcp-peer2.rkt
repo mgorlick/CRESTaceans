@@ -1,7 +1,7 @@
 #! /usr/bin/env racket
 #lang racket/base
 
-(require "../src/net/listener.rkt"
+(require "../src/net/tcp-peer.rkt"
          "../../old/Mischief/baseline.rkt"
          "../../old/Mischief/z.rkt"
          "../../old/Mischief/xserialize.rkt"
@@ -18,18 +18,21 @@
       (thread (λ () (apply fun (cons rtk/RETURN args))))
       (error (format "Generated code expects a different number of args: ~a" (sub1 (procedure-arity fun))))))
 
-;; enet stuff
+(define request-channel (run-tcp-peer "128.159.58.146" 1234 (current-thread)))
 
-(define request-thread (run-listener "localhost" 1234 (current-thread)))
+(define (test)
+  (let loop ([t 0])
+    (match (thread-receive)
+      [(response _ _ data)
+       (define message (deserialize/recompile data))
+       (match message
+         [(vector 'tuple '(mischief message ask) #"SPAWN" an-url body a b c)
+          (start-program body t)]
+         [(vector 'tuple '(mischief message ask) #"POST" an-url name a b c)
+          ;(printf "the gremlin's name is ~a~n" (mischief/start name))
+          #f]
+         [anyelse (printf "~a~n" anyelse)])
+       (loop (add1 t))]
+      [else (printf ("no match~n"))])))
 
-(let loop ([t 0])
-  (match (thread-receive)
-    [(response host port data)
-     (define message (deserialize/recompile data))
-     (match message
-       [(vector 'tuple '(mischief message ask) #"SPAWN" an-url body a b c)
-        (start-program body t)]
-       [(vector 'tuple '(mischief message ask) #"POST" an-url name a b c)
-        #f]
-       [anyelse (printf "~a~n" anyelse)])
-     (loop (add1 t))]))
+(test)
