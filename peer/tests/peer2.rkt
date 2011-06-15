@@ -35,7 +35,7 @@
      (match message
        [(vector 'tuple '(mischief message ask) #"SPAWN" an-url body a b c)
         (start-program body t)]
-       [(vector 'tuple '(mischief message ask) #"REMOTE" an-url name a b c)
+       [(vector 'tuple '(mischief message ask) #"POST" an-url name a b c)
         (set! x (+ x 1))
         (when (= 0 (modulo x 1000))
           (printf "~a messages received in ~a seconds (~a messages/sec)~n"
