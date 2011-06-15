@@ -6,9 +6,8 @@
          "../../old/Mischief/xserialize.rkt"
          "../../old/Mischief/message.rkt"
          racket/function
-         racket/pretty)
-
-(require profile)
+         racket/pretty
+         racket/port)
 
 (define port
   (with-handlers ([exn:fail? (λ (e) 5000)])
@@ -16,15 +15,22 @@
 
 (define request-thread (run-tcp-peer "128.195.59.191" port (current-thread)))
 
-(define (compile/serialize method host port expr)
+(define (write/send host port msg)
+  (define the-serialized-msg (serialize msg))
   (define o (open-output-bytes))
-  (define msg (message/ask/new method #"/someurl" (mischief/compile expr) '()))
-  (write (serialize msg) o)
-  (thread-send request-thread (list 'send host port (get-output-bytes o))))
+  (write the-serialized-msg o)
+  (define bytes (get-output-bytes o))
+  (thread-send request-thread (list 'send host port bytes)))
+
+(define (compile/serialize method host port expr)
+  (define the-compiled-expr (mischief/compile expr))
+  (define msg (message/ask/new method #"/someurl" the-compiled-expr '()))
+  (write/send host port msg))
+
 (define compile/serialize/spawn (curry compile/serialize #"SPAWN"))
 (define compile/serialize/post (curry compile/serialize #"POST"))
 
-(define *RHOST* "128.159.58.146")
+(define *RHOST* "128.195.58.146")
 (define *RPORT* 1234)
 
 (define the-gremlin 
@@ -44,11 +50,11 @@
     (post-gremlin-name name)
     (unless (zero? x) (loop (sub1 x)))))
 
-;(profile-thunk test #:threads #t)
+(require profile)
 (profile-thunk
  (λ ()
-   (test-post)
-   (semaphore-wait (make-semaphore)))
+   (test-post))
+ ;(semaphore-wait (make-semaphore)))
  #:delay 0.001
  #:threads #t)
 

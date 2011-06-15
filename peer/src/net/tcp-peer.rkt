@@ -19,12 +19,12 @@
   (define island-pair/c (cons/c string? exact-nonnegative-integer?))
   (define portHT/c (hash/c island-pair/c thread?))
   ;; ephemeral client connections to our long-lived island pair
-  (define/contract accepts-o portHT/c (make-hash))
-  (define/contract accepts-i portHT/c (make-hash))
+  (define accepts-o (make-hash))
+  (define accepts-i (make-hash))
   
   ;; connections we've made to long-lived island pairs
-  (define/contract connects-o portHT/c (make-hash))
-  (define/contract connects-i portHT/c (make-hash))
+  (define connects-o (make-hash))
+  (define connects-i (make-hash))
   
   ;; two threads per tcp-accept
   (define/contract (run-output-thread o)
@@ -33,8 +33,8 @@
      (λ ()
        (let loop ()
          (match (thread-receive)
-           [(list 'send host port data)
-            (write-bytes (integer->integer-bytes (bytes-length data) 8 #f #t) o)
+           [(list 'send host port (? bytes? data))
+            (write-bytes (integer->integer-bytes (bytes-length data) 4 #f #t) o)
             (write-bytes #"\r\n" o)
             (write-bytes data o)
             (flush-output o)
@@ -56,7 +56,7 @@
                 (close-input-port i)
                 (loop))]
            [(? bytes? b)
-            (define message (read-bytes (integer-bytes->integer b #f #t 0 8) i))
+            (define message (read-bytes (integer-bytes->integer b #f #t 0 4) i))
             (thread-send reply-thread (response #f #f message))
             (recvtest)
             (loop)]
@@ -75,15 +75,15 @@
   
   (define (do-sending)
     (match (thread-receive)
-      [(list 'send (? string? host) (? exact-nonnegative-integer? port) (? bytes? data))
+      [(list 'send host port data)
        (let ([othread (hash-ref connects-o (cons host port) (λ () #f))])
          (if othread
              (thread-send othread (list 'send host port data))
              (connect/send host port data)))])
-    (do-sending)) 
+    (do-sending))
   
   (define/contract (connect/send host port data)
-    (string? exact-nonnegative-integer? bytes? . -> . void)
+    (string? exact-nonnegative-integer? (or/c bytes? list?) . -> . void)
     (let*-values ([(i o) (tcp-connect host port)]
                   [(la lp ra rp) (tcp-addresses i #t)])
       (printf "connected to ~a:~a~n" ra rp)
