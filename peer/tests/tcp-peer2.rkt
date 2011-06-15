@@ -18,13 +18,13 @@
       (thread (λ () (apply fun (cons rtk/RETURN args))))
       (error (format "Generated code expects a different number of args: ~a" (sub1 (procedure-arity fun))))))
 
-(define request-channel (run-tcp-peer "128.159.58.146" 1234 (current-thread)))
+(define request-channel (run-tcp-peer "128.195.58.146" 1234 (current-thread)))
 
 (define (test)
   (let loop ([t 0])
     (match (thread-receive)
       [(response _ _ data)
-       (define message (deserialize/recompile data))
+       (define message (deserialize/recompile (unzip data)))
        (match message
          [(vector 'tuple '(mischief message ask) #"SPAWN" an-url body a b c)
           (start-program body t)]

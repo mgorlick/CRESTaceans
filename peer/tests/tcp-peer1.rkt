@@ -20,7 +20,7 @@
   (define o (open-output-bytes))
   (write the-serialized-msg o)
   (define bytes (get-output-bytes o))
-  (thread-send request-thread (list 'send host port bytes)))
+  (thread-send request-thread (list 'send host port (zip bytes))))
 
 (define (compile/serialize method host port expr)
   (define the-compiled-expr (mischief/compile expr))

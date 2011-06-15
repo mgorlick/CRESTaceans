@@ -58,7 +58,7 @@
                 (loop))]
            [(? bytes? b)
             (define message (read-bytes (integer-bytes->integer b #f #t 0 4) i))
-            (thread-send reply-thread (response #f #f (unzip message)))
+            (thread-send reply-thread (response #f #f message))
             (recvtest)
             (loop)]
            [(? (curry equal? eof) e)
