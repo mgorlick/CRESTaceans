@@ -34,9 +34,10 @@
        (let loop ()
          (match (thread-receive)
            [(list 'send host port (? bytes? data))
-            (write-bytes (integer->integer-bytes (bytes-length data) 4 #f #t) o)
+            (define zipped (zip data))
+            (write-bytes (integer->integer-bytes (bytes-length zipped) 4 #f #t) o)
             (write-bytes #"\r\n" o)
-            (write-bytes data o)
+            (write-bytes zipped o)
             (flush-output o)
             (sendtest)
             (loop)]
@@ -57,7 +58,7 @@
                 (loop))]
            [(? bytes? b)
             (define message (read-bytes (integer-bytes->integer b #f #t 0 4) i))
-            (thread-send reply-thread (response #f #f message))
+            (thread-send reply-thread (response #f #f (unzip message)))
             (recvtest)
             (loop)]
            [(? (curry equal? eof) e)
@@ -97,8 +98,22 @@
   (define accepter (thread do-accepts))
   ;; one thread to monitor the outgoing messages and redirect them
   (define sendmaster (thread do-sending))
-  
   sendmaster)
+
+(require file/gzip
+         file/gunzip)
+
+(define (zip data)
+  (define oz (open-output-bytes))
+  (define iz (open-input-bytes data))
+  (deflate iz oz)
+  (get-output-bytes oz))
+
+(define (unzip data)
+  (define oz (open-output-bytes))
+  (define iz (open-input-bytes data))
+  (inflate iz oz)
+  (get-output-bytes oz))
 
 ;; FOR TESTING ONLY
 (define scl (make-semaphore 1))
