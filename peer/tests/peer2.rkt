@@ -14,7 +14,7 @@
   (deserialize (read (open-input-bytes bstr)) be #f))
 
 (define (start-program expr . args)
-  (define fun (mischief/start expr-bstr))
+  (define fun (mischief/start expr))
   (if (equal? (sub1 (procedure-arity fun))
               (length args)) ; first arg is always the continuation k
       (thread (λ () (apply fun (cons rtk/RETURN args))))
@@ -26,7 +26,7 @@
 (define request-channel (run-listener "127.16.121.135" 1234 reply-channel))
 
 (define x 0)
-(define start-time (current-system-milliseconds))
+(define start-time (current-inexact-milliseconds))
 
 (let loop ([t 0])
   (match (async-channel-get reply-channel)
