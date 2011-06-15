@@ -19,6 +19,15 @@
 (define/contract (run-listener host port reply-channel)
   (string? port/c async-channel? . -> . async-channel?)
   
+  (define x #f)
+  (define y #f)
+  (define start-time #f)
+  
+  (define (init-test!)
+    (set! x 0)
+    (set! y 0)
+    (set! start-time (current-inexact-milliseconds)))
+  
   (define enet-host-listening-addr (host/port->addr host port))
   (define enet-host (enet-host-create enet-host-listening-addr ENetMaxPeerCount 0 0 0))
   
@@ -36,6 +45,12 @@
   
   (define/contract (send-message hostname port data)
     (string? port/c bytes? . -> . void)
+    (unless x (init-test!))
+    (set! x (+ x 1))
+    (when (= 0 (modulo x 1000))
+      (printf "~a messages sent in ~a seconds (~a messages/sec)~n"
+              x (/ (- (current-inexact-milliseconds) start-time) 1000)
+              (/ x (/ (- (current-inexact-milliseconds) start-time) 1000))))
     ;(define to-write-out (future (λ () (preprocess-message-out data))))
     (let ([peer (lookup-peer enet-peers hostname port)])
       (define pkt (enet-packet-create/bytes (preprocess-message-out data) 'reliable))
@@ -74,6 +89,13 @@
                 (printf "Peer disconnected~n")]
                
                ['receive
+                (unless y (init-test!))
+                (set! y (add1 y))
+                (when (= 0 (modulo y 1000))
+                  (printf "~a messages recvd in ~a seconds (~a messages/sec)~n"
+                          y (/ (- (current-inexact-milliseconds) start-time) 1000)
+                          (/ y (/ (- (current-inexact-milliseconds) start-time) 1000))))
+                
                 (async-channel-put
                  reply-channel
                  (response "localhost"
@@ -118,15 +140,16 @@
 
 ;; preprocessing to send/recv: message -> gzip -> base64/url -> write out
 (require file/gzip
-         file/gunzip
-         "base64-url-typed.rkt")
+         file/gunzip)
 
 (define (preprocess-message-in data)
-  (define o (open-output-bytes))
+  #|(define o (open-output-bytes))
   (inflate (open-input-bytes (base64-url-decode data)) o)
-  (get-output-bytes o))
+  (get-output-bytes o))|#
+  (bytes-copy data))
 
 (define (preprocess-message-out data)
-  (define o (open-output-bytes))
+  #|(define o (open-output-bytes))
   (deflate (open-input-bytes data) o)
-  (base64-url-encode (get-output-bytes o)))
+  (base64-url-encode (get-output-bytes o)))|#
+  data)
