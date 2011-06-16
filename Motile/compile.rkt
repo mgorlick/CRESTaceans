@@ -450,10 +450,10 @@
 (define (letrec/generate variables expressions body lexical)
   (let ((n (length variables)))
     (cond
-      ((= n 1) (x/letrec/1/generate (car variables) (car expressions) body lexical))
-      ((= n 2) (x/letrec/2/generate variables (car expressions) (cadr expressions) body lexical))
-      ((= n 3) (x/letrec/3/generate variables (car expressions) (cadr expressions) (caddr expressions) body lexical))
-      (else    (x/letrec/N/generate n variables expressions body lexical)))))
+      ((= n 1) (letrec/1/generate (car variables) (car expressions) body lexical))
+      ((= n 2) (letrec/2/generate variables (car expressions) (cadr expressions) body lexical))
+      ((= n 3) (letrec/3/generate variables (car expressions) (cadr expressions) (caddr expressions) body lexical))
+      (else    (letrec/N/generate n variables expressions body lexical)))))
 
 ;; A cheatsheet for the routines below.
 ;;    ((lambda (v_1 ... v_N)        <--- letrec/outer with letrec variables v_1, ..., v_N
@@ -463,7 +463,7 @@
 ;;          e_1 ... e_N))             <--- letrec/e_1 letrec/e_2 ...
 ;;     #f ... #f)                   <--- junk values for v_1 ... v_N of letrec/outer
 
-(define (x/letrec/1/generate variable e_1 body lexical)
+(define (letrec/1/generate variable e_1 body lexical)
   (let* ((lexical/expression ; Handcrafted lexical environment for compiling the letrec binding expression.
           (lexical/push/parameters lexical (list variable)))
 
@@ -492,7 +492,7 @@
           (combination/1/generate letrec/outer (constant/false/generate))))
     final)) 
 
-(define (x/letrec/2/generate variables e_1 e_2 body lexical)
+(define (letrec/2/generate variables e_1 e_2 body lexical)
   (let* ((lexical/expression ; Handcrafted lexical environment for compiling the letrec binding expression.
           (lexical/push/parameters lexical variables))
 
@@ -523,7 +523,7 @@
           (combination/2/generate letrec/outer (constant/false/generate) (constant/false/generate))))
     final))
 
-(define (x/letrec/3/generate variables e_1 e_2 e_3 body lexical)
+(define (letrec/3/generate variables e_1 e_2 e_3 body lexical)
   (let* ((lexical/expression ; Handcrafted lexical environment for compiling the letrec binding expression.
           (lexical/push/parameters lexical variables))
 
@@ -555,7 +555,7 @@
           (combination/3/generate letrec/outer (constant/false/generate) (constant/false/generate) (constant/false/generate))))
     final))
 
-(define (x/letrec/N/generate n variables expressions body lexical)
+(define (letrec/N/generate n variables expressions body lexical)
   (let* ((lexical/expression ; Handcrafted lexical environment for compiling the letrec binding expression.
           (lexical/push/parameters lexical variables))
 
@@ -587,8 +587,8 @@
     final))
 
 
-(define (test/x/letrec/1a)
-  (let ((code (x/letrec/2/generate
+(define (test/letrec/1a)
+  (let ((code (letrec/2/generate
                '(a b)
                11
                '(lambda () (+ a 13))
@@ -597,8 +597,8 @@
     (pretty-display (code #f #f))
     (pretty-display (code rtk/RETURN RTE))))
 
-(define (test/x/letrec/1b)
-  (let ((code (x/letrec/1/generate
+(define (test/letrec/1b)
+  (let ((code (letrec/1/generate
                'factorial
                '(lambda (n) (if (= n 1) 1 (* n (factorial (sub1 n)))))
                '(factorial 5)
@@ -606,8 +606,8 @@
     (pretty-display (code #f #f))
     (pretty-display (code rtk/RETURN RTE))))
 
-(define (test/x/letrec/2)
-  (let ((code (x/letrec/2/generate
+(define (test/letrec/2)
+  (let ((code (letrec/2/generate
                '(even? odd?) ; letrec variables
                '(lambda (n) (if (= n 0) #t (odd? (sub1 n))))   ; even?
                '(lambda (n) (if (= n 0) #f (even? (sub1 n))))  ; odd?
@@ -616,8 +616,8 @@
     (pretty-display (code #f #f))
     (pretty-display (code rtk/RETURN RTE))))
 
-(define (test/x/letrec/3)
-  (let ((code (x/letrec/3/generate
+(define (test/letrec/3)
+  (let ((code (letrec/3/generate
                '(even? odd? zero) ; letrec variables
                '(lambda (n) (if (= n zero) #t (odd? (sub1 n))))  ; even?
                '(lambda (n) (if (= n zero) #f (even? (sub1 n)))) ; odd?
@@ -627,8 +627,8 @@
     (pretty-display (code #f #f))
     (pretty-display (code rtk/RETURN RTE))))
 
-(define (test/x/letrec/N)
-  (let ((code (x/letrec/N/generate
+(define (test/letrec/N)
+  (let ((code (letrec/N/generate
                4                      ; Total number of letrec variables/definitions
                '(even? odd? zero one) ; letrec variables
                '((lambda (n) (if (= n zero) #t (odd? (- n one))))  ; even?
