@@ -20,7 +20,6 @@
  (only-in
   "persistent/hash.rkt"
   hash/ref)
-          
  "set.ss")
 
 (require racket/pretty) ; For testing only.
@@ -1697,7 +1696,8 @@
      (rte/frame/reveal rtk (vector-ref rte 0) (sub1 n)))))
 
 (define (rtk/RETURN x) x) ; The trivial continuation.
-(define RTE (vector #f BASELINE))
+;(define RTE (vector #f BASELINE))
+(define RTE (vector #f ENVIRON/TEST)) ; BASELINE + mutable Racket vectors + simple output functions.
 (define (compile e) (scheme/compile e #f))
 ;; Compile expression e returning its local host closure representation.
 (define (mischief/compile e) (scheme/compile e #f))
@@ -4436,7 +4436,7 @@
                   (set/subset? (cdr both) even)
                   (set/subset? even (cdr both)))))))
       (should-be 'set/partition '(#t #t #t #t #t) (mischief/start e))))
-
+  
   (test/set/new)
   (test/set/remove)
   (test/set/cons)
@@ -4452,6 +4452,40 @@
   (test/set/filter)
   (test/set/partition))
 
+(define (test/tuple)
+  (define (test/tuple/tuple)
+    (let ((e (mischief/compile
+              '(let ((t (tuple 'a 'b 'c 'd 'e)))
+                 (tuple/list t)))))
+      (should-be 'tuple '(a b c d e) (mischief/start e))))
+
+
+  (define (test/tuple/build)
+    (let ((e (mischief/compile
+              '(let ((t (tuple/build 5 (lambda (i) (* i 3)))))
+                 (tuple/list t)))))
+      (should-be 'tuple/build '(0 3 6 9 12) (mischief/start e))))
+
+  (define (test/tuple/filter)
+    (let ((e (mischief/compile '(tuple/list (tuple/filter (tuple 1 2 3 4 5)  (lambda (x) (even? x)))))))
+      (should-be 'tuple/filter '(2 4) (mischief/start e))))
+
+  (define (test/tuple/map)
+    (let ((e (mischief/compile '(tuple/list (tuple/map (tuple 1 2 3 4 5) (lambda (n) (1- n)))))))
+      (should-be 'test/tuple/map '(0 1 2 3 4) (mischief/start e))))
+
+  (define (test/tuple/partition)
+    (let ((e (mischief/compile
+              '(let ((p (tuple/partition (tuple 1 2 3 4 5) (lambda (n) (even? n)))))
+                 (cons (tuple/list (car p)) (tuple/list (cdr p)))))))
+      (should-be 'test/tuple/partition '((2 4) 1 3 5) (mischief/start e))))
+
+  (test/tuple/tuple)
+  (test/tuple/build)
+  (test/tuple/filter)
+  (test/tuple/map)
+  (test/tuple/partition))
+
 (define (test/box)
   (let ((e (mischief/compile
             '(let* ((a (box 99))
@@ -4461,7 +4495,6 @@
                (list (box? a) (unbox a) c (unbox b))))))
     (should-be 'test/box '(#t 99 #t "zzz") (mischief/start e))))
                
-
 (define (test/reglobal)
 
   (let ((e (mischief/compile

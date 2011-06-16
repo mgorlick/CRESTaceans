@@ -10,7 +10,7 @@
  vector/build
  vector/fold/left
  vector/fold/right
- vepersist?
+ vector/persist?
  vector/length
  vector/list
  vector/null
@@ -67,18 +67,18 @@
 (define-accessor vepersist/tail  4)
 (define vector/zero #())
 (define-syntax-rule (vepersist/new count shift root tail)
-  (vector 'vepersist count shift root tail))
+  (vector '<vector/persist> count shift root tail))
 
 (define-inline (vepersist/count++ v)
   (vector-set! v 1 (add1 (vepersist/count v))))
 (define-inline (vepersist/tail! v t)
   (vector-set! v 4 t))
 
-(define (vepersist? v)
+(define (vector/persist? v)
   (and
    (vector? v)
    (= (vector-length v) 5)
-   (eq? (vector-ref v 0) 'vepersist)))
+   (eq? (vector-ref v 0) '<vector/persist>)))
 
 
 

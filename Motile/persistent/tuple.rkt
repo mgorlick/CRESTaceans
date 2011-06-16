@@ -146,7 +146,7 @@
 ;      (vector->immutable-vector (vector-map f t))
 ;      (error 'tuple/map "expects argument of type <tuple>; given ~s" t)))
 
-;; For (tuple/append t_1 ... t_n) return a tuple x where |x| = |t_1| + ... + |t_n|
+;; For (tuple/append t_1 ... t_n), each t_i a tuple, return a tuple x where |x| = |t_1| + ... + |t_n|
 ;; and the sequence of elements of x is the concentation of the sequences of values of t_1, ..., t_n.
 (define (tuple/append . rest)
   (let* ((n

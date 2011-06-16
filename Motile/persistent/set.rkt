@@ -17,7 +17,7 @@
 (require "trie.rkt")
 
 (provide
- setpersist?
+ set/persist?
  set/eq/null
  set/eqv/null
  set/equal/null
@@ -61,16 +61,16 @@
 (define-accessor set/root      3)
 
 (define (set/construct equality? hash root)
-  (vector 'setpersist equality? hash root))
+  (vector '<set/persist> equality? hash root))
 
 (define set/eq/null    (set/construct eq?    eq-hash-code    trie/empty))
 (define set/eqv/null   (set/construct eqv?   eqv-hash-code   trie/empty))
 (define set/equal/null (set/construct equal? equal-hash-code trie/empty))
 
-(define (setpersist? s)
+(define (set/persist? s)
   (and
    (vector? s)
-   (eq? (vector-ref s 0) 'setpersist)
+   (eq? (vector-ref s 0) '<set/persist>)
    (= (vector-length s) 4)))
 
 (define (set/eq? s)    (eq? (set/equality s) eq?))

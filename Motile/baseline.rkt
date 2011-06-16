@@ -13,14 +13,41 @@
 ;; limitations under the License.
 
 (provide
- BASELINE)
+ BASELINE
+ ENVIRON/TEST)
 
 (require
  "persistent/vector.rkt"
  "persistent/hash.rkt"
- "persistent/set.rkt")
+ "persistent/set.rkt"
+ "persistent/tuple.rkt")
 
-;; Global procedures appear in the run-time global binding environment.
+;; Many of the persistent functional data structures implement combinators of the form (P d f)
+;; where C is a combinator of the persistent functional data structure, d is an instance
+;; of the data structure, and f a function applied by the combinator.
+;; These combinators must be wrapped before they can be used within Motile.
+;; The function defined here generates that wrapping.
+(define (motile/combinator/2 symbol combinator)
+  (case-lambda
+    ((rtk d f)
+     (let ((g (lambda (x) (f k/RETURN x))))
+       (rtk (combinator d g))))
+    ((k _) (global/decompile k symbol))))
+
+;; In the same vein many of the persistent functional data structures implement fold-like
+;; combinators that require three arguments, a data structure instance d, a function f of two arguments
+;; applied by the combinator, and a seed value.
+;; As above, these combinators must be wrapped before they can be used within Motile.
+;; The function defined here generates that wrapping.
+(define (motile/combinator/3 symbol combinator)
+  (case-lambda
+    ((rtk d f x)
+     (let ((g ((lambda (y) (f k/RETURN x y)))))
+       (rtk (combinator d g x))))
+    ((k _) (global/decompile k symbol))))
+  
+;; The following functions wrap host Scheme primitives allowing those primitives to be invoked
+;; within Motile and to be properly "decompiled" for network transmission.
 (define (global/0 symbol procedure)
   (case-lambda 
     ((rtk) (rtk (procedure)))
@@ -90,6 +117,12 @@
 (define-syntax-rule (define/global/N symbol procedure)
   (cons symbol (global/N symbol procedure)))
 
+(define-syntax-rule (define/combinator/2 symbol combinator)
+  (cons symbol (motile/combinator/2 symbol combinator)))
+
+(define-syntax-rule (define/combinator/3 symbol combinator)
+  (cons symbol (motile/combinator/3 symbol combinator)))
+
 ;; Special cases
 ;; Higher-order host primitives that accept a closure C as an argument, for example, apply or map,
 ;; require special treatment as a Motile closure requires a continuation k as its first argument.
@@ -125,6 +158,8 @@
      (let ((p (lambda (alpha beta) (less? k/RETURN alpha beta))))
        (rtk (sort items p))))
     ((k _) (global/decompile k 'sort))))
+
+
 
 ;; Motile-specific reworkings of persistent vector primitives that accept functions as arguments.
 
@@ -223,6 +258,31 @@
         (rtk (set/partition s q))))
     ((k _) (global/decompile k 'set/partition))))
 
+
+;; Motile-specific reworkings of higher-order tuple primitives.
+
+(define (motile/tuple/build)
+  (case-lambda
+    ((rtk n f)
+     (let ((g (lambda (index) (f k/RETURN index))))
+       (rtk (tuple/build n g))))
+    ((k _) (global/decompile k 'tuple/build))))
+
+(define(motile/tuple/filter)
+  (case-lambda
+    ((rtk t f)
+     (let ((g (lambda (x) (f k/RETURN x))))
+       (rtk (tuple/filter t g))))
+    ((k _) (global/decompile k 'tuple/filter))))
+
+(define (motile/tuple/map)
+  (case-lambda
+    ((rtk t f)
+     (let ((g (lambda (x) (f k/RETURN x))))
+       (rtk (tuple/map t g))))
+    ((k _) (global/decompile k 'tuple/map))))
+
+
 ;; Motile-specific call/cc.
 (define (call/cc k f)
   (if k
@@ -248,8 +308,7 @@
     (define/global/1 'inexact?   inexact?)
     (define/global/1 'procedure? procedure?)
     
-    ; Type transformers.
-    (define/global/1 'string->symbol string->symbol)   
+    ; Type transformers for numbers.
     (define/global/1 'exact->inexact exact->inexact)
     (define/global/1 'inexact->exact inexact->exact)
     (define/global/1 'number->string number->string)
@@ -355,135 +414,149 @@
     (define/global/1 'expt        expt)   
     
     ; Characters.
-    (define/global/1      'char?                          char?)
-    (define/global/2      'char=?                         char=?)
-    (define/global/2      'char<?                         char<?)
-    (define/global/2      'char>?                         char>?)
-    (define/global/2      'char<=?                        char<=?)
-    (define/global/2      'char>=?                        char>=?)
-    (define/global/2      'char-ci=?                      char-ci=?)
-    (define/global/2      'char-ci<?                      char-ci<?)
-    (define/global/2      'char-ci>?                      char-ci>?)
-    (define/global/2      'char-ci<=?                     char-ci<=?)
-    (define/global/2      'char-ci>=?                     char-ci>=?)
-    (define/global/1      'char-alphabetic?               char-alphabetic?)
-    (define/global/1      'char-numeric?                  char-numeric?)
-    (define/global/1      'char-whitespace?               char-whitespace?)
-    (define/global/1      'char-lower-case?               char-lower-case?)
-    (define/global/1      'char->integer                  char->integer)
-    (define/global/1      'integer->char                  integer->char)
-    (define/global/1      'char-upcase                    char-upcase)
-    (define/global/1      'char-downcase                  char-downcase)
+    (define/global/1 'char?            char?)
+    (define/global/2 'char=?           char=?)
+    (define/global/2 'char<?           char<?)
+    (define/global/2 'char>?           char>?)
+    (define/global/2 'char<=?          char<=?)
+    (define/global/2 'char>=?          char>=?)
+    (define/global/2 'char-ci=?        char-ci=?)
+    (define/global/2 'char-ci<?        char-ci<?)
+    (define/global/2 'char-ci>?        char-ci>?)
+    (define/global/2 'char-ci<=?       char-ci<=?)
+    (define/global/2 'char-ci>=?       char-ci>=?)
+    (define/global/1 'char-alphabetic? char-alphabetic?)
+    (define/global/1 'char-numeric?    char-numeric?)
+    (define/global/1 'char-whitespace? char-whitespace?)
+    (define/global/1 'char-lower-case? char-lower-case?)
+    (define/global/1 'char->integer    char->integer)
+    (define/global/1 'integer->char    integer->char)
+    (define/global/1 'char-upcase      char-upcase)
+    (define/global/1 'char-downcase    char-downcase)
     
     ; Strings.
-    (define/global/1 'string?                        string?)
-    (define/global/N 'make-string                    make-string)
-    (define/global/N 'string                         string)
-    (define/global/1 'string-length                  string-length)
-    (define/global/2 'string-ref                     string-ref)
-    (define/global/2 'string=?                       string=?)
-    (define/global/2 'string<?                       string<?)
-    (define/global/2 'string>?                       string>?)
-    (define/global/2 'string<=?                      string<=?)
-    (define/global/2 'string>=?                      string>=?)
-    (define/global/2 'string-ci=?                    string-ci=?)
-    (define/global/2 'string-ci<?                    string-ci<?)
-    (define/global/2 'string-ci>?                    string-ci>?)
-    (define/global/2 'string-ci<=?                   string-ci<=?)
-    (define/global/2 'string-ci>=?                   string-ci>=?)
-    (define/global/3 'substring                      substring)
-    (define/global/N 'string-append                  string-append)
+    (define/global/1 'string?       string?)
+    (define/global/N 'make-string   make-string)
+    (define/global/N 'string        string)
+    (define/global/1 'string-length string-length)
+    (define/global/2 'string-ref    string-ref)
+    (define/global/2 'string=?      string=?)
+    (define/global/2 'string<?      string<?)
+    (define/global/2 'string>?      string>?)
+    (define/global/2 'string<=?     string<=?)
+    (define/global/2 'string>=?     string>=?)
+    (define/global/2 'string-ci=?   string-ci=?)
+    (define/global/2 'string-ci<?   string-ci<?)
+    (define/global/2 'string-ci>?   string-ci>?)
+    (define/global/2 'string-ci<=?  string-ci<=?)
+    (define/global/2 'string-ci>=?  string-ci>=?)
+    (define/global/3 'substring     substring)
+    (define/global/N 'string-append string-append)
     
     ; Symbols.
-    (define/global/1 'symbol->string   symbol->string)
-    (define/global/1 'string->symbol   string->symbol)
+    (define/global/1 'symbol->string symbol->string)
+    (define/global/1 'string->symbol string->symbol)
     
-    ; Vectors.
-    (define/global/1 'vector?                        vector?)
-    (define/global/N 'make-vector                    make-vector)
-    (define/global/N 'vector                         vector)
-    (define/global/1 'vector-length                  vector-length)
-    (define/global/2 'vector-ref                     vector-ref)
-    (define/global/3 'vector-set!                    vector-set!)
     
     ; Persistent functional vectors.
-    (define/global/2 'list/vector       list/vector)
-    (cons            'vector/build      motile/vector/build)
-    (cons            'vector/fold/left  motile/vector/fold/left)
-    (cons            'vector/fold/right motile/vector/fold/right)
-    (define/global/1 'vepersist?        vepersist?)
-    (define/global/1 'vector/length     vector/length)
-    (define/global/1 'vector/list       vector/list)
-    (cons            'vector/null       vector/null)
-    (define/global/1 'vector/null?      vector/null?)
-    (define/global/2 'vector/cons       vector/cons)
-    (define/global/1 'vector/cdr        vector/cdr)
-    (cons            'vector/filter     motile/vector/filter)
-    (cons            'vector/map        motile/vector/map)
-    (define/global/2 'vector/ref        vector/ref)
-    (define/global/N 'vector/subvector  vector/subvector)
-    (define/global/3 'vector/update     vector/update)
+    (define/global/2     'list/vector       list/vector)
+    (define/combinator/2 'vector/build      vector/build)
+    (define/combinator/3 'vector/fold/left  vector/fold/left)
+    (define/combinator/3 'vector/fold/right vector/fold/right)
+    (define/global/1     'vector/persist?   vector/persist?)
+    (define/global/1     'vector/length     vector/length)
+    (define/global/1     'vector/list       vector/list)
+    (cons                'vector/null       vector/null)  ; Pre-defined constant.
+    (define/global/1     'vector/null?      vector/null?)
+    (define/global/2     'vector/cons       vector/cons)
+    (define/global/1     'vector/cdr        vector/cdr)
+    (define/combinator/2 'vector/filter     vector/filter)
+    (define/combinator/2 'vector/map        vector/map)
+    (define/global/2     'vector/ref        vector/ref)
+    (define/global/N     'vector/subvector  vector/subvector)
+    (define/global/3     'vector/update     vector/update)
 
     ; Persistent functional hash tables.
     ; Type test for hash tables.
-    (define/global/1 'hash/persist?     hash/persist?)
+    (define/global/1 'hash/persist?      hash/persist?)
     ; Empty hash tables.
-    (cons            'hash/eq/null      hash/eq/null)
-    (cons            'hash/eqv/null     hash/eqv/null)
-    (cons            'hash/equal/null   hash/equal/null)
+    (cons            'hash/eq/null       hash/eq/null)    ; Pre-defined constant.
+    (cons            'hash/eqv/null      hash/eqv/null)   ; Pre-defined constant.
+    (cons            'hash/equal/null    hash/equal/null) ; Pre-defined constant.
     ; Hash table constructors.
-    (define/global/N 'hash/new          hash/new)
-    (define/global/2 'list/hash         list/hash)
-    (define/global/2 'pairs/hash        pairs/hash)
-    (define/global/3 'hash/cons         hash/cons)
-    (define/global/2 'hash/remove       hash/remove)
-    (define/global/2 'hash/merge        hash/merge)
+    (define/global/N    'hash/new        hash/new)
+    (define/global/2    'list/hash       list/hash)
+    (define/global/2    'pairs/hash      pairs/hash)
+    (define/global/3    'hash/cons       hash/cons)
+    (define/global/2    'hash/remove     hash/remove)
+    (define/global/2    'hash/merge      hash/merge)
     ; Hash table deconstructors.
-    (define/global/1 'hash/list         hash/list)
-    (define/global/1 'hash/pairs        hash/pairs)
-    (define/global/1 'hash/keys         hash/keys) 
+    (define/global/1     'hash/list      hash/list)
+    (define/global/1     'hash/pairs     hash/pairs)
+    (define/global/1     'hash/keys      hash/keys) 
     ; Hash table lookup.
-    (define/global/3 'hash/ref          hash/ref)
-    (define/global/1 'hash/car          hash/car)
-    (define/global/1 'hash/cdr          hash/cdr)
+    (define/global/3     'hash/ref       hash/ref)
+    (define/global/1     'hash/car       hash/car)
+    (define/global/1     'hash/cdr       hash/cdr)
     ; Cardinality and membership.
-    (define/global/1 'hash/length       hash/length)
-    (define/global/1 'hash/empty?       hash/empty?)
-    (define/global/2 'hash/contains?    hash/contains?)
+    (define/global/1     'hash/length    hash/length)
+    (define/global/1     'hash/empty?    hash/empty?)
+    (define/global/2     'hash/contains? hash/contains?)
     ; Hash table combinators.
-    (cons            'hash/fold         motile/hash/fold)
-    (cons            'hash/map          motile/hash/map)
-    (cons            'hash/filter       motile/hash/filter)
-    (cons            'hash/partition    motile/hash/partition)
+    (define/combinator/3 'hash/fold      hash/fold)
+    (define/combinator/2 'hash/map       hash/map)
+    (define/combinator/2 'hash/filter    hash/filter)
+    (define/combinator/2 'hash/partition hash/partition)
 
     ; Persistent functional unordered sets.
-    (define/global/1 'setpersist?      setpersist?)
-    (cons            'set/eq/null      set/eq/null)
-    (cons            'set/eqv/null     set/eqv/null)
-    (cons            'set/equal/null   set/equal/null)
+    (define/global/1     'set/persist?     set/persist?)
+    (cons                'set/eq/null      set/eq/null)
+    (cons                'set/eqv/null     set/eqv/null)
+    (cons                'set/equal/null   set/equal/null)
     ; Set constructors.
-    (define/global/N 'set/new          set/new)
-    (define/global/2 'list/set         list/set)
-    (define/global/2 'set/cons         set/cons)
-    (define/global/2 'set/remove       set/remove)
-    (define/global/2 'set/union        set/union)
-    (define/global/2 'set/intersection set/intersection)
-    (define/global/2 'set/difference   set/difference)
+    (define/global/N     'set/new          set/new)
+    (define/global/2     'list/set         list/set)
+    (define/global/2     'set/cons         set/cons)
+    (define/global/2     'set/remove       set/remove)
+    (define/global/2     'set/union        set/union)
+    (define/global/2     'set/intersection set/intersection)
+    (define/global/2     'set/difference   set/difference)
     ; Set deconstructors.
-    (define/global/1 'set/list         set/list)
+    (define/global/1     'set/list         set/list)
     ; Set lookup.
-    (define/global/2 'set/contains?    set/contains?)
-    (define/global/1 'set/car          set/car)
-    (define/global/1 'set/cdr          set/cdr)
+    (define/global/2     'set/contains?    set/contains?)
+    (define/global/1     'set/car          set/car)
+    (define/global/1     'set/cdr          set/cdr)
     ; Set cardinality and membership.
-    (define/global/1 'set/length       set/length)
-    (define/global/1 'set/empty?       set/empty?)
-    (define/global/2 'set/subset?      set/subset?)
+    (define/global/1     'set/length       set/length)
+    (define/global/1     'set/empty?       set/empty?)
+    (define/global/2     'set/subset?      set/subset?)
     ; Set combinators.
-    (cons            'set/fold         motile/set/fold)
-    (cons            'set/map          motile/set/map)
-    (cons            'set/filter       motile/set/filter)
-    (cons            'set/partition    motile/set/partition)
+    (define/combinator/3 'set/fold         set/fold)
+    (define/combinator/2 'set/map          set/map)
+    (define/combinator/2 'set/filter       set/filter)
+    (define/combinator/2 'set/partition    set/partition)
+
+    ; Tuples.
+    (define/global/1     'tuple?           tuple?)
+    (define/global/1     'tuple/length     tuple/length)
+    (define/global/1     'tuple/list       tuple/list)
+    (define/global/2     'tuple/ref        tuple/ref)
+    ; Tuple constructors.
+    (define/global/N     'tuple            tuple)
+    (define/global/1     'list/tuple       list/tuple)
+    (define/global/N     'tuple/append     tuple/append)
+    ; Tuple slicing.
+    (define/global/N     'tuple/copy       tuple/copy)
+    (define/global/2     'tuple/drop/left  tuple/drop/left)
+    (define/global/2     'tuple/drop/right tuple/drop/right)
+    (define/global/2     'tuple/take/left  tuple/take/left)
+    (define/global/2     'tuple/take/right tuple/take/right)
+    ; Tuple combinators.
+    (define/combinator/2 'tuple/build      tuple/build)
+    (define/combinator/2 'tuple/filter     tuple/filter)
+    (define/combinator/2 'tuple/map        tuple/map)
+    (define/combinator/2 'tuple/partition  tuple/partition)
 
     ; Higher order functions.
     (cons            'apply     motile/apply)
@@ -503,12 +576,25 @@
 
     ; Generic list sort.
     (cons 'sort motile/sort)
-
-    ; Debugging only.
-    (define/global/1 'display display)
-    (define/global/N 'format format)
-    (define/global/1 'pretty-display pretty-display)
     )))
+
+(define ENVIRON/TEST
+  (pairs/hash
+   BASELINE
+   (list
+    ; Mutable vectors for some regression tests.
+    (define/global/1 'vector?       vector?)
+    (define/global/N 'make-vector   make-vector)
+    (define/global/N 'vector        vector)
+    (define/global/1 'vector-length vector-length)
+    (define/global/2 'vector-ref    vector-ref)
+    (define/global/3 'vector-set!   vector-set!)
+
+    ; For simple test output.
+    (define/global/1 'display        display)
+    (define/global/N 'format         format)
+    (define/global/0 'newline        newline)
+    (define/global/1 'pretty-display pretty-display))))
 
 ;(define/global/1 'make-rectangular               make-rectangular)
 ;;(def-proc 'make-polar                     make-polar)
@@ -516,7 +602,6 @@
 ;;(def-proc 'imag-part                      imag-part)
 ;;(def-proc 'magnitude                      magnitude)
 ;;(def-proc 'angle                          angle)
-;;(def-proc 'call-with-current-continuation call-with-current-continuation)
 ;(def-proc 'call-with-input-file           call-with-input-file)
 ;(def-proc 'call-with-output-file          call-with-output-file)
 ;(def-proc 'input-port?                    input-port?)
