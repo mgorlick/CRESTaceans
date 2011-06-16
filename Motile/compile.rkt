@@ -3849,7 +3849,6 @@
             '(let ((f cons)) (f 19 22)))))
     (pretty-display (mischief/decompile e))))
 
-
 (define (test/all)
   (test/constants)
   (test/base)

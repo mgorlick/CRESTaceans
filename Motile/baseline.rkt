@@ -457,7 +457,6 @@
     (define/global/1 'symbol->string symbol->string)
     (define/global/1 'string->symbol string->symbol)
     
-    
     ; Persistent functional vectors.
     (define/global/2     'list/vector       list/vector)
     (define/combinator/2 'vector/build      vector/build)
