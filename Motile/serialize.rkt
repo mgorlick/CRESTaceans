@@ -26,7 +26,7 @@
   "persistent/vector.rkt"  ; For testing only.
   vector/build
   vector/update
-  vepersist?)
+  vector/persist?)
 
  (only-in
   "persistent/hash.rkt"
@@ -49,7 +49,7 @@
   list/set
   set/eq/null
   ; Required for deconstruction and reconstruction
-  setpersist?
+  set/persist?
   set/eq?
   set/eqv?
   set/length
@@ -123,9 +123,9 @@
    (symbol? v)
    (string? v)
    (bytes? v)
-   (vepersist? v)   ; Persistent functional vector.
+   (vector/persist? v)   ; Persistent functional vector.
    (hash/persist? v) ; Persistent functional hash table?
-   (setpersist? v)  ; Persistent functional set?
+   (set/persist? v)  ; Persistent functional set?
    (vector? v)
    (pair? v)
    (hash? v)
@@ -217,7 +217,7 @@
            [(hash/persist? v) (loop (hash/root v))]
 
            ; Persistent sets require equal care as the Mischief representation is identical to that for persistent hash tables.
-           [(setpersist? v) (loop (set/root v))]
+           [(set/persist? v) (loop (set/root v))]
 
            [(vector? v)
             (for-each loop (vector->list v))]
@@ -273,7 +273,7 @@
       [(or (string? v) (bytes? v))
        (cons 'u v)] ; The "serial" of a mutable character string or bytes sequence v is (u . v)
       
-      [(vepersist? v)
+      [(vector/persist? v)
        ; A persistent vector v has the form #(vepersist <count> <shift> <root> <tail>) where
        ; <count> and <shift> are integers >= 0,
        ; <root> is an ordinary mutable vector that is the root of the trie representing the persistent vector and
@@ -294,7 +294,7 @@
           (else          'equal))
         (serial (hash/root v) #t))]
 
-      [(setpersist? v)
+      [(set/persist? v)
        ; A persistent set v has the form #(setpersist <equality> <hash> <root>) where:
        ;    <equality> and <hash> are the Racket procedures for testing set member equality and
        ;      generating member hash codes respectively and

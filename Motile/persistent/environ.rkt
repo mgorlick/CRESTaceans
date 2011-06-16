@@ -2,16 +2,16 @@
 
 (require
  (only-in
-  "persistent/trie.rkt"
+  "trie.rkt"
   define-accessor)
  (only-in
-  "persistent/hash.rkt"
+  "hash.rkt"
   hash/cons
   hash/eq/null
   hash/merge
   hash/ref
   hash/remove
-  hashpersist?
+  hash/persist?
   list/hash)
  
  )
@@ -47,7 +47,7 @@
    (vector? e)
    (= (vector-length e) 2)
    (eq? (vector-ref e 0) ENVIRON/FLAVOR)
-   (hashpersist? (vector-ref e 1))))
+   (hash/persist? (vector-ref e 1))))
 
 ;; Join binding k_1/v_1 to environ e returning the successor environ containing binding k_1/v_1.
 ;; e remains unchanged.

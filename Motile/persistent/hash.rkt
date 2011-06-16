@@ -21,7 +21,7 @@
 ;;  http://suneido.svn.sourceforge.net/viewvc/suneido/jsuneido/src/suneido/util/PersistentMap.java?view=markup ).
 
 (require
- (lib "accomplice/compiler/persistent/trie.rkt"))
+ "trie.rkt")
 
 (provide
  ; Type test.
