@@ -2,37 +2,38 @@
 #lang racket/base
 
 (require "../src/net/tcp-peer.rkt"
-         "../../old/Mischief/baseline.rkt"
-         "../../old/Mischief/z.rkt"
-         "../../old/Mischief/xserialize.rkt"
-         "../../old/Mischief/message.rkt"
+         "../src/compilation.rkt"
          racket/match)
 
-(define (deserialize/recompile bstr [be BASELINE])
-  (deserialize (read (open-input-bytes bstr)) be #f))
+(define request-channel (run-tcp-peer *LOCALHOST* 1234 (current-thread)))
 
-(define (start-program expr . args)
-  (define fun (mischief/start expr))
-  (if (equal? (sub1 (procedure-arity fun))
-              (length args)) ; first arg is always the continuation k
-      (thread (λ () (apply fun (cons rtk/RETURN args))))
-      (error (format "Generated code expects a different number of args: ~a" (sub1 (procedure-arity fun))))))
-
-(define request-channel (run-tcp-peer "128.195.58.146" 1234 (current-thread)))
+(define (handle-message message t)
+  (match message
+    [(vector 'tuple '(mischief message ask) #"SPAWN" an-url body a b c)
+     ;(printf "starting a program~n")
+     (start-program body t)]
+    
+    [(vector 'tuple '(mischief message ask) #"POST" an-url name a b c)
+     ;(printf "the gremlin's name is ~a~n" (mischief/start name))
+     #f]
+    
+    [anyelse (printf "~some other message: ~n" anyelse)]))
 
 (define (test)
   (let loop ([t 0])
     (match (thread-receive)
-      [(response _ _ data)
-       (define message (deserialize/recompile (unzip data)))
-       (match message
-         [(vector 'tuple '(mischief message ask) #"SPAWN" an-url body a b c)
-          (start-program body t)]
-         [(vector 'tuple '(mischief message ask) #"POST" an-url name a b c)
-          ;(printf "the gremlin's name is ~a~n" (mischief/start name))
-          #f]
-         [anyelse (printf "~a~n" anyelse)])
+      [(struct response (data))
+       (define message
+         (with-handlers ([exn:fail? (λ (e) #f)])
+           (deserialize/recompile data)))
+       (if message
+           (handle-message message t)
+           (printf "error: couldn't deserialize/recompile~n"))
        (loop (add1 t))]
       [else (printf ("no match~n"))])))
 
-(test)
+(require profile)
+(profile-thunk
+ test
+ #:threads #t
+ #:delay 0.005)

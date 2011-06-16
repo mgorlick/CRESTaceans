@@ -10,7 +10,7 @@
 
 (define *LOCALHOST* "::1")
 
-(struct response (host port data))
+(struct response (data))
 
 (define/contract (run-tcp-peer hostname port reply-thread)
   (string? exact-nonnegative-integer? thread? . -> . thread?)
@@ -34,10 +34,9 @@
        (let loop ()
          (match (thread-receive)
            [(list 'send host port (? bytes? data))
-            (define zipped (zip data))
-            (write-bytes (integer->integer-bytes (bytes-length zipped) 4 #f #t) o)
+            (write-bytes (integer->integer-bytes (bytes-length data) 4 #f #t) o)
             (write-bytes #"\r\n" o)
-            (write-bytes zipped o)
+            (write-bytes data o)
             (flush-output o)
             (sendtest)
             (loop)]
@@ -58,7 +57,7 @@
                 (loop))]
            [(? bytes? b)
             (define message (read-bytes (integer-bytes->integer b #f #t 0 4) i))
-            (thread-send reply-thread (response #f #f message))
+            (thread-send reply-thread (response message))
             (recvtest)
             (loop)]
            [(? (curry equal? eof) e)
@@ -105,14 +104,12 @@
 
 (define (zip data)
   (define oz (open-output-bytes))
-  (define iz (open-input-bytes data))
-  (deflate iz oz)
+  (deflate (open-input-bytes data) oz)
   (get-output-bytes oz))
 
 (define (unzip data)
   (define oz (open-output-bytes))
-  (define iz (open-input-bytes data))
-  (inflate iz oz)
+  (inflate (open-input-bytes data) oz)
   (get-output-bytes oz))
 
 ;; FOR TESTING ONLY
