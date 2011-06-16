@@ -52,7 +52,7 @@
  
 
 ;; A persistent unordered set is a four element vector v:
-;; v[0] - the literal symbol setpersist
+;; v[0] - the literal symbol <set/persist>
 ;; v[1] - the key equality test, one of eq?, eqv?, or equal?
 ;; v[2] - the key hash function, one of eq-hash-code, eqv-hash-code, or equal-hash-code
 ;; v[3] - the top level trie, the root of the set.
