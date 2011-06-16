@@ -18,7 +18,9 @@
 ;; Many of the comments are paraphrases of the Racket Reference, Section 12.11, "Serialization."
 
 (require
- "baseline.rkt" ; For testing only.
+ (only-in
+  "baseline.rkt" ; For testing only.
+  ENVIRON/TEST)
  "compile.rkt"
  "recompile.rkt"
 
@@ -56,7 +58,13 @@
   set/equality
   set/hash
   set/root
-  set/construct))
+  set/construct)
+ 
+ (only-in
+  "persistent/tuple.rkt"
+  ; For testing only.
+  tuple
+  list/tuple))
 
 (provide 
  ;; Checks whether a value is serializable:
@@ -123,10 +131,10 @@
    (symbol? v)
    (string? v)
    (bytes? v)
-   (vector/persist? v)   ; Persistent functional vector.
-   (hash/persist? v) ; Persistent functional hash table?
-   (set/persist? v)  ; Persistent functional set?
-   (vector? v)
+   (vector/persist? v) ; Persistent functional vector.
+   (hash/persist? v)   ; Persistent functional hash table.
+   (set/persist? v)    ; Persistent functional set.
+   (vector? v)         ; Covers Motile tuples as well since all tuples are vectors.
    (pair? v)
    (hash? v)
    (box? v)
@@ -140,6 +148,13 @@
     (vector? o)
     (hash? o))
    (not (immutable? o))))
+
+(define (for/each/vector v f)
+  (let loop ((i 0)
+             (n (vector-length v)))
+    (when (< i n)
+      (f (vector-ref v i))
+      (loop (add1 i) n))))
 
 ;; Find a mutable object among those that contained in the current cycle.
 (define (find-mutable v cycle/stack) 
@@ -210,17 +225,20 @@
            [(or (string? v) (bytes? v))
             (void)] ; No sub-structure.
 
-           ; Persistent hash tables require particular care as the Mischief representation #(hashpersist <equality> <hash> <trie>)
+           ; Persistent hash tables require particular care as the Mischief representation #('<hash/persist> <equality> <hash> <trie>)
            ; contains two Racket (not Mischief!) procedures, <equality> and <hash>, the key equality test and the key hash code
            ; generator respectively. We don't want the serializer to see either of those as it has no idea of what to do with them.
            ; The only element that requires deep inspection is the trie representing the contents of the persistent hash table.
            [(hash/persist? v) (loop (hash/root v))]
 
-           ; Persistent sets require equal care as the Mischief representation is identical to that for persistent hash tables.
+           ; Persistent sets require equal care as the Mischief representation is, with the exception of the
+           ; tag in element 0, identical to that for persistent hash tables.
            [(set/persist? v) (loop (set/root v))]
-
+           
+            ; Accounts for tuples as well since all tuples are just vectors with a type tag in element 0.
            [(vector? v)
-            (for-each loop (vector->list v))]
+            ;(for-each loop (vector->list v))]
+            (for/each/vector v loop)] ; Experimental. Will eliminating the conversion of vector to list speed things up?
 
            [(pair? v)
             (loop (car v)) 
@@ -274,16 +292,16 @@
        (cons 'u v)] ; The "serial" of a mutable character string or bytes sequence v is (u . v)
       
       [(vector/persist? v)
-       ; A persistent vector v has the form #(vepersist <count> <shift> <root> <tail>) where
+       ; A persistent vector v has the form #('<vector/persist> <count> <shift> <root> <tail>) where
        ; <count> and <shift> are integers >= 0,
        ; <root> is an ordinary mutable vector that is the root of the trie representing the persistent vector and
        ; <tail> is an ordinary mutable vector (of at most 32 elements) representing the current tail of the persistent vector.
-       ; The serial representation is (V vepersist <count> <shift> <r> <t>) where <r> and <t> are the serial representations
+       ; The serial representation is (V '<vector/persist> <count> <shift> <r> <t>) where <r> and <t> are the serial representations
        ; of the root and tail respectively.
        (cons 'V (map (lambda (x) (serial x #t)) (vector->list v)))]
 
       [(hash/persist? v)
-       ; A persistent hash table v has the form #(hashpersist <equality> <hash> <root>) where:
+       ; A persistent hash table v has the form #('<hash/persist> <equality> <hash> <root>) where:
        ;    <equality> and <hash> are Racket procedures for testing key equality and generating key hash codes respectively and
        ;    <root> is the root of the trie representing the hash table.
        (list
@@ -295,7 +313,7 @@
         (serial (hash/root v) #t))]
 
       [(set/persist? v)
-       ; A persistent set v has the form #(setpersist <equality> <hash> <root>) where:
+       ; A persistent set v has the form #('<set/persist> <equality> <hash> <root>) where:
        ;    <equality> and <hash> are the Racket procedures for testing set member equality and
        ;      generating member hash codes respectively and
        ;   <root> is the root of the trie representing the set.
@@ -462,8 +480,8 @@
          
          [(v!) (list->vector (map loop (cdr v)))]           ; (v! e_0 ... e_N). Mutable vector #(e_0 ... e_N).
 
-         [(V) (list->vector (map loop (cdr v)))]            ; (V vepersist <count> <shift> <r> <t>) =>
-                                                            ;     persistent vector #(vepersist <count> <shift> <root> <tail>.
+         [(V) (list->vector (map loop (cdr v)))]            ; (V '<vector/persist> <count> <shift> <r> <t>) =>
+                                                            ;     persistent vector #('<vector/persist> <count> <shift> <root> <tail>.
 
          [(H) ; (H <equality> <trie>). Persistent hash table.
           (let-values
@@ -673,37 +691,37 @@
   (test/serialize/2b)
   (test/serialize/3))
 
-(define (test/serialize/vepersist)
-  (define (test/serialize/vepersist/1)
+(define (test/serialize/vector/persist)
+  (define (test/serialize/vector/persist/1)
     (let ((e (mischief/compile
               '(let ((v (vector/build 100 (lambda (i) i))))
                  v))))
-      (display "serialize/vepersist/1\n")
+      (display "serialize/vector/persist/1\n")
       (pretty-display (serialize (mischief/start e)))
       (display "\n")))
 
-  (define (test/serialize/vepersist/2)
+  (define (test/serialize/vector/persist/2)
     (let ((e (mischief/compile
               '(let* ((a (vector/build 100 (lambda (i) i)))
                       (b (vector/update a 50 5000)))
                  (list a b)))))
-      (display "serialize/vepersist/2\n")
+      (display "serialize/vector/persist/2\n")
       (pretty-display (serialize (mischief/start e)))
       (display "\n")))
 
-  (test/serialize/vepersist/1)
-  (test/serialize/vepersist/2))
+  (test/serialize/vector/persist/1)
+  (test/serialize/vector/persist/2))
 
-(define (test/deserialize/vepersist)
-  (define (test/deserialize/vepersist/1)
+(define (test/deserialize/vector/persist)
+  (define (test/deserialize/vector/persist/1)
     (let* ((v (vector/build 100 (lambda (i) i)))
            (e (mischief/compile
                '(let ((x (vector/build 100 (lambda (i) i))))
                   x)))
            (flat (serialize (mischief/start e))))
-      (should-be 'deserialize/vepersist/1 v (deserialize flat BASELINE #f))))
+      (should-be 'deserialize/vector/persist/1 v (deserialize flat ENVIRON/TEST #f))))
 
-  (define (test/deserialize/vepersist/2)
+  (define (test/deserialize/vector/persist/2)
     (let* ((a (vector/build 100 (lambda (i) i)))
            (b (vector/update a 50 5000))
            (e (mischief/compile
@@ -711,14 +729,14 @@
                       (b (vector/update a 50 5000)))
                  (list a b))))
            (flat (serialize (mischief/start e))))
-      (should-be 'deseriailze/vepersist/2 (list a b) (deserialize flat BASELINE #f))))
+      (should-be 'deseriailze/vector/persist/2 (list a b) (deserialize flat ENVIRON/TEST #f))))
 
 
-  (test/deserialize/vepersist/1)
-  (test/deserialize/vepersist/2))
+  (test/deserialize/vector/persist/1)
+  (test/deserialize/vector/persist/2))
 
-(define (test/serialize/hashpersist)
-  (define (test/serialize/hashpersist/1)
+(define (test/serialize/hash/persist)
+  (define (test/serialize/hash/persist/1)
     (let ((e (mischief/compile
               '(let ((h/26
                       (list/hash
@@ -727,11 +745,11 @@
                            k 11 l 12 m 13 n 14 o 15 p 16 q 17 r 18 s 19 t 20
                            u 21 v 22 w 23 x 24 y 25 z 26))))
                  h/26))))
-      (display "serialize/hashpersist/1\n")
+      (display "serialize/hash/persist/1\n")
       (pretty-display (serialize (mischief/start e)))
       (display "\n")))
   
-  (define (test/serialize/hashpersist/2)
+  (define (test/serialize/hash/persist/2)
     (let ((e (mischief/compile
               '(let* ((h/26
                        (list/hash
@@ -745,15 +763,15 @@
                              h
                              (loop (hash/remove h (car vowels)) (cdr vowels))))))
                  (list h/26 h/21 h/26)))))
-      (display "serialize/hashpersist/2\n")
+      (display "serialize/hash/persist/2\n")
       (pretty-display (serialize (mischief/start e)))
       (display "\n")))
 
-  (test/serialize/hashpersist/1)
-  (test/serialize/hashpersist/2))
+  (test/serialize/hash/persist/1)
+  (test/serialize/hash/persist/2))
 
-(define (test/deserialize/hashpersist)
-  (define (test/deserialize/hashpersist/1)
+(define (test/deserialize/hash/persist)
+  (define (test/deserialize/hash/persist/1)
     (let* ((gold (list/hash
                   hash/eq/null
                   '(a 1 b 2 c 3 d 4 e 5 f 6 g 7 h 8 i 9 j 10
@@ -768,10 +786,10 @@
                             u 21 v 22 w 23 x 24 y 25 z 26))))
                   h/26)))
            (flat (serialize (mischief/start e)))
-           (plump (deserialize flat BASELINE #f)))
-      (should-be 'deserialize/hashpersist/1 gold plump)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
+      (should-be 'deserialize/hash/persist/1 gold plump)))
 
-  (define (test/deserialize/hashpersist/2)
+  (define (test/deserialize/hash/persist/2)
     (let* ((e (mischief/compile
               '(let* ((h/26
                        (list/hash
@@ -786,9 +804,9 @@
                              (loop (hash/remove h (car vowels)) (cdr vowels))))))
                  (list h/26 h/21 h/26))))
            (flat (serialize (mischief/start e)))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (should-be
-       'deserialize/hashpersist/2
+       'deserialize/hash/persist/2
        '(26 21 26 #t)
        (list
         (hash/length (car plump))
@@ -796,19 +814,19 @@
         (hash/length (caddr plump))
         (eq? (car plump) (caddr plump))))))
 
-  (test/deserialize/hashpersist/1)
-  (test/deserialize/hashpersist/2))
+  (test/deserialize/hash/persist/1)
+  (test/deserialize/hash/persist/2))
 
-(define (test/serialize/setpersist)
-  (define (test/serialize/setpersist/1)
+(define (test/serialize/set/persist)
+  (define (test/serialize/set/persist/1)
     (let ((e (mischief/compile
               '(let ((alphabet (list/set set/eq/null '(a b c d e f g h i j k l m n o p q r s t u v w x y z))))
                 alphabet))))
-      (display "serialize/setpersist/1\n")
+      (display "serialize/set/persist/1\n")
       (pretty-display (serialize (mischief/start e)))
       (display "\n")))
   
-  (define (test/serialize/setpersist/2)
+  (define (test/serialize/set/persist/2)
     (let ((e (mischief/compile
               '(let* ((alphabet (list/set set/eq/null '(a b c d e f g h i j k l m n o p q r s t u v w x y z)))
                       (consonants
@@ -817,24 +835,24 @@
                              s
                              (loop (set/remove s (car vowels)) (cdr vowels))))))
                  (list alphabet consonants alphabet)))))
-      (display "serialize/setpersist/2\n")
+      (display "serialize/set/persist/2\n")
       (pretty-display (serialize (mischief/start e)))
       (display "\n")))
 
-  (test/serialize/setpersist/1)
-  (test/serialize/setpersist/2))
+  (test/serialize/set/persist/1)
+  (test/serialize/set/persist/2))
 
-(define (test/deserialize/setpersist)
-  (define (test/deserialize/setpersist/1)
+(define (test/deserialize/set/persist)
+  (define (test/deserialize/set/persist/1)
     (let* ((gold (list/set set/eq/null '(a b c d e f g h i j k l m n o p q r s t u v w x y z)))
            (e (mischief/compile
                '(let ((alphabet (list/set set/eq/null '(a b c d e f g h i j k l m n o p q r s t u v w x y z))))
                   alphabet)))
            (flat (serialize (mischief/start e)))
-           (plump (deserialize flat BASELINE #f)))
-      (should-be 'deserialize/setpersist/1 gold plump)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
+      (should-be 'deserialize/set/persist/1 gold plump)))
 
-  (define (test/deserialize/setpersist/2)
+  (define (test/deserialize/set/persist/2)
     (let* ((e (mischief/compile
               '(let* ((alphabet (list/set set/eq/null '(a b c d e f g h i j k l m n o p q r s t u v w x y z)))
                       (consonants
@@ -844,9 +862,9 @@
                              (loop (set/remove s (car vowels)) (cdr vowels))))))
                  (list alphabet consonants alphabet))))
            (flat (serialize (mischief/start e)))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (should-be
-       'deserialize/setpersist/2
+       'deserialize/set/persist/2
        '(26 21 26 #t)
        (list
         (set/length (car plump))
@@ -854,8 +872,30 @@
         (set/length (caddr plump))
         (eq? (car plump) (caddr plump))))))
 
-  (test/deserialize/setpersist/1)
-  (test/deserialize/setpersist/2))
+  (test/deserialize/set/persist/1)
+  (test/deserialize/set/persist/2))
+
+(define (test/deserialize/tuple)
+  (define (test/deserialize/tuple/1)
+    (let* ((gold (list/tuple '(a b c d e f g h i j k l m n o p q r s t u v w x y z)))
+           (e (mischief/compile
+               '(let ((alphabet (list/tuple '(a b c d e f g h i j k l m n o p q r s t u v w x y z))))
+                  alphabet)))
+           (flat (serialize (mischief/start e)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
+      (should-be 'deserialize/tuple/1 gold plump)))
+  
+    (define (test/deserialize/tuple/2)
+    (let* ((gold (cons (tuple 'a 'e 'i 'o 'u) (list/tuple '(b c d f g h j k l m n p q r s t v w x y z))))
+           (e (mischief/compile
+               '(let ((alphabet (list/tuple '(a b c d e f g h i j k l m n o p q r s t u v w x y z))))
+                  (tuple/partition alphabet (lambda (letter) (memq letter '(a e i o u)))))))
+           (flat (serialize (mischief/start e)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
+      (should-be 'deserialize/tuple/2 gold plump)))
+  
+  (test/deserialize/tuple/1)
+  (test/deserialize/tuple/2))
 
 (define (test/deserialize)
   (define (test/deserialize/1a)
@@ -864,7 +904,7 @@
                   (lambda (x) (append x a x)))))
            (code (mischief/start e))
            (flat (serialize code))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (should-be 'deserialize/1a '(a b 11 22 33 a b) (plump rtk/RETURN '(a b)))))
 
   (define (test/deserialize/1b)
@@ -874,7 +914,7 @@
                   (lambda (x) (append (list b) (a) x)))))
            (code (mischief/start e))
            (flat (serialize code))
-           (plump+ (deserialize flat BASELINE #t)))
+           (plump+ (deserialize flat ENVIRON/TEST #t)))
       ;(pretty-display (cdr plump+))
       (should-be
        'deserialize/1b
@@ -888,7 +928,7 @@
                   factorial)))
            (code (mischief/start e))
            (flat (serialize code))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       ;(pretty-display flat)
       (should-be 'deserialize/2 120 (plump rtk/RETURN 5))))
 
@@ -897,7 +937,7 @@
               '(lambda (a b) (+ a b))))
            (code (mischief/start e))
            (flat (serialize code))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (should-be 'deserialize/3 28 (plump rtk/RETURN 19 9))))
 
  (define (test/deserialize/4)
@@ -905,7 +945,7 @@
               '(lambda (a b c) (list a c b))))
            (code (mischief/start e))
            (flat (serialize code))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (should-be 'deserialize/4 '(19 12 9) (plump rtk/RETURN 19 9 12))))
 
   ; Deserializing a lambda expression with > 3 arguments.
@@ -914,7 +954,7 @@
               '(lambda (a b c d e f) (list a c e b d f))))
            (code (mischief/start e))
            (flat (serialize code))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (should-be 'deserialize/5 '(10 30 50 20 40 60) (plump rtk/RETURN 10 20 30 40 50 60))))
   
   ; Closures embedded in data structures.
@@ -934,7 +974,7 @@
                      )))))
            (code (mischief/start e))
            (flat (serialize code))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (should-be 'deserialize/6 '(#t #f #t #f) (plump rtk/RETURN))))
 
   ; Closure with a single rest argument.
@@ -944,7 +984,7 @@
                   (lambda rest (list b c a rest)))))
            (code (mischief/start e))
            (flat (serialize code))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (should-be 'deserialize/7a '(13 #(a b) 12 (100 200 300)) (plump rtk/RETURN 100 200 300))))
 
   ; Closure with two arguments, one being a rest argument.
@@ -954,7 +994,7 @@
                   (lambda (x . rest) (list x b c a rest)))))
            (code (mischief/start e))
            (flat (serialize code))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (should-be 'deserialize/7b '(100 13 #(a b) 12 (200 300)) (plump rtk/RETURN 100 200 300))))
     
   ; Closure with three arguments, one being a rest argument.
@@ -964,7 +1004,7 @@
                   (lambda (x y . rest) (list x y b c a rest)))))
            (code (mischief/start e))
            (flat (serialize code))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (should-be 'deserialize/7c '(100 200 13 #(a b) 12 (300)) (plump rtk/RETURN 100 200 300))))
 
   ; Closure with four arguments, one being a rest argument.
@@ -974,7 +1014,7 @@
                   (lambda (x y z . rest) (list x y z b c a rest)))))
            (code (mischief/start e))
            (flat (serialize code))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (should-be 'deserialize/7d '(100 200 300 13 #(a b) 12 (750)) (plump rtk/RETURN 100 200 300 750))))
   
   ; Closure with five arguments, one being a rest argument.
@@ -984,7 +1024,7 @@
                   (lambda (w x y z . rest) (list w x y z b c a rest)))))
            (code (mischief/start e))
            (flat (serialize code))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (should-be 'deserialize/7e '(100 200 300 750 13 #(a b) 12 (99 88)) (plump rtk/RETURN 100 200 300 750 99 88))))
 
 
@@ -994,7 +1034,7 @@
                '(lambda rest rest)))
            (code (mischief/start e))
            (flat (serialize code))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (should-be 'deserialize/8a '(100 200 300) (plump rtk/RETURN 100 200 300))))
 
   ; lambda with two arguments, one being a rest argument.
@@ -1003,7 +1043,7 @@
                '(lambda (x . rest) (list x rest))))
            (code (mischief/start e))
            (flat (serialize code))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (should-be 'deserialize/8b '(100 (200 300)) (plump rtk/RETURN 100 200 300))))
   
   ; lambda with three arguments, one being a rest argument.
@@ -1012,7 +1052,7 @@
                '(lambda (x y . rest) (list y x rest))))
            (code (mischief/start e))
            (flat (serialize code))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (should-be 'deserialize/8c '(200 100 (300)) (plump rtk/RETURN 100 200 300))))
  
   ; lambda with four arguments, one being a rest argument.
@@ -1021,7 +1061,7 @@
                '(lambda (x y z . rest) (list y z x rest))))
            (code (mischief/start e))
            (flat (serialize code))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (should-be 'deserialize/8d '(200 300 100 (750 200)) (plump rtk/RETURN 100 200 300 750 200))))
 
   ; lambda with five arguments, one being a rest argument.
@@ -1030,7 +1070,7 @@
                '(lambda (w x y z . rest) (list w y z x rest))))
            (code (mischief/start e))
            (flat (serialize code))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (should-be 'deserialize/8e '(100 300 750 200 (900 baseball)) (plump rtk/RETURN 100 200 300 750 900 'baseball))))   
 
   (test/deserialize/1a)
@@ -1058,7 +1098,7 @@
                       (f (lambda (table) ((hash/ref table 'cons #f) 33 99))))
                   (f h))))
            (flat (serialize e))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (pretty-display flat)
       (pretty-display (mischief/start plump))))
 
@@ -1072,7 +1112,7 @@
     (let* ((e (mischief/compile '(let () (lambda (table) ((hash/ref table 'cons #f) 33 99)))))
            (f (mischief/start e))
            (flat '((2) 0 () 0 () () (H eq (v! 256 (v! 132 (c cons M v! reference/global cons) (c + M v! reference/global +))))))
-           (plump (deserialize flat BASELINE #f)))
+           (plump (deserialize flat ENVIRON/TEST #f)))
       (pretty-display plump)
       (pretty-display (f #f #f))
       (pretty-display (f rtk/RETURN plump))))

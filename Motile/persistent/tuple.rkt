@@ -42,9 +42,6 @@
    (positive? (vector-length x))
    (eq? '<tuple> (vector-ref x 0))))
 
-;(define (tuple? x)
-;  (and (vector? x) (immutable? x)))
-
 ;; Give a tuple with n elements return the length of its underlying vector representation.
 (define-syntax-rule (length/raw n) (add1 n))
 
@@ -63,9 +60,6 @@
           (begin
             (vector-set! t i (car values))
             (loop (add1 i) (cdr values)))))))
-        
-;(define (list/tuple values)
-;  (apply vector-immutable values))
 
 ;; Given (tuple v_0 ... v_n) construct a tuple for which element e_i is v_i.
 (define (tuple . rest)
