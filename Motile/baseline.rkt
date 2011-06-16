@@ -163,125 +163,124 @@
 
 ;; Motile-specific reworkings of persistent vector primitives that accept functions as arguments.
 
-(define motile/vector/build
-  (case-lambda
-    ((rtk n f)
-     (let ((g (lambda (i) (f k/RETURN i))))
-        (rtk (vector/build n g))))
-    ((k _) (global/decompile k 'vector/build))))
-
-(define motile/vector/fold/left
-  (case-lambda
-    ((rtk v f seed)
-     (let ((g (lambda (value seed) (f k/RETURN value seed))))
-        (rtk (vector/fold/left v g seed))))
-    ((k _) (global/decompile k 'vector/fold/left))))
-
-(define motile/vector/fold/right
-  (case-lambda
-    ((rtk v f seed)
-     (let ((g (lambda (value seed) (f k/RETURN value seed))))
-        (rtk (vector/fold/right v g seed))))
-    ((k _) (global/decompile k 'vector/fold/right))))
-
-(define motile/vector/filter
-  (case-lambda
-    ((rtk v p)
-     (let ((q (lambda (value) (p k/RETURN value))))
-       (rtk (vector/filter v q))))
-    ((k _) (global/decompile k 'vector/filter))))
-
-(define motile/vector/map
-  (case-lambda
-    ((rtk v f)
-     (let ((g (lambda (value) (f k/RETURN value))))
-        (rtk (vector/map v g))))
-    ((k _) (global/decompile 'vector/map))))
+;(define motile/vector/build
+;  (case-lambda
+;    ((rtk n f)
+;     (let ((g (lambda (i) (f k/RETURN i))))
+;        (rtk (vector/build n g))))
+;    ((k _) (global/decompile k 'vector/build))))
+;
+;(define motile/vector/fold/left
+;  (case-lambda
+;    ((rtk v f seed)
+;     (let ((g (lambda (value seed) (f k/RETURN value seed))))
+;        (rtk (vector/fold/left v g seed))))
+;    ((k _) (global/decompile k 'vector/fold/left))))
+;
+;(define motile/vector/fold/right
+;  (case-lambda
+;    ((rtk v f seed)
+;     (let ((g (lambda (value seed) (f k/RETURN value seed))))
+;        (rtk (vector/fold/right v g seed))))
+;    ((k _) (global/decompile k 'vector/fold/right))))
+;
+;(define motile/vector/filter
+;  (case-lambda
+;    ((rtk v p)
+;     (let ((q (lambda (value) (p k/RETURN value))))
+;       (rtk (vector/filter v q))))
+;    ((k _) (global/decompile k 'vector/filter))))
+;
+;(define motile/vector/map
+;  (case-lambda
+;    ((rtk v f)
+;     (let ((g (lambda (value) (f k/RETURN value))))
+;        (rtk (vector/map v g))))
+;    ((k _) (global/decompile 'vector/map))))
 
 ;; Motile-specific reworkings of higher-order, persistent hash table primitives 
 
-(define motile/hash/fold
-  (case-lambda
-    ((rtk h f seed)
-     (let ((g (lambda (value seed) (f k/RETURN value seed))))
-        (rtk (hash/fold h g seed))))
-    ((k _) (global/decompile k 'hash/fold))))
-
-(define motile/hash/map
-  (case-lambda
-    ((rtk h f)
-     (let ((g (lambda (pair) (f k/RETURN pair))))
-        (rtk (hash/map h g))))
-    ((k _) (global/decompile k 'hash/map))))
-
-(define motile/hash/filter
-  (case-lambda
-    ((rtk h p)
-     (let ((q (lambda (pair) (p k/RETURN pair))))
-        (rtk (hash/filter h q))))
-    ((k _) (global/decompile k 'hash/filter))))
-
-(define motile/hash/partition
-  (case-lambda
-    ((rtk h p)
-     (let ((q (lambda (pair) (p k/RETURN pair))))
-        (rtk (hash/partition h q))))
-    ((k _) (global/decompile k 'hash/partition))))
+;(define motile/hash/fold
+;  (case-lambda
+;    ((rtk h f seed)
+;     (let ((g (lambda (value seed) (f k/RETURN value seed))))
+;        (rtk (hash/fold h g seed))))
+;    ((k _) (global/decompile k 'hash/fold))))
+;
+;(define motile/hash/map
+;  (case-lambda
+;    ((rtk h f)
+;     (let ((g (lambda (pair) (f k/RETURN pair))))
+;        (rtk (hash/map h g))))
+;    ((k _) (global/decompile k 'hash/map))))
+;
+;(define motile/hash/filter
+;  (case-lambda
+;    ((rtk h p)
+;     (let ((q (lambda (pair) (p k/RETURN pair))))
+;        (rtk (hash/filter h q))))
+;    ((k _) (global/decompile k 'hash/filter))))
+;
+;(define motile/hash/partition
+;  (case-lambda
+;    ((rtk h p)
+;     (let ((q (lambda (pair) (p k/RETURN pair))))
+;        (rtk (hash/partition h q))))
+;    ((k _) (global/decompile k 'hash/partition))))
 
 ;; Motile-specific reworkings of higher-order, persistent unordered set primitives.
 
-(define motile/set/fold
-  (case-lambda
-    ((rtk s f seed)
-     (let ((g (lambda (value seed) (f k/RETURN value seed))))
-        (rtk (set/fold s g seed))))
-    ((k _) (global/decompile k 'set/fold))))
-
-(define motile/set/map
-  (case-lambda
-    ((rtk s f)
-     (let ((g (lambda (value) (f k/RETURN value))))
-        (rtk (set/map s g))))
-    ((k _) (global/decompile k 'set/map))))
-
-(define motile/set/filter
-  (case-lambda
-    ((rtk s p)
-     (let ((q (lambda (value) (p k/RETURN value))))
-        (rtk (set/filter s q))))
-    ((k _) (global/decompile k 'set/filter))))
-
-(define motile/set/partition
-  (case-lambda
-    ((rtk s p)
-     (let ((q (lambda (value) (p k/RETURN value))))
-        (rtk (set/partition s q))))
-    ((k _) (global/decompile k 'set/partition))))
+;(define motile/set/fold
+;  (case-lambda
+;    ((rtk s f seed)
+;     (let ((g (lambda (value seed) (f k/RETURN value seed))))
+;        (rtk (set/fold s g seed))))
+;    ((k _) (global/decompile k 'set/fold))))
+;
+;(define motile/set/map
+;  (case-lambda
+;    ((rtk s f)
+;     (let ((g (lambda (value) (f k/RETURN value))))
+;        (rtk (set/map s g))))
+;    ((k _) (global/decompile k 'set/map))))
+;
+;(define motile/set/filter
+;  (case-lambda
+;    ((rtk s p)
+;     (let ((q (lambda (value) (p k/RETURN value))))
+;        (rtk (set/filter s q))))
+;    ((k _) (global/decompile k 'set/filter))))
+;
+;(define motile/set/partition
+;  (case-lambda
+;    ((rtk s p)
+;     (let ((q (lambda (value) (p k/RETURN value))))
+;        (rtk (set/partition s q))))
+;    ((k _) (global/decompile k 'set/partition))))
 
 
 ;; Motile-specific reworkings of higher-order tuple primitives.
 
-(define (motile/tuple/build)
-  (case-lambda
-    ((rtk n f)
-     (let ((g (lambda (index) (f k/RETURN index))))
-       (rtk (tuple/build n g))))
-    ((k _) (global/decompile k 'tuple/build))))
-
-(define(motile/tuple/filter)
-  (case-lambda
-    ((rtk t f)
-     (let ((g (lambda (x) (f k/RETURN x))))
-       (rtk (tuple/filter t g))))
-    ((k _) (global/decompile k 'tuple/filter))))
-
-(define (motile/tuple/map)
-  (case-lambda
-    ((rtk t f)
-     (let ((g (lambda (x) (f k/RETURN x))))
-       (rtk (tuple/map t g))))
-    ((k _) (global/decompile k 'tuple/map))))
-
+;(define (motile/tuple/build)
+;  (case-lambda
+;    ((rtk n f)
+;     (let ((g (lambda (index) (f k/RETURN index))))
+;       (rtk (tuple/build n g))))
+;    ((k _) (global/decompile k 'tuple/build))))
+;
+;(define(motile/tuple/filter)
+;  (case-lambda
+;    ((rtk t f)
+;     (let ((g (lambda (x) (f k/RETURN x))))
+;       (rtk (tuple/filter t g))))
+;    ((k _) (global/decompile k 'tuple/filter))))
+;
+;(define (motile/tuple/map)
+;  (case-lambda
+;    ((rtk t f)
+;     (let ((g (lambda (x) (f k/RETURN x))))
+;       (rtk (tuple/map t g))))
+;    ((k _) (global/decompile k 'tuple/map))))
 
 ;; Motile-specific call/cc.
 (define (call/cc k f)
