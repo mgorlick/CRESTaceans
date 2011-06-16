@@ -4,9 +4,7 @@
          racket/contract
          racket/match
          racket/list
-         racket/function
-         racket/async-channel
-         racket/future)
+         racket/function)
 
 (provide (all-defined-out))
 
@@ -16,8 +14,17 @@
 (define peersHT/c (hash/c (cons/c exact-nonnegative-integer? port/c) cpointer?))
 (define suspmessageHT/c (hash/c (cons/c exact-nonnegative-integer? port/c) (listof cpointer?)))
 
-(define/contract (run-listener host port reply-channel)
-  (string? port/c async-channel? . -> . async-channel?)
+(define/contract (run-listener host port reply-thread)
+  (string? port/c thread? . -> . thread?)
+  
+  (define x #f)
+  (define y #f)
+  (define start-time #f)
+  
+  (define (init-test!)
+    (set! x 0)
+    (set! y 0)
+    (set! start-time (current-inexact-milliseconds)))
   
   (define enet-host-listening-addr (host/port->addr host port))
   (define enet-host (enet-host-create enet-host-listening-addr ENetMaxPeerCount 0 0 0))
@@ -32,10 +39,14 @@
   ;; call enet-peer-send immediately afterward
   (define/contract susp-messages suspmessageHT/c (make-hash))
   
-  (define request-channel (make-async-channel))
-  
   (define/contract (send-message hostname port data)
     (string? port/c bytes? . -> . void)
+    (unless x (init-test!))
+    (set! x (+ x 1))
+    (when (= 0 (modulo x 1000))
+      (printf "~a messages sent in ~a seconds (~a messages/sec)~n"
+              x (/ (- (current-inexact-milliseconds) start-time) 1000)
+              (/ x (/ (- (current-inexact-milliseconds) start-time) 1000))))
     ;(define to-write-out (future (λ () (preprocess-message-out data))))
     (let ([peer (lookup-peer enet-peers hostname port)])
       (define pkt (enet-packet-create/bytes (preprocess-message-out data) 'reliable))
@@ -50,11 +61,15 @@
   (define event-loop
     (thread
      (λ ()
+       (define tre (thread-receive-evt))
+       (define tre? (curry equal? tre))
        (let loop ()
-         (match (sync/timeout 0.010 request-channel)
+         (match (sync/timeout 0.010 tre)
            [#f #f]
-           [(list 'send (? string? host) (? exact-nonnegative-integer? port) (? bytes? data))
-            (send-message host port data)]
+           [(? tre? e)
+            (match (thread-receive)
+              [(list 'send (? string? host) (? exact-nonnegative-integer? port) (? bytes? data))
+               (send-message host port data)])]
            [any (printf "Listener dropping outgoing message: ~a~n" any)])
          
          (let ([event (enet-host-service enet-host 0)])
@@ -74,15 +89,23 @@
                 (printf "Peer disconnected~n")]
                
                ['receive
-                (async-channel-put
-                 reply-channel
+                (unless y (init-test!))
+                (set! y (add1 y))
+                (when (= 0 (modulo y 1000))
+                  (collect-garbage)
+                  (printf "~a messages recvd in ~a seconds (~a messages/sec)~n"
+                          y (/ (- (current-inexact-milliseconds) start-time) 1000)
+                          (/ y (/ (- (current-inexact-milliseconds) start-time) 1000))))
+                
+                (thread-send
+                 reply-thread
                  (response "localhost"
                            (event-port event)
                            (preprocess-message-in (get-packet-data (ENetEvent-packet event)))))
                 (enet-packet-destroy (ENetEvent-packet event))])))
          (loop)))))
   
-  request-channel)
+  event-loop)
 
 ;; ip.port -> peer functions
 (define/contract (lookup-peer peers hostname portnum)
@@ -118,15 +141,16 @@
 
 ;; preprocessing to send/recv: message -> gzip -> base64/url -> write out
 (require file/gzip
-         file/gunzip
-         "base64-url-typed.rkt")
+         file/gunzip)
 
 (define (preprocess-message-in data)
-  (define o (open-output-bytes))
+  #|(define o (open-output-bytes))
   (inflate (open-input-bytes (base64-url-decode data)) o)
-  (get-output-bytes o))
+  (get-output-bytes o))|#
+  (bytes-copy data))
 
 (define (preprocess-message-out data)
-  (define o (open-output-bytes))
+  #|(define o (open-output-bytes))
   (deflate (open-input-bytes data) o)
-  (base64-url-encode (get-output-bytes o)))
+  (base64-url-encode (get-output-bytes o)))|#
+  data)

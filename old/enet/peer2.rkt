@@ -5,15 +5,14 @@
          "../../old/Mischief/baseline.rkt"
          "../../old/Mischief/z.rkt"
          "../../old/Mischief/xserialize.rkt"
-         racket/match
-         racket/async-channel)
+         "../../old/Mischief/message.rkt"
+         racket/match)
 
 (define (deserialize/recompile bstr [be BASELINE])
   (deserialize (read (open-input-bytes bstr)) be #f))
 
-(define (deserialize/recompile/start expr-bstr . args)
-  (define fun (mischief/start (deserialize/recompile expr-bstr)))
-  
+(define (start-program expr . args)
+  (define fun (mischief/start expr))
   (if (equal? (sub1 (procedure-arity fun))
               (length args)) ; first arg is always the continuation k
       (thread (λ () (apply fun (cons rtk/RETURN args))))
@@ -21,11 +20,16 @@
 
 ;; enet stuff
 
-(define reply-channel (make-async-channel))
-(define request-channel (run-listener "127.16.121.134" 1234 reply-channel))
+(define request-thread (run-listener "localhost" 1234 (current-thread)))
 
 (let loop ([t 0])
-  (match (async-channel-get reply-channel)
+  (match (thread-receive)
     [(response host port data)
-     (deserialize/recompile/start data t)
+     (define message (deserialize/recompile data))
+     (match message
+       [(vector 'tuple '(mischief message ask) #"SPAWN" an-url body a b c)
+        (start-program body t)]
+       [(vector 'tuple '(mischief message ask) #"POST" an-url name a b c)
+        #f]
+       [anyelse (printf "~a~n" anyelse)])
      (loop (add1 t))]))

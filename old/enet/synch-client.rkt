@@ -5,7 +5,7 @@
          racket/match
          racket/async-channel)
 
-(define THE-PACKET #"I am the very model of a modern major general")
+(define THE-PACKET (make-bytes 10000))
 
 (define port-to-use (with-handlers ([exn:fail? (λ (e) 5000)])
                       (string->number(vector-ref (current-command-line-arguments) 0))))
@@ -14,12 +14,10 @@
 (define start-time (current-process-milliseconds #f))
 
 (define reply-channel (make-async-channel))
-(define request-channel (run-listener "localhost" port-to-use reply-channel))
-
-(async-channel-put request-channel (list 'send "localhost" 1234 THE-PACKET))
+(define request-channel (run-listener "128.195.59.191" port-to-use reply-channel))
 
 (let loop ()
-  (match (async-channel-get reply-channel)
+  #|(match (async-channel-get reply-channel)
     [(response host port data)
      (set! reply-received (add1 reply-received))
      (when (equal? 0 (modulo reply-received 1000))
@@ -27,5 +25,7 @@
                reply-received (exact->inexact (/ (current-process-milliseconds #f) 1000))
                (exact->inexact (/ reply-received (/ (- (current-process-milliseconds #f) start-time) 1000)))))
      
-     (async-channel-put request-channel (list 'send "localhost" 1234 THE-PACKET))
-     (loop)]))
+     (async-channel-put request-channel (list 'send "localhost" 1234 THE-PACKET))])|#
+  
+  (async-channel-put request-channel (list 'send "128.195.58.146" 1234 THE-PACKET))
+  (loop))
