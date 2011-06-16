@@ -4,16 +4,16 @@
          racket/contract
          racket/function
          "message.rkt"
-         "../../Motile/compile.rkt"
-         "../../Motile/serialize.rkt"
-         "../../Motile/baseline.rkt")
+         "../../../Motile/compile.rkt"
+         "../../../Motile/serialize.rkt"
+         "../../../Motile/baseline.rkt")
 
 (provide (all-defined-out))
 
 (print-graph #f)
 
-(define/contract (compile/serialize method request-thread host port expr)
-  (bytes? thread? string? exact-nonnegative-integer? any/c . -> . void)
+(define (compile/serialize method request-thread host port expr)
+  ;(bytes? thread? string? exact-nonnegative-integer? any/c . -> . void)
   (define the-compiled-expr (mischief/compile expr))
   (define msg (message/ask/new method #"/someurl" the-compiled-expr '()))
   (thread-send request-thread

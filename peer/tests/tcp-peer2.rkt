@@ -2,14 +2,14 @@
 #lang racket/base
 
 (require "../src/net/tcp-peer.rkt"
-         "../src/compilation.rkt"
+         "../src/api/compilation.rkt"
          racket/match)
 
 (define request-channel (run-tcp-peer *LOCALHOST* 1234 (current-thread)))
 
 (define (handle-message message t)
-  (match message
-    [(vector 'tuple '(mischief message ask) #"SPAWN" an-url body a b c)
+  #|(match message
+   [(vector 'tuple '(mischief message ask) #"SPAWN" an-url body a b c)
      ;(printf "starting a program~n")
      (start-program body t)]
     
@@ -17,12 +17,17 @@
      ;(printf "the gremlin's name is ~a~n" (mischief/start name))
      #f]
     
-    [anyelse (printf "~some other message: ~n" anyelse)]))
+    [anyelse (printf "some other message: ~s~n" anyelse)]))|#
+  'ok)
 
 (define (test)
   (let loop ([t 0])
     (match (thread-receive)
       [(struct response (data))
+       (when (= t 0)
+         (printf "len: ~a~n" (bytes-length data))
+         (printf "data:~n ~a~n" data)
+         (printf "compiled form:~n ~a~n" (deserialize/recompile data)))
        (define message
          (with-handlers ([exn:fail? (λ (e) #f)])
            (deserialize/recompile data)))

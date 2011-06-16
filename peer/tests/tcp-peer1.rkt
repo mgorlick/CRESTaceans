@@ -2,8 +2,8 @@
 #lang racket/base
 
 (require "../src/net/tcp-peer.rkt"
-         "../src/compilation.rkt"
-         racket/pretty)
+         (only-in "../src/api/compilation.rkt"
+                  compile/serialize))
 
 (define port
   (with-handlers ([exn:fail? (λ (e) 5000)])
@@ -21,8 +21,8 @@
        (printf "Gremlin number ~a took ~a of your lug nuts~n" t x)
        (loop (add1 x)))))
 
-(define (send-gremlin) (compile/serialize/spawn request-thread *RHOST* *RPORT* the-gremlin))
-(define (post-gremlin-name name) (compile/serialize/post request-thread *RHOST* *RPORT* name))
+(define (send-gremlin) (compile/serialize #"SPAWN" request-thread *RHOST* *RPORT* the-gremlin))
+(define (post-gremlin-name name) (compile/serialize #"POST" request-thread *RHOST* *RPORT* name))
 (define name (make-bytes 10000))
 
 (require profile)
@@ -30,8 +30,9 @@
  (λ ()
    (let loop ([x 100000])
      ;(sleep 1)
-     (post-gremlin-name name)
-     (unless (zero? x) (loop (sub1 x)))))
+     (compile/serialize #"POST" request-thread *RHOST* *RPORT* the-gremlin)
+     (unless (zero? x) (loop (sub1 x))))
+   (semaphore-wait (make-semaphore)))
  #:delay 0.005
  #:threads #t)
 

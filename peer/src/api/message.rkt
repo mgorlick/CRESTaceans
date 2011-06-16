@@ -12,7 +12,7 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(require (only-in "tuple.rkt" tuple tuple? tuple/length tuple/ref))
+(require (only-in "../../../Motile/persistent/tuple.rkt" tuple tuple? tuple/length tuple/ref))
 
 
 (provide
