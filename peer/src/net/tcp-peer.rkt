@@ -4,13 +4,22 @@
          racket/match
          racket/contract
          racket/port
-         racket/function)
+         racket/function
+         "structs.rkt")
 
 (provide (all-defined-out))
 
 (define *LOCALHOST* "::1")
 
-(struct response (data))
+(define (write-out o data)
+  (write-bytes (integer->integer-bytes (bytes-length data) 4 #f #t) o)
+  (write-bytes #"\r\n" o)
+  (write-bytes data o)
+  (flush-output o))
+
+(define (read-in i len reply-thread)
+  (define message (read-bytes (integer-bytes->integer len #f #t 0 4) i))
+  (thread-send reply-thread (response message)))
 
 (define/contract (run-tcp-peer hostname port reply-thread)
   (string? exact-nonnegative-integer? thread? . -> . thread?)
@@ -18,52 +27,38 @@
   (define listener (tcp-listen port 4 #f hostname))
   (define island-pair/c (cons/c string? exact-nonnegative-integer?))
   (define portHT/c (hash/c island-pair/c thread?))
+  
   ;; ephemeral client connections to our long-lived island pair
-  (define accepts-o (make-hash))
-  (define accepts-i (make-hash))
+  (define/contract accepts-o portHT/c (make-hash))
+  (define/contract accepts-i portHT/c (make-hash))
   
   ;; connections we've made to long-lived island pairs
-  (define connects-o (make-hash))
-  (define connects-i (make-hash))
+  (define/contract connects-o portHT/c (make-hash))
+  (define/contract connects-i portHT/c (make-hash))  
   
-  ;; two threads per tcp-accept
-  (define/contract (run-output-thread o)
-    (output-port? . -> . thread?)
-    (thread
-     (λ ()
-       (let loop ()
-         (match (thread-receive)
-           [(list 'send host port (? bytes? data))
-            (write-bytes (integer->integer-bytes (bytes-length data) 4 #f #t) o)
-            (write-bytes #"\r\n" o)
-            (write-bytes data o)
-            (flush-output o)
-            (sendtest)
-            (loop)]
-           ['exit
-            (close-output-port o)])))))
-  
+  ;; RECEIVING
   (define/contract (run-input-thread i)
     (input-port? . -> . thread?)
     (thread
      (λ ()
        (define tre (thread-receive-evt))
+       (define tre? (curry equal? tre))
        (define reade (read-bytes-line-evt i 'return-linefeed))
        (let loop ()
          (match (sync reade tre)
-           [(? (curry equal? tre) a) 
+           [(? tre? a)
             (if (equal? (thread-receive) 'exit)
                 (close-input-port i)
                 (loop))]
-           [(? bytes? b)
-            (define message (read-bytes (integer-bytes->integer b #f #t 0 4) i))
-            (thread-send reply-thread (response message))
+           
+           [(? bytes? len)
+            (read-in i len reply-thread)
             (recvtest)
             (loop)]
+           
            [(? (curry equal? eof) e)
             (printf "input port dying~n")
             (close-input-port i)])))))
-  
   
   (define (do-accepts)
     (let*-values ([(i o) (tcp-accept listener)]
@@ -73,25 +68,42 @@
       (hash-set! connects-i (cons ra rp) (run-input-thread i)))
     (do-accepts))
   
+  
+  ;;; SENDING
+  (define/contract (run-output-thread o)
+    (output-port? . -> . thread?)
+    (thread
+     (λ ()
+       (let loop ()
+         (match (thread-receive)
+           [(? request? v)
+            (write-out o (request-data v))
+            (sendtest)
+            (loop)]
+           
+           ['exit
+            (close-output-port o)])))))
+  
+  ;; Forward outbound message to the thread managing the appropriate output port.
   (define (do-sending)
     (match (thread-receive)
-      [(list 'send host port data)
-       (let ([othread (hash-ref connects-o (cons host port) (λ () #f))])
-         (if othread
-             (thread-send othread (list 'send host port data))
-             (connect/send host port data)))])
+      [(? request? req)
+       (match (hash-ref connects-o (cons (request-host req) (request-port req)) void)
+         [(? thread? othread) (thread-send othread req)]
+         [(? void? _) (connect/send req)])])
     (do-sending))
   
-  (define/contract (connect/send host port data)
-    (string? exact-nonnegative-integer? (or/c bytes? list?) . -> . void)
-    (let*-values ([(i o) (tcp-connect host port)]
+  (define (connect/send req)
+    (let*-values ([(i o) (tcp-connect (request-host req) (request-port req))]
                   [(la lp ra rp) (tcp-addresses i #t)])
       (printf "connected to ~a:~a~n" ra rp)
       (define ot (run-output-thread o))
       (define it (run-input-thread i))
       (hash-set! connects-o (cons ra rp) ot)
       (hash-set! connects-i (cons ra rp) it)
-      (thread-send ot (list 'send host port data))))
+      (thread-send ot req)))
+  
+  ;; -------------------------------------
   
   ;; one thread to manage all tcp-accepts.  
   (define accepter (thread do-accepts))

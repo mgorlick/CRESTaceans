@@ -5,6 +5,8 @@
          (only-in "../src/api/compilation.rkt"
                   compile/serialize))
 
+(require profile)
+
 (define port
   (with-handlers ([exn:fail? (λ (e) 5000)])
     (string->number (vector-ref (current-command-line-arguments) 0))))
@@ -25,15 +27,13 @@
 (define (post-gremlin-name name) (compile/serialize #"POST" request-thread *RHOST* *RPORT* name))
 (define name (make-bytes 10000))
 
-(require profile)
 (profile-thunk
- (λ ()
+ (λ ()   
    (let loop ([x 100000])
      ;(sleep 1)
      (compile/serialize #"POST" request-thread *RHOST* *RPORT* the-gremlin)
      (unless (zero? x) (loop (sub1 x))))
    (semaphore-wait (make-semaphore)))
- #:delay 0.005
  #:threads #t)
 
 #|(printf "spawning this program:~n")
