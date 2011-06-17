@@ -13,10 +13,10 @@
 
 ;; "client-side"
 
-(define (compile/serialize method request-thread host port expr)
+(define (compile/serialize method request-thread host port expr [url "/"])
   ;(bytes? thread? string? exact-nonnegative-integer? any/c . -> . void)
   (define the-compiled-expr (mischief/compile expr))
-  (define msg (message/ask/new method #"/someurl" the-compiled-expr '()))
+  (define msg (message/ask/new method url the-compiled-expr '()))
   (define o (open-output-bytes))
   (write (serialize msg) o)
   (thread-send request-thread (request host port (get-output-bytes o)))

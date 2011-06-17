@@ -11,16 +11,6 @@
 
 (define *LOCALHOST* "::1")
 
-(define (write-out o data)
-  (write-bytes (integer->integer-bytes (bytes-length data) 4 #f #t) o)
-  (write-bytes #"\r\n" o)
-  (write-bytes data o)
-  (flush-output o))
-
-(define (read-in i len reply-thread)
-  (define message (read-bytes (integer-bytes->integer len #f #t 0 4) i))
-  (thread-send reply-thread (response message)))
-
 (define/contract (run-tcp-peer hostname port reply-thread)
   (string? exact-nonnegative-integer? thread? . -> . thread?)
   
@@ -34,7 +24,9 @@
   
   ;; connections we've made to long-lived island pairs
   (define/contract connects-o portHT/c (make-hash))
-  (define/contract connects-i portHT/c (make-hash))  
+  (define/contract connects-i portHT/c (make-hash))
+  
+  (define (eof? v) (equal? v eof))
   
   ;; RECEIVING
   (define/contract (run-input-thread i)
@@ -45,20 +37,22 @@
        (define tre? (curry equal? tre))
        (define reade (read-bytes-line-evt i 'return-linefeed))
        (let loop ()
-         (match (sync reade tre)
-           [(? tre? a)
-            (if (equal? (thread-receive) 'exit)
-                (close-input-port i)
-                (loop))]
+         (define v (sync reade tre)) ; get either an exit signal or a new message every cycle
+         (cond
            
-           [(? bytes? len)
-            (read-in i len reply-thread)
+           [(bytes? v) ; v is a byte-encoded integer providing framing info
+            (read-in i v reply-thread)
             (recvtest)
             (loop)]
            
-           [(? (curry equal? eof) e)
+           [(eof? v)
             (printf "input port dying~n")
-            (close-input-port i)])))))
+            (close-input-port i)]
+           
+           [(tre? v)
+            (if (equal? (thread-receive) 'exit)
+                (close-input-port i)
+                (loop))])))))
   
   (define (do-accepts)
     (let*-values ([(i o) (tcp-accept listener)]
@@ -75,23 +69,26 @@
     (thread
      (λ ()
        (let loop ()
-         (match (thread-receive)
-           [(? request? v)
+         (define v (thread-receive))
+         (cond           
+           [(request? v)
             (write-out o (request-data v))
             (sendtest)
             (loop)]
            
-           ['exit
+           [(equal? 'exit v)
             (close-output-port o)])))))
   
   ;; Forward outbound message to the thread managing the appropriate output port.
   (define (do-sending)
-    (match (thread-receive)
-      [(? request? req)
-       (match (hash-ref connects-o (cons (request-host req) (request-port req)) void)
-         [(? thread? othread) (thread-send othread req)]
-         [(? void? _) (connect/send req)])])
-    (do-sending))
+    (define req (thread-receive))
+    (cond
+      [(request? req)
+       (define othread (hash-ref connects-o (cons (request-host req) (request-port req)) void))
+       (if (thread? othread)
+           (thread-send othread req)
+           (connect/send req))
+       (do-sending)]))
   
   (define (connect/send req)
     (let*-values ([(i o) (tcp-connect (request-host req) (request-port req))]
@@ -111,6 +108,19 @@
   (define sendmaster (thread do-sending))
   sendmaster)
 
+(define/contract (write-out o data)
+  (output-port? bytes? . -> . void)
+  (write-bytes (integer->integer-bytes (bytes-length data) 4 #f #t) o)
+  (write-bytes #"\r\n" o)
+  (write-bytes data o)
+  (flush-output o))
+
+(define/contract (read-in i len# reply-thread)
+  (input-port? bytes? thread? . -> . void)
+  (define message (read-bytes (integer-bytes->integer len# #f #t 0 4) i))
+  (thread-send reply-thread (response message)))
+
+;; zipping and unzipping
 (require file/gzip
          file/gunzip)
 
