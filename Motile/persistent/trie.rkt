@@ -448,7 +448,7 @@
             (beta/slot  (&& (>>> key/hash   shift) #x01f)))
         (if (= alpha/slot beta/slot)
             ; Collision again so generate a (sub)trie and try again.
-            (let ((subtrie (trie/construct 0 (<<< 1 alpha/slot) 1)))
+            (let ((subtrie (trie/construct (<<< 1 alpha/slot) 1)))
               (trie/slot! subtrie 0 (child/new alpha alpha/hash key value key/hash (+ 5 shift)))
               subtrie)
             

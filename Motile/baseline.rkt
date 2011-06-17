@@ -42,7 +42,7 @@
 (define (motile/combinator/3 symbol combinator)
   (case-lambda
     ((rtk d f x)
-     (let ((g ((lambda (y) (f k/RETURN x y)))))
+     (let ((g (lambda (x y) (f k/RETURN x y))))
        (rtk (combinator d g x))))
     ((k _) (global/decompile k symbol))))
   
