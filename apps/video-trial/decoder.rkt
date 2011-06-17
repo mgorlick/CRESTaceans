@@ -9,11 +9,17 @@
          racket/match)
 
 (define me (current-thread))
-(define server (run-tcp-peer "128.195.58.146" 4000 me))
+(define server (run-tcp-peer *LOCALHOST* 5000 me))
 
 (define decoder0 (thread (make-vp8-decoder me)))
 
 (let loop ()
-  (let ([req (deserialize/recompile (response-data (thread-receive)))])
-    (thread-send decoder0 (start-program (:message/ask/body req))))
+  (let* ([ser (read (open-input-bytes (response-data (thread-receive))))]
+         [msg (deserialize ser BASELINE #f)])
+    ;(printf "~a~n" ser)
+    (match msg
+      [(vector '<tuple> '(mischief message ask) #"RAW" url (? procedure? body) a b c)
+       (let ([val (mischief/start body)])
+         (when (bytes? val)
+           (thread-send decoder0 val)))]))
   (loop))
