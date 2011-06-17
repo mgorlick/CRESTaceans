@@ -32,8 +32,10 @@
 
 (define (start-program expr . args)
   (define fun (mischief/start expr))
-  (if (equal? (sub1 (procedure-arity fun))
-              (length args)) ; first arg is always the continuation k
-      (thread (λ () (apply fun (cons rtk/RETURN args))))
-      (error (format "Generated code expects a different number of args: ~a"
-                     (sub1 (procedure-arity fun))))))
+  (if (procedure? fun)
+      (if (equal? (sub1 (procedure-arity fun))
+                  (length args)) ; first arg is always the continuation k
+          (thread (λ () (apply fun (cons rtk/RETURN args))))
+          (error (format "Generated code expects a different number of args: ~a"
+                         (sub1 (procedure-arity fun)))))
+      fun))

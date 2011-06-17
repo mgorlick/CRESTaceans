@@ -10,7 +10,7 @@
          racket/match)
 
 (define me (current-thread))
-(define server (run-tcp-peer "128.195.59.191" 5000 me))
+(define server (run-tcp-peer "128.195.59.191" 1234 me))
 
 (define *RHOST* "128.195.58.146")
 (define *RPORT* 5000)
@@ -23,7 +23,7 @@
 (let loop ()
   (match (thread-receive)
     [(FrameBuffer buffer len λdisp)
-     (define frame (subbytes 0 buffer len))
+     (define frame (subbytes buffer 0 len))
      (λdisp)
      (compile/serialize #"RAW" server *RHOST* *RPORT* (subbytes buffer 0 len))
      (loop)]))

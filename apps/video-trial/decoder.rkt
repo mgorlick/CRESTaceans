@@ -9,11 +9,11 @@
          racket/match)
 
 (define me (current-thread))
-(define server (run-tcp-peer "128.195.58.146" 5000 me))
+(define server (run-tcp-peer "128.195.58.146" 4000 me))
 
-(define decoder0 (make-vp8-decoder me))
+(define decoder0 (thread (make-vp8-decoder me)))
 
 (let loop ()
   (let ([req (deserialize/recompile (response-data (thread-receive)))])
-    (thread-send decoder0 (:message/ask/body req)))
+    (thread-send decoder0 (start-program (:message/ask/body req))))
   (loop))
