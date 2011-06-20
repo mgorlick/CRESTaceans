@@ -20,13 +20,10 @@
     
     [anyelse (printf "some other message: ~s~n" anyelse)]))
 
-(define (grab/deal resp t)
-  (handle-message (deserialize/recompile (response-data resp)) t))
-
 (require profile)
 (profile-thunk
  (λ ()
    (let loop ([t 0])
-     (grab/deal (thread-receive) t)
+     (handle-message (thread-receive) t)
      (loop (add1 t))))
  #:threads #t)

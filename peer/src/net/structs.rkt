@@ -2,5 +2,4 @@
 
 (provide (all-defined-out))
 
-(struct request (host port data))
-(struct response (data))
+(struct request (host port message))
