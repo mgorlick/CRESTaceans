@@ -14,7 +14,7 @@
 (define/contract (run-tcp-peer hostname port reply-thread)
   (string? exact-nonnegative-integer? thread? . -> . thread?)
   
-  (define listener (tcp-listen port 4 #f hostname))
+  (define listener (tcp-listen port 64 #f hostname))
   (define island-pair/c (cons/c string? exact-nonnegative-integer?))
   (define portHT/c (hash/c island-pair/c thread?))
   
@@ -25,7 +25,7 @@
   ;; connections we've made to long-lived island pairs
   (define/contract connects-o portHT/c (make-hash))
   (define/contract connects-i portHT/c (make-hash))
-    
+  
   ;; RECEIVING
   (define/contract (run-input-thread i)
     (input-port? . -> . thread?)
@@ -34,30 +34,40 @@
        (define tre (thread-receive-evt))
        (define tre? (curry equal? tre))
        (define reade (read-bytes-line-evt i 'return-linefeed))
-       (let loop ()
-         (define v (sync reade tre)) ; get either an exit signal or a new message every cycle
-         (cond [(bytes? v) ; v is a byte-encoded integer providing framing info
-                (read-in i v reply-thread)
-                (loop)]
-               [(eof-object? v) ; v signals termination of connection
-                (close-input-port i)]
-               [(tre? v) ; someone signalled the thread
-                (if (equal? (thread-receive) 'exit)
-                    (close-input-port i)
-                    (loop))])))))
+       (with-handlers ([exn:fail? (λ (e) 
+                                    (printf "error: ~a~n" e)
+                                    (printf "terminating connection~n")
+                                    (tcp-abandon-port i))])
+         (let loop ()
+           (define v (sync reade tre)) ; get either an exit signal or a new message every cycle
+           (cond [(bytes? v) ; v is a byte-encoded integer providing framing info
+                  (read-in i v reply-thread)
+                  (loop)]
+                 [(eof-object? v) ; v signals termination of connection
+                  (close-input-port i)]
+                 [(tre? v) ; someone signalled the thread
+                  (if (equal? (thread-receive) 'exit)
+                      (close-input-port i)
+                      (loop))]))))))
   
   ;;; SENDING
   (define/contract (run-output-thread o)
     (output-port? . -> . thread?)
     (thread
      (λ ()
-       (let loop ()
-         (define v (thread-receive))
-         (cond [(bytes? v)
-                (write-out o v)
-                (loop)]
-               [(equal? 'exit v)
-                (close-output-port o)])))))
+       (with-handlers ([exn:fail? (λ (e)
+                                    (printf "error: ~a~n" e)
+                                    (printf "terminating connection~n")
+                                    (tcp-abandon-port o))])
+         (let loop ()
+           (define v (thread-receive))
+           (cond [(equal? 'exit v)
+                  (close-output-port o)]
+                 [(bytes? v)
+                  (write-out o v)
+                  (loop)]
+                 [(equal? 'exit v)
+                  (close-output-port o)]))))))
   
   (define (request->serialized req)
     (define o (open-output-bytes))
