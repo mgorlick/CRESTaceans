@@ -16,6 +16,14 @@
  BASELINE
  ENVIRON/TEST)
 
+(provide define/global/0
+         define/global/1
+         define/global/2
+         define/global/3
+         define/global/N
+         define/combinator/2
+         define/combinator/3)
+
 (require
  "persistent/vector.rkt"
  "persistent/hash.rkt"

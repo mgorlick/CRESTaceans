@@ -4,8 +4,8 @@
          "message.rkt"
          "../net/structs.rkt"
          "../../../Motile/compile.rkt"
-          "../../../Motile/serialize.rkt"
-          "../../../Motile/baseline.rkt")
+         "../../../Motile/serialize.rkt"
+         "../../../Motile/baseline.rkt")
 
 (provide (all-defined-out)
          (all-from-out 
@@ -28,11 +28,11 @@
 (define (bytes->message bstr)
   (deserialize (read (open-input-bytes bstr)) BASELINE #f))
 
-(define (start-program expr . args)
-  (define fun (mischief/start expr)) ; fun is either a procedure or a Motile primitive
-  (if (procedure? fun)
-      (if (equal? (sub1 (procedure-arity fun)) (length args)) ; first arg is always the continuation k
-          (thread (λ () (apply fun (cons rtk/RETURN args))))
-          (error (format "Generated code expects a different number of args: ~a"
-                         (sub1 (procedure-arity fun)))))
-      fun))
+(define (start-program expr #:be [be BASELINE] . args)
+  (define fun (expr rtk/RETURN (vector #f be))) ; fun is either a procedure or a Motile primitive
+  (cond [(procedure? fun)
+         (if (equal? (sub1 (procedure-arity fun)) (length args)) ; first arg is always the continuation k
+             (thread (λ () (apply fun (cons rtk/RETURN args))))
+             (error (format "Generated code expects a different number of args: ~a"
+                            (sub1 (procedure-arity fun)))))]
+        [else fun]))
