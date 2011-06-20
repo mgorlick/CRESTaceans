@@ -12,11 +12,9 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-;(provide
-; BASELINE
-; ENVIRON/TEST)
-
-(provide (all-defined-out))
+(provide
+ BASELINE
+ ENVIRON/TEST)
 
 (require
  "persistent/vector.rkt"
@@ -47,7 +45,7 @@
      (let ((g (lambda (x y) (f k/RETURN x y))))
        (rtk (combinator d g x))))
     ((k _) (global/decompile k symbol))))
-
+  
 ;; The following functions wrap host Scheme primitives allowing those primitives to be invoked
 ;; within Motile and to be properly "decompiled" for network transmission.
 (define (global/0 symbol procedure)
@@ -475,7 +473,7 @@
     (define/global/2     'vector/ref        vector/ref)
     (define/global/N     'vector/subvector  vector/subvector)
     (define/global/3     'vector/update     vector/update)
-    
+
     ; Persistent functional hash tables.
     ; Type test for hash tables.
     (define/global/1 'hash/persist?      hash/persist?)
@@ -507,7 +505,7 @@
     (define/combinator/2 'hash/map       hash/map)
     (define/combinator/2 'hash/filter    hash/filter)
     (define/combinator/2 'hash/partition hash/partition)
-    
+
     ; Persistent functional unordered sets.
     (define/global/1     'set/persist?     set/persist?)
     (cons                'set/eq/null      set/eq/null)
@@ -536,7 +534,7 @@
     (define/combinator/2 'set/map          set/map)
     (define/combinator/2 'set/filter       set/filter)
     (define/combinator/2 'set/partition    set/partition)
-    
+
     ; Tuples.
     (define/global/1     'tuple?           tuple?)
     (define/global/1     'tuple/length     tuple/length)
@@ -557,29 +555,23 @@
     (define/combinator/2 'tuple/filter     tuple/filter)
     (define/combinator/2 'tuple/map        tuple/map)
     (define/combinator/2 'tuple/partition  tuple/partition)
-    
+
     ; Higher order functions.
     (cons            'apply     motile/apply)
     (cons            'map       motile/map)
     (cons            'for-each  motile/for-each)
-    
+
     ; Control
     (cons 'call/cc call/cc)
     (cons 'call-with-current-continuation call/cc) ; Synonym.
-    
-    ; Concurrency
-    (define/global/1 'sleep sleep)
-    
-    ; I/O
-    (define/global/N 'printf printf)
-    
+
     ; Box
     (define/global/1 'box      box)
     (define/global/1 'box?     box?)
     (define/global/1 'unbox    unbox)
     (define/global/2 'box!     set-box!)
     (define/global/2 'set-box! set-box!) ; For compatibility with Racket.
-    
+
     ; Generic list sort.
     (cons 'sort motile/sort)
     )))
@@ -595,7 +587,7 @@
     (define/global/1 'vector-length vector-length)
     (define/global/2 'vector-ref    vector-ref)
     (define/global/3 'vector-set!   vector-set!)
-    
+
     ; For simple test output.
     (define/global/1 'display        display)
     (define/global/N 'format         format)
