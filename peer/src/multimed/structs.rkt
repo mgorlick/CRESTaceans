@@ -15,8 +15,13 @@
           [size : Natural]
           [λdisposal : (-> Void)]))
 
+(struct: VideoParams
+         ([width : Natural]
+          [height : Natural]
+          [fpsNum : Natural]
+          [fpsDen : Natural]))
+
 ; hack. untyped modules get confused when trying to refer to
 ; the data constructor aliased to the type name
 (define make-FrameBuffer FrameBuffer)
-
-(define voidthunk (λ () (void)))
+(define make-VideoParams VideoParams)

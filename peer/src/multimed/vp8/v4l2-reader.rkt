@@ -16,6 +16,8 @@
     (define v-sema (make-semaphore 1)) ; protect v4l2 reader and pool representation
     (define-values (w h fn fd buffer-ct) (v4l2-reader-get-params v))
     
+    (thread-send receiver (make-VideoParams w h fn fd))
+    
     (define in-pool-range/c (between/c 0 (sub1 buffer-ct)))
     ; FIXME: turn contracts back on here once performance is tuned
     (define pool (for/set ([i (in-range buffer-ct)]) i))

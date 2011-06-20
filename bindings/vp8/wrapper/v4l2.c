@@ -9,7 +9,6 @@
 #include <sys/mman.h>
 #include <linux/videodev2.h>
 
-#include "enc_settings.h"
 #include "misc.h"
 
 int BUFFERS_REQUESTED = 30;
@@ -79,14 +78,8 @@ int v4l2_reader_open (v4l2_reader *v) {
   }
   
   if (format.type != V4L2_BUF_TYPE_VIDEO_CAPTURE ||
-      format.fmt.pix.width != enc_pic_width ||
-      format.fmt.pix.height != enc_pic_height ||
       format.fmt.pix.pixelformat != V4L2_PIX_FMT_YUYV) {
-    printf ("changing camera settings: \n\tsize = %dx%d\n\tpixelformat=%d\n",
-            enc_pic_width, enc_pic_height, V4L2_PIX_FMT_YUYV);
     format.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-    format.fmt.pix.width = enc_pic_width;
-    format.fmt.pix.height = enc_pic_height;
     format.fmt.pix.pixelformat = V4L2_PIX_FMT_YUYV;
     format.fmt.pix.field = 1;
 
