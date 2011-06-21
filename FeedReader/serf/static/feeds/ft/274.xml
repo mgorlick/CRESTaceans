@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Fri, 07 Aug 2009 23:27:20 GMT</pubDate>
+    <lastBuildDate>Sat, 08 Aug 2009 08:15:03 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>US jobs report spurs stocks</title>
+      <link>http://traxfer.ft.com/cms/s/0/9b5ad536-834a-11de-a24e-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Stock markets on both sides of the Atlantic hit their highest levels in months after better-than-expected economic data in the US and Germany buttressed hopes for an economic recovery</description>
+      <pubDate>Fri, 07 Aug 2009 20:43:29 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/9b5ad536-834a-11de-a24e-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Swine flu fears spawn bogus cures</title>
+      <link>http://traxfer.ft.com/cms/s/0/850e6166-837d-11de-a24e-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Shampoo made with ionic silver, bottles of “free-radical quenchers” and a $2,995 device called the “photon genie” have all fallen foul of US regulators ­battling modern-day snake-oil marketing spawned by the ­global swine flu pandemic</description>
+      <pubDate>Fri, 07 Aug 2009 18:49:28 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/850e6166-837d-11de-a24e-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Charges prepared for Madoff lieutenant</title>
+      <link>http://traxfer.ft.com/cms/s/0/97d17f0a-839f-11de-a24e-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The investigation into Bernard Madoff’s giant $65bn Ponzi scheme advanced as federal prosecutors prepared to file criminal charges against Frank DiPascali, one of his senior lieutenants.</description>
+      <pubDate>Fri, 07 Aug 2009 22:59:54 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/97d17f0a-839f-11de-a24e-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Cyber-attacks ‘aimed at Georgia blogger’</title>
+      <link>http://traxfer.ft.com/cms/s/0/203fbc78-8380-11de-a24e-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The cyber-attacks that felled popular internet messaging service Twitter and blogging platform LiveJournal this week were apparently aimed at silencing a single person who had been posting comments critical of Russian activity in the country of Georgia, another of the victimised companies and an outside security expert said</description>
+      <pubDate>Fri, 07 Aug 2009 22:21:30 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/203fbc78-8380-11de-a24e-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Buffett back into black in second quarter</title>
+      <link>http://traxfer.ft.com/cms/s/0/133cd438-83a4-11de-a24e-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>After reporting a $1.5bn loss in the first three months of the year Berkshire Hathaway records a $3.3bn profit in the second quarter as investment gains offset a fall in earnings</description>
+      <pubDate>Fri, 07 Aug 2009 23:27:20 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/133cd438-83a4-11de-a24e-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Nortel chief expected to announce his departure</title>
+      <link>http://traxfer.ft.com/cms/s/0/d4ca4074-8398-11de-a24e-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Mike Zafirovski, Nortel Networks chief executive, is close to announcing his departure from the Canadian telecommunications equipment maker as it continues to sell off assets under Chapter 11 bankruptcy protection.</description>
+      <pubDate>Fri, 07 Aug 2009 23:15:03 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/d4ca4074-8398-11de-a24e-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>AIG reports first quarterly profit since 2007</title>
+      <link>http://traxfer.ft.com/cms/s/0/2c230656-8373-11de-a24e-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>AIG reported its first profit in seven quarters, helped by large accounting gains in a partial reversal of the huge mark-to-market losses that forced the US government to rescue the stricken insurer last year</description>
+      <pubDate>Fri, 07 Aug 2009 20:22:58 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/2c230656-8373-11de-a24e-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Rivals sceptical of Murdoch’s charging plan</title>
+      <link>http://traxfer.ft.com/cms/s/0/3183c268-8380-11de-a24e-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Rupert Murdoch’s pledge to charge for online content from all his news outlets has been met with scepticism from some rivals, even as they attempt to find their own alternatives to a broken business model</description>
+      <pubDate>Fri, 07 Aug 2009 22:00:14 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/3183c268-8380-11de-a24e-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Taliban leader is dead, says Pakistan</title>
+      <link>http://traxfer.ft.com/cms/s/0/316bf620-82f8-11de-ab4a-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Pakistan’s foreign minister said he believed Baitullah Mehsud, the country’s Taliban leader, had been killed, ending almost 48 hours of speculation over the fate of the country’s most wanted man</description>
+      <pubDate>Fri, 07 Aug 2009 18:07:15 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/316bf620-82f8-11de-ab4a-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Why the case for assisted dying is unanswerable</title>
+      <link>http://traxfer.ft.com/cms/s/0/a2e894ca-837a-11de-a24e-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The main reason it is so difficult to reform the law is that those on the fundamentalist side will be prepared to base their votes on this issue, while humanist utilitarians will see it as only one of many issues, writes Samuel Brittan</description>
+      <pubDate>Fri, 07 Aug 2009 18:26:49 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/a2e894ca-837a-11de-a24e-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

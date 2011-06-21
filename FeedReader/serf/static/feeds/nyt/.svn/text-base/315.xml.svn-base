@@ -1,0 +1,318 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Mon, 10 Aug 2009 03:04:23 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>U.S. to Hunt Down Afghan Drug Lords Tied to Taliban</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=38705372613d4faf3a81df21eb1475c1</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/world/asia/10afghan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/world/asia/10afghan.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/world/10afghan.span.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>United States Marines raided a bazaar in Afghanistan&#x2019;s southern Helmand Province last month to search for drugs and weapons.</media:description>
+			<media:credit>Eros Hoagland for The New York Times</media:credit>
+			<description>U.S. commanders say the addition of drug traffickers to a &#x201C;kill or capture&#x201D; list is legal and an essential part of their new plan to disrupt the flow of drug money to the Taliban.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=38705372613d4faf3a81df21eb1475c1&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=38705372613d4faf3a81df21eb1475c1&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JAMES RISEN</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 02:56:20 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Drug Abuse and Traffic</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+		</item>
+		<item>
+			<title>Airspace Above Hudson a Highway With Few Signs</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d707757c5568547a91191a3e452c6e42</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/nyregion/10collide.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/nyregion/10collide.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/09/nyregion/09crash3-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>The wreckage of a helicopter that collided with a small plane was lifted from the Hudson River on Sunday.</media:description>
+			<media:credit>Seth Wenig/Associated Press</media:credit>
+			<description>Calls for greater government control of the congested skies above the Hudson were re-ignited after a small airplane collided with a New York sightseeing helicopter, killing nine.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d707757c5568547a91191a3e452c6e42&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d707757c5568547a91191a3e452c6e42&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By AL BAKER and MICHAEL M. GRYNBAUM</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 02:53:53 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Airlines and Airplanes</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Accidents and Safety</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Helicopters</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Hudson River</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+		</item>
+		<item>
+			<title>Effort to Rein in Pay on Wall St. Hits New Hurdle</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=aa511bccce4e8ba9109766f21e93a260</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/business/10pay.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/business/10pay.html</guid>
+			<description>The resurgence of bonus guarantees underscores how difficult it is to control Wall Street pay, despite the public outcry over how taxpayer money is being spent.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=aa511bccce4e8ba9109766f21e93a260&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=aa511bccce4e8ba9109766f21e93a260&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ERIC DASH</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 02:33:25 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bonuses</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Executive Compensation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Subprime Mortgage Crisis</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Banks and Banking</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Emergency Economic Stabilization Act (2008)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Wall Street (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Feinberg, Kenneth R</category>
+		</item>
+		<item>
+			<title>Hundreds Hurt in 11-Hour California Prison Riot</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9f80cec99332ab49ae1bd971428513c9</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/us/10prison.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/us/10prison.html</guid>
+			<description>Near Los Angeles, rioting inmates smashed and burned one of the nation&#x2019;s largest prisons on Saturday night and Sunday morning, with black and Latino gangs in hand-to-hand combat.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9f80cec99332ab49ae1bd971428513c9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9f80cec99332ab49ae1bd971428513c9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SOLOMON MOORE</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 02:22:49 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prisons and Prisoners</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Race</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">California</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Demonstrations and Riots</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Gangs</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Blacks</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Hispanic-Americans</category>
+		</item>
+		<item>
+			<title>Obama Arrives in Mexico for Start of Summit</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=4e824a7edc046b1516e9b4a99e00e6e0</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/world/americas/10prexy.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/world/americas/10prexy.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/world/10obama.751.jpg" medium="image" height="75" width="75"/>
+			<media:description>President Obama and Mexican President Felipe Calderon before a bilateral meeting at the Cabanas Cultural Center in Guadalajara, Mexico, on Sunday. </media:description>
+			<media:credit>Jewel Samad/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>President Obama and his Mexican and Canadian counterparts are expected to touch on issues including climate change and immigration.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=4e824a7edc046b1516e9b4a99e00e6e0&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=4e824a7edc046b1516e9b4a99e00e6e0&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By GINGER THOMPSON and MARC LACEY</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 02:28:43 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Mexico</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Immigration and Emigration</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Canada</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">North American Free Trade Agreement</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">United States</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North America</category>
+		</item>
+		<item>
+			<title>Mentally Ill Offenders Strain Juvenile System</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=76c6d7233ee10d2cfb13591542e75c56</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/us/10juvenile.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/us/10juvenile.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/us/10juv.751.jpg" medium="image" height="75" width="75"/>
+			<media:description>An inmate at the Ohio River Valley Juvenile Correctional Facility. Two-thirds of the nation&#x2019;s juvenile inmates have at least one mental illness, according to surveys.</media:description>
+			<media:credit>Kirk Irwin for The New York Times</media:credit>
+			<description>Cash-starved states are increasingly relying on the corrections system to handle young offenders with psychiatric disorders, many of whom need therapy more than punishment.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=76c6d7233ee10d2cfb13591542e75c56&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=76c6d7233ee10d2cfb13591542e75c56&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SOLOMON MOORE</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 02:57:27 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Mental Health and Disorders</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Juvenile Delinquency</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prisons and Prisoners</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Psychology and Psychologists</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Children and Youth</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">States (US)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Budgets and Budgeting</category>
+		</item>
+		<item>
+			<title>Lawyer&#x2019;s Detention Shakes China&#x2019;s Rights Movement</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5720084e2ffb4bcd74c2504eccae0d88</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/world/asia/10rights.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/world/asia/10rights.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/world/asia/10rights.span.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>In mid-July, Xu Zhiyong, center, a legal scholar, met with lawyers at a restaurant in Beijing. Later that month, he was detained.</media:description>
+			<media:credit>Greg Baker/Associated Press</media:credit>
+			<description>China&#x2019;s legal rights movement, already reeling from a crackdown on lawyers, has been shaken by the detention of Xu Zhiyong, a respected rights defender.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5720084e2ffb4bcd74c2504eccae0d88&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5720084e2ffb4bcd74c2504eccae0d88&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ANDREW JACOBS</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 02:27:41 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Freedom and Human Rights</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Zhiyong, Xu</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+		</item>
+		<item>
+			<title>Breakfast Can Wait. The Day&#x2019;s First Stop Is Online.</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=8fcbd3db66fc624a81823fa8aa2216c5</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/technology/10morning.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/technology/10morning.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/business/morning_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Liz Steyer after breakfast with three of her four children, ages 5 to 16. Laptops and cellphones are banned during meals.</media:description>
+			<media:credit>Jim Wilson/The New York Times</media:credit>
+			<description>Technology has shaken up familiar morning routines. People are increasingly waking up and lunging for cellphones and laptops.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=8fcbd3db66fc624a81823fa8aa2216c5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=8fcbd3db66fc624a81823fa8aa2216c5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By BRAD STONE</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 02:34:43 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Wireless Communications</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Text Messaging</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Electronic Mail</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Cellular Telephones</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Facebook.com</category>
+		</item>
+		<item>
+			<title>Claims Differ on Pakistani Taliban Struggle</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=28ab50b04dd6a817f9cd0de276063496</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/world/asia/10pstan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/world/asia/10pstan.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/world/10pstan.inline.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Hakimullah Mehsud, left, in 2008, posing for news media members. The Taliban commander reportedly has been killed.</media:description>
+			<media:credit>A Majeed/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>Pakistani officials said a top figure in the militant group was killed in a shootout, but another Taliban commander reportedly denied the claim.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=28ab50b04dd6a817f9cd0de276063496&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=28ab50b04dd6a817f9cd0de276063496&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SABRINA TAVERNISE and PIR ZUBAIR SHAH</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 02:29:28 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Pakistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Mehsud, Baitullah</category>
+		</item>
+		<item>
+			<title>Typhoon Pummels China and Taiwan</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=07958c0564b847f4185e67ddde080905</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/world/asia/10china.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/world/asia/10china.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/world/10china.span.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A swelling river crept closer to sandbags in a flooded village near Wenzhou, a city of 1.4 million, where officials said the storm had leveled more than 300 homes.</media:description>
+			<media:credit>Associated Press</media:credit>
+			<description>A weakened Typhoon Morakot swept onto the mainland after inflicting on Taiwan its worst flooding in a half-century.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=07958c0564b847f4185e67ddde080905&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=07958c0564b847f4185e67ddde080905&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL WINES</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 02:59:20 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Typhoons</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Taiwan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Disasters and Emergencies</category>
+		</item>
+		<item>
+			<title>Media Companies Navigate Smart Phone Apps</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=00273675c67502cf45c5b907fa62b597</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/business/media/10apps.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/business/media/10apps.html</guid>
+			<description>Major organizations know that they need a presence on smartphones, but they are still navigating financial questions.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=00273675c67502cf45c5b907fa62b597&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=00273675c67502cf45c5b907fa62b597&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By STEPHANIE CLIFFORD</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 02:29:06 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Smartphones</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Advertising and Marketing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">iPhone</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Software</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Online Advertising</category>
+		</item>
+		<item>
+			<title>Seattle Paper Resurgent as a Solo Act</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6a5d6d82946485d4bbe50e7f9bec644f</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/business/media/10seattle.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/business/media/10seattle.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/business/seattle_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Circulation at The Seattle Times is up 30 percent since March.</media:description>
+			<media:credit>Stuart Isett for The New York Times</media:credit>
+			<description>The newspaper has picked up most of its Web-only rival&#x2019;s print subscribers and kept them, and says daily circulation has risen more than 30 percent.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6a5d6d82946485d4bbe50e7f9bec644f&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6a5d6d82946485d4bbe50e7f9bec644f&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By RICHARD P&#xC9;REZ-PE&#xD1;A</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 02:28:59 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Newspapers</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Seattle (Wash)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Seattle Times</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Seattle Post-Intelligencer</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Online Advertising</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Prices (Fares, Fees and Rates)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Advertising and Marketing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">News and News Media</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Hearst Corp</category>
+		</item>
+		<item>
+			<title>Online Market Flourishes in China</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1b6000fe5c57ff3686870968401e13de</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/technology/start-ups/10taobao.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/technology/start-ups/10taobao.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/09/business/09taobao-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Yang Fugang&#x2019;s online store is listed on Taobao.com, a Chinese company that generated nearly $15 billion in sales last year. </media:description>
+			<media:credit>Ryan Pyle for The New York Times</media:credit>
+			<description>Millions of people in China &#x2014; recent graduates, shopkeepers and retirees &#x2014; are using Taobao to sell things like clothes, phones and toys.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1b6000fe5c57ff3686870968401e13de&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1b6000fe5c57ff3686870968401e13de&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID BARBOZA</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 02:28:52 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Shopping and Retail</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">eBay Inc|EBAY|NASDAQ</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Factories and Manufacturing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Sales</category>
+		</item>
+		<item>
+			<title>The Caucus: Kissinger Weighs in on North Korea</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=bf55270da2b6295a856f908a90e276bc</link>
+			<pheedo:origLink>http://thecaucus.blogs.nytimes.com/2009/08/09/kissinger-weighs-in-on-north-korea/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://thecaucus.blogs.nytimes.com/2009/08/09/kissinger-weighs-in-on-north-korea/index.html</guid>
+			<description>The debate over former President Bill Clinton's trip this week to North Korea has drawn in of one of his wife's predecessors, former Secretary of State Henry Kissinger.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=bf55270da2b6295a856f908a90e276bc&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=bf55270da2b6295a856f908a90e276bc&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ASHLEY SOUTHALL</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 00:51:49 GMT</pubDate>
+		</item>
+		<item>
+			<title>Media Decoder: Microsoft Sells Razorfish</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=174cab3a5fd710b42e73019cd2357972</link>
+			<pheedo:origLink>http://mediadecoder.blogs.nytimes.com/2009/08/09/microsoft-sells-razorfish-digital-agency-to-the-publicis-groupe/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://mediadecoder.blogs.nytimes.com/2009/08/09/microsoft-sells-razorfish-digital-agency-to-the-publicis-groupe/index.html</guid>
+			<description>The biggest force in digital advertising is getting ever bigger as the Publicis Groupe strikes a deal with Microsoft to buy Razorfish, the interactive agency that Microsoft has owned since acquiring aQuantive in 2007.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=174cab3a5fd710b42e73019cd2357972&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=174cab3a5fd710b42e73019cd2357972&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By STUART ELLIOTT</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 01:08:47 GMT</pubDate>
+		</item>
+		<item>
+			<title>Bats: Wild Card Tease</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b0f5d118de2b3e3db0de02248b6bd44d</link>
+			<pheedo:origLink>http://bats.blogs.nytimes.com/2009/08/09/the-wild-card-is-a-tease/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://bats.blogs.nytimes.com/2009/08/09/the-wild-card-is-a-tease/index.html</guid>
+			<description>The lure of wild card was supposed to add some more intringue to the nonwaiver trading deadline, but deadline deals haven't always paid off.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b0f5d118de2b3e3db0de02248b6bd44d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b0f5d118de2b3e3db0de02248b6bd44d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JIM LUTTRELL</dc:creator>
+			<pubDate>Sun, 09 Aug 2009 23:03:08 GMT</pubDate>
+		</item>
+	</channel>
+</rss>

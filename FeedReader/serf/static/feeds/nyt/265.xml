@@ -1,0 +1,284 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Sat, 08 Aug 2009 01:05:34 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Job Losses Slow in July, Signaling Shift in the Economy</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b1d8ef356574c4b44b825f57677c8105</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/business/economy/08jobs.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/business/economy/08jobs.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/07/business/07jobs-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A job fair at in Vicksburg, Miss., on August 4. </media:description>
+			<media:credit>Barbara Gauntt/The Clarion-Ledger, via Associated Press</media:credit>
+			<description>The most heartening employment report since last summer suggested on Friday that a recovery is under way despite the reluctance of the nation&#x2019;s businesses to resume hiring or even stop shedding jobs.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b1d8ef356574c4b44b825f57677c8105&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b1d8ef356574c4b44b825f57677c8105&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY and LOUIS UCHITELLE</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 23:31:31 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Unemployment</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Economy</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Layoffs and Job Reductions</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Conditions and Trends</category>
+		</item>
+		<item>
+			<title>Floyd Norris: Not as Bad, but Not Good</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=2b3ec3994f736123022c5f6ed92feeb6</link>
+			<pheedo:origLink>http://norris.blogs.nytimes.com/2009/08/07/not-as-bad-but-not-good/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://norris.blogs.nytimes.com/2009/08/07/not-as-bad-but-not-good/index.html</guid>
+			<description>Fewer people are losing their jobs, but the number of long-term unemployed workers keeps rising.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=2b3ec3994f736123022c5f6ed92feeb6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=2b3ec3994f736123022c5f6ed92feeb6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By FLOYD NORRIS</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 17:18:21 GMT</pubDate>
+		</item>
+		<item>
+			<title>Economix: The Least-Bad Jobs Report in a Long Time</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9cdf962883c2a48b7abb19c9ebf05e8d</link>
+			<pheedo:origLink>http://economix.blogs.nytimes.com/2009/08/07/the-best-jobs-report-in-a-long-time/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://economix.blogs.nytimes.com/2009/08/07/the-best-jobs-report-in-a-long-time/index.html</guid>
+			<description>So the job market and the economy are still in bad shape. But, all in all, the latest numbers were better.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9cdf962883c2a48b7abb19c9ebf05e8d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9cdf962883c2a48b7abb19c9ebf05e8d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID LEONHARDT</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 19:58:34 GMT</pubDate>
+		</item>
+		<item>
+			<title>Your Money: Good Luck Getting Private Insurance for Unemployment</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7c0c69d1f9149fc9dd1b682b14284550</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/your-money/08money.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/your-money/08money.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/08/your-money/money_75.jpg" medium="image" height="75" width="75"/>
+			<media:description/>
+			<media:credit>Robert Neubecker</media:credit>
+			<description>Paycheck replacement coverage is scarce, if it exists at all.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7c0c69d1f9149fc9dd1b682b14284550&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7c0c69d1f9149fc9dd1b682b14284550&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By RON LIEBER</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 00:53:29 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Unemployment Insurance</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Personal Finances</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Insurance</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Unemployment</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Mortgages</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Student Loans</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobile Insurance and Liability</category>
+		</item>
+		<item>
+			<title>Two Democratic Senators Cleared of Ethics Complaints</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=985ce829df8fa9900ab0f71330b23eba</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/us/politics/08ethics.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/us/politics/08ethics.html</guid>
+			<description>A Senate committee dismissed complaints against Senator Kent Conrad of North Dakota and Senator Christopher J. Dodd of Connecticut, over accusations of improper discounts on mortgages.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=985ce829df8fa9900ab0f71330b23eba&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=985ce829df8fa9900ab0f71330b23eba&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID M. HERSZENHORN</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 21:09:07 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Dodd, Christopher J</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Conrad, Kent</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Countrywide Financial Corp</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Ethics</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Mortgages</category>
+		</item>
+		<item>
+			<title>Bits: Microsoft's Sharepoint Thrives in the Recession</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a04d96c31be2fb1e97ee0997faad229e</link>
+			<pheedo:origLink>http://bits.blogs.nytimes.com/2009/08/07/microsofts-sharepoint-thrives-in-the-recession/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://bits.blogs.nytimes.com/2009/08/07/microsofts-sharepoint-thrives-in-the-recession/index.html</guid>
+			<description>Sharepoint is Microsoft's fastest growing business software product of all time-- even during the severe global economic downturn.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a04d96c31be2fb1e97ee0997faad229e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a04d96c31be2fb1e97ee0997faad229e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ASHLEE VANCE</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 01:03:09 GMT</pubDate>
+		</item>
+		<item>
+			<title>Lens: Showcase: Milton Rogovin</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7b8dd46fce9e4f42ee93cc1ad9db4bf4</link>
+			<pheedo:origLink>http://lens.blogs.nytimes.com/2009/08/07/showcase-milton-rogovin/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://lens.blogs.nytimes.com/2009/08/07/showcase-milton-rogovin/index.html</guid>
+			<description>Milton Rogovin photographed the voiceless poor and working class. He speaks of his life and work in this audio slide show.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7b8dd46fce9e4f42ee93cc1ad9db4bf4&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7b8dd46fce9e4f42ee93cc1ad9db4bf4&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By RANDY KENNEDY</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 23:23:12 GMT</pubDate>
+		</item>
+		<item>
+			<title>An Appraisal: The &#x2019;80s Auteur of Teenage Angst</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=220e06a568c9187de88a3ad93d29a742</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/movies/08appraisal.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/movies/08appraisal.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/08/arts/hughes-art-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>From left, Ally Sheedy in &#x201C;The Breakfast Club&#x201D;; Anthony Michael Hall in &#x201C;Weird Science&#x201D;; Molly Ringwald in &#x201C;Pretty in Pink&#x201D;; and Matthew Broderick in the title role of &#x201C;Ferris Bueller&#x2019;s Day Off.&#x201D;</media:description>
+			<media:credit>Left: Everett Collection; Universal Pictures; Paramount Pictures; Paramount Pictures via Associated Press</media:credit>
+			<description>John Hughes crystallized the attitudes and anxieties of 1980s adolescence with just the right blend of teasing and sympathy.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=220e06a568c9187de88a3ad93d29a742&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=220e06a568c9187de88a3ad93d29a742&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By A. O. SCOTT</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 00:59:37 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Movies</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Hughes, John</category>
+		</item>
+		<item>
+			<title>Taliban Leader in Pakistan Is Reportedly Killed</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=242b321c9cf9b05fe9a9df1877bef85f</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/world/asia/08pstan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/world/asia/08pstan.html</guid>
+			<description>Baitullah Mehsud was blamed for the assassination of Benazir Bhutto and scores of suicide bombings.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=242b321c9cf9b05fe9a9df1877bef85f&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=242b321c9cf9b05fe9a9df1877bef85f&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PIR ZUBAIR SHAH, ISMAIL KHAN and SABRINA TAVERNISE</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 18:38:43 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Mehsud, Baitullah</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Pakistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+		</item>
+		<item>
+			<title>Music: Woodstock: A Moment of Muddy Grace</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e9ba989020e6e8bd37f0bd363e12eb57</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/09/arts/music/09pare.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/09/arts/music/09pare.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/07/arts/07woodstock1a_163.jpg" medium="image" height="100" width="163"/>
+			<media:description/>
+			<media:credit>Don Hogan Charles/The New York Times</media:credit>
+			<description>For baby boomers, the rock happening remains a community in the consciousness.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e9ba989020e6e8bd37f0bd363e12eb57&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e9ba989020e6e8bd37f0bd363e12eb57&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JON PARELES</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 22:56:05 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Music</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Woodstock Music Festivals</category>
+		</item>
+		<item>
+			<title>Federer Rejoins Tour With Babies in Tow</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a8de780de0b3a06d3d776a53bdbe0921</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/sports/tennis/08federer.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/sports/tennis/08federer.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/08/sports/08federer.1.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Roger Federer with his wife, Mirka, and their twin daughters, Charlene Riva and Myla Rose. </media:description>
+			<media:credit>Federer Family, via Associated Press</media:credit>
+			<description>Before playing in Montreal next week, Roger Federer talks about what it has been like being a father, so far.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a8de780de0b3a06d3d776a53bdbe0921&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a8de780de0b3a06d3d776a53bdbe0921&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CHRISTOPHER CLAREY</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 00:47:20 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Federer, Roger</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Tennis</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Open (Tennis)</category>
+		</item>
+		<item>
+			<title>Airspeed Systems Failed on U.S. Jets</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=81b5f00d7f41e2c44ff6ed02accd97c1</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/07/us/AP-US-Planes-Speed-Malfunction.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/07/us/AP-US-Planes-Speed-Malfunction.html</guid>
+			<description>On at least a dozen recent flights by U.S. jetliners, malfunctioning equipment made it impossible for pilots to know how fast they were flying, federal investigators have discovered.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=81b5f00d7f41e2c44ff6ed02accd97c1&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=81b5f00d7f41e2c44ff6ed02accd97c1&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 01:01:59 GMT</pubDate>
+		</item>
+		<item>
+			<title>Sotomayor Fans Claim the Phrase &#x2018;Wise Latina&#x2019;</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=34b885c9752e41bed7a1f5a9114d2de3</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/09/fashion/09latina.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/09/fashion/09latina.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/09/fashion/09latina75.2.jpg" medium="image" height="75" width="75"/>
+			<media:description>
+				<em class="bold">PROUD DAY </em>Nancy de los Santos, left, and Azucena Maldonado.</media:description>
+			<media:credit>Amy Dickerson for The New York Times</media:credit>
+			<description>Sotomayor fans take the sting out of "Wise Latina" by putting it on a T-shirt.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=34b885c9752e41bed7a1f5a9114d2de3&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=34b885c9752e41bed7a1f5a9114d2de3&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MIREYA NAVARRO</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 00:59:29 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Sotomayor, Sonia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Hispanic-Americans</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Fashion and Apparel</category>
+		</item>
+		<item>
+			<title>Bits: Twitter Attack Said to Target Blogger</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=67e47ef45336ca8b840669f3112140f8</link>
+			<pheedo:origLink>http://bits.blogs.nytimes.com/2009/08/07/attack-on-twitter-came-in-two-waves/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://bits.blogs.nytimes.com/2009/08/07/attack-on-twitter-came-in-two-waves/index.html</guid>
+			<description>The cyberattack that knocked Twitter offline was executed by enemies of a Georgian blogger, according to a security company that analyzed the assault.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=67e47ef45336ca8b840669f3112140f8&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=67e47ef45336ca8b840669f3112140f8&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JENNA WORTHAM</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 23:38:08 GMT</pubDate>
+		</item>
+		<item>
+			<title>Britain&#x2019;s Great Train Robber Freed</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=991ade06578f35bb0c5b98cda9e44332</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/world/europe/08robber.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/world/europe/08robber.html</guid>
+			<description>Nearly half a century after the Great Train Robbery, the last of the men serving time for the notorious heist was formally paroled.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=991ade06578f35bb0c5b98cda9e44332&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=991ade06578f35bb0c5b98cda9e44332&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOHN F. BURNS</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 23:13:15 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Robberies and Thefts</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Biggs, Ronnie</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Crime and Criminals</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">London (England)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Rio de Janeiro (Brazil)</category>
+		</item>
+		<item>
+			<title>Va. Court Upholds D.C. Sniper Conviction</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9a35ddf34c98e4bdf6ca7a4a6c8ed0ff</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/07/us/AP-US-Sniper-Appeal.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/07/us/AP-US-Sniper-Appeal.html</guid>
+			<description>RICHMOND, Va. (AP) -- A federal appeals court in Virginia has affirmed the capital murder conviction and death sentence of D.C.-area sniper mastermind John Allen Muhammad.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9a35ddf34c98e4bdf6ca7a4a6c8ed0ff&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9a35ddf34c98e4bdf6ca7a4a6c8ed0ff&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 23:00:42 GMT</pubDate>
+		</item>
+		<item>
+			<title>Gillibrand Rival Won&#x2019;t Run in Primary</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fdf533e19748b07a7c7b70f44f3e94c6</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/nyregion/08maloney.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/nyregion/08maloney.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/07/nyregion/maloney-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Representative Carolyn B. Maloney last month.</media:description>
+			<media:credit>Mark Wilson/Getty Images</media:credit>
+			<description>Representative Carolyn B. Maloney announced on Friday that she wouldn&#x2019;t challenge Senator Kirsten E. Gillibrand.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fdf533e19748b07a7c7b70f44f3e94c6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fdf533e19748b07a7c7b70f44f3e94c6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By RAYMOND HERNANDEZ</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 00:51:27 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Maloney, Carolyn B</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Gillibrand, Kirsten E</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Senate</category>
+		</item>
+	</channel>
+</rss>

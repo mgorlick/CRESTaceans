@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[In Montana, Obama Downplays Opposition]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=257fa67c16faa29a44f43972ce31640f]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/14/AR2009081402052.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/14/AR2009081402052.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Fri Aug 14 16:28 EDT 2009]]></pubDate>
+			<description><![CDATA[President tells mostly friendly crowd that mounting anti-reform outcry is partly the result of special interests mobilizing to protect profits.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=257fa67c16faa29a44f43972ce31640f&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=257fa67c16faa29a44f43972ce31640f&p=1"/></a>
+]]></description>
+			<author><![CDATA[Michael D. Shear, Anne E. Kornblut]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Consumer Prices Drop 2.1%]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=90a0c4ff6c202986b3e4fca707aaa36d]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/14/AR2009081400499.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/14/AR2009081400499.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Fri Aug 14 11:31 EDT 2009]]></pubDate>
+			<description><![CDATA[During past 12 months, prices dropped the most in 59 years due to recession, lower energy costs. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=90a0c4ff6c202986b3e4fca707aaa36d&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=90a0c4ff6c202986b3e4fca707aaa36d&p=1"/></a>
+]]></description>
+			<author><![CDATA[ Frank Ahrens]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Webb Arrives in Burma for Talks]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=6fd54487be74bf3d75ec5a20b72d0cad]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/14/AR2009081400344.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/14/AR2009081400344.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Fri Aug 14 12:52 EDT 2009]]></pubDate>
+			<description><![CDATA[Virginia senator to meet with country's senior officials, including junta's reclusive leader. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=6fd54487be74bf3d75ec5a20b72d0cad&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=6fd54487be74bf3d75ec5a20b72d0cad&p=1"/></a>
+]]></description>
+			<author><![CDATA[Colum Lynch and William Branigin]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Mixed Progress at D.C. Schools]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=f0724189efc81c34054be6fd67d822b5]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/14/AR2009081402168.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/14/AR2009081402168.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Fri Aug 14 00:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Wide year-to-year, school-to-school fluctuations underscore anew the challenge facing principals.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=f0724189efc81c34054be6fd67d822b5&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=f0724189efc81c34054be6fd67d822b5&p=1"/></a>
+]]></description>
+			<author><![CDATA[Nick Anderson and Emma Brown]]></author>
+		</item>
+	</channel>
+</rss>

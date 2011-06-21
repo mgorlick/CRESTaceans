@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/projects/!svn/ver/9146/CREST/sisc/serf/fiber
+END
+mailbox.scm
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/projects/!svn/ver/9044/CREST/sisc/serf/fiber/mailbox.scm
+END
+message.scm
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/projects/!svn/ver/9146/CREST/sisc/serf/fiber/message.scm
+END
+fiber.scm
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/projects/!svn/ver/9091/CREST/sisc/serf/fiber/fiber.scm
+END

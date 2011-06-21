@@ -1,0 +1,227 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Wed, 29 Jul 2009 00:09:20 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Reports of Prison Abuse and Deaths Anger Iranians</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=850b3777a4639515f98c1b29aba1ee89</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/world/middleeast/29iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/world/middleeast/29iran.html</guid>
+			<description>Stories of abuse, relayed by relatives and on Web sites, in Iran&#x2019;s post-election crackdown have provoked outrage, including among prominent conservatives.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=850b3777a4639515f98c1b29aba1ee89&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=850b3777a4639515f98c1b29aba1ee89&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT F. WORTH</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 23:50:46 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prisons and Prisoners</category>
+		</item>
+		<item>
+			<title>Senate Panel Endorses Sotomayor in 13-6 Vote</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=4f49179f3c0cd63c7a8e51687a6b7ffe</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/us/politics/29confirm.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/us/politics/29confirm.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/28/world/28confirm2-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Of the seven Republicans on the Senate Judiciary Committee, only Senator Lindsey Graham of South Carolina voted in favor of Judge Sonia Sotomayor.</media:description>
+			<media:credit>Brendan Smialowski for The New York Times</media:credit>
+			<description>Of the seven Republicans on the Senate Judiciary Committee, only Senator Lindsey Graham of South Carolina voted in favor of Judge Sonia Sotomayor.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=4f49179f3c0cd63c7a8e51687a6b7ffe&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=4f49179f3c0cd63c7a8e51687a6b7ffe&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID STOUT</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 23:38:10 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Sotomayor, Sonia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Supreme Court</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Senate Committee on the Judiciary</category>
+		</item>
+		<item>
+			<title>Slide in Home Prices Is Slowing Down, Index Shows</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f6a7c678ea459c34ee0e24c2ca6abb79</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/business/economy/29housing.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/business/economy/29housing.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/29/business/29housing.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A new residential development in Cleveland, Ohio. The long slide in housing prices is continuing to brake, figures released Tuesday indicate.</media:description>
+			<media:credit>David Maxwell for The New York Times</media:credit>
+			<description>For the fourth consecutive month, there was modest improvement in May in housing prices, the Case-Shiller index showed.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f6a7c678ea459c34ee0e24c2ca6abb79&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f6a7c678ea459c34ee0e24c2ca6abb79&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID STREITFELD</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 22:52:46 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Housing and Real Estate</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prices (Fares, Fees and Rates)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Standard &amp; Poor's Case-Shiller Home Price Index</category>
+		</item>
+		<item>
+			<title>House Panel Approves New Rules on Executive Pay</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=394eebba285bdfbf5687ad09f4704de8</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/business/29pay.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/business/29pay.html</guid>
+			<description>A congressional committee approved legislation closely resembling President Obama&#x2019;s proposal for executive pay limits.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=394eebba285bdfbf5687ad09f4704de8&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=394eebba285bdfbf5687ad09f4704de8&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By STEPHEN LABATON</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 23:32:29 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Executive Compensation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Law and Legislation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">United States Economy</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">House of Representatives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Executives and Management</category>
+		</item>
+		<item>
+			<title>China Puts Online Games That Glorify Mafia on Its Hit List</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=93253a5f2723264b168ee63d0f378055</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/world/asia/29china.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/world/asia/29china.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/28/world/29china-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Customers played computer games at an Internet cafe in Taiyuan, China, earlier this month.</media:description>
+			<media:credit>Reuters</media:credit>
+			<description>On Monday, the Ministry of Culture issued a notice banning online games that feature Mafioso kingpins, marauding street gangs or any sort of hooliganism predisposed to organization.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=93253a5f2723264b168ee63d0f378055&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=93253a5f2723264b168ee63d0f378055&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ANDREW JACOBS</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 22:33:28 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Computer and Video Games</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Censorship</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+		</item>
+		<item>
+			<title>F.B.I. Watched Terror Suspects for Three Years</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=256a30911609e35007c8e013b2ac7d22</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/us/29terror.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/us/29terror.html</guid>
+			<description>Agents kept track of Daniel Patrick Boyd as he stockpiled weapons and trained accomplices, then moved in when their activities intensified, according to the indictment.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=256a30911609e35007c8e013b2ac7d22&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=256a30911609e35007c8e013b2ac7d22&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LIZ ROBBINS</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 23:44:53 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Federal Bureau of Investigation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Terrorism</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North Carolina</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Boyd, Daniel Patrick</category>
+		</item>
+		<item>
+			<title>Police Search Home of Jackson&#x2019;s Doctor</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=cc73df9a5dc534e127b90e4a4b893a1c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/us/29jackson.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/us/29jackson.html</guid>
+			<description>Michael Jackson&#x2019;s personal physician, Dr. Conrad Murray, is the focus of a manslaughter investigation in the death of Mr. Jackson, according to court documents.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=cc73df9a5dc534e127b90e4a4b893a1c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=cc73df9a5dc534e127b90e4a4b893a1c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By STEVE FRIESS and SOLOMON MOORE</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 20:54:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jackson, Michael</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Murray, Conrad</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Music</category>
+		</item>
+		<item>
+			<title>Tournaments for Girls Pack Economic Punch</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9e29f0e1472a537e87db0f9586db4039</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/sports/29softball.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/sports/29softball.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/28/sports/29softball3_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Members of the Osceola Overdrive from Florida prepared to visit the Tennessee Aquarium in downtown Chattanooga, Tenn. during the week-long Class A Girl's Fast Pitch World Series tournament.</media:description>
+			<media:credit>Shawn Poynter for The New York Times</media:credit>
+			<description>Sporting events for girls attract more relatives and generate more revenue than those for boys, anecdotal evidence shows.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9e29f0e1472a537e87db0f9586db4039&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9e29f0e1472a537e87db0f9586db4039&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By KATIE THOMAS</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 00:03:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Softball</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Amateur Athletics</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Chattanooga (Tenn)</category>
+		</item>
+		<item>
+			<title>Witness Tells of Doctor&#x2019;s Last Seconds</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=db56dd9002bbce75fe1b78899e809eff</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/us/29tiller.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/us/29tiller.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/28/us/28kansas-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Scott Roeder, left, with his attorney Mark Rudy, was charged in the murder of Dr. George R. Tiller.</media:description>
+			<media:credit>Pool photograph by Jaime Oppenheimer</media:credit>
+			<description>Gary Hoepner was standing next to Dr. George R. Tiller when he was shot and killed inside his church.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=db56dd9002bbce75fe1b78899e809eff&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=db56dd9002bbce75fe1b78899e809eff&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MONICA DAVEY</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 00:06:17 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Tiller, George R</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Roeder, Scott</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Abortion</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Murders and Attempted Murders</category>
+		</item>
+		<item>
+			<title>Warning on Steroids in Supplements</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=52db911597cff082dcbe9b229c43fa09</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/health/nutrition/29drug.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/health/nutrition/29drug.html</guid>
+			<description>The Food and Drug Administration warned consumers to stop using body-building products that are sold as nutritional supplements but could contain steroids.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=52db911597cff082dcbe9b229c43fa09&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=52db911597cff082dcbe9b229c43fa09&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 22:05:31 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Steroids</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Food and Drug Administration</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Diet and Nutrition</category>
+		</item>
+		<item>
+			<title>New Kurdish Leader Asserts Agenda</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e87228d272e9b2f6b3fb7726b532dbfa</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/world/middleeast/29kurds.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/world/middleeast/29kurds.html</guid>
+			<description>Massoud Barzani rejected U.N. proposals on Iraq&#x2019;s internal borders and reiterated a local constitution plan.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e87228d272e9b2f6b3fb7726b532dbfa&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e87228d272e9b2f6b3fb7726b532dbfa&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM DAGHER</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 23:19:06 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Barzani, Massoud</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Kurds</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Constitutions</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Referendums</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Kurdistan Democratic Party</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Patriotic Union of Kurdistan</category>
+		</item>
+		<item>
+			<title>More Cuts for California Budget</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d1fd8900f00159c46dd7c4a50860d6c9</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/us/29calif.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/us/29calif.html</guid>
+			<description>With a slew of line-item vetoes, Gov. Arnold Schwarzenegger signed California&#x2019;s budget into law.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d1fd8900f00159c46dd7c4a50860d6c9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d1fd8900f00159c46dd7c4a50860d6c9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JENNIFER STEINHAUER</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 20:45:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">California</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Budgets and Budgeting</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Schwarzenegger, Arnold</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Acquired Immune Deficiency Syndrome</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Parks and Other Recreation Areas</category>
+		</item>
+	</channel>
+</rss>

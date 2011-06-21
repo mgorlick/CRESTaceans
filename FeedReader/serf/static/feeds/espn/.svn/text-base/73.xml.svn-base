@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Thu, 30 Jul 2009 18:15:21 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Report: Manny Ramirez, David Ortiz tested positive for performance-enhancing drugs in 2003]]></title>
+<description><![CDATA[Manny Ramirez and David Ortiz tested positive for performance-enhancing drugs in 2003, lawyers with knowledge of the results told The New York Times.]]></description>
+<pubDate>Thu, 30 Jul 2009 17:24:12 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4366335&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4366335&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[J.A. Adande and Marc Stein ]]></dc:creator>
+<title><![CDATA[Source: Lamar Odom will return to the Los Angeles Lakers ]]></title>
+<description><![CDATA[Lamar Odom will return to the Los Angeles Lakers, according to an NBA source.]]></description>
+<pubDate>Thu, 30 Jul 2009 18:08:43 PDT</pubDate>
+<guid>http://sports.espn.go.com/nba/news/story?id=4367213&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nba/news/story?id=4367213&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Buster Olney]]></dc:creator>
+<title><![CDATA[Roy Halladay trade talks are dead, Toronto Blue Jays GM says]]></title>
+<description><![CDATA[Trade talks for Toronto ace Roy Halladay are "dead," but the club remains willing to listen to offers leading up to Friday's deadline, Blue Jays general manager J.P Ricciardi said in an e-mail Thursday.]]></description>
+<pubDate>Thu, 30 Jul 2009 17:29:42 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4367359&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4367359&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Arturo Gatti's death ruled suicide; wife released]]></title>
+<description><![CDATA[Brazilian police say the death of boxer Arturo Gatti was a suicide and a court has ordered the release of his wife.]]></description>
+<pubDate>Thu, 30 Jul 2009 15:33:56 PDT</pubDate>
+<guid>http://sports.espn.go.com/sports/boxing/news/story?id=4366517&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/sports/boxing/news/story?id=4366517&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Michael Vick says he's 'getting close' to finding team]]></title>
+<description><![CDATA[Michael Vick says he is getting close to signing with a team but had no other details for reporters after a bankruptcy hearing in Virginia. ]]></description>
+<pubDate>Thu, 30 Jul 2009 14:07:16 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4366211&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4366211&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services ]]></dc:creator>
+<title><![CDATA[Oakland Raiders agree to five-year, $23.5 million contract with receiver Darrius Heyward-Bey]]></title>
+<description><![CDATA[Rookie receiver Darrius Heyward-Bey agreed with the Raiders on a five-year contract that will guarantee him at least $23.5 million.]]></description>
+<pubDate>Thu, 30 Jul 2009 17:45:35 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4367575&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4367575&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Antonio Pierce of New York Giants testifying before grand jury]]></title>
+<description><![CDATA[New York Giants linebacker Antonio Pierce is testifying before the grand jury investigating a gun charge against Plaxico Burress.]]></description>
+<pubDate>Thu, 30 Jul 2009 14:19:57 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4366152&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4366152&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Greg McMackin, Hawaii Warriors football coach, uses homosexual slur in reference to Notre Dame Fighting Irish dance prior to Hawaii Bowl]]></title>
+<description><![CDATA[Hawaii football coach Greg McMackin used a homosexual slur in describing a dance performed by Notre Dame players at a banquet prior to the teams' meeting in the 2008 Hawaii Bowl.]]></description>
+<pubDate>Thu, 30 Jul 2009 18:07:19 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4366952&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4366952&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Buick Open: Tiger Woods' putting puts him in trouble; Steve Lowery in lead]]></title>
+<description><![CDATA[Tiger Woods says one of the worst putting days of his career led to a lackluster 1-under 71 at the Buick Open.]]></description>
+<pubDate>Thu, 30 Jul 2009 16:41:15 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/news/story?id=4367467&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/news/story?id=4367467&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[U.S. swimmer Ryan Lochte breaks Michael Phelps' record in 200 individual medley at world championships]]></title>
+<description><![CDATA[With Michael Phelps cheering from the stands, Ryan Lochte of the United States set a world record in the 200-meter individual medley at the world championships.]]></description>
+<pubDate>Thu, 30 Jul 2009 14:14:34 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/swimming/news/story?id=4365568&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/swimming/news/story?id=4365568&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[New York Mets general manager Omar Minaya says he apologized to NY Daily News writer Adam Rubin]]></title>
+<description><![CDATA[Mets general manager Omar Minaya says he apologized to a beat reporter for his critical comments during a bizarre news conference]]></description>
+<pubDate>Thu, 30 Jul 2009 12:53:06 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4366267&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4366267&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Kenechi Udeze retires, ends comeback from leukemia]]></title>
+<description><![CDATA[Minnesota Vikings defensive end Kenechi Udeze has decided to retire, ending a remarkable comeback from leukemia.]]></description>
+<pubDate>Thu, 30 Jul 2009 17:35:12 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4366321&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4366321&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Jon Greenberg]]></dc:creator>
+<title><![CDATA[MLB trade: Chicago Cubs trade for Pittsburgh Pirates pitchers John Grabow and Tom Gorzelanny]]></title>
+<description><![CDATA[MLB trade: Chicago Cubs trade for Pittsburgh Pirates pitchers John Grabow and Tom Gorzelanny.]]></description>
+<pubDate>Thu, 30 Jul 2009 16:53:49 PDT</pubDate>
+<guid>http://sports.espn.go.com/chicago/news/story?id=4366949&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/chicago/news/story?id=4366949&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

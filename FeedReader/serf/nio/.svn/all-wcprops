@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/nio
+END
+NHttpClientConnManagement.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/nio/NHttpClientConnManagement.java
+END
+NIO_HTTP_Client.class
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/nio/NIO_HTTP_Client.class
+END
+NioHttpServer.java
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/nio/NioHttpServer.java
+END
+session.scm
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/nio/session.scm
+END
+nio_tests.scm
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/nio/nio_tests.scm
+END
+nio_http_client.scm
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/nio/nio_http_client.scm
+END
+http.scm
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/nio/http.scm
+END
+NIO_HTTP_Client.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/nio/NIO_HTTP_Client.java
+END
+client.scm
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/nio/client.scm
+END

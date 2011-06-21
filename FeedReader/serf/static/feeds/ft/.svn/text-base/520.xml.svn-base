@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Tue, 18 Aug 2009 16:19:56 GMT</pubDate>
+    <lastBuildDate>Tue, 18 Aug 2009 16:29:22 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>Cost-cutting pays off at Home Depot</title>
+      <link>http://traxfer.ft.com/cms/s/0/e5e50fea-8be2-11de-b14f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The world’s largest home improvement retailer reported better-than-expected results for the second quarter as cost-cutting offset falling demand from cash-strapped consumers</description>
+      <pubDate>Tue, 18 Aug 2009 12:50:04 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/e5e50fea-8be2-11de-b14f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>German investor optimism at 3-year high</title>
+      <link>http://traxfer.ft.com/cms/s/0/b6b68b00-8bdc-11de-b14f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Germany’s economic rebound has gained momentum, with a closely watched survey showing investor confidence surging to its highest level in more than three years</description>
+      <pubDate>Tue, 18 Aug 2009 10:35:50 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/b6b68b00-8bdc-11de-b14f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Wall Street rebounds from broad sell-off</title>
+      <link>http://traxfer.ft.com/cms/s/0/da87fcbe-8b6c-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>US stocks enjoyed a modest rebound following the steepest decline in overmore than a month during the previous session</description>
+      <pubDate>Tue, 18 Aug 2009 14:20:19 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/da87fcbe-8b6c-11de-9f50-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>US housing construction slows in July</title>
+      <link>http://traxfer.ft.com/cms/s/0/7f481c86-8bed-11de-b14f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>New residential building slowed last month as construction of multi-family homes stalled, while producer prices notched a record annual drop</description>
+      <pubDate>Tue, 18 Aug 2009 13:29:02 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/7f481c86-8bed-11de-b14f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>China and Australia sign energy deal</title>
+      <link>http://traxfer.ft.com/cms/s/0/955b0122-8c02-11de-b14f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>China and Australia have agreed a $41bn energy deal at a time when tensions between the two trading partners were running high</description>
+      <pubDate>Tue, 18 Aug 2009 15:04:17 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/955b0122-8c02-11de-b14f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Cargill quarterly profits plunge by 69%</title>
+      <link>http://traxfer.ft.com/cms/s/0/d61c25e0-8c04-11de-b14f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Cargill, the US agribusiness conglomerate, reported that its fiscal full-year earnings fell for the first time in eight years and warned that it expects the effects of the global economic downturn to persist “for some time</description>
+      <pubDate>Tue, 18 Aug 2009 14:39:23 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/d61c25e0-8c04-11de-b14f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>News Corp announces Star TV shake-up</title>
+      <link>http://traxfer.ft.com/cms/s/0/646058d4-8bd4-11de-b14f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>News Corp unveiled details of a wide ranging shake-up of its Star Asian television arm as James Murdoch looks to cut costs and consolidate businesses in the region</description>
+      <pubDate>Tue, 18 Aug 2009 09:59:19 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/646058d4-8bd4-11de-b14f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Identity theft case puts 130m at risk</title>
+      <link>http://traxfer.ft.com/cms/s/0/b288c898-8b84-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The US brought criminal charges over the alleged theft of account details linked to 130m credit cards, a case of identity theft that far exceeds anything of its kind that has ever come to light before</description>
+      <pubDate>Mon, 17 Aug 2009 23:51:07 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/b288c898-8b84-11de-9f50-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Japan’s opposition ahead as campaign starts</title>
+      <link>http://traxfer.ft.com/cms/s/0/b36a510e-8bad-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Japan’s Democratic party holds a wide lead over the long-ruling Liberal Democratic party in opinion polls as official campaigning kicks off for an August 30 general election</description>
+      <pubDate>Tue, 18 Aug 2009 16:19:56 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/b36a510e-8bad-11de-9f50-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Kim Dae-jung dies at 85</title>
+      <link>http://traxfer.ft.com/cms/s/0/d9722ee2-8bb4-11de-b14f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Kim Dae-jung, South Korea’s former leftist president who died at the age of 85, was a political brawler right to the finish</description>
+      <pubDate>Tue, 18 Aug 2009 16:10:11 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/d9722ee2-8bb4-11de-b14f-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

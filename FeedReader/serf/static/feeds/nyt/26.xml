@@ -1,0 +1,294 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Wed, 29 Jul 2009 02:13:22 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Reports of Prison Abuse and Deaths Anger Iranians</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=850b3777a4639515f98c1b29aba1ee89</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/world/middleeast/29iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/world/middleeast/29iran.html</guid>
+			<description>Stories of abuse, relayed by relatives and on Web sites, in Iran&#x2019;s post-election crackdown have provoked outrage, including among prominent conservatives.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=850b3777a4639515f98c1b29aba1ee89&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=850b3777a4639515f98c1b29aba1ee89&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT F. WORTH</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 02:08:50 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prisons and Prisoners</category>
+		</item>
+		<item>
+			<title>How Firms Wooed a U.S. Agency With Billions to Invest</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3f2dc34b31ea280ccb2bac74892d8900</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/business/29pensions.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/business/29pensions.html</guid>
+			<description>Charles E. F. Millard, head of the Pension Benefit Guaranty Corporation, is under investigation for inappropriate contacts with Wall Street firms seeking to obtain lucrative contracts.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3f2dc34b31ea280ccb2bac74892d8900&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3f2dc34b31ea280ccb2bac74892d8900&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ERIC LIPTON</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 02:02:44 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Inspectors General</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Pensions and Retirement Plans</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Millard, Charles E F Jr</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">BlackRock Inc|BLK|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Pension Benefit Guaranty Corp</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Ethics</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Goldman Sachs Group|GS|NYSE</category>
+		</item>
+		<item>
+			<title>International Force in Iraq Becomes Coalition of One</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=813443f4f756925d34de2e3fbe6d487f</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/world/middleeast/29iraq.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/world/middleeast/29iraq.html</guid>
+			<description>With the withdrawal of the last British troops from Iraq this week, the U.S. will become the last of the &#x201C;coalition of the willing&#x201D; formed in 2003.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=813443f4f756925d34de2e3fbe6d487f&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=813443f4f756925d34de2e3fbe6d487f&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROD NORDLAND and TIMOTHY WILLIAMS</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 01:52:05 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">North Atlantic Treaty Organization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Great Britain</category>
+		</item>
+		<item>
+			<title>City Buys One-Way Tickets Home for Homeless Families</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b5d219a037532fc499545d575cdf7cbc</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/nyregion/29oneway.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/nyregion/29oneway.html</guid>
+			<description>The Bloomberg administration is saving money on shelters by buying families one-way plane tickets to somewhere &#x2014; anywhere &#x2014; else where they have a place to stay.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b5d219a037532fc499545d575cdf7cbc&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b5d219a037532fc499545d575cdf7cbc&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JULIE BOSMAN</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 01:58:39 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Homeless Persons</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Department of Homeless Services</category>
+		</item>
+		<item>
+			<title>An Author Without Borders</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5165dfc58d150d677bfe243afd59faae</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/books/29vollman.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/books/29vollman.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/28/arts/29vollman_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>The author William T. Vollmann on the Mexican side of the border fence. </media:description>
+			<media:credit>Monica Almeida/The New York Times</media:credit>
+			<description>William T. Vollmann&#x2019;s new book, about the vast, flat, arid region in the southeastern part of California, is an extreme production.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5165dfc58d150d677bfe243afd59faae&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5165dfc58d150d677bfe243afd59faae&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CHARLES McGRATH</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 01:18:43 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Writing and Writers</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Vollmann, William T</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Books and Literature</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">California</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Mexico</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_ttl">Imperial (Book)</category>
+		</item>
+		<item>
+			<title>Has Wikipedia Created a Rorschach Cheat Sheet?</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ad2036772e7c6606b3310e1799fa275b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/technology/internet/29inkblot.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/technology/internet/29inkblot.html</guid>
+			<description>Psychologists and Wikipedia users are at loggerheads over whether images for inkblot tests should be online.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ad2036772e7c6606b3310e1799fa275b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ad2036772e7c6606b3310e1799fa275b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NOAM COHEN</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 02:07:51 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_keyword">Rorschach test</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Psychology and Psychologists</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Tests and Testing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Wikipedia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Rorschach, Hermann</category>
+		</item>
+		<item>
+			<title>Insurgent Candidate Fights Elitism, and Bloomberg</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c0bce537047e5189b6691c7ef964f2e9</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/nyregion/29avella.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/nyregion/29avella.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/29/nyregion/29avella.inline.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Councilman Tony Avella of Queens talks to a supporter in Brooklyn.</media:description>
+			<media:credit>Justin Maxon/The New York Times</media:credit>
+			<description>Tony Avella is running for mayor as a champion of small businesses and neighborhoods and opponent of developers.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c0bce537047e5189b6691c7ef964f2e9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c0bce537047e5189b6691c7ef964f2e9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID W. CHEN</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 02:12:41 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Avella, Tony</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Elections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">City Councils</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Queens (NYC)</category>
+		</item>
+		<item>
+			<title>Warning on Steroids in Supplements</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=52db911597cff082dcbe9b229c43fa09</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/health/nutrition/29drug.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/health/nutrition/29drug.html</guid>
+			<description>The Food and Drug Administration warned consumers to stop using body-building products that are sold as nutritional supplements but could contain steroids.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=52db911597cff082dcbe9b229c43fa09&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=52db911597cff082dcbe9b229c43fa09&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NATASHA SINGER and MICHAEL S. SCHMIDT</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 02:06:01 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Steroids</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Food and Drug Administration</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Diet and Nutrition</category>
+		</item>
+		<item>
+			<title>Khayelitsha Journal: South Africa Begins New Effort to Fight TB</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=aacf5ff446060cb4f3d16f5fb21cfdec</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/world/africa/29safrica.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/world/africa/29safrica.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/28/world/29safrica2_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A tuberculosis patient during a consultation at a clinic in Khayelitsha, South Africa.</media:description>
+			<media:credit>Joao Silva for The New York Times</media:credit>
+			<description>A program is helping treat multidrug-resistant tuberculosis in an impoverished community while the patients are still infectious.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=aacf5ff446060cb4f3d16f5fb21cfdec&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=aacf5ff446060cb4f3d16f5fb21cfdec&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CELIA W. DUGGER</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 01:38:56 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">South Africa</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Tuberculosis</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Doctors Without Borders</category>
+		</item>
+		<item>
+			<title>Panel Approves Executive Pay Limits</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=394eebba285bdfbf5687ad09f4704de8</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/business/29pay.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/business/29pay.html</guid>
+			<description>A committee approved legislation closely resembling President Obama&#x2019;s proposal for executive pay limits.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=394eebba285bdfbf5687ad09f4704de8&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=394eebba285bdfbf5687ad09f4704de8&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By STEPHEN LABATON</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 02:07:38 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Executive Compensation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Law and Legislation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">United States Economy</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">House of Representatives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Executives and Management</category>
+		</item>
+		<item>
+			<title>F.D.A. Deems Mercury in Fillings Safe</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a6b3bc2849583b98b4183bbbdd132da0</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/health/29fda.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/health/29fda.html</guid>
+			<description>The agency for the first time classified silver dental fillings containing mercury fillings as a &#x201C;moderate risk,&#x201D; medical device.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a6b3bc2849583b98b4183bbbdd132da0&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a6b3bc2849583b98b4183bbbdd132da0&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ASHLEY SOUTHALL</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 02:09:24 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Teeth and Dentistry</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Mercury (Metal)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Food and Drug Administration</category>
+		</item>
+		<item>
+			<title>Immigrant Detention Rules Rejected</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3a6241d43ffd51ece8d456ae077f1970</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/nyregion/29detain.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/nyregion/29detain.html</guid>
+			<description>The Obama administration has turned away a federal court petition by former detainees, disappointing advocacy groups around the country.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3a6241d43ffd51ece8d456ae077f1970&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3a6241d43ffd51ece8d456ae077f1970&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NINA BERNSTEIN</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 02:09:35 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">United States</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Immigration Detention</category>
+		</item>
+		<item>
+			<title>New Inquiry Sought at Virginia Tech</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3e71ab22ca292fd4303b7877ee68d8a6</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/us/29vtech.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/us/29vtech.html</guid>
+			<description>Calling the original investigation hasty and saying it lacked all available information, victims&#x2019; relatives called for a new look at the 2007 shooting.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3e71ab22ca292fd4303b7877ee68d8a6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3e71ab22ca292fd4303b7877ee68d8a6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By IAN URBINA</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 02:03:57 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Virginia Polytechnic Institute and State University</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Cho, Seung-Hui</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">School Shootings</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Murders and Attempted Murders</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Mental Health and Disorders</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Colleges and Universities</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Kaine, Timothy M</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Virginia</category>
+		</item>
+		<item>
+			<title>Police Search Home of Jackson&#x2019;s Doctor</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=cc73df9a5dc534e127b90e4a4b893a1c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/us/29jackson.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/us/29jackson.html</guid>
+			<description>A month after Michael Jackson&#x2019;s sudden death, the focus in the investigation has remained on his physician.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=cc73df9a5dc534e127b90e4a4b893a1c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=cc73df9a5dc534e127b90e4a4b893a1c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By STEVE FRIESS and SOLOMON MOORE</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 02:09:24 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jackson, Michael</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Murray, Conrad</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Music</category>
+		</item>
+		<item>
+			<title>California Budget Trimmed Further</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d1fd8900f00159c46dd7c4a50860d6c9</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/us/29calif.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/us/29calif.html</guid>
+			<description>With the sweep of his pen, Gov. Arnold Schwarzenegger of California opened the door for more budget fights.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d1fd8900f00159c46dd7c4a50860d6c9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d1fd8900f00159c46dd7c4a50860d6c9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JENNIFER STEINHAUER</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 02:08:40 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">California</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Budgets and Budgeting</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Schwarzenegger, Arnold</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Acquired Immune Deficiency Syndrome</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Parks and Other Recreation Areas</category>
+		</item>
+		<item>
+			<title>Terror Suspects Monitored for 3 Years</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=256a30911609e35007c8e013b2ac7d22</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/us/29terror.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/us/29terror.html</guid>
+			<description>Agents kept track of Daniel Patrick Boyd as he stockpiled weapons and trained accomplices, then moved in when their activities intensified, according to the indictment.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=256a30911609e35007c8e013b2ac7d22&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=256a30911609e35007c8e013b2ac7d22&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CAMPBELL ROBERTSON</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 02:09:24 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Federal Bureau of Investigation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Terrorism</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North Carolina</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Boyd, Daniel Patrick</category>
+		</item>
+	</channel>
+</rss>

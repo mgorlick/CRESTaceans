@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Thu, 30 Jul 2009 19:16:32 GMT</pubDate>
+    <lastBuildDate>Thu, 30 Jul 2009 19:29:41 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>Cuomo details bonuses at Tarp banks</title>
+      <link>http://traxfer.ft.com/cms/s/0/ff921710-7d2a-11de-b8ee-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>JPMorgan Chase and Goldman Sachs paid the most million-dollar bonuses in 2008, while two banks that lost almost $28bn each last year, Citigroup and Merrill Lynch, also made hundreds of their employees millionaires, according to a newly released report on bonus payments by government-supported banks</description>
+      <pubDate>Thu, 30 Jul 2009 17:49:20 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/ff921710-7d2a-11de-b8ee-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Profits slump at Shell and Exxon</title>
+      <link>http://traxfer.ft.com/cms/s/0/95ff0f4a-7d3b-11de-b8ee-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Two of the world’s biggest oil companies, ExxonMobil and Royal Dutch Shell, blamed the global economic crisis and softer demand for the collapse in their revenues</description>
+      <pubDate>Thu, 30 Jul 2009 19:16:32 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/95ff0f4a-7d3b-11de-b8ee-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Bernanke leads new era of Fed openness</title>
+      <link>http://traxfer.ft.com/cms/s/0/111737c2-7d35-11de-b8ee-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Ben Bernanke, chairman of the US Federal Reserve, is rapidly converting the secretive Fed into something of an open house as he tries to ward off criticism of plans to expand the central bank’s powers in the wake of after the financial crisis</description>
+      <pubDate>Thu, 30 Jul 2009 18:19:49 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/111737c2-7d35-11de-b8ee-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Wall Street hits fresh highs for year</title>
+      <link>http://traxfer.ft.com/cms/s/0/67e42262-7d04-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>US equity benchmarks were trading at new highs for the year, as investors were increasingly optimistic that aggressive cost-cutting by companies places them in a strong profits’ position once the the economy recovers</description>
+      <pubDate>Thu, 30 Jul 2009 18:23:50 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/67e42262-7d04-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>China bows to activist pressure over refinery</title>
+      <link>http://traxfer.ft.com/cms/s/0/28ac9982-7d39-11de-b8ee-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>China has taken the unusual step of moving is to will move relocate a $5bn refinery and petrochemical plant, one of the country’s biggest ever foreign investment projects, after a public outcry, a senior senior Communist party official said said</description>
+      <pubDate>Thu, 30 Jul 2009 19:08:27 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/28ac9982-7d39-11de-b8ee-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Cablevision to spin off businesses</title>
+      <link>http://traxfer.ft.com/cms/s/0/3487cb7a-7d0f-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Cablevision will spin off its Madison Square Garden live entertainment and sports franchise division by the end of the year, appeasing shareholders who pushed the Dolan family controlled cable operator to break up the company to unlock value</description>
+      <pubDate>Thu, 30 Jul 2009 14:33:01 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/3487cb7a-7d0f-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Second bomb blast hits Spain</title>
+      <link>http://traxfer.ft.com/cms/s/0/701e4d6c-7d0a-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>At least two police officers were killed and others injured when a bomb went off outside a Civil Guard station on Mallorca, in the Spanish Balearic islands</description>
+      <pubDate>Thu, 30 Jul 2009 15:22:49 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/701e4d6c-7d0a-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Russia signs oil contracts with Cuba</title>
+      <link>http://traxfer.ft.com/cms/s/0/ea362a36-7ce0-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Russia and Cuba have signed contracts that ‘set the bases’ for Russian oil company Zarubezhneft to search for oil in Cuba’s part of the Gulf of Mexico, Cuba’s state-run press said</description>
+      <pubDate>Thu, 30 Jul 2009 08:32:18 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/ea362a36-7ce0-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Europeans expect prices to tumble</title>
+      <link>http://traxfer.ft.com/cms/s/0/bf64aa36-7cf8-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Eurozone consumers increasingly expect prices to tumble in the year ahead even as the region’s economy recovers from its severe recession, according to a European Commission survey that could stoke fears of deflation</description>
+      <pubDate>Thu, 30 Jul 2009 16:20:13 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/bf64aa36-7cf8-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Sony and Nintendo hit by video game slump</title>
+      <link>http://traxfer.ft.com/cms/s/0/6cf84c60-7cd7-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The weak hardware sales from Japan’s two big videogame companies will add to industry calls for price cuts on Nintendo’s Wii and Sony’s Playstation 3 in order to stimulate the market</description>
+      <pubDate>Thu, 30 Jul 2009 18:02:56 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/6cf84c60-7cd7-11de-9f29-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

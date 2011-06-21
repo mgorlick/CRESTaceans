@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Thu, 30 Jul 2009 16:20:13 GMT</pubDate>
+    <lastBuildDate>Thu, 30 Jul 2009 16:27:55 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>Wall Street hits fresh highs for year</title>
+      <link>http://traxfer.ft.com/cms/s/0/67e42262-7d04-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>US equities were setting new highs for the year at mid-morning on Thursday, as investors digested a slew of mixed earnings results</description>
+      <pubDate>Thu, 30 Jul 2009 14:36:15 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/67e42262-7d04-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Cablevision to spin off Madison Square Garden</title>
+      <link>http://traxfer.ft.com/cms/s/0/3487cb7a-7d0f-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Cablevision will spin off its Madison Square Garden live entertainment and sports franchise division by the end of the year, appeasing shareholders who pushed the Dolan family controlled cable operator to break up the company to unlock value</description>
+      <pubDate>Thu, 30 Jul 2009 14:33:01 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/3487cb7a-7d0f-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>New weekly US jobless claims rise</title>
+      <link>http://traxfer.ft.com/cms/s/0/22905bc4-7d11-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The number of US workers claiming unemployment benefits rose last week, but remain below levels seen during the worst of the recession, raising optimism that the labour market could slowly be starting to heal.</description>
+      <pubDate>Thu, 30 Jul 2009 15:11:05 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/22905bc4-7d11-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>ExxonMobil quarterly profits fall 66%</title>
+      <link>http://traxfer.ft.com/cms/s/0/4d4da980-7d06-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>ExxonMobil, the largest US oil company, said its second quarter profits fell by 66 per cent as the global downturn sapped demand for fuel and dragged down energy prices</description>
+      <pubDate>Thu, 30 Jul 2009 12:56:57 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/4d4da980-7d06-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Second bomb blast hits Spain</title>
+      <link>http://traxfer.ft.com/cms/s/0/701e4d6c-7d0a-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>At least two police officers were killed and others injured when a bomb went off outside a Civil Guard station on Mallorca, in the Spanish Balearic islands</description>
+      <pubDate>Thu, 30 Jul 2009 15:22:49 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/701e4d6c-7d0a-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Russia signs oil contracts with Cuba</title>
+      <link>http://traxfer.ft.com/cms/s/0/ea362a36-7ce0-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Russia and Cuba have signed contracts that ‘set the bases’ for Russian oil company Zarubezhneft to search for oil in Cuba’s part of the Gulf of Mexico, Cuba’s state-run press said</description>
+      <pubDate>Thu, 30 Jul 2009 08:32:18 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/ea362a36-7ce0-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Europeans expect prices to tumble</title>
+      <link>http://traxfer.ft.com/cms/s/0/bf64aa36-7cf8-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Eurozone consumers increasingly expect prices to tumble in the year ahead even as the region’s economy recovers from its severe recession, according to a European Commission survey that could stoke fears of deflation</description>
+      <pubDate>Thu, 30 Jul 2009 16:20:13 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/bf64aa36-7cf8-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Sony profits beat expectations</title>
+      <link>http://traxfer.ft.com/cms/s/0/6cf84c60-7cd7-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Sony announced a smaller than expected first quarter net loss of Y37.1bn because of stockmarket gains in its financial subsidiary and cost cuts that reduced losses in its core electronics business</description>
+      <pubDate>Thu, 30 Jul 2009 07:48:07 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/6cf84c60-7cd7-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>NYSE Euronext swings to loss</title>
+      <link>http://traxfer.ft.com/cms/s/0/95a68588-7ce5-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The transatlantic exchange swung into a second quarter loss after absorbing a whopping $355m one-time charge, but seen ‘accretive’ by year-end</description>
+      <pubDate>Thu, 30 Jul 2009 09:20:27 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/95a68588-7ce5-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>UK regulator summons oil market players</title>
+      <link>http://traxfer.ft.com/cms/s/0/6989f736-7cfa-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The UK regulator has called a special meeting of oil market participants to review regulation of the commodity market following last year’s record  rise in crude prices</description>
+      <pubDate>Thu, 30 Jul 2009 11:53:30 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/6989f736-7cfa-11de-9f29-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

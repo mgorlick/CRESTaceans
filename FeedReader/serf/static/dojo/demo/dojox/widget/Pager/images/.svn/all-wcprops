@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojox/widget/Pager/images
+END
+pageActive.png
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojox/widget/Pager/images/pageActive.png
+END
+vNext.png
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojox/widget/Pager/images/vNext.png
+END
+pageInactive.png
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojox/widget/Pager/images/pageInactive.png
+END
+hNext.png
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojox/widget/Pager/images/hNext.png
+END
+vPrevious.png
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojox/widget/Pager/images/vPrevious.png
+END
+hPrevious.png
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojox/widget/Pager/images/hPrevious.png
+END

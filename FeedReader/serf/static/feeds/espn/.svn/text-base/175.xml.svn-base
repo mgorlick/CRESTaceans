@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Tue, 4 Aug 2009 00:22:47 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Plaxico Burress, former New York Giants receiver, indicted on weapons charge but Antonio Pierce not indicted]]></title>
+<description><![CDATA[Former New York Giants star Plaxico Burress was indicted by a grand jury on weapons charges for shooting himself in the thigh at a Manhattan nightclub and faces a minimum prison sentence of 3.5 years if convicted.]]></description>
+<pubDate>Mon, 3 Aug 2009 16:36:34 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4374477&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4374477&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Chris Low]]></dc:creator>
+<title><![CDATA[Florida Gators make Urban Meyer highest paid in SEC with 6-year, $24 million deal]]></title>
+<description><![CDATA[Urban Meyer, who has taken the Florida Gators to rarified heights with two national championships in four seasons, will see his salary climb to equally exclusive company.]]></description>
+<pubDate>Mon, 3 Aug 2009 21:51:59 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4374311&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4374311&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Emotional Denny Hamlin breaks skid with Pocono Raceway win]]></title>
+<description><![CDATA[Denny Hamlin has ended a 50-race winless skid by holding off Juan Pablo Montoya over the final thrilling laps to win at Pocono Raceway.]]></description>
+<pubDate>Mon, 3 Aug 2009 23:00:36 PDT</pubDate>
+<guid>http://sports.espn.go.com/rpm/nascar/cup/news/story?id=4374793&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/rpm/nascar/cup/news/story?id=4374793&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Report: Philadelphia Eagles middle linebacker Stewart Bradley likely to miss season with torn ACL]]></title>
+<description><![CDATA[Eagles middle linebacker Stewart Bradley will likely miss the season with a torn ACL, a source told ESPN 950 in Philadelphia.]]></description>
+<pubDate>Mon, 3 Aug 2009 20:37:41 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4374410&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4374410&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Appeal for Buffalo Bills' Marshawn Lynch denied, out three games]]></title>
+<description><![CDATA[The league announced that Marshawn Lynch's three-game suspension will stand.]]></description>
+<pubDate>Mon, 3 Aug 2009 20:59:52 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4374980&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4374980&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Edinson Volquez, Cincinnati Reds pitcher, has Tommy John surgery]]></title>
+<description><![CDATA[Reds right-hander Edinson Volquez is expected to miss the rest of this season and the first half of next year, too.]]></description>
+<pubDate>Mon, 3 Aug 2009 16:30:09 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4374407&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4374407&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[WAC reprimands Hawaii coach Greg McMackin for using gay slur]]></title>
+<description><![CDATA[The Western Athletic Conference is reprimanding Hawaii coach Greg McMackin for his derogatory comment while describing Notre Dame's chant before last year's Hawaii Bowl.]]></description>
+<pubDate>Mon, 3 Aug 2009 15:49:34 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4374536&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4374536&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Reports: Roger Mayweather charged in incident]]></title>
+<description><![CDATA[Roger Mayweather, the uncle and trainer of Floyd Mayweather Jr., was arrested and charged in Las Vegas this weekend.]]></description>
+<pubDate>Mon, 3 Aug 2009 23:22:49 PDT</pubDate>
+<guid>http://sports.espn.go.com/sports/boxing/news/story?id=4375583&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/sports/boxing/news/story?id=4375583&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Carolina Panthers' Maake Kemoeatu suffers torn Achilles tendon]]></title>
+<description><![CDATA[Panthers defensive tackle Maake Kemoeatu has a torn Achilles tendon and could miss the season.]]></description>
+<pubDate>Mon, 3 Aug 2009 20:51:32 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4375204&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4375204&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Reports: Arena Football League will fold soon, declare bankruptcy]]></title>
+<description><![CDATA[Multiple media outlets are reporting that the Arena Football League will fold.]]></description>
+<pubDate>Mon, 3 Aug 2009 21:12:15 PDT</pubDate>
+<guid>http://sports.espn.go.com/extra/afl/news/story?id=4375473&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/extra/afl/news/story?id=4375473&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Houston Astros' Roy Oswalt still hurting, will miss next start]]></title>
+<description><![CDATA[Astros starter Roy Oswalt will miss his next start with lingering back pain.]]></description>
+<pubDate>Mon, 3 Aug 2009 21:14:47 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4375024&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4375024&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Vikings' Tarvaris Jackson continues to rehab left knee]]></title>
+<description><![CDATA[Vikings quarterback Tarvaris Jackson missed both practices again on Monday while doing rehab work on his injured left knee. ]]></description>
+<pubDate>Mon, 3 Aug 2009 21:01:41 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4375078&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4375078&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[James Walker]]></dc:creator>
+<title><![CDATA[Carson Palmer, of Cincinnati Bengals, returns to practice]]></title>
+<description><![CDATA[After a two-day hiatus, Cincinnati Bengals starting quarterback Carson Palmer rejoined his team at training camp and participated in Cincinnati's Monday morning practice. ]]></description>
+<pubDate>Mon, 3 Aug 2009 08:45:52 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4373589&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4373589&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[External]]></dc:creator>
+<title><![CDATA[Fedor signs multifight Strikeforce deal]]></title>
+<description><![CDATA[ ]]></description>
+<pubDate>Mon, 3 Aug 2009 10:51:38 PDT</pubDate>
+<guid>http://www.sherdog.com/news/news/fedor-signs-with-strikeforce-18883?campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://www.sherdog.com/news/news/fedor-signs-with-strikeforce-18883?campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Washington Redskins' Albert Haynesworth says knee problem 'not serious']]></title>
+<description><![CDATA[Albert Haynesworth says his knee problem is "not serious" -- even though it kept him out of practice for the second day in a row.]]></description>
+<pubDate>Mon, 3 Aug 2009 15:54:51 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4374969&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4374969&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

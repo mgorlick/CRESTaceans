@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Tue, 11 Aug 2009 14:19:48 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Michael Vick's adviser, agent believe signing may come soon]]></title>
+<description><![CDATA[Michael Vick's personal adviser and his agent believe his return to the NFL is now not a question if "if," but "when" -- and that "when" may come soon.]]></description>
+<pubDate>Tue, 11 Aug 2009 13:09:44 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4390895&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4390895&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Carolina Panthers wide receiver Steve Smith expects to play in opener]]></title>
+<description><![CDATA[Carolina Panthers quarterback Jake Delhomme expects four-time Pro Bowl receiver Steve Smith to play in the regular-season opener.]]></description>
+<pubDate>Tue, 11 Aug 2009 13:19:10 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4391551&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4391551&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Adam Rittenberg]]></dc:creator>
+<title><![CDATA[Ohio State Buckeyes coach Jim Tressel says Tyler Moeller will not play this season]]></title>
+<description><![CDATA[Ohio State junior linebacker Tyler Moeller will miss the 2009 season because of a head injury sustained on a family vacation, Buckeyes coach Jim Tressel said Tuesday.]]></description>
+<pubDate>Tue, 11 Aug 2009 12:52:12 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4392041&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4392041&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Pau Gasol of Los Angeles Lakers has surgery after hurting left hand during practice with Spain]]></title>
+<description><![CDATA[Lakers center Pau Gasol had surgery on his left index finger after an injury during practice with Spain's national team. He will be sidelined at least three weeks.]]></description>
+<pubDate>Tue, 11 Aug 2009 11:13:31 PDT</pubDate>
+<guid>http://sports.espn.go.com/nba/news/story?id=4390824&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nba/news/story?id=4390824&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Bob Harig]]></dc:creator>
+<title><![CDATA[Tiger Woods says he was not fined by PGA Tour for critical remarks about rules official]]></title>
+<description><![CDATA[Tiger Woods did not back down Tuesday from his criticism of a rules official after the final round of Sunday's WGC-Bridgestone Invitational and said he was not fined for his comments by the PGA Tour.]]></description>
+<pubDate>Tue, 11 Aug 2009 13:08:53 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/news/story?id=4391724&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/news/story?id=4391724&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Donte' Stallworth of Cleveland Browns allowed to train with coach during house arrest]]></title>
+<description><![CDATA[Suspended Cleveland Browns wide receiver Donte' Stallworth will be allowed to train with a strength and conditioning coach while on house arrest.]]></description>
+<pubDate>Tue, 11 Aug 2009 11:41:08 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4390807&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4390807&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPNChicago.com]]></dc:creator>
+<title><![CDATA[Patrick Kane's lawyer said the Chicago Blackhawks star did not rob or assault cab driver]]></title>
+<description><![CDATA[Patrick Kane's lawyer said the Chicago Blackhawks star did not rob or assault a cab driver, and that Kane's cousin was involved in the financial transaction.]]></description>
+<pubDate>Tue, 11 Aug 2009 11:30:09 PDT</pubDate>
+<guid>http://sports.espn.go.com/chicago/news/story?id=4391488&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/chicago/news/story?id=4391488&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Terrell Owens misses Buffalo Bills practice after sore toe complaint]]></title>
+<description><![CDATA[Terrell Owens was not present for the Buffalo Bills' morning walkthrough two days after the receiver complained about a sore toe following the team's preseason opener.]]></description>
+<pubDate>Tue, 11 Aug 2009 10:15:04 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4391547&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4391547&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Michael Schumacher ends Formula One comeback due to injuries from motorcycle crash]]></title>
+<description><![CDATA[Michael Schumacher on Tuesday announced he has called off his much-anticipated Formula One comeback because of lingering injuries from a motorcycling crash earlier this year.]]></description>
+<pubDate>Tue, 11 Aug 2009 11:38:33 PDT</pubDate>
+<guid>http://sports.espn.go.com/rpm/racing/f1/news/story?id=4390787&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/rpm/racing/f1/news/story?id=4390787&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Eunice Kennedy Shriver dies at 88; founded Special Olympics]]></title>
+<description><![CDATA[President John F. Kennedy's sister Eunice Kennedy Shriver, a champion for the rights of the mentally disabled and founder of the Special Olympics, has died. She was 88.]]></description>
+<pubDate>Tue, 11 Aug 2009 09:18:34 PDT</pubDate>
+<guid>http://sports.espn.go.com/sports/news/story?id=4391059&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/sports/news/story?id=4391059&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Tulowitzki hits for cycle as Rockies beat Cubs]]></title>
+<description><![CDATA[Troy Tulowitzki hit for the cycle and had a career-high seven RBIs to help Colorado beat the Cubs 11-5 on Monday night. ]]></description>
+<pubDate>Tue, 11 Aug 2009 08:08:48 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/recap?gameId=290810127&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/recap?gameId=290810127&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[The Chicago White Sox acquire Alex Rios on waivers from Toronto Blue Jays]]></title>
+<description><![CDATA[The Chicago White Sox acquire Alex Rios on waivers from Toronto Blue Jays.]]></description>
+<pubDate>Tue, 11 Aug 2009 11:05:43 PDT</pubDate>
+<guid>http://sports.espn.go.com/chicago/news/story?id=4390120&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/chicago/news/story?id=4390120&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Cabbie's attorney says Patrick Kane incident overblown]]></title>
+<description><![CDATA[The attorney for a cab driver who says he was beaten up by Patrick Kane and his cousin over pocket change said the incident had been blown out of proportion. ]]></description>
+<pubDate>Tue, 11 Aug 2009 10:59:02 PDT</pubDate>
+<guid>http://sports.espn.go.com/nhl/news/story?id=4389932&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nhl/news/story?id=4389932&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Boston Celtics re-sign free-agent power forward Glen 'Big Baby' Davis]]></title>
+<description><![CDATA[The Celtics are bringing back Glen "Big Baby" Davis, announcing Monday that they've re-signed the power forward to a new deal. It's reportedly for two years.]]></description>
+<pubDate>Mon, 10 Aug 2009 15:54:03 PDT</pubDate>
+<guid>http://sports.espn.go.com/nba/news/story?id=4389149&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nba/news/story?id=4389149&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[PGA Tour to fine Tiger Woods for criticizing rules official]]></title>
+<description><![CDATA[Tiger Woods will be fined by the PGA Tour for his public criticism of a rules official after winning the Bridgestone Invitational, a tour official said. ]]></description>
+<pubDate>Mon, 10 Aug 2009 17:11:36 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/news/story?id=4390168&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/news/story?id=4390168&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

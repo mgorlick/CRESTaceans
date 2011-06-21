@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Wed, 19 Aug 2009 10:20:38 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Fran Tarkenton expresses disdain over Brett Favre and retirement indecision]]></title>
+<description><![CDATA[Fran Tarkenton, who previously has expressed his loathing over Brett Favre's inability to make a decision, spoke out again Wednesday, a day after Favre decided to sign with the Minnesota Vikings. ]]></description>
+<pubDate>Wed, 19 Aug 2009 10:11:49 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4409512&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4409512&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Jayson Stark]]></dc:creator>
+<title><![CDATA[Los Angeles Dodgers consider Vicente Padilla for rotation, source says]]></title>
+<description><![CDATA[With right-hander Hiroki Kuroda's future availability still uncertain, the Dodgers have reversed course and have made Vicente Padilla "a consideration," according to a source who has spoken with Kuroda's agent, Paul Kinzer.]]></description>
+<pubDate>Wed, 19 Aug 2009 09:52:24 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4409494&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4409494&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Terrell Owens will miss Buffalo Bills' next preseason game]]></title>
+<description><![CDATA[A sprained toe will prevent Terrell Owens from practicing until next week, meaning he'll miss Buffalo's preseason game at Green Bay on Saturday.]]></description>
+<pubDate>Wed, 19 Aug 2009 09:52:05 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4409455&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4409455&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Jayson Stark]]></dc:creator>
+<title><![CDATA[Sources: John Smoltz 'strongly leaning' toward signing with St. Louis Cardinals]]></title>
+<description><![CDATA[John Smoltz is "strongly leaning" toward signing with the Cardinals, two major league sources with direct knowledge of his negotiations told ESPN.com Tuesday night.]]></description>
+<pubDate>Wed, 19 Aug 2009 07:57:17 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4408342&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4408342&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Ryan Church calls comments by New York Mets manager Jerry Manuel a 'low blow']]></title>
+<description><![CDATA[Ryan Church made it clear: He didn't appreciate those recent comments by Mets manager Jerry Manuel.]]></description>
+<pubDate>Wed, 19 Aug 2009 07:40:01 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4408393&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4408393&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Motion filed to dismiss Ben Roethlisberger lawsuit]]></title>
+<description><![CDATA[A former Harrah's employee has filed a motion to dismiss a lawsuit that accuses Pittsburgh Steelers quarterback Ben Roethlisberger of raping another worker.]]></description>
+<pubDate>Wed, 19 Aug 2009 10:16:38 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4408073&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4408073&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Charges against Patrick Kane of Chicago Blackhawks expected from grand jury Wednesday, district attorney]]></title>
+<description><![CDATA[The district attorney in Buffalo says he expects a grand jury to announce charges Wednesday against Chicago Blackhawks star Patrick Kane, who is accused of beating up a cab driver over a fare.]]></description>
+<pubDate>Wed, 19 Aug 2009 06:18:13 PDT</pubDate>
+<guid>http://sports.espn.go.com/nhl/news/story?id=4408829&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nhl/news/story?id=4408829&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Gender test requested for 18-year-old runner]]></title>
+<description><![CDATA[The IAAF has asked the South African athletics federation to conduct a gender verification test on an 800-meter runner amid concerns she does not meet the requirements to compete as a woman.]]></description>
+<pubDate>Wed, 19 Aug 2009 10:08:04 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/news/story?id=4409318&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/news/story?id=4409318&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[David Jason Stinson pleads not guilty in Max Gilpin death]]></title>
+<description><![CDATA[A former Kentucky high school football coach has pleaded not guilty to a charge of wanton endangerment related to a practice where a player collapsed and later died.]]></description>
+<pubDate>Wed, 19 Aug 2009 09:06:57 PDT</pubDate>
+<guid>http://sports.espn.go.com/highschool/rise/football/news/story?id=4409347&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/highschool/rise/football/news/story?id=4409347&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Report: Brandon Marshall miffed again with Denver Broncos]]></title>
+<description><![CDATA[Brandon Marshall has one more reason to be miffed at the Denver Broncos.]]></description>
+<pubDate>Tue, 18 Aug 2009 20:11:17 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4408285&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4408285&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

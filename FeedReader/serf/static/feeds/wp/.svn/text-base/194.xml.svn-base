@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[North Korea: Two U.S. Journalists Pardoned]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=7a82ce174283b4040cbe3085aebd0775]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080400684.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080400684.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 4 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Detained reporters, Bill Clinton depart nation for L.A. hours after former president met in Pyongyang with reclusive dictator Kim Jong Il.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=7a82ce174283b4040cbe3085aebd0775&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=7a82ce174283b4040cbe3085aebd0775&p=1"/></a>
+]]></description>
+			<author><![CDATA[Glenn Kessler]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Health-Reform Ad Fight Heats Up]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=193c48262723f21ebd7fdb4152363e8d]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080401447.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080401447.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 4 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Groups on all sides of debate use $52M in ad buys to try and reach policymakers, opinion leaders.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=193c48262723f21ebd7fdb4152363e8d&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=193c48262723f21ebd7fdb4152363e8d&p=1"/></a>
+]]></description>
+			<author><![CDATA[Ben Pershing]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Va.'s Referendum on Obama]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=c559de1a8faa6c64504fa07af6be56d2]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080402787.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080402787.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 4 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Candidates for governor adjust strategies as some voters express regret for voting for the president.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=c559de1a8faa6c64504fa07af6be56d2&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=c559de1a8faa6c64504fa07af6be56d2&p=1"/></a>
+]]></description>
+			<author><![CDATA[Sandhya Somashekhar]]></author>
+		</item>
+		<item>
+			<title><![CDATA[U.S. Foreign Aid Group in Limbo]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=d917010a0f27c878df69de7467aeec1e]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080403373.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080403373.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 4 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Lacking a permanent director, USAID could lose clout under Obama administration, experts say.
+
+<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=d917010a0f27c878df69de7467aeec1e&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=d917010a0f27c878df69de7467aeec1e&p=1"/></a>
+]]></description>
+			<author><![CDATA[Mary Beth Sheridan]]></author>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Fri, 7 Aug 2009 13:22:29 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Florida Gators top USA Today coaches' preseason poll ]]></title>
+<description><![CDATA[Defending national champion Florida tops the USA Today preseason football coaches' poll, receiving 53 of 59 first-place votes.]]></description>
+<pubDate>Fri, 7 Aug 2009 12:09:56 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4382938&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4382938&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Cleveland Cavaliers' LeBron James unlikely to accept contract extension]]></title>
+<description><![CDATA[LeBron James is unlikely to accept a contract extension from the Cleveland Cavaliers until after the 2009-10 season, when he can become a free agent.]]></description>
+<pubDate>Fri, 7 Aug 2009 12:52:00 PDT</pubDate>
+<guid>http://sports.espn.go.com/nba/news/story?id=4383960&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nba/news/story?id=4383960&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Injured San Francisco 49ers receiver Brandon Jones to miss 2 months]]></title>
+<description><![CDATA[San Francisco 49ers receiver Brandon Jones is expected to miss two months because of a fracture in his right shoulder, coach Mike Singletary said Friday.]]></description>
+<pubDate>Fri, 7 Aug 2009 13:01:25 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4384230&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4384230&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Minnesota Twins get Carl Pavano from Cleveland Indians, demote R.A. Dickey]]></title>
+<description><![CDATA[The Minnesota Twins have acquired right-hander Carl Pavano from the Cleveland Indians in an attempt to shore up their rotation.]]></description>
+<pubDate>Fri, 7 Aug 2009 13:22:09 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4383523&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4383523&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Chad Ford]]></dc:creator>
+<title><![CDATA[Source: Ben Wallace, Detroit Pistons agree on one-year deal]]></title>
+<description><![CDATA[Free agent center Ben Wallace agreed to terms with the Pistons on Friday, according to a league source.]]></description>
+<pubDate>Fri, 7 Aug 2009 12:19:50 PDT</pubDate>
+<guid>http://sports.espn.go.com/nba/news/story?id=4383906&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nba/news/story?id=4383906&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Buster Olney]]></dc:creator>
+<title><![CDATA[Sources: Waiver claim made on Alex Rios of Toronto Blue Jays]]></title>
+<description><![CDATA[A waiver claim has been placed on Blue Jays right fielder Alex Rios, according to MLB sources.]]></description>
+<pubDate>Fri, 7 Aug 2009 13:22:14 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4384253&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4384253&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Dana O'Neil]]></dc:creator>
+<title><![CDATA[Dominique Ferguson makes verbal commitment to Florida International Golden Panthers]]></title>
+<description><![CDATA[In a decision sure to stun many in the basketball community, Dominique Ferguson, rated the No. 8 rising senior in the ESPN 100, gave a verbal commitment to Florida International on Friday.]]></description>
+<pubDate>Fri, 7 Aug 2009 12:47:07 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncb/news/story?id=4383839&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncb/news/story?id=4383839&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Bob Harig]]></dc:creator>
+<title><![CDATA[Tiger Woods faces his biggest Bridgestone Invitational deficit after 36 holes]]></title>
+<description><![CDATA[Tiger Woods will need to overcome his biggest 36-hole deficit at the WGC-Bridgestone Invitational if he is to win the tournament for the seventh time.]]></description>
+<pubDate>Fri, 7 Aug 2009 12:40:20 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/news/story?id=4384223&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/news/story?id=4384223&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[External]]></dc:creator>
+<title><![CDATA[Bradley names U.S. roster vs. Mexico]]></title>
+<description><![CDATA[ ]]></description>
+<pubDate>Fri, 7 Aug 2009 12:56:19 PDT</pubDate>
+<guid>http://soccernet.espn.go.com/news/story?id=665869&amp;sec=us&amp;cc=5901&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://soccernet.espn.go.com/news/story?id=665869&amp;sec=us&amp;cc=5901&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Jay Cutler rates Chicago Bears fans over Denver Broncos fans; Kyle Orton booed at practice]]></title>
+<description><![CDATA[Jay Cutler and Kyle Orton are both getting to understand the fans of their new teams are passionate about football -- but for very different reasons.]]></description>
+<pubDate>Fri, 7 Aug 2009 12:49:08 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4383316&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4383316&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Appalachian State Mountaineers' Armanti Edwards injures foot while mowing lawn]]></title>
+<description><![CDATA[Appalachian State starting quarterback Armanti Edwards will miss two to four weeks after injuring his right foot in a mowing accident, a school spokesman confirmed Friday.]]></description>
+<pubDate>Fri, 7 Aug 2009 08:30:11 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4383435&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4383435&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[NBA free agents: Miami Heat reportedly still interested in Allen Iverson's services]]></title>
+<description><![CDATA[The Miami Heat supposedly haven't cooled on the idea of adding Allen Iverson to next season's roster.]]></description>
+<pubDate>Fri, 7 Aug 2009 10:35:05 PDT</pubDate>
+<guid>http://sports.espn.go.com/nba/news/story?id=4383398&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nba/news/story?id=4383398&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Orlando Magic's Rashard Lewis suspended for failing drug test]]></title>
+<description><![CDATA[All-Star forward Rashard Lewis of the Orlando Magic has been suspended without pay for 10 games for testing positive for an elevated testosterone level, the league announced Thursday.]]></description>
+<pubDate>Fri, 7 Aug 2009 10:35:28 PDT</pubDate>
+<guid>http://sports.espn.go.com/nba/news/story?id=4381822&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nba/news/story?id=4381822&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Major League Baseball fines Prince Fielder, Guillermo Mota; no suspensions]]></title>
+<description><![CDATA[Prince Fielder and Guillermo Mota have been fined for their run-in this week.]]></description>
+<pubDate>Thu, 6 Aug 2009 21:06:50 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4381595&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4381595&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Chad Ford]]></dc:creator>
+<title><![CDATA[Atlanta Hawks reach five-year deal with Marvin Williams]]></title>
+<description><![CDATA[The Atlanta Hawks reached an agreement in principle with free agent forward Marvin Williams, a source close to the process told ESPN.com. ]]></description>
+<pubDate>Fri, 7 Aug 2009 13:14:11 PDT</pubDate>
+<guid>http://sports.espn.go.com/nba/news/story?id=4382788&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nba/news/story?id=4382788&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Sat, 01 Aug 2009 22:10:22 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Mass Trial for Protesters Begins in Iran</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f783344d8bd6391b9c8d93b077642d69</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/world/middleeast/02iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/world/middleeast/02iran.html</guid>
+			<description>The Iranian authorities opened an extraordinary mass trial against more than 100 reformist figures, accusing them of conspiring with foreign powers to stage a revolution.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f783344d8bd6391b9c8d93b077642d69&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f783344d8bd6391b9c8d93b077642d69&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT F. WORTH and NAZILA FATHI</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 20:51:48 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Demonstrations and Riots</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Elections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ahmadinejad, Mahmoud</category>
+		</item>
+		<item>
+			<title>Prolonged Aid to Unemployed Is Running Out</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c59e15dc581ef723b6fa2ebb3e638314</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/us/02unemploy.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/us/02unemploy.html</guid>
+			<description>Tens of thousands of workers have used up their benefits, and the numbers are expected to soar in the months to come.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c59e15dc581ef723b6fa2ebb3e638314&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c59e15dc581ef723b6fa2ebb3e638314&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ERIK ECKHOLM</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 21:40:22 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Unemployment Insurance</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Subprime Mortgage Crisis</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">House of Representatives</category>
+		</item>
+		<item>
+			<title>Cyberwar: U.S. Weighs Risks of Civilian Harm in Cyberwarfare</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e9dc93d511e6c09e4d39c1e107647fef</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/us/politics/02cyber.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/us/politics/02cyber.html</guid>
+			<description>Fears of collateral damage are shaping an effort to develop rules and tactics for carrying out attacks on computer networks.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e9dc93d511e6c09e4d39c1e107647fef&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e9dc93d511e6c09e4d39c1e107647fef&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOHN MARKOFF and THOM SHANKER</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 22:08:27 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Defense Department</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Hussein, Saddam</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Bush, George W</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+		</item>
+		<item>
+			<title>$100 Million Payday Poses Problem for Pay Czar</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=0fb6654704e9c1ec3ed2e02b57e21061</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/business/02bonus.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/business/02bonus.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/02/business/bonus_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Andrew Hall</media:description>
+			<media:credit>Nicholas Richer/Patrick McMullan</media:credit>
+			<description>The Treasury Department&#x2019;s executive pay czar will have to answer a $100 million question: Should Andrew J. Hall get his bonus?&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=0fb6654704e9c1ec3ed2e02b57e21061&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=0fb6654704e9c1ec3ed2e02b57e21061&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID SEGAL</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 21:14:38 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Executive Compensation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bonuses</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Hall, Andrew</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Oil (Petroleum) and Gasoline</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Prices (Fares, Fees and Rates)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Subprime Mortgage Crisis</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Emergency Economic Stabilization Act (2008)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Treasury Department</category>
+		</item>
+		<item>
+			<title>Cultured Traveler: Concrete Dreams: France&#x2019;s Housing Utopias</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1af14505f120803e65ceafad4ba5b461</link>
+			<pheedo:origLink>http://travel.nytimes.com/2009/08/02/travel/02cultured.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://travel.nytimes.com/2009/08/02/travel/02cultured.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/02/travel/02utopia_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A guided tour pauses in the top-floor former primary school of the Unit&#xE9; d&#x2019;Habitation in Firminy-Vert designed by Le Corbusier.</media:description>
+			<media:credit>Philippe Schuller for The New York Times</media:credit>
+			<description>A new tour in Lyon spotlights four avant-garde housing projects built in the 1920s and early &#x2019;30s that were once considered utopian models.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1af14505f120803e65ceafad4ba5b461&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1af14505f120803e65ceafad4ba5b461&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SALLY McGRANE</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 04:22:16 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Travel and Vacations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Lyon (France)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Architecture</category>
+		</item>
+		<item>
+			<title>Suicide's Rising Toll: After Combat, Victims of an Inner War</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b836dbfabbcfeec3856f21d9ff7d7188</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/us/02suicide.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/us/02suicide.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/02/us/01suicide_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Sgt. Jacob Blaylock, seated left, one of four in his Guard unit to commit suicide, at the grave of Sgt. Brandon Wallace.</media:description>
+			<media:credit>Clinton Gill</media:credit>
+			<description>The rising toll of suicides in the military has hit a National Guard unit particularly hard: four soldiers, out of roughly 175 members, have committed suicide.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b836dbfabbcfeec3856f21d9ff7d7188&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b836dbfabbcfeec3856f21d9ff7d7188&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ERICA GOODE</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 22:00:45 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Suicides and Suicide Attempts</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Mental Health and Disorders</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Veterans</category>
+		</item>
+		<item>
+			<title>After Scare, Tempers Flare at La Guardia</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d2fe1518b71bb9f683ea89d91bbe9cdf</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/nyregion/02laguardia.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/nyregion/02laguardia.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/01/nyregion/01airport_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Travelers gathered outside La Guardia Airport during an evacuation on Saturday morning.</media:description>
+			<media:credit>Ron Beard/Associated Press</media:credit>
+			<description>Even after terminals had reopened at La Guardia Airport, scores of flights were delayed and tempers were flaring.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d2fe1518b71bb9f683ea89d91bbe9cdf&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d2fe1518b71bb9f683ea89d91bbe9cdf&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By AL BAKER and LIZ ROBBINS</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 22:08:09 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">La Guardia Airport (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Delays (Transportation)</category>
+		</item>
+		<item>
+			<title>TV Contestants: Tired, Tipsy and Pushed to Brink</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=94c7bc01bc7983b6d3afe5a687f80f9c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/business/media/02reality.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/business/media/02reality.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/02/business/03reality_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Gordon Ramsay judges the work of Julia Williams, left; Bonnie Muirhead, center; and Jen Yemola.</media:description>
+			<media:credit>Greg Gayne/Fox</media:credit>
+			<description>Grueling conditions are largely the rule for reality shows like &#x201C;Project Runway&#x201D; and &#x201C;Hell&#x2019;s Kitchen.&#x201D;&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=94c7bc01bc7983b6d3afe5a687f80f9c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=94c7bc01bc7983b6d3afe5a687f80f9c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By EDWARD WYATT</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 19:34:28 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reality Television</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Television</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Cooking and Cookbooks</category>
+		</item>
+		<item>
+			<title>Iran Says It Arrested 3 American Hikers</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=542bd4a730b39dc9aae2910bd764aeb1</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/world/middleeast/02iraq.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/world/middleeast/02iraq.html</guid>
+			<description>The Iranian authorities arrested three Americans after they crossed the Iraqi Kurdistan region&#x2019;s border.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=542bd4a730b39dc9aae2910bd764aeb1&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=542bd4a730b39dc9aae2910bd764aeb1&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM DAGHER</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 21:06:49 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Travel and Vacations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Kurds</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Hiking</category>
+		</item>
+		<item>
+			<title>Phelps Grabs Record in 100 Butterfly</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=335f5cabbfe746c9c24f5eee69d411e9</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/sports/02swim.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/sports/02swim.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/01/sports/01phelps_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Michael Phelps won the men's 100 meter butterfly final in the world championships in Rome, breaking the record.</media:description>
+			<media:credit>Clive Rose/Getty Images</media:credit>
+			<description>Despite some challenges at the world championships in Rome, Michael Phelps said the competition helped push him to his fourth gold medal.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=335f5cabbfe746c9c24f5eee69d411e9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=335f5cabbfe746c9c24f5eee69d411e9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By KAREN CROUSE</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 21:41:34 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Phelps, Michael</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Swimming</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Rome (Italy)</category>
+		</item>
+		<item>
+			<title>Karzai Courts Afghan Shiites</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=685982977befe98e08b13c716f6f5a91</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/world/asia/02afghan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/world/asia/02afghan.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/02/world/02karzai_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>President Hamid Karzai, linking arms with Sayed Mansoor Nadiri, the spiritual leader of the Ismailis, a sect of minority Shiites, held a rally Saturday in Dar-e-Kayan, Afghanistan.</media:description>
+			<media:credit>Tyler Hicks/The New York Times</media:credit>
+			<description>President Hamid Karzai flew into Afghanistan&#x2019;s central highlands to seek votes from the Ismaili community on his second rally outside Kabul ahead of elections.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=685982977befe98e08b13c716f6f5a91&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=685982977befe98e08b13c716f6f5a91&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ABDUL WAHEED WAFA</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 21:32:50 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Karzai, Hamid</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Elections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Shiite Muslims</category>
+		</item>
+	</channel>
+</rss>

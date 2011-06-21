@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Thu, 30 Jul 2009 09:20:27 GMT</pubDate>
+    <lastBuildDate>Thu, 30 Jul 2009 10:28:54 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>Microsoft and Yahoo seal deal</title>
+      <link>http://traxfer.ft.com/cms/s/0/9487c65e-7c6c-11de-a7bf-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Yahoo ran into a fresh wave of doubts in the financial and technology worlds as it bowed out of the race to compete with Google</description>
+      <pubDate>Wed, 29 Jul 2009 20:56:33 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/9487c65e-7c6c-11de-a7bf-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>NYSE Euronext swings to loss</title>
+      <link>http://traxfer.ft.com/cms/s/0/95a68588-7ce5-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The transatlantic exchange swung into a second quarter loss after absorbing a whopping $355m one-time charge, but seen ‘accretive’ by year-end</description>
+      <pubDate>Thu, 30 Jul 2009 09:20:27 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/95a68588-7ce5-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>US regulator criticises Obama bank plan</title>
+      <link>http://traxfer.ft.com/cms/s/0/55fb2b66-7c66-11de-a7bf-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The Obama administration’s plan to give US states more power to protect consumers from unfair banking practices would make it more difficult and costly for large lenders to operate across the country, a financial regulator has warned</description>
+      <pubDate>Wed, 29 Jul 2009 22:30:30 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/55fb2b66-7c66-11de-a7bf-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Trustee sues Madoff’s wife for $45m</title>
+      <link>http://traxfer.ft.com/cms/s/0/cf05f588-7c82-11de-a7bf-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Ruth Madoff was sued for $44.8m on Wednesday and accused of living a “life of splendour” by the trustee seeking to recover money for the victims of her husband, the disgraced former broker Bernard Madoff</description>
+      <pubDate>Wed, 29 Jul 2009 22:30:05 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/cf05f588-7c82-11de-a7bf-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Voser warns of further job losses at Shell</title>
+      <link>http://traxfer.ft.com/cms/s/0/57bc4de2-7cdc-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Peter Voser, the new chief executive of Shell warned ‘substantial’ job cuts were likely as the oil group seeks to reduce capital spending and save costs to cope with falling energy prices</description>
+      <pubDate>Thu, 30 Jul 2009 08:45:32 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/57bc4de2-7cdc-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Fed sees signs of economic improvement</title>
+      <link>http://traxfer.ft.com/cms/s/0/03083d64-7c7e-11de-a7bf-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The pace of economic decline has moderated or stabilised in most parts of the US, the Federal Reserve said, with manufacturing, residential property and even employment showing some signs of improvement</description>
+      <pubDate>Wed, 29 Jul 2009 20:42:19 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/03083d64-7c7e-11de-a7bf-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Visa boosted by increased reliance on cards</title>
+      <link>http://traxfer.ft.com/cms/s/0/36d3d858-7c90-11de-a7bf-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Visa, the world’s largest electronic payments network, reported higher fiscal third-quarter profit as consumers increasingly turned to credit, debit and charge cards to pay for goods and services</description>
+      <pubDate>Wed, 29 Jul 2009 23:00:20 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/36d3d858-7c90-11de-a7bf-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Russia signs oil contracts with Cuba</title>
+      <link>http://traxfer.ft.com/cms/s/0/ea362a36-7ce0-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Russia and Cuba have signed contracts that ‘set the bases’ for Russian oil company Zarubezhneft to search for oil in Cuba’s part of the Gulf of Mexico, Cuba’s state-run press said</description>
+      <pubDate>Thu, 30 Jul 2009 08:32:18 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/ea362a36-7ce0-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Chinese bubble fears as funds flow into IPOs</title>
+      <link>http://traxfer.ft.com/cms/s/0/26b99f12-7c6c-11de-a7bf-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>China investors snapped up two newly listed mainland construction groups after reports that China’s central bank might rein in bank lending</description>
+      <pubDate>Wed, 29 Jul 2009 18:36:05 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/26b99f12-7c6c-11de-a7bf-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Illuminating outline</title>
+      <link>http://traxfer.ft.com/cms/s/0/486b1160-7c83-11de-a7bf-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The Nordic model: Economies that are open to the world and offer greater worker involvement are attracting attention – but benefits are hard to replicate elsewhere</description>
+      <pubDate>Wed, 29 Jul 2009 21:55:59 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/486b1160-7c83-11de-a7bf-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

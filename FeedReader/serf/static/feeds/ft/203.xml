@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Wed, 05 Aug 2009 00:14:34 GMT</pubDate>
+    <lastBuildDate>Wed, 05 Aug 2009 11:26:15 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>GE settles claims of fraud in accounts</title>
+      <link>http://traxfer.ft.com/cms/s/0/97a92022-8107-11de-92e7-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>General Electric agreed to pay $50m to settle civil accounting fraud charges by US regulators, calling into question the conglomerate’s legendary ability to deliver consistent earnings growth</description>
+      <pubDate>Tue, 04 Aug 2009 23:34:11 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/97a92022-8107-11de-92e7-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>SEC set to target flash trading</title>
+      <link>http://traxfer.ft.com/cms/s/0/35d54d32-812d-11de-92e7-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The Securities and Exchange Commission is preparing to clamp down on lightning-fast ‘flash’ trades, which are made at lightning speeds  on electronic trading systems amid growing concerns that ontroversy over the practice puts some investors at a disadvantage</description>
+      <pubDate>Tue, 04 Aug 2009 19:43:13 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/35d54d32-812d-11de-92e7-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Clinton and freed journalists leave N Korea</title>
+      <link>http://traxfer.ft.com/cms/s/0/dc373424-80b0-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Bill Clinton, the former US president, left North Korea with two American journalists newly released by North Korean leader Kim Jong-il after he granted the pair a ”special pardon”</description>
+      <pubDate>Wed, 05 Aug 2009 00:14:34 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/dc373424-80b0-11de-bf04-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Online retailers point to new phase for Facebook</title>
+      <link>http://traxfer.ft.com/cms/s/0/c7a8825a-8129-11de-92e7-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>A new wave of sophisticated e-commerce applications is appearing on Facebook, a sign that the world’s largest social network could rapidly emerge as a big destination for online shopping</description>
+      <pubDate>Tue, 04 Aug 2009 22:00:53 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/c7a8825a-8129-11de-92e7-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>China’s growth figures fail to add up</title>
+      <link>http://traxfer.ft.com/cms/s/0/0ec404fc-8120-11de-92e7-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The latest set of first-half GDP numbers from provincial authorities are far higher than Beijing’s national figure, raising questions on the accuracy of statistics</description>
+      <pubDate>Tue, 04 Aug 2009 18:20:49 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/0ec404fc-8120-11de-92e7-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Senate rethinks ‘cash for clunkers’ stance</title>
+      <link>http://traxfer.ft.com/cms/s/0/84f3f2b0-8141-11de-92e7-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The US Senate looks likely to push through a $2bn extension of the “cash for clunkers” car subsidy programme before it breaks up for its August recess following intense lobbying from the White House</description>
+      <pubDate>Tue, 04 Aug 2009 22:02:48 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/84f3f2b0-8141-11de-92e7-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>UBS close to hiring McCann</title>
+      <link>http://traxfer.ft.com/cms/s/0/b8c2e9c6-8136-11de-92e7-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>UBS is close to hiring former Merrill Lynch executive Bob McCann as the Swiss bank tries to draw a line under the damaging tax evasion dispute with the US that has prompted clients to pull billions of dollars out of its private banking business</description>
+      <pubDate>Tue, 04 Aug 2009 23:22:26 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/b8c2e9c6-8136-11de-92e7-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Budget-conscious consumers boost Kraft</title>
+      <link>http://traxfer.ft.com/cms/s/0/22afd692-814a-11de-92e7-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>US shoppers are still opting for Kraft’s low-cost macaroni and cheese dinners to save money, but recent results from several US consumer companies suggest that the “trading down” trend that emerged with last year’s economic crisis might be starting to level off</description>
+      <pubDate>Tue, 04 Aug 2009 23:13:35 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/22afd692-814a-11de-92e7-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>US prime borrowers fall behind on payments</title>
+      <link>http://traxfer.ft.com/cms/s/0/bd76dbca-8128-11de-92e7-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The number of US prime borrowers behind on home loan payments has risen sharply, signalling further problems for banks and investors</description>
+      <pubDate>Tue, 04 Aug 2009 21:30:15 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/bd76dbca-8128-11de-92e7-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>US threat to banks based in havens</title>
+      <link>http://traxfer.ft.com/cms/s/0/f7b4cdec-811e-11de-92e7-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>International financial services groups should be ex­cluded from the US market if they are based in countries that are havens from regulation</description>
+      <pubDate>Tue, 04 Aug 2009 22:26:55 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/f7b4cdec-811e-11de-92e7-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

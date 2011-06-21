@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Wed, 12 Aug 2009 14:19:29 GMT</pubDate>
+    <lastBuildDate>Wed, 12 Aug 2009 14:29:21 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>UBS and US strike tax evasion deal</title>
+      <link>http://traxfer.ft.com/cms/s/0/513bcb70-8748-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Lawyers for UBS and the US government said they had reached a deal to settle the long and bitter battle over access to US client names</description>
+      <pubDate>Wed, 12 Aug 2009 14:18:03 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/513bcb70-8748-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>DiPascali: Madoff business ‘all fake’</title>
+      <link>http://traxfer.ft.com/cms/s/0/9cec8c9c-868c-11de-9e8e-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Frank DiPascali, a key lieutenant to Bernard Madoff, pleaded guilty to criminal charges arising from his role in the $65bn Ponzi scheme orchestrated by his long-time boss</description>
+      <pubDate>Tue, 11 Aug 2009 23:34:45 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/9cec8c9c-868c-11de-9e8e-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>King damps expectations of early rate rise</title>
+      <link>http://traxfer.ft.com/cms/s/0/b2ae5862-8722-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Inflation would fall below its 2 per cent target in two years’ time, if interest rates rose in line with market expectations, the Bank of England warned</description>
+      <pubDate>Wed, 12 Aug 2009 10:29:15 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/b2ae5862-8722-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Fed under spotlight on interest rates</title>
+      <link>http://traxfer.ft.com/cms/s/0/cd4a50a2-86a2-11de-9e8e-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>US Federal Reserve policymakers end a two-day meeting on Wednesday with a statement that could provide a hint of a sigabout the timing of interest rate rises, but no more.</description>
+      <pubDate>Tue, 11 Aug 2009 18:22:08 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/cd4a50a2-86a2-11de-9e8e-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Wall Street rises ahead of Fed</title>
+      <link>http://traxfer.ft.com/cms/s/0/6ede43ea-86b4-11de-9e8e-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>US stocks bounced, with buyers being tempted back into the market following two days of selling</description>
+      <pubDate>Wed, 12 Aug 2009 14:19:29 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/6ede43ea-86b4-11de-9e8e-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Subdued recovery in global oil demand</title>
+      <link>http://traxfer.ft.com/cms/s/0/78c305fc-8728-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The US summer driving season “seems to have fizzled out before getting started” the International Energy Agency said, striking a cautious tone on prospects for a recovery in global energy demand next year</description>
+      <pubDate>Wed, 12 Aug 2009 10:58:31 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/78c305fc-8728-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Microsoft and Nokia target corporate market</title>
+      <link>http://traxfer.ft.com/cms/s/0/251bb9f0-8726-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Microsoft and Nokia are to announce an alliance aimed at challenging the Blackberry in the corporate mobile market</description>
+      <pubDate>Wed, 12 Aug 2009 11:10:07 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/251bb9f0-8726-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>China officially arrests Rio employees</title>
+      <link>http://traxfer.ft.com/cms/s/0/6ecc05e6-86db-11de-9e8e-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Chinese prosecutors have formally arrested four employees of mining giant Rio Tinto on suspicion of violating commercial secrets and bribery, the official Xinhua news agency reported</description>
+      <pubDate>Wed, 12 Aug 2009 05:41:52 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/6ecc05e6-86db-11de-9e8e-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Medvedev attacks Ukraine leadership</title>
+      <link>http://traxfer.ft.com/cms/s/0/533af6fe-866b-11de-9e8e-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Russia’s president waded into neighbouring Ukraine’s presidential election campaign, attacking the incumbent as ‘anti-Russian’ and urging the next leader to co-operate with Moscow</description>
+      <pubDate>Tue, 11 Aug 2009 18:30:10 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/533af6fe-866b-11de-9e8e-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

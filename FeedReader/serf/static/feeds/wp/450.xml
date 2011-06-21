@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[Bomber Targets Military Compound in Kabul]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=e5ad9fd1d82948d551c9d4f89450ec3b]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500572.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500572.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 15 11:10 EDT 2009]]></pubDate>
+			<description><![CDATA[At least seven killed, scores wounded in massive explosion outside U.S., NATO headquarters; attack comes days before Afghanistan's presidential vote. 
+
+<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=e5ad9fd1d82948d551c9d4f89450ec3b&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=e5ad9fd1d82948d551c9d4f89450ec3b&p=1"/></a>
+]]></description>
+			<author><![CDATA[Joshua Partlow]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Burma to Release U.S. Prisoner]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=5c14e6b142ce4d41bb49368b6a34a50f]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500612.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500612.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 15 13:38 EDT 2009]]></pubDate>
+			<description><![CDATA[Va. senator says American jailed for visiting Burmese democracy leader will be freed Sunday.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=5c14e6b142ce4d41bb49368b6a34a50f&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=5c14e6b142ce4d41bb49368b6a34a50f&p=1"/></a>
+]]></description>
+			<author><![CDATA[Tim Johnston]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Obama Recalibrates Strategy]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=49c39a5bd1da8a328a6d9b788922336a]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081501289.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081501289.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 15 11:23 EDT 2009]]></pubDate>
+			<description><![CDATA[<span class="kicker1">THE TAKE</span> | Obama turning to tactics similar to ones that proved successful during presidential run. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=49c39a5bd1da8a328a6d9b788922336a&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=49c39a5bd1da8a328a6d9b788922336a&p=1"/></a>
+]]></description>
+			<author><![CDATA[Dan Balz]]></author>
+		</item>
+		<item>
+			<title><![CDATA[New Rules in Credit Card Game]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=d109aef3e947c6269c2c721fcbacdd0c]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500043.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500043.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 15 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[<span class="kicker1">COLUMN</span> | Regulations aimed at curbing industry's worst practices will go into effect this month.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=d109aef3e947c6269c2c721fcbacdd0c&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=d109aef3e947c6269c2c721fcbacdd0c&p=1"/></a>
+]]></description>
+			<author><![CDATA[Michelle Singletary]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Testing Limits of Free Speech]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=9f27d9833eaaf4b006acdbdab0b9f57d]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500869.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500869.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 15 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Federal case against blogger exemplifies fine line between fiery political speech and criminality.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=9f27d9833eaaf4b006acdbdab0b9f57d&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=9f27d9833eaaf4b006acdbdab0b9f57d&p=1"/></a>
+]]></description>
+			<author><![CDATA[Peter Slevin]]></author>
+		</item>
+	</channel>
+</rss>

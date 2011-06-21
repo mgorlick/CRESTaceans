@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[An Extraordinary Election]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=cb484373f251a95ea25408031a7b5494]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/07/31/AR2009073101582.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/07/31/AR2009073101582.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 1 10:57 EDT 2009]]></pubDate>
+			<description><![CDATA[Obama's secret formula for presidential victory relied heavily on public mood and personal appeal.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=cb484373f251a95ea25408031a7b5494&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=cb484373f251a95ea25408031a7b5494&p=1"/></a>
+]]></description>
+			<author><![CDATA[Dan Balz and Haynes Johnson]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Death Spreads in Eastern Congo]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=13633083b5078e5bc21c692e2de9f2fa]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/01/AR2009080101140.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/01/AR2009080101140.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 1 14:50 EDT 2009]]></pubDate>
+			<description><![CDATA[As half a million Congolese once again flee into the jungle, disease and hunger take enormous toll. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=13633083b5078e5bc21c692e2de9f2fa&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=13633083b5078e5bc21c692e2de9f2fa&p=1"/></a>
+]]></description>
+			<author><![CDATA[Stephanie McCrummen]]></author>
+		</item>
+		<item>
+			<title><![CDATA[100 Iranians Tried for Disputing Election  ]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=dcb1c410204bb7b689131b1a637235c3]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/01/AR2009080100432.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/01/AR2009080100432.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 1 16:56 EDT 2009]]></pubDate>
+			<description><![CDATA[Defendants, who include prominent politicians and activists, are accused of rioting and conspiring to topple ruling regime with support from U.S. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=dcb1c410204bb7b689131b1a637235c3&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=dcb1c410204bb7b689131b1a637235c3&p=1"/></a>
+]]></description>
+			<author><![CDATA[Thomas Erdbrink   ]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Pelosi Stumps for Reform Plan]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=ac069d9a08a364e9cf3181150f615261]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/01/AR2009080101838.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/01/AR2009080101838.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 1 18:07 EDT 2009]]></pubDate>
+			<description><![CDATA[Speaker heads home to convince everyday Americans of health-care legislation's benefits.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=ac069d9a08a364e9cf3181150f615261&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=ac069d9a08a364e9cf3181150f615261&p=1"/></a>
+]]></description>
+			<author><![CDATA[Philip Rucker]]></author>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Tue, 11 Aug 2009 18:21:13 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>As Health-Care Debate Rages, Obama Takes to the Stump</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=90f048c0d122073257b5fe0c32dd107a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/12/health/policy/12health.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/12/health/policy/12health.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/11/us/11obama-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>President Obama during a town hall meeting on health care reform in Portsmouth, N.H., on Tuesday.</media:description>
+			<media:credit>Doug Mills/The New York Times</media:credit>
+			<description>President Obama flew to New Hampshire Tuesday to promote an overhaul of health care, as one of the fiercest policy debates in decades heated up.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=90f048c0d122073257b5fe0c32dd107a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=90f048c0d122073257b5fe0c32dd107a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JIM RUTENBERG and JACKIE CALMES</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 18:05:33 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+		</item>
+		<item>
+			<title>Pro-Democracy Leader in Myanmar Is Convicted</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=897e99fbc7e7f3109247fb6ef7c169b4</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/12/world/asia/12myanmar.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/12/world/asia/12myanmar.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/11/world/11myanmar-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Police officers near the Insein prison in Yangon where Daw Aung San Suu Kyi was sentenced Tuesday.</media:description>
+			<media:credit>Associated Press</media:credit>
+			<description>Daw Aung San Suu Kyi was sentenced to three years of hard labor, but her sentence was commuted to a new term of house arrest.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=897e99fbc7e7f3109247fb6ef7c169b4&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=897e99fbc7e7f3109247fb6ef7c169b4&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SETH MYDANS</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 16:49:16 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Aung San Suu Kyi, Daw</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Political Prisoners</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Myanmar</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Decisions and Verdicts</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Yettaw, John</category>
+		</item>
+		<item>
+			<title>On Washington: A Clunker of a Program?</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3f2c4bf38f66495ed4a14d4e90217272</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/12/us/politics/12sanger.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/12/us/politics/12sanger.html</guid>
+			<description>The car rebate plan is trying to balance two very different objectives: saving Detroit and changing the habits of consumers.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3f2c4bf38f66495ed4a14d4e90217272&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3f2c4bf38f66495ed4a14d4e90217272&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID SANGER</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 16:06:01 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Fuel Efficiency</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Environment</category>
+		</item>
+		<item>
+			<title>Thai Ruling on Suspected Arms Dealer Shocks U.S.</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=bf64e2ff8236b822399e8a6db00d00a0</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/12/world/asia/12bangkok.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/12/world/asia/12bangkok.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/11/world/11bangkok.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Viktor Bout was escorted from a courthouse in Bangkok on Tuesday after a judge refused a request that he be extradited to face arms trafficking charges in the United States.</media:description>
+			<media:credit>Chaiwat Subprasom/Reuters</media:credit>
+			<description>A Thai judge rejected a request that Viktor Bout be sent to the U.S. to face charges of global arms trafficking.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=bf64e2ff8236b822399e8a6db00d00a0&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=bf64e2ff8236b822399e8a6db00d00a0&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THOMAS FULLER</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 17:36:22 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Bout, Victor</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Thailand</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Arms Sales Abroad</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Extradition</category>
+		</item>
+		<item>
+			<title>G.E. Resumes Hudson Dredging, With Limits by E.P.A.</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fc1b7fcd2289fde0fd349a60c3ce6e79</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/12/science/earth/12dredge.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/12/science/earth/12dredge.html</guid>
+			<description>The agency, which had halted the cleanup on the Hudson River, said operations could restart in stages.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fc1b7fcd2289fde0fd349a60c3ce6e79&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fc1b7fcd2289fde0fd349a60c3ce6e79&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MIREYA NAVARRO</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 17:44:33 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Hudson River</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">General Electric Co|GE|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Environmental Protection Agency</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Rivers</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Water Pollution</category>
+		</item>
+		<item>
+			<title>Scores Are Feared Dead in Taiwan After Typhoon</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1943d9d3a15dc354b54d7d4c7c100286</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/12/world/asia/12china.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/12/world/asia/12china.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/world/asia/75-china3.jpg" medium="image" height="75" width="75"/>
+			<media:description>The streets of Cangnan, in China's Zhejiang province, remained flooded on Tuesday.</media:description>
+			<media:credit>Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>Two Pacific typhoons left a village in Taiwan and seven apartment buildings in coastal China buried in rubble.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1943d9d3a15dc354b54d7d4c7c100286&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1943d9d3a15dc354b54d7d4c7c100286&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL WINES</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 16:53:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Typhoon Morakot (2009)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Taiwan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Disasters and Emergencies</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Landslides and Mudslides</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Typhoons</category>
+		</item>
+		<item>
+			<title>Eunice Kennedy Shriver, Founder of Special Olympics, Dies</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=94447bcdeeef148fa727b44fc83b70ee</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/12/us/12shriver.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/12/us/12shriver.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/11/obituaries/11shriver4-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Eunice Kennedy Shriver watched as participants in the Special Olympics paraded at Soldier Field in Chicago in 1973.</media:description>
+			<media:credit>Fred Jewell/Associated Press</media:credit>
+			<description>Mrs. Shriver, 88, was a sister of President John F. Kennedy and a trailblazer in the effort to improve the lives of people with intellectual disabilities.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=94447bcdeeef148fa727b44fc83b70ee&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=94447bcdeeef148fa727b44fc83b70ee&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CARLA BARANAUCKAS</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 17:27:30 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Shriver, Eunice Kennedy</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Special Olympics</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Deaths (Obituaries)</category>
+		</item>
+		<item>
+			<title>Report Finds Corruption at Waterfront Watchdog</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b7dc6784eca2d6adf2448864d779a104</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/12/nyregion/12waterfront.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/12/nyregion/12waterfront.html</guid>
+			<description>New York&#x2019;s Waterfront Commission, created to break the mob&#x2019;s grip, is riddled with corruption, the report said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b7dc6784eca2d6adf2448864d779a104&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b7dc6784eca2d6adf2448864d779a104&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By RALPH BLUMENTHAL</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 17:09:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Waterfront Commission</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Organized Crime</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York Harbor</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Racketeering and Racketeers</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Suspensions, Dismissals and Resignations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Crime and Criminals</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Police Department (NYC)</category>
+		</item>
+		<item>
+			<title>Guilty Plea Is Expected From Madoff Aide</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=68dada54703274ad3d8da62110b29cd8</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/12/business/12madoff.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/12/business/12madoff.html</guid>
+			<description>Frank DiPascali has been described as a crucial figure in the $65 billion Ponzi scheme run by Bernard Madoff.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=68dada54703274ad3d8da62110b29cd8&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=68dada54703274ad3d8da62110b29cd8&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 18:12:27 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Madoff, Bernard L</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Frauds and Swindling</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Madoff, Bernard L, Investment Securities</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Ponzi Schemes</category>
+		</item>
+		<item>
+			<title>G.M. Says Volt Will Get Triple-Digit City Mileage</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=cf4e4b14876aa2f20c3ef062daa5e51d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/12/business/12auto.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/12/business/12auto.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/11/business/volt75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Fritz Henderson, chief executive of General Motors, announces that the Volt, the company's electric car scheduled to be released in 2011, will get at least 230 miles per gallon.</media:description>
+			<media:credit>Fabrizio Costantini for The New York Times</media:credit>
+			<description>In the city, most drivers will rely on the rechargeable battery and should get at least 230 miles per gallon, G.M. said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=cf4e4b14876aa2f20c3ef062daa5e51d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=cf4e4b14876aa2f20c3ef062daa5e51d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By BILL VLASIC and NICK BUNKLEY</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 17:21:37 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">General Motors</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Electric Vehicles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Fuel Efficiency</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Environment</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Henderson, Frederick A</category>
+		</item>
+		<item>
+			<title>Economix: State-by-State Drug Use</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e7985450687efef26c733b4c84710d2e</link>
+			<pheedo:origLink>http://economix.blogs.nytimes.com/2009/08/11/drug-use-across-the-united-states-or-rhode-island-needs-more-rehab/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://economix.blogs.nytimes.com/2009/08/11/drug-use-across-the-united-states-or-rhode-island-needs-more-rehab/index.html</guid>
+			<description>Numbers from a recent government report about what percent of residents of each American state use marijuana, cocaine, alcohol and other drugs.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e7985450687efef26c733b4c84710d2e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e7985450687efef26c733b4c84710d2e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CATHERINE RAMPELL</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 18:19:23 GMT</pubDate>
+		</item>
+		<item>
+			<title>Motherlode: Trouble With Potty Training</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=8bc79b5e2e2734fe689f9e27c3d860ee</link>
+			<pheedo:origLink>http://parenting.blogs.nytimes.com/2009/08/11/getting-a-child-to-use-the-potty-again/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://parenting.blogs.nytimes.com/2009/08/11/getting-a-child-to-use-the-potty-again/index.html</guid>
+			<description>A mother seeks advice for handling a toddler who no longer wants to use the potty.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=8bc79b5e2e2734fe689f9e27c3d860ee&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=8bc79b5e2e2734fe689f9e27c3d860ee&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LISA BELKIN</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 17:53:14 GMT</pubDate>
+		</item>
+		<item>
+			<title>You're the Boss: How to S.A.V.E. Customer Service</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=63ccedd1adbc36866a46086f2ba33447</link>
+			<pheedo:origLink>http://boss.blogs.nytimes.com/2009/08/11/how-to-save-customer-service/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://boss.blogs.nytimes.com/2009/08/11/how-to-save-customer-service/index.html</guid>
+			<description>It may be tempting to think that customer service in America is irrevocably broken, but I think there's cause for optimism. Here's my plan.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=63ccedd1adbc36866a46086f2ba33447&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=63ccedd1adbc36866a46086f2ba33447&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JAY GOLTZ</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 18:18:27 GMT</pubDate>
+		</item>
+	</channel>
+</rss>

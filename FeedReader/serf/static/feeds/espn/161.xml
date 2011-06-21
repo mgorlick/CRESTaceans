@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Mon, 3 Aug 2009 10:22:58 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[Chris Low]]></dc:creator>
+<title><![CDATA[Florida Gators make Urban Meyer highest paid in SEC with 6-year, $24 million deal]]></title>
+<description><![CDATA[Urban Meyer, who has taken the Florida Gators to rarified heights with two national championships in four seasons, will see his salary climb to equally exclusive company.]]></description>
+<pubDate>Mon, 3 Aug 2009 10:22:49 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4374311&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4374311&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Sal Paolantonio]]></dc:creator>
+<title><![CDATA[Source: New York Giants' Antonio Pierce "optimistic" he will not be indicted]]></title>
+<description><![CDATA[The Giants' Antonio Pierce is "cautiously optimistic" that a Manhattan grand jury will vote Monday to clear him of felony gun possession charges, according to a source close to Pierce, who the team says will not talk about the case until it is resolved.]]></description>
+<pubDate>Mon, 3 Aug 2009 09:36:46 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4372820&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4372820&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Report: Boston Red Sox fired 2 staffers in steroid probe]]></title>
+<description><![CDATA[A Boston newspaper is reporting the Red Sox fired two security staffers last summer after an investigation into steroid use.]]></description>
+<pubDate>Sun, 2 Aug 2009 16:56:28 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4372389&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4372389&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Buick Open: Tiger Woods earns 69th career Tour win]]></title>
+<description><![CDATA[Tiger Woods shot a 69 Sunday and coasted to a three-shot victory with a 20-under 268 at the Buick Open for the 69th PGA Tour title of his career.]]></description>
+<pubDate>Mon, 3 Aug 2009 08:51:04 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/news/story?id=4372855&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/news/story?id=4372855&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[James Walker]]></dc:creator>
+<title><![CDATA[Carson Palmer, of Cincinnati Bengals, returns to practice]]></title>
+<description><![CDATA[After a two-day hiatus, Cincinnati Bengals starting quarterback Carson Palmer rejoined his team at training camp and participated in Cincinnati's Monday morning practice. ]]></description>
+<pubDate>Mon, 3 Aug 2009 08:45:52 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4373589&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4373589&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Pedro Martinez of Philadelphia Phillies works on stretch delivery in bullpen session]]></title>
+<description><![CDATA[Pedro Martinez threw 53 pitches in a bullpen session Sunday in an effort to smooth out some delivery issues from the stretch. ]]></description>
+<pubDate>Mon, 3 Aug 2009 07:22:16 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4373498&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4373498&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[External]]></dc:creator>
+<title><![CDATA[Fedor signs multifight MMA deal with Strikeforce]]></title>
+<description><![CDATA[ ]]></description>
+<pubDate>Mon, 3 Aug 2009 10:12:21 PDT</pubDate>
+<guid>http://www.sherdog.com/news/news/fedor-signs-with-strikeforce-18883?campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://www.sherdog.com/news/news/fedor-signs-with-strikeforce-18883?campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Ferrari's Felipe Massa leaves hospital in Hungary, headed home to Brazil]]></title>
+<description><![CDATA[Ferrari driver Felipe Massa is on his way home to Brazil, nine days after a life-threatening crash during qualifying at the Hungarian Grand Prix.]]></description>
+<pubDate>Mon, 3 Aug 2009 07:14:01 PDT</pubDate>
+<guid>http://sports.espn.go.com/rpm/racing/f1/news/story?id=4373463&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/rpm/racing/f1/news/story?id=4373463&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Nevada Supreme Court to hear O.J. Simpson appeal]]></title>
+<description><![CDATA[Lawyers for O.J. Simpson and a former golfing buddy hope to persuade a Nevada Supreme Court panel to spring the two men from prison while the justices review their convictions in a gunpoint hotel room heist.]]></description>
+<pubDate>Mon, 3 Aug 2009 07:38:59 PDT</pubDate>
+<guid>http://sports.espn.go.com/espn/news/story?id=4373806&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/espn/news/story?id=4373806&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[World championships: Michael Phelps' 400 medley relay team ends worlds with record]]></title>
+<description><![CDATA[Michael Phelps and the U.S. 400-meter medley relay team closed the fastest meet in swimming history with an appropriate finish Sunday night -- the 43rd world record.]]></description>
+<pubDate>Sun, 2 Aug 2009 15:00:46 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/swimming/news/story?id=4372473&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/swimming/news/story?id=4372473&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Arizona Cardinals RB Beanie Wells sidelined with sprained ankle]]></title>
+<description><![CDATA[Beanie Wells has a sprained ankle that could sideline him for the short term, Arizona Cardinals coach Ken Whisenhunt told the team's Web site Sunday.]]></description>
+<pubDate>Mon, 3 Aug 2009 06:31:57 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4372563&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4372563&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Shoulder surgery for Arizona Diamondbacks Brandon Webb]]></title>
+<description><![CDATA[Diamondbacks ace Brandon Webb will have season-ending shoulder surgery.]]></description>
+<pubDate>Sun, 2 Aug 2009 19:51:27 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4373056&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4373056&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

@@ -1,0 +1,240 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Thu, 06 Aug 2009 23:56:34 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Sotomayor Confirmed by Senate, 68-31</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f37ceb5b89fe35c1a30db4d95831639c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/us/politics/07confirm.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/us/politics/07confirm.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/06/us/07soto5_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Sonya Sotomayor arrived at her home in Manhattan&#x2019;s West Village on Thursday, after she was confirmed to the Supreme Court.</media:description>
+			<media:credit>Michael Appleton for The New York Times</media:credit>
+			<description>Democrats celebrated the relatively smooth confirmation process for Sonia Sotomayor, even as most Senate Republicans voted against her.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f37ceb5b89fe35c1a30db4d95831639c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f37ceb5b89fe35c1a30db4d95831639c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CHARLIE SAVAGE</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 23:52:43 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Sotomayor, Sonia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Supreme Court</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Senate</category>
+		</item>
+		<item>
+			<title>For Puerto Ricans, Sotomayor&#x2019;s Success Stirs Pride</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=40ddabcdeb77ddabe223330c4b5979f7</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/nyregion/07puerto.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/nyregion/07puerto.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/06/nyregion/06puerto2-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>"It is beyond anybody's imagination when I started that a Puerto Rican could ascend to that position, to the Supreme Court," said Edwin Torres, who in 1959 was hired as the first Puerto Rican assistant district attorney in New York.</media:description>
+			<media:credit>&#xC1;ngel Franco/The New York Times</media:credit>
+			<description>The confirmation of one of their own to the highest court is a watershed event for Puerto Rican New York.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=40ddabcdeb77ddabe223330c4b5979f7&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=40ddabcdeb77ddabe223330c4b5979f7&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID GONZALEZ</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 22:20:22 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Puerto Ricans</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Sotomayor, Sonia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+		</item>
+		<item>
+			<title>Room for Debate: Sotomayor, Hispanics and the Republican Party</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1b4a0f542094abd54b13102d7f554775</link>
+			<pheedo:origLink>http://roomfordebate.blogs.nytimes.com/2009/08/06/sotomayor-hispanics-and-the-gop/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://roomfordebate.blogs.nytimes.com/2009/08/06/sotomayor-hispanics-and-the-gop/index.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/01/12/automobiles/debate.jpg" medium="image" height="75" width="75"/>
+			<media:description/>
+			<media:credit/>
+			<description>The political calculus for Republican senators who oppose confirmation of the first Hispanic Supreme Court justice.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1b4a0f542094abd54b13102d7f554775&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1b4a0f542094abd54b13102d7f554775&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE EDITORS</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 23:55:10 GMT</pubDate>
+		</item>
+		<item>
+			<title>White House Has Difficulty Measuring Afghan Progress</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=eb8c694d08992c6721daa1ac2bdbf04d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/world/asia/07policy.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/world/asia/07policy.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/06/world/asia/07policy2_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>U.S. soldiers from the 5th. Striker Brigades walk trough a sand storm next to their base on the outskirts of Spin Boldak, about 63 miles southeast of Kandahar, Afghanistan, on Thursday.</media:description>
+			<media:credit>Emilio Morenatti/Associated Press</media:credit>
+			<description>The Obama administration has asked for more time to define benchmarks and other indicators of progress, but Democrats on Capitol Hill are growing impatient.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=eb8c694d08992c6721daa1ac2bdbf04d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=eb8c694d08992c6721daa1ac2bdbf04d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID E. SANGER, ERIC SCHMITT and THOM SHANKER</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 21:37:20 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Defense Department</category>
+		</item>
+		<item>
+			<title>State Senate Renews New York Mayor&#x2019;s Control of Schools</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=21f25125adf744621dcba242c45f3115</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/nyregion/07control.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/nyregion/07control.html</guid>
+			<description>The legislation would largely leave the mayor&#x2019;s power intact, with some procedural changes and more oversight.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=21f25125adf744621dcba242c45f3115&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=21f25125adf744621dcba242c45f3115&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JENNIFER MEDINA</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 20:01:55 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Board of Education (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Bloomberg, Michael R</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Education and Schools</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Law and Legislation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+		</item>
+		<item>
+			<title>ArtsBeat: John Hughes, Director of &#x2019;80s Comedies, Dies at 59</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=cfb2d2534926e58bb940a1317b7f6280</link>
+			<pheedo:origLink>http://artsbeat.blogs.nytimes.com/2009/08/06/john-hughes-director-of-the-breakfast-club-and-sixteen-candles-dies-at-59/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://artsbeat.blogs.nytimes.com/2009/08/06/john-hughes-director-of-the-breakfast-club-and-sixteen-candles-dies-at-59/index.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/06/arts/06hughes_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>The director John Hughes in 1984.</media:description>
+			<media:credit>Associated Press</media:credit>
+			<description>Mr. Hughes helped define a generation with films like &#x201C;The Breakfast Club,&#x201D; &#x201C;Sixteen Candles&#x201D; and &#x201C;Ferris Bueller&#x2019;s Day Off.&#x201D;&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=cfb2d2534926e58bb940a1317b7f6280&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=cfb2d2534926e58bb940a1317b7f6280&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MEKADO MURPHY and MELENA RYZIK</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 23:53:12 GMT</pubDate>
+		</item>
+		<item>
+			<title>City Room: Driver Had No Drinking Problem, Husband Says</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7319172fc8ade81cd7695944b79ad00a</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/08/06/drivers-husband-denies-she-had-drinking-problem/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/08/06/drivers-husband-denies-she-had-drinking-problem/index.html</guid>
+			<description>The husband of the drunken driver who killed herself and seven others on a parkway in Westchester spoke publicly.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7319172fc8ade81cd7695944b79ad00a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7319172fc8ade81cd7695944b79ad00a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LISA W. FODERARO</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 22:48:17 GMT</pubDate>
+		</item>
+		<item>
+			<title>Migrants to China&#x2019;s West Bask in Prosperity</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=eace4e4441ce9347bba716b7dda88634</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/world/asia/07xinjiang.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/world/asia/07xinjiang.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/06/world/asia/07xinjiang_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Ma Xiangwu, 94, was one of the earliest settlers in Shihezi, China, arriving in 1951.</media:description>
+			<media:credit>Katharina Hesse for The New York Times</media:credit>
+			<description>The former soldiers sent five decades ago to Xinjiang are a stable stronghold in an area unhappy under Beijing&#x2019;s rule.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=eace4e4441ce9347bba716b7dda88634&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=eace4e4441ce9347bba716b7dda88634&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ANDREW JACOBS</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 23:56:27 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Factories and Manufacturing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Immigration and Emigration</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Uighurs (Chinese Ethnic Group)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Red Army</category>
+		</item>
+		<item>
+			<title>The Caucus: Unions Join Fray in Health Care Overhaul</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d8ffd0bc2468661d793cd41f589357bc</link>
+			<pheedo:origLink>http://thecaucus.blogs.nytimes.com/2009/08/06/unions-joining-the-fray-in-health-care-overhaul/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://thecaucus.blogs.nytimes.com/2009/08/06/unions-joining-the-fray-in-health-care-overhaul/index.html</guid>
+			<description>The nation&#x2019;s biggest labor unions are deploying their members to the raucous town hall debates on health care.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d8ffd0bc2468661d793cd41f589357bc&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d8ffd0bc2468661d793cd41f589357bc&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By KATHARINE Q. SEELYE</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 23:03:15 GMT</pubDate>
+		</item>
+		<item>
+			<title>Twitter Tries to Regroup After Attack</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=dc724e32c64841010daaf5769f078986</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/technology/internet/07twitter.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/technology/internet/07twitter.html</guid>
+			<description>One expert said the disruption might have originated in Georgia or Russia, which have been engaged in an online propaganda conflict.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=dc724e32c64841010daaf5769f078986&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=dc724e32c64841010daaf5769f078986&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JENNA WORTHAM</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 23:55:36 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computer Security</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Social Networking (Internet)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Twitter</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Blogs and Blogging (Internet)</category>
+		</item>
+		<item>
+			<title>Senate Near Vote to Extend Car Rebates</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c33f1650b3ae1f20de0166e781b75eb1</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/business/07clunker.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/business/07clunker.html</guid>
+			<description>The program offers rebates of $3,500 to $4,500 for trade-ins of cars getting less than 18 miles a gallon.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c33f1650b3ae1f20de0166e781b75eb1&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c33f1650b3ae1f20de0166e781b75eb1&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MATTHEW L. WALD</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 22:55:59 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Car Allowance Rebate System</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Law and Legislation</category>
+		</item>
+		<item>
+			<title>City Room: 2 Men Charged in Mortgage Scheme</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d188d2502b335d65a223ca8825eb02a1</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/08/06/2-brooklyn-men-charged-in-big-mortgage-fraud-scheme/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/08/06/2-brooklyn-men-charged-in-big-mortgage-fraud-scheme/index.html</guid>
+			<description>Garth Celestine, 44, and Phil A. Simon, 34, the two principals in the Home Savers Consulting Corporation, were arrested and charged in Federal District Court in Newark with conspiracy to commit wire fraud.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d188d2502b335d65a223ca8825eb02a1&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d188d2502b335d65a223ca8825eb02a1&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL POWELL</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 23:02:16 GMT</pubDate>
+		</item>
+		<item>
+			<title>5 U.S. Marines Killed in Afghanistan</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d277246d166a4aaac9373177ed0408ac</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/world/asia/07afghan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/world/asia/07afghan.html</guid>
+			<description>Five American marines died Thursday, four of them in a single strike by a roadside bomb, making it one of the bloodiest single attacks against American servicemen in recent weeks.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d277246d166a4aaac9373177ed0408ac&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d277246d166a4aaac9373177ed0408ac&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DEXTER FILKINS and ABDUL WAHEED WAFA</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 21:26:31 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Improvised Explosive Devices</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+		</item>
+		<item>
+			<title>Britain&#x2019;s &#x2018;Great Train Robber&#x2019; Released</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=0a2742bd94db72dfc5218ee9240e385d</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/06/world/AP-EU-Britain-Great-Train-Robber.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/06/world/AP-EU-Britain-Great-Train-Robber.html</guid>
+			<description>Britain&#x2019;s notorious &#x201C;Great Train Robber,&#x201D; nearly 80 and close to death, was released Thursday from his prison sentence.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=0a2742bd94db72dfc5218ee9240e385d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=0a2742bd94db72dfc5218ee9240e385d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 23:30:28 GMT</pubDate>
+		</item>
+	</channel>
+</rss>

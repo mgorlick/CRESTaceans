@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[Top Bank Regulators Defend Turf]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=177b1a26a253d1dc2a0902318f2ed9a4]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080401123.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080401123.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 4 14:33 EDT 2009]]></pubDate>
+			<description><![CDATA[Officials oppose administration's proposals for consolidating supervision, tightening oversight.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=177b1a26a253d1dc2a0902318f2ed9a4&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=177b1a26a253d1dc2a0902318f2ed9a4&p=1"/></a>
+]]></description>
+			<author><![CDATA[Binyamin Appelbaum]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Insurance Lobby Targets Critics]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=193c48262723f21ebd7fdb4152363e8d]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080401447.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080401447.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 4 14:46 EDT 2009]]></pubDate>
+			<description><![CDATA[Group says campaign "to demonize health plans" is a "major step back" in efforts toward reform.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=193c48262723f21ebd7fdb4152363e8d&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=193c48262723f21ebd7fdb4152363e8d&p=1"/></a>
+]]></description>
+			<author><![CDATA[David S. Hilzenrath]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Senate Opens Sotomayor Debate]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=f11923cacaec1ed90512d247aced748d]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080401691.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080401691.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 4 13:40 EDT 2009]]></pubDate>
+			<description><![CDATA[GOP says nominee represents dangerous standard of judicial "empathy" rather than impartiality.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=f11923cacaec1ed90512d247aced748d&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=f11923cacaec1ed90512d247aced748d&p=1"/></a>
+]]></description>
+			<author><![CDATA[William Branigin]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Infant Mortality in Virginia Falls]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=db6524376b0a6721f4db5dbe18f8f05f]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080401672.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080401672.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 4 15:59 EDT 2009]]></pubDate>
+			<description><![CDATA[Rate, which has been trending down over the years, dips to lowest level ever, state officials say.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=db6524376b0a6721f4db5dbe18f8f05f&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=db6524376b0a6721f4db5dbe18f8f05f&p=1"/></a>
+]]></description>
+			<author><![CDATA[Anita Kumar]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Snaring the Lion of the Senate]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=319804879654c1dce8b4c15f3601f969]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/03/AR2009080303184.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/03/AR2009080303184.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 4 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Securing Teddy Kennedy's endorsement proved crucial to Obama's fight against Hillary Clinton.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=319804879654c1dce8b4c15f3601f969&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=319804879654c1dce8b4c15f3601f969&p=1"/></a>
+]]></description>
+			<author><![CDATA[Dan Balz and Haynes Johnson]]></author>
+		</item>
+	</channel>
+</rss>

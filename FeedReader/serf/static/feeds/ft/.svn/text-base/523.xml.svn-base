@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Tue, 18 Aug 2009 19:18:14 GMT</pubDate>
+    <lastBuildDate>Tue, 18 Aug 2009 19:29:33 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>IMF warns on ending fiscal stimulus</title>
+      <link>http://traxfer.ft.com/cms/s/0/5168e4ee-8c15-11de-b14f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The International Monetary Fund’s chief economist described a “nascent” global recovery, but warned that US policymakers walked a tightrope in timing the end of the fiscal stimulus</description>
+      <pubDate>Tue, 18 Aug 2009 17:32:50 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/5168e4ee-8c15-11de-b14f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Germany likely to avoid big job losses</title>
+      <link>http://traxfer.ft.com/cms/s/0/b6b68b00-8bdc-11de-b14f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Germany looks likely to emerge from this year’s brutal downturn without suffering a large-scale increase in unemployment thanks to the government’s policy of subsidising wages, economists said</description>
+      <pubDate>Tue, 18 Aug 2009 19:18:14 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/b6b68b00-8bdc-11de-b14f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Attacks defy Afghan peace efforts</title>
+      <link>http://traxfer.ft.com/cms/s/0/ce1dcf58-8bb2-11de-b14f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Election officials in Afghanistan on Tuesday braced themselves for one of the world’s most challenging polls as Taliban insurgents escalated their offensive on Kabul, the country’s capital, ahead of Thursday’s vote</description>
+      <pubDate>Tue, 18 Aug 2009 17:14:12 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/ce1dcf58-8bb2-11de-b14f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Backlash grows on Obama’s health reform</title>
+      <link>http://traxfer.ft.com/cms/s/0/a931e070-8c17-11de-b14f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The Obama administration was scrambling to contain a growing backlash from liberal Democrats that could prove fatal to his hopes of pushing through healthcare reform.</description>
+      <pubDate>Tue, 18 Aug 2009 17:43:55 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/a931e070-8c17-11de-b14f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Wall Street stages modest rebound</title>
+      <link>http://traxfer.ft.com/cms/s/0/da87fcbe-8b6c-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>US stocks staged a modest rebound after the steepest decline in overmore than a month during the previous session</description>
+      <pubDate>Tue, 18 Aug 2009 18:39:09 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/da87fcbe-8b6c-11de-9f50-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Cost-cutting pays off at Home Depot</title>
+      <link>http://traxfer.ft.com/cms/s/0/e5e50fea-8be2-11de-b14f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The world’s largest home improvement retailer reported better-than-expected results for the second quarter as cost-cutting offset falling demand from cash-strapped consumers</description>
+      <pubDate>Tue, 18 Aug 2009 12:50:04 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/e5e50fea-8be2-11de-b14f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Downturn slows tide of US-bound workers</title>
+      <link>http://traxfer.ft.com/cms/s/0/2ef546bc-8c17-11de-b14f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Declining prospects of finding a job are prompting many Mexicans to return home</description>
+      <pubDate>Tue, 18 Aug 2009 18:23:27 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/2ef546bc-8c17-11de-b14f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>China and Australia sign energy deal</title>
+      <link>http://traxfer.ft.com/cms/s/0/955b0122-8c02-11de-b14f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>China and Australia have agreed a $41bn energy deal at a time when tensions between the two trading partners were running high</description>
+      <pubDate>Tue, 18 Aug 2009 15:04:17 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/955b0122-8c02-11de-b14f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Cargill quarterly profits plunge by 69%</title>
+      <link>http://traxfer.ft.com/cms/s/0/d61c25e0-8c04-11de-b14f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Cargill, the US agribusiness conglomerate, reported that its fiscal full-year earnings fell for the first time in eight years and warned that it expects the effects of the global economic downturn to persist “for some time”</description>
+      <pubDate>Tue, 18 Aug 2009 18:08:32 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/d61c25e0-8c04-11de-b14f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>US political journalist Bob Novak dies at 78</title>
+      <link>http://traxfer.ft.com/cms/s/0/001e2850-63bd-11dd-844f-0000779fd18c.html?o=%2Fhome%2Fus</link>
+      <description>Bob Novak, a fixture in Washington print and television political journalism for nearly half a century, died from the consequences of a brain tumour at the age of 78</description>
+      <pubDate>Tue, 18 Aug 2009 18:01:52 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/001e2850-63bd-11dd-844f-0000779fd18c.html</guid>
+    </item>
+  </channel>
+</rss>
+

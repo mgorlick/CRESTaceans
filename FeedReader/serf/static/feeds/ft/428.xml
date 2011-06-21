@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Fri, 14 Aug 2009 20:08:35 GMT</pubDate>
+    <lastBuildDate>Fri, 14 Aug 2009 20:29:35 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>Oil industry split on climate law protests</title>
+      <link>http://traxfer.ft.com/cms/s/0/410c5118-88ef-11de-b50f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>A rift has broken out within the US oil industry over a controversial plan to deploy thousands of workers in so-called “Energy Citizen” rallies protesting against imminent climate legislation</description>
+      <pubDate>Fri, 14 Aug 2009 16:51:17 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/410c5118-88ef-11de-b50f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>UK defends its healthcare</title>
+      <link>http://traxfer.ft.com/cms/s/0/1c23b53a-883b-11de-82e4-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>David Cameron, Tory leader, has added his voice to that of Gordon Brown, prime minister, in defending the National Health Service from US criticism, saying Britons were proud of the service</description>
+      <pubDate>Fri, 14 Aug 2009 20:08:35 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/1c23b53a-883b-11de-82e4-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Fall in confidence triggers Wall St sell-off</title>
+      <link>http://traxfer.ft.com/cms/s/0/781106c0-8847-11de-82e4-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>US stocks were set to end the week on a disappointing notewith the S&amp;P 500 index dropping below the 1,000 mark after weak data knocked confidence in the economic recovery and dragged equities to their first weekly loss in five</description>
+      <pubDate>Fri, 14 Aug 2009 18:57:29 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/781106c0-8847-11de-82e4-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>A rally with troubling aspects</title>
+      <link>http://traxfer.ft.com/cms/s/0/2559e768-88f0-11de-b50f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Markets worldwide are pricing in a lot of good news, worrying analysts who believe this rebound will run out of steam</description>
+      <pubDate>Fri, 14 Aug 2009 17:08:37 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/2559e768-88f0-11de-b50f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>The US economy is still struggling</title>
+      <link>http://traxfer.ft.com/cms/s/0/88eac7fc-88fa-11de-b50f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Is the worst over? Some recent figures point that way, but for the moment, the emphasis needs to stay on caution not optimism</description>
+      <pubDate>Fri, 14 Aug 2009 17:54:38 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/88eac7fc-88fa-11de-b50f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>GM and Chrysler in different paths to recovery</title>
+      <link>http://traxfer.ft.com/cms/s/0/f272f1fe-88f5-11de-b50f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The ‘new’ General Motors gallops out of the gate with a slew of announcements and other initiatives, while Chrysler has been relatively silent all but invisible apart from run-of-the-mill sales promotions, writes Bernard Simon</description>
+      <pubDate>Fri, 14 Aug 2009 18:02:41 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/f272f1fe-88f5-11de-b50f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Qatar in €7bn Porsche-VW move</title>
+      <link>http://traxfer.ft.com/cms/s/0/0d7708be-88ce-11de-b50f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The dynasty behind Porsche agreed to sell a 10 per cent voting stake to Qatar Holding, opening up the sports car maker to outside investors as the first step towards a planned merger with Volkswagen</description>
+      <pubDate>Fri, 14 Aug 2009 18:26:06 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/0d7708be-88ce-11de-b50f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Hong Kong rebounds with 3.3% GDP boost</title>
+      <link>http://traxfer.ft.com/cms/s/0/d969760c-88b3-11de-b50f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Hong Kong unexpectedly reported strong second-quarter growth on Friday after a year of contraction, in a fresh sign that the global economic crisis could be coming to an end</description>
+      <pubDate>Fri, 14 Aug 2009 18:26:33 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/d969760c-88b3-11de-b50f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Spanish growth data disappoint</title>
+      <link>http://traxfer.ft.com/cms/s/0/86becb48-88bb-11de-b50f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>There were scant signs of green shoots in Spainas official data showed the economy still starved of consumer demand and deep in recession, in contrast to the recoveries in Germany and France</description>
+      <pubDate>Fri, 14 Aug 2009 16:46:05 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/86becb48-88bb-11de-b50f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Venezuela in $50m Antigua aid package</title>
+      <link>http://traxfer.ft.com/cms/s/0/98a8b4cc-88d9-11de-b50f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Antigua, the tiny twin-island nation rocked by allegations of a massive fraud committed on its shores by one of its chief benefactors, Sir Allen Stanford, has received a helping hand from Hugo Chávez</description>
+      <pubDate>Fri, 14 Aug 2009 18:13:43 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/98a8b4cc-88d9-11de-b50f-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

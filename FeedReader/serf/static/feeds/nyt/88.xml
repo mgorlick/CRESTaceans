@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Fri, 31 Jul 2009 16:15:48 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>White House Says &#x2018;Clunkers&#x2019; Rebate Plan Will Go On</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7431e9f36120185ba69ad956dffbcb4b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/business/01clunkers.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/business/01clunkers.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/31/us/clunkers.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A car was displayed in a dumpster at a dealer in Springfield, Vt., as a promotion for the rebate program, which was said to have exhausted its funds within a week.</media:description>
+			<media:credit>Vyto Starinskas/Associated Press</media:credit>
+			<description>The &#x201C;cash for clunkers&#x201D; program is still alive even though the $1 billion that Congress had appropriated for it has already been snapped up, the White House said Friday.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7431e9f36120185ba69ad956dffbcb4b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7431e9f36120185ba69ad956dffbcb4b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MATTHEW L. WALD</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 16:15:18 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Rebates</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Fuel Efficiency</category>
+		</item>
+		<item>
+			<title>U.S. Economy Shrank Less Than Expected in Quarter</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fabefa1da0072e81554600f833ecc1f2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/business/economy/01econ.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/business/economy/01econ.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/01/business/economy/01gdp75.jpg" medium="image" height="75" width="75"/>
+			<media:description>An employee on duty at the Baldor Electric Co. factory in St. Louis in June. The government reading on U.S. gross domestic product released Friday was better than economists expected.</media:description>
+			<media:credit>Jeff Roberson/Associated Press</media:credit>
+			<description>The economy contracted at an annual rate of one percent from April through June, the government reported on Friday, stoking hopes that the recession was nearly over.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fabefa1da0072e81554600f833ecc1f2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fabefa1da0072e81554600f833ecc1f2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 16:14:49 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Conditions and Trends</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Recession and Depression</category>
+		</item>
+		<item>
+			<title>Bombs Outside Mosques in Baghdad Kill at Least 29</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=78a58296afd2e3ee79007120ef30c325</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/world/middleeast/01iraq.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/world/middleeast/01iraq.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/31/world/iraq.7575.jpg" medium="image" height="75" width="75"/>
+			<media:description>People gathered at the site of a car bomb explosion next to a Shiite mosque in the neighborhood of Shaab in Baghdad on Friday.</media:description>
+			<media:credit>Karim Kadim/Associated Press</media:credit>
+			<description>The attacks on five Shiite mosques appeared to be intended to raise sectarian tensions in the city, Iraqi officials said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=78a58296afd2e3ee79007120ef30c325&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=78a58296afd2e3ee79007120ef30c325&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM DAGHER</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 15:55:18 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Shiite Muslims</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Mosques</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bombs and Explosives</category>
+		</item>
+		<item>
+			<title>House Panel Reaches Deal on Health-Care Bill</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=34015bc042a0fde130de49305c85fb70</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/health/policy/01health.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/health/policy/01health.html</guid>
+			<description>The legislation could clear a pivotal House committee later in the day after an agreement among Democrats.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=34015bc042a0fde130de49305c85fb70&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=34015bc042a0fde130de49305c85fb70&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT PEAR and DAVID M. HERSZENHORN</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 15:56:28 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Waxman, Henry A</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">House of Representatives</category>
+		</item>
+		<item>
+			<title>Settlement Reached in UBS Tax Case</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e7b5c5900c9ea43a8ac604447aa32aee</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/business/01ubs.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/business/01ubs.html</guid>
+			<description>Switzerland and the U.S. reached a deal on a tax-evasion case that sought to force UBS to turn over clients&#x2019; names.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e7b5c5900c9ea43a8ac604447aa32aee&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e7b5c5900c9ea43a8ac604447aa32aee&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LYNNLEY BROWNING</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 16:15:06 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Tax Evasion</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">UBS AG|UBS|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Justice Department</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Switzerland</category>
+		</item>
+		<item>
+			<title>Magazine Preview: Out of the Kitchen, Onto the Couch</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=919298d622dd5fb63ebf8d7347024144</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/magazine/02cooking-t.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/magazine/02cooking-t.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/28/magazine/cook.ms.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Julia Child on the set of "The French Chef" in 1963, the year it was first broadcast on American television.</media:description>
+			<media:credit>Paul Child/Schlesinger Library, Radcliffe Institute, Harvard University</media:credit>
+			<description>How American cooking became a spectator sport, and what we lost along the way.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=919298d622dd5fb63ebf8d7347024144&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=919298d622dd5fb63ebf8d7347024144&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL POLLAN</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 15:57:54 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Cooking and Cookbooks</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Television</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Chefs</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Food</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Child, Julia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_ttl">Julie &amp; Julia (Movie)</category>
+		</item>
+		<item>
+			<title>Hoboken&#x2019;s Mayor Resigns in Corruption Sweep</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ac4df515d2ea20ca6992f1b4472d633d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/nyregion/01jersey.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/nyregion/01jersey.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/30/nyregion/31hoboken_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Mayor Peter J. Cammarano III of Hoboken, center, left federal court in Newark last Thursday after his arrest.</media:description>
+			<media:credit>Mel Evans/Associated Press</media:credit>
+			<description>Peter Cammarano III is accused of accepting $25,000 in cash from an undercover agent who posed as a developer.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ac4df515d2ea20ca6992f1b4472d633d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ac4df515d2ea20ca6992f1b4472d633d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID M. HALBFINGER and NATE SCHWEBER</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 15:14:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Cammarano, Peter J III</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Hoboken (NJ)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Frauds and Swindling</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Ethics</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Bribery</category>
+		</item>
+		<item>
+			<title>Bankers Reaped Lavish Bonuses During Bailouts</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=50686ee4aa95196fd0c5b2b1a6ddcf79</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/business/31pay.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/business/31pay.html</guid>
+			<description>Wall Street&#x2019;s million dollar club had nearly 5,000 members in 2008, New York&#x2019;s attorney general reported.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=50686ee4aa95196fd0c5b2b1a6ddcf79&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=50686ee4aa95196fd0c5b2b1a6ddcf79&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LOUISE STORY and ERIC DASH</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 14:51:16 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bonuses</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Executive Compensation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Cuomo, Andrew M</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Banks and Banking</category>
+		</item>
+		<item>
+			<title>Iran President Says There&#x2019;s No Rift</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=170e43eefcecf339c6f9f7dc9de65709</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/07/31/world/AP-ML-Iran-Election.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/07/31/world/AP-ML-Iran-Election.html</guid>
+			<description>President Mahmoud Ahmadinejad lashed out at critics within his own hard-line camp on Friday, denying any rift with Iran&#x2019;s supreme leader.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=170e43eefcecf339c6f9f7dc9de65709&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=170e43eefcecf339c6f9f7dc9de65709&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 15:48:58 GMT</pubDate>
+		</item>
+		<item>
+			<title>Musharraf&#x2019;s &#x2019;07 Actions Ruled Illegal</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b3ffea553ce53ff8aeae16fe23c3ff21</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/07/31/world/AP-AS-Pakistan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/07/31/world/AP-AS-Pakistan.html</guid>
+			<description>Pakistan&#x2019;s Supreme Court has ruled that former President Pervez Musharraf&#x2019;s imposition of emergency rule in 2007 was unconstitutional, according to news reports.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b3ffea553ce53ff8aeae16fe23c3ff21&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b3ffea553ce53ff8aeae16fe23c3ff21&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 15:10:35 GMT</pubDate>
+		</item>
+		<item>
+			<title>China to Try Suspects Held After Riots</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b7240572ce80953d8523cc137612556d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/world/asia/01china.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/world/asia/01china.html</guid>
+			<description>China will begin trials in the next few weeks for suspects it accuses of playing a role in the deadly riots that shook the Xinjiang region in July, state media reported on Friday.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b7240572ce80953d8523cc137612556d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b7240572ce80953d8523cc137612556d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ANDREW JACOBS</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 12:54:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Xinjiang (China)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Demonstrations and Riots</category>
+		</item>
+		<item>
+			<title>Polyurethane Swimsuit Ban Is Set</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e78f6cfa8ad47ba4cc618588e8026e28</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/sports/01suitbox.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/sports/01suitbox.html</guid>
+			<description>FINA, the international swimming federation, responded to pressure and announced the controversial polyurethane suits will be banned sooner than planned.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e78f6cfa8ad47ba4cc618588e8026e28&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e78f6cfa8ad47ba4cc618588e8026e28&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By KAREN CROUSE</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 16:07:51 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Swimming</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bathing Suits</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">FINA</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Speedo</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Phelps, Michael</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Bowman, Bob</category>
+		</item>
+		<item>
+			<title>Shuttle Back After 16-Day Mission</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=10038abb463f7e831a692b8c16fd0c31</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/science/space/01shuttle.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/science/space/01shuttle.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/01/science/space/01shuttle1.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Space shuttle Endeavour touching down at the Kennedy Space Center in Cape Canaveral, Fla., Friday morning.</media:description>
+			<media:credit>Matt Stroshane/Getty Images</media:credit>
+			<description>The shuttle Endeavour closed out a grueling space station assembly mission with a smooth Florida landing on Friday.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=10038abb463f7e831a692b8c16fd0c31&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=10038abb463f7e831a692b8c16fd0c31&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By WILLIAM HARWOOD</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 15:56:07 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">National Aeronautics and Space Administration</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Discovery (Space Shuttle)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Space</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Space Stations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">International Space Cooperation and Ventures</category>
+		</item>
+	</channel>
+</rss>

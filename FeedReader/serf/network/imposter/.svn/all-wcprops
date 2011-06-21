@@ -1,0 +1,83 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/projects/!svn/ver/9140/CREST/sisc/serf/network/imposter
+END
+imposter.scm
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/projects/!svn/ver/9111/CREST/sisc/serf/network/imposter/imposter.scm
+END
+tests.scm
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/projects/!svn/ver/9052/CREST/sisc/serf/network/imposter/tests.scm
+END
+session-v1.scm
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/network/imposter/session-v1.scm
+END
+bar.scm
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/network/imposter/bar.scm
+END
+imposter-ng.scm
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/projects/!svn/ver/9140/CREST/sisc/serf/network/imposter/imposter-ng.scm
+END
+tests-ng.scm
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/projects/!svn/ver/9138/CREST/sisc/serf/network/imposter/tests-ng.scm
+END
+foo.scm
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/network/imposter/foo.scm
+END
+session.scm
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/network/imposter/session.scm
+END
+nio_http_client.scm
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/network/imposter/nio_http_client.scm
+END
+imposter-v1.scm
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/projects/!svn/ver/9045/CREST/sisc/serf/network/imposter/imposter-v1.scm
+END
+bottom.scm
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/network/imposter/bottom.scm
+END
+connection.scm
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/network/imposter/connection.scm
+END
+proxy.scm
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/network/imposter/proxy.scm
+END

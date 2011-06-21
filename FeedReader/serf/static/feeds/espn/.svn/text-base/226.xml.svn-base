@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Thu, 6 Aug 2009 03:16:26 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Source: Eli Manning, New York Giants agree to six-year, $97.5 million contract extension]]></title>
+<description><![CDATA[Eli Manning has agreed to a new six-year, $97 million contract extension with the New York Giants that will make him the highest-paid player in the NFL with an average salary of roughly $15.3 million.]]></description>
+<pubDate>Wed, 5 Aug 2009 18:04:09 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4378407&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4378407&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Dodgers tighten security after Prince Fielder's tirade]]></title>
+<description><![CDATA[While Prince Fielder took batting practice at Dodger Stadium before Wednesday night's game, no fewer than nine stern-faced members of the ballpark's security staff maintained a vigilant presence outside the Milwaukee Brewers' clubhouse.]]></description>
+<pubDate>Thu, 6 Aug 2009 00:14:57 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4380273&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4380273&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Chad Ford]]></dc:creator>
+<title><![CDATA[Brandon Roy, Portland Trail Blazers agree to 5-year extension]]></title>
+<description><![CDATA[The Portland Trail Blazers have reached an agreement on a five-year contract extension with guard Brandon Roy a league source told ESPN.com.]]></description>
+<pubDate>Wed, 5 Aug 2009 22:53:39 PDT</pubDate>
+<guid>http://sports.espn.go.com/nba/news/story?id=4379864&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nba/news/story?id=4379864&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Pedro Martinez strikes out 11 in Double-A rehab start]]></title>
+<description><![CDATA[Pedro Martinez recorded nine of his first 12 outs by strikeout and worked six innings for the Double-A Reading on Wednesday night, in what could have been his final rehab start before joining the Philadelphia Phillies.]]></description>
+<pubDate>Wed, 5 Aug 2009 19:55:17 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4380166&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4380166&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[James Walker]]></dc:creator>
+<title><![CDATA[Braylon Edwards, of Cleveland Browns, practices for first time]]></title>
+<description><![CDATA[Cleveland Browns receiver Braylon Edwards practiced for the first time in training camp Wednesday after the team took him off the Non-Football Injury List.]]></description>
+<pubDate>Wed, 5 Aug 2009 17:54:20 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4378400&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4378400&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Damon homer, 3 RBIs power Yankees past Jays ]]></title>
+<description><![CDATA[Johnny Damon hit a solo home run and had three RBIs, Nick Swisher also connected and the New York Yankees completed a two-game sweep of the Toronto Blue Jays with an 8-4 victory Wednesday night.]]></description>
+<pubDate>Wed, 5 Aug 2009 23:02:49 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/recap?gameId=290805114&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/recap?gameId=290805114&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Wife, mother recovering, Phil Mickelson glad to play]]></title>
+<description><![CDATA[With his wife and mother recovering from breast cancer surgery, Phil Mickelson is happy to be back on the golf course.]]></description>
+<pubDate>Wed, 5 Aug 2009 17:57:33 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/news/story?id=4379850&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/news/story?id=4379850&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Report: Kurt Rambis emerges as Minnesota Timberwolves top candidate]]></title>
+<description><![CDATA[Kurt Rambis reportedly went to Minnesota and could be named the team's next head coach.]]></description>
+<pubDate>Wed, 5 Aug 2009 19:45:07 PDT</pubDate>
+<guid>http://sports.espn.go.com/nba/news/story?id=4380227&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nba/news/story?id=4380227&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Pat Yasinskas]]></dc:creator>
+<title><![CDATA[New Orleans Saints tackle report that Reggie Bush suffered setback]]></title>
+<description><![CDATA[The Saints said that an earlier report that Reggie Bush left practice was incorrect.]]></description>
+<pubDate>Wed, 5 Aug 2009 17:21:38 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4380057&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4380057&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Chad Millman]]></dc:creator>
+<title><![CDATA[Judge sets date for Delaware betting trial]]></title>
+<description><![CDATA[Leagues' early action to block sports betting from Delaware denied]]></description>
+<pubDate>Wed, 5 Aug 2009 17:08:42 PDT</pubDate>
+<guid>http://sports.espn.go.com/espn/news/story?id=4379685&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/espn/news/story?id=4379685&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Mets lose Niese to injury, rough up Lohse, Cards]]></title>
+<description><![CDATA[Nelson Figueroa pitched 4 1/3 scoreless innings and boosted the offense with a two-run triple after Jonathon Niese got hurt, leading New York over the Cardinals 9-0.]]></description>
+<pubDate>Wed, 5 Aug 2009 19:43:15 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/recap?gameId=290805121&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/recap?gameId=290805121&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

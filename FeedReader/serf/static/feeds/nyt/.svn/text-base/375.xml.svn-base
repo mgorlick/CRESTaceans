@@ -1,0 +1,202 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Wed, 12 Aug 2009 15:09:10 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>UBS and U.S. Report a Deal on Names in Tax Inquiry</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=13cb177bee21d7fa15417358de406714</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/business/global/13ubs.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/business/global/13ubs.html</guid>
+			<description>A final settlement would force the bank to disclose names of wealthy clients. How many names is unclear at the moment.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=13cb177bee21d7fa15417358de406714&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=13cb177bee21d7fa15417358de406714&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LYNNLEY BROWNING</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 14:40:47 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Tax Evasion</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Taxation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">UBS AG|UBS|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Justice Department</category>
+		</item>
+		<item>
+			<title>U.S. Imports Rose as Trade Deficit Widened in June</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3521238420f4ce51245800f25e467da8</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/business/13econ.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/business/13econ.html</guid>
+			<description>Economists saw some good news in the larger deficit, which had narrowed as the volume of trade between the United States and the rest of the world dwindled.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3521238420f4ce51245800f25e467da8&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3521238420f4ce51245800f25e467da8&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 15:03:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">International Trade and World Market</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Economy</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Commerce Department</category>
+		</item>
+		<item>
+			<title>Senator Goes Face to Face With Dissent</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a30cdaeb875cd8558b88078da6dd7a03</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/12/health/policy/12townhall.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/12/health/policy/12townhall.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/11/us/12townhall2_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Senator Arlen Specter left with his security detail after a town hall meeting in Lebanon, Pa.</media:description>
+			<media:credit>Damon Winter/The New York Times</media:credit>
+			<description>More than 1,000 people showed up for a meeting with Senator Arlen Specter that was punctuated with rowdy moments.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a30cdaeb875cd8558b88078da6dd7a03&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a30cdaeb875cd8558b88078da6dd7a03&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By IAN URBINA and KATHARINE Q. SEELYE</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 14:50:08 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Specter, Arlen</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Pennsylvania</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+		</item>
+		<item>
+			<title>Pakistan Militant Clashes Kill Dozens</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=0fc182ba8755be60452446e983806fda</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/12/world/AP-AS-Pakistan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/12/world/AP-AS-Pakistan.html</guid>
+			<description>Taliban militants and a rival pro-government group in northwestern Pakistan are battling, officials said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=0fc182ba8755be60452446e983806fda&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=0fc182ba8755be60452446e983806fda&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 14:30:46 GMT</pubDate>
+		</item>
+		<item>
+			<title>Journalists Injured in Afghan Bombing</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c3ee6666afeb83cb1bf864653a1d512e</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/world/asia/13afghan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/world/asia/13afghan.html</guid>
+			<description>The Associated Press reported that two of its journalists embedded with the U.S. military in the south of the country Afghanistan had been injured in a roadside bomb explosion.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c3ee6666afeb83cb1bf864653a1d512e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c3ee6666afeb83cb1bf864653a1d512e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SANGAR RAHIMI and ALAN COWELL</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 14:24:42 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Associated Press</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Civil War and Guerrilla Warfare</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Improvised Explosive Devices</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">News and News Media</category>
+		</item>
+		<item>
+			<title>Madoff Aide Reveals Details of Ponzi Scheme</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=68dada54703274ad3d8da62110b29cd8</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/12/business/12madoff.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/12/business/12madoff.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/12/business/12madoff01-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A court rendering of Frank DiPascali, center, a long-time aide to Bernard L. Madoff.</media:description>
+			<media:credit>Christine Cornell/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>Frank DiPascali, a longtime employee of Bernard L. Madoff, pleaded guilty to his role in the Ponzi scheme.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=68dada54703274ad3d8da62110b29cd8&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=68dada54703274ad3d8da62110b29cd8&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY and DIANA B. HENRIQUES</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 14:40:11 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_misspell">DiPascali, Frank</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Madoff, Bernard L</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Frauds and Swindling</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Madoff, Bernard L, Investment Securities</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Ponzi Schemes</category>
+		</item>
+		<item>
+			<title>Iraq&#x2019;s Shiites Show Restraint After Attacks</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a999a568eb07a59a83f26efcb5d6bc06</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/12/world/middleeast/12shiite.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/12/world/middleeast/12shiite.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/12/world/12shiite.span.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Shiites prayed at a service in the Sadr City district of Baghdad in June. The area has been a frequent target of Sunni extremists.</media:description>
+			<media:credit>Moises Saman for The New York Times</media:credit>
+			<description>The Shiites, habituated to suffering by centuries as the region&#x2019;s underclass, have convinced their followers they win by not responding with violence.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a999a568eb07a59a83f26efcb5d6bc06&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a999a568eb07a59a83f26efcb5d6bc06&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROD NORDLAND</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 15:08:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Shiite Muslims</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Civil War and Guerrilla Warfare</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Terrorism</category>
+		</item>
+		<item>
+			<title>Clinton Courts Good Will in Nigeria</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1c08b59aee65f6a6168d8f293fed50a6</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/world/africa/13diplo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/world/africa/13diplo.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/12/world/12diplo.inline.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Secretary of State Hillary Rodham Clinton with patients and staff members of a clinic in Goma, Congo, on Tuesday.</media:description>
+			<media:credit>Pool photo by Roberto Schmidt</media:credit>
+			<description>Secretary of State Hillary Rodham Clinton took a noticeably softer tone with this crucial oil supplier.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1c08b59aee65f6a6168d8f293fed50a6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1c08b59aee65f6a6168d8f293fed50a6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JEFFREY GETTLEMAN</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 14:51:41 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Hillary Rodham</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Congo (Formerly Zaire)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Sex Crimes</category>
+		</item>
+		<item>
+			<title>E-Mail Reveals Rove&#x2019;s Key Role in &#x2019;06 Dismissals</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fcecacd2ca21c2775aec8899bd73103d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/12/us/politics/12firings.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/12/us/politics/12firings.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/12/us/firings_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Karl Rove arriving at his lawyer&#x2019;s office on May 15.</media:description>
+			<media:credit>Doug Mills/The New York Times</media:credit>
+			<description>Documents showed Karl Rove and others played a more active role in the 2006 firings of federal prosecutors.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fcecacd2ca21c2775aec8899bd73103d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fcecacd2ca21c2775aec8899bd73103d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ERIC LICHTBLAU and ERIC LIPTON</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 14:47:42 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Rove, Karl</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Attorneys</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Iglesias, David C</category>
+		</item>
+		<item>
+			<title>Interrogation Inc.: 2 U.S. Architects of Harsh Tactics in 9/11&#x2019;s Wake</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=000d091561f3bdb1c5e37719e81e0cd8</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/12/us/12psychs.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/12/us/12psychs.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/12/us/psychs75.jpg" medium="image" height="75" width="75"/>
+			<media:description>
+				<em class="bold">DR. BRUCE JESSEN</em>Joined his Air Force colleague to build a thriving business that made millions of dollars selling interrogation and training services to the C.I.A.</media:description>
+			<media:credit>ABC News</media:credit>
+			<description>In 2002, two psychologists found a business opportunity selling interrogation and training services to the C.I.A.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=000d091561f3bdb1c5e37719e81e0cd8&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=000d091561f3bdb1c5e37719e81e0cd8&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SCOTT SHANE</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 11:50:55 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Interrogations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Psychology and Psychologists</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Torture</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Central Intelligence Agency</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Al Qaeda</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">United States Air Force</category>
+		</item>
+	</channel>
+</rss>

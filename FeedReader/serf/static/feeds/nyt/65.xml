@@ -1,0 +1,225 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Thu, 30 Jul 2009 17:21:46 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>U.S. Adviser&#x2019;s Blunt Memo on Iraq: Time &#x2018;to Go Home&#x2019;</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e60850e9a14a2bb3c4c7afe74951be29</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/world/middleeast/31adviser.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/world/middleeast/31adviser.html</guid>
+			<description>A senior American military adviser says that the Iraqi forces suffer from deeply entrenched deficiencies, but that extending the stay of U.S. forces won&#x2019;t help.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e60850e9a14a2bb3c4c7afe74951be29&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e60850e9a14a2bb3c4c7afe74951be29&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL R. GORDON</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 17:14:27 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Military Personnel</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Defense Department</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Odierno, Raymond T</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Maliki, Nuri Kamal al-</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Reese, Timothy R</category>
+		</item>
+		<item>
+			<title>Iranian Police Move to Break Up Mourning Ceremony</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1dab7082aa43de57871fb928c093d5cf</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/world/middleeast/31iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/world/middleeast/31iran.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/29/world/29iran.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A man was detained by an officer during riots in Tehran on June 14. Officials say about 150 of those jailed remain in prison.</media:description>
+			<media:credit>Associated Press</media:credit>
+			<description>Riot police on Thursday ordered the Iranian opposition leader, Mir Hussein Moussavi, to leave a ceremony mourning those killed in unrest.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1dab7082aa43de57871fb928c093d5cf&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1dab7082aa43de57871fb928c093d5cf&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT F. WORTH and NAZILA FATHI</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 16:12:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Agha-Soltan, Neda</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Demonstrations and Riots</category>
+		</item>
+		<item>
+			<title>The Lede: Latest Updates</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7d72453ea43c7d74876943f1a0e51b53</link>
+			<pheedo:origLink>http://thelede.blogs.nytimes.com/2009/07/30/updates-on-new-post-election-protests-in-iran/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://thelede.blogs.nytimes.com/2009/07/30/updates-on-new-post-election-protests-in-iran/index.html</guid>
+			<description>A video shows security forces using violence to disperse protesters, an Iranian blogger says.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7d72453ea43c7d74876943f1a0e51b53&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7d72453ea43c7d74876943f1a0e51b53&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT MACKEY</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 17:18:24 GMT</pubDate>
+		</item>
+		<item>
+			<title>New Poll Finds Growing Unease on Health Plan</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b444133a6f5795be5483d873e1f9f984</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/us/politics/30poll.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/us/politics/30poll.html</guid>
+			<description>President Obama&#x2019;s ability to shape the debate on health care appears to be waning as opponents portray the effort as a government takeover, according to a Times/CBS News poll.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b444133a6f5795be5483d873e1f9f984&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b444133a6f5795be5483d873e1f9f984&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ADAM NAGOURNEY and MEGAN THEE-BRENAN</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 14:25:01 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Polls and Public Opinion</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+		</item>
+		<item>
+			<title>Ortiz and Ramirez Said to Be on 2003 Doping List</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=47a6075cccffcd2d56551441fd2a7058</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/sports/baseball/31doping.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/sports/baseball/31doping.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/31/sports/baseball/31doping-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>David Ortiz, right, and Manny Ramirez propelled the Boston Red Sox to two World Series titles. Both tested positive for performance-enhancing drugs in 2003. </media:description>
+			<media:credit>Jim Davis/The Boston Globe</media:credit>
+			<description>Manny Ramirez and David Ortiz were among the baseball players who tested positive, lawyers said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=47a6075cccffcd2d56551441fd2a7058&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=47a6075cccffcd2d56551441fd2a7058&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL S. SCHMIDT</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 16:25:28 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ramirez, Manny</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Steroids</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ortiz, David</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Doping (Sports)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Boston Red Sox</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Baseball</category>
+		</item>
+		<item>
+			<title>Shares Rally on Latest Earnings Reports</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c8f3f71fa4f2f12b82dc0cb848b43267</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/business/31markets.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/business/31markets.html</guid>
+			<description>Upbeat earnings reports and new data on unemployment lifted stocks to their highest levels since last autumn.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c8f3f71fa4f2f12b82dc0cb848b43267&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c8f3f71fa4f2f12b82dc0cb848b43267&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 17:12:04 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Stocks and Bonds</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Conditions and Trends</category>
+		</item>
+		<item>
+			<title>Profit Dropped 66% in Quarter at Exxon Mobil</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=da2ccaf0095aec4a319722449ccf8144</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/business/global/31oil.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/business/global/31oil.html</guid>
+			<description>Exxon&#x2019;s report caps a week of lower earnings in the energy industry after the tumble of oil prices since last year.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=da2ccaf0095aec4a319722449ccf8144&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=da2ccaf0095aec4a319722449ccf8144&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JAD MOUAWAD</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 15:14:20 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Exxon Mobil Corp|XOM|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Royal Dutch Shell Plc|RDS.A|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Oil (Petroleum) and Gasoline</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Company Reports</category>
+		</item>
+		<item>
+			<title>DealBook: Cablevision Will Spin Off Businesses</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=855022cc26c4b595ffb10b53d752c0f2</link>
+			<pheedo:origLink>http://dealbook.blogs.nytimes.com/2009/07/30/cablevision-approves-madison-square-garden-spinoff/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://dealbook.blogs.nytimes.com/2009/07/30/cablevision-approves-madison-square-garden-spinoff/index.html</guid>
+			<description>The board approved a plan to spin off assets including Madison Square Garden and Radio City Music Hall.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=855022cc26c4b595ffb10b53d752c0f2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=855022cc26c4b595ffb10b53d752c0f2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PETER EDMONSTON</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 17:18:24 GMT</pubDate>
+		</item>
+		<item>
+			<title>Questions Linger at Funeral for Crash Victims</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=84cd98e0937e4e49570044d3f8010f66</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/nyregion/31funeral.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/nyregion/31funeral.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/30/nyregion/30funeral2-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Pallbearers carried one of five coffin after the funeral of members of the Hance and Schuler families on Thursday in  Floral Park, Long Island.</media:description>
+			<media:credit>Ruth Fremson/The New York Times</media:credit>
+			<description>The strange conditions of the crash that killed eight people in Westchester last weekend left many at the service shaking their heads in sadness and puzzlement.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=84cd98e0937e4e49570044d3f8010f66&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=84cd98e0937e4e49570044d3f8010f66&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LISA FODERARO and LIZ ROBBINS</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 17:12:28 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Long Island (NY)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Funerals</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Accidents and Safety</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Death and Dying</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+		</item>
+		<item>
+			<title>Bomb on Majorca Kills 2 Police Officers</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d2f0ee9cd12ccf9aaeac16d7fbc363b2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/world/europe/31spain.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/world/europe/31spain.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/30/world/30spain-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A civil guard on duty in front of a police installation where a bomb exploded on Thursday, killing two, on the Spanish island of Majorca.</media:description>
+			<media:credit>Jaime Reina/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>The Spanish authorities suspect the Basque separatist group ETA was responsible for the attack as well as another one on the Spanish mainland on Wednesday.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d2f0ee9cd12ccf9aaeac16d7fbc363b2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d2f0ee9cd12ccf9aaeac16d7fbc363b2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By VICTORIA BURNETT</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 15:46:14 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Majorca (Spain)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">ETA</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Basques</category>
+		</item>
+		<item>
+			<title>Nigerian Troops Storm Sect Compound</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ebfc077b9caaea597c472cd57fb2f7fa</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/world/africa/31nigeria.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/world/africa/31nigeria.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/30/world/30nigeria-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A building belonging to a militant Islamic group burned after being attacked by Nigerian soldiers on Thursday in Maiduguri. </media:description>
+			<media:credit>Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>After days of fighting in the Nigerian city of Maiduguri, government forces claimed to have killed the deputy leader of a fundamentalist Islamic sect.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ebfc077b9caaea597c472cd57fb2f7fa&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ebfc077b9caaea597c472cd57fb2f7fa&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ADAM NOSSITER and ALAN COWELL</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 16:38:35 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Boko Haram</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Nigeria</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Fringe Groups and Movements</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Civil War and Guerrilla Warfare</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Islam</category>
+		</item>
+		<item>
+			<title>Communists Lose in Moldova Vote</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5ba5306925eb4861da7876500c2a3b39</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/world/europe/31moldova.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/world/europe/31moldova.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/30/world/30moldovaA-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Moldovans voting Wednesday in Dorotchaia, a village near Transdniester, a breakaway ethnic Russian area of the country.</media:description>
+			<media:credit>Gleb Garanich/Reuters</media:credit>
+			<description>Pro-Western opposition parties appear to have unseated Europe&#x2019;s last ruling Communist Party in elections.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5ba5306925eb4861da7876500c2a3b39&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5ba5306925eb4861da7876500c2a3b39&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL SCHWIRTZ</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 13:34:24 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Moldova</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Elections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+		</item>
+	</channel>
+</rss>

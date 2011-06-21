@@ -1,0 +1,261 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Thu, 30 Jul 2009 04:09:16 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>New Poll Finds Growing Unease on Health Plan</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b444133a6f5795be5483d873e1f9f984</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/us/politics/30poll.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/us/politics/30poll.html</guid>
+			<description>President Obama&#x2019;s ability to shape the debate on health care appears to be waning as opponents portray the effort as a government takeover, according to a Times/CBS News poll.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b444133a6f5795be5483d873e1f9f984&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b444133a6f5795be5483d873e1f9f984&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ADAM NAGOURNEY and MEGAN THEE-BRENAN</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 03:29:50 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Polls and Public Opinion</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+		</item>
+		<item>
+			<title>Texas Hospital Flexing Muscle in Health Fight</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=012554d197146d99fb3dd9ec0198cb7d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/us/politics/30mcallen.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/us/politics/30mcallen.html</guid>
+			<description>A major source of campaign contributions for Senate Democrats is a physician-owned hospital that is trying to soften health care legislation.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=012554d197146d99fb3dd9ec0198cb7d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=012554d197146d99fb3dd9ec0198cb7d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By KEVIN SACK and DAVID M. HERSZENHORN</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 03:32:39 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Hospitals</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Lobbying and Lobbyists</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Senate</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Democratic Congressional Campaign Committee</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Democratic Senatorial Campaign Committee</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">House of Representatives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Texas</category>
+		</item>
+		<item>
+			<title>Lucrative Fees May Deter Efforts to Alter Troubled Loans</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=eecd9732e1fc6e571b5888bb76bfa220</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/business/30services.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/business/30services.html</guid>
+			<description>Many mortgage companies are reluctant to give strapped homeowners a break because the companies collect lucrative fees on delinquent loans.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=eecd9732e1fc6e571b5888bb76bfa220&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=eecd9732e1fc6e571b5888bb76bfa220&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PETER S. GOODMAN</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 04:05:09 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Mortgages</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Foreclosures</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Homeowner Affordability and Stability Plan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Housing and Real Estate</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+		</item>
+		<item>
+			<title>By Degrees: White Roofs Catch on as Energy Cost Cutters</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=325176fd092e28cd107151c212c1c7a6</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/science/earth/30degrees.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/science/earth/30degrees.html</guid>
+			<description>Relying on the principle that white objects absorb less heat, some homeowners are embracing &#x201C;cool roofs&#x201D; as an affordable tool against climate change.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=325176fd092e28cd107151c212c1c7a6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=325176fd092e28cd107151c212c1c7a6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By FELICITY BARRINGER</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 04:02:47 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Roofs</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Energy Efficiency</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Environment</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Greenhouse Gas Emissions</category>
+		</item>
+		<item>
+			<title>Chinese Workers Say Illness Is Real, Not Hysteria</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3987b282680b7a7ac3beb1aedca47cd2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/world/asia/30jilin.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/world/asia/30jilin.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/29/world/30jilin2_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Zhang Fusheng, a 29-year-old textile worker, was tethered to an oxygen line at the Jihua hospital.  </media:description>
+			<media:credit>Du Bin for The New York Times</media:credit>
+			<description>Officials said that the convulsions, breathing difficulty and paralysis that affected more than 1,000 workers near a plant were mass hysteria.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3987b282680b7a7ac3beb1aedca47cd2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3987b282680b7a7ac3beb1aedca47cd2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ANDREW JACOBS</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 03:29:50 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Hazardous and Toxic Substances</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Poisoning and Poisons</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Factories and Manufacturing</category>
+		</item>
+		<item>
+			<title>Pakistan Injects Precision Into Air War on Taliban</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=608430dd9ec2c2ca7f4d3e910133493d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/world/asia/30pstan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/world/asia/30pstan.html</guid>
+			<description>Sophisticated imagery and accurate weapons have helped reduce civilian casualties.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=608430dd9ec2c2ca7f4d3e910133493d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=608430dd9ec2c2ca7f4d3e910133493d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ERIC SCHMITT</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 03:08:52 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Pakistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Military Aircraft</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Civilian Casualties</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Al Qaeda</category>
+		</item>
+		<item>
+			<title>Honduran Leader Backs Return of President</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c23d89dadc27df92863ffdfe2d6a506a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/world/americas/30honduras.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/world/americas/30honduras.html</guid>
+			<description>The head of Honduras&#x2019;s de facto government expressed support for a compromise that would allow the ousted president of his country to return to power.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c23d89dadc27df92863ffdfe2d6a506a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c23d89dadc27df92863ffdfe2d6a506a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By GINGER THOMPSON</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 01:46:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Zelaya Rosales, Jose Manuel</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Coups D'Etat and Attempted Coups D'Etat</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Micheletti, Roberto</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Arias, Oscar</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Honduras</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Costa Rica</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Iglesias, Enrique V.</category>
+		</item>
+		<item>
+			<title>Stimulus Law Bolsters Food Bank Offerings</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=31191fb07bac53cba376b1c5c4e69f22</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/us/30foodbank.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/us/30foodbank.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/30/us/30foodbank.span.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>The lines at the Gap Food Bank in Rancho Cucamonga, Calif., have grown as the unemployment rate has risen. Up to 400 people come seeking food each week.</media:description>
+			<media:credit>Monica Almeida/The New York Times</media:credit>
+			<description>The stimulus law provided a windfall of food at a time when some food banks had had to turn the hungry away.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=31191fb07bac53cba376b1c5c4e69f22&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=31191fb07bac53cba376b1c5c4e69f22&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL COOPER</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 03:24:52 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Food Banks and Pantries</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">American Recovery and Reinvestment Act (2009)</category>
+		</item>
+		<item>
+			<title>West Bank Settlers Send Defiant Message to Obama</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=36b48602fbe63ca0e3b3dd47ca5184d9</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/world/middleeast/30settlers.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/world/middleeast/30settlers.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/29/world/settlers.7575.jpg" medium="image" height="71" width="75"/>
+			<media:description>Jewish settlers gathered Tuesday to dedicate an unauthorized West Bank outpost, Givat Egoz, opposing President Obama's call for a settlement freeze. </media:description>
+			<media:credit>Rina Castelnuovo for The New York Times</media:credit>
+			<description>Several thousand Jewish settlers inaugurated outposts in a show of defiance as emissaries from the U.S. visited.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=36b48602fbe63ca0e3b3dd47ca5184d9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=36b48602fbe63ca0e3b3dd47ca5184d9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ETHAN BRONNER</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 03:56:42 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">West Bank</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Jews and Judaism</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Palestinians</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ross, Dennis B</category>
+		</item>
+		<item>
+			<title>Jury Prepares for Jefferson Bribery Case</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=770230f78b886bfb421ef4d54c428143</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/us/politics/30jefferson.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/us/politics/30jefferson.html</guid>
+			<description>Prosecutors made their closing arguments in the bribery case against William J. Jefferson, a former Democratic congressman.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=770230f78b886bfb421ef4d54c428143&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=770230f78b886bfb421ef4d54c428143&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NEIL A. LEWIS</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 03:26:51 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jefferson, William J</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bribery</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Ethics</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Abubakar, Atiku</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Frauds and Swindling</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">House of Representatives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New Orleans (La)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Nigeria</category>
+		</item>
+		<item>
+			<title>City Spends to Aid Minority Firms but Falls Short</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=181d2fd9c8bccc7c3b40fb6670394fd5</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/nyregion/30minority.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/nyregion/30minority.html</guid>
+			<description>To help companies owned by minorities and women, the New York City Council has reached out to nonprofit groups, often those with ties to Council members.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=181d2fd9c8bccc7c3b40fb6670394fd5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=181d2fd9c8bccc7c3b40fb6670394fd5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By RUSS BUETTNER</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 02:56:26 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Nonprofit Organizations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Minorities</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">City Councils</category>
+		</item>
+		<item>
+			<title>Reverend Ike, Who Preached Riches, Dies at 74</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5c5dc1fafaf3a8946596084f44b5580d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/nyregion/30ike.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/nyregion/30ike.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/29/obituaries/30ike_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>The Reverend Frederick J. Eikerenkoetter II, the flamboyant minister better known as the Reverend Ike. </media:description>
+			<media:credit>United Press International, 1973</media:credit>
+			<description>The Reverend Frederick J. Eikerenkoetter II was one of the first evangelists to embrace television.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5c5dc1fafaf3a8946596084f44b5580d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5c5dc1fafaf3a8946596084f44b5580d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CHRISTOPHER LEHMANN-HAUPT</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 02:57:26 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Eikerenkoetter, Frederick</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Religion and Belief</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Christians and Christianity</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Deaths (Obituaries)</category>
+		</item>
+		<item>
+			<title>Swine Flu Plan Would Put Some Ahead for Vaccine</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e2b219f84eb88d6eaf33745eadc7711d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/health/30flu.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/health/30flu.html</guid>
+			<description>Experts recommended that health care workers, pregnant women and children receive vaccinations first.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e2b219f84eb88d6eaf33745eadc7711d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e2b219f84eb88d6eaf33745eadc7711d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DENISE GRADY</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 03:24:41 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Swine Influenza</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Vaccination and Immunization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+		</item>
+	</channel>
+</rss>

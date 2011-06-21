@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[Pardoned Journalists, Clinton Return to U.S.]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=5c290be405313f9f717b23e279184526]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/05/AR2009080501183.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/05/AR2009080501183.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Wed Aug 5 09:42 EDT 2009]]></pubDate>
+			<description><![CDATA[Reporters and Bill Clinton arrive in California following former president's meeting with North Korea's reclusive dictator, Kim Jong Il. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=5c290be405313f9f717b23e279184526&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=5c290be405313f9f717b23e279184526&p=1"/></a>
+]]></description>
+			<author><![CDATA[Glenn Kessler and Debbi Wilgoren]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Obama's Policies Shape Va. Race]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=c559de1a8faa6c64504fa07af6be56d2]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080402787.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080402787.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Wed Aug 5 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Some voters who backed president grow disillusioned over economic pledges.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=c559de1a8faa6c64504fa07af6be56d2&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=c559de1a8faa6c64504fa07af6be56d2&p=1"/></a>
+]]></description>
+			<author><![CDATA[Sandhya Somashekhar]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Paula Abdul to Leave 'Idol' ]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=d010e71d43e78dffe324338c3eecf61f]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/05/AR2009080500280.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/05/AR2009080500280.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Wed Aug 5 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[The judge decided to quit the popular TV show after rejecting a 30 percent pay raise, sources say.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=d010e71d43e78dffe324338c3eecf61f&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=d010e71d43e78dffe324338c3eecf61f&p=1"/></a>
+]]></description>
+			<author><![CDATA[Lisa de Moraes]]></author>
+		</item>
+		<item>
+			<title><![CDATA[D.C. Schools to Offer STD Tests]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=22fe7eb6cb84c464b272da29d93682c7]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080403402.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/04/AR2009080403402.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Wed Aug 5 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Pilot program in high schools is expanded after significant number of infections are discovered.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=22fe7eb6cb84c464b272da29d93682c7&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=22fe7eb6cb84c464b272da29d93682c7&p=1"/></a>
+]]></description>
+			<author><![CDATA[Darryl Fears and Nelson Hernandez]]></author>
+		</item>
+	</channel>
+</rss>

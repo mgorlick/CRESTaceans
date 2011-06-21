@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Thu, 06 Aug 2009 20:39:28 GMT</pubDate>
+    <lastBuildDate>Thu, 06 Aug 2009 21:29:37 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>Greenberg pays $15m in SEC settlement</title>
+      <link>http://traxfer.ft.com/cms/s/0/fbf6e48e-82af-11de-ab4a-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Hank Greenberg, the former chairman of American International Group, agreed to pay $15m to settle the US Securities and Exchange Commission’s investigation into his role in accounting fraud at the company from 2000 to 2005</description>
+      <pubDate>Thu, 06 Aug 2009 18:02:54 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/fbf6e48e-82af-11de-ab4a-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Merkel moves on failing German banks</title>
+      <link>http://traxfer.ft.com/cms/s/0/0a2a1be2-8275-11de-8cc2-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Angela Merkel would give the German banking supervisor unprecedented powers over struggling banks, including the capacity to dismiss executives, if re-elected chancellor next month, according to legislation being drafted by her economics minister</description>
+      <pubDate>Thu, 06 Aug 2009 20:39:28 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/0a2a1be2-8275-11de-8cc2-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Concerted cyber-attack takes down Twitter</title>
+      <link>http://traxfer.ft.com/cms/s/0/038b9b54-82a6-11de-ab4a-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>What might have been no more than a teenage prank knocked Twitter, the fast-growing internet communications service, offline for more than two hours</description>
+      <pubDate>Thu, 06 Aug 2009 18:18:17 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/038b9b54-82a6-11de-ab4a-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Success predicted for ‘clunkers’ extension</title>
+      <link>http://traxfer.ft.com/cms/s/0/527416a8-82b3-11de-ab4a-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Congressional aides predicted support for a $2bn extension to the “cash for clunkers” scheme, as the US Senate voted to confirm Sonia Sotomayor’s nomination to the Supreme Court in a scramble to finish business before breaking for its summer recess</description>
+      <pubDate>Thu, 06 Aug 2009 19:21:25 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/527416a8-82b3-11de-ab4a-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>The liquidity pipes remain clogged</title>
+      <link>http://traxfer.ft.com/cms/s/0/33dbf8a6-82a3-11de-ab4a-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Banks seem unwilling to use spare liquidity to engage in activity that regulators or shareholders might deem risky, writes Gillian Tett</description>
+      <pubDate>Thu, 06 Aug 2009 16:10:18 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/33dbf8a6-82a3-11de-ab4a-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>M Stanley to pay $950m for Tarp warrants</title>
+      <link>http://traxfer.ft.com/cms/s/0/1eeed952-82af-11de-ab4a-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Morgan Stanley is to pay $950m to sever yet another link to the US government’s bail-out plan, buying back warrants it gave the authorities as part of a $10bn capital injection at the height of the crisis last year</description>
+      <pubDate>Thu, 06 Aug 2009 17:41:55 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/1eeed952-82af-11de-ab4a-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Investor demand fuels rebound in ETFs</title>
+      <link>http://traxfer.ft.com/cms/s/0/e4733bca-82b2-11de-ab4a-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Assets invested globally in exchange traded funds have reached a record high of $862bn on the back of the partial recovery in stock markets and the continuing strong demand for passive investment</description>
+      <pubDate>Thu, 06 Aug 2009 18:15:16 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/e4733bca-82b2-11de-ab4a-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Wall Street falls on economic jitters</title>
+      <link>http://traxfer.ft.com/cms/s/0/aa5f09f4-827c-11de-8cc2-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>US stocks saw a choppy morning as investors digested news on unemployment and retail sales</description>
+      <pubDate>Thu, 06 Aug 2009 19:01:58 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/aa5f09f4-827c-11de-8cc2-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>US experiences brief respite from jobs gloom</title>
+      <link>http://traxfer.ft.com/cms/s/0/dfed107e-8282-11de-8cc2-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Initial claims for state unemployment benefits in the US dropped by a sharper than expected 38,000, but an Obama administration official warned that closely watched data on Friday would show the US economy continuing to shed hundreds of thousands of jobs</description>
+      <pubDate>Thu, 06 Aug 2009 19:19:41 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/dfed107e-8282-11de-8cc2-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

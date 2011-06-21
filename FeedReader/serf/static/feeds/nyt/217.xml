@@ -1,0 +1,289 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Thu, 06 Aug 2009 01:11:43 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>After Clinton Trip, U.S. Studies Signals From N. Korea</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f5971b833ada1e266eb7ead2ad47f4b0</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/world/asia/06kim.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/world/asia/06kim.html</guid>
+			<description>After former President Bill Clinton won the freedom of two American journalists, officials were busily calculating whether the psychology in Pyongyang had changed.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f5971b833ada1e266eb7ead2ad47f4b0&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f5971b833ada1e266eb7ead2ad47f4b0&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARK LANDLER</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 00:48:13 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Bill</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Kim Jong Il</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ling, Laura</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Lee, Euna</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Nuclear Weapons</category>
+		</item>
+		<item>
+			<title>Clinton and Gore, Together Again</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d09251bbee900c930c4651b2c52dc596</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/us/politics/06gore.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/us/politics/06gore.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/us/06gore-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Bill Clinton embraced his former vice president, Al Gore, on Wednesday as Mr. Clinton delivered two journalists who worked for Mr. Gore back to American soil.</media:description>
+			<media:credit>Gabriel Bouys/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>All the Democratic Party&#x2019;s reigning families were brought together around the drama of the North Korea trip.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d09251bbee900c930c4651b2c52dc596&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d09251bbee900c930c4651b2c52dc596&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ADAM NAGOURNEY</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 01:01:49 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Bill</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Gore, Al</category>
+		</item>
+		<item>
+			<title>Magazine Preview: Karzai in His Labyrinth</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b54b4065bbf55af0774836e8eaddcafd</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/09/magazine/09Karzai-t.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/09/magazine/09Karzai-t.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/04/magazine/09karzai-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Hamid Karzai at the presidential palace.</media:description>
+			<media:credit>Lynsey Addario/VII Network, for The New York Times</media:credit>
+			<description>The Afghan president is isolated and distrusted, and even if he is re-elected this month, that&#x2019;s not likely to change.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b54b4065bbf55af0774836e8eaddcafd&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b54b4065bbf55af0774836e8eaddcafd&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ELIZABETH RUBIN</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 22:56:31 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Karzai, Hamid</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Elections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+		</item>
+		<item>
+			<title>ArtsBeat: Budd Schulberg, 'On the Waterfront' Screenwriter, Dies at 95</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5c2add87b817203214ea9b9e7e415eba</link>
+			<pheedo:origLink>http://artsbeat.blogs.nytimes.com/2009/08/05/budd-schulberg-on-the-waterfront-screenwriter-dies-at-95/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://artsbeat.blogs.nytimes.com/2009/08/05/budd-schulberg-on-the-waterfront-screenwriter-dies-at-95/index.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/arts/06shulberg_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Budd Schulberg at the Edinburgh Fringe Festival in 2008. </media:description>
+			<media:credit>Cristina Cano for The New York Times</media:credit>
+			<description>Budd Schulberg, who won an Oscar in 1954 for his classic film "On the Waterfront," has died at 95.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5c2add87b817203214ea9b9e7e415eba&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5c2add87b817203214ea9b9e7e415eba&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ANAHAD O'CONNOR</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 01:08:13 GMT</pubDate>
+		</item>
+		<item>
+			<title>Ex-Rep. Jefferson Convicted in Bribery Scheme</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=cb0a135c081d05ba1b402a1dbd38a301</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/us/06jefferson.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/us/06jefferson.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/us/06jefferson_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Former Louisiana Rep. William Jefferson and his wife, Andrea, left the federal court in Alexandria, Va., on Wednesday. </media:description>
+			<media:credit>Kevin Wolf/Associated Press</media:credit>
+			<description>Former Representative William J. Jefferson was convicted of using his office to try to enrich himself and relatives through a web of bribes and payoffs.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=cb0a135c081d05ba1b402a1dbd38a301&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=cb0a135c081d05ba1b402a1dbd38a301&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID STOUT</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 00:51:43 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jefferson, William J</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bribery</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Decisions and Verdicts</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New Orleans (La)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">House of Representatives</category>
+		</item>
+		<item>
+			<title>On the Fairway, New Lessons in Saving Water</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=908a43c9ec07aa86d43b2babc942c27a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/science/earth/06golf.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/science/earth/06golf.html</guid>
+			<description>State governments are turning to golf courses, long seen as water guzzlers, for tips on conservation.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=908a43c9ec07aa86d43b2babc942c27a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=908a43c9ec07aa86d43b2babc942c27a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LESLIE KAUFMAN</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 00:58:28 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Golf</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Conservation of Resources</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Water</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Environment</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Grass</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Lawns</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Local Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Georgia</category>
+		</item>
+		<item>
+			<title>Soldier Who Didn&#x2019;t Obey Orders Is Jailed</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=8b08b06e7b3aae86104cdb30e05c6479</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/us/06soldier.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/us/06soldier.html</guid>
+			<description>A soldier who fought his deployment to Afghanistan was demoted in a military court and will be discharged.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=8b08b06e7b3aae86104cdb30e05c6479&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=8b08b06e7b3aae86104cdb30e05c6479&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JAMES C. McKINLEY Jr.</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 01:08:44 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Courts-Martial</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Texas</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Agosto, Victor</category>
+		</item>
+		<item>
+			<title>Abroad: A Loincloth to Set Parisians Aflutter</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fef7013c30f864b911a4a0885f76369c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/arts/design/06abroad.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/arts/design/06abroad.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/06/arts/paris75.jpg" medium="image" height="75" width="75"/>
+			<media:description>The Tarzan exhibition at the Mus&#xE9;e du Quai Branly in Paris.</media:description>
+			<media:credit>Mus&#xE9;e du Quai Branly</media:credit>
+			<description>Tarzan is the subject of a summer show in Paris that mixes old comics and film clips with action figures, a stuffed crocodile and the female robot from &#x201C;Metropolis.&#x201D;&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fef7013c30f864b911a4a0885f76369c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fef7013c30f864b911a4a0885f76369c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL KIMMELMAN</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 00:56:52 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Art</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Museums</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Musee du Quai Branly</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Burroughs, Edgar Rice</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">O'Sullivan, Maureen</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Hogarth, Burne</category>
+		</item>
+		<item>
+			<title>Studies Question Spine Treatment</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=166c6beaa3e5d50366ac5bbff4aaefe5</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/health/research/06spine.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/health/research/06spine.html</guid>
+			<description>Research into effectiveness of a procedure in use since the 1990s comes as the Obama administration calls for assessing how health care money is spent.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=166c6beaa3e5d50366ac5bbff4aaefe5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=166c6beaa3e5d50366ac5bbff4aaefe5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DENISE GRADY</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 00:50:05 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Cement</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Bones</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Back (Human Body Part)</category>
+		</item>
+		<item>
+			<title>$2.4 Billion to Make Cars Greener</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6208abde5f7b112c29d5484699e52c4d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/business/06battery.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/business/06battery.html</guid>
+			<description>The Obama administration announced $2.4 billion in grants to make batteries, mostly for electric vehicles.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6208abde5f7b112c29d5484699e52c4d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6208abde5f7b112c29d5484699e52c4d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MATTHEW L. WALD</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 00:55:48 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Electric Vehicles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Hybrid Vehicles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Batteries</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Subprime Mortgage Crisis</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Indiana</category>
+		</item>
+		<item>
+			<title>China Tries Campaigner on &#x2019;08 Quake</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c15689b028fcd0e46866aa722c923ace</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/world/asia/06quake.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/world/asia/06quake.html</guid>
+			<description>The defendant, Huang Qi, is one of two men who are being tried after they pushed for investigations into school collapses during the 2008 Sichuan earthquake.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c15689b028fcd0e46866aa722c923ace&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c15689b028fcd0e46866aa722c923ace&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By EDWARD WONG</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 01:10:31 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Huang Qi</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Earthquakes</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Sichuan Province (China)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Courts</category>
+		</item>
+		<item>
+			<title>Psychologists Reject Gay &#x2018;Therapy&#x2019;</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=cedd39464119aead0ab1eb424e1a42a5</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/health/06gay.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/health/06gay.html</guid>
+			<description>In a resolution, the American Psychological Association rejected reparative therapy, which says gay men and lesbians can change their sexual orientation.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=cedd39464119aead0ab1eb424e1a42a5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=cedd39464119aead0ab1eb424e1a42a5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 01:01:34 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Homosexuality</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Psychology and Psychologists</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">American Psychological Assn</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Mental Health and Disorders</category>
+		</item>
+		<item>
+			<title>Ahmadinejad Sworn In for 2nd Term</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=23cdac7466f881b05fda13d0c757bec5</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/world/middleeast/06iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/world/middleeast/06iran.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/world/05iran2-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>President Mahmoud Ahmadinejad of Iran addressed the parliament after being sworn into a second term as president. </media:description>
+			<media:credit>Newsha Tavakolian/Polaris, for The New York Times</media:credit>
+			<description>President Mahmoud Ahmadinejad&#x2019;s adversaries shunned the ceremony, and security patrolled the streets.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=23cdac7466f881b05fda13d0c757bec5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=23cdac7466f881b05fda13d0c757bec5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT F. WORTH and NAZILA FATHI</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 00:53:34 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ahmadinejad, Mahmoud</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+		</item>
+		<item>
+			<title>Ford Would-Be Assassin to Be Paroled</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=59987c0536d6e9fa145d9f0cb102e948</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/us/politics/06fromme.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/us/politics/06fromme.html</guid>
+			<description>Lynette A. Fromme, who was briefly in the limelight she so craved after pointing a gun at President Gerald R. Ford in 1975, will be released from federal prison.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=59987c0536d6e9fa145d9f0cb102e948&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=59987c0536d6e9fa145d9f0cb102e948&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID STOUT</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 00:43:28 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ford, Gerald Rudolph Jr</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prisons and Prisoners</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Assassinations and Attempted Assassinations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Federal Bureau of Prisons</category>
+		</item>
+		<item>
+			<title>City Room: Astor&#x2019;s Signature Said to Be Forged</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d1f8b8d4e2176102ef870abd1a42d52d</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/08/05/writing-expert-says-astors-signature-was-forged/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/08/05/writing-expert-says-astors-signature-was-forged/index.html</guid>
+			<description>Gus R. Lesnevich's testimony appeared to be a blow to Francis X. Morrissey Jr., an estate lawyer whom prosecutors say forged Mrs. Astor's signature on a 2004 amendment to her will.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d1f8b8d4e2176102ef870abd1a42d52d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d1f8b8d4e2176102ef870abd1a42d52d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOHN ELIGON</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 21:38:26 GMT</pubDate>
+		</item>
+	</channel>
+</rss>

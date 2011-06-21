@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[Clinging Tightly to Their Grip on the Good Life]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=d93726c0e490cbda275422211c1299f4]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/story/2009/08/15/ST2009081503017.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/story/2009/08/15/ST2009081503017.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sun Aug 16 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Americans residing in areas where Wall Street's boom years pushed the standard of living to astonishing heights are feeling pinch of recession.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=d93726c0e490cbda275422211c1299f4&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=d93726c0e490cbda275422211c1299f4&p=1"/></a>
+]]></description>
+			<author><![CDATA[Anne Hull]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Karzai Takes On His Rivals]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=26574e4913530b636d4a5bad2cab0a37]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/16/AR2009081601001.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/16/AR2009081601001.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sun Aug 16 14:44 EDT 2009]]></pubDate>
+			<description><![CDATA[Afghanistan leader defends his tenure during presidential debate ahead of Thursday's vote.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=26574e4913530b636d4a5bad2cab0a37&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=26574e4913530b636d4a5bad2cab0a37&p=1"/></a>
+]]></description>
+			<author><![CDATA[Joshua Partlow]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Hope for Public Option Fades]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=afbce35715d3f87320903f84042e03fc]]></link>
+			<pheedo:origLink>http://voices.washingtonpost.com/44/2009/08/16/sebelius_signals_embrace_of_co.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://voices.washingtonpost.com/44/2009/08/16/sebelius_signals_embrace_of_co.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sun Aug 16 11:42 EDT 2009]]></pubDate>
+			<description><![CDATA[<span class="kicker1">44</span> | Sebelius signals White House may embrace insurance co-ops as the main plank of reform.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=afbce35715d3f87320903f84042e03fc&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=afbce35715d3f87320903f84042e03fc&p=1"/></a>
+]]></description>
+			<author><![CDATA[John Amick]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Woods Steers With Caution]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=a6e0a1e402f85989fe37c8d6beb83aad]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081503034.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081503034.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sun Aug 16 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[<span class="kicker1">COLUMN</span> | Tiger Woods's conservative play isn't always fun for the spectator, but it is explicable.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=a6e0a1e402f85989fe37c8d6beb83aad&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=a6e0a1e402f85989fe37c8d6beb83aad&p=1"/></a>
+]]></description>
+			<author><![CDATA[Sally Jenkins]]></author>
+		</item>
+		<item>
+			<title><![CDATA[A Bid to Control Social Media  ]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=dc62fb7833334c8bd0f0ed241335ac63]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500040.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500040.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sun Aug 16 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[With its $47.5M purchase of FriendFeed, Facebook comes closer to owning everything you do online. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=dc62fb7833334c8bd0f0ed241335ac63&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=dc62fb7833334c8bd0f0ed241335ac63&p=1"/></a>
+]]></description>
+			<author><![CDATA[Chadwick Matlin   ]]></author>
+		</item>
+	</channel>
+</rss>

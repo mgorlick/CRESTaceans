@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Mon, 17 Aug 2009 17:26:46 GMT</pubDate>
+    <lastBuildDate>Mon, 17 Aug 2009 17:29:41 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>China sell-off sparks flight from risk</title>
+      <link>http://traxfer.ft.com/cms/s/0/daf34186-8b1c-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Equity markets fell sharply after demand fears in China triggered one of the country’s largest one-day declines on record</description>
+      <pubDate>Mon, 17 Aug 2009 15:55:36 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/daf34186-8b1c-11de-9f50-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>US homebuilder sentiment swells in August</title>
+      <link>http://traxfer.ft.com/cms/s/0/0f698990-8b48-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>US homebuilder confidence rose to its highest level since last June this month and has more than doubled since the start of the year, as hopes for a housing market recovery remain undeterred by record rates of foreclosure</description>
+      <pubDate>Mon, 17 Aug 2009 17:04:43 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/0f698990-8b48-11de-9f50-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Afghans fear poll attacks</title>
+      <link>http://traxfer.ft.com/cms/s/0/7d56ac5c-8a90-11de-ad08-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Afghanistan’s top security officials yesterday warned they were unable to guarantee the security of this week’s elections, despite efforts to buy off a ceasefire from off Taliban insurgents.</description>
+      <pubDate>Sun, 16 Aug 2009 18:42:21 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/7d56ac5c-8a90-11de-ad08-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Lowe’s quarterly profits fall 19%</title>
+      <link>http://traxfer.ft.com/cms/s/0/3772748c-8b26-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Lowe’s, US home improvement retailer, reported that its second quarter profits fell by 19.1 per cent as consumers continued to delay house projects while uncertainty remains in the fragile market</description>
+      <pubDate>Mon, 17 Aug 2009 12:13:31 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/3772748c-8b26-11de-9f50-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Demand for US assets jumps in June</title>
+      <link>http://traxfer.ft.com/cms/s/0/b47f7066-8b3e-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Foreign investors ramped up their purchases of US long-term securities in June, although China trimmed its holdings of US Treasury bonds during the month, according to data released by the Treasury</description>
+      <pubDate>Mon, 17 Aug 2009 15:10:55 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/b47f7066-8b3e-11de-9f50-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Obama concedes healthcare insurance measure</title>
+      <link>http://traxfer.ft.com/cms/s/0/6f2404c4-8a89-11de-ad08-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>US healthcare reform could proceed without a government-run insurance scheme, the Obama administration is ever more frequently acknowledging, a decision that would win over some conservatives but disappoint many liberals</description>
+      <pubDate>Sun, 16 Aug 2009 20:04:23 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/6f2404c4-8a89-11de-ad08-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Japan growth returns but fears remain</title>
+      <link>http://traxfer.ft.com/cms/s/0/d7ec7a40-8aca-11de-ad08-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Japan returned to growth in the second quarter, but economists warned the recovery remained vulnerable to any faltering in export demand or tightening of the government’s fiscal stimulus</description>
+      <pubDate>Mon, 17 Aug 2009 17:26:46 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/d7ec7a40-8aca-11de-ad08-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>N Korea strikes deal with South</title>
+      <link>http://traxfer.ft.com/cms/s/0/9425f70c-8b09-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>North Korea has struck a deal to revive South Korean tourism and factory investment in its territory, seeking hard currency while under increasingly effective UN sanctions</description>
+      <pubDate>Mon, 17 Aug 2009 08:42:55 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/9425f70c-8b09-11de-9f50-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Deadline looms for Guaranty bids</title>
+      <link>http://traxfer.ft.com/cms/s/0/35f0b010-8a9a-11de-ad08-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>At least one private equity consortium is considering a bid for Texas bank Guaranty Financial as the deadline for prospective buyers nears</description>
+      <pubDate>Sun, 16 Aug 2009 21:30:12 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/35f0b010-8a9a-11de-ad08-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Iran to let women join cabinet</title>
+      <link>http://traxfer.ft.com/cms/s/0/57db0cb0-8a73-11de-ad08-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Mahmoud Ahmadi-Nejad, Iran’s president, said he would nominate at least three female ministers to his cabinet, reaching out to the women who have been particularly active in post-election protests against his government</description>
+      <pubDate>Sun, 16 Aug 2009 18:32:15 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/57db0cb0-8a73-11de-ad08-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

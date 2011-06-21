@@ -1,0 +1,193 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Sun, 16 Aug 2009 21:05:39 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>White House Appears Open to Insurance Co-ops</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6976e4abe87a32f5599564ee36fe4f94</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/health/policy/17talkshows.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/health/policy/17talkshows.html</guid>
+			<description>The Obama administration sent signals that it has backed away from its vision of a government organization to provide for the uninsured and is open to using nonprofit cooperatives instead.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6976e4abe87a32f5599564ee36fe4f94&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6976e4abe87a32f5599564ee36fe4f94&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOSEPH BERGER</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 20:24:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Sebelius, Kathleen</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Gibbs, Robert L</category>
+		</item>
+		<item>
+			<title>American Held in Myanmar Is Released</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1448ad110379a3435cccfbcff9dc16ea</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/world/asia/17myanmar.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/world/asia/17myanmar.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/world/asia/17myanmar.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>John Yettaw arrived at a military airport in Bangkok on Sunday. He had been released from a Myanmar prison and left with Senator Jim Webb.</media:description>
+			<media:credit>Pornchai Kittiwongsakul/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>An American sentenced to hard labor for intruding at the home of Myanmar&#x2019;s pro-democracy leader left with a visiting American senator.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1448ad110379a3435cccfbcff9dc16ea&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1448ad110379a3435cccfbcff9dc16ea&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SETH MYDANS</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 21:05:05 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Yettaw, John</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Myanmar</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Webb, James H Jr</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Aung San Suu Kyi, Daw</category>
+		</item>
+		<item>
+			<title>Women at Arms: G.I. Jane Breaks the Combat Barrier</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a4e5bfeefcf7aabc3c5101a3d37319d6</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/16/us/16women.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/16/us/16women.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/16/us/women_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Sgt. Theresa Lynn Flannery during an attack in April 2004 near Najaf, Iraq.</media:description>
+			<media:credit>Gervasio Sanchez/Associated Press</media:credit>
+			<description>Before 2001, America&#x2019;s military women had rarely seen ground combat. Afghanistan and Iraq have changed that.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a4e5bfeefcf7aabc3c5101a3d37319d6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a4e5bfeefcf7aabc3c5101a3d37319d6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LIZETTE ALVAREZ</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 20:09:50 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">United States Army</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Women and Girls</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+		</item>
+		<item>
+			<title>Iran Expands Mass Trial of Opposition Supporters</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=337fa174b7ebee7234d3a9adba0b86dd</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/16/world/AP-ML-Iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/16/world/AP-ML-Iran.html</guid>
+			<description>President Mahmoud Ahmadinejad said he would nominate three women for his new Cabinet, which could mean the first female Iranian ministers in over 30 years.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=337fa174b7ebee7234d3a9adba0b86dd&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=337fa174b7ebee7234d3a9adba0b86dd&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 20:21:13 GMT</pubDate>
+		</item>
+		<item>
+			<title>Tropical Storm Claudette Forms Off Florida Coast</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=8abb20ff54bf4c8644ea0a6fb831dc93</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/16/us/AP-Tropical-Weather.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/16/us/AP-Tropical-Weather.html</guid>
+			<description>Forecasters said that Tropical Storm Claudette had formed off the northern Gulf Coast of Florida and was expected to bring heavy rain to the area.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=8abb20ff54bf4c8644ea0a6fb831dc93&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=8abb20ff54bf4c8644ea0a6fb831dc93&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 19:20:33 GMT</pubDate>
+		</item>
+		<item>
+			<title>Bolt Shatters 100-Meter World Record</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7d53c1861a07e9e71b49f97816b750e2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/sports/global/17track.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/sports/global/17track.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/16/sports/17bolt3_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Jamaica's Usain Bolt won the men's 100m at IAAF Athletics World Championships, flanked by Tyson Gay, who came in second, left, and Daniel Bailey, right, on Sunday in Berlin.</media:description>
+			<media:credit>Christophe Karaba/European Pressphoto Agency</media:credit>
+			<description>The Jamaican sprinting sensation Usain Bolt became the first person to run under 9.6 seconds at track&#x2019;s world championship in Berlin.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7d53c1861a07e9e71b49f97816b750e2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7d53c1861a07e9e71b49f97816b750e2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CHRISTOPHER CLAREY</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 21:01:34 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Track and Field</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Bolt, Usain</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Gay, Tyson</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Powell, Asafa</category>
+		</item>
+		<item>
+			<title>Favorites Tee Off on Time</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3abe0e364e9a1ba3ca3c6992e8646576</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/sports/golf/17pga.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/sports/golf/17pga.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/16/sports/pga1_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Padraig Harrington of Ireland teed off on the first hole in view of the P.G.A. Championship's Wanamaker trophy.</media:description>
+			<media:credit>Jeff Haynes/Reuters</media:credit>
+			<description>After a blustery start, the final round of the P.G.A. Championship went off as scheduled with Tiger Woods in the final pairing.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3abe0e364e9a1ba3ca3c6992e8646576&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3abe0e364e9a1ba3ca3c6992e8646576&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PAT BORZI</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 21:04:06 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">PGA Championship</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Golf</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Woods, Tiger</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Harrington, Padraig</category>
+		</item>
+		<item>
+			<title>2 Killings Stoke Kashmiri Rage at Indian Force</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=456a569579a361f7bd0374e98cd4f4cd</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/16/world/asia/16kashmir.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/16/world/asia/16kashmir.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/16/world/16kashmir2_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Nilofar Jan&#x2019;s husband, Shakeel Ahmad Ahanger, left, with Nilofar&#x2019;s father. Nilofar and Asiya Jan vanished on May 29.</media:description>
+			<media:credit>Candace Feit</media:credit>
+			<description>In Kashmir, the rapes and killings of two young women near the camps of Indian security forces have focused attention on their continuing presence.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=456a569579a361f7bd0374e98cd4f4cd&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=456a569579a361f7bd0374e98cd4f4cd&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LYDIA POLGREEN</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 19:57:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Kashmir and Jammu (India)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Murders and Attempted Murders</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Sex Crimes</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">India</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Women and Girls</category>
+		</item>
+		<item>
+			<title>Hillary Clinton&#x2019;s Folksy Diplomacy</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d1692782474ac4e78c939e46094ce00a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/16/weekinreview/16gettleman.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/16/weekinreview/16gettleman.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/16/weekinreview/16gettlenman.751.jpg" medium="image" height="75" width="75"/>
+			<media:description>
+				<em class="bold">ACROSS AFRICA</em>Secretary of State Hillary Rodham Clinton commemorated the bombing of the United States embassy in Nairobi, Kenya.</media:description>
+			<media:credit>Noor Khamis/Reuters</media:credit>
+			<description>Hillary Rodham Clinton is different from past secretaries of state. Her style is to go heavy on the politics and policy, but mix in some real people as well.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d1692782474ac4e78c939e46094ce00a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d1692782474ac4e78c939e46094ce00a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JEFFREY GETTLEMAN</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 20:36:35 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Hillary Rodham</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Africa</category>
+		</item>
+		<item>
+			<title>USOC Backs Off Disputed Olympic Network Plans</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=8ce3bdb61b724c0ba4a41287955b42bc</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/16/sports/AP-OLY-USOC-Network.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/16/sports/AP-OLY-USOC-Network.html</guid>
+			<description>The U.S. Olympic Committee postponed plans for its own television network after objections from Olympic officials.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=8ce3bdb61b724c0ba4a41287955b42bc&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=8ce3bdb61b724c0ba4a41287955b42bc&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 16:40:34 GMT</pubDate>
+		</item>
+	</channel>
+</rss>

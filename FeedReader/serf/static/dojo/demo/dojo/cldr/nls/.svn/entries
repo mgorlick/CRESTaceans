@@ -1,0 +1,349 @@
+10
+
+dir
+9960
+http://tps.ics.uci.edu/svn/projects/CREST/sisc/serf/static/dojo/demo/dojo/cldr/nls
+http://tps.ics.uci.edu/svn/projects
+
+
+
+2009-08-06T23:43:26.231677Z
+8984
+mgorlick
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+3eb8784e-3aee-0310-b028-d3d3d21a5a25
+
+ar
+dir
+
+ca
+dir
+
+cs
+dir
+
+currency.js
+file
+
+
+
+
+2011-06-21T06:36:47.000000Z
+1db263ba9b0e1623c288a3654dfb5867
+2009-08-06T23:43:26.231677Z
+8984
+mgorlick
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+177
+
+da
+dir
+
+de
+dir
+
+de-de
+dir
+
+el
+dir
+
+en
+dir
+
+en-au
+dir
+
+en-ca
+dir
+
+en-gb
+dir
+
+en-us
+dir
+
+es
+dir
+
+es-es
+dir
+
+fi
+dir
+
+fr
+dir
+
+gregorian.js
+file
+
+
+
+
+2011-06-21T06:36:43.000000Z
+eeead9c005c200bf1bb0436f8d6240c6
+2009-08-06T23:43:26.231677Z
+8984
+mgorlick
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+2850
+
+he
+dir
+
+hebrew.js
+file
+
+
+
+
+2011-06-21T06:36:43.000000Z
+20053f96d3831f8ca46e46f43b25cc87
+2009-08-06T23:43:26.231677Z
+8984
+mgorlick
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4660
+
+hu
+dir
+
+islamic-civil.js
+file
+
+
+
+
+2011-06-21T06:36:46.000000Z
+61893965a82500b6896ccfc8a251e523
+2009-08-06T23:43:26.231677Z
+8984
+mgorlick
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4842
+
+islamic.js
+file
+
+
+
+
+2011-06-21T06:36:43.000000Z
+52f7349e1c03231010c78ebf9a2206dd
+2009-08-06T23:43:26.231677Z
+8984
+mgorlick
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4789
+
+it
+dir
+
+it-it
+dir
+
+ja
+dir
+
+ja-jp
+dir
+
+ko
+dir
+
+ko-kr
+dir
+
+nb
+dir
+
+nl
+dir
+
+number.js
+file
+
+
+
+
+2011-06-21T06:36:46.000000Z
+6732b4cbc73e003721fb135e9fcdc800
+2009-08-06T23:43:26.231677Z
+8984
+mgorlick
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+649
+
+pl
+dir
+
+pt
+dir
+
+pt-br
+dir
+
+pt-pt
+dir
+
+ru
+dir
+
+sk
+dir
+
+sl
+dir
+
+sv
+dir
+
+th
+dir
+
+tr
+dir
+
+zh
+dir
+
+zh-cn
+dir
+
+zh-tw
+dir
+

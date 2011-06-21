@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Thu, 13 Aug 2009 00:22:02 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Fed Holds Rate Steady and Moves to End Debt Buying</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=12469c599a0c5163c6a05cae805ae805</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/business/economy/13fed.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/business/economy/13fed.html</guid>
+			<description>Almost two years after it embarked on the biggest financial rescue in U.S. history, the Fed said the economy was pulling out of its downward spiral.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=12469c599a0c5163c6a05cae805ae805&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=12469c599a0c5163c6a05cae805ae805&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By EDMUND L. ANDREWS</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 00:20:49 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Economy</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Federal Reserve System</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Interest Rates</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Banks and Banking</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Conditions and Trends</category>
+		</item>
+		<item>
+			<title>UBS and U.S. Report a Deal on Names in Tax Inquiry</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=13cb177bee21d7fa15417358de406714</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/business/global/13ubs.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/business/global/13ubs.html</guid>
+			<description>A final settlement would force the bank to disclose names of wealthy clients. How many names is unclear at the moment.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=13cb177bee21d7fa15417358de406714&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=13cb177bee21d7fa15417358de406714&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LYNNLEY BROWNING</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 00:10:34 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Tax Evasion</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Taxation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">UBS AG|UBS|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Justice Department</category>
+		</item>
+		<item>
+			<title>As Afghan Vote Nears, Taliban Step Up Intimidation</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=41dddedf99a8bd47578e7b48b1e4c646</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/world/asia/13kandahar.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/world/asia/13kandahar.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/12/world/13kandahar_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Abdullah Abdullah, in Kandahar on Wednesday, is one of the few Afghan presidential candidates to risk his safety by visiting the city.  The election is a week away. </media:description>
+			<media:credit>Tyler Hicks/The New York Times</media:credit>
+			<description>Insurgents have warned voters in mosques and through leaflets and radio messages not to vote in the presidential election, or face &#x201C;strong punishment.&#x201D;&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=41dddedf99a8bd47578e7b48b1e4c646&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=41dddedf99a8bd47578e7b48b1e4c646&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CARLOTTA GALL and RUHULLAH KHAPALWAK</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 00:21:13 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Elections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+		</item>
+		<item>
+			<title>Thousands Line Up for Promise of Free Health Care</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=447458181a02a2802932fec2a72c1794</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/health/13clinic.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/health/13clinic.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/12/us/13clinic2_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Shirley Chen, a dentist, spoke with Emily Love, 64, about a dental treatment plan. Besides dental care, the group offers medical and vision services.</media:description>
+			<media:credit>Ruth Fremson/The New York Times</media:credit>
+			<description>A rural organization offering its services near Los Angeles has already been overwhelmed by an outpouring of need.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=447458181a02a2802932fec2a72c1794&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=447458181a02a2802932fec2a72c1794&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JENNIFER STEINHAUER</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 23:59:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Remote Area Medical</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Los Angeles (Calif)</category>
+		</item>
+		<item>
+			<title>Mexico Wins Key World Cup Qualifier</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d0646ae04119903ed5691f387d902295</link>
+			<pheedo:origLink>http://goal.blogs.nytimes.com/2009/08/12/usa-vs-mexico-pre-game-banter/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://goal.blogs.nytimes.com/2009/08/12/usa-vs-mexico-pre-game-banter/index.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/12/sports/12mexico-2-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Israel Castro, center, celebrated with teammates after scoring Mexico's first goal against the U.S.  on Wednesday at Azteca Stadium. </media:description>
+			<media:credit>Miguel Tovar/Associated Press</media:credit>
+			<description>The victory gives El Tri new life as it moves into third place in the final World Cup regional qualifying round.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d0646ae04119903ed5691f387d902295&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d0646ae04119903ed5691f387d902295&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JEFFREY MARCUS</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 00:18:13 GMT</pubDate>
+		</item>
+		<item>
+			<title>New Army Handbook Teaches Afghanistan Lessons</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f6f78069a65427231b0ba1cc2c92a247</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/world/asia/13military.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/world/asia/13military.html</guid>
+			<description>A battlefield manual draws on lessons learned from previous missions and will be delivered over coming days to Army units joining the fight in Afghanistan.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f6f78069a65427231b0ba1cc2c92a247&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f6f78069a65427231b0ba1cc2c92a247&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THOM SHANKER</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 00:20:45 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+		</item>
+		<item>
+			<title>Iraqi Immigrants Struggle to Adjust to Life in U.S.</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=24dc9a2dcb71a7ef0a5afc43f5d7fed2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/nyregion/13iraqis.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/nyregion/13iraqis.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/12/nyregion/12iraqis2-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Nour al-Khal has been working as a translator in New York after initially working as a receptionist when she first arrived in 2007.</media:description>
+			<media:credit>Todd Heisler/The New York Times</media:credit>
+			<description>Many Iraqis cannot find jobs, are exhausting benefits and are spiraling toward poverty, an organization found.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=24dc9a2dcb71a7ef0a5afc43f5d7fed2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=24dc9a2dcb71a7ef0a5afc43f5d7fed2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By KIRK SEMPLE</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 21:04:17 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Manhattan (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Immigration and Emigration</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Asylum (Political)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">International Rescue Committee</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">United States Economy</category>
+		</item>
+		<item>
+			<title>After His Death, Jackson&#x2019;s Estate Could Prosper</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=0f03feafefbcfe852dc73f1616f9d19a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/business/media/13jackson.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/business/media/13jackson.html</guid>
+			<description>Since Michael Jackson&#x2019;s death, merchandising contracts and a film deal have brought in about $100 million.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=0f03feafefbcfe852dc73f1616f9d19a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=0f03feafefbcfe852dc73f1616f9d19a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By TIM ARANGO</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 00:02:26 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jackson, Michael</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Wills and Estates</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Memorabilia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Advertising and Marketing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Music</category>
+		</item>
+		<item>
+			<title>W.T.O. Rules Against China&#x2019;s Limits on Imports</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fd6efcffc2d31f784871a2b9af3e9a9a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/business/global/13trade.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/business/global/13trade.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/12/business/global/chinadvds75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A World Trade Organization panel ruled that Beijing must allow non-Chinese companies to sell more DVDs and other copyrighted materials in China, where most demand is met with counterfeits like these being sold in Shenyang.</media:description>
+			<media:credit>European Pressphoto Agency</media:credit>
+			<description>The decision was seen as a victory for the United States at a time when China is being perceived as increasingly nationalistic in its trade policies.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fd6efcffc2d31f784871a2b9af3e9a9a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fd6efcffc2d31f784871a2b9af3e9a9a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By KEITH BRADSHER</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 00:17:00 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">International Trade and World Market</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Regulation and Deregulation of Industry</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">World Trade Organization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">United States</category>
+		</item>
+		<item>
+			<title>3 Indicted Leaders of Carpenters&#x2019; Union Are Fired</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ffdf06c8da00c1d7b2dca5565a3c2b0c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/nyregion/13carpenters.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/nyregion/13carpenters.html</guid>
+			<description>In response to the indictments, the national organization put the New York chapter under emergency supervision.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ffdf06c8da00c1d7b2dca5565a3c2b0c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ffdf06c8da00c1d7b2dca5565a3c2b0c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By WILLIAM K. RASHBAUM</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 00:17:11 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">District Council of Carpenters</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Forde, Michael J</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Labor</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Organized Labor</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bribery</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Racketeering and Racketeers</category>
+		</item>
+		<item>
+			<title>Rwandan Genocide Suspect Captured</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3e3129e70cef923e5811e7e970ed695c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/world/africa/13rwanda.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/world/africa/13rwanda.html</guid>
+			<description>Gr&#xE9;goire Ndahimana is accused of helping to plan the killing of more than 2,000 Tutsi who had taken refuge in a church in 1994.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3e3129e70cef923e5811e7e970ed695c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3e3129e70cef923e5811e7e970ed695c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOSH KRON</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 23:32:32 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ndahimana, Gregoire</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Rwanda</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Hutu Tribe</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Tutsi Tribe</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">International Criminal Tribunal for Rwanda</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">War Crimes, Genocide and Crimes Against Humanity</category>
+		</item>
+		<item>
+			<title>Terror Conviction for Georgia Man</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=55bbf40249a38d104c8b9c815e3b2dc2</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/12/us/AP-US-Terrorism-Trial.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/12/us/AP-US-Terrorism-Trial.html</guid>
+			<description>Ehsanul Islam Sadequee, 23, is the second Georgia terror suspect to be convicted in the span of two months.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=55bbf40249a38d104c8b9c815e3b2dc2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=55bbf40249a38d104c8b9c815e3b2dc2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 22:42:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Terrorism</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+		</item>
+		<item>
+			<title>Caution on Fighting Marriage Ban</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=8bdeecdf4a7db8676b8c2ac891f07692</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/us/13gay.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/us/13gay.html</guid>
+			<description>Equality California had argued for another vote on the voter-approved ban, but on Wednesday said it wanted to wait until November 2012.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=8bdeecdf4a7db8676b8c2ac891f07692&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=8bdeecdf4a7db8676b8c2ac891f07692&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JESSE McKINLEY</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 23:54:20 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Homosexuality</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Marriages</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">California</category>
+		</item>
+		<item>
+			<title>City Room: Families Flock to City Aid Program</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e457e9ae451e9d9ce552afeac9a3de26</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/08/12/low-income-families-flock-to-cash-aid-program/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/08/12/low-income-families-flock-to-cash-aid-program/index.html</guid>
+			<description>Word spread quickly about a $175 million state program to give one-time, $200 back-to-school grants for each of more than 850,000 low-income children.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e457e9ae451e9d9ce552afeac9a3de26&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e457e9ae451e9d9ce552afeac9a3de26&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SEWELL CHAN and JASON GRANT</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 23:59:22 GMT</pubDate>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Mon, 17 Aug 2009 00:23:42 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>White House Appears Open to Insurance Co-ops</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6976e4abe87a32f5599564ee36fe4f94</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/health/policy/17talkshows.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/health/policy/17talkshows.html</guid>
+			<description>The Obama administration sent signals that it has backed away from its vision of a government organization to provide for the uninsured and is open to using nonprofit cooperatives instead.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6976e4abe87a32f5599564ee36fe4f94&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6976e4abe87a32f5599564ee36fe4f94&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOSEPH BERGER</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 23:50:02 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Sebelius, Kathleen</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Gibbs, Robert L</category>
+		</item>
+		<item>
+			<title>Fear of the Taliban Discourages Afghan Voters</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=2958a8c82ae0cc8595f5a72cb90f4502</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/world/asia/17taliban.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/world/asia/17taliban.html</guid>
+			<description>The insurgents&#x2019; campaign against this week&#x2019;s election may cost President Hamid Karzai vital support from his fellow Pashtuns.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=2958a8c82ae0cc8595f5a72cb90f4502&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=2958a8c82ae0cc8595f5a72cb90f4502&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DEXTER FILKINS</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 23:39:57 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Karzai, Hamid</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Elections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+		</item>
+		<item>
+			<title>Women at Arms: G.I. Jane Breaks the Combat Barrier</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a4e5bfeefcf7aabc3c5101a3d37319d6</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/16/us/16women.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/16/us/16women.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/16/us/women_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Sgt. Theresa Lynn Flannery during an attack in April 2004 near Najaf, Iraq.</media:description>
+			<media:credit>Gervasio Sanchez/Associated Press</media:credit>
+			<description>Before 2001, America&#x2019;s military women had rarely seen ground combat. Afghanistan and Iraq have changed that.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a4e5bfeefcf7aabc3c5101a3d37319d6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a4e5bfeefcf7aabc3c5101a3d37319d6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LIZETTE ALVAREZ</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 20:09:50 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">United States Army</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Women and Girls</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+		</item>
+		<item>
+			<title>Y. E. Yang Shocks Woods to Win at P.G.A.</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3abe0e364e9a1ba3ca3c6992e8646576</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/sports/golf/17pga.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/sports/golf/17pga.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/sports/17yang.752.jpg" medium="image" height="75" width="75"/>
+			<media:description>Y. E. Yang finished at eight under, three strokes ahead of Tiger Woods.</media:description>
+			<media:credit>Eric Miller/Reuters</media:credit>
+			<description>The unheralded South Korean Y. E. Yang overcame Tiger Woods at the P.G.A. Championship to become the first Korean man to win a major.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3abe0e364e9a1ba3ca3c6992e8646576&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3abe0e364e9a1ba3ca3c6992e8646576&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PAT BORZI</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 23:59:47 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">PGA Championship</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Golf</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Woods, Tiger</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Harrington, Padraig</category>
+		</item>
+		<item>
+			<title>Genes Tied to Gap in Treatment of Hepatitis C</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e4eded799a4977dbccb464531d68f9dd</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/health/research/17hepatitis.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/health/research/17hepatitis.html</guid>
+			<description>A Duke University team found that coding at a single site on the DNA helped explain why the standard drugs were more effective in whites than in blacks.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e4eded799a4977dbccb464531d68f9dd&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e4eded799a4977dbccb464531d68f9dd&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NICHOLAS WADE</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 23:48:24 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Hepatitis</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Drugs (Pharmaceuticals)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Genetics and Heredity</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Blacks</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">DNA (Deoxyribonucleic Acid)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Research</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Duke University</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Schering Plough Corp|SGP|NYSE</category>
+		</item>
+		<item>
+			<title>American Held in Myanmar Is Released</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1448ad110379a3435cccfbcff9dc16ea</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/world/asia/17myanmar.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/world/asia/17myanmar.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/world/asia/17myanmar.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>John Yettaw arrived at a military airport in Bangkok on Sunday. He had been released from a Myanmar prison and left with Senator Jim Webb.</media:description>
+			<media:credit>Pornchai Kittiwongsakul/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>An American sentenced to hard labor for intruding at the home of Myanmar&#x2019;s pro-democracy leader left with a visiting American senator.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1448ad110379a3435cccfbcff9dc16ea&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1448ad110379a3435cccfbcff9dc16ea&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SETH MYDANS</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 00:04:24 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Yettaw, John</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Myanmar</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Webb, James H Jr</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Aung San Suu Kyi, Daw</category>
+		</item>
+		<item>
+			<title>Times Topics: Deep Into Season, 3 Storms Finally Form</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5f4f775adcbcd8c2ce04195b619c9ac7</link>
+			<pheedo:origLink>http://topics.blogs.nytimes.com/2009/08/16/deep-into-season-3-storms-finally-form/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://topics.blogs.nytimes.com/2009/08/16/deep-into-season-3-storms-finally-form/index.html</guid>
+			<description>Three tropical storms were churning toward the United States coast on Sunday, one of which popped up that morning.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5f4f775adcbcd8c2ce04195b619c9ac7&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5f4f775adcbcd8c2ce04195b619c9ac7&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOSEPH B. TREASTER</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 00:23:07 GMT</pubDate>
+		</item>
+		<item>
+			<title>U.S.O.C. Backs Off Olympic Network Plans</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=8ce3bdb61b724c0ba4a41287955b42bc</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/16/sports/AP-OLY-USOC-Network.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/16/sports/AP-OLY-USOC-Network.html</guid>
+			<description>The U.S. Olympic Committee postponed plans for its own television network after objections from Olympic officials.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=8ce3bdb61b724c0ba4a41287955b42bc&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=8ce3bdb61b724c0ba4a41287955b42bc&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 23:52:41 GMT</pubDate>
+		</item>
+		<item>
+			<title>&#x2018;District 9&#x2019; Is No. 1 at the Weekend Box Office</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f40c4897c0f8bd8ac38a818d2644b452</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/movies/17box.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/movies/17box.html</guid>
+			<description>The low-budget alien movie &#x201C;District 9&#x201D; was No. 1 at the weekend box office with an estimated $37 million in ticket sales.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f40c4897c0f8bd8ac38a818d2644b452&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f40c4897c0f8bd8ac38a818d2644b452&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By BROOKS BARNES</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 23:33:15 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Movies</category>
+		</item>
+	</channel>
+</rss>

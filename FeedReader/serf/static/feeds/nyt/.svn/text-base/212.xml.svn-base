@@ -1,0 +1,304 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Wed, 05 Aug 2009 20:20:15 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Bill Clinton and Journalists in Emotional Return to U.S.</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9ec784d402ab1bc27069fbce70beec97</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/world/asia/06korea.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/world/asia/06korea.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/world/05korea4-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Laura Ling spoke to the news media as former Vice President Al Gore embraced Euna Lee after they arrived in Burbank, Calif. on Wednesday. Mr. Gore founded the company that employs the journalists.</media:description>
+			<media:credit>Jonathan Alcorn for The New York Times</media:credit>
+			<description>Former President Bill Clinton and the two freed journalists were greeted at the airport by family members and Al Gore, who founded the company that employs the journalists.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9ec784d402ab1bc27069fbce70beec97&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9ec784d402ab1bc27069fbce70beec97&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARK LANDLER and PETER BAKER</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 20:09:56 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Bill</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ling, Laura</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Lee, Euna</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Current TV</category>
+		</item>
+		<item>
+			<title>Clinton and Gore, Together Again</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d09251bbee900c930c4651b2c52dc596</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/us/politics/06gore.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/us/politics/06gore.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/us/06gore-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Bill Clinton embraced his former vice president, Al Gore, on Wednesday as Mr. Clinton delivered two journalists who worked for Mr. Gore back to American soil.</media:description>
+			<media:credit>Gabriel Bouys/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>All the Democratic Party&#x2019;s reigning families were brought together around the drama of the North Korea trip.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d09251bbee900c930c4651b2c52dc596&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d09251bbee900c930c4651b2c52dc596&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ADAM NAGOURNEY</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 20:08:03 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Bill</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Gore, Al</category>
+		</item>
+		<item>
+			<title>Kenya&#x2019;s Troubled Past Shadows Start of Clinton&#x2019;s Trip</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e82a26444717dde7ad4ebc579e7719f7</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/world/africa/06diplo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/world/africa/06diplo.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/world/09diplo-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Secretary of State Hillary Rodham Clinton with Moses Wetangula, the Kenyan foreign minister, in Nairobi on Wednesday.</media:description>
+			<media:credit>European Pressphoto Agency</media:credit>
+			<description>Secretary of State Hillary Rodham Clinton called for accountability for the perpetrators of election-driven bloodshed last year.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e82a26444717dde7ad4ebc579e7719f7&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e82a26444717dde7ad4ebc579e7719f7&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JEFFREY GETTLEMAN</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 18:36:36 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Hillary Rodham</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Africa</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Third World and Developing Countries</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+		</item>
+		<item>
+			<title>Magazine Preview: Karzai in His Labyrinth</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b54b4065bbf55af0774836e8eaddcafd</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/09/magazine/09Karzai-t.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/09/magazine/09Karzai-t.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/04/magazine/09karzai-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Hamid Karzai at the presidential palace.</media:description>
+			<media:credit>Lynsey Addario/VII Network, for The New York Times</media:credit>
+			<description>The Afghan president is isolated and distrusted, and even if he is re-elected this month, that&#x2019;s not likely to change.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b54b4065bbf55af0774836e8eaddcafd&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b54b4065bbf55af0774836e8eaddcafd&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ELIZABETH RUBIN</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 20:15:42 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Karzai, Hamid</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Elections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+		</item>
+		<item>
+			<title>$2.4 Billion in Grants to Make Cars a Bit Greener</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6208abde5f7b112c29d5484699e52c4d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/business/06battery.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/business/06battery.html</guid>
+			<description>The Obama administration announced $2.4 billion in grants to make batteries, mostly for electric vehicles.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6208abde5f7b112c29d5484699e52c4d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6208abde5f7b112c29d5484699e52c4d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MATTHEW L. WALD</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 20:16:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Electric Vehicles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Hybrid Vehicles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Batteries</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Subprime Mortgage Crisis</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Indiana</category>
+		</item>
+		<item>
+			<title>Bratton to Step Down as Los Angeles Police Chief</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f06edb3a32eadb3a41139695b979fb7a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/us/06bratton.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/us/06bratton.html</guid>
+			<description>William J. Bratton brought to Los Angeles the data-driven approach that won him praise as New York&#x2019;s police chief.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f06edb3a32eadb3a41139695b979fb7a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f06edb3a32eadb3a41139695b979fb7a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SOLOMON MOORE</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 19:40:24 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Bratton, William J</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Police</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Police Brutality and Misconduct</category>
+		</item>
+		<item>
+			<title>Ahmadinejad Sworn In for 2nd Term in Iran</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=23cdac7466f881b05fda13d0c757bec5</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/world/middleeast/06iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/world/middleeast/06iran.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/world/05iran2-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>President Mahmoud Ahmadinejad of Iran addressed the parliament after being sworn into a second term as president. </media:description>
+			<media:credit>Newsha Tavakolian/Polaris, for The New York Times</media:credit>
+			<description>President Mahmoud Ahmadinejad&#x2019;s adversaries shunned the ceremony and security forces patrolled the streets.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=23cdac7466f881b05fda13d0c757bec5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=23cdac7466f881b05fda13d0c757bec5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT F. WORTH and NAZILA FATHI</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 19:09:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ahmadinejad, Mahmoud</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+		</item>
+		<item>
+			<title>Online Diary Details Shooter&#x2019;s Frustration</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b4510e258908416eba0cf6cb3a084781</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/us/06shoot.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/us/06shoot.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/04/us/05shoot3_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Nancy Smith, right, hugged her daughter Tracey outside of the LA Fitness Center on Tuesday in Bridgeville, Pa., where a gunman reportedly opened fire in the aerobics room.</media:description>
+			<media:credit>Don Wright/Associated Press</media:credit>
+			<description>The man wrote that he planned the attack on a fitness center because he couldn&#x2019;t find a girlfriend.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b4510e258908416eba0cf6cb3a084781&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b4510e258908416eba0cf6cb3a084781&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SEAN D. HAMILL and ANAHAD O'CONNOR</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 19:28:26 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Murders and Attempted Murders</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Pennsylvania</category>
+		</item>
+		<item>
+			<title>City Room: Carpenters&#x2019; Union Chief Faces Corruption Charges</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6a06f4b9713ded44b7815a1570ef8105</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/08/05/carpenters-union-head-and-9-others-charged-in-corruption-scheme/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/08/05/carpenters-union-head-and-9-others-charged-in-corruption-scheme/index.html</guid>
+			<description>Nine other union officials and contractors also face federal charges that include racketeering, bribery and perjury.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6a06f4b9713ded44b7815a1570ef8105&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6a06f4b9713ded44b7815a1570ef8105&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By WILLIAM K. RASHBAUM</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 20:18:19 GMT</pubDate>
+		</item>
+		<item>
+			<title>City Room: Writing Expert Says Astor's Signature Was Forged</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d1f8b8d4e2176102ef870abd1a42d52d</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/08/05/writing-expert-says-astors-signature-was-forged/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/08/05/writing-expert-says-astors-signature-was-forged/index.html</guid>
+			<description>Gus R. Lesnevich's testimony appeared to be a blow to Francis X. Morrissey Jr., an estate lawyer whom prosecutors say forged Mrs. Astor's signature on a 2004 amendment to her will.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d1f8b8d4e2176102ef870abd1a42d52d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d1f8b8d4e2176102ef870abd1a42d52d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOHN ELIGON</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 20:18:20 GMT</pubDate>
+		</item>
+		<item>
+			<title>Court Restores Road Ban in Forests</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a1ffda4a6c8b618d6d9d002a7213fb82</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/05/business/AP-US-RoadlessForests.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/05/business/AP-US-RoadlessForests.html</guid>
+			<description>A federal appeals court Wednesday blocked road construction in more than 50 million acres of pristine national forests.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a1ffda4a6c8b618d6d9d002a7213fb82&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a1ffda4a6c8b618d6d9d002a7213fb82&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 18:58:50 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Forests and Forestry</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Courts</category>
+		</item>
+		<item>
+			<title>Arizona G.O.P. Divided Over Budget</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=beeb6063fcd1e5c88ed91927c2a11a35</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/us/06arizona.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/us/06arizona.html</guid>
+			<description>Despite controlling the Statehouse and the Legislature, Republicans in Arizona cannot agree on how to close a $3.4 billion budget gap.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=beeb6063fcd1e5c88ed91927c2a11a35&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=beeb6063fcd1e5c88ed91927c2a11a35&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JENNIFER STEINHAUER</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 19:00:48 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Arizona</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Budgets and Budgeting</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Republican Party</category>
+		</item>
+		<item>
+			<title>Strike Kills Wife of Taliban Chief</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=86f48b36d9759669b6707106c2fa17d5</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/world/asia/06pstan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/world/asia/06pstan.html</guid>
+			<description>The wife of the Pakistani Taliban leader Baitullah Mehsud was among those killed in what residents said was a missile strike from a remotely piloted U.S. aircraft.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=86f48b36d9759669b6707106c2fa17d5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=86f48b36d9759669b6707106c2fa17d5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PIR ZUBAIR SHAH and SALMAN MASOOD</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 19:15:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Pakistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Drones (Pilotless Planes)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Mehsud, Baitullah</category>
+		</item>
+		<item>
+			<title>Ruling Party&#x2019;s Base Erodes in Japan</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=dd4cd3b47683d34c3be6290aa45a6787</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/world/asia/06japan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/world/asia/06japan.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/world/06japan-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Yasuhisa Shiozaki, the Liberal Democratic Party  incumbent in Matsuyama, Japan, spoke to supporters at a meeting last month. </media:description>
+			<media:credit>Ko Sasaki for The New York Times</media:credit>
+			<description>The dogged loyalty of Japan&#x2019;s conservative heartland, which kept the Liberal Democrats in power, is fading.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=dd4cd3b47683d34c3be6290aa45a6787&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=dd4cd3b47683d34c3be6290aa45a6787&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARTIN FACKLER</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 18:54:03 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Japan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Liberal Democratic Party</category>
+		</item>
+		<item>
+			<title>Online Scammers Prey on the Jobless</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5e8addab6edb3cc3b0cc263004a1aa70</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/technology/personaltech/06basics.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/technology/personaltech/06basics.html</guid>
+			<description>As the unemployment rate skirts double digits, criminals are preying on the anxiety of the jobless to relieve them of cash and their identities.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5e8addab6edb3cc3b0cc263004a1aa70&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5e8addab6edb3cc3b0cc263004a1aa70&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By RIVA RICHMOND</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 20:12:03 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Phishing (Computer Fraud)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Counterfeit Money and Financial Instruments</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computer Security</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Unemployment</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Identity Fraud</category>
+		</item>
+		<item>
+			<title>Extension Reported for Manning</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=63e5343a2f2f47ecb1b40a7ee039cc37</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/sports/football/06manning.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/sports/football/06manning.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/sports/football/manning.75ms.jpg" medium="image" height="75" width="75"/>
+			<media:description>Giants quarterback Eli Manning signed autographs after practice during training camp on Tuesday in Albany.</media:description>
+			<media:credit>Mike Groll/Associated Press</media:credit>
+			<description>Eli Manning would be among the league&#x2019;s highest-paid player after a reported $97.5 million deal with the Giants.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=63e5343a2f2f47ecb1b40a7ee039cc37&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=63e5343a2f2f47ecb1b40a7ee039cc37&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOE LAPOINTE</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 19:54:05 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Football</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">New York Giants</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">National Football League</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Manning, Eli</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Reese, Jerry</category>
+		</item>
+		<item>
+			<title>Diner's Journal: The Times Names Restaurant Critic</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=23f1858f644482591ad71dd135e3fec0</link>
+			<pheedo:origLink>http://dinersjournal.blogs.nytimes.com/2009/08/05/sam-sifton-is-named-restaurant-critic-for-the-times/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://dinersjournal.blogs.nytimes.com/2009/08/05/sam-sifton-is-named-restaurant-critic-for-the-times/index.html</guid>
+			<description>In an email message to the staff, Bill Keller announced this afternoon that Sam Sifton will be taking over the job of Times restaurant critic, starting in early October.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=23f1858f644482591ad71dd135e3fec0&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=23f1858f644482591ad71dd135e3fec0&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE NEW YORK TIMES</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 19:33:18 GMT</pubDate>
+		</item>
+	</channel>
+</rss>

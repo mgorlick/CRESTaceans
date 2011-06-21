@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Tue, 18 Aug 2009 20:20:43 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Brett Favre signs with Minnesota Vikings]]></title>
+<description><![CDATA[Brett Favre's latest retirement lasted all of three weeks. The three-time MVP has done an about-face for the second time in as many years and will play for the Vikings this season.]]></description>
+<pubDate>Tue, 18 Aug 2009 18:17:29 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4406963&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4406963&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[NFL investigating reports that coach Tom Cable, Randy Hanson of Oakland Raiders in altercation]]></title>
+<description><![CDATA[The NFL is investigating reports that Oakland Raiders coach Tom Cable got into an altercation that sent one of his assistants to the hospital.]]></description>
+<pubDate>Tue, 18 Aug 2009 14:06:45 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4407310&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4407310&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Jayson Stark]]></dc:creator>
+<title><![CDATA[Sources: John Smoltz 'strongly leaning' toward signing with St. Louis Cardinals]]></title>
+<description><![CDATA[John Smoltz is "strongly leaning" toward signing with the Cardinals, two major league sources with direct knowledge of his negotiations told ESPN.com Tuesday night.]]></description>
+<pubDate>Tue, 18 Aug 2009 18:08:11 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4408342&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4408342&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Texas Rangers agree to trade with Houston Astros to acquire catcher Ivan Rodriguez]]></title>
+<description><![CDATA[The Rangers have agreed to trade two minor leaguers to the Houston Astros for Ivan Rodriguez, who was Texas' catcher the last time the franchise made the playoffs in 1999.]]></description>
+<pubDate>Tue, 18 Aug 2009 17:45:29 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4407445&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4407445&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Report: Brandon Marshall miffed again with Denver Broncos]]></title>
+<description><![CDATA[Brandon Marshall has one more reason to be miffed at the Denver Broncos.]]></description>
+<pubDate>Tue, 18 Aug 2009 20:11:17 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4408285&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4408285&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Usain Bolt advances to semifinals in 200 meters at world championships]]></title>
+<description><![CDATA[Looking for his second gold medal of the world championships, Usain Bolt has easily advanced to the semifinals of the 200 meters.]]></description>
+<pubDate>Tue, 18 Aug 2009 13:10:59 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/trackandfield/news/story?id=4406399&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/trackandfield/news/story?id=4406399&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Motion filed to dismiss Ben Roethlisberger lawsuit]]></title>
+<description><![CDATA[A former Harrah's employee has filed a motion to dismiss a lawsuit that accuses Pittsburgh Steelers quarterback Ben Roethlisberger of raping another worker.]]></description>
+<pubDate>Tue, 18 Aug 2009 16:44:41 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4408073&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4408073&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Report: Chicago Blackhawks star Patrick Kane is working on plea deal to avoid charges]]></title>
+<description><![CDATA[Report: Chicago Blackhawks star Patrick Kane is working on plea deal to avoid charges.]]></description>
+<pubDate>Tue, 18 Aug 2009 13:21:56 PDT</pubDate>
+<guid>http://sports.espn.go.com/chicago/news/story?id=4407596&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/chicago/news/story?id=4407596&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Tennessee Volunteers coach Lane Kiffin says NCAA investigating Bryce Brown's eligibility]]></title>
+<description><![CDATA[An NCAA representative is investigating whether the amateur status of Tennessee running back Bryce Brown has been violated.]]></description>
+<pubDate>Tue, 18 Aug 2009 19:36:56 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4408191&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4408191&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[David Newton]]></dc:creator>
+<title><![CDATA[Shana Mayfield takes out restraining order against Jeremy Mayfield's stepmom]]></title>
+<description><![CDATA[The wife of Jeremy Mayfield on Tuesday took out a restraining order against her husband's stepmother .]]></description>
+<pubDate>Tue, 18 Aug 2009 12:57:00 PDT</pubDate>
+<guid>http://sports.espn.go.com/rpm/nascar/cup/news/story?id=4407749&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/rpm/nascar/cup/news/story?id=4407749&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Washington Nationals general manager says it is 'very unlikely' Stephen Strasburg will pitch this season]]></title>
+<description><![CDATA[Acting Nationals general manager Mike Rizzo says it's "very unlikely" newly signed No. 1 draft pick Stephen Strasburg will be called up to the majors this season.]]></description>
+<pubDate>Tue, 18 Aug 2009 16:52:33 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4408151&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4408151&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Lance Armstrong, on Twitter, invites Glasgow cyclists along for casual ride]]></title>
+<description><![CDATA[Lance Armstrong has brought Scottish traffic to a standstill after more than 200 cyclists answered his Twitter invitation for a casual bike ride. ]]></description>
+<pubDate>Tue, 18 Aug 2009 12:32:57 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/cycling/news/story?id=4406766&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/cycling/news/story?id=4406766&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Survivor of NFL boating tragedy wonders why he lived]]></title>
+<description><![CDATA[The sole survivor of a February boating accident that killed two NFL players and a former college player said he's still haunted daily by "survivor's guilt" and wonders why he was the one who lived.]]></description>
+<pubDate>Tue, 18 Aug 2009 09:46:01 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4407244&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4407244&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Detroit Red Wings sign free-agent forward Todd Bertuzzi to one-year contract]]></title>
+<description><![CDATA[The Red Wings signed free-agent forward Todd Bertuzzi to a one-year contract on Tuesday.]]></description>
+<pubDate>Tue, 18 Aug 2009 16:12:02 PDT</pubDate>
+<guid>http://sports.espn.go.com/nhl/news/story?id=4407343&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nhl/news/story?id=4407343&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[NFL asks appeals court to OK bans for Pat and Kevin Williams]]></title>
+<description><![CDATA[The NFL asked a federal appeals court Tuesday to clear the way for the suspension of two Minnesota Vikings linemen for violating the league's anti-doping policy. ]]></description>
+<pubDate>Tue, 18 Aug 2009 14:04:26 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4407173&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4407173&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

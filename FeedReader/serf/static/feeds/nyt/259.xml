@@ -1,0 +1,163 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Fri, 07 Aug 2009 19:11:20 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Job Losses Slow in July, Signaling Shift in the Economy</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b1d8ef356574c4b44b825f57677c8105</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/business/economy/08jobs.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/business/economy/08jobs.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/07/business/07jobs-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A job fair at in Vicksburg, Miss., on August 4. </media:description>
+			<media:credit>Barbara Gauntt/The Clarion-Ledger, via Associated Press</media:credit>
+			<description>The most hopeful jobs report since last summer suggested Friday that the recession was ending, but the recovery is likely to be marked by continuing job losses until next year.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b1d8ef356574c4b44b825f57677c8105&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b1d8ef356574c4b44b825f57677c8105&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY and LOUIS UCHITELLE</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 18:50:50 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Unemployment</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Economy</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Layoffs and Job Reductions</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Conditions and Trends</category>
+		</item>
+		<item>
+			<title>Floyd Norris: Not as Bad, but Not Good</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=2b3ec3994f736123022c5f6ed92feeb6</link>
+			<pheedo:origLink>http://norris.blogs.nytimes.com/2009/08/07/not-as-bad-but-not-good/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://norris.blogs.nytimes.com/2009/08/07/not-as-bad-but-not-good/index.html</guid>
+			<description>Fewer people are losing their jobs, but the number of long-term unemployed workers keeps rising.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=2b3ec3994f736123022c5f6ed92feeb6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=2b3ec3994f736123022c5f6ed92feeb6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By FLOYD NORRIS</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 17:18:21 GMT</pubDate>
+		</item>
+		<item>
+			<title>Economix: The Least-Bad Jobs Report in a Long Time</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9cdf962883c2a48b7abb19c9ebf05e8d</link>
+			<pheedo:origLink>http://economix.blogs.nytimes.com/2009/08/07/the-best-jobs-report-in-a-long-time/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://economix.blogs.nytimes.com/2009/08/07/the-best-jobs-report-in-a-long-time/index.html</guid>
+			<description>So the job market and the economy are still in bad shape. But, all in all, the latest numbers were better.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9cdf962883c2a48b7abb19c9ebf05e8d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9cdf962883c2a48b7abb19c9ebf05e8d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID LEONHARDT</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 19:08:27 GMT</pubDate>
+		</item>
+		<item>
+			<title>Your Money: Good Luck Getting Private Insurance for Unemployment</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7c0c69d1f9149fc9dd1b682b14284550</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/your-money/08money.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/your-money/08money.html</guid>
+			<description>Paycheck replacement coverage &#x2014; a product that seems perfect for this economic moment &#x2014; is scarce, if it exists at all.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7c0c69d1f9149fc9dd1b682b14284550&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7c0c69d1f9149fc9dd1b682b14284550&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By RON LIEBER</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 18:41:42 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Unemployment Insurance</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Personal Finances</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Insurance</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Unemployment</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Mortgages</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Student Loans</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobile Insurance and Liability</category>
+		</item>
+		<item>
+			<title>The Caucus: Senator Martinez Resigns Early</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6130f863c3d80ff9e2e9c6417b36f5d2</link>
+			<pheedo:origLink>http://thecaucus.blogs.nytimes.com/2009/08/07/senator-martinez-resigns-early/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://thecaucus.blogs.nytimes.com/2009/08/07/senator-martinez-resigns-early/index.html</guid>
+			<description>Senator Mel Martinez, Republican of Florida, has decided to leave before his term ends, according to Senate Republican aides.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6130f863c3d80ff9e2e9c6417b36f5d2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6130f863c3d80ff9e2e9c6417b36f5d2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By BERNIE BECKER</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 18:58:23 GMT</pubDate>
+		</item>
+		<item>
+			<title>Music: A Moment of Muddy Grace</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e9ba989020e6e8bd37f0bd363e12eb57</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/09/arts/music/09pare.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/09/arts/music/09pare.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/07/arts/07woodstock.1-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A view from above the stage.</media:description>
+			<media:credit>Jack Manning/The New York Times</media:credit>
+			<description>For a generation, Woodstock remains a community in the consciousness.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e9ba989020e6e8bd37f0bd363e12eb57&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e9ba989020e6e8bd37f0bd363e12eb57&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JON PARELES</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 19:09:18 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Music</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Woodstock Music Festivals</category>
+		</item>
+		<item>
+			<title>Taliban Leader in Pakistan Is Reportedly Killed</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=242b321c9cf9b05fe9a9df1877bef85f</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/world/asia/08pstan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/world/asia/08pstan.html</guid>
+			<description>Baitullah Mehsud was blamed for the assassination of Benazir Bhutto and scores of suicide bombings.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=242b321c9cf9b05fe9a9df1877bef85f&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=242b321c9cf9b05fe9a9df1877bef85f&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PIR ZUBAIR SHAH, ISMAIL KHAN and SABRINA TAVERNISE</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 18:38:43 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Mehsud, Baitullah</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Pakistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+		</item>
+		<item>
+			<title>Gillibrand Rival Won&#x2019;t Run in Primary</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fdf533e19748b07a7c7b70f44f3e94c6</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/nyregion/08maloney.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/nyregion/08maloney.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/07/nyregion/maloney-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Representative Carolyn B. Maloney last month.</media:description>
+			<media:credit>Mark Wilson/Getty Images</media:credit>
+			<description>Representative Carolyn B. Maloney announced on Friday that she wouldn&#x2019;t challenge Senator Kirsten E. Gillibrand.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fdf533e19748b07a7c7b70f44f3e94c6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fdf533e19748b07a7c7b70f44f3e94c6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By RAYMOND HERNANDEZ</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 17:12:00 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Maloney, Carolyn B</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Gillibrand, Kirsten E</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Senate</category>
+		</item>
+		<item>
+			<title>Scores Killed in Spate of Attacks on Shiites in Iraq</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c030aaf2e13c255aeb9c44f32bda5bd7</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/world/middleeast/08iraq.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/world/middleeast/08iraq.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/07/world/07iraq-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A bus carrying Shiite pilgrims was damaged in a bomb attack in Sadr City on Friday. </media:description>
+			<media:credit>Joseph Sywenkyj for The New York Times</media:credit>
+			<description>The bombings, which officials said killed at least 36 people, appear intended to inflame sectarian passions.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c030aaf2e13c255aeb9c44f32bda5bd7&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c030aaf2e13c255aeb9c44f32bda5bd7&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM DAGHER</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 19:06:57 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bombs and Explosives</category>
+		</item>
+	</channel>
+</rss>

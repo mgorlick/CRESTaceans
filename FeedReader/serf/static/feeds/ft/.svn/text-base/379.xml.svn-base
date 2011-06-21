@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Wed, 12 Aug 2009 19:18:31 GMT</pubDate>
+    <lastBuildDate>Wed, 12 Aug 2009 19:29:45 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>Fed extends bond purchases to October</title>
+      <link>http://traxfer.ft.com/cms/s/0/7d734a80-8750-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>US Federal Reserve policymakers ended their two-day meeting on by keeping interest rates steady as expected, but extending the Fed’s $300bn programme to buy Treasury bonds until October</description>
+      <pubDate>Wed, 12 Aug 2009 18:45:56 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/7d734a80-8750-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>UBS and US strike tax evasion deal</title>
+      <link>http://traxfer.ft.com/cms/s/0/513bcb70-8748-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Lawyers for UBS and the US government said they had reached a deal to settle the long and bitter battle over access to US client names</description>
+      <pubDate>Wed, 12 Aug 2009 15:18:12 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/513bcb70-8748-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>US hails win in China trade dispute</title>
+      <link>http://traxfer.ft.com/cms/s/0/6a0655b8-8756-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The Obama administration and Hollywood hailed a long-awaited ruling they said would help open up Chinese markets for everything from magazines to movie blockbusters as well as combating rampant intellectual piracy</description>
+      <pubDate>Wed, 12 Aug 2009 19:02:21 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/6a0655b8-8756-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>King damps expectations of early rate rise</title>
+      <link>http://traxfer.ft.com/cms/s/0/b2ae5862-8722-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Inflation would fall below its 2 per cent target in two years’ time, if interest rates rose in line with market expectations, the Bank of England warned</description>
+      <pubDate>Wed, 12 Aug 2009 10:29:15 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/b2ae5862-8722-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Bargain hunters drive Wall St higher</title>
+      <link>http://traxfer.ft.com/cms/s/0/6ede43ea-86b4-11de-9e8e-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>US stocks bounced, recovering the previous session’s losses as buyers were tempted back into the market following two days of selling</description>
+      <pubDate>Wed, 12 Aug 2009 19:18:31 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/6ede43ea-86b4-11de-9e8e-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>BHP sees end to iron ore benchmark</title>
+      <link>http://traxfer.ft.com/cms/0e45e12c-0619-11dd-802c-0000779fd2ac.html?_i_referralObject=8121268&amp;fromSearch=n&amp;o=%2Fhome%2Fus</link>
+      <description>Chief executive calls for heat to be taken out of traditional round of price-setting talks between ore miners and steelmakers</description>
+      <pubDate>Wed, 12 Aug 2009 17:50:15 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/0e45e12c-0619-11dd-802c-0000779fd2ac.html?_i_referralObject=8121268&amp;fromSearch=n</guid>
+    </item>
+    <item>
+      <title>Chinese essay sparks outcry in India</title>
+      <link>http://traxfer.ft.com/cms/s/0/bbe4b39e-8764-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>An essay claiming India has a weak sense of unity and suggesting Beijing could remove it as a rival by backing separatists has sparked a furore</description>
+      <pubDate>Wed, 12 Aug 2009 19:11:44 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/bbe4b39e-8764-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Bankers’ pay</title>
+      <link>http://traxfer.ft.com/cms/s/3/1e2b7c84-871c-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Distaste at the rewards on offer need to be kept distinct from efforts to improve governance and the task of redesigning pay to reflect risk</description>
+      <pubDate>Wed, 12 Aug 2009 15:32:23 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/3/1e2b7c84-871c-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Japan poll rivals clash in TV debate</title>
+      <link>http://traxfer.ft.com/cms/s/0/2333eed2-8744-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>There was no clear winner as Taro Aso, prime minister, invoked the country’s wartime past to woo voters, while his Democratic opponent Yukio Hatoyama  pledged change</description>
+      <pubDate>Wed, 12 Aug 2009 14:33:57 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/2333eed2-8744-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Spanish youths see red as bullfights cancelled</title>
+      <link>http://traxfer.ft.com/cms/s/0/896653be-8764-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Youths in the town of Pinto have pelted their town hall with eggs and tomatoes in protest against budget cuts that have forced summer fiesta organisers to limit the number of bullfights, or scrap them</description>
+      <pubDate>Wed, 12 Aug 2009 17:41:08 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/896653be-8764-11de-9280-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+
