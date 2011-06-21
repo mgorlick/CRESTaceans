@@ -28,55 +28,60 @@
   (define connects-i (make-hash)) ; (hash/c island-pair/c thread?)
   
   ;; RECEIVING
-  (define/contract (run-input-thread i)
-    (input-port? . -> . thread?)
+  (define (run-input-thread i ra rp)
     (thread
      (λ ()
+       (define (delete-self) (hash-remove! connects-i (cons ra rp))
+         (printf "inputs: ~a~n" connects-i))
+       
        (define tre (thread-receive-evt))
        (define tre? (curry equal? tre))
-       (define reade (read-bytes-line-evt i 'return-linefeed))
-       (with-handlers ([exn:fail? (λ (e) 
-                                    (printf "error: ~a~n" e)
-                                    (printf "terminating connection~n")
-                                    (tcp-abandon-port i))])
+       ;(define reade (read-bytes-line-evt i 'return-linefeed))
+       (define eofe (eof-evt i))
+       (with-handlers ([exn:fail:network? (λ (e) 
+                                            (printf "input thread error: ~a~n" (exn-message e))
+                                            (printf "terminating connection~n")
+                                            (tcp-abandon-port i)
+                                            (delete-self))])
          (let loop ()
-           (define v (sync reade tre)) ; get either an exit signal or a new message every cycle
-           (cond [(bytes? v) ; v is a byte-encoded integer providing framing info
-                  (read-in i v reply-thread)
+           (define v (sync eofe tre i)) ; get either an exit signal or a new message every cycle
+           (cond [(equal? i v) ; ready to block in order to read something
+                  (read-in i reply-thread)
                   (loop)]
                  [(eof-object? v) ; v signals termination of connection
-                  (close-input-port i)]
+                  (raise (make-exn:fail:network "Encountered EOF" (current-continuation-marks)))]
                  [(tre? v) ; someone signalled the thread
                   (if (equal? 'exit (thread-receive))
-                      (close-input-port i)
+                      (raise (make-exn:fail:network "Received close command" (current-continuation-marks)))
                       (loop))]))))))
   
   ;;; SENDING
-  (define/contract (run-output-thread o)
-    (output-port? . -> . thread?)
+  (define (run-output-thread o ra rp)
     (thread
      (λ ()
-       (with-handlers ([exn:fail:network? (λ (e)
-                                            (printf "error: ~a~n" e)
-                                            (printf "terminating connection~n")
-                                            (tcp-abandon-port o))])
+       (define (delete-self) (hash-remove! connects-o (cons ra rp))
+         (printf "outputs: ~a~n" connects-o))
+       
+       (with-handlers ([exn? (λ (e)
+                               (printf "output thread error: ~a~n" (exn-message e))
+                               (printf "terminating connection~n")
+                               (tcp-abandon-port o)
+                               (delete-self))])
          (let loop ()
            (define v (thread-receive))
-           (cond [(equal? 'exit v)
-                  (close-output-port o)]
-                 [(bytes? v)
+           (cond [(list? v)
                   (write-out o v)
                   (loop)]
                  [(equal? 'exit v)
-                  (close-output-port o)]))))))
+                  (raise (make-exn:fail:network "Receive close command" (current-continuation-marks)))]))))))
   
   ;;; CONNECTING
   (define (do-accepts)
     (let*-values ([(i o) (tcp-accept listener)]
                   [(ra rp) (read-preferred-address i)])
       (printf "accepted from ~a:~a~n" ra rp)
-      (hash-set! connects-o (cons ra rp) (run-output-thread o))
-      (hash-set! connects-i (cons ra rp) (run-input-thread i)))
+      (hash-set! connects-o (cons ra rp) (run-output-thread o ra rp))
+      (hash-set! connects-i (cons ra rp) (run-input-thread i ra rp)))
     (do-accepts))
   
   ;; Forward outbound message to the thread managing the appropriate output port.
@@ -84,7 +89,7 @@
     (file-position o 0)
     (define req (thread-receive))
     (cond [(request? req)
-           (define othread (hash-ref connects-o 
+           (define othread (hash-ref connects-o
                                      (cons (request-host req) (request-port req))
                                      (λ () (connect/store! req))))
            (thread-send othread (request->serialized req o) #f)
@@ -94,8 +99,8 @@
     (let*-values ([(i o) (tcp-connect (request-host req) (request-port req))]
                   [(la lp ra rp) (tcp-addresses i #t)])
       (write-preferred-address o la port)
-      (define ot (run-output-thread o))
-      (define it (run-input-thread i))
+      (define ot (run-output-thread o ra rp))
+      (define it (run-input-thread i ra rp))
       (hash-set! connects-o (cons ra rp) ot)
       (hash-set! connects-i (cons ra rp) it)
       ot))
@@ -113,8 +118,7 @@
 (define bytes->number (compose string->number bytes->string/utf-8))
 
 (define (request->serialized req o)
-  (write (serialize (request-message req)) o)
-  (get-output-bytes o))
+  (serialize (request-message req)))
 
 ;; OUTPUT
 (define (write-preferred-address o hostname port)
@@ -125,11 +129,9 @@
   (write-bytes #"\r\n" o))
 
 (define (write-out o data)
-  (write-bytes (number->bytes (bytes-length data)) o)
-  (write-bytes #"\r\n" o)
-  (write-bytes data o)
+  (write data o)
   (flush-output o)
-  (sendtest (+ 6 (bytes-length data))))
+  (sendtest (+ 6 799))) ; FIXME
 
 ;; INPUT
 (define (read-preferred-address i)
@@ -142,10 +144,8 @@
                  (make-exn:fail:network "Malformed canonical peer address found"(current-continuation-marks)))])
         (raise (make-exn:fail:network "No canonical peer address found" (current-continuation-marks))))))
 
-(define (read-in i len reply-thread)
-  (define m (read-bytes (bytes->number len) i))
-  (recvtest (bytes-length m))
-  (thread-send reply-thread (bytes->message m)))
+(define (read-in i reply-thread)
+  (thread-send reply-thread (deserialize (read i) BASELINE #f)))
 
 ;; FOR TESTING ONLY
 (define scl (make-semaphore 1))
