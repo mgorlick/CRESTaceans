@@ -87,15 +87,14 @@
       (do-accepts)))
   
   ;; Forward outbound message to the thread managing the appropriate output port.
-  (define (do-sending o)
-    (file-position o 0)
+  (define (do-sending)
     (define req (thread-receive))
     (cond [(request? req)
            (define othread (hash-ref connects-o
                                      (cons (request-host req) (request-port req))
                                      (λ () (connect/store! req))))
-           (thread-send othread (request->serialized req o) #f)
-           (do-sending o)]))
+           (thread-send othread (request->serialized req) #f)
+           (do-sending)]))
   
   (define (connect/store! req)
     (let*-values ([(i o) (tcp-connect (request-host req) (request-port req))]
@@ -118,14 +117,14 @@
   ;; one thread to manage all tcp-accepts.  
   (define accepter (thread do-accepts))
   ;; one thread to monitor the outgoing messages and redirect them
-  (define sendmaster (thread (λ () (do-sending (open-output-bytes)))))
+  (define sendmaster (thread do-sending))
   sendmaster)
 
 ;; UTIL
 (define number->bytes (compose string->bytes/utf-8 number->string))
 (define bytes->number (compose string->number bytes->string/utf-8))
 
-(define (request->serialized req o)
+(define (request->serialized req)
   (serialize (request-message req)))
 
 ;; OUTPUT
