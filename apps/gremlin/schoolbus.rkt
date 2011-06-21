@@ -13,7 +13,10 @@
    (list (define/global/1 'sleep sleep)
          (define/global/N 'printf printf))))
 
-(define request-channel (run-tcp-peer *LOCALHOST* 1235 (current-thread)))
+(define *RHOST* *LOCALHOST*)
+(define *RPORT* 5000)
+
+(define request-thread (run-tcp-peer *LOCALHOST* 1235 (current-thread)))
 
 (define (handle-message message t)
   (match message
