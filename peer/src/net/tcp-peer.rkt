@@ -4,27 +4,28 @@
          racket/contract
          racket/port
          racket/function
+         racket/match
          "structs.rkt"
          "../api/compilation.rkt")
 
-(provide (all-defined-out))
+(print-graph #f)
 
-(define *LOCALHOST* "::1")
+(provide *LOCALHOST*
+         run-tcp-peer)
+
+(define island-pair/c (cons/c string? exact-nonnegative-integer?))
+(define portHT/c (hash/c island-pair/c thread?))
+
+(define *LOCALHOST* "127.0.0.1")
 
 (define/contract (run-tcp-peer hostname port reply-thread)
   (string? exact-nonnegative-integer? thread? . -> . thread?)
   
   (define listener (tcp-listen port 64 #f hostname))
-  (define island-pair/c (cons/c string? exact-nonnegative-integer?))
-  (define portHT/c (hash/c island-pair/c thread?))
-  
-  ;; ephemeral client connections to our long-lived island pair
-  (define/contract accepts-o portHT/c (make-hash))
-  (define/contract accepts-i portHT/c (make-hash))
   
   ;; connections we've made to long-lived island pairs
-  (define/contract connects-o portHT/c (make-hash))
-  (define/contract connects-i portHT/c (make-hash))
+  (define connects-o (make-hash)) ; (hash/c island-pair/c thread?)
+  (define connects-i (make-hash)) ; (hash/c island-pair/c thread?)
   
   ;; RECEIVING
   (define/contract (run-input-thread i)
@@ -46,7 +47,7 @@
                  [(eof-object? v) ; v signals termination of connection
                   (close-input-port i)]
                  [(tre? v) ; someone signalled the thread
-                  (if (equal? (thread-receive) 'exit)
+                  (if (equal? 'exit (thread-receive))
                       (close-input-port i)
                       (loop))]))))))
   
@@ -55,10 +56,10 @@
     (output-port? . -> . thread?)
     (thread
      (λ ()
-       (with-handlers ([exn:fail? (λ (e)
-                                    (printf "error: ~a~n" e)
-                                    (printf "terminating connection~n")
-                                    (tcp-abandon-port o))])
+       (with-handlers ([exn:fail:network? (λ (e)
+                                            (printf "error: ~a~n" e)
+                                            (printf "terminating connection~n")
+                                            (tcp-abandon-port o))])
          (let loop ()
            (define v (thread-receive))
            (cond [(equal? 'exit v)
@@ -69,34 +70,30 @@
                  [(equal? 'exit v)
                   (close-output-port o)]))))))
   
-  (define (request->serialized req)
-    (define o (open-output-bytes))
-    (write (serialize (request-message req)) o)
-    (get-output-bytes o))
-  
   ;;; CONNECTING
   (define (do-accepts)
     (let*-values ([(i o) (tcp-accept listener)]
-                  [(la lp ra rp) (tcp-addresses i #t)])
+                  [(ra rp) (read-preferred-address i)])
       (printf "accepted from ~a:~a~n" ra rp)
       (hash-set! connects-o (cons ra rp) (run-output-thread o))
       (hash-set! connects-i (cons ra rp) (run-input-thread i)))
     (do-accepts))
   
   ;; Forward outbound message to the thread managing the appropriate output port.
-  (define (do-sending)
+  (define (do-sending o)
+    (file-position o 0)
     (define req (thread-receive))
     (cond [(request? req)
            (define othread (hash-ref connects-o 
                                      (cons (request-host req) (request-port req))
-                                     (λ () (connect/store/send! req))))
-           (thread-send othread (request->serialized req))
-           (do-sending)]))
+                                     (λ () (connect/store! req))))
+           (thread-send othread (request->serialized req o) #f)
+           (do-sending o)]))
   
-  (define (connect/store/send! req)
+  (define (connect/store! req)
     (let*-values ([(i o) (tcp-connect (request-host req) (request-port req))]
                   [(la lp ra rp) (tcp-addresses i #t)])
-      (printf "connected to ~a:~a~n" ra rp)
+      (write-preferred-address o la port)
       (define ot (run-output-thread o))
       (define it (run-input-thread i))
       (hash-set! connects-o (cons ra rp) ot)
@@ -108,25 +105,47 @@
   ;; one thread to manage all tcp-accepts.  
   (define accepter (thread do-accepts))
   ;; one thread to monitor the outgoing messages and redirect them
-  (define sendmaster (thread do-sending))
+  (define sendmaster (thread (λ () (do-sending (open-output-bytes)))))
   sendmaster)
 
-(define/contract (write-out o data)
-  (output-port? bytes? . -> . void)
-  (write-bytes (integer->integer-bytes (bytes-length data) 4 #f #t) o)
+;; UTIL
+(define number->bytes (compose string->bytes/utf-8 number->string))
+(define bytes->number (compose string->number bytes->string/utf-8))
+
+(define (request->serialized req o)
+  (write (serialize (request-message req)) o)
+  (get-output-bytes o))
+
+;; OUTPUT
+(define (write-preferred-address o hostname port)
+  (write-bytes #"ADDRESS " o)
+  (write-bytes (string->bytes/utf-8 hostname) o)
+  (write-bytes #" " o)
+  (write-bytes (number->bytes port) o)
+  (write-bytes #"\r\n" o))
+
+(define (write-out o data)
+  (write-bytes (number->bytes (bytes-length data)) o)
   (write-bytes #"\r\n" o)
   (write-bytes data o)
   (flush-output o)
   (sendtest (+ 6 (bytes-length data))))
 
-(define/contract (read-in i len# reply-thread)
-  (input-port? bytes? thread? . -> . void)
-  (thread-send reply-thread (bytes->message (read-message len# i))))
+;; INPUT
+(define (read-preferred-address i)
+  (let ([b (read-bytes-line i 'return-linefeed)])
+    (if (bytes? b)
+        (match (regexp-split #rx#" " b)
+          [(list #"ADDRESS" hostname port#)
+           (values (bytes->string/utf-8 hostname) (bytes->number port#))]
+          [else (raise 
+                 (make-exn:fail:network "Malformed canonical peer address found"(current-continuation-marks)))])
+        (raise (make-exn:fail:network "No canonical peer address found" (current-continuation-marks))))))
 
-(define (read-message len# i)
-  (define m (read-bytes (integer-bytes->integer len# #f #t) i))
+(define (read-in i len reply-thread)
+  (define m (read-bytes (bytes->number len) i))
   (recvtest (bytes-length m))
-  m)
+  (thread-send reply-thread (bytes->message m)))
 
 ;; FOR TESTING ONLY
 (define scl (make-semaphore 1))

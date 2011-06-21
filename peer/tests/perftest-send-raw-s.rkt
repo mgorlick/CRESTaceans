@@ -6,7 +6,6 @@
          "../src/api/compilation.rkt"
          racket/match)
 
-(define request-channel (run-tcp-peer *LOCALHOST* 1234 (current-thread)))
 
 (define (handle-message message t)
   (match message
@@ -20,10 +19,16 @@
     
     [anyelse (printf "some other message: ~s~n" anyelse)]))
 
+(define *RHOST* *LOCALHOST*)
+(define *RPORT* 5000)
+
 (require profile)
 (profile-thunk
  (λ ()
+   (define request-thread (run-tcp-peer *LOCALHOST* 1234 (current-thread)))
+   
    (let loop ([t 0])
      (handle-message (thread-receive) t)
+     (compile/serialize #"POST" request-thread *RHOST* *RPORT* #"OK")
      (loop (add1 t))))
  #:threads #t)

@@ -13,8 +13,6 @@
           "../../../Motile/serialize.rkt"
           "../../../Motile/baseline.rkt"))
 
-(print-graph #f)
-
 ;; "client-side"
 
 (define (compile/serialize method request-thread host port expr [url "/"])

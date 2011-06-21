@@ -20,6 +20,11 @@
    
    (define name (make-bytes 10000))
    
+   (thread (λ ()
+             (let loop ()
+               (thread-receive)
+               (loop))))
+   
    (let loop ([x 100000])
      ;(sleep 1)
      (compile/serialize #"POST" request-thread *RHOST* *RPORT* name)
