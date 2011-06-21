@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Mon, 03 Aug 2009 15:28:13 GMT</pubDate>
+    <lastBuildDate>Mon, 03 Aug 2009 16:28:01 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>Google’s Schmidt quits Apple board</title>
+      <link>http://traxfer.ft.com/cms/s/0/33ed1d7e-802e-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Google chief executive resigns from Apple’s board of directors after three years as rivalry between the two Silicon Valley companies intensifies</description>
+      <pubDate>Mon, 03 Aug 2009 14:17:26 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/33ed1d7e-802e-11de-bf04-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Wall Street rally boosted by financials</title>
+      <link>http://traxfer.ft.com/cms/s/0/c56379a8-8036-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>US equities were trading higher and the S&amp;P 500 was flirting with a key threshold, boosted by improving economic data and a global rally in banking shares</description>
+      <pubDate>Mon, 03 Aug 2009 14:44:31 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/c56379a8-8036-11de-bf04-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>HSBC profits halve to $5bn</title>
+      <link>http://traxfer.ft.com/cms/s/0/198cf286-8008-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Profits at HSBC dropped more than 50% to $5bn but earnings from investment banking doubled in the first six months of the year to a record $6.3bn</description>
+      <pubDate>Mon, 03 Aug 2009 14:35:02 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/198cf286-8008-11de-bf04-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Barclays ahead 8% at halfway</title>
+      <link>http://traxfer.ft.com/cms/s/0/d55c4f34-7ff4-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Strong performance of Barclays Capital offset by weakness in  UK retail banking, where pre-tax profit fell 61%, and Barclays Commercial Bank, where profit fell 42%</description>
+      <pubDate>Mon, 03 Aug 2009 14:33:24 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/d55c4f34-7ff4-11de-bf04-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Ahmadi-Nejad endorsed for second term</title>
+      <link>http://traxfer.ft.com/cms/s/0/03b0625a-7ffd-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Ayatollah Ali Khamenei, Iran’s supreme leader, has formally endorsed Mahmoud Ahmadi-Nejad as president in spite of continuing controversy over his disputed June 12 re-election for a second term</description>
+      <pubDate>Mon, 03 Aug 2009 07:22:27 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/03b0625a-7ffd-11de-bf04-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>White sugar breaks 25-year high</title>
+      <link>http://traxfer.ft.com/cms/s/0/cc8dba54-801d-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>India’s sugar crop stayed under threat, leading to expectations the world’s largest consumer of the sweetener will turn to imports, sending prices over the $500 a tonne mark</description>
+      <pubDate>Mon, 03 Aug 2009 13:43:27 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/cc8dba54-801d-11de-bf04-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Loews profits fall as investment income drops</title>
+      <link>http://traxfer.ft.com/cms/s/0/667896a0-8034-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Loews Corporation reported a nearly 40 per cent drop in second quarter net income from continuing operations to $341m, as mortgage related investment losses led the company to widely miss analysts’ expectations</description>
+      <pubDate>Mon, 03 Aug 2009 15:28:13 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/667896a0-8034-11de-bf04-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Canada extradites German arms lobbyist</title>
+      <link>http://traxfer.ft.com/cms/s/0/56a22b4a-801d-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>A controversial arms lobbyist’s 10-year bid to avoid extradition from Canada ended when Karlheinz Schreiber arrived in his native German to face charges of tax evasion, bribery and fraud</description>
+      <pubDate>Mon, 03 Aug 2009 13:46:45 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/56a22b4a-801d-11de-bf04-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Wall Street profits from trades with Fed</title>
+      <link>http://traxfer.ft.com/cms/s/0/e84383dc-7f8c-11de-85dc-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Wall Street banks are reaping outsized profits by trading with the Federal Reserve, raising questions about whether the central bank is driving hard enough bargains in its dealings with private sector counterparties, officials and industry executives say</description>
+      <pubDate>Sun, 02 Aug 2009 22:04:47 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/e84383dc-7f8c-11de-85dc-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Israeli police back Lieberman indictment</title>
+      <link>http://traxfer.ft.com/cms/s/0/934b59ba-7f8f-11de-85dc-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Foreign minister calls decision ‘baseless’ but attorney-general will make decision on potential charges, including bribery and money laundering</description>
+      <pubDate>Mon, 03 Aug 2009 12:37:14 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/934b59ba-7f8f-11de-85dc-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

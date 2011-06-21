@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Tue, 18 Aug 2009 15:18:54 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Frailty Lingers in Housing and Producer Price Reports</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ee51f6763ad7e6bb6b46394e80d8daa9</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/business/economy/19econ.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/business/economy/19econ.html</guid>
+			<description>New figures highlighted how weak the economy remains, even as some optimists declare the recession to be over.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ee51f6763ad7e6bb6b46394e80d8daa9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ee51f6763ad7e6bb6b46394e80d8daa9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 14:30:45 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Housing Starts</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Producer Price Index</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Economy</category>
+		</item>
+		<item>
+			<title>Kim Dae-jung, 83, Ex-President of South Korea, Dies</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=997810be94ede356a31abe665afbdccc</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/world/asia/19kim.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/world/asia/19kim.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/world/18kim4_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Mr. Kim accepting the 2000 Nobel Peace Prize.</media:description>
+			<media:credit>Pool Photo by Lise Aserud</media:credit>
+			<description>Mr. Kim, a dissident who became president, sought to warm ties with North Korea and won the Nobel Peace Prize in 2000.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=997810be94ede356a31abe665afbdccc&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=997810be94ede356a31abe665afbdccc&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CHOE SANG-HUN</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 14:08:54 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Kim Dae Jung</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">South Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Deaths (Obituaries)</category>
+		</item>
+		<item>
+			<title>Alternate Plan as Health Option Muddies Debate</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=23e7f6b941e1326fe74e185cef729629</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/18/health/policy/18plan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/18/health/policy/18plan.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/18/us/18health_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Demonstrators in Dallas on Monday outside a building where a forum on health care was held.</media:description>
+			<media:credit>Jessica Rinaldi/Reuters</media:credit>
+			<description>The option of a co-op instead of a government health plan is so ill defined that no one knows exactly what it would look like.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=23e7f6b941e1326fe74e185cef729629&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=23e7f6b941e1326fe74e185cef729629&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT PEAR and GARDINER HARRIS</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 14:20:02 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Nonprofit Organizations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Democratic Party</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Senate</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">House of Representatives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_keyword">Health Co-op</category>
+		</item>
+		<item>
+			<title>On Politics: Democrats See Opportunity in the West</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5660031c840b7a9d23d757e082eb137d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/us/politics/19nagourney.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/us/politics/19nagourney.html</guid>
+			<description>At a meeting of Democratic leaders in Western states, there were concerns that recent gains for the party in the region were fragile.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5660031c840b7a9d23d757e082eb137d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5660031c840b7a9d23d757e082eb137d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ADAM NAGOURNEY</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 14:50:34 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Democratic Party</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+		</item>
+		<item>
+			<title>Afghanistan Hit by Wave of Attacks 2 Days Before Election</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=bce74358f481e839164cfe035729f4c2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/world/asia/19afghan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/world/asia/19afghan.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/18/world/18afghan-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>The site of an attack in Kabul on Tuesday where at least seven people were killed and 52 wounded when a suicide car bomber struck a Western military convoy.</media:description>
+			<media:credit>Tyler Hicks/The New York Times</media:credit>
+			<description>The explosions and a suicide bombing that killed at least 10 people seemed further indications of Afghanistan&#x2019;s precarious security situation just days before presidential elections.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=bce74358f481e839164cfe035729f4c2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=bce74358f481e839164cfe035729f4c2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ABDUL WAHEED WAFA and MARK McDONALD</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 15:17:52 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+		</item>
+		<item>
+			<title>Mental Stress Training Is Planned for U.S. Soldiers</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=821070cdc1619ea607b30d73679df1d6</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/18/health/18psych.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/18/health/18psych.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/us/18psych_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>At a recent training session in Philadelphia, Sgt. First Class James Cole and other soldiers participated in role-playing and learned mental fitness techniques intended to help them in combat. </media:description>
+			<media:credit>D. Myles Cullen/U.S. Army</media:credit>
+			<description>A new Army program is intended to prevent problems like post-traumatic stress disorder and depression.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=821070cdc1619ea607b30d73679df1d6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=821070cdc1619ea607b30d73679df1d6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By BENEDICT CAREY</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 14:55:20 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Mental Health and Disorders</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Psychology and Psychologists</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">United States Army</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Emotions</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Post-Traumatic Stress Disorder</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Suicides and Suicide Attempts</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Depression (Mental)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">National Guard</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Casey, George W Jr</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Seligman, Martin E P</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ellis, Albert</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">University of Pennsylvania</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Beck, Aaron</category>
+		</item>
+		<item>
+			<title>One Person&#x2019;s Boondoggle, Another&#x2019;s Necessity</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=efb4fd0e10ab758ce38a12836f33a993</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/18/us/18boon.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/18/us/18boon.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/18/us/18boon_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>
+				<em class="bold">TURTLE CROSSING</em>Matt Aresco, a marine biologist, in a culvert near Tallahassee, Fla., where $3.4 million in stimulus aid was sought to help turtles navigate the area.</media:description>
+			<media:credit>Colin Hackley/Sarasota Herald-Tribune</media:credit>
+			<description>Some criticized stimulus projects are popular locally and underscore that boondoggle is in the eye of the beholder.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=efb4fd0e10ab758ce38a12836f33a993&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=efb4fd0e10ab758ce38a12836f33a993&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL COOPER</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 06:30:42 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">American Recovery and Reinvestment Act (2009)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Local Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Recession and Depression</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Earmarks (Finance)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Economic Conditions and Trends</category>
+		</item>
+		<item>
+			<title>Dozens Thought Dead at Russia Plant</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=90a5fef6fc2763f615390c7d68e3d5e5</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/world/europe/19siberia.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/world/europe/19siberia.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/18/world/18siberia-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Firefighters and rescuers worked amid the debris at the Sayano-Shushenskaya hydroelectric plant, Russia's largest power generator, on Tuesday in the Khakassia region of Siberia. </media:description>
+			<media:credit>Ilya Naymushin/Reuters</media:credit>
+			<description>Dozens of workers trapped in a Siberian hydroelectric plant after an explosion on Monday have likely drowned, Vitaly Zubakin, the acting chief executive of RusHydro, which owns the plant, said on Tuesday.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=90a5fef6fc2763f615390c7d68e3d5e5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=90a5fef6fc2763f615390c7d68e3d5e5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ELLEN BARRY and MICHAEL SCHWIRTZ</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 15:06:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Hydroelectric Power</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Accidents and Safety</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Russia</category>
+		</item>
+		<item>
+			<title>Lockerbie Convict Can Drop Appeal</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1eddce7f60698884b0386931bf30e266</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/world/europe/19lockerbie.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/world/europe/19lockerbie.html</guid>
+			<description>A Scottish court said it would allow the only person jailed for the 1988 Lockerbie bombing to abandon an appeal against his conviction, removing an obstacle to his early release.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1eddce7f60698884b0386931bf30e266&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1eddce7f60698884b0386931bf30e266&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ALAN COWELL</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 12:24:33 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Lockerbie (Scotland)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Terrorism</category>
+		</item>
+		<item>
+			<title>Astor Trial Plods On, Trying the Patience of Many</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=24ac8650e72ec5242ac9ba60b28ff5fe</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/18/nyregion/18astor.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/18/nyregion/18astor.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/18/nyregion/ASTOR_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Anthony D. Marshall, 85, and his wife, Charlene, leaving court on Monday. The defense says the trial has worsened his health.</media:description>
+			<media:credit>Tina Fineberg for The New York Times</media:credit>
+			<description>The trial of Brooke Astor&#x2019;s son and one of her lawyers for fraud has lasted longer than anyone could have expected.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=24ac8650e72ec5242ac9ba60b28ff5fe&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=24ac8650e72ec5242ac9ba60b28ff5fe&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By A. G. SULZBERGER and JOHN ELIGON</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 14:53:42 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Astor, Brooke</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Suits and Litigation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Frauds and Swindling</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Supreme Courts (State)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Marshall, Anthony D</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Morrissey, Francis X Jr</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Manhattan (NYC)</category>
+		</item>
+	</channel>
+</rss>

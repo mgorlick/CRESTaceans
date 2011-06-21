@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/projects/!svn/ver/9154/CREST/sisc/serf/utility
+END
+base.scm
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/utility/base.scm
+END
+log.scm
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/utility/log.scm
+END
+uuid.scm
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/utility/uuid.scm
+END
+time.scm
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/projects/!svn/ver/9010/CREST/sisc/serf/utility/time.scm
+END
+string_builder.scm
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/utility/string_builder.scm
+END

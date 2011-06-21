@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[Conservative Columnist Robert Novak Dies at 78]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=bb7daefe2af4e1790589508c97e99bf5]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/18/AR2009081801761.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/18/AR2009081801761.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 18 13:03 EDT 2009]]></pubDate>
+			<description><![CDATA[Known in recent years for publicly identifying CIA operative Valerie Plame, Novak often reported leaks from the highest sources of government.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=bb7daefe2af4e1790589508c97e99bf5&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=bb7daefe2af4e1790589508c97e99bf5&p=1"/></a>
+]]></description>
+			<author><![CDATA[Adam Bernstein]]></author>
+		</item>
+		<item>
+			<title><![CDATA[New Home Construction Falls]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=a092cb44d96141aeb079653d2f20958f]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/18/AR2009081801537.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/18/AR2009081801537.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 18 11:31 EDT 2009]]></pubDate>
+			<description><![CDATA[Unexpected decline is reported despite continued improvement in market for single-family homes.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=a092cb44d96141aeb079653d2f20958f&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=a092cb44d96141aeb079653d2f20958f&p=1"/></a>
+]]></description>
+			<author><![CDATA[Renae Merle]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Car Bomb, Rockets Strike Kabul ]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=add1f6f66f29a5cdbd5cfb5ab686b598]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/18/AR2009081800519.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/18/AR2009081800519.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 18 12:01 EDT 2009]]></pubDate>
+			<description><![CDATA[U.N. says two staff members were killed in a bombing that targeted a foreign military convoy. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=add1f6f66f29a5cdbd5cfb5ab686b598&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=add1f6f66f29a5cdbd5cfb5ab686b598&p=1"/></a>
+]]></description>
+			<author><![CDATA[Joshua Partlow]]></author>
+		</item>
+	</channel>
+</rss>

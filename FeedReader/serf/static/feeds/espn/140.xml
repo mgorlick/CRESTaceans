@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Sun, 2 Aug 2009 13:26:14 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Report: Boston Red Sox fired 2 staffers in steroid probe]]></title>
+<description><![CDATA[A Boston newspaper is reporting the Red Sox fired two security staffers last summer after an investigation into steroid use.]]></description>
+<pubDate>Sun, 2 Aug 2009 11:33:38 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4372389&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4372389&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Minnesota Vikings rookie receiver Percy Harvin agrees to 5-year deal]]></title>
+<description><![CDATA[The Minnesota Vikings have agreed to terms with first-round draft pick Percy Harvin on a five-year deal. ]]></description>
+<pubDate>Sun, 2 Aug 2009 10:09:34 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4372468&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4372468&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[World championships: Michael Phelps' 400 medley relay team ends worlds with record]]></title>
+<description><![CDATA[Michael Phelps and the U.S. 400-meter medley relay team closed the fastest meet in swimming history with an appropriate finish Sunday night -- the 43rd world record.]]></description>
+<pubDate>Sun, 2 Aug 2009 13:04:05 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/swimming/news/story?id=4372473&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/swimming/news/story?id=4372473&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[External]]></dc:creator>
+<title><![CDATA[In progress: Tiger driving for Buick Open title]]></title>
+<description><![CDATA[ ]]></description>
+<pubDate>Sun, 2 Aug 2009 11:32:57 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/leaderboard?tournamentId=550&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/leaderboard?tournamentId=550&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Mike Sando]]></dc:creator>
+<title><![CDATA[Arizona Cardinals RB Beanie Wells sidelined with sprained ankle]]></title>
+<description><![CDATA[Beanie Wells has a sprained ankle that could sideline him for the short term, Arizona Cardinals coach Ken Whisenhunt told the team's Web site Sunday.]]></description>
+<pubDate>Sun, 2 Aug 2009 12:02:42 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4372563&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4372563&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Solheim Cup: Michelle Wie selected as wild card to make debut]]></title>
+<description><![CDATA[Michelle Wie has been selected as a wild card to make her Solheim Cup debut for the United States, and Catriona Matthew has made Europe's team after capturing the Women's British Open.]]></description>
+<pubDate>Sun, 2 Aug 2009 12:56:27 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/news/story?id=4372595&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/news/story?id=4372595&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Eric Mangini says Cleveland Browns won't rotate starting QBs]]></title>
+<description><![CDATA[Browns coach Eric Mangini says he will not rotate quarterbacks, that he has no timetable on picking a starter and that he envisions both Derek Anderson and Brady Quinn on Cleveland's roster once the regular season begins.]]></description>
+<pubDate>Sun, 2 Aug 2009 11:00:34 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4372558&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4372558&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Catriona Matthew wins Women's British Open]]></title>
+<description><![CDATA[Catriona Matthew won the Women's British Open by three strokes on Saturday.]]></description>
+<pubDate>Sun, 2 Aug 2009 11:47:51 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/news/story?id=4372501&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/news/story?id=4372501&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[John Clayton]]></dc:creator>
+<title><![CDATA[New England Patriots work out, expected to sign QB Cleo Lemon]]></title>
+<description><![CDATA[The Patriots, in the market for a backup quarterback, have worked out NFL veteran Cleo Lemon and are expected to sign him Saturday.]]></description>
+<pubDate>Sun, 2 Aug 2009 10:03:52 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4371342&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4371342&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Arturo Gatti's second autopsy doesn't rule out homicide]]></title>
+<description><![CDATA[A second autopsy performed at the request of former boxer Arturo Gatti's family has not ruled out homicide in his death.]]></description>
+<pubDate>Sat, 1 Aug 2009 14:30:14 PDT</pubDate>
+<guid>http://sports.espn.go.com/sports/boxing/news/story?id=4371447&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/sports/boxing/news/story?id=4371447&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Tarvaris Jackson of Minnesota Vikings leaves field with reported MCL injury]]></title>
+<description><![CDATA[Minnesota Vikings quarterback Tarvaris Jackson left the field on Saturday morning with an apparent leg injury.]]></description>
+<pubDate>Sun, 2 Aug 2009 00:08:50 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4371142&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4371142&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Pittsburgh Steelers' Ben Roethlisberger says sorry to his teammates]]></title>
+<description><![CDATA[Ben Roethlisberger quickly moved to make sure his problems don't become those of the Super Bowl champion Pittsburgh Steelers.]]></description>
+<pubDate>Sat, 1 Aug 2009 18:26:51 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4371457&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4371457&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

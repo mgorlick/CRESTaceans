@@ -1,0 +1,242 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Sat, 15 Aug 2009 01:23:01 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Consumer Prices Hold Steady, Easing Inflation Fears</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=567d48d9055cd305f113df5310e9f5a8</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/business/economy/15econ.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/business/economy/15econ.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/14/business/economy/Economy75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Sale signs at Urban Outfitters in Santa Monica, Calif. Consumer prices in the U.S. stayed low in July, easing concerns new government spending is spurring inflation.</media:description>
+			<media:credit>Reed Saxon/Associated Press</media:credit>
+			<description>The drift in prices suggests that slack remains in the American economy, even as the recession bottoms out and some industries jump-start production.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=567d48d9055cd305f113df5310e9f5a8&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=567d48d9055cd305f113df5310e9f5a8&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 00:32:51 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Consumer Price Index</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Commerce Department</category>
+		</item>
+		<item>
+			<title>Controller Didn't Warn Pilot Before Hudson Crash</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=0b042350262c2961c9be0a9d74bedfba</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/14/us/AP-US-Mid-Air-Collision.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/14/us/AP-US-Mid-Air-Collision.html</guid>
+			<description>An air traffic controller making a personal phone call initially failed to warn a small plane of other aircraft in its path and then tried unsuccessfully to contact the pilot, federal safety officials said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=0b042350262c2961c9be0a9d74bedfba&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=0b042350262c2961c9be0a9d74bedfba&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 01:14:04 GMT</pubDate>
+		</item>
+		<item>
+			<title>Abroad: In Dresden, High Culture and Ugly Reality Clash</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e33f9700a4da7e4b37f14a5ada608588</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/arts/15abroad.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/arts/15abroad.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/14/arts/abroad-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>In front of the regional court in Dresden, a photo commemorates Marwa al-Sherbini, an Egyptian woman who was killed in a courtroom there on July 1.</media:description>
+			<media:credit>Norbert Millauer/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>A brutal murder has highlighted the contrast between the cultural riches of Dresden, Germany, and the violent xenophobia of some of its citizens.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e33f9700a4da7e4b37f14a5ada608588&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e33f9700a4da7e4b37f14a5ada608588&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL KIMMELMAN</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 01:22:38 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Art</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Dresden (Germany)</category>
+		</item>
+		<item>
+			<title>On This Campus, Focus Is Jobs</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=edc019555bb02a4213fbc2ac7aeb9436</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/business/15college.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/business/15college.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/15/business/15collegeA-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>After working for eight years at a now-closed Delphi auto parts plant, Kelli Martin enrolled at Sinclair Community College, hoping to become a nurse in pediatric oncology.</media:description>
+			<media:credit>Tom Uhlman for The New York Times</media:credit>
+			<description>Autoworkers, seeing no future in the industry, have turned to a model community college in Ohio to acquire marketable skills in other fields.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=edc019555bb02a4213fbc2ac7aeb9436&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=edc019555bb02a4213fbc2ac7aeb9436&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By STEVEN GREENHOUSE</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 01:04:34 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Community Colleges</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Vocational Training</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Layoffs and Job Reductions</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">United States Economy</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Sinclair Community College</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Economic Conditions and Trends</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Dayton (Ohio)</category>
+		</item>
+		<item>
+			<title>Iranian Clerics Try to Silence Claims That Election Protesters Were Raped in Prison</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=eed14e1e5156e945fc4d062b732ea00d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/world/middleeast/15iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/world/middleeast/15iran.html</guid>
+			<description>Iran&#x2019;s clerical leadership stepped up a campaign to silence opposition claims that protesters were raped in prison, with prayer leaders denouncing the accusations.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=eed14e1e5156e945fc4d062b732ea00d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=eed14e1e5156e945fc4d062b732ea00d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT F. WORTH</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 01:19:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Prisons and Prisoners</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Sex Crimes</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Karroubi, Mehdi</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Khamenei, Ali</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Khatami, Ahmad</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Larijani, Ali</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Tehran University</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Assembly of Experts</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+		</item>
+		<item>
+			<title>BB&amp;T Takes Over Failing Colonial BancGroup</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c9595e601fbc34215bbe7403bf97ecb2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/business/15bank.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/business/15bank.html</guid>
+			<description>The takeover agreement marks the largest bank failure of 2009 and could be the most costly since the sudden failure of IndyMac Bancorp last year.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c9595e601fbc34215bbe7403bf97ecb2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c9595e601fbc34215bbe7403bf97ecb2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ERIC DASH</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 01:22:32 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Banks and Banking</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Mergers, Acquisitions and Divestitures</category>
+		</item>
+		<item>
+			<title>Obama Says Insurers Are Trying to Block Change</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=bdd3a3fcd03ec87220ecf0d7585677ea</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/health/policy/15obama.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/health/policy/15obama.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/15/us/obama_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>President Obama speaking about his plans for health care on Friday in Belgrade, Mont.</media:description>
+			<media:credit>Doug Mills/The New York Times</media:credit>
+			<description>The president accused some insurance companies of trying to undermine his plans for overhauling health care.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=bdd3a3fcd03ec87220ecf0d7585677ea&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=bdd3a3fcd03ec87220ecf0d7585677ea&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SHERYL GAY STOLBERG</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 01:21:32 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Corporations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Insurance</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">United States Politics and Government</category>
+		</item>
+		<item>
+			<title>P.G.A. Championship: Winds Blow on Second Day at P.G.A.</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=8d5c1fbc1d41b72230762554fbc996aa</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/sports/golf/15golf.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/sports/golf/15golf.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/15/sports/16woods.751.jpg" medium="image" height="75" width="75"/>
+			<media:description>Tiger Woods hit out of a sand trap on the 4th green during the second round of the 91st PGA Championship golf tournament in Chaska, Minnesota, on Friday.</media:description>
+			<media:credit>Tannen Maury/European Pressphoto Agency</media:credit>
+			<description>It&#x2019;s a game of survival on a windy second day at Hazeltine National Golf Club National in Minnesota.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=8d5c1fbc1d41b72230762554fbc996aa&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=8d5c1fbc1d41b72230762554fbc996aa&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LARRY DORMAN</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 01:20:56 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Golf</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">PGA Championship</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Woods, Tiger</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Mickelson, Phil</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Harrington, Padraig</category>
+		</item>
+		<item>
+			<title>Paterson Set to Reject Public Authority Overhaul</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=86d7daa0c1f81686e0d40dbf1b7b4d8c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/nyregion/15authorities.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/nyregion/15authorities.html</guid>
+			<description>If Gov. David A. Paterson were to veto the legislation, he would be blocking the most ambitious attempt in decades to change a system that has been criticized for lack of oversight.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=86d7daa0c1f81686e0d40dbf1b7b4d8c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=86d7daa0c1f81686e0d40dbf1b7b4d8c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DANNY HAKIM</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 01:20:58 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Paterson, David A</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Law and Legislation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Albany (NY)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Metropolitan Transportation Authority</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Affordable Housing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">State Legislatures</category>
+		</item>
+		<item>
+			<title>Clinton Ends Africa Tour, Vowing to Stay Involved</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=42fc0cfaeddccce4093f88aa0e4a6540</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/world/africa/15diplo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/world/africa/15diplo.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/14/world/14diplo2_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Secretary of State Hillary Clinton (L), shakes hands with Cape Verde Prime Minister Jose Maria das Neves, during a meeting at the Rio Garoupa Hotel in Sal Island, Cape Verde on Friday.</media:description>
+			<media:credit>Omar Camilo/European Pressphoto Agency</media:credit>
+			<description>On the final day of a 7-nation trip, Secretary of State Hillary Rodham Clinton reaffirmed her promise to renovate relations with Africa.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=42fc0cfaeddccce4093f88aa0e4a6540&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=42fc0cfaeddccce4093f88aa0e4a6540&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JEFFREY GETTLEMAN</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 01:19:56 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Cape Verde</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Hillary Rodham</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Africa</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+		</item>
+		<item>
+			<title>Toll of Typhoon May Exceed 500</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5ca30e6f9258effcda6dc43b9f37e654</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/world/asia/15taiwan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/world/asia/15taiwan.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/14/world/14taiwan.1-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Rescuers at the village of Meishan in Chiayi county, southern Taiwan, on Friday.</media:description>
+			<media:credit>Patrick Lin/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>President Ma Ying-jeou said Friday he expected the number of dead from the typhoon to rise.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5ca30e6f9258effcda6dc43b9f37e654&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5ca30e6f9258effcda6dc43b9f37e654&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ANDREW JACOBS</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 01:20:02 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Typhoon Morakot (2009)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Taiwan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ma Ying-jeou</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Typhoons</category>
+		</item>
+		<item>
+			<title>From Vick, Gratitude and Remorse</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=8876fc43990a14f8fa41a19008519258</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/sports/football/15vick.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/sports/football/15vick.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/15/sports/15vick.3.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Michael Vick, flanked by Coach Andy Reid, left, and Tony Dungy, who has become an informal mentor since he visited him in prison.</media:description>
+			<media:credit>Matt Rourke/Associated Press</media:credit>
+			<description>Michael Vick acknowledged Friday that if he will have a sympathetic audience in the locker room, he is likely to face a far more contentious reception among fans.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=8876fc43990a14f8fa41a19008519258&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=8876fc43990a14f8fa41a19008519258&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JUDY BATTISTA</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 01:20:09 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Vick, Michael</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Football</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Philadelphia Eagles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Dogfighting</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Cruelty to Animals</category>
+		</item>
+	</channel>
+</rss>

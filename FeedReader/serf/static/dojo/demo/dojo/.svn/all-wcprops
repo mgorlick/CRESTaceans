@@ -1,0 +1,167 @@
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/LICENSE
+END
+fx.js
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/fx.js
+END
+behavior.js
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/behavior.js
+END
+string.js
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/string.js
+END
+currency.js
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/currency.js
+END
+_base.js
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/_base.js
+END
+dojo.js
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/dojo.js
+END
+colors.js
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/colors.js
+END
+jaxer.js
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/jaxer.js
+END
+robotx.js
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/robotx.js
+END
+date.js
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/date.js
+END
+AdapterRegistry.js
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/AdapterRegistry.js
+END
+html.js
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/html.js
+END
+OpenAjax.js
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/OpenAjax.js
+END
+robot.js
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/robot.js
+END
+regexp.js
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/regexp.js
+END
+number.js
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/number.js
+END
+back.js
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/back.js
+END
+build.txt
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/build.txt
+END
+cookie.js
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/cookie.js
+END
+gears.js
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/gears.js
+END
+dojo.js.uncompressed.js
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/dojo.js.uncompressed.js
+END
+parser.js
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/parser.js
+END
+NodeList-fx.js
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/NodeList-fx.js
+END
+i18n.js
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/i18n.js
+END
+DeferredList.js
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/DeferredList.js
+END
+NodeList-html.js
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/static/dojo/demo/dojo/NodeList-html.js
+END

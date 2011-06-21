@@ -1,0 +1,222 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Tue, 28 Jul 2009 20:26:19 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Senate Panel Endorses Sotomayor in 13-6 Vote</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=4f49179f3c0cd63c7a8e51687a6b7ffe</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/us/politics/29confirm.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/us/politics/29confirm.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/28/world/28confirm2-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Of the seven Republicans on the Senate Judiciary Committee, only Senator Lindsey Graham of South Carolina voted in favor of Judge Sonia Sotomayor.</media:description>
+			<media:credit>Brendan Smialowski for The New York Times</media:credit>
+			<description>Of the seven Republicans on the Senate Judiciary Committee, only Senator Lindsey Graham of South Carolina voted in favor of Judge Sonia Sotomayor.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=4f49179f3c0cd63c7a8e51687a6b7ffe&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=4f49179f3c0cd63c7a8e51687a6b7ffe&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID STOUT</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 18:03:24 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Sotomayor, Sonia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Supreme Court</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Senate Committee on the Judiciary</category>
+		</item>
+		<item>
+			<title>Slide in Home Prices Is Slowing Down, Index Shows</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f6a7c678ea459c34ee0e24c2ca6abb79</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/business/economy/29housing.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/business/economy/29housing.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/28/business/28housing-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Homes in the Las Vegas valley on Monday. The Standard &amp; Poor's/Case Shiller home price indexes report released on Tuesday showed the first monthly increase in single-family home prices in nearly three years.</media:description>
+			<media:credit>Isaac Brekken for The New York Times</media:credit>
+			<description>For the fourth consecutive month, there was modest improvement in May in housing prices, the Case-Shiller index showed.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f6a7c678ea459c34ee0e24c2ca6abb79&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f6a7c678ea459c34ee0e24c2ca6abb79&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID STREITFELD</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 19:59:00 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Standard &amp; Poor's Case-Shiller Home Price Index</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Housing and Real Estate</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prices (Fares, Fees and Rates)</category>
+		</item>
+		<item>
+			<title>Iran to Release Some Post-Election Detainees</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=850b3777a4639515f98c1b29aba1ee89</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/world/middleeast/29iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/world/middleeast/29iran.html</guid>
+			<description>Iran said that it would release 140 of the hundreds of people detained in the crackdown that followed the disputed election.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=850b3777a4639515f98c1b29aba1ee89&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=850b3777a4639515f98c1b29aba1ee89&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT F. WORTH and SHARON OTTERMAN</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 18:35:29 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prisons and Prisoners</category>
+		</item>
+		<item>
+			<title>On Washington: U.S. Budget Is Scrutinized by a Big Creditor</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=90b23be33239818706f19333fcb1ce61</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/us/politics/29sanger.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/us/politics/29sanger.html</guid>
+			<description>A delegation from Beijing had some tough questions for President Obama&#x2019;s economic team about China&#x2019;s investment in U.S. government securities.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=90b23be33239818706f19333fcb1ce61&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=90b23be33239818706f19333fcb1ce61&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID E. SANGER</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 15:54:40 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Economy</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Conditions and Trends</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">International Trade and World Market</category>
+		</item>
+		<item>
+			<title>Witness Tells of Abortion Provider&#x2019;s Last Moments</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=db56dd9002bbce75fe1b78899e809eff</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/us/29tiller.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/us/29tiller.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/28/us/28kansas-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Scott Roeder, left, with his attorney Mark Rudy, was charged in the murder of Dr. George R. Tiller.</media:description>
+			<media:credit>Pool photograph by Jaime Oppenheimer</media:credit>
+			<description>Gary Hoepner was standing next to Dr. George R. Tiller when he was shot and killed inside his church.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=db56dd9002bbce75fe1b78899e809eff&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=db56dd9002bbce75fe1b78899e809eff&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MONICA DAVEY</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 19:45:03 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Tiller, George R</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Roeder, Scott</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Abortion</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Murders and Attempted Murders</category>
+		</item>
+		<item>
+			<title>7 Charged With Plotting &#x2018;Violent Jihad&#x2019; Abroad</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=256a30911609e35007c8e013b2ac7d22</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/us/29terror.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/us/29terror.html</guid>
+			<description>The F.B.I. watched Daniel Patrick Boyd for three years as he stockpiled weapons, planned terrorist attacks and trained accomplices before agents arrested the group.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=256a30911609e35007c8e013b2ac7d22&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=256a30911609e35007c8e013b2ac7d22&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LIZ ROBBINS</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 20:14:55 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Federal Bureau of Investigation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Terrorism</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North Carolina</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Boyd, Daniel Patrick</category>
+		</item>
+		<item>
+			<title>Regulator Weighs Limits on Some Energy Trades</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=30ea212418ca27c40b7b126e2d0bc8c2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/28/business/energy-environment/28oil.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/28/business/energy-environment/28oil.html</guid>
+			<description>The top commodity-markets regulator said that the U.S. should consider limiting some energy futures trading.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=30ea212418ca27c40b7b126e2d0bc8c2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=30ea212418ca27c40b7b126e2d0bc8c2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By EDMUND L. ANDREWS</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 19:55:24 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Commodities</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Oil (Petroleum) and Gasoline</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Law and Legislation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Natural Gas</category>
+		</item>
+		<item>
+			<title>Newly Empowered, Kurdish Leader Asserts Agenda</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e87228d272e9b2f6b3fb7726b532dbfa</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/world/middleeast/29kurds.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/world/middleeast/29kurds.html</guid>
+			<description>Massoud Barzani rejected U.N. proposals on Iraq&#x2019;s internal borders and reiterated a local constitution plan.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e87228d272e9b2f6b3fb7726b532dbfa&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e87228d272e9b2f6b3fb7726b532dbfa&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM DAGHER</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 20:23:38 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Barzani, Massoud</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Kurds</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Constitutions</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Referendums</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Kurdistan Democratic Party</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Patriotic Union of Kurdistan</category>
+		</item>
+		<item>
+			<title>Biedermann Stuns Phelps</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=0cd64e7fea65f72ae0391b698abc70e9</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/sports/29swim.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/sports/29swim.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/29/sports/29swim.1.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Michael Phelps reacted after finishing second in Tuesday's 200-meter freestyle at the world championships.</media:description>
+			<media:credit>Mark J. Terrill/Associated Press</media:credit>
+			<description>After Paul Biedermann said his swimsuit helped him defeat Michael Phelps, Phelp's coach suggested he may hold the gold medalist out of competition until the suit debate is settled.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=0cd64e7fea65f72ae0391b698abc70e9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=0cd64e7fea65f72ae0391b698abc70e9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By KAREN CROUSE</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 20:24:31 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Phelps, Michael</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Swimming</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Thorpe, Ian</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">FINA</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Speedo</category>
+		</item>
+		<item>
+			<title>Police Search Home of Jackson&#x2019;s Doctor</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=cc73df9a5dc534e127b90e4a4b893a1c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/us/29jackson.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/us/29jackson.html</guid>
+			<description>Michael Jackson&#x2019;s personal physician, Dr. Conrad Murray, is the focus of a manslaughter investigation in the death of Mr. Jackson, according to court documents.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=cc73df9a5dc534e127b90e4a4b893a1c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=cc73df9a5dc534e127b90e4a4b893a1c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By STEVE FRIESS and SOLOMON MOORE</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 19:36:50 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jackson, Michael</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Murray, Conrad</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Music</category>
+		</item>
+		<item>
+			<title>Investor Caution Sends Markets Lower</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7a71f8f2ace2fb3f9a0df88d00a4b26c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/business/29markets.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/business/29markets.html</guid>
+			<description>Stock markets fell as investors brushed off a modest rise in home prices and focused on a report showing that consumer confidence had declined for a second month.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7a71f8f2ace2fb3f9a0df88d00a4b26c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7a71f8f2ace2fb3f9a0df88d00a4b26c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 20:25:25 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Stocks and Bonds</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Dow Jones Stock Average</category>
+		</item>
+		<item>
+			<title>Myanmar Dissident Verdict on Friday</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=53bdedfe3467f6d0839f2224902a665a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/world/asia/29myanmar.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/world/asia/29myanmar.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/28/world/28myanmar-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Police stood at a roadblock near the Insein prison, where the trial of opposition leader Aung San Suu Kyi is taking place, in Yangon, Myanmar, on Tuesday.</media:description>
+			<media:credit>Nyein Chang Naing/European Pressphoto Agency</media:credit>
+			<description>The pro-democracy leader Daw Aung San Suu Kyi faces a term of up to five years in prison.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=53bdedfe3467f6d0839f2224902a665a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=53bdedfe3467f6d0839f2224902a665a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SETH MYDANS</dc:creator>
+			<pubDate>Tue, 28 Jul 2009 16:50:01 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Myanmar</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Aung San Suu Kyi, Daw</category>
+		</item>
+	</channel>
+</rss>

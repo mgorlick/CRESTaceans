@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Sun, 16 Aug 2009 11:25:41 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[New York Mets third baseman David Wright out of hospital with post-concussion symptoms after beaning]]></title>
+<description><![CDATA[Mets third baseman David Wright was discharged Sunday from a hospital in New York a day after suffering a concussion when he was struck in the head by a pitch from San Francisco Giants starter Matt Cain. ]]></description>
+<pubDate>Sun, 16 Aug 2009 11:06:07 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4402484&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4402484&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[External]]></dc:creator>
+<title><![CDATA[Cup race at Michigan under way (ESPN) ]]></title>
+<description><![CDATA[ ]]></description>
+<pubDate>Sun, 16 Aug 2009 11:16:08 PDT</pubDate>
+<guid>http://espn.go.com/#" onClick="window.open('http://sports-ak.espn.go.com/rpm/racecast?raceId=200908160014', 'RaceCast', 'noresize,scrollbars=no,width=780,height=690');" onMouseOver="window.status='RaceCast';return true&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://espn.go.com/#" onClick="window.open('http://sports-ak.espn.go.com/rpm/racecast?raceId=200908160014', 'RaceCast', 'noresize,scrollbars=no,width=780,height=690');" onMouseOver="window.status='RaceCast';return true&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Los Angeles Dodgers pitcher Hiroki Kuroda released from hospital]]></title>
+<description><![CDATA[Los Angeles pitcher Hiroki Kuroda was discharged from a Phoenix hospital and the right-hander is expected to rejoin the team Sunday, the Dodgers said in a statement.]]></description>
+<pubDate>Sun, 16 Aug 2009 09:46:23 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4402531&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4402531&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Mark Messier rejoins New York Rangers as assistant to GM]]></title>
+<description><![CDATA[Mark Messier is back with the Rangers. ]]></description>
+<pubDate>Sun, 16 Aug 2009 09:55:52 PDT</pubDate>
+<guid>http://sports.espn.go.com/nhl/news/story?id=4402567&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nhl/news/story?id=4402567&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Usain Bolt, Tyson Gay cruise into 100m final at track worlds]]></title>
+<description><![CDATA[Unfazed by a false start, Usain Bolt coasted into the final of 100 meters Sunday at the world championships and set up a big showdown with defending champion Tyson Gay.]]></description>
+<pubDate>Sun, 16 Aug 2009 10:59:21 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/trackandfield/news/story?id=4402644&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/trackandfield/news/story?id=4402644&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Mark Sanchez to start at QB for Jets in next game]]></title>
+<description><![CDATA[Rookie quarterback Mark Sanchez, coming off an impressive NFL debut, will start the New York Jets' preseason game at Baltimore next week.]]></description>
+<pubDate>Sun, 16 Aug 2009 09:28:48 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4402483&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4402483&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Michael Vick of Philadelphia Eagles returns to practice field, runs scout team offense.]]></title>
+<description><![CDATA[Michael Vick was back on an NFL practice field for the first time since completing his prison sentence.]]></description>
+<pubDate>Sat, 15 Aug 2009 17:50:15 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4401139&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4401139&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Nationals president Stan Kasten: 'Very real possibility' No. 1 draft pick Stephen Strasburg won't sign record deal]]></title>
+<description><![CDATA[Nationals president Stan Kasten acknowledged Saturday there is a "very real possibility" the team will not reach an agreement with No. 1 overall draft pick Stephen Strasburg despite offering him a record-breaking contract.]]></description>
+<pubDate>Sun, 16 Aug 2009 00:12:05 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4401500&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4401500&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Gold medalist wrestler Angle charged with HGH possession]]></title>
+<description><![CDATA[Police say pro wrestler and Olympic gold medalist Kurt Angle has been arrested for possessing a human growth hormone in suburban Pittsburgh.]]></description>
+<pubDate>Sun, 16 Aug 2009 10:27:08 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/news/story?id=4402589&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/news/story?id=4402589&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[New Orleans Saints kicker Garrett Hartley expects 4-game suspension for positive drug test]]></title>
+<description><![CDATA[ Saints kicker Garrett Hartley says he expects to serve a four-game suspension when the regular season begins because he tested positive for a stimulant.]]></description>
+<pubDate>Sun, 16 Aug 2009 10:17:59 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4402342&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4402342&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Kyle Orton still Denver Broncos' QB despite struggles in start]]></title>
+<description><![CDATA[Kyle Orton only needs to worry about correcting his mistakes, not looking over his shoulder. ]]></description>
+<pubDate>Sun, 16 Aug 2009 09:41:38 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4401279&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4401279&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Loretta Hunt]]></dc:creator>
+<title><![CDATA[Cristiane Santos crushes Gina Carano in Round 1]]></title>
+<description><![CDATA[Cristiane "Cyborg" Santos lived up to her nickname by employing a seek-and-destroy style to cut down Gina Carano in one round on Saturday.]]></description>
+<pubDate>Sun, 16 Aug 2009 10:06:48 PDT</pubDate>
+<guid>http://sports.espn.go.com/extra/mma/news/story?id=4402027&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/extra/mma/news/story?id=4402027&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[PGA Championship: Tiger Woods maintains lead over defending champion Padraig Harrington]]></title>
+<description><![CDATA[Tiger Woods is the sole leader going into the final round of the PGA Championship, two shots ahead of defending champion Padraig Harrington and Y.E. Yang. ]]></description>
+<pubDate>Sat, 15 Aug 2009 22:26:45 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/pgachampionship09/news/story?id=4401628&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/pgachampionship09/news/story?id=4401628&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[Job Losses Slow in July; Unemployment Rate Dips]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=7cf9b7d93bf788b217be06fb079dec3a]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/07/AR2009080700359.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/07/AR2009080700359.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Fri Aug 7 09:26 EDT 2009]]></pubDate>
+			<description><![CDATA[Employers throttle back on layoffs, cutting 247,000 jobs -- the fewest in a year. Showing offers strong signal that recession is finally ending. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=7cf9b7d93bf788b217be06fb079dec3a&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=7cf9b7d93bf788b217be06fb079dec3a&p=1"/></a>
+]]></description>
+			<author><![CDATA[Annys Shin]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Pakistan: Taliban Leader Killed]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=98ced846603e157ac3df425a0ee49ca3]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/07/AR2009080700271.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/07/AR2009080700271.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Fri Aug 7 08:59 EDT 2009]]></pubDate>
+			<description><![CDATA[If confirmed, Baitullah Mehsud's death would be major blow to Islamist militia's agenda. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=98ced846603e157ac3df425a0ee49ca3&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=98ced846603e157ac3df425a0ee49ca3&p=1"/></a>
+]]></description>
+			<author><![CDATA[Joshua Partlow, Joby Warrick, Haq Nawaz Khan]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Bombs Kill Dozens in Iraq]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=87c70903cf1cc634ea0c1e36d63fe76c]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/07/AR2009080700283.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/07/AR2009080700283.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Fri Aug 7 10:07 EDT 2009]]></pubDate>
+			<description><![CDATA[Attacks mark one of deadliest days in Iraq since nominal withdrawal of U.S. troops on June 30.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=87c70903cf1cc634ea0c1e36d63fe76c&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=87c70903cf1cc634ea0c1e36d63fe76c&p=1"/></a>
+]]></description>
+			<author><![CDATA[Ernesto Londo&#241;o]]></author>
+		</item>
+		<item>
+			<title><![CDATA['Clunkers' Program Extended]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=9651c1296cbfd02f2765ad6a81f8f7ee]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/06/AR2009080601656.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/06/AR2009080601656.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Fri Aug 7 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Senate vote appears to save the popular government plan from an unexpected early shutdown. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=9651c1296cbfd02f2765ad6a81f8f7ee&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=9651c1296cbfd02f2765ad6a81f8f7ee&p=1"/></a>
+]]></description>
+			<author><![CDATA[Dana Hedgpeth and Perry Bacon Jr.]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Vote Laden With History, Politics]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=22fe0a577f7e9bd76487cd66bd8e2e30]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/06/AR2009080601706.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/06/AR2009080601706.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Fri Aug 7 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Sotomayor to be sworn in by Supreme Court chief justice tomorrow, following confirmation. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=22fe0a577f7e9bd76487cd66bd8e2e30&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=22fe0a577f7e9bd76487cd66bd8e2e30&p=1"/></a>
+]]></description>
+			<author><![CDATA[Amy Goldstein and Paul Kane]]></author>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Sat, 15 Aug 2009 17:14:07 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Senator Wins Promise to Free American in Myanmar</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5a94fae22d687b1ceb310af32d504110</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/16/world/asia/16myanmar.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/16/world/asia/16myanmar.html</guid>
+			<description>Senator Jim Webb&#x2019;s office said he had secured the release of John Yettaw, who was sentenced to prison after intruding into the home of the pro-democracy leader Daw Aung San Suu Kyi.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5a94fae22d687b1ceb310af32d504110&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5a94fae22d687b1ceb310af32d504110&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SETH MYDANS</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 16:10:33 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Webb, James H Jr</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Mydans, Seth</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Aung San Suu Kyi, Daw</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Myanmar</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Freedom and Human Rights</category>
+		</item>
+		<item>
+			<title>Competing Ads on Health Plan Swamp Airwaves</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=886433380b71e7d0d6614782eb7c8fa6</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/16/health/policy/16ads.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/16/health/policy/16ads.html</guid>
+			<description>A cascade of commercials in the health care fight is helping to create a full-blown national political campaign.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=886433380b71e7d0d6614782eb7c8fa6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=886433380b71e7d0d6614782eb7c8fa6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By KATHARINE Q. SEELYE</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 17:01:41 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Political Advertising</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+		</item>
+		<item>
+			<title>2 Killings Stoke Kashmiri Rage at Indian Force</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=456a569579a361f7bd0374e98cd4f4cd</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/16/world/asia/16kashmir.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/16/world/asia/16kashmir.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/16/world/16kashmir_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A sister of Nilofa Jan, with Nilofa&#x2019;s son, Suzain. Nilofa and her sister-in-law Asiya Jan were found dead this spring.</media:description>
+			<media:credit>Candace Feit</media:credit>
+			<description>In Kashmir, the rapes and killings of two young women near the camps of Indian security forces have focused attention on their continuing presence.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=456a569579a361f7bd0374e98cd4f4cd&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=456a569579a361f7bd0374e98cd4f4cd&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LYDIA POLGREEN</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 17:05:01 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Kashmir and Jammu (India)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Murders and Attempted Murders</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Sex Crimes</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">India</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Women and Girls</category>
+		</item>
+		<item>
+			<title>Bomb Kills 7 Near NATO&#x2019;s Afghan Headquarters</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b4da8bb5cdd76ae7676bed9e051b6bc0</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/16/world/asia/16afghan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/16/world/asia/16afghan.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/15/world/15afghanblast3_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>The scene after a suicide car bomb in front of the ISAF headquarters.</media:description>
+			<media:credit>Tyler Hicks/The New York Times</media:credit>
+			<description>Days before the presidential vote, a suicide car bomb rocked Kabul&#x2019;s heavily guarded diplomatic area, killing seven people and wounding 91, most of them on their way to work.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b4da8bb5cdd76ae7676bed9e051b6bc0&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b4da8bb5cdd76ae7676bed9e051b6bc0&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CARLOTTA GALL</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 16:19:25 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Kabul (Afghanistan)</category>
+		</item>
+		<item>
+			<title>The Saturday Profile: Is the Mayor Fit for Office? No Sure Answer</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ea975c5e54d62cd81da6fd2b2fd6c751</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/world/europe/15kiev.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/world/europe/15kiev.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/14/world/15kiev_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Leonid Chernovetsky, the mayor of Kiev who is known as "Lenny Cosmos," in March, posing for journalists to demonstrate his health.</media:description>
+			<media:credit>Associated Press</media:credit>
+			<description>Leonid M. Chernovetsky, Kiev&#x2019;s mayor, has an outsize personality, and his bizarre behavior has prompted Parliament members to say he needs a mental exam.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ea975c5e54d62cd81da6fd2b2fd6c751&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ea975c5e54d62cd81da6fd2b2fd6c751&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CLIFFORD J. LEVY</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 16:50:00 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Ukraine</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Chernovetsky, Leonid M.</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Ukrainian Orthodox Church</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Yushchenko, Viktor</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Tymoshenko, Yulia V</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Yanukovich, Viktor F</category>
+		</item>
+		<item>
+			<title>Air Controller Gave No Warning in Hudson Crash</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=15e39a74629425159367985e71b4d91f</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/nyregion/15crash.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/nyregion/15crash.html</guid>
+			<description>There were other planes near the one that flew into a helicopter over the Hudson River, but the plane&#x2019;s pilot was not alerted.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=15e39a74629425159367985e71b4d91f&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=15e39a74629425159367985e71b4d91f&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MATTHEW L. WALD  and AL BAKER</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 07:31:41 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Accidents and Safety</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Airlines and Airplanes</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">National Transportation Safety Board</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Federal Aviation Administration</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Newark Liberty International Airport (NJ)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Hudson River</category>
+		</item>
+		<item>
+			<title>Retailers See Back-to-School Sales Slowing</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c7439964a35499b79477be097de78cb9</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/business/15school.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/business/15school.html</guid>
+			<description>Halfway through the back-to-school shopping season, predictions of the worst performance for stores in more than a decade are yet another sign that consumers are clinging to every dollar.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c7439964a35499b79477be097de78cb9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c7439964a35499b79477be097de78cb9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By STEPHANIE ROSENBLOOM</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 13:10:47 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Shopping and Retail</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Conditions and Trends</category>
+		</item>
+		<item>
+			<title>Health Debate Fails to Ignite Obama&#x2019;s Grass Roots</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=43afda41fc179db3e3c40f6660141775</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/health/policy/15ground.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/health/policy/15ground.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/15/us/ground1_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Members of Organizing for America, a group of Obama supporters, discussing health care strategy in Davenport, Iowa.</media:description>
+			<media:credit>Justin Maxon/The New York Times</media:credit>
+			<description>The enthusiasm of the Obama campaign has not carried over to efforts to overhaul the health care system.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=43afda41fc179db3e3c40f6660141775&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=43afda41fc179db3e3c40f6660141775&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JEFF ZELENY</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 14:55:38 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Volunteers</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Political Advertising</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Debating</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">House of Representatives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+		</item>
+		<item>
+			<title>Idle Iraqi Date Farms Show Decline of Economy</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9a7ded6255d40e94c5cc7b9165d1be78</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/world/middleeast/15dates.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/world/middleeast/15dates.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/15/world/15dates.751.jpg" medium="image" height="75" width="75"/>
+			<media:description>An Iraqi worker collected dates at a Baghdad orchard on Friday. Date farming faces hard times.</media:description>
+			<media:credit>Joseph Sywenkyj for The New York Times</media:credit>
+			<description>A nation that once had a robust farming sector is becoming dependent on imports and oil to sustain itself.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9a7ded6255d40e94c5cc7b9165d1be78&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9a7ded6255d40e94c5cc7b9165d1be78&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By TIMOTHY WILLIAMS</dc:creator>
+			<pubDate>Sat, 15 Aug 2009 15:22:46 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Economic Conditions and Trends</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Agriculture</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Trade Ministry (Iraq)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Talabani, Jalal</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Fruit</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Dates (Fruit)</category>
+		</item>
+	</channel>
+</rss>

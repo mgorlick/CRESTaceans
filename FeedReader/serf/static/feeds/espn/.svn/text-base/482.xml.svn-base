@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Sun, 16 Aug 2009 19:19:03 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Usain Bolt's 9.58 at world championships shatters 100-meter record]]></title>
+<description><![CDATA[Usain Bolt has captured another world record, winning the 100-meter race in 9.58 seconds at the world championships.]]></description>
+<pubDate>Sun, 16 Aug 2009 16:27:33 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/trackandfield/news/story?id=4402644&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/trackandfield/news/story?id=4402644&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Eagles QB Michael Vick admits on "60 Minutes" he cried 'many nights' in prison because of guilt]]></title>
+<description><![CDATA[Michael Vick says he cried in prison because of the guilt he felt about being involved in dogfighting.]]></description>
+<pubDate>Sun, 16 Aug 2009 17:49:39 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4403362&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4403362&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Brian Vickers outlasts Jimmie Johnson in fuel duel at Michigan International Speedway]]></title>
+<description><![CDATA[Brian Vickers outlasted Jimmie Johnson in yet another fuel-mileage duel at Michigan International Speedway, taking the lead with two laps to go after Johnson ran out of gas and holding on to win his first Sprint Cup race of the season Sunday.]]></description>
+<pubDate>Sun, 16 Aug 2009 18:17:44 PDT</pubDate>
+<guid>http://sports.espn.go.com/rpm/nascar/cup/news/story?id=4403026&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/rpm/nascar/cup/news/story?id=4403026&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[External]]></dc:creator>
+<title><![CDATA[Braves battling first-place Phillies (ESPN) ]]></title>
+<description><![CDATA[ ]]></description>
+<pubDate>Sun, 16 Aug 2009 16:36:30 PDT</pubDate>
+<guid>http://#" onclick="window.open('http://scores.espn.go.com/mlb/gamecast?gameId=290816115','gamecast290816115','width=960,height=603,scrollbars=no,resizable=no'); return false;&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://#" onclick="window.open('http://scores.espn.go.com/mlb/gamecast?gameId=290816115','gamecast290816115','width=960,height=603,scrollbars=no,resizable=no'); return false;&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[New York Mets third baseman David Wright out of hospital with post-concussion symptoms after beaning]]></title>
+<description><![CDATA[Mets third baseman David Wright was discharged Sunday from a hospital in New York a day after suffering a concussion when he was struck in the head by a pitch from San Francisco Giants starter Matt Cain. ]]></description>
+<pubDate>Sun, 16 Aug 2009 14:34:04 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4402484&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4402484&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Dallas Cowboys WR Roy Williams misses practice, is day to day]]></title>
+<description><![CDATA[Dallas Cowboys receiver Roy Williams has missed practice because of a sore left wrist and his status is uncertain.]]></description>
+<pubDate>Sun, 16 Aug 2009 17:42:33 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4403194&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4403194&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Mark Sanchez to start at QB for Jets in next game]]></title>
+<description><![CDATA[Rookie quarterback Mark Sanchez, coming off an impressive NFL debut, will start the New York Jets' preseason game at Baltimore next week.]]></description>
+<pubDate>Sun, 16 Aug 2009 15:20:06 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4402483&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4402483&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[New York Yankees' Derek Jeter becomes all-time hit leader amongst shortstops]]></title>
+<description><![CDATA[Yankees captain Derek Jeter has passed Hall of Famer Luis Aparicio for most hits by a shortstop.]]></description>
+<pubDate>Sun, 16 Aug 2009 18:58:51 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4402932&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4402932&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Rangers top wild card after Kinsler rips Red Sox]]></title>
+<description><![CDATA[Ian Kinsler homered and drove in two runs, Dustin Nippert pitched six solid innings and the Texas Rangers passed Boston in the AL wild-card race, beating the Red Sox 4-3 Sunday.]]></description>
+<pubDate>Sun, 16 Aug 2009 16:58:25 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/recap?gameId=290816113&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/recap?gameId=290816113&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Gold medalist wrestler Angle charged with HGH possession]]></title>
+<description><![CDATA[Police say pro wrestler and Olympic gold medalist Kurt Angle has been arrested for possessing a human growth hormone in suburban Pittsburgh.]]></description>
+<pubDate>Sun, 16 Aug 2009 13:53:36 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/news/story?id=4402589&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/news/story?id=4402589&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[The Associated Press]]></dc:creator>
+<title><![CDATA[Los Angeles Dodgers pitcher Hiroki Kuroda released from hospital]]></title>
+<description><![CDATA[Right-hander Hiroki Kuroda is out of the hospital and cleared to fly home with the Los Angeles Dodgers one day after he was struck on the right side of his head by a line drive.]]></description>
+<pubDate>Sun, 16 Aug 2009 17:58:25 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4402531&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4402531&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[New Orleans Saints signs kicker John Carney after Garrett Hartley gets four-game drug ban]]></title>
+<description><![CDATA[ Saints kicker Garrett Hartley says he expects to serve a four-game suspension when the regular season begins because he tested positive for a stimulant.]]></description>
+<pubDate>Sun, 16 Aug 2009 14:30:15 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4402342&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4402342&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Mark Messier rejoins New York Rangers as assistant to GM]]></title>
+<description><![CDATA[Mark Messier is back with the Rangers. ]]></description>
+<pubDate>Sun, 16 Aug 2009 12:20:05 PDT</pubDate>
+<guid>http://sports.espn.go.com/nhl/news/story?id=4402567&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nhl/news/story?id=4402567&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Nationals president Stan Kasten: 'Very real possibility' No. 1 draft pick Stephen Strasburg won't sign record deal]]></title>
+<description><![CDATA[Nationals president Stan Kasten acknowledged Saturday there is a "very real possibility" the team will not reach an agreement with No. 1 overall draft pick Stephen Strasburg despite offering him a record-breaking contract.]]></description>
+<pubDate>Sun, 16 Aug 2009 00:12:05 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4401500&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4401500&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Michael Vick of Philadelphia Eagles returns to practice field, runs scout team offense.]]></title>
+<description><![CDATA[Michael Vick was back on an NFL practice field for the first time since completing his prison sentence.]]></description>
+<pubDate>Sat, 15 Aug 2009 17:50:15 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4401139&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4401139&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

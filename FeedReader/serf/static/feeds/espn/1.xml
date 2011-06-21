@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Mon, 27 Jul 2009 18:22:03 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[NFL commissioner Roger Goodell conditionally reinstates Michael Vick]]></title>
+<description><![CDATA[Michael Vick was conditionally reinstated by NFL commissioner Roger Goodell on Monday and could play in regular season games as early as October.]]></description>
+<pubDate>Mon, 27 Jul 2009 17:50:51 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4359354&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4359354&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Sources: Pete Rose's status the same, despite report]]></title>
+<description><![CDATA[Pete Rose's status with baseball remains the same, despite a report that Bud Selig is "seriously considering" reinstatement of the hits king.]]></description>
+<pubDate>Mon, 27 Jul 2009 16:54:36 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4358260&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4358260&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Manhattan district attorney wants Plaxico Burress in jail 'by trial or plea']]></title>
+<description><![CDATA[Manhattan's district attorney says he wants Giants wide receiver Plaxico Burress to serve time in prison, the New York Post reported.]]></description>
+<pubDate>Mon, 27 Jul 2009 18:03:23 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4358123&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4358123&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Jayson Stark]]></dc:creator>
+<title><![CDATA[Source: Toronto Blue Jays, Philadelphia Phillies trade talks over Roy Halladay 'not going well']]></title>
+<description><![CDATA[The Blue Jays and Phillies continue to talk about a deal that would send Roy Halladay to Philadelphia. But those talks are "not going well," one source with knowledge of the discussions told ESPN.com.]]></description>
+<pubDate>Mon, 27 Jul 2009 16:48:06 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4359405&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4359405&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Shaun Assael]]></dc:creator>
+<title><![CDATA[Second man claims ex-Indianapolis Colts WR Marvin Harrison shot him]]></title>
+<description><![CDATA[A second man has filed suit against Marvin Harrison over a 2008 shooting.]]></description>
+<pubDate>Mon, 27 Jul 2009 17:09:52 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4359721&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4359721&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Marc Stein]]></dc:creator>
+<title><![CDATA[Dwyane Wade of the Miami Heat continues recruitment of Lamar Odom in LA]]></title>
+<description><![CDATA[Dwyane Wade announced via his Twitter account late Sunday night that he has flown to Los Angeles to bring Lamar Odom back to the Heat.]]></description>
+<pubDate>Mon, 27 Jul 2009 17:33:11 PDT</pubDate>
+<guid>http://sports.espn.go.com/nba/news/story?id=4359259&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nba/news/story?id=4359259&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Tony Bernazard, New York Mets executive, reportedly fired by New York Mets]]></title>
+<description><![CDATA[Omar Minaya fired a team executive Monday for a series of blowups, then openly questioned the motives of a local beat writer.]]></description>
+<pubDate>Mon, 27 Jul 2009 17:43:47 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4359215&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4359215&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Marc Stein]]></dc:creator>
+<title><![CDATA[Sources: Charlotte Bobcats, New Orleans Hornets talk Tyson Chandler for Emeka Okafor]]></title>
+<description><![CDATA[Sources say the Bobcats and Hornets are in talks to trade Tyson Chandler for Emeka Okafor.]]></description>
+<pubDate>Mon, 27 Jul 2009 17:48:10 PDT</pubDate>
+<guid>http://sports.espn.go.com/nba/news/story?id=4359609&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nba/news/story?id=4359609&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Brandon Marshall reports to Denver Broncos training camp]]></title>
+<description><![CDATA[Brandon Marshall reported to the first day of the Broncos' training camp on Monday.]]></description>
+<pubDate>Mon, 27 Jul 2009 17:42:10 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4359019&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4359019&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[BCS changes open Rose Bowl bids to outsiders]]></title>
+<description><![CDATA[Big Ten commissioner Jim Delany says some tweaking to the Bowl Championship Series rules has given greater access to the Rose Bowl to teams from outside the six conferences with automatic BCS bids -- such as Utah.]]></description>
+<pubDate>Mon, 27 Jul 2009 17:06:23 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4359924&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4359924&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Ferrari's Felipe Massa awake, talking to family, doctor says]]></title>
+<description><![CDATA[A doctor says Felipe Massa's life is no longer in danger, but that the Ferrari driver sustained an eye injury in his crash which could affect his future in Formula One.]]></description>
+<pubDate>Mon, 27 Jul 2009 16:09:06 PDT</pubDate>
+<guid>http://sports.espn.go.com/rpm/racing/f1/news/story?id=4358127&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/rpm/racing/f1/news/story?id=4358127&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[World championships: Aaron Peirsol ousted of signature event in world championships heat]]></title>
+<description><![CDATA[Aaron Peirsol was stunningly knocked out of in the 100-meter backstroke semifinals Monday.]]></description>
+<pubDate>Mon, 27 Jul 2009 13:53:12 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/swimming/news/story?id=4358159&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/swimming/news/story?id=4358159&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Tony Parker of the San Antonio Spurs injures ankle and thigh]]></title>
+<description><![CDATA[Spurs guard Tony Parker has a sprained ankle and injured thigh after colliding with an Austrian player during a recent basketball game.]]></description>
+<pubDate>Mon, 27 Jul 2009 09:40:41 PDT</pubDate>
+<guid>http://sports.espn.go.com/nba/news/story?id=4358844&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nba/news/story?id=4358844&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Bobby Valentine says he won't stay with Chiba Lotte Marines]]></title>
+<description><![CDATA[Bobby Valentine says he won't be back with the Chiba Lotte Marines next season even as the Japanese team's fans lobby management to keep him.]]></description>
+<pubDate>Mon, 27 Jul 2009 16:21:33 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4359030&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4359030&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPNChicago.com]]></dc:creator>
+<title><![CDATA[Fighting Illini football coach Ron Zook would like to play Northwestern at Wrigley Field]]></title>
+<description><![CDATA[Fighting Illini football coach Ron Zook would like to play Northwestern at Wrigley Field.]]></description>
+<pubDate>Mon, 27 Jul 2009 11:07:27 PDT</pubDate>
+<guid>http://sports.espn.go.com/chicago/news/story?id=4358676&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/chicago/news/story?id=4358676&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

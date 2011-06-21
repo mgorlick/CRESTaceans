@@ -1,0 +1,79 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[Sotomayor Sworn In as Justice]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=1fd8de7d264b3145dd56d94530b2bfb3]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/08/AR2009080800982.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/08/AR2009080800982.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 8 11:20 EDT 2009]]></pubDate>
+			<description><![CDATA[Sotomayor is the 111th justice on the U.S. Supreme Court and its first Hispanic member.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=1fd8de7d264b3145dd56d94530b2bfb3&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=1fd8de7d264b3145dd56d94530b2bfb3&p=1"/></a>
+]]></description>
+			<author><![CDATA[Amy Goldstein]]></author>
+		</item>
+		<item>
+			<title><![CDATA[At Iran Trial, 3 Confessions]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=f563e9816551699342535764da4a759e]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/08/AR2009080800238.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/08/AR2009080800238.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 8 13:48 EDT 2009]]></pubDate>
+			<description><![CDATA[Admissions illustrate Tehran's resolve to taint reform movement as a tool of foreign countries.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=f563e9816551699342535764da4a759e&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=f563e9816551699342535764da4a759e&p=1"/></a>
+]]></description>
+			<author><![CDATA[Associated Press]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Tech Stock Prices Soar ]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=1aa7b6247611acd42a11de5ca6aa22c3]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/07/AR2009080703891.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/07/AR2009080703891.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 8 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Amid positive economic signs, some investors weigh whether it's too late to jump on bandwagon.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=1aa7b6247611acd42a11de5ca6aa22c3&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=1aa7b6247611acd42a11de5ca6aa22c3&p=1"/></a>
+]]></description>
+			<author><![CDATA[Jonathan Starkey ]]></author>
+		</item>
+		<item>
+			<title><![CDATA[John Hughes: King of (Un)Cool]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=144e0b11fcdd8504ef15b763976bc493]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/07/AR2009080703506.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/07/AR2009080703506.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 8 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[<span class="kicker1">ESSAY</span> | Director's 80s-era teen flicks got to the heart of a secret: no one felt cool in high school. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=144e0b11fcdd8504ef15b763976bc493&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=144e0b11fcdd8504ef15b763976bc493&p=1"/></a>
+]]></description>
+			<author><![CDATA[Hank Stuever]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Rookie Fights for Roster Spot]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=eea872d91a7180387a543eb1337a2652]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/07/AR2009080703261.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/07/AR2009080703261.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 8 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[<img src="http://media.washingtonpost.com/wp-srv/globalnav/images/spacer.gif" alt="spacer" width="1" height="1" vspace="1"><br>
+<a href="http://www.washingtonpost.com/wp-dyn/content/article/2009/08/07/AR2009080703261.html?hpid=topnews"><img src="http://www.washingtonpost.com/wp-dyn/content/photo/2009/08/07/PH2009080703167.jpg" width="80" height="72" border="0" class="imgrt" alt=""></a>After a difficult childhood, long-shot Antonio Dixon hopes to make the cut with Redskins, pull his family out of poverty.<span style="font:normal 87% arial;">&raquo; <strong>Rick Maese</strong></span><br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=eea872d91a7180387a543eb1337a2652&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=eea872d91a7180387a543eb1337a2652&p=1"/></a>
+]]></description>
+			<author><![CDATA[Rick Maese]]></author>
+		</item>
+	</channel>
+</rss>

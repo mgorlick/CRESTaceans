@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Tue, 04 Aug 2009 02:55:15 GMT</pubDate>
+    <lastBuildDate>Tue, 04 Aug 2009 03:29:18 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>BofA to pay $33m on bonus claims</title>
+      <link>http://traxfer.ft.com/cms/s/0/acf1abc2-8051-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Bank of America is to pay $33m to settle US regulators’ claims US regulators’ claims that it failed to provide complete information to investors about a $5bn bonus pool at Merrill Lynch before December’s shareholder vote over taking over the bank</description>
+      <pubDate>Mon, 03 Aug 2009 23:30:19 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/acf1abc2-8051-11de-bf04-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Banks boost recovery hopes</title>
+      <link>http://traxfer.ft.com/cms/s/0/bcc7a824-8058-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Better profits than expected at some of Europe’s biggest banks and growing confidence that the recession may soon be over spurred global equities to highs for the year</description>
+      <pubDate>Tue, 04 Aug 2009 02:55:15 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/bcc7a824-8058-11de-bf04-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Music service Spotify wins high-profile backing</title>
+      <link>http://traxfer.ft.com/cms/s/0/d890cbea-8066-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Online music service widely tipped as a potential challenger to the dominance of iTunes is close to securing up to $50m in new investment from high-profile investors</description>
+      <pubDate>Mon, 03 Aug 2009 22:30:40 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/d890cbea-8066-11de-bf04-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>AIG names former MetLife chief as CEO</title>
+      <link>http://traxfer.ft.com/cms/s/0/da9900e2-807f-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>American International Group has filled one of the hottest seats in corporate America, naming Robert Benmosche, a former head of rival insurer MetLife, as chief executive</description>
+      <pubDate>Mon, 03 Aug 2009 23:02:49 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/da9900e2-807f-11de-bf04-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Google’s Schmidt quits Apple board</title>
+      <link>http://traxfer.ft.com/cms/s/0/33ed1d7e-802e-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The close personal link that sealed an unusual alliance between Silicon Valley’s two most prominent companies was broken as growing competitive conflicts forced Eric Schmidt, Google chief executive officerof 
+Google, to step down from his controverial controversial position as a director of Apple.</description>
+      <pubDate>Mon, 03 Aug 2009 20:05:21 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/33ed1d7e-802e-11de-bf04-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Cash-for-clunkers deal boosts US car sales</title>
+      <link>http://traxfer.ft.com/cms/s/0/4d26c0b4-8066-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Car sales in the US were sharply up – by about 16 per cent – in July Carmakers reported a sharp increase in US sales last month compared with to June thanks to demand generated by taxpayer-funded car scrappage incentives</description>
+      <pubDate>Mon, 03 Aug 2009 22:48:00 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/4d26c0b4-8066-11de-bf04-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Market for leveraged loans hits 12-month high</title>
+      <link>http://traxfer.ft.com/cms/s/0/1f92a1ea-8057-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>In a further sign of improving conditions in credit markets,  European leveraged loan prices reached 89.11% of face value, a high not seen since July last year, according to Standard &amp; Poor’s LCD and Markit</description>
+      <pubDate>Mon, 03 Aug 2009 21:01:55 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/1f92a1ea-8057-11de-bf04-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Clorox gets sales boost from flu outbreak</title>
+      <link>http://traxfer.ft.com/cms/s/0/8cc23146-805b-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Clorox, maker of bleach and other cleaning products, joined a select group of US companies that have seen sales lifted by the H1N1 swine flu pandemic</description>
+      <pubDate>Mon, 03 Aug 2009 18:59:59 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/8cc23146-805b-11de-bf04-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Emerging markets surge on hopes of growth</title>
+      <link>http://traxfer.ft.com/cms/s/0/a55d81f4-8053-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Emerging stock markets have reached levels last seen before the collapse of Lehman Brothers in the latest sign of investor expectations of improving global growth</description>
+      <pubDate>Mon, 03 Aug 2009 17:55:36 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/a55d81f4-8053-11de-bf04-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Global economy at risk from oil price rise</title>
+      <link>http://traxfer.ft.com/cms/s/0/1281aad6-8049-11de-bf04-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The world economy cannot sustain any further rise in the oil price, the International Energy Agency’s chief economist warned as prices rose toward a year high</description>
+      <pubDate>Mon, 03 Aug 2009 18:33:55 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/1281aad6-8049-11de-bf04-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

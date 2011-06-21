@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Sun, 2 Aug 2009 10:23:00 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Report: Boston Red Sox fired 2 staffers in steroid probe]]></title>
+<description><![CDATA[A Boston newspaper is reporting the Red Sox fired two security staffers last summer after an investigation into steroid use.]]></description>
+<pubDate>Sun, 2 Aug 2009 09:25:16 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4372389&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4372389&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Minnesota Vikings rookie receiver Percy Harvin agrees to 5-year deal]]></title>
+<description><![CDATA[The Minnesota Vikings have agreed to terms with first-round draft pick Percy Harvin on a five-year deal. ]]></description>
+<pubDate>Sun, 2 Aug 2009 10:09:34 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4372468&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4372468&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[World championships: American Ryan Lochte captures fourth gold of worlds in 400 IM]]></title>
+<description><![CDATA[Ryan Lochte won his fourth gold medal of the world championships, and two more world records fell Sunday on the final night of the fastest meet in swimming history. ]]></description>
+<pubDate>Sun, 2 Aug 2009 09:57:55 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/swimming/news/story?id=4372473&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/swimming/news/story?id=4372473&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Catriona Matthew wins Women's British Open]]></title>
+<description><![CDATA[Catriona Matthew won the Women's British Open by three strokes on Saturday.]]></description>
+<pubDate>Sun, 2 Aug 2009 10:09:21 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/news/story?id=4372501&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/news/story?id=4372501&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[John Clayton]]></dc:creator>
+<title><![CDATA[New England Patriots work out, expected to sign QB Cleo Lemon]]></title>
+<description><![CDATA[The Patriots, in the market for a backup quarterback, have worked out NFL veteran Cleo Lemon and are expected to sign him Saturday.]]></description>
+<pubDate>Sun, 2 Aug 2009 10:03:52 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4371342&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4371342&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Tiger Woods surges into the lead at the Buick Open]]></title>
+<description><![CDATA[ Victor Martinez was unpacking items from a Cleveland Indians duffel bag as a clubhouse attendant in the Boston clubhouse wrote the No. 41 on a warmup uniform and dropped it in front of the locker.]]></description>
+<pubDate>Sun, 2 Aug 2009 07:06:46 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/news/story?id=4371611&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/news/story?id=4371611&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[John Clayton]]></dc:creator>
+<title><![CDATA[WR Derrick Mason at Baltimore Ravens' training camp, will end short retirement]]></title>
+<description><![CDATA[Ravens receiver Derrick Mason showed up in training camp at McDaniels College in Westminster, Md., and is gong to end his retirement. ]]></description>
+<pubDate>Sat, 1 Aug 2009 19:31:10 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4371282&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4371282&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Tarvaris Jackson of Minnesota Vikings leaves field with reported MCL injury]]></title>
+<description><![CDATA[Minnesota Vikings quarterback Tarvaris Jackson left the field on Saturday morning with an apparent leg injury.]]></description>
+<pubDate>Sun, 2 Aug 2009 00:08:50 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4371142&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4371142&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Arturo Gatti's second autopsy doesn't rule out homicide]]></title>
+<description><![CDATA[A second autopsy performed at the request of former boxer Arturo Gatti's family has not ruled out homicide in his death.]]></description>
+<pubDate>Sat, 1 Aug 2009 14:30:14 PDT</pubDate>
+<guid>http://sports.espn.go.com/sports/boxing/news/story?id=4371447&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/sports/boxing/news/story?id=4371447&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press ]]></dc:creator>
+<title><![CDATA[Deaf teen claims motocross gold at X Games 15]]></title>
+<description><![CDATA[Ashley Fiolek, who has been deaf since birth, won first place in Women's Moto X Super X on Saturday night. ]]></description>
+<pubDate>Sat, 1 Aug 2009 22:24:56 PDT</pubDate>
+<guid>http://espn.go.com/action/news/story?id=4372102&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://espn.go.com/action/news/story?id=4372102&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Pittsburgh Steelers' Ben Roethlisberger says sorry to his teammates]]></title>
+<description><![CDATA[Ben Roethlisberger quickly moved to make sure his problems don't become those of the Super Bowl champion Pittsburgh Steelers.]]></description>
+<pubDate>Sat, 1 Aug 2009 18:26:51 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4371457&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4371457&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

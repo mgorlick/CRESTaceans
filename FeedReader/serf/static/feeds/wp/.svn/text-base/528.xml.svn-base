@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[Low Expectations Ensure Karzai Is Favorite in Race]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=af47ae6021d1a8b9ebf267acb8e076b5]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/18/AR2009081803156.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/18/AR2009081803156.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 18 19:20 EDT 2009]]></pubDate>
+			<description><![CDATA[The fact president leads ahead of the election despite a poor record on security and the economy says much about the mind-set of Afghans.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=af47ae6021d1a8b9ebf267acb8e076b5&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=af47ae6021d1a8b9ebf267acb8e076b5&p=1"/></a>
+]]></description>
+			<author><![CDATA[Joshua Partlow]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Columnist Robert Novak Dies]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=bb7daefe2af4e1790589508c97e99bf5]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/18/AR2009081801761.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/18/AR2009081801761.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 18 13:03 EDT 2009]]></pubDate>
+			<description><![CDATA[Long-time conservative columnist often reported leaks from the highest sources of government.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=bb7daefe2af4e1790589508c97e99bf5&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=bb7daefe2af4e1790589508c97e99bf5&p=1"/></a>
+]]></description>
+			<author><![CDATA[Adam Bernstein]]></author>
+		</item>
+		<item>
+			<title><![CDATA[No Limits in Va. Governor's Race]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=debe1772e873c65d644c1c94f8cfa0f1]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/18/AR2009081803149.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/18/AR2009081803149.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 18 19:13 EDT 2009]]></pubDate>
+			<description><![CDATA[Wealthy friends, helpful campaign finance laws allow candidates to compile huge war chests.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=debe1772e873c65d644c1c94f8cfa0f1&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=debe1772e873c65d644c1c94f8cfa0f1&p=1"/></a>
+]]></description>
+			<author><![CDATA[Rosalind S. Helderman]]></author>
+		</item>
+		<item>
+			<title><![CDATA[HPV Vaccine Campaign Faulted]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=6ca0b1a8fa55bdcc98a1d5bc0bb29885]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/18/AR2009081802499.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/18/AR2009081802499.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 18 16:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Medical associations promoted drug using money provided by the manufacturer, report says. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=6ca0b1a8fa55bdcc98a1d5bc0bb29885&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=6ca0b1a8fa55bdcc98a1d5bc0bb29885&p=1"/></a>
+]]></description>
+			<author><![CDATA[Rob Stein]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Archie to Pop the Big Question]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=b0988dc08574ea0644d1aadc33955398]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/18/AR2009081802044.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/18/AR2009081802044.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 18 13:33 EDT 2009]]></pubDate>
+			<description><![CDATA[<img src="http://media.washingtonpost.com/wp-srv/globalnav/images/spacer.gif" alt="spacer" width="1" height="1" vspace="1"><br>
+ 
+<a href="http://www.washingtonpost.com/wp-dyn/content/article/2009/08/18/AR2009081802044.html?hpid=topnews"><img src="http://media.washingtonpost.com/wp-dyn/content/photo/2009/08/18/PH2009081802219.jpg" width="80" height="72" border="0" align="right" hspace="3" alt=""></a>Long-iconic teenager of Riverdale High will ask for Veronica Lodge's trust-fund hand in matrimony.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=b0988dc08574ea0644d1aadc33955398&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=b0988dc08574ea0644d1aadc33955398&p=1"/></a>
+]]></description>
+			<author><![CDATA[Michael Cavna]]></author>
+		</item>
+	</channel>
+</rss>

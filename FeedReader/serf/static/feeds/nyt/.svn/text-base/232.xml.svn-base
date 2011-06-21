@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Thu, 06 Aug 2009 16:22:25 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>U.S. to Reform Policy on Detention for Immigrants</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=892af8c53271e3c96d41251b2fffa391</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/us/politics/06detain.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/us/politics/06detain.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/06/nyregion/06detain02-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Families in the hall at the notorious T. Don Hutto Residential Center in Texas.</media:description>
+			<media:credit>Charles Reed/Department of Homeland Security. via Associated Press</media:credit>
+			<description>The Obama administration is trying to transform the detention system from a patchwork of jail and prison cells, and will review contracts with private companies.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=892af8c53271e3c96d41251b2fffa391&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=892af8c53271e3c96d41251b2fffa391&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NINA BERNSTEIN</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 14:42:25 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Immigration Detention</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Illegal Immigrants</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Immigration and Customs Enforcement (US)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Deportation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Immigration and Emigration</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Civil Rights and Liberties</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Morton, John</category>
+		</item>
+		<item>
+			<title>After Clinton Trip, U.S. Studies Signals From N. Korea</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f5971b833ada1e266eb7ead2ad47f4b0</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/world/asia/06kim.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/world/asia/06kim.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/world/05korea4-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Laura Ling spoke to the news media as former Vice President Al Gore embraced Euna Lee after they arrived in Burbank, Calif., on Wednesday. Mr. Gore founded the company that employs the journalists.</media:description>
+			<media:credit>Jonathan Alcorn for The New York Times</media:credit>
+			<description>After former President Bill Clinton won the freedom of two American journalists, officials were busily calculating whether the psychology in Pyongyang had changed.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f5971b833ada1e266eb7ead2ad47f4b0&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f5971b833ada1e266eb7ead2ad47f4b0&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARK LANDLER</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 15:34:20 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Bill</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Kim Jong Il</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ling, Laura</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Lee, Euna</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Nuclear Weapons</category>
+		</item>
+		<item>
+			<title>Budd Schulberg, Screenwriter, Dies at 95</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9cde932688a238d83efd64e82c6f14b7</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/movies/06schulberg.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/movies/06schulberg.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/arts/06shulberg_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Budd Schulberg at the Edinburgh Fringe Festival in 2008. </media:description>
+			<media:credit>Cristina Cano for The New York Times</media:credit>
+			<description>Mr. Schulberg wrote the award-winning screenplay for &#x201C;On the Waterfront&#x201D; and created an archetype of naked ambition in his novel &#x201C;What Makes Sammy Run?&#x201D;&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9cde932688a238d83efd64e82c6f14b7&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9cde932688a238d83efd64e82c6f14b7&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By TIM WEINER</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 13:38:12 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Schulberg, Budd</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Books and Literature</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Movies</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Deaths (Obituaries)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Writing and Writers</category>
+		</item>
+		<item>
+			<title>For Puerto Ricans, Sotomayor&#x2019;s Success Stirs Pride</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=40ddabcdeb77ddabe223330c4b5979f7</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/nyregion/07puerto.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/nyregion/07puerto.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/06/nyregion/06puerto2-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>"It is beyond anybody's imagination when I started that a Puerto Rican could ascend to that position, to the Supreme Court," said Edwin Torres, who in 1959 was hired as the first Puerto Rican assistant district attorney in New York.</media:description>
+			<media:credit>&#xC1;ngel Franco/The New York Times</media:credit>
+			<description>The nomination of one of their own to the nation&#x2019;s highest court is a watershed event for Puerto Rican New York.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=40ddabcdeb77ddabe223330c4b5979f7&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=40ddabcdeb77ddabe223330c4b5979f7&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID GONZALEZ</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 15:57:51 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Puerto Ricans</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Sotomayor, Sonia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+		</item>
+		<item>
+			<title>Plan by Bank of England to Ease Credit Is Extended</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e956370d70f47e030b416251f9c86dea</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/business/global/07euro.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/business/global/07euro.html</guid>
+			<description>Britain&#x2019;s central bank extended its asset-purchasing plan, and the European Central Bank kept its key rate steady.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e956370d70f47e030b416251f9c86dea&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e956370d70f47e030b416251f9c86dea&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JULIA WERDIGIER and CARTER DOUGHERTY</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 14:15:00 GMT</pubDate>
+		</item>
+		<item>
+			<title>Clinton Offers Assurances to Somali Government</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c2ec0ef51456c5e716ef44978960fd59</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/world/africa/07diplo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/world/africa/07diplo.html</guid>
+			<description>Secretary of State Hillary Rodham Clinton reiterated the U.S. commitment to help the fledgling security services.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c2ec0ef51456c5e716ef44978960fd59&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c2ec0ef51456c5e716ef44978960fd59&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JEFFREY GETTLEMAN</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 16:17:20 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Hillary Rodham</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Kenya</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">International Criminal Court</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Somalia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ahmed, Sharif</category>
+		</item>
+		<item>
+			<title>White House Affirms Deal on Drug Cost</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=77de020439ff7df037c2d52db8858f0f</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/health/policy/06insure.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/health/policy/06insure.html</guid>
+			<description>The White House said it stood by a deal to shield drug makers from further costs in the health care overhaul.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=77de020439ff7df037c2d52db8858f0f&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=77de020439ff7df037c2d52db8858f0f&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID D. KIRKPATRICK</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 11:06:46 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Tauzin, Billy</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Drugs (Pharmaceuticals)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Lobbying and Lobbyists</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Pharmaceutical Research and Manufacturers of America</category>
+		</item>
+		<item>
+			<title>For Today&#x2019;s Graduate, Just One Word: Statistics</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=2b6ae70b1f71e53c6ff6e3a0b0de1dd8</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/technology/06stats.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/technology/06stats.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/06/business/stats75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Carrie Grimes, senior staff engineer at Google, uses statistical analysis of data to help improve the company's search engine.</media:description>
+			<media:credit>Thor Swift for The New York Times</media:credit>
+			<description>With the explosion of digital data, statisticians can earn $125,000 in their first year after getting a doctorate.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=2b6ae70b1f71e53c6ff6e3a0b0de1dd8&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=2b6ae70b1f71e53c6ff6e3a0b0de1dd8&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By STEVE LOHR</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 11:10:18 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Statistics</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Mathematics</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Research</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Google Inc|GOOG|NASDAQ</category>
+		</item>
+		<item>
+			<title>Bomb Kills at Least 5 in Afghanistan</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d277246d166a4aaac9373177ed0408ac</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/world/asia/07afghan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/world/asia/07afghan.html</guid>
+			<description>In another sign of growing violence in the last two weeks before national elections, a group of civilians were killed by a roadside bomb Wednesday.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d277246d166a4aaac9373177ed0408ac&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d277246d166a4aaac9373177ed0408ac&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ABDUL WAHEED WAFA</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 16:12:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Improvised Explosive Devices</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+		</item>
+		<item>
+			<title>July Remained Sluggish for Retailers</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fe8b3935c34ad074f06b63da026bca84</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/business/economy/07shop.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/business/economy/07shop.html</guid>
+			<description>Mall-based chains continue to be hit hardest as consumers focus on necessities, but the warehouse club operator Costco&#x2019;s results also missed analyst estimates.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fe8b3935c34ad074f06b63da026bca84&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fe8b3935c34ad074f06b63da026bca84&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 16:05:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Shopping and Retail</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Costco Wholesale Corporation|COST|NASDAQ</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Sales</category>
+		</item>
+		<item>
+			<title>70 Murders, Yet Close to Going Free in Pakistan</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=2fd0cd7e5c27d3af7c82eb3b78abfcd1</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/world/asia/06justice.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/world/asia/06justice.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/world/06justice_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Fear prevents many Pakistanis from confronting militants in court. Fida Hussein Ghalvi testified against one such suspect and has paid for his courage since. </media:description>
+			<media:credit>Michael Kamber for The New York Times</media:credit>
+			<description>Justice in Pakistan is often derailed by intimidation and poor policing, leaving criminals free and witnesses fearful.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=2fd0cd7e5c27d3af7c82eb3b78abfcd1&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=2fd0cd7e5c27d3af7c82eb3b78abfcd1&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SABRINA TAVERNISE and WAQAR GILLANI</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 11:16:53 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Pakistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Crime and Criminals</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Lashkar-e-Jhangvi</category>
+		</item>
+	</channel>
+</rss>

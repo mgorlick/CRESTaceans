@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Wed, 29 Jul 2009 10:26:48 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[ESPN.com]]></dc:creator>
+<title><![CDATA[Plaxico Burress, former New York Giants wide receiver, testifies before grand jury]]></title>
+<description><![CDATA[Plaxico Burress testified in front of a grand jury for nearly three hours Wednesday about a 2008 weapons charge case in which the former Giants wide receiver shot himself in the leg.]]></description>
+<pubDate>Wed, 29 Jul 2009 10:25:38 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4363991&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4363991&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Jayson Stark]]></dc:creator>
+<title><![CDATA[Philadelphia Phillies signal Cliff Lee trade may be imminent]]></title>
+<description><![CDATA[ There were more indications Wednesday that the Phillies' pursuit of Indians pitcher Cliff Lee is heating up.]]></description>
+<pubDate>Wed, 29 Jul 2009 10:05:12 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4363553&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4363553&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Michael Phelps, at world swimming championships, sets record in 200m butterfly]]></title>
+<description><![CDATA[Mary Descenza, who failed to qualify for the Beijing Games, set the 16th world record of the swimming championships in the preliminaries of the 200-meter butterfly.]]></description>
+<pubDate>Wed, 29 Jul 2009 10:23:07 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/swimming/news/story?id=4363026&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/swimming/news/story?id=4363026&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Jack Wilson, Ian Snell of Pittsburgh Pirates traded to Seattle Mariners for five players]]></title>
+<description><![CDATA[The Pirates have dealt shortstop Jack Wilson and right-handed pitcher Ian Snell to the Seattle Mariners for five players.]]></description>
+<pubDate>Wed, 29 Jul 2009 10:21:31 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4363900&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4363900&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Sage Rosenfels, Tarvaris Jackson of Minnesota Vikings say they're ready to compete with Brett Favre out of picture]]></title>
+<description><![CDATA[Now that Brett Favre is out of the picture, the focus in Vikings camp turns to Sage Rosenfels and Tavaris Jackson, who say they understood the situation all along -- and are ready to compete for the starting job.]]></description>
+<pubDate>Wed, 29 Jul 2009 10:05:53 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4363181&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4363181&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Marc Stein]]></dc:creator>
+<title><![CDATA[Sources: New Orleans Hornets, Ike Diogu close to finalizing deal]]></title>
+<description><![CDATA[The Hornets, after swapping Tyson Chandler for Emeka Okafor, are poised to add further to their frontcourt by signing free-agent forward Ike Diogu.]]></description>
+<pubDate>Wed, 29 Jul 2009 10:20:35 PDT</pubDate>
+<guid>http://sports.espn.go.com/nba/news/story?id=4363982&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nba/news/story?id=4363982&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Felony charge against Randy Starks of Miami Dolphins reduced to misdemeanor]]></title>
+<description><![CDATA[Prosecutors have dropped felony charges against Miami Dolphins defensive end Randy Starks stemming from a May traffic altercation with police.]]></description>
+<pubDate>Wed, 29 Jul 2009 09:31:21 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4363832&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4363832&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Philadelphia Eagles assistant Jim Johnson succumbs to cancer]]></title>
+<description><![CDATA[Jim Johnson, whose attacking defenses helped the Eagles to one Super Bowl appearance and five NFC title games, has died. He was 68.]]></description>
+<pubDate>Wed, 29 Jul 2009 07:35:48 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4362252&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4362252&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Felipe Massa of Ferrari set to leave intensive care after taking first steps since crash]]></title>
+<description><![CDATA[ Ferrari's Felipe Massa will leave intensive care on Wednesday after taking his first steps since he fractured his skull in a crash at last weekend's Hungarian Grand Prix, the Formula One team said.]]></description>
+<pubDate>Wed, 29 Jul 2009 10:25:55 PDT</pubDate>
+<guid>http://sports.espn.go.com/rpm/racing/f1/news/story?id=4363306&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/rpm/racing/f1/news/story?id=4363306&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Tony Dungy believes Michael Vick focused on putting life back together]]></title>
+<description><![CDATA[ Tony Dungy says he believes Michael Vick is focused on putting his life back together.]]></description>
+<pubDate>Wed, 29 Jul 2009 08:39:14 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4361284&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4361284&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

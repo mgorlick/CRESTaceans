@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Sat, 1 Aug 2009 02:19:21 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[The Chicago White Sox acquire Jake Peavy in a 4-for-1 deal]]></title>
+<description><![CDATA[The Chicago White Sox acquire Jake Peavy in a 4-for-1 deal.]]></description>
+<pubDate>Fri, 31 Jul 2009 22:07:13 PDT</pubDate>
+<guid>http://sports.espn.go.com/chicago/news/story?id=4369814&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/chicago/news/story?id=4369814&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[MLB trade deadline: Boston Red Sox's pursuit of Victor Martinez of Cleveland Indians heats up]]></title>
+<description><![CDATA[The Boston Red Sox have agreed to a deal to acquire All-Star slugger Victor Martinez from the Cleveland Indians.]]></description>
+<pubDate>Fri, 31 Jul 2009 22:33:18 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4369463&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4369463&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Lee tosses dominant CG in 1st start with Phillies]]></title>
+<description><![CDATA[Cliff Lee spotted his fastball with precision, and his curveball, too. What a National League debut for the reigning AL Cy Young Award winner.]]></description>
+<pubDate>Fri, 31 Jul 2009 23:19:45 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/recap?gameId=290731126&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/recap?gameId=290731126&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Brazilian police: Arturo Gatti hung himself from staircase more than seven feet off ground]]></title>
+<description><![CDATA[Boxer Arturo Gatti's body has been exhumed, and the Quebec coroner's office will perform a new autopsy at his family's request.]]></description>
+<pubDate>Fri, 31 Jul 2009 19:51:27 PDT</pubDate>
+<guid>http://sports.espn.go.com/sports/boxing/news/story?id=4368620&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/sports/boxing/news/story?id=4368620&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Hawaii Warriors coach Greg McMackin suspended 30 days for gay slur against Notre Dame Fighting Irish]]></title>
+<description><![CDATA[Hawaii coach Greg McMackin is being suspended for 30 days and voluntarily taking a pay cut for making a derogatory comment while describing Notre Dame's chant before last year's Hawaii Bowl.]]></description>
+<pubDate>Fri, 31 Jul 2009 20:52:44 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4370053&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4370053&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[PGA Tour: Tiger Woods rebounds with 63 at Buick Open]]></title>
+<description><![CDATA[Tiger Woods has shot a season-low, second-round 63 to move into contention at the Buick Open.]]></description>
+<pubDate>Fri, 31 Jul 2009 19:02:38 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/news/story?id=4369349&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/news/story?id=4369349&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[MLB Trade: Jarrod Washburn of the Seattle Mariners traded to the Detroit Tigers]]></title>
+<description><![CDATA[The Seattle Mariners have traded left-handed pitcher Jarrod Washburn to the Detroit Tigers for rookie left-hander Luke French and a minor league pitcher, sources tell ESPN.]]></description>
+<pubDate>Fri, 31 Jul 2009 22:34:07 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4368815&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4368815&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[New England Patriots quarterback Tom Brady says recontructed knee OK, arm getting there]]></title>
+<description><![CDATA[Patriots quarterback Tom Brady expects to play in exhibition games next month -- his first action since injuring his knee in the 2008 regular season opener.]]></description>
+<pubDate>Fri, 31 Jul 2009 23:56:02 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4370054&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4370054&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Scott Burnside]]></dc:creator>
+<title><![CDATA[Sources: NHL investigates Marion Hossa, Chris Pronger contracts ]]></title>
+<description><![CDATA[ The NHL is investigating Marian Hossa's 12-year, $62.8 million contract with the Chicago Blackhawks.]]></description>
+<pubDate>Fri, 31 Jul 2009 16:41:30 PDT</pubDate>
+<guid>http://sports.espn.go.com/nhl/news/story?id=4369897&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nhl/news/story?id=4369897&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[John Daly losing feel in hands, confidence in game]]></title>
+<description><![CDATA[John Daly felt as though he hit rock bottom Friday with his worst score ever in a regular PGA Tour event that left him wondering whether he should quit.]]></description>
+<pubDate>Fri, 31 Jul 2009 23:50:13 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/news/story?id=4370808&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/news/story?id=4370808&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Bronson Arroyo says he used andro, stopped due to rumors it was tainted with steroids]]></title>
+<description><![CDATA[Bronson Arroyo said he would not be surprised to find his name on a list of 104 ballplayers who tested positive for performance-enhancing drugs in 2003, thanks to rumors a then-legal supplement he was using at the time was tainted with steroids.]]></description>
+<pubDate>Fri, 31 Jul 2009 22:42:34 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4368436&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4368436&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Indiana Pacers' Tyler Hansbrough faces 2-month layoff with shin injury]]></title>
+<description><![CDATA[Tyler Hansbrough could miss up to two months with a right shin injury, but the Indiana Pacers believe their first-round draft pick will be healthy enough for the start of the season.]]></description>
+<pubDate>Fri, 31 Jul 2009 21:00:40 PDT</pubDate>
+<guid>http://sports.espn.go.com/nba/news/story?id=4369069&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nba/news/story?id=4369069&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[MLB Trade: Orlando Cabrera traded to Minnesota Twins]]></title>
+<description><![CDATA[Shortstop Orlando Cabrera has been traded from the Oakland Athletics to the Minnesota Twins.]]></description>
+<pubDate>Fri, 31 Jul 2009 22:33:35 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4369219&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4369219&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Training Camp: Leon Washington of New York Jets shows at training camp]]></title>
+<description><![CDATA[New York Jets running back Leon Washington has reported to the team and was on the field for the first practice of training camp.]]></description>
+<pubDate>Fri, 31 Jul 2009 21:35:42 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4368391&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4368391&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[New York Giants linebacker Antonio Pierce appears again in front of grand jury in Plaxico Burress case]]></title>
+<description><![CDATA[ Giants linebacker Antonio Pierce has finished two days of testimony before before the grand jury investigating a gun charge against former teammate Plaxico Burress.]]></description>
+<pubDate>Fri, 31 Jul 2009 18:48:10 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4369157&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4369157&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

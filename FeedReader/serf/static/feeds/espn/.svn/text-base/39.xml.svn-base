@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Wed, 29 Jul 2009 08:24:41 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[Jayson Stark]]></dc:creator>
+<title><![CDATA[Philadelphia Phillies signal Cliff Lee trade may be imminent]]></title>
+<description><![CDATA[ There were more indications Wednesday that the Phillies' pursuit of Indians pitcher Cliff Lee is heating up.]]></description>
+<pubDate>Wed, 29 Jul 2009 08:23:00 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4363553&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4363553&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Ed Werder]]></dc:creator>
+<title><![CDATA[Brett Favre tells Minnesota Vikings he'll remain retired]]></title>
+<description><![CDATA[After nearly three months of what he described as intense and often emotional soul-searching, Brett Favre decided to remain retired from the NFL rather than become the Minnesota Vikings' starting quarterback.]]></description>
+<pubDate>Wed, 29 Jul 2009 07:19:25 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4362093&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4362093&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Sal Paolantonio]]></dc:creator>
+<title><![CDATA[Plaxico Burress will testify before grand jury, his attorney says]]></title>
+<description><![CDATA[Former Giants wide receiver Plaxico Burress, who faces a weapons charge for shooting himself in the thigh at a nightclub last year, arrived for his testimony Wednesday before a Manhattan grand jury.]]></description>
+<pubDate>Wed, 29 Jul 2009 07:33:48 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4361553&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4361553&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Buehrle sets MLB record, loses on Twins' rally]]></title>
+<description><![CDATA[Coming off the 18th perfect game in major league history, Chicago White Sox pitcher Mark Buehrle retired the first 17 batters on Tuesday night to set a record with 45 outs in a row before the Minnesota Twins rallied for a 5-3 victory over the White Sox.]]></description>
+<pubDate>Tue, 28 Jul 2009 22:39:55 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/recap?gameId=290728109&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/recap?gameId=290728109&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Philadelphia Eagles assistant Jim Johnson succumbs to cancer]]></title>
+<description><![CDATA[Jim Johnson, whose attacking defenses helped the Eagles to one Super Bowl appearance and five NFC title games, has died. He was 68.]]></description>
+<pubDate>Wed, 29 Jul 2009 07:35:48 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4362252&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4362252&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Tony Dungy believes Michael Vick focused on putting life back together]]></title>
+<description><![CDATA[ Tony Dungy says he believes Michael Vick is focused on putting his life back together.]]></description>
+<pubDate>Tue, 28 Jul 2009 23:20:11 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4361284&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4361284&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Kazmir outduels Sabathia as Rays stop Yankees]]></title>
+<description><![CDATA[Scott Kazmir outpitched CC Sabathia to win for the first time in more than two months and the Rays slowed down the streaking Yankees with a 6-2 victory.]]></description>
+<pubDate>Tue, 28 Jul 2009 21:24:50 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/recap?gameId=290728130&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/recap?gameId=290728130&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Reuters]]></dc:creator>
+<title><![CDATA[Felipe Massa of Ferrari set to leave intensive care after taking first steps since crash]]></title>
+<description><![CDATA[ Ferrari's Felipe Massa will leave intensive care on Wednesday after taking his first steps since he fractured his skull in a crash at last weekend's Hungarian Grand Prix, the Formula One team said.]]></description>
+<pubDate>Wed, 29 Jul 2009 07:10:05 PDT</pubDate>
+<guid>http://sports.espn.go.com/rpm/racing/f1/news/story?id=4363306&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/rpm/racing/f1/news/story?id=4363306&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Mary Descenza of United States sets record in 200m butterfly at swimming world championships]]></title>
+<description><![CDATA[Mary Descenza, who failed to qualify for the Beijing Games, set the 16th world record of the swimming championships in the preliminaries of the 200-meter butterfly.]]></description>
+<pubDate>Wed, 29 Jul 2009 07:46:18 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/swimming/news/story?id=4363026&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/swimming/news/story?id=4363026&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[NFLPA executive director DeMaurice Smith: Roger Goodell's disciplinary authority will be subject of talks]]></title>
+<description><![CDATA[The NFL players' union wants to talk about commissioner Roger Goodell's power to discipline players when talks on a new collective bargaining agreement begin, union chief executive DeMaurice Smith said.]]></description>
+<pubDate>Tue, 28 Jul 2009 09:46:45 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4360661&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4360661&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Alberto Contador: My relationship with Lance Armstrong is 'zero']]></title>
+<description><![CDATA[Alberto Contador and Lance Armstrong are sniping again after a fragile truce during the Tour de France.]]></description>
+<pubDate>Tue, 28 Jul 2009 06:10:53 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/cycling/news/story?id=4360655&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/cycling/news/story?id=4360655&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

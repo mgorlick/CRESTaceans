@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Fri, 14 Aug 2009 22:12:03 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Consumer Prices Hold Steady, Easing Inflation Fears</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=567d48d9055cd305f113df5310e9f5a8</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/business/economy/15econ.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/business/economy/15econ.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/14/business/economy/Economy75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Sale signs at Urban Outfitters in Santa Monica, Calif. Consumer prices in the U.S. stayed low in July, easing concerns new government spending is spurring inflation.</media:description>
+			<media:credit>Reed Saxon/Associated Press</media:credit>
+			<description>The drift in prices suggests that slack remains in the American economy, even as the recession bottoms out and some industries jump-start production.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=567d48d9055cd305f113df5310e9f5a8&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=567d48d9055cd305f113df5310e9f5a8&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 17:41:34 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Consumer Price Index</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Commerce Department</category>
+		</item>
+		<item>
+			<title>Paterson Expected to Reject Overhaul of Public Authorities</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=86d7daa0c1f81686e0d40dbf1b7b4d8c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/nyregion/15authorities.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/nyregion/15authorities.html</guid>
+			<description>If Gov. David A. Paterson were to veto the legislation, he would be blocking the most ambitious attempt in decades to change a system that has been criticized for lack of oversight.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=86d7daa0c1f81686e0d40dbf1b7b4d8c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=86d7daa0c1f81686e0d40dbf1b7b4d8c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DANNY HAKIM</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 16:05:07 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Paterson, David A</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Law and Legislation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Albany (NY)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Metropolitan Transportation Authority</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Affordable Housing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">State Legislatures</category>
+		</item>
+		<item>
+			<title>Taiwan Leader Says Typhoon Toll May Exceed 500</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5ca30e6f9258effcda6dc43b9f37e654</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/world/asia/15taiwan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/world/asia/15taiwan.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/14/world/14taiwan.1-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Rescuers at the village of Meishan in Chiayi county, southern Taiwan, on Friday.</media:description>
+			<media:credit>Patrick Lin/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>President Ma Ying-jeou said Friday he expected the number of dead from the typhoon to rise.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5ca30e6f9258effcda6dc43b9f37e654&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5ca30e6f9258effcda6dc43b9f37e654&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ANDREW JACOBS</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 19:07:20 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Typhoon Morakot (2009)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Taiwan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ma Ying-jeou</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Typhoons</category>
+		</item>
+		<item>
+			<title>In Los Angeles, Songs Without Borders</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=38f5d1fc943ce4ec52746b485d95b96d</link>
+			<pheedo:origLink>http://travel.nytimes.com/2009/08/16/travel/16corridos.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://travel.nytimes.com/2009/08/16/travel/16corridos.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/travel/16music75a.jpg" medium="image" height="75" width="75"/>
+			<media:description>Two street musicians take a break at the Alameda Swap Meet.</media:description>
+			<media:credit>J. Emilio Flores for The New York Times</media:credit>
+			<description>Getting to the heart of Mexican Los Angeles via the narcocorrido, the &#x2018;rap of modern Mexico,&#x2019; as it moves through this sprawling, multilayered city.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=38f5d1fc943ce4ec52746b485d95b96d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=38f5d1fc943ce4ec52746b485d95b96d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LAWRENCE DOWNES</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 21:52:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Travel and Vacations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Los Angeles (Calif)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Music</category>
+		</item>
+		<item>
+			<title>Prescriptions: Obama Hosts a Town Hall in Montana</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6bcda842a3f031e05c5cd8acec647dd5</link>
+			<pheedo:origLink>http://prescriptions.blogs.nytimes.com/2009/08/14/live-blogging-obama-hosts-a-town-hall-in-montana/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://prescriptions.blogs.nytimes.com/2009/08/14/live-blogging-obama-hosts-a-town-hall-in-montana/index.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/14/us/politics/14townhall2_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>President Obama listens to an audience member's question during a town hall meeting in Belgrade, Montana, on Friday. </media:description>
+			<media:credit>Doug Mills/The New York Times</media:credit>
+			<description>At the town hall meeting, the president said the country is closer than ever to health care reform.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6bcda842a3f031e05c5cd8acec647dd5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6bcda842a3f031e05c5cd8acec647dd5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID STOUT</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 22:08:25 GMT</pubDate>
+		</item>
+		<item>
+			<title>Clinton Ends Africa Tour, Vowing to Stay Involved</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=42fc0cfaeddccce4093f88aa0e4a6540</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/world/africa/15diplo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/world/africa/15diplo.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/14/world/14diplo-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Secretary of State Hillary Clinton, speaks during her joint press conference with Cape Verde Prime Minister Jose Maria Neves in Sal Island, Cape Verde, on Friday.</media:description>
+			<media:credit>Omar Camilo/European Pressphoto Agency</media:credit>
+			<description>On the final day of a 7-nation, 11-day trip, Secretary of State Hillary Rodham Clinton reaffirmed her promise to renovate relations with Africa.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=42fc0cfaeddccce4093f88aa0e4a6540&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=42fc0cfaeddccce4093f88aa0e4a6540&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JEFFREY GETTLEMAN</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 20:59:28 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Cape Verde</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Hillary Rodham</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Africa</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+		</item>
+		<item>
+			<title>City Room: Store Owner Recounts Shooting</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=27a71f8d760ff71cab5745df34835353</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/08/14/back-at-work-harlem-store-owner-recounts-shooting/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/08/14/back-at-work-harlem-store-owner-recounts-shooting/index.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/14/nyregion/14harlem-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Charles "Gus" Augusto, 72, owner of Blue Flame, talks about the robbery attempt and shooting at his store at 125th Street between Broadway and Amsterdam Avenues in Manhattan.</media:description>
+			<media:credit>Jennifer S. Altman for The New York Times</media:credit>
+			<description>Charles Augusto Jr., 72, who shot four men who tried to rob his Harlem store, said &#x201C;I wish I didn&#x2019;t need to.&#x201D;&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=27a71f8d760ff71cab5745df34835353&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=27a71f8d760ff71cab5745df34835353&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By A. G. SULZBERGER and CHRISTINE HAUGHNEY</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 21:18:34 GMT</pubDate>
+		</item>
+		<item>
+			<title>From Vick, Gratitude and Remorse</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=8876fc43990a14f8fa41a19008519258</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/sports/football/15vick.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/sports/football/15vick.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/15/sports/15vick.3.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Michael Vick, flanked by Coach Andy Reid, left, and Tony Dungy, who has become an informal mentor since he visited him in prison.</media:description>
+			<media:credit>Matt Rourke/Associated Press</media:credit>
+			<description>Michael Vick acknowledged Friday that if he will have a sympathetic audience in the locker room, he is likely to face a far more contentious reception among fans.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=8876fc43990a14f8fa41a19008519258&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=8876fc43990a14f8fa41a19008519258&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JUDY BATTISTA</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 20:31:10 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Vick, Michael</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Football</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Philadelphia Eagles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Dogfighting</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Cruelty to Animals</category>
+		</item>
+		<item>
+			<title>Manson Follower Is Out of Jail</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ac71c27fd301679c16c8fdc0ab5136b3</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/14/us/AP-US-MansonFollower-Fo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/14/us/AP-US-MansonFollower-Fo.html</guid>
+			<description>The Charles Manson follower convicted of trying to assassinate President Gerald Ford was released Friday, a prison official said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ac71c27fd301679c16c8fdc0ab5136b3&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ac71c27fd301679c16c8fdc0ab5136b3&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 16:03:45 GMT</pubDate>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,263 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Sat, 01 Aug 2009 06:44:24 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Health Bill Clears Hurdle, and Hints at Consensus</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=34015bc042a0fde130de49305c85fb70</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/health/policy/01health.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/health/policy/01health.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/01/us/01health75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A nearly empty hearing room on Friday in Washington during a break of the House Energy and Commerce Committee.</media:description>
+			<media:credit>Brendan Smialowski for The New York Times</media:credit>
+			<description>Landmark legislation approved by a House committee shows the beginnings of a political consensus to cover more Americans and give them new rights with insurers.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=34015bc042a0fde130de49305c85fb70&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=34015bc042a0fde130de49305c85fb70&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT PEAR  and DAVID M. HERSZENHORN</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 06:15:52 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Waxman, Henry A</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">House of Representatives</category>
+		</item>
+		<item>
+			<title>House Approves $2 Billion to Extend &#x2018;Clunker&#x2019; Plan</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7431e9f36120185ba69ad956dffbcb4b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/business/01clunkers.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/business/01clunkers.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/01/business/clunkers_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Cars traded in the cash-for-clunkers program go to junkyards like Hackensack Auto Wrecker and Repairs in New Jersey.</media:description>
+			<media:credit>Yana Paskova for The New York Times</media:credit>
+			<description>The House on Friday voted, 316 to 109, to provide emergency funds for the car-rebate program after the original funding was quickly snapped up.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7431e9f36120185ba69ad956dffbcb4b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7431e9f36120185ba69ad956dffbcb4b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MATTHEW L. WALD</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 06:30:39 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Rebates</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Fuel Efficiency</category>
+		</item>
+		<item>
+			<title>Military Memo: Troops May Be in Iraq, but Military&#x2019;s Focus Is Afghanistan</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b4d57cb3bf09935f11f540df51c329f1</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/world/middleeast/01memo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/world/middleeast/01memo.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/01/world/01memo.751.jpg" medium="image" height="75" width="75"/>
+			<media:description>A deadly bombing on Friday in Baghdad underscored the continuing threat of violence in Iraq.</media:description>
+			<media:credit>Karim Kadim/Associated Press</media:credit>
+			<description>There are still some 130,000 U.S. troops in Iraq, more than twice as many as in Afghanistan, but a shift in focus is clear.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b4d57cb3bf09935f11f540df51c329f1&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b4d57cb3bf09935f11f540df51c329f1&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ELISABETH BUMILLER</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 06:32:25 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Gates, Robert M</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Odierno, Raymond T</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">McChrystal, Stanley A</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Petraeus, David H</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Mullen, Michael G</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Defense Department</category>
+		</item>
+		<item>
+			<title>Beirut, the Provincetown of the Middle East</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=2eb391b7ee8f87144d64780542695528</link>
+			<pheedo:origLink>http://travel.nytimes.com/2009/08/02/travel/02gaybeirut.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://travel.nytimes.com/2009/08/02/travel/02gaybeirut.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/02/travel/02beruit_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Dancing goes on until dawn at Acid, one of the city&#x2019;s best-known gay clubs.</media:description>
+			<media:credit>Bryan Denton for The New York Times</media:credit>
+			<description>The city has re-emerged as the party capital of the Arab world, particularly for gay and lesbian vacationers in search of a social life denied to them at home.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=2eb391b7ee8f87144d64780542695528&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=2eb391b7ee8f87144d64780542695528&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PATRICK HEALY</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 06:36:33 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Travel and Vacations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Beirut (Lebanon)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Homosexuality</category>
+		</item>
+		<item>
+			<title>Corazon Aquino, Leader of Philippines, Dies at 76</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3a1f32aacd0db0291526dc0e4654cd7f</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/world/asia/01aquino.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/world/asia/01aquino.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/31/world/31aquino_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Former Philippine President Corazon Aquino at a news conference in Manila on July 8, 2005. </media:description>
+			<media:credit>Romeo Ranoco/Reuters</media:credit>
+			<description>Mrs. Aquino was swept into office on a wave of &#x201C;people power&#x201D; in 1986 and then faced down many coup attempts as president.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3a1f32aacd0db0291526dc0e4654cd7f&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3a1f32aacd0db0291526dc0e4654cd7f&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SETH MYDANS</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 06:05:33 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Aquino, Corazon C</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Philippines</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Deaths (Obituaries)</category>
+		</item>
+		<item>
+			<title>Alabama Area Reeling in Face of Fiscal Crisis</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=02193a7eaaf8d2b3a6af56e2ac00c4c4</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/us/01alabama.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/us/01alabama.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/31/us/alabama.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Residents of Jefferson County, Ala., lined up for vehicle tags on Friday, acting before cuts in services that were to start Saturday.</media:description>
+			<media:credit>Erik S. Lesser for The New York Times</media:credit>
+			<description>On Saturday, two-thirds of Jefferson County employees will be laid off in an effort to stave off financial ruin.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=02193a7eaaf8d2b3a6af56e2ac00c4c4&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=02193a7eaaf8d2b3a6af56e2ac00c4c4&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SHAILA DEWAN</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 06:26:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Alabama</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Layoffs and Job Reductions</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Economy</category>
+		</item>
+		<item>
+			<title>Voices From Above Silence a Cable TV Feud</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3a652abb298a0bc5029c515f28b4197b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/business/media/01feud.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/business/media/01feud.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/01/business/01feud.1631.jpg" medium="image" height="100" width="163"/>
+			<media:description>Keith Olbermann of MSNBC Bill O'Reilly of the Fox News Channel regularly trade swipes at each other on their cable news shows. </media:description>
+			<media:credit>Virginia Sherwood/NBC, left; Steve Fenn/ABC</media:credit>
+			<description>The nightly cage fight between Keith Olbermann and Bill O&#x2019;Reilly stopped after complaints by network executives.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3a652abb298a0bc5029c515f28b4197b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3a652abb298a0bc5029c515f28b4197b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By BRIAN STELTER</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 06:33:55 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">News and News Media</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Fox News Channel</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">MSNBC</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Cable Television</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Television</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Olbermann, Keith</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">O'Reilly, Bill</category>
+		</item>
+		<item>
+			<title>U.S. Economic Contraction Slowed in Quarter</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fabefa1da0072e81554600f833ecc1f2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/business/economy/01econ.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/business/economy/01econ.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/01/business/economy/01gdp75.jpg" medium="image" height="75" width="75"/>
+			<media:description>An employee on duty at the Baldor Electric Co. factory in St. Louis in June. The government reading on U.S. gross domestic product released Friday was better than economists expected.</media:description>
+			<media:credit>Jeff Roberson/Associated Press</media:credit>
+			<description>The economy shrank at a slower-than-expected annual rate of 1 percent from April through June.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fabefa1da0072e81554600f833ecc1f2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fabefa1da0072e81554600f833ecc1f2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CATHERINE RAMPELL and JACK HEALY</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 06:21:24 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Conditions and Trends</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Recession and Depression</category>
+		</item>
+		<item>
+			<title>Federal Agencies Diverted Earmark Money</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ab88dd01ffc92b309bf2b14fb521b4a9</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/us/politics/01earmarks.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/us/politics/01earmarks.html</guid>
+			<description>The agencies took nearly half a billion dollars for administrative expenses in 2008, a study found.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ab88dd01ffc92b309bf2b14fb521b4a9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ab88dd01ffc92b309bf2b14fb521b4a9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By RON NIXON and ASHLEY SOUTHALL</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 06:11:55 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Earmarks (Finance)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Office of Management and Budget</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Nelson, Ben</category>
+		</item>
+		<item>
+			<title>House Approves Limits on Executive Pay</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9ae3612af8e98d9b7606aed968844c94</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/business/01pay.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/business/01pay.html</guid>
+			<description>A response to outrage over bonuses, the bill would give regulators new powers and shareholders symbolic votes.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9ae3612af8e98d9b7606aed968844c94&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9ae3612af8e98d9b7606aed968844c94&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ANDREA FULLER</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 05:32:39 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Executive Compensation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">House of Representatives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bonuses</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Subprime Mortgage Crisis</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Banks and Banking</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Law and Legislation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Frank, Barney</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Wall Street (NYC)</category>
+		</item>
+		<item>
+			<title>Iran President Denies Rift With Leader</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=36f1160c8108aab87dbddd4fdf0b1341</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/world/middleeast/01iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/world/middleeast/01iran.html</guid>
+			<description>President Mahmoud Ahmadinejad defended himself amid a rising chorus of critics, while a prominent conservative gave him a stark warning.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=36f1160c8108aab87dbddd4fdf0b1341&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=36f1160c8108aab87dbddd4fdf0b1341&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT F. WORTH and NAZILA FATHI</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 06:21:22 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ahmadinejad, Mahmoud</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Demonstrations and Riots</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Khamenei, Ali</category>
+		</item>
+		<item>
+			<title>Dodd to Have Surgery for Prostate Cancer</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=546fee0c16bf0afbf969ea10a3eea2e9</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/nyregion/01dodd.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/nyregion/01dodd.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/31/us/politics/31dodd2_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Christopher Dodd and his wife Jackie Clegg Dodd spoke at a news conference in Hartford, Conn., on Friday. </media:description>
+			<media:credit>Jessica Hill/Associated Press</media:credit>
+			<description>Senator Christopher J. Dodd said on Friday that he will have surgery during the Senate recess in August.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=546fee0c16bf0afbf969ea10a3eea2e9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=546fee0c16bf0afbf969ea10a3eea2e9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By RAYMOND HERNANDEZ</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 06:02:17 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Senate</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Dodd, Christopher J</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Connecticut</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Cancer</category>
+		</item>
+		<item>
+			<title>City Room: Complaint Box | Rule Breakers at the Pool</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=67968c37a6ea8affedf47602bde571cb</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/07/31/complaint-box-rule-breakers-at-the-pool/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/07/31/complaint-box-rule-breakers-at-the-pool/index.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/31/nyregion/01complaint-75.jpg" medium="image" height="75" width="75"/>
+			<media:description/>
+			<media:credit/>
+			<description>One woman&#x2019;s frustration with the poor pool etiquette of some swimmers.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=67968c37a6ea8affedf47602bde571cb&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=67968c37a6ea8affedf47602bde571cb&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CINDY SCHWEICH HANDLER</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 05:25:03 GMT</pubDate>
+		</item>
+	</channel>
+</rss>

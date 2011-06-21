@@ -1,0 +1,239 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Mon, 03 Aug 2009 16:04:42 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Two Sides Take Health Care Debate Outside Washington</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=91d458f89f21c777ccd0642265cd8c17</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/health/policy/03healthcare.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/health/policy/03healthcare.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/02/us/03health_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>President Obama speaking on health care reform in Bristol, Va., on Wednesday. Mr. Obama will be traveling to Elkhart, Ind., partly to sell health care to the public.</media:description>
+			<media:credit>Stephen Crowley/The New York Times</media:credit>
+			<description>Democrats are planning an offensive against the insurance industry, while Republicans are organizing efforts against legislation to overhaul health care.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=91d458f89f21c777ccd0642265cd8c17&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=91d458f89f21c777ccd0642265cd8c17&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SHERYL GAY STOLBERG and DAVID M. HERSZENHORN</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 15:41:14 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Democratic Party</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Republican Party</category>
+		</item>
+		<item>
+			<title>Google Chief Resigns as Apple Director</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e0066370a7746edf0fca8b3d224ffd10</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/technology/companies/04apple.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/technology/companies/04apple.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/business/schmidt.753.jpg" medium="image" height="75" width="75"/>
+			<media:description>Eric Schmidt, chief executive of Google, had been on Apple&#x2019;s board since August 2006.</media:description>
+			<media:credit>Matthew Staver/Bloomberg News</media:credit>
+			<description>Eric E. Schmidt&#x2019;s resignation comes as the search giant begins to compete more directly with its longtime ally Apple.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e0066370a7746edf0fca8b3d224ffd10&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e0066370a7746edf0fca8b3d224ffd10&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 16:02:44 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Google Inc|GOOG|NASDAQ</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Schmidt, Eric E</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Apple Inc|AAPL|NASDAQ</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Suspensions, Dismissals and Resignations</category>
+		</item>
+		<item>
+			<title>Ford&#x2019;s July Sales Up From a Year Ago</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b5cf461e42b5846cf070c39acd7108ea</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/business/04auto.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/business/04auto.html</guid>
+			<description>It is the first year-over-year increase for any of the six largest carmakers since last August. Other carmakers are scheduled to report sales later on Monday.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b5cf461e42b5846cf070c39acd7108ea&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b5cf461e42b5846cf070c39acd7108ea&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NICK BUNKLEY</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 15:59:18 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Sales</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Car Allowance Rebate System</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Ford Motor Co|F|NYSE</category>
+		</item>
+		<item>
+			<title>Venezuela Still Aids Colombia Rebels, New Material Shows</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=df29b5bc8706e5a3f42ce0fec4330506</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/world/americas/03venez.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/world/americas/03venez.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/02/world/03venez_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>New evidence points to collaborations between members of the Venezuelan government and the Revolutionary Armed Forces of Colombia, or FARC. A Colombian soldier inspected the area after an aerial bombardment against the FARC in July.</media:description>
+			<media:credit>Leonardo Munoz/European Pressphoto Agency</media:credit>
+			<description>Despite denials by President Hugo Ch&#xE1;vez, Venezuelan officials have continued to help Colombia&#x2019;s largest rebel group, according to new evidence.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=df29b5bc8706e5a3f42ce0fec4330506&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=df29b5bc8706e5a3f42ce0fec4330506&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SIMON ROMERO</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 10:25:06 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Venezuela</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Revolutionary Armed Forces of Colombia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Chavez, Hugo</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Espionage</category>
+		</item>
+		<item>
+			<title>On Governor&#x2019;s Race, Cuomo Plays Game of Wait and See</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f2795c99738cc44bbf496fbed5a6e256</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/nyregion/03cuomo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/nyregion/03cuomo.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/nyregion/03cuomo.751x.jpg" medium="image" height="75" width="75"/>
+			<media:description>New York State&#x2019;s attorney general, Andrew M. Cuomo, is said to be highly interested in replacing Gov. David A. Paterson.</media:description>
+			<media:credit>Nathaniel Brooks for The New York Times</media:credit>
+			<description>Associates say that Andrew M. Cuomo has begun to embrace the possibility of a run for governor of New York.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f2795c99738cc44bbf496fbed5a6e256&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f2795c99738cc44bbf496fbed5a6e256&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NICHOLAS CONFESSORE</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 12:34:07 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Cuomo, Andrew M</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Paterson, David A</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">State Legislatures</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Elections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Democratic Party</category>
+		</item>
+		<item>
+			<title>Ahmadinejad&#x2019;s Opponents Snub Election Ceremony</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6c098abf18414815c97ae353b545ad35</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/world/middleeast/04iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/world/middleeast/04iran.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/world/middleeast/iran.7575.jpg" medium="image" height="75" width="75"/>
+			<media:description>Iran's supreme leader, Ayatollah Ali Khamenei, presented a decree to President Mahmoud Ahmadinejad during an official ceremony in Tehran on Monday, as he confirmed Mr. Ahmadinejad's re-election.</media:description>
+			<media:credit>Agence France Presse</media:credit>
+			<description>Several opponents of President Mahmoud Ahmadinejad avoided a ceremony recognizing his re-election in Iran.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6c098abf18414815c97ae353b545ad35&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6c098abf18414815c97ae353b545ad35&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT F. WORTH and NAZILA FATHI</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 15:55:03 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Political Prisoners</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ahmadinejad, Mahmoud</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Khamenei, Ali</category>
+		</item>
+		<item>
+			<title>Forty Years' War: Lack of Study Volunteers May Hobble Cancer Fight</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=476e4ffe14aac00e85e264663ce0e3d2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/health/research/03trials.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/health/research/03trials.html</guid>
+			<description>In the war on cancer, a major hurdle involves finding cancer patients willing to participate in clinical trials.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=476e4ffe14aac00e85e264663ce0e3d2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=476e4ffe14aac00e85e264663ce0e3d2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By GINA KOLATA</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 15:57:05 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Cancer</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Research</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Doctors</category>
+		</item>
+		<item>
+			<title>No Casual Fans at World Series of Baseball Trivia</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7f1daff27ae7a8489871fc52e1068968</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/sports/baseball/03trivia.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/sports/baseball/03trivia.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/sports/trivia75.jpg" medium="image" height="75" width="75"/>
+			<media:description>From left, Steve Krevisky, Alain Usereau, Eric Weiss and Robert Rafal after winning the SABR team baseball trivia contest Saturday in Washington.</media:description>
+			<media:credit>Jamie Rose for The New York Times</media:credit>
+			<description>For players in the Society for American Baseball Research trivia contest, the obscure is common knowledge.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7f1daff27ae7a8489871fc52e1068968&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7f1daff27ae7a8489871fc52e1068968&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ALAN SCHWARZ</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 15:39:06 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Baseball</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Society for American Baseball Research</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Statistics</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Awards, Decorations and Honors</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Contests and Prizes</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Caragliano, Michael</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Brandon, Scott</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Blumkin, Al</category>
+		</item>
+		<item>
+			<title>City Room: Bronx Woman Is Charged in Murder</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=701553d4889925925be1e0f99be0ec85</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/08/03/bronx-woman-is-charged-in-killing-of-holocaust-survivor/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/08/03/bronx-woman-is-charged-in-killing-of-holocaust-survivor/index.html</guid>
+			<description>Angela Murray, 30, was charged with second-degree murder in the killing of Guido Felix Brinkmann, 89, a Holocaust survivor and former disco club manager, in his Upper East Side apartment.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=701553d4889925925be1e0f99be0ec85&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=701553d4889925925be1e0f99be0ec85&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LIBBy NELSON</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 16:03:42 GMT</pubDate>
+		</item>
+		<item>
+			<title>Turbulence Injures 26 on Flight to U.S.</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=97545815a09f552bcce3668d255bf6de</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/03/us/AP-US-Flight-Diverted-Miami.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/03/us/AP-US-Flight-Diverted-Miami.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/us/continental.7575.jpg" medium="image" height="75" width="75"/>
+			<media:description>Victims were transported from a Continental Airlines jet at Miami International Airport after the flight encountered turbulence during its trip from Brazil.</media:description>
+			<media:credit>Tim Chapman/Miami Herald, via Associated Press</media:credit>
+			<description>Fire rescue officials in Miami say four people were seriously injured when a Continental Airlines flight from Rio de Janeiro experienced turbulence mid-flight.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=97545815a09f552bcce3668d255bf6de&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=97545815a09f552bcce3668d255bf6de&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 15:30:52 GMT</pubDate>
+		</item>
+		<item>
+			<title>Bomb in Afghanistan Kills at Least 10</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3d8e79ddff18be34028b9bd15dd7bbca</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/world/asia/04afghan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/world/asia/04afghan.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/world/herat.7575.jpg" medium="image" height="75" width="75"/>
+			<media:description>Afghan security officials examined a damaged police vehicle at the site of a bomb blast in Herat, in western Afghanistan, on Monday.</media:description>
+			<media:credit>Jalil Rezayee/European Pressphoto Agency</media:credit>
+			<description>A bomb blew up near a police convoy in Herat killing at least 10 people and wounding at least 29. The Taliban claimed responsibility, saying that a local police chief had been the target.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3d8e79ddff18be34028b9bd15dd7bbca&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3d8e79ddff18be34028b9bd15dd7bbca&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ABDUL WAHEED WAFA</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 14:15:32 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">United States Defense and Military Forces</category>
+		</item>
+		<item>
+			<title>Trying to Heal, Pakistan Valley Fears New Battles</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1232481cf1ffc4db63121fd34df20171</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/world/asia/03swat.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/world/asia/03swat.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/world/03swat.751.jpg" medium="image" height="75" width="75"/>
+			<media:description>A dead body that was left on the ground in Mingora, Pakistan, is believed to be a warning from the military to the Taliban.</media:description>
+			<media:credit>Michael Kamber for The New York Times</media:credit>
+			<description>Beneath the surface of relative calm in Swat, there is the sense that a new and more insidious conflict may be afoot.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1232481cf1ffc4db63121fd34df20171&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1232481cf1ffc4db63121fd34df20171&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JANE PERLEZ and PIR ZUBAIR SHAH</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 15:34:58 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Swat (Pakistan)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Defense and Military Forces</category>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Wed, 12 Aug 2009 19:22:41 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Fed Holds Rate Steady and Moves to End Debt Buying</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=12469c599a0c5163c6a05cae805ae805</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/business/economy/13fed.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/business/economy/13fed.html</guid>
+			<description>Almost two years after it embarked on the biggest financial rescue in U.S. history, the Fed said the economy was pulling out of its downward spiral.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=12469c599a0c5163c6a05cae805ae805&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=12469c599a0c5163c6a05cae805ae805&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By EDMUND L. ANDREWS</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 19:21:04 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Economy</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Federal Reserve System</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Interest Rates</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Banks and Banking</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Conditions and Trends</category>
+		</item>
+		<item>
+			<title>W.T.O. Rules Against China&#x2019;s Limits on Media Imports</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fd6efcffc2d31f784871a2b9af3e9a9a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/business/global/13trade.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/business/global/13trade.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/12/business/global/chinadvds75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A World Trade Organization panel ruled that Beijing must allow non-Chinese companies to sell more DVDs and other copyrighted materials in China, where most demand is met with counterfeits like these being sold in Shenyang.</media:description>
+			<media:credit>European Pressphoto Agency</media:credit>
+			<description>The decision was seen as a victory for the United States at a time when China is being perceived as increasingly nationalistic in its trade policies.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fd6efcffc2d31f784871a2b9af3e9a9a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fd6efcffc2d31f784871a2b9af3e9a9a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By KEITH BRADSHER</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 19:18:49 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">International Trade and World Market</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Regulation and Deregulation of Industry</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">World Trade Organization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">United States</category>
+		</item>
+		<item>
+			<title>UBS and U.S. Report a Deal on Names in Tax Inquiry</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=13cb177bee21d7fa15417358de406714</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/business/global/13ubs.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/business/global/13ubs.html</guid>
+			<description>A final settlement would force the bank to disclose names of wealthy clients. How many names is unclear at the moment.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=13cb177bee21d7fa15417358de406714&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=13cb177bee21d7fa15417358de406714&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LYNNLEY BROWNING</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 18:36:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Tax Evasion</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Taxation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">UBS AG|UBS|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Justice Department</category>
+		</item>
+		<item>
+			<title>Atlanta Jury Convicts Man of Aiding Terror Groups</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=55bbf40249a38d104c8b9c815e3b2dc2</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/12/us/AP-US-Terrorism-Trial.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/12/us/AP-US-Terrorism-Trial.html</guid>
+			<description>Ehsanul Islam Sadequee, 23, is the second Georgia terror suspect to be convicted in the span of two months.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=55bbf40249a38d104c8b9c815e3b2dc2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=55bbf40249a38d104c8b9c815e3b2dc2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 17:27:04 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Terrorism</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+		</item>
+		<item>
+			<title>Pakistan Militant Clashes Kill Dozens</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=0fc182ba8755be60452446e983806fda</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/12/world/AP-AS-Pakistan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/12/world/AP-AS-Pakistan.html</guid>
+			<description>Taliban militants and a rival pro-government group in northwestern Pakistan are battling, officials said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=0fc182ba8755be60452446e983806fda&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=0fc182ba8755be60452446e983806fda&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 18:20:46 GMT</pubDate>
+		</item>
+		<item>
+			<title>Putin Says Europe Quietly Blames Georgia for War</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=68944592ffb662aa936570c91e75f5f9</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/world/europe/13russia.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/world/europe/13russia.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/12/world/12putin-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Prime Minister Vladimir V. Putin of Russia was greeted by locals during a visit to Sukhumi, the capital of Georgia's breakaway Abkhazia region, on Wednesday.</media:description>
+			<media:credit>Pool photograph by Alexy Nikolsky</media:credit>
+			<description>Prime Minister Vladimir V. Putin of Russia made the claim during his first post-war visit to Abkhazia, which was criticized by Georgia as &#x201C;another provocation.&#x201D;&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=68944592ffb662aa936570c91e75f5f9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=68944592ffb662aa936570c91e75f5f9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ELLEN BARRY</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 18:57:30 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Georgia (Georgian Republic)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Russia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">South Ossetia (Georgian Republic)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Putin, Vladimir V</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Abkhazia (Georgian Republic)</category>
+		</item>
+		<item>
+			<title>Iraqi Immigrants Struggle to Adjust to Life in U.S.</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=24dc9a2dcb71a7ef0a5afc43f5d7fed2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/nyregion/13iraqis.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/nyregion/13iraqis.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/12/nyregion/12iraqis2-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Nour al-Khal has been working as a translator in New York after initially working as a receptionist when she first arrived in 2007.</media:description>
+			<media:credit>Todd Heisler/The New York Times</media:credit>
+			<description>Many cannot find jobs, are exhausting benefits and are spiraling toward poverty, a resettlement organization found.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=24dc9a2dcb71a7ef0a5afc43f5d7fed2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=24dc9a2dcb71a7ef0a5afc43f5d7fed2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By KIRK SEMPLE</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 18:55:10 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Manhattan (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Immigration and Emigration</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Asylum (Political)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">International Rescue Committee</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">United States Economy</category>
+		</item>
+		<item>
+			<title>3 Indicted Leaders of Carpenters&#x2019; Union Are Fired</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ffdf06c8da00c1d7b2dca5565a3c2b0c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/nyregion/13carpenters.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/nyregion/13carpenters.html</guid>
+			<description>In response to the indictments, the national organization put the New York chapter under emergency supervision.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ffdf06c8da00c1d7b2dca5565a3c2b0c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ffdf06c8da00c1d7b2dca5565a3c2b0c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By WILLIAM K. RASHBAUM</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 18:41:00 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">District Council of Carpenters</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Forde, Michael J</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Labor</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Organized Labor</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bribery</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Racketeering and Racketeers</category>
+		</item>
+		<item>
+			<title>For Lawmakers, Anger Keeps Coming</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7cc6b54e99c74b8718221dcb206311cc</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/health/policy/13townmeeting.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/health/policy/13townmeeting.html</guid>
+			<description>Constituents raised concerns about changes in the health-care system, and about a lot of other things.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7cc6b54e99c74b8718221dcb206311cc&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7cc6b54e99c74b8718221dcb206311cc&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID STOUT</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 19:17:28 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+		</item>
+		<item>
+			<title>Batting Helmet Is Safer, but Players Hate the Look</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9d26b1bb133d29a5eba6af58b27274f5</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/sports/baseball/13helmet.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/sports/baseball/13helmet.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/sports/13helmet.1.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Rawlings is about to introduce the S100, a bulkier but far more protective helmet that can withstand the impact of a 100-m.p.h. fastball.</media:description>
+			<media:credit>Earl Wilson/The New York Times</media:credit>
+			<description>Some major league players don&#x2019;t want to sacrifice comfort and style for the added protection of Rawlings&#x2019; new helmet.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9d26b1bb133d29a5eba6af58b27274f5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9d26b1bb133d29a5eba6af58b27274f5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID WALDSTEIN</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 19:16:08 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Baseball</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Helmets</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Rawlings</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Concussions</category>
+		</item>
+		<item>
+			<title>While My Guitar Gently Beeps</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7bab302a96b4e65c3367c490359c283b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/16/magazine/16beatles-t.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/16/magazine/16beatles-t.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/16/magazine/11cover-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>
+				<em class="bold">GAME MAN</em>Alex Rigopulos, a founder and the C.E.O. of Harmonix Music Systems. Big eyes (reflected from a photo in his Boston office) were watching.</media:description>
+			<media:credit>Mark Peterson/Redux, for The New York Times</media:credit>
+			<description>A Beatles video game arrives at a time when participation and simulation are changing the way we listen to music.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7bab302a96b4e65c3367c490359c283b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7bab302a96b4e65c3367c490359c283b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DANIEL RADOSH</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 19:16:45 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Beatles, The</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Computer and Video Games</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Music</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Recordings and Downloads (Audio)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Harmonix Music Systems</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_ttl">Beatles, The: Rock Band (Video Game)</category>
+		</item>
+		<item>
+			<title>Diner's Journal: Thoughts on Four Stars</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6c5d4978741ef84f52757202870e80b2</link>
+			<pheedo:origLink>http://dinersjournal.blogs.nytimes.com/2009/08/12/four-stars-more-thoughts/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://dinersjournal.blogs.nytimes.com/2009/08/12/four-stars-more-thoughts/index.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/12/dining/12rest75.1b.jpg" medium="image" height="75" width="75"/>
+			<media:description>
+				<em class="bold">FRESH ALLURE </em>Daniel Humm, the executive chef at Eleven Madison Park, with his poached lobster and roulade of prawns.</media:description>
+			<media:credit>John Lei for The New York Times</media:credit>
+			<description>A certain degree of coddling helps a restaurant get the highest rating.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6c5d4978741ef84f52757202870e80b2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6c5d4978741ef84f52757202870e80b2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By FRANK BRUNI</dc:creator>
+			<pubDate>Wed, 12 Aug 2009 17:39:17 GMT</pubDate>
+		</item>
+	</channel>
+</rss>

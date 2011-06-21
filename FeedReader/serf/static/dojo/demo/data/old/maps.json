@@ -1,0 +1,7 @@
+{items:[
+		{ type:"widget", id: 'W_1', title: "RSS Reader", url: "data/rss.json", x: 100, y:100, width: 300, height:100, color: 'blue', host:"Peer 1"},			
+		//{ type:"widget", id: 'W_4', title: "RSS Reader", url: "data/rss.json", x: 200, y:300, width: 300, height:100, color: 'blue', host:"Peer 1"},			
+		{ type:"widget", id: 'W_2', title: "Tag Cloud", url: "data/tagcloud.json", x: 600, y:200, width: 250, height:100, color: 'green', host:"Peer 2"},
+		//{ type:"link", from:"W_1", to:"W_4"},						
+		{ type:"link", from:"W_1", to:"W_2"}
+]}

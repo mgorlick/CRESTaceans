@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/projects/!svn/ver/9162/CREST/sisc/serf
+END
+abdera.scm
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/projects/!svn/ver/9006/CREST/sisc/serf/abdera.scm
+END
+queue.scm
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/projects/!svn/ver/9045/CREST/sisc/serf/queue.scm
+END
+LICENSE
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/LICENSE
+END
+boot.scm
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/projects/!svn/ver/9096/CREST/sisc/serf/boot.scm
+END
+metarecord.scm
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/metarecord.scm
+END
+boot-v1.scm
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/boot-v1.scm
+END
+object.scm
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/object.scm
+END
+serialize.scm
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/projects/!svn/ver/9045/CREST/sisc/serf/serialize.scm
+END
+peer.scm
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/projects/!svn/ver/9145/CREST/sisc/serf/peer.scm
+END
+wordcount.scm
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/projects/!svn/ver/9047/CREST/sisc/serf/wordcount.scm
+END
+storyboard-script.text
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/projects/!svn/ver/9148/CREST/sisc/serf/storyboard-script.text
+END
+modules.scm
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/projects/!svn/ver/9145/CREST/sisc/serf/modules.scm
+END
+json.scm
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/projects/!svn/ver/9066/CREST/sisc/serf/json.scm
+END
+BOILERPLATE
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/BOILERPLATE
+END
+htmlparser.scm
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/projects/!svn/ver/9034/CREST/sisc/serf/htmlparser.scm
+END
+fiber.scm
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/fiber.scm
+END

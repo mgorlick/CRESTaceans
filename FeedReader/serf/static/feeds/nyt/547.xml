@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Wed, 19 Aug 2009 18:48:30 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Major Attacks in Baghdad Reveal Iraq&#x2019;s Vulnerability</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b45c69e278496a9e88c31f172d442acf</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/20/world/middleeast/20iraq.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/20/world/middleeast/20iraq.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/19/world/20iraq.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Smoke rose from the scene of a car bombing near the foreign ministry in Baghdad on Wednesday.</media:description>
+			<media:credit>Ali Al-Saadi/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>Insurgents struck at the heart of Iraq&#x2019;s government on Wednesday, killing at least 95 people in the worst attacks since U.S. forces handed over security responsibilities in June.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b45c69e278496a9e88c31f172d442acf&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b45c69e278496a9e88c31f172d442acf&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM DAGHER</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 18:13:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+		</item>
+		<item>
+			<title>Under Agreement, UBS to Give Up Over 4,000 Names</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7c56bd361ef952151c1d8c991693e8cf</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/20/business/global/20ubs.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/20/business/global/20ubs.html</guid>
+			<description>U.S. regulators will receive the names as part of an investigation of Americans avoiding taxes through the use of offshore accounts.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7c56bd361ef952151c1d8c991693e8cf&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7c56bd361ef952151c1d8c991693e8cf&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LYNNLEY BROWNING</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 16:42:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">UBS AG|UBS|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Justice Department</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Internal Revenue Service</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Switzerland</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Tax Evasion</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Banks and Banking</category>
+		</item>
+		<item>
+			<title>Room for Debate: Obama&#x2019;s Strategy on Health Care</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=08210aabec48aeffdd464a8b72e153bf</link>
+			<pheedo:origLink>http://roomfordebate.blogs.nytimes.com/2009/08/19/obamas-health-care-mistake/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://roomfordebate.blogs.nytimes.com/2009/08/19/obamas-health-care-mistake/index.html</guid>
+			<description>Did President Obama make a tactical blunder by not proposing a specific reform plan of his own?&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=08210aabec48aeffdd464a8b72e153bf&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=08210aabec48aeffdd464a8b72e153bf&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE EDITORS</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 18:18:45 GMT</pubDate>
+		</item>
+		<item>
+			<title>Gunmen Fight Police at Bank in Kabul</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7242ed5bd3bfdb89712b559087ce684d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/20/world/asia/20afghan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/20/world/asia/20afghan.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/19/world/20afghan.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>An Afghan police officer stood near the bank, in the background, where the gunfight occurred.</media:description>
+			<media:credit>Massoud Hossaini/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>Three gunmen seized control of a bank branch in central Kabul, engaging in an extended firefight with police before they were killed, police and witnesses said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7242ed5bd3bfdb89712b559087ce684d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7242ed5bd3bfdb89712b559087ce684d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ABDUL WAHEED WAFA</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 17:38:13 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+		</item>
+		<item>
+			<title>The Women&#x2019;s Crusade</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ed0be85eb2bd81f5df0705cb9b5cce8a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/23/magazine/23Women-t.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/23/magazine/23Women-t.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/23/magazine/23cover-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>
+				<em class="bold">Saima Muhammad,</em>shown with her daughter Javaria (seated), lives near Lahore, Pakistan. She was routinely beaten by her husband until she started a successful embroidery business.</media:description>
+			<media:credit>Katy Grannan for The New York Times</media:credit>
+			<description>The liberation of women could help solve many of the world&#x2019;s problems, from poverty to child mortality to terrorism.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ed0be85eb2bd81f5df0705cb9b5cce8a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ed0be85eb2bd81f5df0705cb9b5cce8a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NICHOLAS D. KRISTOF and SHERYL WuDUNN</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 17:34:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Third World and Developing Countries</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Foreign Aid</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Women and Girls</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Poverty</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">CARE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">International Labor Organization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">World Health Organization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Human Trafficking</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Sexual Slavery</category>
+		</item>
+		<item>
+			<title>Don Hewitt, Creator of &#x2018;60 Minutes,&#x2019; Dies at 86</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=2aefb66139e6120008aeadf770d95505</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/20/business/media/20hewitt.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/20/business/media/20hewitt.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/19/obituaries/19hewitt-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Don Hewitt in 1999.</media:description>
+			<media:credit>Librado Romero/The New York Times</media:credit>
+			<description>Mr. Hewitt changed the course of broadcast news by creating the TV magazine show.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=2aefb66139e6120008aeadf770d95505&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=2aefb66139e6120008aeadf770d95505&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACQUES STEINBERG</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 18:02:44 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Hewitt, Don</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Television</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Deaths (Obituaries)</category>
+		</item>
+		<item>
+			<title>New York Seeks to Consolidate Its Garment District</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f4e5ff81a11abe2049d73295bf468efd</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/20/nyregion/20garment.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/20/nyregion/20garment.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/19/nyregion/garment.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>At Regal Originals, a pleating and stitching shop, the owner said he was forced to cut the size of his factory in half last month and dispose of the aging machines that he no longer had room for.</media:description>
+			<media:credit>Damon Winter/The New York Times</media:credit>
+			<description>Officials fear that if the factories leave, so will glamorous designers, threatening the city&#x2019;s image as fashion capital.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f4e5ff81a11abe2049d73295bf468efd&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f4e5ff81a11abe2049d73295bf468efd&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CHARLES V. BAGLI</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 18:24:05 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Fashion and Apparel</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Garment District (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Factories and Manufacturing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Fashion Center Business Improvement District</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Labor and Jobs</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Layoffs and Job Reductions</category>
+		</item>
+		<item>
+			<title>City Room: Central Park Thrashed by Thunderstorm</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=479eda6c2cd5711bed6a39f43dbcfd7a</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/08/19/storm-topples-scores-of-trees-in-central-park/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/08/19/storm-topples-scores-of-trees-in-central-park/index.html</guid>
+			<description>In the most severe damage the park has sustained in at least 30 years, over 100 trees were toppled Tuesday.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=479eda6c2cd5711bed6a39f43dbcfd7a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=479eda6c2cd5711bed6a39f43dbcfd7a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SEWELL CHAN and SARAH MASLIN NIR</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 18:28:24 GMT</pubDate>
+		</item>
+	</channel>
+</rss>

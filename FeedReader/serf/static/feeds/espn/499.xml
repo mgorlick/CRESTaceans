@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Mon, 17 Aug 2009 12:22:06 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Philadelphia Eagles quarterback Donovan McNabb says sharing snaps with Michael Vick is no problem]]></title>
+<description><![CDATA[Donovan McNabb says he has no problem with Michael Vick taking some of his snaps and warns opponents that the two quarterbacks could be on the field together at times.]]></description>
+<pubDate>Mon, 17 Aug 2009 12:20:23 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4404702&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4404702&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Patrick Kane, of Chicago Blackhawks, 'sincerely' sorry for arrest]]></title>
+<description><![CDATA[Patrick Kane said he was "sincerely" sorry for his actions that led to his recent arrest after an altercation with a cab driver in Buffalo, N.Y.]]></description>
+<pubDate>Mon, 17 Aug 2009 11:51:57 PDT</pubDate>
+<guid>http://sports.espn.go.com/nhl/news/story?id=4404342&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nhl/news/story?id=4404342&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Washington Nationals, No. 1 pick Strasburg face midnight deadline]]></title>
+<description><![CDATA[The Washington Nationals face a midnight deadline to sign No. 1 overall draft pick Stephen Strasburg.]]></description>
+<pubDate>Mon, 17 Aug 2009 11:57:35 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4403920&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4403920&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Shaun Ellis, of New York Jets, suspended without pay for opener]]></title>
+<description><![CDATA[New York Jets defensive end Shaun Ellis has been suspended without pay for the team's regular-season opener and fined $100,000 by the NFL for violating the league's substance abuse policy.]]></description>
+<pubDate>Mon, 17 Aug 2009 10:18:57 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4404267&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4404267&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Kansas City Chiefs sign receiver Ashley Lelie]]></title>
+<description><![CDATA[The Kansas City Chiefs have signed free agent wide receiver Ashley Lelie. ]]></description>
+<pubDate>Mon, 17 Aug 2009 12:15:48 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4404150&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4404150&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[David Newton]]></dc:creator>
+<title><![CDATA[Lisa Mayfield, Jeremy Mayfield's stepmother, arrested at his home]]></title>
+<description><![CDATA[Lisa Mayfield, the stepmother of Jeremy Mayfield and a witness for NASCAR in defending its suspension of the Sprint Cup driver, was arrested on Saturday night after an incident at her stepson's Catawba County house.]]></description>
+<pubDate>Mon, 17 Aug 2009 12:13:05 PDT</pubDate>
+<guid>http://sports.espn.go.com/rpm/nascar/cup/news/story?id=4404753&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/rpm/nascar/cup/news/story?id=4404753&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Marc Stein]]></dc:creator>
+<title><![CDATA[Sources: Toronto Raptors dealing Carlos Delfino to Milwaukee Bucks]]></title>
+<description><![CDATA[NBA front-office sources told ESPN.com on Monday that the Raptors have agreed in principal on a sign-and-trade deal with the Milwaukee Bucks that will send Delfino and power forward Amir Johnson and guard Sonny Weems.]]></description>
+<pubDate>Mon, 17 Aug 2009 11:38:50 PDT</pubDate>
+<guid>http://sports.espn.go.com/nba/news/story?id=4404309&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nba/news/story?id=4404309&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Atlanta Braves place Nate McLouth in disabled list, purchase contract of Reid Gorecki]]></title>
+<description><![CDATA[Braves center fielder Nate McLouth is headed to the disabled list with a sore left hamstring.]]></description>
+<pubDate>Mon, 17 Aug 2009 12:01:35 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4405216&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4405216&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Michael Irvin and Chuck Liddell join 'Dancing With the Stars' contestants]]></title>
+<description><![CDATA[Michael Irvin and Chuck Liddell will be among 16 celebrities from the worlds of entertainment and sports who will tango and foxtrot on the new season of "Dancing With the Stars."]]></description>
+<pubDate>Mon, 17 Aug 2009 10:15:40 PDT</pubDate>
+<guid>http://sports.espn.go.com/espn/news/story?id=4403837&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/espn/news/story?id=4403837&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[NFLPA advises players on possible 2011 lockout]]></title>
+<description><![CDATA[The head of the NFL Players Association is bracing players for a possible 2011 lockout.]]></description>
+<pubDate>Mon, 17 Aug 2009 09:26:49 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4404636&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4404636&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Andy Murray passes Rafael Nadal for No. 2 in ATP rankings]]></title>
+<description><![CDATA[Andy Murray has overtaken Rafael Nadal in the ATP rankings, becoming the first British man to reach No. 2.]]></description>
+<pubDate>Mon, 17 Aug 2009 08:43:39 PDT</pubDate>
+<guid>http://sports.espn.go.com/sports/tennis/news/story?id=4404175&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/sports/tennis/news/story?id=4404175&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Usain Bolt's 9.58 at world championships shatters 100-meter record]]></title>
+<description><![CDATA[Usain Bolt has captured another world record, winning the 100-meter race in 9.58 seconds at the world championships.]]></description>
+<pubDate>Sun, 16 Aug 2009 16:27:33 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/trackandfield/news/story?id=4402644&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/trackandfield/news/story?id=4402644&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[PGA Championship: Y.E. Yang wins PGA Championship]]></title>
+<description><![CDATA[Y.E. Yang won his first major title at the PGA Championship on Sunday, and he took down Tiger Woods to do it.]]></description>
+<pubDate>Mon, 17 Aug 2009 11:02:39 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/pgachampionship09/news/story?id=4403199&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/pgachampionship09/news/story?id=4403199&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

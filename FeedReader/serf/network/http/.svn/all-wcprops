@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/projects/!svn/ver/9140/CREST/sisc/serf/network/http
+END
+response.scm
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/projects/!svn/ver/9140/CREST/sisc/serf/network/http/response.scm
+END
+entity.scm
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/projects/!svn/ver/9140/CREST/sisc/serf/network/http/entity.scm
+END
+response-v1.scm
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/network/http/response-v1.scm
+END
+http.scm
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/network/http/http.scm
+END
+header.scm
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/projects/!svn/ver/9097/CREST/sisc/serf/network/http/header.scm
+END
+request.scm
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/projects/!svn/ver/9057/CREST/sisc/serf/network/http/request.scm
+END

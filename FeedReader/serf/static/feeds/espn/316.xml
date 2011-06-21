@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Sun, 9 Aug 2009 21:21:29 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Chicago Blackhawks forward Patrick Kane faces theft of services, other charges]]></title>
+<description><![CDATA[Blackhawks forward Patrick Kane, the top overall pick in the 2007 NHL draft, was arrested early Sunday morning in Buffalo, N.Y., and charged with theft of services, criminal mischief and robbery in the second degree after an incident with a cab driver.]]></description>
+<pubDate>Sun, 9 Aug 2009 14:42:51 PDT</pubDate>
+<guid>http://sports.espn.go.com/nhl/news/story?id=4387102&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nhl/news/story?id=4387102&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Bridgestone Invitational: Tiger Woods soars over Padraig Harrington to win]]></title>
+<description><![CDATA[With another signature moment at Firestone, Tiger Woods won the Bridgestone Invitational on Sunday with a spectacular shot over water to a foot that sent him to a 5-under 65 and a remarkable rally over Padraig Harrington.]]></description>
+<pubDate>Sun, 9 Aug 2009 18:13:28 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/news/story?id=4387567&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/news/story?id=4387567&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Back-to-back jacks earn Yanks sweep of BoSox]]></title>
+<description><![CDATA[Johnny Damon and Mark Teixeira hit back-to-back homers in the eighth inning Sunday night, and the Yankees beat the Red Sox 5-2.]]></description>
+<pubDate>Sun, 9 Aug 2009 21:10:44 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/recap?gameId=290809110&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/recap?gameId=290809110&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Rain postpones Sprint Cup race to noon Monday]]></title>
+<description><![CDATA[The NASCAR Sprint Cup race at Watkins Glen International has been postponed because of rain and rescheduled for Monday.]]></description>
+<pubDate>Sun, 9 Aug 2009 15:23:02 PDT</pubDate>
+<guid>http://sports.espn.go.com/rpm/nascar/cup/news/story?id=4387370&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/rpm/nascar/cup/news/story?id=4387370&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Collins overshadows Owens as Titans beat Bills]]></title>
+<description><![CDATA[Kerry Collins was sharp and Vince Young tentative for the Tennessee Titans in overshadowing Terrell Owens' debut for the Buffalo Bills.]]></description>
+<pubDate>Sun, 9 Aug 2009 21:11:48 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/recap?gameId=290809010&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/recap?gameId=290809010&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Manager Ozzie Guillen vows retaliation if Chicago White Sox players get hit]]></title>
+<description><![CDATA[White Sox manager Ozzie Guillen had a warning for the rest of the league: Hit our players and our pitchers will retaliate.]]></description>
+<pubDate>Sun, 9 Aug 2009 15:52:16 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4387215&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4387215&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Buster Olney]]></dc:creator>
+<title><![CDATA[Sources: Several teams interested in aquiring John Smoltz]]></title>
+<description><![CDATA[Several teams have interest in acquiring John Smoltz, and major league sources say.]]></description>
+<pubDate>Sun, 9 Aug 2009 17:15:27 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4387781&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4387781&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Mike Sando]]></dc:creator>
+<title><![CDATA[St. Louis Rams lose Donnie Avery for 4-6 weeks with foot injury]]></title>
+<description><![CDATA[The St. Louis Rams expect to be without starting receiver Donnie Avery for four to six weeks after the second-year pro suffered a foot injury, coach Steve Spagnuolo told reporters Sunday.]]></description>
+<pubDate>Sun, 9 Aug 2009 14:54:20 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4387537&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4387537&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Marlins close in on East lead with sweep of Phils]]></title>
+<description><![CDATA[Josh Johnson pitched six impressive innings, helping the Marlins complete a three-game sweep over the Phillies with a 12-3 victory on Sunday.<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>]]></description>
+<pubDate>Sun, 9 Aug 2009 20:28:59 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/recap?gameId=290809122&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/recap?gameId=290809122&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Sal Paolantonio]]></dc:creator>
+<title><![CDATA[Ex-Philadelphia Eagles tackle Runyan asking for medical clearance]]></title>
+<description><![CDATA[Former Eagles tackle Jon Runyan is hoping to get medical clearance to begin working out for teams.]]></description>
+<pubDate>Sun, 9 Aug 2009 13:53:17 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4387409&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4387409&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Agent: Eric Mangini's practice decision to blame for season-ending injury to Cleveland Browns receiver Syndric Steptoe]]></title>
+<description><![CDATA[Browns reserve receiver Syndric Steptoe will miss the season with a torn labrum in his shoulder, and his agent says coach Eric Mangini's decision-making is to blame, the Cleveland Plain Dealer reported.]]></description>
+<pubDate>Sun, 9 Aug 2009 14:23:23 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4387275&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4387275&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Pujols plunked as Cards rally to sweep Bucs]]></title>
+<description><![CDATA[Skip Schumaker's first career pinch-hit home run started a five-run eighth-inning rally, and the Cardinals finished off a three-game sweep by winning 7-3 Sunday. ]]></description>
+<pubDate>Sun, 9 Aug 2009 15:19:10 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/recap?gameId=290809123&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/recap?gameId=290809123&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[West Virginia Mountaineers receiver Jock Sanders reinstated 6 months after DUI arrest]]></title>
+<description><![CDATA[West Virginia has reinstated leading receiver Jock Sanders six months after a drunken-driving arrest in Morgantown. ]]></description>
+<pubDate>Sun, 9 Aug 2009 07:06:19 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4386999&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4386999&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Scott Dixon becomes IndyCar's career wins leader]]></title>
+<description><![CDATA[Scott Dixon has become IndyCar's leader in career victories by pulling away from the field to capture the Indy 200 at Mid-Ohio. ]]></description>
+<pubDate>Sun, 9 Aug 2009 20:45:45 PDT</pubDate>
+<guid>http://sports.espn.go.com/rpm/racing/indycar/news/story?id=4387341&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/rpm/racing/indycar/news/story?id=4387341&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Adam Rittenberg]]></dc:creator>
+<title><![CDATA[Ohio State Buckeyes' Tyler Moeller hospitalized in fair condition]]></title>
+<description><![CDATA[Ohio State junior linebacker Tyler Moeller remains hospitalized Sunday with an undisclosed injury while his Buckeyes teammates reported for the start of preseason camp. ]]></description>
+<pubDate>Sun, 9 Aug 2009 10:32:07 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4387178&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4387178&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

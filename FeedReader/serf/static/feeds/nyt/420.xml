@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Fri, 14 Aug 2009 12:11:11 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>False &#x2018;Death Panel&#x2019; Rumor Has Some Familiar Roots</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a710a631754a508078bb8f24075a5073</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/health/policy/14panel.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/health/policy/14panel.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/14/health/policy/14panel75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Senator Charles E. Grassley spoke Wednesday to a crowd in Adel, Iowa, about health care.</media:description>
+			<media:credit>Steve Pope/Associated Press</media:credit>
+			<description>Rumors that President Obama&#x2019;s health care plans would create &#x201C;death panels&#x201D; began with some of the same media outlets that helped defeat President Clinton&#x2019;s health care plan.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a710a631754a508078bb8f24075a5073&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a710a631754a508078bb8f24075a5073&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JIM RUTENBERG and JACKIE CALMES</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 12:05:00 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Euthanasia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Rumors</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+		</item>
+		<item>
+			<title>New Screening Could Lead to More Potent Cancer Drugs</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=0b713b86aaa051ed37bfcd5dbfb87fb6</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/health/research/14cancer.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/health/research/14cancer.html</guid>
+			<description>Researchers have found a way to identify drugs that can specifically attack and kill cancer stem cells.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=0b713b86aaa051ed37bfcd5dbfb87fb6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=0b713b86aaa051ed37bfcd5dbfb87fb6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NICHOLAS WADE</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 07:28:46 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Cancer</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Drugs (Pharmaceuticals)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+		</item>
+		<item>
+			<title>Collision Bares Longtime Rift Over Air Safety</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=cee8ee5a21e3b1bdb4706dacea03212d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/nyregion/14crash.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/nyregion/14crash.html</guid>
+			<description>The chair of the N.T.S.B. criticized the F.A.A., saying it was not carrying out the board&#x2019;s recommendations for air safety.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=cee8ee5a21e3b1bdb4706dacea03212d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=cee8ee5a21e3b1bdb4706dacea03212d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By AL BAKER</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 11:20:39 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Airlines and Airplanes</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Accidents and Safety</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Hudson River</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">National Transportation Safety Board</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Federal Aviation Administration</category>
+		</item>
+		<item>
+			<title>In a Surprise, Vick Signs With the Eagles</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9046fbc7d4a75e039f71247e7b41cca6</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/sports/football/14vick.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/sports/football/14vick.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/14/sports/vick75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Michael Vick has not played professional football since 2006.</media:description>
+			<media:credit>Doug Pensinger/Getty Images</media:credit>
+			<description>The Philadelphia Eagles sent a shock wave through the preseason by signing Michael Vick, who served nearly two years in prison.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9046fbc7d4a75e039f71247e7b41cca6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9046fbc7d4a75e039f71247e7b41cca6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JUDY BATTISTA</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 11:55:04 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Football</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Vick, Michael</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Dogfighting</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Philadelphia Eagles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Goodell, Roger</category>
+		</item>
+		<item>
+			<title>Dockworkers See Shoe on Other Foot After a Scandal</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ee52d2c56ceee733aab696670e1acbb8</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/nyregion/14waterfront.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/nyregion/14waterfront.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/nyregion/waterfront-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Workers on the docks in Red Hook, Brooklyn, are amused by corruption accusations against the Waterfront Commission.</media:description>
+			<media:credit>Piotr Redlinski for The New York Times</media:credit>
+			<description>Workers who feel they have been looked down upon took comfort in corruption charges leveled against the commission that oversees them.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ee52d2c56ceee733aab696670e1acbb8&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ee52d2c56ceee733aab696670e1acbb8&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By N. R. KLEINFIELD</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 07:40:16 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Ethics</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Waterfront Commission of New York Harbor</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York State</category>
+		</item>
+		<item>
+			<title>U.S. Senator in Myanmar to Meet Leader</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=baf8681bcc5a48f2bfa8560594f538d6</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/world/asia/15myanmar.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/world/asia/15myanmar.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/14/world/14myanmar_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Senator Jim Webb, Democrat of Virginia, in Vientiane, Laos, on Thursday.</media:description>
+			<media:credit>Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>Jim Webb, who arrived on Friday, will be the highest ranking U.S. official to meet the leader in a decade.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=baf8681bcc5a48f2bfa8560594f538d6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=baf8681bcc5a48f2bfa8560594f538d6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SHERYL GAY STOLBERG  and SHARON OTTERMAN</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 11:31:54 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Webb, James H Jr</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Myanmar</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Aung San Suu Kyi, Daw</category>
+		</item>
+		<item>
+			<title>Taiwan Leader Says Typhoon Toll May Exceed 500</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5ca30e6f9258effcda6dc43b9f37e654</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/world/asia/15taiwan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/world/asia/15taiwan.html</guid>
+			<description>President Ma Ying-jeou said Friday he expected the number of dead from the typhoon to rise.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5ca30e6f9258effcda6dc43b9f37e654&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5ca30e6f9258effcda6dc43b9f37e654&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARK McDONALD</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 11:53:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Typhoon Morakot (2009)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Taiwan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ma Ying-jeou</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Typhoons</category>
+		</item>
+		<item>
+			<title>China Warms to New Credo: Business First</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=84124e5f0a29f8384145080a9df2bbcc</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/world/asia/14china.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/world/asia/14china.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/world/14china_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A Chinese Internet cafe.  China has decided not to install censorship software in new computers.</media:description>
+			<media:credit>Reuters</media:credit>
+			<description>China is finding it harder to separate domestic politics from its aggressive push into the global business arena.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=84124e5f0a29f8384145080a9df2bbcc&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=84124e5f0a29f8384145080a9df2bbcc&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL WINES</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 11:16:57 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">International Trade and World Market</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">World Trade Organization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Rio Tinto PLC|RTP|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Freedom of Speech and Expression</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">International Relations</category>
+		</item>
+		<item>
+			<title>Care to Write Army Doctrine? With ID, Log On</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5af01b92b57f492efb66e0c5ca098f5a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/business/14army.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/business/14army.html</guid>
+			<description>The Army has begun encouraging the collaborative rewriting of some of the manuals that guide Army life.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5af01b92b57f492efb66e0c5ca098f5a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5af01b92b57f492efb66e0c5ca098f5a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NOAM COHEN</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 07:25:58 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">United States Army</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Wikipedia</category>
+		</item>
+		<item>
+			<title>17 Dead in Violence in Russian Region</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a2470924010eb2e255e28904a14651de</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/15/world/europe/15russia.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/15/world/europe/15russia.html</guid>
+			<description>Violent clashes in Russia&#x2019;s North Caucasus region underscored the Kremlin&#x2019;s continued struggles to bring the volatile area under control.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a2470924010eb2e255e28904a14651de&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a2470924010eb2e255e28904a14651de&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL SCHWIRTZ</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 11:37:59 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Civilian Casualties</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Civil War and Guerrilla Warfare</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Georgia (Georgian Republic)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Russia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Chechnya (Russia)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Ingushetia (Russian Republic)</category>
+		</item>
+		<item>
+			<title>Egyptian Fishermen Escape Pirates</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=94d0a2a911fd8278f83137d2eb4b3823</link>
+			<pheedo:origLink>http://www.nytimes.com/reuters/2009/08/14/world/international-somalia-piracy-egypt.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/reuters/2009/08/14/world/international-somalia-piracy-egypt.html</guid>
+			<description>The crews of two Egyptian fishing vessels escaped from Somali pirates after overpowering their captors and killing two of them, an associate of the pirates said Friday.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=94d0a2a911fd8278f83137d2eb4b3823&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=94d0a2a911fd8278f83137d2eb4b3823&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By REUTERS</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 10:44:34 GMT</pubDate>
+		</item>
+		<item>
+			<title>Harlem Store Owner Shoots 4 Robbers, Killing 2</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d6aaadfe8f674f13babd171aa93e274c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/nyregion/14shoot.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/nyregion/14shoot.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/nyregion/14robbery_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Police at the scene of a robbery and killings at 125th Street between Broadway and Amsterdam Avenues in Manhattan on Thursday. </media:description>
+			<media:credit>Jennifer S. Altman for The New York Times</media:credit>
+			<description>The store may have looked like an easy mark, with an owner in his 70s known as a gentle, soft-spoken man. But Charles Augusto Jr. had been robbed before, and was prepared.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d6aaadfe8f674f13babd171aa93e274c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d6aaadfe8f674f13babd171aa93e274c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT D. McFADDEN</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 05:25:11 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Robberies and Thefts</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Harlem (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Police Department (NYC)</category>
+		</item>
+		<item>
+			<title>Judges&#x2019; Dissents for Death Row Inmates Are Rising</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=8a5865d3fb30f0516f1e02ce08137cb6</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/us/14dissent.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/us/14dissent.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/14/us/14dissent75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A federal appeals court issued a succinct denial of the appeal of the conviction of Kevin Cooper, top, which was the subject of protests in 2004. Judge Fletcher wrote a 101-page dissent.</media:description>
+			<media:credit>Associated Press</media:credit>
+			<description>Some judges have complained that death row prisoners face daunting barriers to appeal their convictions.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=8a5865d3fb30f0516f1e02ce08137cb6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=8a5865d3fb30f0516f1e02ce08137cb6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOHN SCHWARTZ</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 07:40:10 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Capital Punishment</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Appeals Courts (US)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Sentences (Criminal)</category>
+		</item>
+	</channel>
+</rss>

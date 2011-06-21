@@ -1,0 +1,67 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[Bank of America to Pay $33M in SEC Settlement]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=0d7687aea625a3efd4f8b38534efeed7]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/03/AR2009080301165.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/03/AR2009080301165.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Mon Aug 3 13:38 EDT 2009]]></pubDate>
+			<description><![CDATA[Agency says Bank of America violated securities law by lying to investors about plan to pay billions of dollars in bonuses to employees of Merrill Lynch. 
+<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=0d7687aea625a3efd4f8b38534efeed7&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=0d7687aea625a3efd4f8b38534efeed7&p=1"/></a>
+]]></description>
+			<author><![CDATA[Zachary A. Goldfarb]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Ford Posts Rare Jump in Sales ]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=3ea3104ea77a5fab9e08d9cae5fac834]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/03/AR2009080300915.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/03/AR2009080300915.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Mon Aug 3 16:39 EDT 2009]]></pubDate>
+			<description><![CDATA[Government's "Cash for Clunkers" program appears to play a role in boosting auto market.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=3ea3104ea77a5fab9e08d9cae5fac834&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=3ea3104ea77a5fab9e08d9cae5fac834&p=1"/></a>
+]]></description>
+			<author><![CDATA[Dana Hedgpeth]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Va. Tech Panel Won't Reconvene]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=84bcbce85794c7c247f2a392ab53d2b9]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/03/AR2009080301720.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/03/AR2009080301720.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Mon Aug 3 15:19 EDT 2009]]></pubDate>
+			<description><![CDATA[Gov. Kaine rejects request to reassemble panel to address "grave errors" in massacre's official report.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=84bcbce85794c7c247f2a392ab53d2b9&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=84bcbce85794c7c247f2a392ab53d2b9&p=1"/></a>
+]]></description>
+			<author><![CDATA[Brigid Schulte]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Iran's Ahmadinejad Sworn In]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=6f29ad17223ad684940a6a34a790e6f0]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/03/AR2009080300080.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/03/AR2009080300080.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Mon Aug 3 14:16 EDT 2009]]></pubDate>
+			<description><![CDATA[Ayatollah endorses leader in ceremony snubbed by prominent critics of disputed election.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=6f29ad17223ad684940a6a34a790e6f0&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=6f29ad17223ad684940a6a34a790e6f0&p=1"/></a>
+]]></description>
+			<author><![CDATA[Thomas Erdbrink]]></author>
+		</item>
+	</channel>
+</rss>

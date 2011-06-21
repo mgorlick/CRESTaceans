@@ -1,0 +1,55 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[House Approves $2B to Extend 'Clunkers' Plan]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=b6e34f92a537674f2d0ebe58fb1fae6b]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/07/31/AR2009073101173.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/07/31/AR2009073101173.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Fri Jul 31 14:19 EDT 2009]]></pubDate>
+			<description><![CDATA[Bill revives government's week-old "cash for clunkers" program, which has proven so popular with consumers that it is almost out of cash. 
+<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=b6e34f92a537674f2d0ebe58fb1fae6b&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=b6e34f92a537674f2d0ebe58fb1fae6b&p=1"/></a>
+]]></description>
+			<author><![CDATA[Ben Pershing and Dana Hedgpeth]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Committee Reaches Deal on Bill]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=172260c0d6c6cbaee49fb1973e07063e]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/07/31/AR2009073101689.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/07/31/AR2009073101689.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Fri Jul 31 15:29 EDT 2009]]></pubDate>
+			<description><![CDATA[Democrats on House Energy panel strike deal to allow them to pass their piece of $1T health bill.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=172260c0d6c6cbaee49fb1973e07063e&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=172260c0d6c6cbaee49fb1973e07063e&p=1"/></a>
+]]></description>
+			<author><![CDATA[Paul Kane]]></author>
+		</item>
+		<item>
+			<title><![CDATA[GDP Shrinks at 1 Percent]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=328ce98b6cbc0df5dffbdf6a94a0f5f2]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/07/31/AR2009073101350.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/07/31/AR2009073101350.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Fri Jul 31 18:50 EDT 2009]]></pubDate>
+			<description><![CDATA[Slow decline in gross domestic product supports notion that economic slump is tapering off.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=328ce98b6cbc0df5dffbdf6a94a0f5f2&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=328ce98b6cbc0df5dffbdf6a94a0f5f2&p=1"/></a>
+]]></description>
+			<author><![CDATA[Neil Irwin and Jonathan Starkey]]></author>
+		</item>
+	</channel>
+</rss>

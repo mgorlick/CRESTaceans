@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Wed, 05 Aug 2009 15:16:35 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Bill Clinton and Journalists in Emotional Return to U.S.</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9ec784d402ab1bc27069fbce70beec97</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/world/asia/06korea.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/world/asia/06korea.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/world/05korea4-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Laura Ling spoke to the news media as former Vice President Al Gore embraced Euna Lee after they arrived in Burbank, Calif. on Wednesday. Mr. Gore founded the company that employs the journalists.</media:description>
+			<media:credit>Jonathan Alcorn for The New York Times</media:credit>
+			<description>Former President Bill Clinton and the two freed journalists were greeted at the airport by family members and Al Gore, who founded the company that employs the journalists.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9ec784d402ab1bc27069fbce70beec97&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9ec784d402ab1bc27069fbce70beec97&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARK LANDLER and PETER BAKER</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 15:02:33 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Bill</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ling, Laura</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Lee, Euna</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Current TV</category>
+		</item>
+		<item>
+			<title>Media Decoder: For Current TV, Joy and Attention</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d8f601b78264f79582b44302f850b1cb</link>
+			<pheedo:origLink>http://mediadecoder.blogs.nytimes.com/2009/08/05/at-current-tv-joy-and-more-attention/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://mediadecoder.blogs.nytimes.com/2009/08/05/at-current-tv-joy-and-more-attention/index.html</guid>
+			<description>The mood was overjoyed Tuesday at the headquarters of Current TV, an upstart cable channel that was thrust into the news this year by the detainment of two of its journalists in North Korea. The two journalists, Laura Ling and Euna Lee, were pardoned by the North Korean government Tuesday after former President Bill Clinton traveled to the country.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d8f601b78264f79582b44302f850b1cb&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d8f601b78264f79582b44302f850b1cb&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By BRIAN STELTER</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 15:13:15 GMT</pubDate>
+		</item>
+		<item>
+			<title>The Lede: Video of the Journalists&#x2019; Homecoming</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=4d7e92cddac1824e6e48828fb8f349d1</link>
+			<pheedo:origLink>http://thelede.blogs.nytimes.com/2009/08/05/al-gore-welcomes-freed-journalists-home/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://thelede.blogs.nytimes.com/2009/08/05/al-gore-welcomes-freed-journalists-home/index.html</guid>
+			<description>Video shows that Al Gore was present this morning at the airport in Burbank, California when Laura Ling and Euna Lee, who work as journalists for his company, Current TV, returned home to the United States after four months in North Korean custody.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=4d7e92cddac1824e6e48828fb8f349d1&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=4d7e92cddac1824e6e48828fb8f349d1&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT MACKEY</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 15:13:15 GMT</pubDate>
+		</item>
+		<item>
+			<title>Ahmadinejad Sworn In for 2nd Term as Iran&#x2019;s President</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=23cdac7466f881b05fda13d0c757bec5</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/world/middleeast/06iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/world/middleeast/06iran.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/world/06iran2.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>President Mahmoud Ahmadinejad of Iran addressed the parliament after being sworn into a second term as president.</media:description>
+			<media:credit>Vahid Salemi/Associated Press</media:credit>
+			<description>President Mahmoud Ahmadinejad was sworn in as his adversaries shunned the ceremony and security forces patrolled the streets.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=23cdac7466f881b05fda13d0c757bec5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=23cdac7466f881b05fda13d0c757bec5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT F. WORTH and ALAN COWELL</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 15:16:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ahmadinejad, Mahmoud</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+		</item>
+		<item>
+			<title>Medical Papers by Ghostwriters Pushed Therapy</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ce6fa5164734052f3bdb4d977c79c126</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/05/health/research/05ghost.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/05/health/research/05ghost.html</guid>
+			<description>Court documents suggest a broad level of hidden industry influence on medical literature.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ce6fa5164734052f3bdb4d977c79c126&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ce6fa5164734052f3bdb4d977c79c126&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NATASHA SINGER</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 12:01:15 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Wyeth|WYE|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Drugs (Pharmaceuticals)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Hormones</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Ghostwriting</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Publications</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Reed Elsevier N.V|ENL|NYSE</category>
+		</item>
+		<item>
+			<title>Clinton Calls for Accountability in Kenya</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e82a26444717dde7ad4ebc579e7719f7</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/world/africa/06diplo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/world/africa/06diplo.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/world/09diplo-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Secretary of State Hillary Rodham Clinton with Moses Wetangula, the Kenyan foreign minister, in Nairobi on Wednesday.</media:description>
+			<media:credit>European Pressphoto Agency</media:credit>
+			<description>Secretary of State Hillary Rodham Clinton had two messages for Kenya: Trade is good. Impunity from prosecution is bad.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e82a26444717dde7ad4ebc579e7719f7&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e82a26444717dde7ad4ebc579e7719f7&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JEFFREY GETTLEMAN</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 14:55:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Hillary Rodham</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Africa</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Third World and Developing Countries</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+		</item>
+		<item>
+			<title>The Fifth Down: Eli Manning Said to Agree to 6-Year Extension</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=cc78c1a5fe5fce2ce1d2588eeacab7de</link>
+			<pheedo:origLink>http://fifthdown.blogs.nytimes.com/2009/08/05/eli-manning-said-to-agree-to-6-year-extension/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://fifthdown.blogs.nytimes.com/2009/08/05/eli-manning-said-to-agree-to-6-year-extension/index.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/sports/football/manning.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Eli Manning, at training camp in Albany on Monday, will reportedly become the highest-paid player in the N.F.L. </media:description>
+			<media:credit>Mike Groll/Associated Press</media:credit>
+			<description>Eli Manning would be the league&#x2019;s highest-paid player after a reported $97.5 million deal with The Giants.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=cc78c1a5fe5fce2ce1d2588eeacab7de&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=cc78c1a5fe5fce2ce1d2588eeacab7de&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOE LAPOINTE</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 15:13:15 GMT</pubDate>
+		</item>
+		<item>
+			<title>Web Diary Details Shooter&#x2019;s Frustration</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b4510e258908416eba0cf6cb3a084781</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/us/06shoot.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/us/06shoot.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/04/us/05shoot3_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Nancy Smith, right, hugged her daughter Tracey outside of the LA Fitness Center on Tuesday in Bridgeville, Pa., where a gunman reportedly opened fire in the aerobics room.</media:description>
+			<media:credit>Don Wright/Associated Press</media:credit>
+			<description>The man wrote that he planned the attack on a fitness center because he couldn&#x2019;t find a girlfriend.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b4510e258908416eba0cf6cb3a084781&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b4510e258908416eba0cf6cb3a084781&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SEAN D. HAMILL and ANAHAD O&#x2019;CONNOR</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 15:15:10 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Murders and Attempted Murders</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Pennsylvania</category>
+		</item>
+		<item>
+			<title>Obama Tries to Put a Brighter Face on the Economy</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d347d4d62e0436490f9706c9c8ac04ac</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/05/us/politics/05obama.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/05/us/politics/05obama.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/us/05obama.span.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Joseph R. Biden Jr. on Tuesday with the economic advisers Lawrence H. Summers, left, Christina D. Romer and Peter R. Orszag.</media:description>
+			<media:credit>Brendan Smialowski for The New York Times</media:credit>
+			<description>The White House will try to sell its economic policies this week, but Friday&#x2019;s jobs report may get in the way.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d347d4d62e0436490f9706c9c8ac04ac&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d347d4d62e0436490f9706c9c8ac04ac&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SHERYL GAY STOLBERG</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 12:29:02 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Economy</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Unemployment</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Polls and Public Opinion</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+		</item>
+		<item>
+			<title>The Work-Up: For Health Insurers&#x2019; Lobbyist, Good Will Is Tested</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b52da3e6286e32bbf4a1e5e4ffb28a0e</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/05/health/policy/05insure.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/05/health/policy/05insure.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/business/05insure_75b.jpg" medium="image" height="75" width="75"/>
+			<media:description>Karen M. Ignagni, chief lobbyist for the health insurance industry, told President Obama, &#x201C;you have our commitment to play.&#x201D;</media:description>
+			<media:credit>Stephen Crowley/The New York Times</media:credit>
+			<description>The work of the industry&#x2019;s chief lobbyist, Karen Ignagni, to reach agreements among insurers may be undercut.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b52da3e6286e32bbf4a1e5e4ffb28a0e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b52da3e6286e32bbf4a1e5e4ffb28a0e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By REED ABELSON</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 11:29:00 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ignagni, Karen</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Lobbying and Lobbyists</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Law and Legislation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Insurance</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Executives and Management</category>
+		</item>
+		<item>
+			<title>Strike Kills Wife of Taliban Chief</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=86f48b36d9759669b6707106c2fa17d5</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/world/asia/06pstan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/world/asia/06pstan.html</guid>
+			<description>The wife of the Pakistani Taliban leader Baitullah Mehsud was among those killed in what residents said was a missile strike from a remotely piloted U.S. aircraft.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=86f48b36d9759669b6707106c2fa17d5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=86f48b36d9759669b6707106c2fa17d5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PIR ZUBAIR SHAH and SALMAN MASOOD</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 14:47:13 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Pakistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Drones (Pilotless Planes)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Mehsud, Baitullah</category>
+		</item>
+		<item>
+			<title>Paula Abdul to Leave &#x2018;American Idol&#x2019;</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a89ab23acbb37f7289b08d95983899ba</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/06/arts/television/06abdul.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/06/arts/television/06abdul.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/arts/television/06abdul.75.1.jpg" medium="image" height="75" width="75"/>
+			<media:description>Paula Abdul, center, at the "Idol Gives Back" show in April. Abdul decided to leave the show after eight seasons as a judge. </media:description>
+			<media:credit>Mario Anzuoni/Reuters</media:credit>
+			<description>Paula Abdul, the pop star who revived a lagging singing career as a warm-hearted judge on &#x201C;American Idol,&#x201D; said that she has decided not to return to the show next season.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a89ab23acbb37f7289b08d95983899ba&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a89ab23acbb37f7289b08d95983899ba&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By EDWARD WYATT</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 14:15:31 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_ttl">American Idol (TV Program)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Abdul, Paula</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Fox Broadcasting Co</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reality Television</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Television</category>
+		</item>
+	</channel>
+</rss>

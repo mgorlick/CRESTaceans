@@ -1,0 +1,247 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Sat, 01 Aug 2009 17:04:01 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Mass Trial for Protesters Begins in Iran</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f783344d8bd6391b9c8d93b077642d69</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/world/middleeast/02iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/world/middleeast/02iran.html</guid>
+			<description>The Iranian authorities opened an extraordinary mass trial against more than 100 reformist figures, accusing them of conspiring with foreign powers to stage a revolution.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f783344d8bd6391b9c8d93b077642d69&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f783344d8bd6391b9c8d93b077642d69&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT F. WORTH and NAZILA FATHI</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 16:11:20 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Demonstrations and Riots</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Elections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ahmadinejad, Mahmoud</category>
+		</item>
+		<item>
+			<title>Cyberwar: U.S. Weighs Risks of Civilian Harm in Cyberwarfare</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e9dc93d511e6c09e4d39c1e107647fef</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/us/politics/02cyber.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/us/politics/02cyber.html</guid>
+			<description>Fears of collateral damage are shaping an effort to develop rules and tactics for carrying out attacks on computer networks.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e9dc93d511e6c09e4d39c1e107647fef&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e9dc93d511e6c09e4d39c1e107647fef&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOHN MARKOFF and THOM SHANKER</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 16:49:38 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Defense Department</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Hussein, Saddam</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Bush, George W</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+		</item>
+		<item>
+			<title>$100 Million Payday Poses Problem for Pay Czar</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=0fb6654704e9c1ec3ed2e02b57e21061</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/business/02bonus.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/business/02bonus.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/02/business/bonus_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Andrew Hall</media:description>
+			<media:credit/>
+			<description>In a few weeks, the Treasury Department&#x2019;s czar of executive pay will have to answer this $100 million question: Should Andrew J. Hall get his bonus?&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=0fb6654704e9c1ec3ed2e02b57e21061&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=0fb6654704e9c1ec3ed2e02b57e21061&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID SEGAL</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 16:28:11 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Executive Compensation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bonuses</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Hall, Andrew</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Oil (Petroleum) and Gasoline</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Prices (Fares, Fees and Rates)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Subprime Mortgage Crisis</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Emergency Economic Stabilization Act (2008)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Treasury Department</category>
+		</item>
+		<item>
+			<title>On the Hill: Democrats Eye (Shh!) Reconciliation</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=bc4c4aece29552f8e51897a494517a0d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/us/politics/02hulse.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/us/politics/02hulse.html</guid>
+			<description>Democrats are talking about exploiting a procedural loophole they planted in this year&#x2019;s budget to skirt Republican filibusters against a health care overhaul.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=bc4c4aece29552f8e51897a494517a0d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=bc4c4aece29552f8e51897a494517a0d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CARL HULSE</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 16:17:54 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Democratic Party</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Republican Party</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Filibusters and Debate Curbs</category>
+		</item>
+		<item>
+			<title>After Bomb Scare, La Guardia Reopens</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e53f7047fcd1234a3c18bccda65afbd1</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/nyregion/02Laguardia.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/nyregion/02Laguardia.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/01/us/01airport2_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Passengers walked toward the main terminal at LaGuardia Airport as it reopened after an evacuation on Saturday.</media:description>
+			<media:credit>David Goldman/Associated Press</media:credit>
+			<description>LaGuardia Airport reopened Saturday morning after a man with a fake bomb hidden in a bag had tried to board a flight three hours earlier in the central terminal.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e53f7047fcd1234a3c18bccda65afbd1&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e53f7047fcd1234a3c18bccda65afbd1&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By AL BAKER and LIZ ROBBINS</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 16:32:30 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">La Guardia Airport (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Delays (Transportation)</category>
+		</item>
+		<item>
+			<title>TV Contestants: Tired, Tipsy and Pushed to Brink</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=94c7bc01bc7983b6d3afe5a687f80f9c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/business/media/02reality.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/business/media/02reality.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/02/business/03reality_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Gordon Ramsay judges the work of Julia Williams, left; Bonnie Muirhead, center; and Jen Yemola.</media:description>
+			<media:credit>Greg Gayne/Fox</media:credit>
+			<description>Grueling conditions are largely the rule for reality shows like &#x201C;Project Runway&#x201D; and &#x201C;Hell&#x2019;s Kitchen.&#x201D;&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=94c7bc01bc7983b6d3afe5a687f80f9c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=94c7bc01bc7983b6d3afe5a687f80f9c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By EDWARD WYATT</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 16:55:58 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reality Television</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Television</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Cooking and Cookbooks</category>
+		</item>
+		<item>
+			<title>Iran Arrests 3 Americans Hiking in Kurdish Region</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=542bd4a730b39dc9aae2910bd764aeb1</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/world/middleeast/02iraq.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/world/middleeast/02iraq.html</guid>
+			<description>Three Americans were arrested by the Iranian authorities after they crossed the Iraqi Kurdistan region&#x2019;s border with Iran, a top Kurdish official said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=542bd4a730b39dc9aae2910bd764aeb1&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=542bd4a730b39dc9aae2910bd764aeb1&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM DAGHER</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 16:57:53 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Travel and Vacations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Kurds</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Hiking</category>
+		</item>
+		<item>
+			<title>Demolition Man</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=305412e0719bd07f46696cb0c3d93e38</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/nyregion/02demo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/nyregion/02demo.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/02/nyregion/02demo.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>
+				<em class="bold">MENSCH OR MENACE?</em>Philip B. Schwab&#x2019;s charm is as evident as his boxer&#x2019;s nose. &#x201C;He could talk the skin off an orange,&#x201D; a colleague says.</media:description>
+			<media:credit>Chang W. Lee/The New York Times</media:credit>
+			<description>At 80, Philip B. Schwab is still a player in a business where safety rules are often ignored and records only lead to trouble.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=305412e0719bd07f46696cb0c3d93e38&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=305412e0719bd07f46696cb0c3d93e38&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By WILLIAM K. RASHBAUM and CHARLES V. BAGLI</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 15:52:04 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Deutsche Bank Building (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Schwab, Philip B.</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Demolition</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Buildings (Structures)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+		</item>
+		<item>
+			<title>Corazon Aquino, Ex-Leader of Philippines, Is Dead</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3a1f32aacd0db0291526dc0e4654cd7f</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/world/asia/01aquino.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/world/asia/01aquino.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/31/world/31aquino_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Former Philippine President Corazon Aquino at a news conference in Manila on July 8, 2005. </media:description>
+			<media:credit>Romeo Ranoco/Reuters</media:credit>
+			<description>Mrs. Aquino was swept into office on a wave of &#x201C;people power&#x201D; in 1986 and then faced down many coup attempts as president.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3a1f32aacd0db0291526dc0e4654cd7f&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3a1f32aacd0db0291526dc0e4654cd7f&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SETH MYDANS</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 13:26:52 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Aquino, Corazon C</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Philippines</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Deaths (Obituaries)</category>
+		</item>
+		<item>
+			<title>Health Bill Clears Hurdle and Hints at Consensus</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=34015bc042a0fde130de49305c85fb70</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/health/policy/01health.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/health/policy/01health.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/01/us/01health75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A nearly empty hearing room on Friday in Washington during a break of the House Energy and Commerce Committee.</media:description>
+			<media:credit>Brendan Smialowski for The New York Times</media:credit>
+			<description>Landmark legislation approved by a House committee shows the beginnings of a political consensus to cover more Americans and give them new rights with insurers.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=34015bc042a0fde130de49305c85fb70&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=34015bc042a0fde130de49305c85fb70&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT PEAR  and DAVID M. HERSZENHORN</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 16:51:58 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Waxman, Henry A</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">House of Representatives</category>
+		</item>
+		<item>
+			<title>Military Memo: With Boots in Iraq, Minds Drift to Afghanistan</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b4d57cb3bf09935f11f540df51c329f1</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/world/middleeast/01memo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/world/middleeast/01memo.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/01/world/01memo.751.jpg" medium="image" height="75" width="75"/>
+			<media:description>A deadly bombing on Friday in Baghdad underscored the continuing threat of violence in Iraq.</media:description>
+			<media:credit>Karim Kadim/Associated Press</media:credit>
+			<description>There are still some 130,000 U.S. troops in Iraq, but the war in Iraq is no longer the center of the action for the Pentagon.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b4d57cb3bf09935f11f540df51c329f1&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b4d57cb3bf09935f11f540df51c329f1&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ELISABETH BUMILLER</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 16:35:06 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Gates, Robert M</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Odierno, Raymond T</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">McChrystal, Stanley A</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Petraeus, David H</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Mullen, Michael G</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Defense Department</category>
+		</item>
+		<item>
+			<title>City Room: Complaint Box | Rule Breakers at the Pool</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=67968c37a6ea8affedf47602bde571cb</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/07/31/complaint-box-rule-breakers-at-the-pool/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/07/31/complaint-box-rule-breakers-at-the-pool/index.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/31/nyregion/01complaint-75.jpg" medium="image" height="75" width="75"/>
+			<media:description/>
+			<media:credit/>
+			<description>One woman&#x2019;s frustration with the poor pool etiquette of some swimmers.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=67968c37a6ea8affedf47602bde571cb&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=67968c37a6ea8affedf47602bde571cb&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CINDY SCHWEICH HANDLER</dc:creator>
+			<pubDate>Sat, 01 Aug 2009 05:25:03 GMT</pubDate>
+		</item>
+	</channel>
+</rss>

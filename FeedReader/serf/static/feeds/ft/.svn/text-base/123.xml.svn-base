@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Sat, 01 Aug 2009 14:21:19 GMT</pubDate>
+    <lastBuildDate>Sun, 02 Aug 2009 03:29:01 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>KKR eyes market blitz of up to six IPOs</title>
+      <link>http://traxfer.ft.com/cms/s/0/d3dd7b88-7e00-11de-8f8d-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The world’s biggest buy-out group is preparing up to six companies for initial public offerings worth billions of dollars, as it sells some of its most valuable groups back to the stock market</description>
+      <pubDate>Fri, 31 Jul 2009 22:31:28 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/d3dd7b88-7e00-11de-8f8d-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Iran tries moderates over election unrest</title>
+      <link>http://traxfer.ft.com/cms/s/0/2db83512-7e83-11de-999d-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The trials began of prominent moderates arrested shortly after Iran’s disputed June presidential election and charged with trying to topple the clerical establishment, Iranian media reported</description>
+      <pubDate>Sat, 01 Aug 2009 10:09:18 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/2db83512-7e83-11de-999d-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Obama says many months before US exits recession</title>
+      <link>http://traxfer.ft.com/cms/s/0/cf611d0a-7e9e-11de-999d-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>President Barack Obama warned it would take ‘many more months’ for the United States to get out of recession even after GDP figures showed the economy shrank only modestly in the second quarter</description>
+      <pubDate>Sat, 01 Aug 2009 13:33:10 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/cf611d0a-7e9e-11de-999d-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Russia trumps US with new Central Asia army base</title>
+      <link>http://traxfer.ft.com/cms/s/0/72bcbe9e-7ea6-11de-999d-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Kyrgyzstan allowed Russia to open a second military base on its territory, expanding Moscow’s military reach to balance against the US presence in the Central Asian country</description>
+      <pubDate>Sat, 01 Aug 2009 14:21:19 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/72bcbe9e-7ea6-11de-999d-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Back-to-school shift helps US media</title>
+      <link>http://traxfer.ft.com/cms/s/0/1dad99e6-7df7-11de-8f8d-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>A spike in higher education enrolments in the US has shown up this week in earnings announcements from companies in the otherwise hard-hit media sector, whose education divisions have far outperformed their better-known news brands</description>
+      <pubDate>Fri, 31 Jul 2009 17:53:26 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/1dad99e6-7df7-11de-8f8d-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>US drives its claws into scrappage deals</title>
+      <link>http://traxfer.ft.com/cms/s/0/292613ae-7db4-11de-8f8d-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Barack Obama’s administration and members of Congress were scrambling to find ways of extending a scrappage scheme after an avalanche of applications exhausted its $1bn budget within days of launch</description>
+      <pubDate>Fri, 31 Jul 2009 22:55:28 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/292613ae-7db4-11de-8f8d-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>India rejects emissions cuts for a decade</title>
+      <link>http://traxfer.ft.com/cms/s/0/80a9200e-7dfe-11de-8f8d-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>New Delhi will not discuss signing up to legally binding obligations to make absolute cuts in greenhouse gas emissions for at least 10 years, said the country’s environment minister</description>
+      <pubDate>Fri, 31 Jul 2009 18:29:13 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/80a9200e-7dfe-11de-8f8d-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>US stocks close month with hefty gains</title>
+      <link>http://traxfer.ft.com/cms/s/0/f8d0667c-7d4b-11de-b8ee-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>US equities settled mixed on Friday, but closed out July with solid gains as data on the economy suggested the vehemence of the recession was abating and expansion beckoned in the third quarter</description>
+      <pubDate>Fri, 31 Jul 2009 19:00:15 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/f8d0667c-7d4b-11de-b8ee-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Three more directors quit BofA</title>
+      <link>http://traxfer.ft.com/cms/s/0/e81f3e0e-7e2a-11de-8f8d-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Bank of America announced the departure of three more directors, adding to the exodus of allies of Ken Lewis, chief executive, in the past three months and paving the way for new members to join the board</description>
+      <pubDate>Fri, 31 Jul 2009 23:50:48 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/e81f3e0e-7e2a-11de-8f8d-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>FCC investigates Apple’s ban of Google Voice</title>
+      <link>http://traxfer.ft.com/cms/s/0/26545310-7e41-11de-8f8d-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The US regulator enters the fray over consumer calling choice on mobile phones, sending letters inquiring into Apple’s decision to reject the Google applications on its iPhone</description>
+      <pubDate>Sat, 01 Aug 2009 02:17:25 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/26545310-7e41-11de-8f8d-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

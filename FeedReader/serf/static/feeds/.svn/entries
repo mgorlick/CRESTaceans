@@ -1,0 +1,46 @@
+10
+
+dir
+9960
+http://tps.ics.uci.edu/svn/projects/CREST/sisc/serf/static/feeds
+http://tps.ics.uci.edu/svn/projects
+
+
+
+2009-08-19T20:52:00.174525Z
+9122
+jerenkrantz
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+3eb8784e-3aee-0310-b028-d3d3d21a5a25
+
+espn
+dir
+
+ft
+dir
+
+lat
+dir
+
+nyt
+dir
+
+tc
+dir
+
+wp
+dir
+

@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[Cheney Uncloaks His Frustration With Bush]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=bdf9c51b7e5ba8578045b4caf06b226b]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/12/AR2009081203306.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/12/AR2009081203306.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Thu Aug 13 17:38 EDT 2009]]></pubDate>
+			<description><![CDATA[Former vice president, who once praised the resolve of his old boss, now says "statute of limitations has expired" on many secrets. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=bdf9c51b7e5ba8578045b4caf06b226b&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=bdf9c51b7e5ba8578045b4caf06b226b&p=1"/></a>
+]]></description>
+			<author><![CDATA[Barton Gellman]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Retail Sales Post Decline]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=df7504f28a971c4796b06933fc484a80]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/13/AR2009081300827.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/13/AR2009081300827.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Thu Aug 13 09:26 EDT 2009]]></pubDate>
+			<description><![CDATA[Disappointing performance underscores concerns about the timing and durability of a recovery.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=df7504f28a971c4796b06933fc484a80&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=df7504f28a971c4796b06933fc484a80&p=1"/></a>
+]]></description>
+			<author><![CDATA[Ylan Q. Mui]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Bottled Water Boom Tapped Out? ]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=b4b8481321e9c0fa572ca6e1ee6214e7]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/12/AR2009081203074.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/12/AR2009081203074.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Thu Aug 13 17:22 EDT 2009]]></pubDate>
+			<description><![CDATA[Recession answers the question that centuries of philosophers could not: The glass is half-empty.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=b4b8481321e9c0fa572ca6e1ee6214e7&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=b4b8481321e9c0fa572ca6e1ee6214e7&p=1"/></a>
+]]></description>
+			<author><![CDATA[Ylan Q. Mui]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Obamas Plan Low-Key Vacation]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=fa62d516e3e391d1ac6fc388f320d951]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/12/AR2009081203405.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/12/AR2009081203405.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Thu Aug 13 11:29 EDT 2009]]></pubDate>
+			<description><![CDATA[The first family will pay to stay at the Martha's Vineyard estate of a prominent Republican.
+
+<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=fa62d516e3e391d1ac6fc388f320d951&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=fa62d516e3e391d1ac6fc388f320d951&p=1"/></a>
+]]></description>
+			<author><![CDATA[Dan Eggen]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Judge: Tire Incident No 'Big Deal']]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=28f185b9756632e31c35bce39c9a4206]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/12/AR2009081202681.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/12/AR2009081202681.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Thu Aug 13 17:22 EDT 2009]]></pubDate>
+			<description><![CDATA[Charles County judge suspected of deflating a tire on a car parked near courthouse admits action.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=28f185b9756632e31c35bce39c9a4206&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=28f185b9756632e31c35bce39c9a4206&p=1"/></a>
+]]></description>
+			<author><![CDATA[Ruben Castaneda]]></author>
+		</item>
+	</channel>
+</rss>

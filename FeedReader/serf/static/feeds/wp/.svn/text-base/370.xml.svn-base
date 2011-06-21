@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[Dark Clouds Lurk Behind The Silver Lining of Data]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=b42d99aa78df154d13a99d5ab1ff676f]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081100988.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081100988.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Wed Aug 12 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Statistics point to improving economic conditions, but for now, benefits are unlikely to materialize in higher wages or tax receipts or more jobs.  <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=b42d99aa78df154d13a99d5ab1ff676f&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=b42d99aa78df154d13a99d5ab1ff676f&p=1"/></a>
+]]></description>
+			<author><![CDATA[Annys Shin]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Lying Low After the Layoff]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=c3ad3e97b00bb8ad3e582253c1cf9572]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081103584.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081103584.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Wed Aug 12 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Some terminated employees work hard to keep up appearances by pretending to still have a job.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=c3ad3e97b00bb8ad3e582253c1cf9572&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=c3ad3e97b00bb8ad3e582253c1cf9572&p=1"/></a>
+]]></description>
+			<author><![CDATA[Annie Gowen]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Obama Faces 'Scare Tactics']]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=6e9a1a87ab78be3c1d721fa6bad7582c]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/10/AR2009081002447.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/10/AR2009081002447.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Wed Aug 12 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[President hits the road to quell public fears about health care reform efforts.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=6e9a1a87ab78be3c1d721fa6bad7582c&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=6e9a1a87ab78be3c1d721fa6bad7582c&p=1"/></a>
+]]></description>
+			<author><![CDATA[Anne E. Kornblut and Michael D. Shear]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Witness Is Seduced, Killed]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=c73b899484fa65b2feec7ad3df7d96ea]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081103563.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081103563.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Wed Aug 12 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Victim is targeted for drug case as threats, killings happen with chilling regularity, officials say.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=c73b899484fa65b2feec7ad3df7d96ea&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=c73b899484fa65b2feec7ad3df7d96ea&p=1"/></a>
+]]></description>
+			<author><![CDATA[Del Quentin Wilber]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Miers: Rove Was 'Agitated']]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=8af84fdc34ece2640f8cdadffea64538]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081102104.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081102104.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Wed Aug 12 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[E-mails, transcripts of testimony show aides actively involved in dismissal of U.S. prosecutor.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=8af84fdc34ece2640f8cdadffea64538&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=8af84fdc34ece2640f8cdadffea64538&p=1"/></a>
+]]></description>
+			<author><![CDATA[Carrie Johnson]]></author>
+		</item>
+	</channel>
+</rss>

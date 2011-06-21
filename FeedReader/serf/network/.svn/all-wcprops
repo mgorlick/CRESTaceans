@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/projects/!svn/ver/9155/CREST/sisc/serf/network
+END
+methods.scm
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/network/methods.scm
+END
+address.scm
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/projects/!svn/ver/9110/CREST/sisc/serf/network/address.scm
+END
+request-v1.scm
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/network/request-v1.scm
+END
+uri.scm
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/projects/!svn/ver/9155/CREST/sisc/serf/network/uri.scm
+END
+http-v1.scm
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/projects/!svn/ver/8984/CREST/sisc/serf/network/http-v1.scm
+END

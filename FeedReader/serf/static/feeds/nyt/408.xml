@@ -1,0 +1,217 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Fri, 14 Aug 2009 00:15:22 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>New Screening Could Lead to More Potent Cancer Drugs</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=0b713b86aaa051ed37bfcd5dbfb87fb6</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/health/research/14cancer.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/health/research/14cancer.html</guid>
+			<description>Researchers have found a way to identify drugs that can specifically attack and kill cancer stem cells.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=0b713b86aaa051ed37bfcd5dbfb87fb6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=0b713b86aaa051ed37bfcd5dbfb87fb6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NICHOLAS WADE</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 19:52:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Cancer</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Drugs (Pharmaceuticals)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+		</item>
+		<item>
+			<title>Retailers Post Weak Quarterly Earnings and July Sales</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=eb81aedc3b72b7a1de74255fe9cd0601</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/business/14shop.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/business/14shop.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/business/shop.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A Wal-Mart store in Tallahassee, Fla. The company reported a decline in revenue on Thursday, but said it was increasing its profit outlook as it benefits from cost-cutting measures.</media:description>
+			<media:credit>Phil Coale/Associated Press</media:credit>
+			<description>Reports made clear that consumers were likely to continue hoarding their dollars into the back-to-school shopping season, a crucial time for retailers.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=eb81aedc3b72b7a1de74255fe9cd0601&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=eb81aedc3b72b7a1de74255fe9cd0601&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By STEPHANIE ROSENBLOOM</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 23:58:33 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Company Reports</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Wal-Mart Stores Inc|WMT|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Shopping and Retail</category>
+		</item>
+		<item>
+			<title>Les Paul, Guitar Innovator, Dies at 94</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=2b8a83e6cf34bfd3c41538776b1993c9</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/arts/music/14paul.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/arts/music/14paul.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/obituaries/13lespaul2-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Les Paul at Carnegie Hall in 2005.</media:description>
+			<media:credit>Jennifer Taylor for The New York Times</media:credit>
+			<description>Mr. Paul was a virtuoso guitarist and inventor whose solid-body electric guitar and recording studio innovations changed the course of music.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=2b8a83e6cf34bfd3c41538776b1993c9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=2b8a83e6cf34bfd3c41538776b1993c9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JON PARELES</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 21:29:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Paul, Les</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Music</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Guitars</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Deaths (Obituaries)</category>
+		</item>
+		<item>
+			<title>City Room: Business Owner Fires on 4 Robbers, Killing 2</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=373baa8ef3830108402f0ad1f7420fd3</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/08/13/business-owner-fires-on-4-robbers-killing-2-police-say/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/08/13/business-owner-fires-on-4-robbers-killing-2-police-say/index.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/nyregion/14robbery_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Police at the scene of a robbery and murder at 125th Street between Broadway and Amsterdam Avenues in Manhattan on Thursday. </media:description>
+			<media:credit>Jennifer S. Altman for The New York Times</media:credit>
+			<description>A Harlem business owner, 72, used a shotgun to blast four armed men who tried to rob the business on Thursday.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=373baa8ef3830108402f0ad1f7420fd3&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=373baa8ef3830108402f0ad1f7420fd3&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CHRISTINE HAUSER and SEWELL CHAN</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 00:00:42 GMT</pubDate>
+		</item>
+		<item>
+			<title>U.S. to Resume Training Georgian Troops</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f6e26ea609f654059a6e7a2c79af4c42</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/world/europe/14military.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/world/europe/14military.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/world/14military_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Georgian soldiers participated in NATO training exercises at a military base in Vaziani, Georgia, in May.  </media:description>
+			<media:credit>Pool Photo by Nina Shlamova</media:credit>
+			<description>The training effort, which risks angering Russia, is meant to prepare Georgian troops to fight in Afghanistan.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f6e26ea609f654059a6e7a2c79af4c42&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f6e26ea609f654059a6e7a2c79af4c42&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THOM SHANKER</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 22:28:30 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Georgia (Georgian Republic)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">North Atlantic Treaty Organization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Russia</category>
+		</item>
+		<item>
+			<title>P.G.A. Championship: Woods and Harrington Start Strong</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6df60363ea02962bb5c0ebefe3a5a898</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/sports/golf/14golf.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/sports/golf/14golf.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/14/sports/14golf.1.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Tiger Woods leads Padraig Harrington by one stroke in the first round. </media:description>
+			<media:credit>Timothy A. Clary/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>At the end of his opening round, Tiger Woods found himself in a familiar position &#x2014; in the lead.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6df60363ea02962bb5c0ebefe3a5a898&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6df60363ea02962bb5c0ebefe3a5a898&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PAT BORZI</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 23:52:33 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Golf</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">PGA Championship</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">PGA Tour Inc</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Woods, Tiger</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Harrington, Padraig</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Beem, Rich</category>
+		</item>
+		<item>
+			<title>Textbook Publisher to Rent to College Students</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=df52ee6bee37a288f4b75c2f46abc8b7</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/education/14textbook.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/education/14textbook.html</guid>
+			<description>Facing growing competition, a leading publisher will rent college textbooks at 40 to 70 percent of the sale price.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=df52ee6bee37a288f4b75c2f46abc8b7&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=df52ee6bee37a288f4b75c2f46abc8b7&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By TAMAR LEWIN</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 23:53:27 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Textbooks</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Colleges and Universities</category>
+		</item>
+		<item>
+			<title>Ride to Safety for Taiwan Survivors</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=51b5d187944bf0d2109693aff28178b7</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/world/asia/14taiwan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/world/asia/14taiwan.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/world/13storm-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Taiwanese rescuers held children before crossing a river to evacuate the flooded village of Liugui on Thursday.</media:description>
+			<media:credit>Associated Press</media:credit>
+			<description>Tens of thousands of people are stranded in a necklace of hamlets that extend along the Lao Nong River in Taiwan.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=51b5d187944bf0d2109693aff28178b7&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=51b5d187944bf0d2109693aff28178b7&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ANDREW JACOBS</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 00:14:27 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Typhoon Morakot (2009)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Taiwan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Typhoons</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Rescues</category>
+		</item>
+		<item>
+			<title>21 Die in Bombing in Northern Iraq</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ca7a383a170d37f8aa4701a33e4b3429</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/world/middleeast/14iraq.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/world/middleeast/14iraq.html</guid>
+			<description>Two bombers blew themselves up in a popular cafe crowded with young people in the city of Sinjar on Thursday evening, according to hospital officials.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ca7a383a170d37f8aa4701a33e4b3429&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ca7a383a170d37f8aa4701a33e4b3429&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARC SANTORA</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 21:18:58 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Mosul (Iraq)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Sidewalk Cafes</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Terrorism</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Yazidi (Religious Sect)</category>
+		</item>
+		<item>
+			<title>Netscape Founder Backs New Browser</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f1e57e9ed2cfe5f104bb8f8102897e13</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/technology/internet/14browser.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/technology/internet/14browser.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/14/technology/browser1_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Marc Andreessen, Co-founder and General Partner, Andreessen Horowitz, in July.</media:description>
+			<media:credit>Phil McCarten/Reuters</media:credit>
+			<description>SAN FRANCISCO &#x2014; It has been 15 years since Marc Andreessen first developed the Netscape Internet browser that introduced millions of people to the Internet.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f1e57e9ed2cfe5f104bb8f8102897e13&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f1e57e9ed2cfe5f104bb8f8102897e13&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MIGUEL HELFT</dc:creator>
+			<pubDate>Fri, 14 Aug 2009 00:11:55 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Andreessen, Marc L</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Web Browsers</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Netscape</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+		</item>
+		<item>
+			<title>Television Review | 'Mad Men': Still Straining to Remain as Button-Down as Ever</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9475b0a221f95788510eb04d4da0034b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/arts/television/14mad.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/arts/television/14mad.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/arts/mad.1.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Christina Hendricks in "Mad Men" on AMC, which returns for its third season on Sunday.  </media:description>
+			<media:credit>Frank Ockenfels/AMC</media:credit>
+			<description>The new season of &#x201C;Mad Men,&#x201D; which begins on Sunday on AMC, stresses the darker side of its era&#x2019;s innocence, leading viewers to marvel at a world so familiar and so primitive.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9475b0a221f95788510eb04d4da0034b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9475b0a221f95788510eb04d4da0034b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ALESSANDRA STANLEY</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 23:26:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Television</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_ttl">Mad Men (TV Program)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">AMC</category>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,414 @@
+(define (cannot-serialize obj)
+  (error "can't serialize" obj))
+
+(define chunk-len 256) ;; must be a power of 2
+
+;; 0 - total number of bytes written for serialization so far.
+;; 1 - FIFO queue of buffer chunks, each chunk-len (256) octets long.
+;; 2 - natural n > 0 id for shared object. Each object seen in the serialization tour is given a unique id.
+;; 3 - hash table for all objects seen to date that maps obj -> object id (n >= 0).
+;; 4 - transform hook for serialization.
+(define state
+  (vector 0
+	  (macro-make-fifo)
+	  0
+	  (make-table test: ##eq?)
+	  (if (eq? transform (macro-absent-obj))
+	      (lambda (x) x)
+	      transform)))
+
+(define-record-type <walk-state>
+  (make-walk-state shared transform)
+  <walk-state>?
+  (id :id :id!) ; Unique id for each shared object in structure
+  (shared :shared :shared!) ; eq? hash table mapping each shared structure to unique id
+  (transform :transform :transform!) ; Procedure for transforming objects during walk.
+
+(define (walk-and-transform structure transform)
+  ; Returns id >= of x if it is a shared object in structure and #f if it is unshared.
+  (define (shared? state x) (hashtable/get (:shared state) x #f))
+  ; Remember that we have seen object x by inserting it into the hash table.
+  (define (remember state x)
+    (hashtable/put! (:shared state) x (:id state))
+    (:id! state (+ (:id state) 1)))
+
+
+  (cond
+   ((procedure? transform)
+    ; State hash table is not thread-safe with weak keys.
+    (let ((state (make-walk-state 0 (make-hashtable eq? #f #t) transform)))
+
+
+
+(define (write-u8 x)
+  (let ((ptr (vector-ref state 0)))
+    (vector-set! state 0 (+ ptr 1))
+    (let ((fifo (vector-ref state 1))
+	  (i (bitwise-and ptr (- chunk-len 1))))
+      (u8vector-set!
+       (if (= i 0)
+	   (let ((chunk (make-u8vector chunk-len)))
+	     (macro-fifo-insert-at-tail! fifo chunk)
+	     chunk)
+	   (macro-fifo-elem (macro-fifo-tail fifo)))
+       i
+       x))))
+
+(define (get-output-u8vector)
+  (let ((ptr (vector-ref state 0))
+	(fifo (vector-ref state 1)))
+    (if (and (< 0 ptr) (<= ptr chunk-len))
+	(let ((u8vect (macro-fifo-elem (macro-fifo-tail fifo))))
+	  (u8vector-shrink! u8vect ptr)
+	  u8vect)
+	(fifo->u8vector fifo 0 ptr))))
+
+;; If obj has been seen before then serialize its shared reference and return #t.
+;; If obj has not been seen before then return #f.
+(define (share obj)
+  (let ((n (table-ref (vector-ref state 3) obj #f)))
+    (if n
+	(begin
+	  (serialize-shared! n)
+	  #t)
+	#f)))
+
+(define (alloc! obj)
+  (let ((n (vector-ref state 2)))
+    (vector-set! state 2 (+ n 1))
+    (table-set! (vector-ref state 3) obj n)))
+
+(define (serialize-shared! n)
+  (let ((lo (bitwise-and n #x7f))
+	(hi (arithmetic-shift-right n 7)))
+    (write-u8 (bitwise-ior (shared-tag) lo))
+    (serialize-nonneg-fixnum! hi)))
+
+(define (serialize! obj)
+  (let* ((transform (vector-ref state 4))
+	 (obj (transform obj)))
+    (cond ((subtyped? obj)
+
+	   (cond ((symbol? obj)
+		  (or (share obj)
+		      (begin
+			(if (uninterned-symbol? obj)
+			    (begin
+			      (write-u8 (ui-symbol-tag))
+			      (serialize-string-like!
+			       (symbol->string obj)
+			       0
+			       #xff)
+			      (serialize-exact-int-of-length!
+			       (##symbol-hash obj)
+			       4))
+			    (serialize-string-like!
+			     (symbol->string obj)
+			     (symbol-tag)
+			     #x0f))
+			(write-u8 (if (##global-var? obj) 1 0))
+			(alloc! obj))))
+
+		 ((keyword? obj)
+		  (or (share obj)
+		      (begin
+			(if (uninterned-keyword? obj)
+			    (begin
+			      (write-u8 (ui-keyword-tag))
+			      (serialize-string-like!
+			       (keyword->string obj)
+			       0
+			       #xff)
+			      (serialize-exact-int-of-length!
+			       (##keyword-hash obj)
+			       4))
+			    (serialize-string-like!
+			     (keyword->string obj)
+			     (keyword-tag)
+			     0))
+			(alloc! obj))))
+
+		 ((string? obj)
+		  (or (share obj)
+		      (begin
+			(serialize-string-like!
+			 obj
+			 (string-tag)
+			 #x0f)
+			(alloc! obj))))
+
+		 ((vector? obj)
+		  (or (share obj)
+		      (begin
+			(alloc! obj)
+			(serialize-vector-like! obj (vector-tag)))))
+
+		 ((structure? obj)
+		  (if (or (macro-thread? obj)
+			  (macro-tgroup? obj)
+			  (macro-mutex? obj)
+			  (macro-condvar? obj))
+                      (cannot-serialize obj)
+                      (or (share obj)
+                          (begin
+                            (alloc! obj)
+                            (serialize-vector-like! obj (structure-tag))))))
+
+		 ((procedure? obj)
+		  (if (closure? obj)
+
+		      (or (share obj)
+			  (begin
+			    (write-u8 (closure-tag))
+			    (let* ((subproc
+				    (closure-code obj))
+				   (nb-closed
+				    (subprocedure-nb-closed subproc)))
+			      (serialize-subprocedure! subproc 0 #x7f)
+			      (alloc! obj)
+			      (serialize-subvector! obj 1 (+ nb-closed 1)))))
+
+		      (serialize-subprocedure! obj (subprocedure-tag) #x0f)))
+
+		 ((flonum? obj)
+		  (or (share obj)
+		      (begin
+			(write-u8 (flonum-tag))
+			(serialize-flonum-64! obj)
+			(alloc! obj))))
+
+		 ((bignum? obj)
+		  (serialize-exact-int! obj))
+
+		 ((ratnum? obj)
+		  (or (share obj)
+		      (begin
+			(write-u8 (ratnum-tag))
+			(serialize! (macro-ratnum-numerator obj))
+			(serialize! (macro-ratnum-denominator obj))
+			(alloc! obj))))
+
+		 ((cpxnum? obj)
+		  (or (share obj)
+		      (begin
+			(write-u8 (cpxnum-tag))
+			(serialize! (macro-cpxnum-real obj))
+			(serialize! (macro-cpxnum-imag obj))
+			(alloc! obj))))
+
+		 ((continuation? obj)
+		  (let ()
+
+		    (define (serialize-cont-frame! cont)
+		      (write-u8 (frame-tag))
+		      (let ((subproc (##continuation-ret cont))
+			    (fs (##continuation-fs cont)))
+			(serialize-subprocedure! subproc 0 #x7f)
+			(alloc! (##cons 11 22))
+			(let loop ((i fs))
+			  (if (##fixnum.> i 0)
+			      (begin
+				(serialize-cont-frame-ref! cont i)
+				(loop (##fixnum.- i 1)))))))
+
+		    (define (serialize-cont-frame-ref! cont i)
+		      (let* ((fs (##continuation-fs cont))
+			     (j (##fixnum.+ (##fixnum.- fs i) 1)))
+			(if (##continuation-slot-live? cont j)
+			    (if (##fixnum.= j (##fixnum.+ (##continuation-link cont) 1))
+				(let ((next (##continuation-next cont)))
+				  (if next
+				      (serialize-cont-frame! next)
+				      (serialize! 0)))
+				(serialize! (##continuation-ref cont j))))))
+
+		    (or (share obj)
+			(begin
+			  (alloc! obj)
+			  (write-u8 (continuation-tag))
+			  (serialize-cont-frame! obj)
+			  (serialize! (continuation-denv obj))))))
+
+		 ((frame? obj)
+		  (or (share obj)
+		      (begin
+			(write-u8 (frame-tag))
+			(let* ((subproc (frame-ret obj))
+			       (fs (frame-fs obj)))
+			  (serialize-subprocedure! subproc 0 #x7f)
+			  (alloc! obj)
+			  (let loop ((i 1))
+			    (if (<= i fs)
+				(begin
+				  (if (frame-slot-live? obj i)
+				      (serialize! (frame-ref obj i)))
+				  (loop (+ i 1)))))))))
+
+		 ((boxvalues? obj)
+		  (or (share obj)
+		      (begin
+			(alloc! obj)
+			(serialize-vector-like-long! obj (boxvalues-tag)))))
+
+		 ((gc-hash-table? obj)
+		  (or (share obj)
+		      (begin
+			(alloc! obj)
+			(write-u8 (gchashtable-tag))
+			(let ()
+			  (##declare (not interrupts-enabled))
+			  (let ((len
+				 (vector-length obj))
+				(flags
+				 (macro-gc-hash-table-flags obj))
+				(count
+				 (macro-gc-hash-table-count obj))
+				(min-count
+				 (macro-gc-hash-table-min-count obj))
+				(free
+				 (macro-gc-hash-table-free obj)))
+			    (serialize-nonneg-fixnum! len)
+			    (serialize-nonneg-fixnum! flags)
+			    (serialize-nonneg-fixnum! count)
+			    (serialize-nonneg-fixnum! min-count)
+			    (serialize-nonneg-fixnum! free))
+			  (let loop ((i (macro-gc-hash-table-key0)))
+			    (if (< i (vector-length obj))
+				(let ((key (vector-ref obj i)))
+				  (if (and (not (eq? key (macro-unused-obj)))
+					   (not (eq? key (macro-deleted-obj))))
+				      (let ((val (vector-ref obj (+ i 1))))
+					(serialize! key)
+					(serialize! val)))
+				  (let ()
+				    (##declare (interrupts-enabled))
+				    (loop (+ i 2))))
+				(serialize! (macro-unused-obj))))))))
+
+		 ((s8vector? obj)
+		  (serialize-homintvector!
+		   obj
+		   (s8vector-tag)
+		   (lambda (v) (s8vector-length v))
+		   (lambda (v i) (s8vector-ref v i))
+		   1))
+
+		 ((u8vector? obj)
+		  (serialize-homintvector!
+		   obj
+		   (u8vector-tag)
+		   (lambda (v) (u8vector-length v))
+		   (lambda (v i) (u8vector-ref v i))
+		   1))
+
+		 ((s16vector? obj)
+		  (serialize-homintvector!
+		   obj
+		   (s16vector-tag)
+		   (lambda (v) (s16vector-length v))
+		   (lambda (v i) (s16vector-ref v i))
+		   2))
+
+		 ((u16vector? obj)
+		  (serialize-homintvector!
+		   obj
+		   (u16vector-tag)
+		   (lambda (v) (u16vector-length v))
+		   (lambda (v i) (u16vector-ref v i))
+		   2))
+
+		 ((s32vector? obj)
+		  (serialize-homintvector!
+		   obj
+		   (s32vector-tag)
+		   (lambda (v) (s32vector-length v))
+		   (lambda (v i) (s32vector-ref v i))
+		   4))
+
+		 ((u32vector? obj)
+		  (serialize-homintvector!
+		   obj
+		   (u32vector-tag)
+		   (lambda (v) (u32vector-length v))
+		   (lambda (v i) (u32vector-ref v i))
+		   4))
+
+		 ((s64vector? obj)
+		  (serialize-homintvector!
+		   obj
+		   (s64vector-tag)
+		   (lambda (v) (s64vector-length v))
+		   (lambda (v i) (s64vector-ref v i))
+		   8))
+
+		 ((u64vector? obj)
+		  (serialize-homintvector!
+		   obj
+		   (u64vector-tag)
+		   (lambda (v) (u64vector-length v))
+		   (lambda (v i) (u64vector-ref v i))
+		   8))
+
+		 ((f32vector? obj)
+		  (serialize-homfloatvector!
+		   obj
+		   (f32vector-tag)
+		   (lambda (v) (f32vector-length v))
+		   (lambda (v i) (f32vector-ref v i))
+		   #t))
+
+		 ((f64vector? obj)
+		  (serialize-homfloatvector!
+		   obj
+		   (f64vector-tag)
+		   (lambda (v) (f64vector-length v))
+		   (lambda (v i) (f64vector-ref v i))
+		   #f))
+
+		 (else
+		  (cannot-serialize obj))))
+
+	  ((pair? obj)
+	   (or (share obj)
+	       (begin
+		 (alloc! obj)
+		 (write-u8 (pair-tag))
+		 (serialize! (car obj))
+		 (serialize! (cdr obj)))))
+
+	  ((fixnum? obj)
+	   (cond ((and (>= obj #x00)
+		       (< obj #x0b))
+		  (write-u8 (bitwise-ior (exact-int-tag) obj)))
+		 ((and (>= obj #x-80)
+		       (< obj #x80))
+		  (write-u8 (bitwise-ior (exact-int-tag) #x0e))
+		  (write-u8 (bitwise-and obj #xff)))
+		 (else
+		  (serialize-exact-int! obj))))
+
+	  ((char? obj)
+	   (let ((n (char->integer obj)))
+	     (write-u8 (character-tag))
+	     (serialize-nonneg-fixnum! n)))
+
+	  ((eq? obj #f)                  (write-u8 (false-tag)))
+	  ((eq? obj #t)                  (write-u8 (true-tag)))
+	  ((eq? obj '())                 (write-u8 (nil-tag)))
+	  ((eq? obj #!eof)               (write-u8 (eof-tag)))
+	  ((eq? obj #!void)              (write-u8 (void-tag)))
+	  ((eq? obj (macro-absent-obj))  (write-u8 (absent-tag)))
+	  ((eq? obj #!unbound)           (write-u8 (unbound-tag)))
+	  ((eq? obj #!unbound2)          (write-u8 (unbound2-tag)))
+	  ((eq? obj #!optional)          (write-u8 (optional-tag)))
+	  ((eq? obj #!key)               (write-u8 (key-tag)))
+	  ((eq? obj #!rest)              (write-u8 (rest-tag)))
+	  ((eq? obj (macro-unused-obj))  (write-u8 (unused-tag)))
+	  ((eq? obj (macro-deleted-obj)) (write-u8 (deleted-tag)))
+
+	  (else
+	   (cannot-serialize obj)))))
+
+(serialize! obj)
+
+(get-output-u8vector))

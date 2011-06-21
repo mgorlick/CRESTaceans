@@ -1,0 +1,68 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[Deadly Bombing Rocks Kabul]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=e5ad9fd1d82948d551c9d4f89450ec3b]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500572.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500572.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 15 11:10 EDT 2009]]></pubDate>
+			<description><![CDATA[Massive blast outside U.S., NATO headquarters comes days before Afghanistan's presidential vote. 
+
+<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=e5ad9fd1d82948d551c9d4f89450ec3b&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=e5ad9fd1d82948d551c9d4f89450ec3b&p=1"/></a>
+]]></description>
+			<author><![CDATA[Joshua Partlow]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Senator Wins Release of American Held in Burma]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=5c14e6b142ce4d41bb49368b6a34a50f]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500612.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500612.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 15 10:48 EDT 2009]]></pubDate>
+			<description><![CDATA[U.S. man imprisoned in Burma for visiting residence of detained democracy leader Suu Kyi will head back to U.S. with Va. Senator Jim Webb.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=5c14e6b142ce4d41bb49368b6a34a50f&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=5c14e6b142ce4d41bb49368b6a34a50f&p=1"/></a>
+]]></description>
+			<author><![CDATA[Associated Press]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Dressing Down at Town Halls]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=0f320494d9b64c34dcc01ffca7d1a729]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/13/AR2009081304158.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/13/AR2009081304158.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 15 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[<span class="kicker1">ON CULTURE</span> | Citizens' casual attire seems to be a challenge to the authority of suited-up lawmakers. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=0f320494d9b64c34dcc01ffca7d1a729&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=0f320494d9b64c34dcc01ffca7d1a729&p=1"/></a>
+]]></description>
+			<author><![CDATA[Robin Givhan]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Soft Drinks to Quench Stress]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=321040ce43206b7be7542f2ad4dae319]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/14/AR2009081403463.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/14/AR2009081403463.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 15 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[New niche of "relaxation beverages" aims to offer people a way to unwind in tense times. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=321040ce43206b7be7542f2ad4dae319&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=321040ce43206b7be7542f2ad4dae319&p=1"/></a>
+]]></description>
+			<author><![CDATA[Ylan Q. Mui]]></author>
+		</item>
+	</channel>
+</rss>

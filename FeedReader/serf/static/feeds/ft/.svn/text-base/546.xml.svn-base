@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Wed, 19 Aug 2009 18:22:26 GMT</pubDate>
+    <lastBuildDate>Wed, 19 Aug 2009 18:29:12 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>US wins UBS accounts deal</title>
+      <link>http://traxfer.ft.com/cms/s/0/35879d72-8cd5-11de-a540-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The US yesterday blasted a huge hole in Switzerland’s famed hallowed bank secrecy as Bern agreed to reveal the names of 4,450 wealthy rich Americans holding offshore accounts at UBS, the country’s biggest bank</description>
+      <pubDate>Wed, 19 Aug 2009 18:19:13 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/35879d72-8cd5-11de-a540-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Oil price rebound boosts Wall Street</title>
+      <link>http://traxfer.ft.com/cms/s/0/09e2a306-8c35-11de-b14f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>A rebound in the price of oil boosted energy stocks and helped US equities reverse the morning’s losses</description>
+      <pubDate>Wed, 19 Aug 2009 17:44:42 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/09e2a306-8c35-11de-b14f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Jump in US office prices raises hopes</title>
+      <link>http://traxfer.ft.com/cms/s/0/88453526-8ce7-11de-a540-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The price of offices in the US rose in the second quarter for the first time since 2007, offering a glimmer of hope for the stricken commercial property market, according to a report from Moody’s, the ratings agency</description>
+      <pubDate>Wed, 19 Aug 2009 17:55:35 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/88453526-8ce7-11de-a540-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Taliban target Afghan polling stations</title>
+      <link>http://traxfer.ft.com/cms/s/0/a9abc64a-8cc3-11de-a540-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Officials and civilians have received warnings that militants will target voters in addition to military and government institutions.</description>
+      <pubDate>Wed, 19 Aug 2009 14:28:44 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/a9abc64a-8cc3-11de-a540-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Deere quarterly earnings beat expectations</title>
+      <link>http://traxfer.ft.com/cms/s/0/854add1a-8cc1-11de-a540-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>John Deere, the world’s biggest maker of agricultural equipment, indicated that it did not expect to make a profit in the remainder of its fiscal yearwould struggle to make a profit in its current fiscal quarter, as it warned it faced “persistent global economic pressure”</description>
+      <pubDate>Wed, 19 Aug 2009 18:22:26 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/854add1a-8cc1-11de-a540-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>ECB urges further stimulus measures</title>
+      <link>http://traxfer.ft.com/cms/s/0/f9ad308c-8ca7-11de-a540-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Emergency growth-stimulating policies are still needed to support Europe’s fragile economic recovery, Axel Weber, Germany’s Bundesbank president, has warned</description>
+      <pubDate>Wed, 19 Aug 2009 18:14:49 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/f9ad308c-8ca7-11de-a540-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>FSA spells out rules for activist investors</title>
+      <link>http://traxfer.ft.com/cms/s/0/ac934b4a-8cbd-11de-a540-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The FSA has changed its rules to allow investors to work together to oust chief executives or press for changes to strategy without falling foul of EU or UK regulations</description>
+      <pubDate>Wed, 19 Aug 2009 14:04:07 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/ac934b4a-8cbd-11de-a540-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>More than 95 dead in Baghdad attacks</title>
+      <link>http://traxfer.ft.com/cms/s/0/2aa18bd8-8c9f-11de-a540-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Baghdad suffered a string of attacks that left more than 95 people dead in the latest sign that violence in Iraq has intensified in the wake of a handover from US troops to Iraqi security forces.</description>
+      <pubDate>Wed, 19 Aug 2009 15:00:36 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/2aa18bd8-8c9f-11de-a540-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Recession easing among wealthier nations</title>
+      <link>http://traxfer.ft.com/cms/s/0/3bc4e950-8cd1-11de-a540-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>An OECD analysis of the GDP of its largest members shows an average 0.1 per cent contraction in the second quarter of 2009, following 2.5 per cent in the first quarter, with the UK significantly weaker than its peers</description>
+      <pubDate>Wed, 19 Aug 2009 15:45:50 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/3bc4e950-8cd1-11de-a540-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>HP profit plunge dashes tech recovery hopes</title>
+      <link>http://traxfer.ft.com/cms/s/0/08ca2568-8c42-11de-b14f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>An anticipated expected recovery in technology markets that could add to early indications that the world is heading out of recession has yet to take hold, according to figures from Hewlett-Packard</description>
+      <pubDate>Tue, 18 Aug 2009 23:37:47 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/08ca2568-8c42-11de-b14f-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

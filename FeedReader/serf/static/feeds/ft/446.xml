@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Sat, 15 Aug 2009 13:28:17 GMT</pubDate>
+    <lastBuildDate>Sat, 15 Aug 2009 14:25:35 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>Afghan poll imperilled by brazen attack</title>
+      <link>http://traxfer.ft.com/cms/s/0/4d19a948-8984-11de-94b7-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Senior election officials in Afghanistan warned that a suicide bomb attack outside the Nato headquarters in Kabul threatened to imperil Thursday’s vote if repeated in the coming days</description>
+      <pubDate>Sat, 15 Aug 2009 12:56:31 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/4d19a948-8984-11de-94b7-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Oil industry split on climate law protests</title>
+      <link>http://traxfer.ft.com/cms/s/0/410c5118-88ef-11de-b50f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>A rift has broken out within the US oil industry over a controversial plan to deploy thousands of workers in so-called “Energy Citizen” rallies protesting against imminent climate legislation</description>
+      <pubDate>Fri, 14 Aug 2009 16:51:17 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/410c5118-88ef-11de-b50f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>UK defends its healthcare</title>
+      <link>http://traxfer.ft.com/cms/s/0/1c23b53a-883b-11de-82e4-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The fractious British political classes have united in defence of the UK’s healthcare system asafter it has become a byword for the failings of universal, state-funded provision among the US Republican right</description>
+      <pubDate>Fri, 14 Aug 2009 20:08:35 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/1c23b53a-883b-11de-82e4-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>American who visited Suu Kyi to be freed from Burma</title>
+      <link>http://traxfer.ft.com/cms/s/0/1fbb330c-898b-11de-94b7-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The American man who swam across a lake to visit Burma’s opposition leader Aung San Suu Kyi will be released, according to a statement issued  by US Senator Jim Webb</description>
+      <pubDate>Sat, 15 Aug 2009 13:28:17 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/1fbb330c-898b-11de-94b7-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>A rally with troubling aspects</title>
+      <link>http://traxfer.ft.com/cms/s/0/2559e768-88f0-11de-b50f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Markets worldwide are pricing in a lot of good news, worrying analysts who believe this rebound will run out of steam</description>
+      <pubDate>Fri, 14 Aug 2009 17:08:37 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/2559e768-88f0-11de-b50f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Beijing sets date for emissions cut</title>
+      <link>http://traxfer.ft.com/cms/s/0/d11ae554-88fd-11de-b50f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>China’s carbon emissions will start falling by 2050, its top climate change policymaker said, the first time the world’s largest emitter has given such a time-frame</description>
+      <pubDate>Fri, 14 Aug 2009 22:33:21 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/d11ae554-88fd-11de-b50f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>The US economy is still struggling</title>
+      <link>http://traxfer.ft.com/cms/s/0/88eac7fc-88fa-11de-b50f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Is the worst over? Some recent figures point that way, but for the moment, the emphasis needs to stay on caution not optimism</description>
+      <pubDate>Fri, 14 Aug 2009 17:54:38 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/88eac7fc-88fa-11de-b50f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>US regulators close Colonial</title>
+      <link>http://traxfer.ft.com/cms/s/0/35f194f6-892a-11de-b50f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>In the biggest US banking collapse this year, regulators close the Alabama-based bank with $25bn in assets then broker the sale of its branches and deposits to BB&amp;T</description>
+      <pubDate>Fri, 14 Aug 2009 23:52:48 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/35f194f6-892a-11de-b50f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>GM and Chrysler steer different paths to recovery</title>
+      <link>http://traxfer.ft.com/cms/s/0/f272f1fe-88f5-11de-b50f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The ‘new’ General Motors gallops out of the gate with a slew of announcements and other initiatives, while Chrysler has been relatively silent all but invisible apart from run-of-the-mill sales promotions, writes Bernard Simon</description>
+      <pubDate>Fri, 14 Aug 2009 18:02:41 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/f272f1fe-88f5-11de-b50f-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Hamas shootout with Islamist group</title>
+      <link>http://traxfer.ft.com/cms/s/0/bd34414e-8924-11de-b50f-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Hamas, the Palestinian group that rules the Gaza Strip, battled against Islamist radicals in a shootout that killed at least 13 people and wounded dozens more</description>
+      <pubDate>Fri, 14 Aug 2009 23:01:19 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/bd34414e-8924-11de-b50f-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

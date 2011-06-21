@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[House, Senate Deals Cut Health-Care Bill Costs]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=f4cdd92ab19d5fd701e8d039fe0d1061]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/07/29/AR2009072902027.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/07/29/AR2009072902027.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Wed Jul 29 13:53 EDT 2009]]></pubDate>
+			<description><![CDATA[Senate Finance Chairman Baucus says draft package he is negotiating with three GOP senators would lower price tag to $900B over 10 years.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=f4cdd92ab19d5fd701e8d039fe0d1061&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=f4cdd92ab19d5fd701e8d039fe0d1061&p=1"/></a>
+]]></description>
+			<author><![CDATA[Shailagh Murray and Paul Kane]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Banita Jacks Guilty in Deaths of Four Girls]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=89c76982585b2e71d5507c44bf194a5e]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/07/29/AR2009072901790.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/07/29/AR2009072901790.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Wed Jul 29 14:31 EDT 2009]]></pubDate>
+			<description><![CDATA[After living with her daughters' decomposing bodies for at least seven months, D.C. woman will likely spend the rest of her life in prison.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=89c76982585b2e71d5507c44bf194a5e&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=89c76982585b2e71d5507c44bf194a5e&p=1"/></a>
+]]></description>
+			<author><![CDATA[Keith L. Alexander]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Does Tax Break Fuel Spending? ]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=9ddae7479cdea33063283b48a3c640ce]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/07/29/AR2009072902035.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/07/29/AR2009072902035.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Wed Jul 29 13:23 EDT 2009]]></pubDate>
+			<description><![CDATA[Even as consensus grows, critics warn effect of taxing health benefits is being greatly overstated.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=9ddae7479cdea33063283b48a3c640ce&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=9ddae7479cdea33063283b48a3c640ce&p=1"/></a>
+]]></description>
+			<author><![CDATA[Alec MacGillis]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Microsoft, Yahoo Deal Eyed]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=6b94f09cb03a0908507b4f37d9a74332]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/07/29/AR2009072900966.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/07/29/AR2009072900966.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Wed Jul 29 12:25 EDT 2009]]></pubDate>
+			<description><![CDATA[Lawmakers concerned over deal giving software giant access to second-largest search engine.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=6b94f09cb03a0908507b4f37d9a74332&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=6b94f09cb03a0908507b4f37d9a74332&p=1"/></a>
+]]></description>
+			<author><![CDATA[Cecilia Kang]]></author>
+		</item>
+		<item>
+			<title><![CDATA[U.S. May Speed Iraq Withdrawal]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=951224a34d1d9fb24c8fe8d7ae23492c]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/07/29/AR2009072900963.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/07/29/AR2009072900963.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Wed Jul 29 10:03 EDT 2009]]></pubDate>
+			<description><![CDATA[Defense secretary praises reduction in violence, hints at modest drawdown of U.S. forces this year. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=951224a34d1d9fb24c8fe8d7ae23492c&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=951224a34d1d9fb24c8fe8d7ae23492c&p=1"/></a>
+]]></description>
+			<author><![CDATA[Greg Jaffe]]></author>
+		</item>
+	</channel>
+</rss>

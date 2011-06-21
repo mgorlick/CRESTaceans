@@ -1,0 +1,29 @@
+2009.03.07
+
+2009.03.06
+  (with/fc p thunk) where p is a procedure of two arguments p(e, c):
+    e - error record describing the error that gave rise to the failure continuation
+    c - the continuation of the expession that raised the error
+
+  The handler p(e, c) may take any one of three different actions:
+    * Return an alternate value to the continuation of the (with/fc p thunk) call
+
+    * Restart the computation from the error site by providing a substitute value for the expression
+      that generated the error
+
+    * Propagate the error e or propagate a substitute error e'
+
+  If no error occurs the value of (thunk) is the value of the expression (with/fc p thunk)
+  If an error occurs the return value (if any) of p(e, c)  is the value of the expression (with/fc p thunk)
+
+  If c is the continuation passed to the handler p then (c v) will restart the computation from the
+  error site using value v as a substitute for the error site
+
+  Exceptions are nothing more than a wrapper around an error record e and a failure continuation c
+
+
+
+
+Appcontext.java
+  toplevel_env is the global Scheme binding environment in this application context
+  symenv is the context environment (which means what???)

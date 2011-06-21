@@ -1,0 +1,279 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Wed, 19 Aug 2009 10:23:25 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Democrats Seem Set to Go It Alone on a Health Bill</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=330f33c6b4437a852da27644c9f44a6a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/health/policy/19repubs.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/health/policy/19repubs.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/18/us/19repubs_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Senator Charles E. Grassley, a leader in bipartisan talks, at a town meeting on health care reform in Adel, Iowa last week. </media:description>
+			<media:credit>Steve Pope/Associated Press</media:credit>
+			<description>Given hardening Republican opposition to Congressional health care proposals, Democrats now say they see little chance of the minority&#x2019;s cooperation in approving any overhaul.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=330f33c6b4437a852da27644c9f44a6a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=330f33c6b4437a852da27644c9f44a6a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CARL HULSE and JEFF ZELENY</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 06:08:41 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Republican Party</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Grassley, Charles E</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Democratic Party</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+		</item>
+		<item>
+			<title>F.B.I. Agents&#x2019; Role Is Transformed by Terror Fight</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=eff4e63afa03e869cdd73bf122748e41</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/us/19terror.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/us/19terror.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/19/us/19terror_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>At the F.B.I.&#x2019;s regional intelligence center in Norwalk, Calif., members of the threat squad check databases and conduct field interviews before deciding how to proceed with each case.</media:description>
+			<media:credit>Michal Czerwonka for The New York Times</media:credit>
+			<description>As part of the larger debate about the transformation of the F.B.I., some counterterrorism specialists question the value of threat squads that vet thousands of tips but find few leads.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=eff4e63afa03e869cdd73bf122748e41&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=eff4e63afa03e869cdd73bf122748e41&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ERIC SCHMITT</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 06:11:08 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Terrorism</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Federal Bureau of Investigation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Threats and Threatening Messages</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Los Angeles (Calif)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Security and Warning Systems</category>
+		</item>
+		<item>
+			<title>An Unexpected Ally&#x2019;s Road to Championing Same-Sex Marriage</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=de447c2f19a62ec3eac3ddd5b8761a74</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/us/19olson.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/us/19olson.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/19/us/19olson_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Theodore B. Olson says the marriage case is about &#x201C;rights and happiness and equal treatment.&#x201D;</media:description>
+			<media:credit>Justin Maxon/The New York Times</media:credit>
+			<description>Theodore B. Olson, a conservative legal star, hopes to reshape the legal and social landscape, fighting a gay marriage ban in California.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=de447c2f19a62ec3eac3ddd5b8761a74&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=de447c2f19a62ec3eac3ddd5b8761a74&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JO BECKER</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 06:14:55 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Olson, Theodore B</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Same-Sex Marriage, Civil Unions and Domestic Partnerships</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">California</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Suits and Litigation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Discrimination</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Referendums</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Reiner, Rob</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Cooper, Chuck</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Legal Profession</category>
+		</item>
+		<item>
+			<title>Room for Debate: Ted Olson&#x2019;s Supreme Court Adventure</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6ebd4a92c718a107b12980ffdaf214b9</link>
+			<pheedo:origLink>http://roomfordebate.blogs.nytimes.com/2009/08/18/ted-olsons-supreme-court-adventure/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://roomfordebate.blogs.nytimes.com/2009/08/18/ted-olsons-supreme-court-adventure/index.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/01/12/automobiles/debate.jpg" medium="image" height="75" width="75"/>
+			<media:description/>
+			<media:credit/>
+			<description>Is it too soon to take the same-sex marriage issue to a conservative Supreme Court?&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6ebd4a92c718a107b12980ffdaf214b9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6ebd4a92c718a107b12980ffdaf214b9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE EDITORS</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 04:53:12 GMT</pubDate>
+		</item>
+		<item>
+			<title>Oil Industry Backs Protests of Emissions Bill</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=4254201a66d345d478aad6bff597b88b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/business/energy-environment/19climate.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/business/energy-environment/19climate.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/19/business/19climate_75a.jpg" medium="image" height="75" width="75"/>
+			<media:description>A rally against legislation to set a limit on greenhouse gas emissions in Houston on Tuesday. Oil companies bused in their employees.</media:description>
+			<media:credit>Karen Warren/Houston Chronicle, via Associated Press</media:credit>
+			<description>Companies say new policies from Washington could cost them billions of dollars and raise prices for consumers at the pump.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=4254201a66d345d478aad6bff597b88b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=4254201a66d345d478aad6bff597b88b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CLIFFORD KRAUSS and JAD MOUAWAD</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 04:45:36 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Oil (Petroleum) and Gasoline</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Law and Legislation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Greenhouse Gas Emissions</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Corporations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Environment</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Global Warming</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">American Petroleum Institute</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Anadarko Petroleum Corporation|APC|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Bonner &amp; Associates</category>
+		</item>
+		<item>
+			<title>In North Korea, Clinton Helped Unveil a Mystery</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=36f8fe0d25364794791683443b7eb99e</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/world/asia/19korea.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/world/asia/19korea.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/19/world/19korea.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Bill Clinton and the North Korean leader, Kim Jong-il, in Pyongyang on Aug. 4.</media:description>
+			<media:credit>KCNA, via Reuters</media:credit>
+			<description>Bill Clinton&#x2019;s visit gave the Obama administration its first detailed look into a regime that looms as a major threat.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=36f8fe0d25364794791683443b7eb99e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=36f8fe0d25364794791683443b7eb99e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARK LANDLER and MARK MAZZETTI</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 07:08:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Bill</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Kim Jong Il</category>
+		</item>
+		<item>
+			<title>Back to Business: In Appraisal Shift, Lenders Gain Power and Critics</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c615c5fe69f03a77027d397735ee4791</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/business/19appraise.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/business/19appraise.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/18/business/19appraise_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Andrea and Terry Hartlieb are real estate appraisers in Fort Collins, Colo. They laid off four appraisers who used to work for them. </media:description>
+			<media:credit>Kevin Moloney for The New York Times</media:credit>
+			<description>A change meant to curb conflicts of interest may have opened new problems in the real estate industry.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c615c5fe69f03a77027d397735ee4791&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c615c5fe69f03a77027d397735ee4791&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID STREITFELD</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 06:32:03 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Appraisals and Valuation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Housing and Real Estate</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Law and Legislation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Real Estate Brokers</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Regulation and Deregulation of Industry</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Mortgage Bankers Assn of America</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Senate</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Cuomo, Andrew M</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Callahan, David</category>
+		</item>
+		<item>
+			<title>Senator Moves to Stop Scientific Ghostwriting</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=73551a04650e3b8364bd46d1632096ec</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/health/research/19ethics.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/health/research/19ethics.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/18/business/19ethics_75.jpg" medium="image" height="75" width="75"/>
+			<media:description/>
+			<media:credit>Minh Uong/The New York Times</media:credit>
+			<description>Pressure from Washington may force changes in drug companies&#x2019; involvement with research papers.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=73551a04650e3b8364bd46d1632096ec&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=73551a04650e3b8364bd46d1632096ec&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NATASHA SINGER</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 05:16:53 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Doctors</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Ghostwriting</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Ethics</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">National Institutes of Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Drugs (Pharmaceuticals)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Grassley, Charles E</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Doctors</category>
+		</item>
+		<item>
+			<title>Massive Explosions Kill Dozens in Baghdad</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b45c69e278496a9e88c31f172d442acf</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/20/world/middleeast/20iraq.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/20/world/middleeast/20iraq.html</guid>
+			<description>At least 50 people may have been killed as huge explosions rocked an area of Baghdad near the heavily-fortified Green Zone security area, news reports said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b45c69e278496a9e88c31f172d442acf&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b45c69e278496a9e88c31f172d442acf&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM DAGHER</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 10:06:47 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+		</item>
+		<item>
+			<title>Afghan Long Shots Seek Presidency, or Another Job</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=25bde1854058db8efdcd35150abf17e2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/world/asia/19candidates.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/world/asia/19candidates.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/18/world/19candidates2_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Moinuddin Ulfati, a candidate in Kabul, at his campaign office with security. </media:description>
+			<media:credit>Tyler Hicks/The New York Times</media:credit>
+			<description>The 41 Afghans who have put themselves up for president are playing the game for all manner of reasons.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=25bde1854058db8efdcd35150abf17e2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=25bde1854058db8efdcd35150abf17e2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CARLOTTA GALL</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 09:50:38 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Elections</category>
+		</item>
+		<item>
+			<title>For Older Athletes, Drug Question Emerges</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=56fa5499654050d1c0fc94e91dc27f5b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/us/19athletes.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/us/19athletes.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/19/us/athletes75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Thomas Rice, 81, left, Robert Bruce, 81, and Edward Cox, 82, competed in the 100-meter run at a U.S.A. Masters Outdoor Track &amp; Field Championships event in East Stroudsburg, Pa., in June.</media:description>
+			<media:credit>Angela Jimenez for The New York Times</media:credit>
+			<description>Elderly athletes are setting records. Most are also taking several medications for their health, and that raises the question of what now constitutes a natural body.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=56fa5499654050d1c0fc94e91dc27f5b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=56fa5499654050d1c0fc94e91dc27f5b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOHN LELAND</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 06:23:55 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Elderly</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Track and Field</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Running</category>
+		</item>
+		<item>
+			<title>S. Korea Scrubs Satellite Launch</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=bddb1de70bf876c87c90a23c1425e50e</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/20/science/space/20satellite.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/20/science/space/20satellite.html</guid>
+			<description>The mission was aborted just 7 minutes before liftoff and the rocket was reattached to its pad, news agencies reported from the Naro Space Center.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=bddb1de70bf876c87c90a23c1425e50e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=bddb1de70bf876c87c90a23c1425e50e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARK McDONALD</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 09:34:32 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">South Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Satellites</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Rockets and Rocket Propulsion</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">International Relations</category>
+		</item>
+		<item>
+			<title>When Parents Scream Against Ice Cream</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=db0fa3b550e2d344c5e5b66d471bd077</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/dining/19soft.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/dining/19soft.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/19/dining/19soft_75a.jpg" medium="image" height="75" width="75"/>
+			<media:description>
+				<em class="bold">NEW IMAGE</em>Ice cream via motorcycle in Tacoma, Wash.</media:description>
+			<media:credit>Stuart Isett for The New York Times</media:credit>
+			<description>In a greener, more health-conscious, unsafe world, the ice cream man has lost some of his mojo.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=db0fa3b550e2d344c5e5b66d471bd077&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=db0fa3b550e2d344c5e5b66d471bd077&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By HELENE STAPINSKI</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 04:31:38 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Ice Cream</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Vendors, Street</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Desserts</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Parenting</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Playgrounds</category>
+		</item>
+	</channel>
+</rss>

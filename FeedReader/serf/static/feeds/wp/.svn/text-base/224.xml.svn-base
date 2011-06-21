@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[Administration Might Remake Mortgage Giants]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=7618319405eb60beee35b83a88181676]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/05/AR2009080504063.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/05/AR2009080504063.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Thu Aug 6 13:12 EDT 2009]]></pubDate>
+			<description><![CDATA[U.S. considers overhaul of Fannie Mae and Freddie Mac that would strip them of troubled loans and create structure to support home-loan market.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=7618319405eb60beee35b83a88181676&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=7618319405eb60beee35b83a88181676&p=1"/></a>
+]]></description>
+			<author><![CDATA[Zachary A. Goldfarb and David Cho]]></author>
+		</item>
+		<item>
+			<title><![CDATA[A Move Closer to Health Package]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=681f173917494d146b91e34637de7bf5]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/05/AR2009080503996.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/05/AR2009080503996.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Thu Aug 6 15:33 EDT 2009]]></pubDate>
+			<description><![CDATA[Senate negotiators inch toward bipartisan agreement on a plan that seeks middle ground.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=681f173917494d146b91e34637de7bf5&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=681f173917494d146b91e34637de7bf5&p=1"/></a>
+]]></description>
+			<author><![CDATA[Shailagh Murray and Lori Montgomery]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Clinton's Contacts Aided Release]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=1aaf36ddb0eb7428b07ce3444fa30450]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/05/AR2009080504021.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/05/AR2009080504021.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Thu Aug 6 15:33 EDT 2009]]></pubDate>
+			<description><![CDATA[Ex-president's role in return of journalists held in N. Korea casts spotlight on his vast network.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=1aaf36ddb0eb7428b07ce3444fa30450&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=1aaf36ddb0eb7428b07ce3444fa30450&p=1"/></a>
+]]></description>
+			<author><![CDATA[Glenn Kessler]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Ex-Rep. Jefferson Found Guilty]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=ea976ec5f858949da3f49ff1ee4d6998]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/05/AR2009080503195.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/05/AR2009080503195.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Thu Aug 6 15:33 EDT 2009]]></pubDate>
+			<description><![CDATA[La. Democrat is convicted of corruption charges in case involving $90K stuffed into his freezer.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=ea976ec5f858949da3f49ff1ee4d6998&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=ea976ec5f858949da3f49ff1ee4d6998&p=1"/></a>
+]]></description>
+			<author><![CDATA[Jerry Markon and Brigid Schulte]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Clinton Pushes Kenyan Reform]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=be4777c62d13424b0829ca518f8c2376]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/05/AR2009080500408.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/05/AR2009080500408.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Thu Aug 6 15:33 EDT 2009]]></pubDate>
+			<description><![CDATA[At the start of a major trip to Africa, secretary of state urges probe of post-election ethnic violence.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=be4777c62d13424b0829ca518f8c2376&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=be4777c62d13424b0829ca518f8c2376&p=1"/></a>
+]]></description>
+			<author><![CDATA[Mary Beth Sheridan and Stephanie McCrummen]]></author>
+		</item>
+	</channel>
+</rss>
