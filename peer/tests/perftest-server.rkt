@@ -10,7 +10,7 @@
   (match message
     [(vector <tuple> '(mischief message ask) #"SPAWN" an-url body a b c)
      ;(printf "starting a program~n")
-     (mischief/start body)
+     ;(mischief/start body)
      #f]
     
     [(vector <tuple> '(mischief message ask) #"POST" an-url name a b c)

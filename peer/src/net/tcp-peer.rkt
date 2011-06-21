@@ -5,6 +5,7 @@
          racket/port
          racket/function
          racket/match
+         racket/async-channel
          "structs.rkt"
          "../api/compilation.rkt")
 
@@ -28,61 +29,62 @@
   (define connects-i (make-hash)) ; (hash/c island-pair/c thread?)
   
   ;; RECEIVING
-  (define (run-input-thread i ra rp)
+  (define (run-input-thread i control-channel ra rp)
     (thread
      (λ ()
        (define (delete-self) (hash-remove! connects-i (cons ra rp))
          (printf "inputs: ~a~n" connects-i))
        
-       (define tre (thread-receive-evt))
-       (define tre? (curry equal? tre))
        ;(define reade (read-bytes-line-evt i 'return-linefeed))
        (define eofe (eof-evt i))
-       (with-handlers ([exn:fail:network? (λ (e) 
-                                            (printf "input thread error: ~a~n" (exn-message e))
-                                            (printf "terminating connection~n")
-                                            (tcp-abandon-port i)
-                                            (delete-self))])
+       (with-handlers ([exn? (λ (e) 
+                               (printf "input thread error: ~a~n" (exn-message e))
+                               (printf "terminating connection~n")
+                               (tcp-abandon-port i)
+                               (delete-self)
+                               (async-channel-put control-channel 'exit))])
          (let loop ()
-           (define v (sync eofe tre i)) ; get either an exit signal or a new message every cycle
+           (define v (sync eofe control-channel i)) ; get either an exit signal or a new message every cycle
            (cond [(equal? i v) ; ready to block in order to read something
                   (read-in i reply-thread)
                   (loop)]
-                 [(eof-object? v) ; v signals termination of connection
+                 [(eof-object? v) ; signals termination of connection from other side
                   (raise (make-exn:fail:network "Encountered EOF" (current-continuation-marks)))]
-                 [(tre? v) ; someone signalled the thread
-                  (if (equal? 'exit (thread-receive))
-                      (raise (make-exn:fail:network "Received close command" (current-continuation-marks)))
-                      (loop))]))))))
+                 [(equal? 'exit v) ; signals termination of connection from same side
+                  (raise (make-exn:fail:network "Received close command" (current-continuation-marks)))]))))))
   
   ;;; SENDING
-  (define (run-output-thread o ra rp)
+  (define (run-output-thread o control-channel ra rp)
     (thread
      (λ ()
        (define (delete-self) (hash-remove! connects-o (cons ra rp))
          (printf "outputs: ~a~n" connects-o))
        
+       (define tre (thread-receive-evt))
+       (define tre? (curry equal? tre))
+       
        (with-handlers ([exn? (λ (e)
                                (printf "output thread error: ~a~n" (exn-message e))
                                (printf "terminating connection~n")
                                (tcp-abandon-port o)
-                               (delete-self))])
+                               (delete-self)
+                               (async-channel-put control-channel 'exit))])
          (let loop ()
-           (define v (thread-receive))
-           (cond [(list? v)
-                  (write-out o v)
+           (define v (sync control-channel tre))
+           (cond [(tre? v) ; should be a message ready to write
+                  (define m (thread-receive))
+                  (cond [(list? m) (write-out o m)])
                   (loop)]
-                 [(equal? 'exit v)
-                  (raise (make-exn:fail:network "Receive close command" (current-continuation-marks)))]))))))
+                 [(equal? 'exit v) ; signals termination of connection from this side
+                  (raise (make-exn:fail:network "Received close command" (current-continuation-marks)))]))))))
   
   ;;; CONNECTING
   (define (do-accepts)
     (let*-values ([(i o) (tcp-accept listener)]
                   [(ra rp) (read-preferred-address i)])
       (printf "accepted from ~a:~a~n" ra rp)
-      (hash-set! connects-o (cons ra rp) (run-output-thread o ra rp))
-      (hash-set! connects-i (cons ra rp) (run-input-thread i ra rp)))
-    (do-accepts))
+      (start-threads/store! i o ra rp)
+      (do-accepts)))
   
   ;; Forward outbound message to the thread managing the appropriate output port.
   (define (do-sending o)
@@ -99,11 +101,17 @@
     (let*-values ([(i o) (tcp-connect (request-host req) (request-port req))]
                   [(la lp ra rp) (tcp-addresses i #t)])
       (write-preferred-address o la port)
-      (define ot (run-output-thread o ra rp))
-      (define it (run-input-thread i ra rp))
-      (hash-set! connects-o (cons ra rp) ot)
-      (hash-set! connects-i (cons ra rp) it)
-      ot))
+      (start-threads/store! i o ra rp)
+      (hash-ref connects-o (cons ra rp))))
+  
+  ;; used by both the accepting and connecting processes to start and store threads
+  ;; monitoring given output and input ports bound to the given canonical host:port
+  (define (start-threads/store! i o ra rp)
+    (define control-channel (make-async-channel))
+    (define ot (run-output-thread o control-channel ra rp))
+    (define it (run-input-thread i control-channel ra rp))
+    (hash-set! connects-o (cons ra rp) ot)
+    (hash-set! connects-i (cons ra rp) it))
   
   ;; -------------------------------------
   
