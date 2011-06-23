@@ -38,36 +38,46 @@
       (async-channel-put control-channel 'exit)))
   
   ;; RECEIVING
+  
+  ;; called if the input port gets an eof in input stream.
+  (define (done/eof v)
+    (when (eof-object? v)
+      (raise (make-exn:fail:network "Encountered EOF" (current-continuation-marks)))))
+  
+  ;; called if input or output thread gets a signal through their distinguished
+  ;; control async channel. typically one will signal the other.
+  ;; (in the future, may need a third thread to share the ref)
+  (define (done/signalled v)
+    (when (equal? 'exit v)
+      (raise (make-exn:fail:network "Received close command" (current-continuation-marks)))))
+  
   (define (run-input-thread i control-channel ra rp)
     (thread
      (λ ()
        (with-handlers ([exn? (make-abandon/signal i control-channel (cons ra rp))])
-         (define eofe (eof-evt i))
+         (define eofe (handle-evt (eof-evt i) done/eof))
+         (define sige (handle-evt control-channel done/signalled))
+         (define reade (handle-evt i (curry read-in/forward-message reply-thread)))
          (let loop ()
-           (define v (sync eofe control-channel i)) ; get either an exit signal or a new message every cycle
-           (cond [(equal? i v) ; ready to block in order to read something
-                  (read-in i reply-thread)
-                  (loop)]
-                 [(eof-object? v) ; signals termination of connection from other side
-                  (raise (make-exn:fail:network "Encountered EOF" (current-continuation-marks)))]
-                 [(equal? 'exit v) ; signals termination of connection from same side
-                  (raise (make-exn:fail:network "Received close command" (current-continuation-marks)))]))))))
+           (sync eofe sige reade)
+           (loop))))))
   
   ;;; SENDING
+  
+  ;; called if output thread receives anything in mailbox.
+  (define (output-next o)
+    (define m (thread-receive))
+    (cond [(list? m) (write-out o m)]))
+  
   (define (run-output-thread o control-channel ra rp)
     (thread
-     (λ ()       
+     (λ ()
        (with-handlers ([exn? (make-abandon/signal o control-channel (cons ra rp))])
-         (define tre (thread-receive-evt))
-         (define tre? (curry equal? tre))
+         (define msge (handle-evt (thread-receive-evt) (λ (v) (output-next o))))
+         (define sige (handle-evt control-channel done/signalled))
          (let loop ()
-           (define v (sync control-channel tre))
-           (cond [(tre? v) ; should be a message ready to write
-                  (define m (thread-receive))
-                  (cond [(list? m) (write-out o m)])
-                  (loop)]
-                 [(equal? 'exit v) ; signals termination of connection from this side
-                  (raise (make-exn:fail:network "Received close command" (current-continuation-marks)))]))))))
+           (sync msge sige)
+           (loop))))))
   
   ;;; CONNECTING
   (define (do-accepts)
@@ -81,7 +91,8 @@
   (define (do-sending)
     (define req (thread-receive))
     (cond [(request? req)
-           (define othread (hash-ref connects-o (cons (request-host req) (request-port req)) (λ () (connect/store! req))))
+           (define othread (hash-ref connects-o (cons (request-host req) (request-port req))
+                                     (λ () (connect/store! req))))
            (thread-send othread (request->serialized req) #f)
            (do-sending)]))
   
@@ -113,7 +124,6 @@
 (define number->bytes (compose string->bytes/utf-8 number->string))
 (define bytes->number (compose string->number bytes->string/utf-8))
 
-
 (define (request->serialized req)
   (serialize (request-message req)))
 
@@ -129,18 +139,18 @@
   (write data o)
   (flush-output o))
 
-;; INPUT
+;; on connection startup the peer acting in "client" role writes preferred address
+;; (i.e., the host/port which its own URLs use to name it)
 (define (read-preferred-address i)
   (let ([b (read-bytes-line i 'return-linefeed)])
     (if (bytes? b)
         (match (regexp-split #rx#" " b)
           [(list #"ADDRESS" hostname port#)
            (values (bytes->string/utf-8 hostname) (bytes->number port#))]
-          [else (raise 
-                 (make-exn:fail:network "Malformed canonical peer address found" (current-continuation-marks)))])
+          [else (raise (make-exn:fail:network "Malformed canonical peer address found" (current-continuation-marks)))])
         (raise (make-exn:fail:network "No canonical peer address found" (current-continuation-marks))))))
 
-(define (read-in i reply-thread)
+(define (read-in/forward-message reply-thread i)
   (thread-send reply-thread (deserialize (read i) BASELINE #f)))
 
 ;; FOR TESTING ONLY
