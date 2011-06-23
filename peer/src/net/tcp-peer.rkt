@@ -24,25 +24,25 @@
   
   (define listener (tcp-listen port 64 #f hostname))
   
-  ;; connections we've made to long-lived island pairs
   (define connects-o (make-hash)) ; (hash/c island-pair/c thread?)
   (define connects-i (make-hash)) ; (hash/c island-pair/c thread?)
+  
+  (define (make-abandon/signal port control-channel self-key)
+    (λ (e)
+      (printf "~a thread error: ~a~n" (if (input-port? port) "Input" "Output") (exn-message e))
+      (printf "terminating connection~n")
+      (tcp-abandon-port port)
+      (if (input-port? port)
+          (hash-remove! connects-i self-key)
+          (hash-remove! connects-o self-key))
+      (async-channel-put control-channel 'exit)))
   
   ;; RECEIVING
   (define (run-input-thread i control-channel ra rp)
     (thread
      (λ ()
-       (define (delete-self) (hash-remove! connects-i (cons ra rp))
-         (printf "inputs: ~a~n" connects-i))
-       
-       ;(define reade (read-bytes-line-evt i 'return-linefeed))
-       (define eofe (eof-evt i))
-       (with-handlers ([exn? (λ (e) 
-                               (printf "input thread error: ~a~n" (exn-message e))
-                               (printf "terminating connection~n")
-                               (tcp-abandon-port i)
-                               (delete-self)
-                               (async-channel-put control-channel 'exit))])
+       (with-handlers ([exn? (make-abandon/signal i control-channel (cons ra rp))])
+         (define eofe (eof-evt i))
          (let loop ()
            (define v (sync eofe control-channel i)) ; get either an exit signal or a new message every cycle
            (cond [(equal? i v) ; ready to block in order to read something
@@ -56,19 +56,10 @@
   ;;; SENDING
   (define (run-output-thread o control-channel ra rp)
     (thread
-     (λ ()
-       (define (delete-self) (hash-remove! connects-o (cons ra rp))
-         (printf "outputs: ~a~n" connects-o))
-       
-       (define tre (thread-receive-evt))
-       (define tre? (curry equal? tre))
-       
-       (with-handlers ([exn? (λ (e)
-                               (printf "output thread error: ~a~n" (exn-message e))
-                               (printf "terminating connection~n")
-                               (tcp-abandon-port o)
-                               (delete-self)
-                               (async-channel-put control-channel 'exit))])
+     (λ ()       
+       (with-handlers ([exn? (make-abandon/signal o control-channel (cons ra rp))])
+         (define tre (thread-receive-evt))
+         (define tre? (curry equal? tre))
          (let loop ()
            (define v (sync control-channel tre))
            (cond [(tre? v) ; should be a message ready to write
@@ -90,9 +81,7 @@
   (define (do-sending)
     (define req (thread-receive))
     (cond [(request? req)
-           (define othread (hash-ref connects-o
-                                     (cons (request-host req) (request-port req))
-                                     (λ () (connect/store! req))))
+           (define othread (hash-ref connects-o (cons (request-host req) (request-port req)) (λ () (connect/store! req))))
            (thread-send othread (request->serialized req) #f)
            (do-sending)]))
   
@@ -124,6 +113,7 @@
 (define number->bytes (compose string->bytes/utf-8 number->string))
 (define bytes->number (compose string->number bytes->string/utf-8))
 
+
 (define (request->serialized req)
   (serialize (request-message req)))
 
@@ -137,8 +127,7 @@
 
 (define (write-out o data)
   (write data o)
-  (flush-output o)
-  (sendtest (+ 6 799))) ; FIXME
+  (flush-output o))
 
 ;; INPUT
 (define (read-preferred-address i)
@@ -148,7 +137,7 @@
           [(list #"ADDRESS" hostname port#)
            (values (bytes->string/utf-8 hostname) (bytes->number port#))]
           [else (raise 
-                 (make-exn:fail:network "Malformed canonical peer address found"(current-continuation-marks)))])
+                 (make-exn:fail:network "Malformed canonical peer address found" (current-continuation-marks)))])
         (raise (make-exn:fail:network "No canonical peer address found" (current-continuation-marks))))))
 
 (define (read-in i reply-thread)
