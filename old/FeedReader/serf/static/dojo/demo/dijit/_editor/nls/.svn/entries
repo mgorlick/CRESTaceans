@@ -1,211 +1,0 @@
-10
-
-dir
-9960
-http://tps.ics.uci.edu/svn/projects/CREST/sisc/serf/static/dojo/demo/dijit/_editor/nls
-http://tps.ics.uci.edu/svn/projects
-
-
-
-2009-08-06T23:43:26.231677Z
-8984
-mgorlick
-
-
-svn:special svn:externals svn:needs-lock
-
-
-
-
-
-
-
-
-
-
-
-3eb8784e-3aee-0310-b028-d3d3d21a5a25
-
-FontChoice.js
-file
-
-
-
-
-2011-06-21T06:35:35.000000Z
-3d60c2c01811108f127168e5ecca781c
-2009-08-06T23:43:26.231677Z
-8984
-mgorlick
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-356
-
-LinkDialog.js
-file
-
-
-
-
-2011-06-21T06:35:35.000000Z
-b4d7e289378496befda9544d5033e615
-2009-08-06T23:43:26.231677Z
-8984
-mgorlick
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-124
-
-ar
-dir
-
-ca
-dir
-
-commands.js
-file
-
-
-
-
-2011-06-21T06:35:36.000000Z
-ad825d566a8e4d01071dd1863cea78b1
-2009-08-06T23:43:26.231677Z
-8984
-mgorlick
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-1177
-
-cs
-dir
-
-da
-dir
-
-de
-dir
-
-el
-dir
-
-es
-dir
-
-fi
-dir
-
-fr
-dir
-
-he
-dir
-
-hu
-dir
-
-it
-dir
-
-ja
-dir
-
-ko
-dir
-
-nb
-dir
-
-nl
-dir
-
-pl
-dir
-
-pt
-dir
-
-pt-pt
-dir
-
-ru
-dir
-
-sk
-dir
-
-sl
-dir
-
-sv
-dir
-
-th
-dir
-
-tr
-dir
-
-zh
-dir
-
-zh-tw
-dir
-
