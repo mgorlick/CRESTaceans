@@ -26,8 +26,7 @@
 
 (define error* (curry error logger))
 (define warning* (curry warning logger))
-;(define debug* (curry debug logger))
-(define debug* (curry printf "~a~n"))
+(define debug* (curry debug logger))
 
 ; The maximum version allowable in this implementation.
 (define +max-version+ 1.0)
@@ -102,7 +101,6 @@
   
   (cond 
     [(not (client-auth-msg? msg))
-     (printf "message is ~a~n" msg)
      (debug* "Failed to receive a client-auth-msg.") #f]
     ; Authenticate the client. Authenticate that the peer
     ; can prove that they own the private key based off of the signature.
@@ -313,4 +311,7 @@
 ; Generate a random byte string of the specified length
 (define/contract (generate-nonce length)
   (number? . -> . bytes?)
-  (list->bytes (build-list length (λ (_) (random 255)))))
+  (define bts (make-bytes length 0))
+  (for ([i (in-range length)])
+    (bytes-set! bts i (random 255)))
+  bts)
