@@ -6,13 +6,16 @@
          racket/function
          racket/match
          racket/async-channel
+         (planet "main.rkt" ("soegaard" "gzip.plt" 2 2))
          "structs.rkt"
          "../api/compilation.rkt")
 
-(print-graph #f)
-
 (provide *LOCALHOST*
          run-tcp-peer)
+
+(define *USE-COMPRESSION?* #f)
+
+(print-graph #f)
 
 (define island-pair/c (cons/c string? exact-nonnegative-integer?))
 (define portHT/c (hash/c island-pair/c thread?))
@@ -120,6 +123,16 @@
   (define sendmaster (thread do-sending))
   sendmaster)
 
+;; on connection startup the peer acting in "client" role writes preferred address
+;; (i.e., the host/port which its own URLs use to name it)
+(define (read-preferred-address i)
+  (match (read i)
+    [(vector #"ADDRESS" hostname #"PORT" port)
+     (values hostname port)]
+    [else (raise 
+           (make-exn:fail:network 
+            "Malformed canonical peer address found" (current-continuation-marks)))]))
+
 ;; UTIL
 (define number->bytes (compose string->bytes/utf-8 number->string))
 (define bytes->number (compose string->number bytes->string/utf-8))
@@ -127,31 +140,35 @@
 (define (request->serialized req)
   (serialize (request-message req)))
 
+;; COMPRESSION - controlled by global
+(define (compress msg)
+  (define o (open-output-bytes))
+  (write msg o)
+  (define b# (get-output-bytes o))
+  (vector (compress-bytes b#) (bytes-length b#)))
+
+(define (decompress msg)
+  (read (open-input-bytes (uncompress-bytes (vector-ref msg 0) (vector-ref msg 1)))))
+
 ;; OUTPUT
 (define (write-preferred-address o hostname port)
-  (write-bytes #"ADDRESS " o)
-  (write-bytes (string->bytes/utf-8 hostname) o)
-  (write-bytes #" " o)
-  (write-bytes (number->bytes port) o)
-  (write-bytes #"\r\n" o))
-
-(define (write-out o data)
-  (write data o)
+  (write (vector #"ADDRESS" hostname #"PORT" port) o)
   (flush-output o))
 
-;; on connection startup the peer acting in "client" role writes preferred address
-;; (i.e., the host/port which its own URLs use to name it)
-(define (read-preferred-address i)
-  (let ([b (read-bytes-line i 'return-linefeed)])
-    (if (bytes? b)
-        (match (regexp-split #rx#" " b)
-          [(list #"ADDRESS" hostname port#)
-           (values (bytes->string/utf-8 hostname) (bytes->number port#))]
-          [else (raise (make-exn:fail:network "Malformed canonical peer address found" (current-continuation-marks)))])
-        (raise (make-exn:fail:network "No canonical peer address found" (current-continuation-marks))))))
+(define (write-w/-compression msg o) (write (compress msg) o))
+(define (write-w/o-compression msg o) (write msg o))
+(define writer (if *USE-COMPRESSION?*
+                   write-w/-compression
+                   write-w/o-compression))
+(define (write-out o msg)
+  (writer msg o)
+  (flush-output o)
+  (sendtest 0))
 
+;; INPUT
+(define reader (if *USE-COMPRESSION?* (compose decompress read) read))
 (define (read-in/forward-message reply-thread i)
-  (thread-send reply-thread (deserialize (read i) BASELINE #f)))
+  (thread-send reply-thread (deserialize (reader i) BASELINE #f)))
 
 ;; FOR TESTING ONLY
 (define scl (make-semaphore 1))
