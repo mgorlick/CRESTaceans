@@ -18,7 +18,10 @@
    (define *RHOST* *LOCALHOST*)
    (define *RPORT* 1234)
    
-   (define name (make-bytes 10000))
+   (define len 10000)
+   (define name (make-bytes len))
+   (for/list ([i (in-range len)])
+     (bytes-set! name i (random 255)))
    
    (thread (λ ()
              (let loop ()
