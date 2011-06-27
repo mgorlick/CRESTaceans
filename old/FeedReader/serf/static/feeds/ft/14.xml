@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Tue, 28 Jul 2009 14:21:54 GMT</pubDate>
+    <lastBuildDate>Tue, 28 Jul 2009 14:29:08 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>US home prices rise in May</title>
+      <link>http://traxfer.ft.com/cms/s/0/4550a872-7b80-11de-9772-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>US house prices showed their first monthly gain in three years in May offering another sign that the stricken residential real estate market is stabilising</description>
+      <pubDate>Tue, 28 Jul 2009 14:21:54 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/4550a872-7b80-11de-9772-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Wall Street set to fall on weak earnings</title>
+      <link>http://traxfer.ft.com/cms/s/0/dbdc668a-7aec-11de-8c34-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>US equity index futures were near their lows for in pre-market trading on Tuesday, as further earnings results cast a pall over sentiment.</description>
+      <pubDate>Tue, 28 Jul 2009 13:44:38 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/dbdc668a-7aec-11de-8c34-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>IBM to acquire SPSS for $1.2bn</title>
+      <link>http://traxfer.ft.com/cms/s/0/08e49988-7b77-11de-9772-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>IBM said on Tuesday that it would acquire SPSS, a data mining company, in a $1.2bn all cash deal intended to bolster its analytic services</description>
+      <pubDate>Tue, 28 Jul 2009 13:50:22 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/08e49988-7b77-11de-9772-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Viacom quarterly profit falls 32 per cent</title>
+      <link>http://traxfer.ft.com/cms/s/0/75cf01a4-7b6e-11de-9772-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Viacom’s profit fell 32 per cent as a prolonged advertising decline and a steep drop in sales of its Rock Band video game continued to hurt the cable and films company</description>
+      <pubDate>Tue, 28 Jul 2009 12:09:48 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/75cf01a4-7b6e-11de-9772-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Office Depot reports $82m quarterly loss</title>
+      <link>http://traxfer.ft.com/cms/s/0/635441ca-7b77-11de-9772-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Office Depot reported a loss of $82m in the second quarter, far greater than analysts had expected, as the global economic downturn took its toll on the office supplies retailer’s sales</description>
+      <pubDate>Tue, 28 Jul 2009 13:13:32 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/635441ca-7b77-11de-9772-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>US seeks closer China ties</title>
+      <link>http://traxfer.ft.com/cms/s/0/237d8afe-7ada-11de-8c34-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Barack Obama sought to recast America’s the US relationship with China, urging Beijing to be its partner and forge deeper ties with Washington on the economy, climate change and nuclear proliferation</description>
+      <pubDate>Mon, 27 Jul 2009 23:43:29 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/237d8afe-7ada-11de-8c34-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>BP profits more than halve to $3.14bn</title>
+      <link>http://traxfer.ft.com/cms/s/0/6fc21b90-7b49-11de-9772-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Europe’s second-biggest oil company reported second-quarter profits down more than a half at $3.14bn, but that was ahead of most analysts’ expectations and the company said cots cuts were ahead of schedule</description>
+      <pubDate>Tue, 28 Jul 2009 10:07:54 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/6fc21b90-7b49-11de-9772-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Investment banking bolsters Deutsche</title>
+      <link>http://traxfer.ft.com/cms/s/0/fbae99fe-7b3e-11de-9772-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Deutsche Bank’s second-quarter net income rises to €1.1bn  thanks to a rebound in its investment banking operations</description>
+      <pubDate>Tue, 28 Jul 2009 11:39:47 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/fbae99fe-7b3e-11de-9772-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Gates discusses arms sales in Iraq</title>
+      <link>http://traxfer.ft.com/cms/s/0/2684c474-7b52-11de-9772-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Robert Gates, US defence secretary arrived in Iraq on Tuesday to discuss security issues and arms sales as the two nations look toward the gradual withdrawal of all US forces by the end of 2011</description>
+      <pubDate>Tue, 28 Jul 2009 09:07:18 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/2684c474-7b52-11de-9772-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Hitachi falls to loss and bids for units</title>
+      <link>http://traxfer.ft.com/cms/s/0/7a4d3e4e-7b37-11de-9772-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Known as the GE of Japan, Hitachi reported a first quarter net loss of Y82.7bn and said it saw only limited economic improvements</description>
+      <pubDate>Tue, 28 Jul 2009 06:43:34 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/7a4d3e4e-7b37-11de-9772-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

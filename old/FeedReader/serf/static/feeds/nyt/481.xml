@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Mon, 17 Aug 2009 01:18:35 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>White House Appears Open to Insurance Co-ops</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6976e4abe87a32f5599564ee36fe4f94</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/health/policy/17talkshows.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/health/policy/17talkshows.html</guid>
+			<description>The Obama administration sent signals that it has backed away from its vision of a government organization to provide for the uninsured and is open to using nonprofit cooperatives instead.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6976e4abe87a32f5599564ee36fe4f94&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6976e4abe87a32f5599564ee36fe4f94&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOSEPH BERGER</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 23:50:02 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Sebelius, Kathleen</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Gibbs, Robert L</category>
+		</item>
+		<item>
+			<title>Fear of the Taliban Discourages Afghan Voters</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=2958a8c82ae0cc8595f5a72cb90f4502</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/world/asia/17taliban.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/world/asia/17taliban.html</guid>
+			<description>The insurgents&#x2019; campaign against this week&#x2019;s election may cost President Hamid Karzai vital support from his fellow Pashtuns.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=2958a8c82ae0cc8595f5a72cb90f4502&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=2958a8c82ae0cc8595f5a72cb90f4502&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DEXTER FILKINS</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 01:13:42 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Karzai, Hamid</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Elections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+		</item>
+		<item>
+			<title>Clerics&#x2019; Call for Removal Challenges Iran Leader</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=769eabf54f9f02aacfedb8b82187999e</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/world/middleeast/17iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/world/middleeast/17iran.html</guid>
+			<description>An anonymous letter calling Iran&#x2019;s supreme leader a dictator does not pose a real threat to Ayatollah Ali Khamenei, but indicates how his status has suffered.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=769eabf54f9f02aacfedb8b82187999e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=769eabf54f9f02aacfedb8b82187999e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT F. WORTH and NAZILA FATHI</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 01:13:30 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Khamenei, Ali</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+		</item>
+		<item>
+			<title>Y. E. Yang Shocks Woods to Win at P.G.A.</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3abe0e364e9a1ba3ca3c6992e8646576</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/sports/golf/17pga.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/sports/golf/17pga.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/sports/17yang.752.jpg" medium="image" height="75" width="75"/>
+			<media:description>Y. E. Yang finished at eight under, three strokes ahead of Tiger Woods.</media:description>
+			<media:credit>Eric Miller/Reuters</media:credit>
+			<description>The unheralded South Korean Y. E. Yang overcame Tiger Woods at the P.G.A. Championship to become the first Korean man to win a major.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3abe0e364e9a1ba3ca3c6992e8646576&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3abe0e364e9a1ba3ca3c6992e8646576&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PAT BORZI</dc:creator>
+			<pubDate>Sun, 16 Aug 2009 23:59:47 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">PGA Championship</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Golf</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Woods, Tiger</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Harrington, Padraig</category>
+		</item>
+		<item>
+			<title>Obama Pushes States to Shift on Education</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c2bc5c085b6b17a5be89390562c93cac</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/education/17educ.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/education/17educ.html</guid>
+			<description>An aggressive use of economic stimulus money has provoked heated debates over the uses of standardized testing and the proper federal role in education.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c2bc5c085b6b17a5be89390562c93cac&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c2bc5c085b6b17a5be89390562c93cac&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM DILLON</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 01:11:48 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Education and Schools</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">American Recovery and Reinvestment Act (2009)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Standards and Standardization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Tests and Testing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Teachers and School Employees</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">No Child Left Behind Act</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">State Legislatures</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">States (US)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Charter Schools</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Education Department (US)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Race to the Top Fund</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Duncan, Arne</category>
+		</item>
+	</channel>
+</rss>

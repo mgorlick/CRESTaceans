@@ -1,0 +1,237 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Thu, 06 Aug 2009 19:21:14 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Sotomayor Confirmed by Senate, 68-31</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f37ceb5b89fe35c1a30db4d95831639c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/us/politics/07confirm.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/us/politics/07confirm.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/06/us/06confirm-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Sonia Sotomayor during her confirmation hearings last month in Washington.</media:description>
+			<media:credit>Doug Mills/The New York Times</media:credit>
+			<description>Democrats celebrated the relatively smooth confirmation process for Sonia Sotomayor, even as most Senate Republicans voted against her.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f37ceb5b89fe35c1a30db4d95831639c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f37ceb5b89fe35c1a30db4d95831639c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CHARLIE SAVAGE</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 19:20:16 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Sotomayor, Sonia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Supreme Court</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Senate</category>
+		</item>
+		<item>
+			<title>For Puerto Ricans, Sotomayor&#x2019;s Success Stirs Pride</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=40ddabcdeb77ddabe223330c4b5979f7</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/nyregion/07puerto.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/nyregion/07puerto.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/06/nyregion/06puerto2-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>"It is beyond anybody's imagination when I started that a Puerto Rican could ascend to that position, to the Supreme Court," said Edwin Torres, who in 1959 was hired as the first Puerto Rican assistant district attorney in New York.</media:description>
+			<media:credit>&#xC1;ngel Franco/The New York Times</media:credit>
+			<description>The nomination of one of their own to the highest court is a watershed event for Puerto Rican New York.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=40ddabcdeb77ddabe223330c4b5979f7&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=40ddabcdeb77ddabe223330c4b5979f7&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID GONZALEZ</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 19:12:41 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Puerto Ricans</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Sotomayor, Sonia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+		</item>
+		<item>
+			<title>Room for Debate: Sotomayor, Hispanics and the G.O.P.</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1b4a0f542094abd54b13102d7f554775</link>
+			<pheedo:origLink>http://roomfordebate.blogs.nytimes.com/2009/08/06/sotomayor-hispanics-and-the-gop/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://roomfordebate.blogs.nytimes.com/2009/08/06/sotomayor-hispanics-and-the-gop/index.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/01/12/automobiles/debate.jpg" medium="image" height="75" width="75"/>
+			<media:description/>
+			<media:credit/>
+			<description>The political calculus for Republican senators who oppose confirmation of the first Hispanic Supreme Court justice.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1b4a0f542094abd54b13102d7f554775&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1b4a0f542094abd54b13102d7f554775&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE EDITORS</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 19:06:04 GMT</pubDate>
+		</item>
+		<item>
+			<title>White House Has Trouble Gauging Afghan Progress</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=eb8c694d08992c6721daa1ac2bdbf04d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/world/asia/07policy.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/world/asia/07policy.html</guid>
+			<description>The Obama administration has asked for more time to define benchmarks and other indicators of progress, but Democrats on Capitol Hill are growing impatient.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=eb8c694d08992c6721daa1ac2bdbf04d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=eb8c694d08992c6721daa1ac2bdbf04d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID E. SANGER, ERIC SCHMITT and THOM SHANKER</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 19:04:14 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Defense Department</category>
+		</item>
+		<item>
+			<title>Anglers Divided Over New Florida License Program</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=8c0478a28e4bdb947c1d9365e09501d5</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/us/07fishing.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/us/07fishing.html</guid>
+			<description>A new law requiring a license for fishing from the shore is applauded by most commercial fishers, but some anglers see shoreline fishing as a natural right.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=8c0478a28e4bdb947c1d9365e09501d5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=8c0478a28e4bdb947c1d9365e09501d5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAMIEN CAVE</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 18:40:29 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Fishing, Sport</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Florida</category>
+		</item>
+		<item>
+			<title>Movie Review | 'Julie &amp; Julia': Two for the Stove</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=4872ea0b71454d8b6708fee45d214043</link>
+			<pheedo:origLink>http://movies.nytimes.com/2009/08/07/movies/07julie.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://movies.nytimes.com/2009/08/07/movies/07julie.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/07/arts/07julie75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Meryl Streep stars as Julia Child in "Julie &amp; Julia."</media:description>
+			<media:credit>Jonathan Wenk/Columbia Pictures</media:credit>
+			<description>&#x201C;Julie &amp; Julia&#x201D; proceeds with such ease and charm that its audacity is easy to miss.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=4872ea0b71454d8b6708fee45d214043&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=4872ea0b71454d8b6708fee45d214043&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By A. O. SCOTT</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 19:05:48 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Movies</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Child, Julia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Powell, Julie</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Adams, Amy</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ephron, Nora</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_ttl">Julie &amp; Julia (Movie)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Tucci, Stanley</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Child, Paul</category>
+		</item>
+		<item>
+			<title>Ex-Chief of A.I.G. Settles S.E.C. Case for $15 Million</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=04175e1246e6851406fc46ea6dbb2cda</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/business/07aig.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/business/07aig.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/06/16/business/greenberg75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Maurice R. Greenberg</media:description>
+			<media:credit>Chip East/Reuters</media:credit>
+			<description>Maurice R. Greenberg was accused of overseeing deals that fraudulently overstated A.I.G.&#x2019;s financial position.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=04175e1246e6851406fc46ea6dbb2cda&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=04175e1246e6851406fc46ea6dbb2cda&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 18:31:40 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">American International Group|AIG|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Securities and Exchange Commission</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Suits and Litigation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Greenberg, Maurice R</category>
+		</item>
+		<item>
+			<title>State Senate Renews Mayor&#x2019;s Control of Schools</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=21f25125adf744621dcba242c45f3115</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/nyregion/07control.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/nyregion/07control.html</guid>
+			<description>The legislation would largely leave the mayor&#x2019;s power intact, with some procedural changes and more oversight.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=21f25125adf744621dcba242c45f3115&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=21f25125adf744621dcba242c45f3115&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JENNIFER MEDINA</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 19:15:45 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Board of Education (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Bloomberg, Michael R</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Education and Schools</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Law and Legislation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+		</item>
+		<item>
+			<title>Plan by Bank of England to Ease Credit Is Extended</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e956370d70f47e030b416251f9c86dea</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/business/global/07euro.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/business/global/07euro.html</guid>
+			<description>Britain&#x2019;s central bank extended its asset-purchasing plan, and the European Central Bank kept its key rate steady.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e956370d70f47e030b416251f9c86dea&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e956370d70f47e030b416251f9c86dea&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JULIA WERDIGIER and CARTER DOUGHERTY</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 14:15:00 GMT</pubDate>
+		</item>
+		<item>
+			<title>Clinton Offers Assurances to Somali Government</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c2ec0ef51456c5e716ef44978960fd59</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/world/africa/07diplo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/world/africa/07diplo.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/06/world/06diplo2-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Secretary of State Hillary Rodham Clinton with the president of Somalia's transitional government, Sheikh Sharif Sheikh Ahmed, during a news conference on Thursday in Nairobi, Kenya.</media:description>
+			<media:credit>Sarah Elliott/European Pressphoto Agency</media:credit>
+			<description>Secretary of State Hillary Rodham Clinton reiterated the U.S. commitment to help the fledgling security services.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c2ec0ef51456c5e716ef44978960fd59&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c2ec0ef51456c5e716ef44978960fd59&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JEFFREY GETTLEMAN</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 18:19:24 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Hillary Rodham</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Kenya</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">International Criminal Court</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Somalia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ahmed, Sharif</category>
+		</item>
+		<item>
+			<title>Bits: Twitter Overwhelmed by Web Attack</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f6dabc63992e67a924a98f16607306b9</link>
+			<pheedo:origLink>http://bits.blogs.nytimes.com/2009/08/06/twitter-overwhelmed-by-web-attack/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://bits.blogs.nytimes.com/2009/08/06/twitter-overwhelmed-by-web-attack/index.html</guid>
+			<description>The popular microblogging site crashed after unknown attackers flooded the site with data requests. Service has remained spotty.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f6dabc63992e67a924a98f16607306b9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f6dabc63992e67a924a98f16607306b9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By RIVA RICHMOND</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 18:48:21 GMT</pubDate>
+		</item>
+		<item>
+			<title>Bomb Kills at Least 5 in Afghanistan</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d277246d166a4aaac9373177ed0408ac</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/world/asia/07afghan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/world/asia/07afghan.html</guid>
+			<description>In another sign of growing violence in the last two weeks before national elections, a group of civilians were killed by a roadside bomb Wednesday.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d277246d166a4aaac9373177ed0408ac&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d277246d166a4aaac9373177ed0408ac&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ABDUL WAHEED WAFA</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 18:33:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Improvised Explosive Devices</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+		</item>
+		<item>
+			<title>July Remained Sluggish for Retailers</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fe8b3935c34ad074f06b63da026bca84</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/business/economy/07shop.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/business/economy/07shop.html</guid>
+			<description>Mall-based chains continue to be hit hardest as consumers focus on necessities, but the warehouse club operator Costco&#x2019;s results also missed analyst estimates.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fe8b3935c34ad074f06b63da026bca84&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fe8b3935c34ad074f06b63da026bca84&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By GERRY SHIH</dc:creator>
+			<pubDate>Thu, 06 Aug 2009 18:31:41 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Shopping and Retail</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Costco Wholesale Corporation|COST|NASDAQ</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Sales</category>
+		</item>
+	</channel>
+</rss>

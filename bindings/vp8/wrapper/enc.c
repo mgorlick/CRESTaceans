@@ -5,8 +5,6 @@
 #include <vpx/vpx_encoder.h>
 #include <vpx/vp8cx.h>
 
-#include "enc_settings.h"
-
 #define ROUND_UP_2(num) (((num)+1)&~1)
 #define ROUND_UP_4(num) (((num)+3)&~3)
 #define ROUND_UP_8(num) (((num)+7)&~7)
@@ -34,7 +32,8 @@ void vp8enc_delete (VP8Enc *enc) {
   free (enc);
 }
 
-VP8Enc* vp8enc_new (void) {
+VP8Enc* vp8enc_new (int enc_frame_width, int enc_frame_height,
+                    int enc_fps_numerator, int enc_fps_denominator) {
   int i;
   vpx_codec_err_t status;
   vpx_codec_enc_cfg_t cfg;
@@ -48,13 +47,13 @@ VP8Enc* vp8enc_new (void) {
 
   cfg.g_w = enc_frame_width;
   cfg.g_h = enc_frame_height;
-  cfg.g_timebase.num = enc_fps_denominator;
-  cfg.g_timebase.den = enc_fps_numerator;
+  cfg.g_timebase.num = enc_fps_numerator;
+  cfg.g_timebase.den = enc_fps_denominator;
 
   /* keyframes: in theory this sets the keyframe rate minimum at one/sec */
   cfg.kf_mode = VPX_KF_AUTO;
   cfg.kf_min_dist = 0;
-  cfg.kf_max_dist = enc_fps_numerator;
+  cfg.kf_max_dist = enc_fps_denominator;
 
   /* quality settings */
   /* the target bitrate here is a little bit arbitrary, but it offers

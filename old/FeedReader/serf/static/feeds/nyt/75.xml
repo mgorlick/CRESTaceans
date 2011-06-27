@@ -1,0 +1,259 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Fri, 31 Jul 2009 03:16:02 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>&#x2018;Clunkers&#x2019; Auto Rebate Plan So Popular That It&#x2019;s Broke</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ca8ccffcb04f389d4fb9f388c7f010e8</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/business/31clunkers.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/business/31clunkers.html</guid>
+			<description>The &#x201C;cash for clunkers&#x201D; program, which offered cash to people who traded in old cars for ones with higher fuel economy, was said to have exhausted its available funds, leaving its future in question.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ca8ccffcb04f389d4fb9f388c7f010e8&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ca8ccffcb04f389d4fb9f388c7f010e8&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MATTHEW L. WALD</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 02:49:12 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Transportation Department</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_keyword">Cash for Clunkers</category>
+		</item>
+		<item>
+			<title>Big Banks Paid Billions in Bonuses Amid Wall St. Crisis</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=50686ee4aa95196fd0c5b2b1a6ddcf79</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/business/31pay.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/business/31pay.html</guid>
+			<description>Amid dwindling profits and government bailouts, Wall Street&#x2019;s million dollar club had nearly 5,000 members in 2008, New York&#x2019;s attorney general reported.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=50686ee4aa95196fd0c5b2b1a6ddcf79&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=50686ee4aa95196fd0c5b2b1a6ddcf79&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LOUISE STORY and ERIC DASH</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 02:49:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bonuses</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Executive Compensation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Cuomo, Andrew M</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Banks and Banking</category>
+		</item>
+		<item>
+			<title>U.S. Adviser&#x2019;s Blunt Memo on Iraq: Time &#x2018;to Go Home&#x2019;</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e60850e9a14a2bb3c4c7afe74951be29</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/world/middleeast/31adviser.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/world/middleeast/31adviser.html</guid>
+			<description>A senior American military adviser says that the Iraqi forces suffer from deeply entrenched deficiencies, but that extending the stay of U.S. forces won&#x2019;t help.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e60850e9a14a2bb3c4c7afe74951be29&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e60850e9a14a2bb3c4c7afe74951be29&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL R. GORDON</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 02:56:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Military Personnel</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Defense Department</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Odierno, Raymond T</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Maliki, Nuri Kamal al-</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Reese, Timothy R</category>
+		</item>
+		<item>
+			<title>After Rescue, New Weakness Seen at A.I.G.</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=11bb486f704c7b1a4ffed498bbe5bd45</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/business/31aig.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/business/31aig.html</guid>
+			<description>Over time, the weaknesses could mean trouble for A.I.G.&#x2019;s policyholders, and they raise difficult questions for regulators, who normally step in when an insurer gets into trouble.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=11bb486f704c7b1a4ffed498bbe5bd45&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=11bb486f704c7b1a4ffed498bbe5bd45&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARY WILLIAMS WALSH</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 03:15:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">American International Group|AIG|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Insurance</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Regulation and Deregulation of Industry</category>
+		</item>
+		<item>
+			<title>When Auto Plants Close, Only White Elephants Remain</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=47913bb53bd2f7af891a99a3525ad6f0</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/business/31factories.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/business/31factories.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/30/business/31factories_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>The Wixom Assembly Plant in Wixom, Mich. was one of Ford's largest and oldest facilities, but it has been dormant since it closed in May of 2007.</media:description>
+			<media:credit>Fabrizio Costantini for The New York Times</media:credit>
+			<description>Communities are haunted by the huge empty buildings &#x2014; which find few takers &#x2014; that have been left behind by the automakers.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=47913bb53bd2f7af891a99a3525ad6f0&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=47913bb53bd2f7af891a99a3525ad6f0&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By BILL VLASIC and NICK BUNKLEY</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 02:49:58 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Office Buildings and Commercial Properties</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Layoffs and Job Reductions</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Factories and Manufacturing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Subprime Mortgage Crisis</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">General Motors</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Ford Motor Co|F|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Michigan</category>
+		</item>
+		<item>
+			<title>Over Beers, No Apologies, but Plans to Have Lunch Sometime</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=28d2aec6295b9c15876c59f40304d186</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/us/politics/31obama.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/us/politics/31obama.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/30/us/31prexy_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>From left, Harvard professor Henry Louis Gates, Vice President Joseph R. Biden Jr., Cambridge Sgt. James Crowley and President Obama. </media:description>
+			<media:credit>Stephen Crowley/The New York Times</media:credit>
+			<description>Before a &#x201C;summit&#x201D; at the White House, two men in the news for a confrontation earlier this month in Cambridge, Mass., agreed to meet later on their own.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=28d2aec6295b9c15876c59f40304d186&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=28d2aec6295b9c15876c59f40304d186&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By HELENE COOPER and ABBY GOODNOUGH</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 02:49:26 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Gates, Henry Louis Jr</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Crowley, James M</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Biden, Joseph R Jr</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Apologies</category>
+		</item>
+		<item>
+			<title>This Land: Finding Shelter and Community Under a Bridge</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=99b4772438edf0665f0a56eebd4d5a58</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/us/31land.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/us/31land.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/30/us/31land_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Timothy Webb, 49, left, and Bruce, 59, live in a tent city, dubbed Camp Runamuck in Providence under an overpass stretch of Route 195 that is scheduled for demolition. </media:description>
+			<media:credit>Nicole Bengiveno/The New York Times</media:credit>
+			<description>Residents of a democratic homeless encampment live by a written compact underneath an abandoned overpass in Providence, R.I.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=99b4772438edf0665f0a56eebd4d5a58&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=99b4772438edf0665f0a56eebd4d5a58&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAN BARRY</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 02:53:41 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Homeless Persons</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Providence (RI)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Camps and Camping</category>
+		</item>
+		<item>
+			<title>Ads Follow Web Users, and Get Deeply Personal</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ee8e58b3c4df34aeb25a90f01fba314b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/business/media/31privacy.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/business/media/31privacy.html</guid>
+			<description>Marketers have always known more about consumers&#x2019; offline lives than their online ones, and now some are putting it all together.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ee8e58b3c4df34aeb25a90f01fba314b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ee8e58b3c4df34aeb25a90f01fba314b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By STEPHANIE CLIFFORD</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 02:54:14 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Online Advertising</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Privacy</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Advertising and Marketing</category>
+		</item>
+		<item>
+			<title>Ortiz and Ramirez Said to Be on &#x2019;03 Doping List</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=47a6075cccffcd2d56551441fd2a7058</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/sports/baseball/31doping.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/sports/baseball/31doping.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/31/sports/31doping.2.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>David Ortiz, left, and Manny Ramirez propelled the Boston Red Sox to two World Series titles. Both tested positive for performance-enhancing drugs in 2003.</media:description>
+			<media:credit>Adam Hunger/Reuters</media:credit>
+			<description>Manny Ramirez and David Ortiz were among the baseball players who tested positive, lawyers said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=47a6075cccffcd2d56551441fd2a7058&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=47a6075cccffcd2d56551441fd2a7058&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL S. SCHMIDT</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 02:55:13 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ramirez, Manny</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Steroids</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ortiz, David</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Doping (Sports)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Boston Red Sox</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Baseball</category>
+		</item>
+		<item>
+			<title>Investigators Seek Letters Between Doctor and Jackson Promoters</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1662dea791f3cf8dba595a9f9807c407</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/us/31jackson.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/us/31jackson.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/31/us/31jackson.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Katherine Jackson at her son&#x2019;s memorial on July 7.</media:description>
+			<media:credit>Kevin Mazur/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>Law enforcement officials sought correspondence between Michael Jackson&#x2019;s doctor and the organizer of a concert series the singer was preparing for before his death.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1662dea791f3cf8dba595a9f9807c407&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1662dea791f3cf8dba595a9f9807c407&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SOLOMON MOORE</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 02:58:01 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jackson, Michael</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Child Custody and Support</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jackson, Katherine</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Rowe, Debbie</category>
+		</item>
+		<item>
+			<title>Freshman Democrats, Hungry to Keep House Seats, Make a Stand</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5bc1f98cfaeeb3c97f4760aba3ccdb63</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/us/politics/31frosh.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/us/politics/31frosh.html</guid>
+			<description>After casting a difficult vote on climate-change legislation, junior Democrats want to be sure they can embrace the emerging health care plan.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5bc1f98cfaeeb3c97f4760aba3ccdb63&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5bc1f98cfaeeb3c97f4760aba3ccdb63&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CARL HULSE</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 02:05:25 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Democratic Party</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">House of Representatives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Elections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reform and Reorganization</category>
+		</item>
+		<item>
+			<title>Pueblo Journal: New Energy Injects Hope in a Colorado Steel Town</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=081d24a88239de535db0a1354ba12f44</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/us/31steel.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/us/31steel.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/30/us/31steel2_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A worker at a factory to make wind towers, scheduled to open this fall in Pueblo. </media:description>
+			<media:credit>Chris Schneider for The New York Times</media:credit>
+			<description>With a steelmaking history that dates to the days of the railroad barons, Pueblo may be heading to a second act with the arrival of a factory tied to the emerging renewable-energy industry.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=081d24a88239de535db0a1354ba12f44&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=081d24a88239de535db0a1354ba12f44&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By KIRK JOHNSON</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 02:52:00 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Wind Power</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Factories and Manufacturing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Steel and Iron</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Economic Conditions and Trends</category>
+		</item>
+		<item>
+			<title>Straight Out of Brooklyn, the $5 Slice</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=cade8c0ba4d0bddb82f5df4897b7a588</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/nyregion/31pizza.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/nyregion/31pizza.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/30/nyregion/31pizza3_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>The customers who conquered Di Fara's line.</media:description>
+			<media:credit>Jessica Ebelhar/The New York Times</media:credit>
+			<description>There is a line out the door at Di Fara Pizza, a Brooklyn legend, as customers wait for the opportunity to pay top prices for what they say is top pizza.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=cade8c0ba4d0bddb82f5df4897b7a588&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=cade8c0ba4d0bddb82f5df4897b7a588&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MANNY FERNANDEZ</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 03:13:34 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Pizza Pies</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prices (Fares, Fees and Rates)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Midwood (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Conditions and Trends</category>
+		</item>
+	</channel>
+</rss>

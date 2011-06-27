@@ -1,0 +1,250 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Wed, 05 Aug 2009 01:14:02 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Clinton and Two Freed Journalists Leave N. Korea</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=03bfce8f950909d1229e7b10963bbefa</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/05/world/asia/05korea.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/05/world/asia/05korea.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/04/world/04korea3-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A photo released by North Korea's news agency Tuesday shows former president Bill Clinton and North Korean leader Kim Jong-il in Pyongyang.</media:description>
+			<media:credit>KCNA, via Reuters</media:credit>
+			<description>The North Korean leader, Kim Jong-il, pardoned two jailed journalists after meeting with former President Bill Clinton, the state news agency reported.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=03bfce8f950909d1229e7b10963bbefa&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=03bfce8f950909d1229e7b10963bbefa&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CHOE SANG-HUN, MARK LANDLER and PETER BAKER</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 00:46:46 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Bill</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Current TV</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ling, Laura</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Lee, Euna</category>
+		</item>
+		<item>
+			<title>Russian Subs Patrolling Off East Coast of U.S.</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7abb0eec256b2fd3d599e63454800dcc</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/05/world/05patrol.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/05/world/05patrol.html</guid>
+			<description>Nuclear-powered Russian attack submarines have been patrolling off the U.S. over recent days in a rare mission that has raised concerns at the Pentagon and intelligence agencies.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7abb0eec256b2fd3d599e63454800dcc&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7abb0eec256b2fd3d599e63454800dcc&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARK MAZZETTI and THOM SHANKER</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 00:57:33 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Russia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Submarines</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">United States</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Defense Department</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Atlantic Ocean</category>
+		</item>
+		<item>
+			<title>Fatah Holds First Conference in 20 Years</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=033598d71cdb8090c8eecb0e3b9388d5</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/05/world/middleeast/05fatah.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/05/world/middleeast/05fatah.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/04/world/05fatah_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>The Palestinian president, Mahmoud Abbas, center, during a prayer at the start of the Fatah meeting in Bethlehem on Tuesday. </media:description>
+			<media:credit>Jim Hollander/European Pressphoto Agency</media:credit>
+			<description>The mainstream Palestinian movement Fatah came together for a landmark three-day gathering, its first ever on Palestinian soil.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=033598d71cdb8090c8eecb0e3b9388d5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=033598d71cdb8090c8eecb0e3b9388d5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ISABEL KERSHNER</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 00:58:30 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Fatah, Al</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Palestinians</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Abbas, Mahmoud</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">West Bank</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Israel</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Hamas</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Arafat, Yasir</category>
+		</item>
+		<item>
+			<title>Plan to Heal Congo Plummets Into Scourge of Rape and Murder</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=41e462b0dd83ddcaa8060673e07753ea</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/05/world/africa/05congo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/05/world/africa/05congo.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/04/world/05congo_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Clockwise from top left, Kazungu Ziwa, Shabani Lufuno, Ngabu Bita and Matata Badoda. All are Congolese men who were recently raped and agreed to be photographed.</media:description>
+			<media:credit>Jehad Nga for The New York Times</media:credit>
+			<description>The number of men who have been raped has risen sharply in recent months, a consequence of joint Congo-Rwanda military operations against rebels.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=41e462b0dd83ddcaa8060673e07753ea&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=41e462b0dd83ddcaa8060673e07753ea&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JEFFREY GETTLEMAN</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 00:53:31 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Congo (Formerly Zaire)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Sex Crimes</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">War Crimes, Genocide and Crimes Against Humanity</category>
+		</item>
+		<item>
+			<title>Senate Leader Expects to Extend Auto Program</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=070c324bdddda8a4ba820fc72b4c538d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/05/business/05clunker.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/05/business/05clunker.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/business/05clunkerA-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Left to right, Sens. Christopher J. Dodd, Harry Reid, Charles E. Schumer and Max Baucus, who met with President Obama on Tuesday. </media:description>
+			<media:credit>Brendan Smialowski for The New York Times</media:credit>
+			<description>The secretary of transportation and Senate majority leader expressed confidence that the Senate would revive the auto-purchase program.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=070c324bdddda8a4ba820fc72b4c538d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=070c324bdddda8a4ba820fc72b4c538d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MATTHEW L. WALD</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 00:48:34 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Car Allowance Rebate System</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Reid, Harry</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Senate</category>
+		</item>
+		<item>
+			<title>California Prisons Must Cut Inmate Population</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=29f6d089f3c15b10574cef445b9f38dc</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/05/us/05calif.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/05/us/05calif.html</guid>
+			<description>The prison system has to reduce its inmate population 27 percent within two years, according to a ruling.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=29f6d089f3c15b10574cef445b9f38dc&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=29f6d089f3c15b10574cef445b9f38dc&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SOLOMON MOORE</dc:creator>
+			<pubDate>Tue, 04 Aug 2009 23:21:33 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">California</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prisons and Prisoners</category>
+		</item>
+		<item>
+			<title>U.S. Agency Plans Meeting on Distracted Driving</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ca4849691b01494a3d79e507f3613ec6</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/05/us/politics/05drive.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/05/us/politics/05drive.html</guid>
+			<description>The Transportation Department will convene a meeting about text-messaging and cell phone use while driving.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ca4849691b01494a3d79e507f3613ec6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ca4849691b01494a3d79e507f3613ec6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID STOUT</dc:creator>
+			<pubDate>Tue, 04 Aug 2009 23:20:44 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Text Messaging</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Cellular Telephones</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Accidents and Safety</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Transportation Department</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Wireless Communications</category>
+		</item>
+		<item>
+			<title>14 Post Offices (Not 53) May Be Shuttered in City</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=138a183e56656b44335fd0db18958d94</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/05/nyregion/05postal.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/05/nyregion/05postal.html</guid>
+			<description>As news trickled out that some post offices were to be closed, confused and angry residents and politicians city have been rallying in defense of their local branches.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=138a183e56656b44335fd0db18958d94&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=138a183e56656b44335fd0db18958d94&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By A. G. SULZBERGER</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 01:12:41 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Shutdowns (Institutional)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Postal Service</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Post Offices and Equipment</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Postal Service (US)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Manhattan (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Bronx (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Queens (NYC)</category>
+		</item>
+		<item>
+			<title>India Gets Caught Short as Sugar Prices Soar</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fa01b4f5ee779d1ca35dc64c26acba36</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/05/business/global/05sugar.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/05/business/global/05sugar.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/05/business/sugar_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Farmers harvest sugarcane in the outskirts of Pune, India.</media:description>
+			<media:credit>Prashanth Vishwanathan for The New York Times</media:credit>
+			<description>To meet growing demand, India will probably have to import 20 to 30 percent of the sugar it needs in the current fiscal year.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fa01b4f5ee779d1ca35dc64c26acba36&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fa01b4f5ee779d1ca35dc64c26acba36&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By VIKAS BAJAJ</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 01:00:12 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">International Trade and World Market</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">India</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Economic Conditions and Trends</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Sugar</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Commodities</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Futures and Options Trading</category>
+		</item>
+		<item>
+			<title>Korean Police Raid Occupied Factory</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d55a28ecc98344cdc469ba88241ce968</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/05/world/asia/05seoul.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/05/world/asia/05seoul.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/04/world/04seoul-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Workers, right, of Ssangyong Motor Co. blocked police who were trying to reclaim a paint factory.</media:description>
+			<media:credit>Lee Myung-ik/The Work and World, via Reuters</media:credit>
+			<description>The police raided an auto factory that had been occupied for more than two months by hundreds of workers resisting layoffs.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d55a28ecc98344cdc469ba88241ce968&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d55a28ecc98344cdc469ba88241ce968&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CHOE SANG-HUN</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 00:24:58 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">South Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Ssangyong Motor</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Labor</category>
+		</item>
+		<item>
+			<title>Clinton May Face a Kenyan Crisis</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=bfc97ff6094245bdf2713a1c65aab424</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/05/world/africa/05kenya.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/05/world/africa/05kenya.html</guid>
+			<description>Secretary of State Hillary Rodham Clinton arrived in Kenya at a time when the American government is getting fed up with the nation&#x2019;s leaders.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=bfc97ff6094245bdf2713a1c65aab424&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=bfc97ff6094245bdf2713a1c65aab424&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JEFFREY GETTLEMAN</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 01:11:05 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Africa</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Hillary Rodham</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Kenya</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Odinga, Raila</category>
+		</item>
+		<item>
+			<title>City Room: Driver in Deadly Crash Was Drunk</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=28498b721340b036ddaaf25188e6e033</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/08/04/driver-in-crash-that-killed-8-was-drunk-officials-say/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/08/04/driver-in-crash-that-killed-8-was-drunk-officials-say/index.html</guid>
+			<description>The driver in a Westchester crash that killed eight people had used marijuana, and vodka was found in her vehicle.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=28498b721340b036ddaaf25188e6e033&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=28498b721340b036ddaaf25188e6e033&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By AL BAKER and SEWELL CHAN</dc:creator>
+			<pubDate>Wed, 05 Aug 2009 01:11:01 GMT</pubDate>
+		</item>
+		<item>
+			<title>DealBook: S.E.C. to Seek Ban on Flash Orders</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e0dd2bec3e8eb7c95492377384d5e442</link>
+			<pheedo:origLink>http://dealbook.blogs.nytimes.com/2009/08/04/sec-to-seek-flash-trading-ban-schumer-says/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://dealbook.blogs.nytimes.com/2009/08/04/sec-to-seek-flash-trading-ban-schumer-says/index.html</guid>
+			<description>Sen. Charles Schumer had requested a ban on a technique that enables some firms to peek at investors&#x2019; stock orders.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e0dd2bec3e8eb7c95492377384d5e442&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e0dd2bec3e8eb7c95492377384d5e442&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DEALBOOK</dc:creator>
+			<pubDate>Tue, 04 Aug 2009 22:09:58 GMT</pubDate>
+		</item>
+	</channel>
+</rss>

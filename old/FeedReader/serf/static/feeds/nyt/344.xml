@@ -1,0 +1,327 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Tue, 11 Aug 2009 08:13:19 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>War Without Borders: Mexico&#x2019;s Drug Traffickers Continue Trade in Prison</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=45300cd6cb9a8414e4513009ff80abf3</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/americas/11prisons.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/americas/11prisons.html</guid>
+			<description>Imprisoned drug traffickers can find a new base of operations for their criminal empires, recruit underlings, and bribe their way out for the right price.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=45300cd6cb9a8414e4513009ff80abf3&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=45300cd6cb9a8414e4513009ff80abf3&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARC LACEY</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 07:18:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Mexico</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Drug Abuse and Traffic</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prisons and Prisoners</category>
+		</item>
+		<item>
+			<title>Pro-Democracy Leader in Myanmar Is Convicted</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=897e99fbc7e7f3109247fb6ef7c169b4</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/12/world/asia/12myanmar.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/12/world/asia/12myanmar.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/11/world/11myanmar.inline.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Daw Aung San Suu Kyi, the imprisoned pro-democracy leader, in Yangon in 1998.</media:description>
+			<media:credit>Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>Daw Aung San Suu Kyi was sentenced to three years of hard labor, but her sentence was commuted to a new term under house arrest.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=897e99fbc7e7f3109247fb6ef7c169b4&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=897e99fbc7e7f3109247fb6ef7c169b4&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SETH MYDANS</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 08:05:38 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Aung San Suu Kyi, Daw</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Political Prisoners</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Myanmar</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Decisions and Verdicts</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Yettaw, John</category>
+		</item>
+		<item>
+			<title>White House Adapts to New Playbook in Health Care Debate</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=13dc718669ebfcbb340580ab8385f4ef</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/health/policy/11health.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/health/policy/11health.html</guid>
+			<description>The White House is at risk of losing control of the public debate over health care reform and is playing defense in a way it has not since last year&#x2019;s campaign.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=13dc718669ebfcbb340580ab8385f4ef&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=13dc718669ebfcbb340580ab8385f4ef&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JIM RUTENBERG and JACKIE CALMES</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 06:36:46 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Political Advertising</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+		</item>
+		<item>
+			<title>Want Baseball Autographs? This Man Can Help</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a5a49b0916cea9053ffe336eebd12580</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/sports/baseball/11address.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/sports/baseball/11address.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/11/sports/addressBBBB75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Jack Smalling will soon begin shipping the 15th edition of &#x201C;The Baseball Autograph Collector&#x2019;s Handbook&#x201D;.</media:description>
+			<media:credit>Stephen Mally for The New York Times</media:credit>
+			<description>Jack Smalling has undertaken a decades-long effort to collect the address of every living major league baseball player, umpire, manager and coach.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a5a49b0916cea9053ffe336eebd12580&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a5a49b0916cea9053ffe336eebd12580&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL S. SCHMIDT</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 06:18:54 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Baseball</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Collectors and Collections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Smalling, Jack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_ttl">The Baseball Autograph Collector's Handbook (Book)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Lorton Data</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_keyword">Autographs</category>
+		</item>
+		<item>
+			<title>The Lede: Tamil Tiger Supporters Win Vote</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=81b105fc4b0a2aea773d7a24c6326002</link>
+			<pheedo:origLink>http://thelede.blogs.nytimes.com/2009/08/10/tamil-tiger-supporters-win-vote-in-sri-lankan-town/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://thelede.blogs.nytimes.com/2009/08/10/tamil-tiger-supporters-win-vote-in-sri-lankan-town/index.html</guid>
+			<description>In the first local elections in 11 years in two towns in northern Sri Lanka, a political party that supported the Tamil Tiger insurgency made a strong showing on Saturday, one day after the rebel group's new leader was captured.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=81b105fc4b0a2aea773d7a24c6326002&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=81b105fc4b0a2aea773d7a24c6326002&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT MACKEY</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 00:38:13 GMT</pubDate>
+		</item>
+		<item>
+			<title>Online Treatment May Help Insomniacs</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=db834b13e98a92033ac949448d0b7882</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/health/11slee.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/health/11slee.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/11/science/11slee.751.jpg" medium="image" height="75" width="75"/>
+			<media:description/>
+			<media:credit/>
+			<description>Two studies suggest that online applications based on cognitive behavioral therapy can be effective in treating insomnia.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=db834b13e98a92033ac949448d0b7882&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=db834b13e98a92033ac949448d0b7882&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By AMANDA SCHAFFER</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 04:58:29 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Sleep</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Psychology and Psychologists</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Medicine and Health</category>
+		</item>
+		<item>
+			<title>State Democrats Fear That Paterson Is Liability</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=50b60a50e5489b6616cc3bb62b6e84ba</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/nyregion/11dems.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/nyregion/11dems.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/11/nyregion/11dems.span.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Gov. David A. Paterson, at a bill-signing at Starrett City in Brooklyn last month, is expected to seek a full term in 2010.</media:description>
+			<media:credit>Ozier Muhammad/The New York Times</media:credit>
+			<description>Gov. David A. Paterson&#x2019;s unpopularity has made Democratic incumbents in New York nervous about their chances for re-election.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=50b60a50e5489b6616cc3bb62b6e84ba&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=50b60a50e5489b6616cc3bb62b6e84ba&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By RAYMOND HERNANDEZ</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 06:44:07 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Paterson, David A</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Elections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York State</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Democratic Party</category>
+		</item>
+		<item>
+			<title>Judge Attacks Merrill Pre-Merger Bonuses</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=45dd61ad715de8564483cbbac1a47b8c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/business/11bank.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/business/11bank.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/11/business/bank2_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Kenneth Lewis, chief of Bank of America, foreground, and John Thain, former head of Merrill.</media:description>
+			<media:credit>Mario Tama/Getty Images</media:credit>
+			<description>Bank of America and the S.E.C. must provide Judge Jed S. Rakoff with specifics about disclosure of bonuses.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=45dd61ad715de8564483cbbac1a47b8c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=45dd61ad715de8564483cbbac1a47b8c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LOUISE STORY</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 05:17:16 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Executive Compensation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bonuses</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Merrill Lynch &amp; Co</category>
+		</item>
+		<item>
+			<title>Hundreds Feared Dead in Taiwan After Typhoon</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1943d9d3a15dc354b54d7d4c7c100286</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/12/world/asia/12china.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/12/world/asia/12china.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/11/world/11china-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Hundreds were feared dead in Taiwan and Japan, and flooding affected China, including Zhejiang Province, above.</media:description>
+			<media:credit>Associated Press</media:credit>
+			<description>Two Pacific typhoons left a village in Taiwan and seven apartment buildings in coastal China buried in rubble.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1943d9d3a15dc354b54d7d4c7c100286&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1943d9d3a15dc354b54d7d4c7c100286&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL WINES</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 08:02:55 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Typhoon Morakot (2009)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Taiwan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Disasters and Emergencies</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Landslides and Mudslides</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Typhoons</category>
+		</item>
+		<item>
+			<title>Disabled Students Are Spanked More</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b376240daa12e18f48cf9d68185d1591</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/education/11punish.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/education/11punish.html</guid>
+			<description>More than 200,000 schoolchildren are subjected to physical punishment each year, and disabled students get a disproportionate share, according to a new study.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b376240daa12e18f48cf9d68185d1591&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b376240daa12e18f48cf9d68185d1591&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM DILLON</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 06:33:29 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Education and Schools</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Corporal Punishment</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Special Education (Handicapped)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Human Rights Watch</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">American Civil Liberties Union</category>
+		</item>
+		<item>
+			<title>Tilting at Internet Barrier, a Stalwart Is Upended</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6a3f03990e6cfb68dd7e9e4690d103fe</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/us/11download.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/us/11download.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/11/us/11download.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Joel Tenenbaum, left, and Prof. Charles Nesson, shown in Cambridge, Mass., challenged federal copyright law and lost.</media:description>
+			<media:credit>Josh Reynolds/Associated Press</media:credit>
+			<description>When Charles Nesson lost a music downloading case, many saw a moment when an eccentric scholar&#x2019;s devotion to a soaring vision blinded him to practical legal realities.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6a3f03990e6cfb68dd7e9e4690d103fe&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6a3f03990e6cfb68dd7e9e4690d103fe&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOHN SCHWARTZ</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 06:35:10 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Recordings and Downloads (Audio)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Suits and Litigation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Berkman Center for Internet and Society</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Recording Industry Assn of America</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Nesson, Charles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Tenenbaum, Joel</category>
+		</item>
+		<item>
+			<title>N. Korean Ship Searched for Radioactive Material</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a96c49e8f50aa5b3f720c9f4ff4a0c8e</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/asia/11korea.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/asia/11korea.html</guid>
+			<description>Authorities detained a North Korean vessel, the first time a ship has been seized and boarded under sanctions adopted by the U.N. Security Council.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a96c49e8f50aa5b3f720c9f4ff4a0c8e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a96c49e8f50aa5b3f720c9f4ff4a0c8e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LYDIA POLGREEN</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 07:26:49 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Security Council (UN)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">International Relations</category>
+		</item>
+		<item>
+			<title>Troubled Assets May Still Pose Risk</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=58d2ec21bc2254efc4ffec4bf5bbd162</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/business/11toxic.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/business/11toxic.html</guid>
+			<description>The Treasury Department&#x2019;s bailout program has stabilized the banking system, but it has done little to prod banks to fully deal with the troubled loans on their books, a Congressional oversight panel said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=58d2ec21bc2254efc4ffec4bf5bbd162&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=58d2ec21bc2254efc4ffec4bf5bbd162&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By EDMUND L. ANDREWS</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 05:40:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Subprime Mortgage Crisis</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Banks and Banking</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Emergency Economic Stabilization Act (2008)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Credit</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Treasury Department</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Federal Reserve System</category>
+		</item>
+		<item>
+			<title>New Nuns and Priests Seen Opting for Tradition</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=89d3e9673569a0cc7ab5e09a03bd58da</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/us/11nun.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/us/11nun.html</guid>
+			<description>A study of Roman Catholic nuns and priests showed an aging, predominantly white generation being succeeded by a smaller group of diverse recruits.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=89d3e9673569a0cc7ab5e09a03bd58da&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=89d3e9673569a0cc7ab5e09a03bd58da&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LAURIE GOODSTEIN</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 06:59:56 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Nuns</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Elderly</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Minorities</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Priests</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Center for Applied Research in the Apostolate</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Religion and Belief</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Roman Catholic Church</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">United States</category>
+		</item>
+		<item>
+			<title>Calif. Prison Rocked by Riot Has Troubled Past</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=94404c2ff10456fd39e9fca9adb59b9e</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/us/11riot.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/us/11riot.html</guid>
+			<description>Shoddy safety procedures, overcrowding and uprisings have been common at the California Institution for Men.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=94404c2ff10456fd39e9fca9adb59b9e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=94404c2ff10456fd39e9fca9adb59b9e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SOLOMON MOORE</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 06:33:42 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prisons and Prisoners</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">California</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Demonstrations and Riots</category>
+		</item>
+		<item>
+			<title>Westchester Adds Housing to Desegregation Pact</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=873d8aad07792955325f2e1b514910df</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/nyregion/11settle.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/nyregion/11settle.html</guid>
+			<description>An agreement will compel New York&#x2019;s Westchester County to create affordable housing in overwhelmingly white communities and market it to nonwhites.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=873d8aad07792955325f2e1b514910df&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=873d8aad07792955325f2e1b514910df&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM ROBERTS</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 06:41:26 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Westchester County (NY)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Affordable Housing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Segregation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Suits and Litigation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Minorities</category>
+		</item>
+		<item>
+			<title>Obama Sets Immigration Changes for 2010</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1d47e4cd06cd6d603393b2215a5f4605</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/americas/11prexy.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/americas/11prexy.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/us/10prexy-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>President Obama with President Felipe Calder&#xF3;n of Mexico, center, and Stephen Harper, Canada's prime minister, at their summit meeting in Guadalajara on Monday.</media:description>
+			<media:credit>Jewel Samad/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>Speaking at a summit, President Obama said that efforts to change immigration rules would come after other priorities, including health care.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1d47e4cd06cd6d603393b2215a5f4605&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1d47e4cd06cd6d603393b2215a5f4605&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By GINGER THOMPSON and MARC LACEY</dc:creator>
+			<pubDate>Tue, 11 Aug 2009 07:27:18 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Mexico</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Drug Abuse and Traffic</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Calderon, Felipe</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Defense and Military Forces</category>
+		</item>
+	</channel>
+</rss>

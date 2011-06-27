@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Thu, 13 Aug 2009 20:19:58 GMT</pubDate>
+    <lastBuildDate>Thu, 13 Aug 2009 20:27:25 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>Eurozone data raise hopes for recovery</title>
+      <link>http://traxfer.ft.com/cms/s/0/4ed29388-87dd-11de-82e4-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The German and French economies unexpectedly bounced back in the second quarter, raising hopes that the worst of the economic crisis is coming to an end in the eurozone</description>
+      <pubDate>Thu, 13 Aug 2009 18:25:15 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/4ed29388-87dd-11de-82e4-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Warning over US cash-for-clunkers scheme</title>
+      <link>http://traxfer.ft.com/cms/s/0/940088ae-8830-11de-82e4-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The popular US cash-for-clunkers programme may be drawing money away from other consumer purchases and could also undermine future car sales, US economists have warned</description>
+      <pubDate>Thu, 13 Aug 2009 17:51:00 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/940088ae-8830-11de-82e4-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>China backtracks on PC software filters</title>
+      <link>http://traxfer.ft.com/cms/s/0/8836165c-8839-11de-82e4-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Beijing has stepped back from attempts to force the installation of a filtering software on all PCs made or sold in China, averting potential trade friction</description>
+      <pubDate>Thu, 13 Aug 2009 19:01:19 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/8836165c-8839-11de-82e4-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>CIT gives New York Fed oversight of restructuring</title>
+      <link>http://traxfer.ft.com/cms/s/0/c99a226e-882a-11de-82e4-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>CIT, the troubled US small business lender, made an agreement with the Federal Reserve Bank of New York, its primary regulator, giving the Fed detailed oversight of its restructuring plans and veto power over dividend payments and other shareholder-friendly activity.</description>
+      <pubDate>Thu, 13 Aug 2009 20:19:58 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/c99a226e-882a-11de-82e4-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>UN criticised over Afghan poll security</title>
+      <link>http://traxfer.ft.com/cms/s/0/14c2da30-8829-11de-82e4-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The United Nations’ failure to protect the Afghan election from fraud has robbed it of the ‘heroism’ of the last election, Ashraf Ghani, one of thea presidential candidate, said</description>
+      <pubDate>Thu, 13 Aug 2009 16:58:35 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/14c2da30-8829-11de-82e4-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Wall Street timidly joins global rally</title>
+      <link>http://traxfer.ft.com/cms/s/0/55533d2a-877e-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>US stocks reluctantly joined the global equity rally after weak economic data hampered what could have been a stellar morning</description>
+      <pubDate>Thu, 13 Aug 2009 17:41:01 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/55533d2a-877e-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>AB InBev sees switch to ‘value’ brands</title>
+      <link>http://traxfer.ft.com/cms/s/0/bbb159ce-87d5-11de-82e4-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Anheuser-Busch InBev, the world’s largest brewer warned the second half of the year would be weaker as it revealed better-than-expected second-quarter results</description>
+      <pubDate>Thu, 13 Aug 2009 19:08:29 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/bbb159ce-87d5-11de-82e4-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Rebound still unsure despite tech IPOs</title>
+      <link>http://traxfer.ft.com/cms/s/0/be57839e-8832-11de-82e4-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Wall Street’s jaded appetite for the shares of new technology companies has shown signs of recovery in recent days, with the successful launch of the two biggest tech initial public offerings of the past year</description>
+      <pubDate>Thu, 13 Aug 2009 18:17:06 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/be57839e-8832-11de-82e4-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Rio Tinto to spin off US coal mines</title>
+      <link>http://traxfer.ft.com/cms/s/0/daa64132-87da-11de-82e4-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Rio Tinto plans to spin off some of its most valuable coal mines in the US, via an initial public offering that could exceed $1bn in value</description>
+      <pubDate>Thu, 13 Aug 2009 16:46:48 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/daa64132-87da-11de-82e4-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>India plans to overhaul tax system</title>
+      <link>http://traxfer.ft.com/cms/s/0/e43e2a22-87b5-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>India’s government is planning a significant reform big shake-up of its archaic tax system in a bid to curb widespread evasion as it confronts a sharply rising widening fiscal deficit</description>
+      <pubDate>Thu, 13 Aug 2009 15:25:39 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/e43e2a22-87b5-11de-9280-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

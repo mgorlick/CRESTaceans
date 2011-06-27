@@ -1,0 +1,1088 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="/~d/styles/rss2full.xsl"?><?xml-stylesheet type="text/css" media="screen" href="http://feeds.feedburner.com/~d/styles/itemcontent.css"?><rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:wfw="http://wellformedweb.org/CommentAPI/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:feedburner="http://rssnamespace.org/feedburner/ext/1.0" version="2.0">
+
+	<channel>
+		<title>TechCrunch</title>
+		
+		<link>http://www.techcrunch.com</link>
+		<description>TechCrunch is a group-edited blog that profiles the companies, products and events defining and transforming the new web.</description>
+		<pubDate>Fri, 31 Jul 2009 20:43:17 +0000</pubDate>
+		<generator>http://wordpress.org/?v=2.7.1</generator>
+		<language>en</language>
+						<image><link>http://www.techcrunch.com</link><url>http://www.techcrunch.com/wp-content/themes/techcrunchmu/images/techcrunch_logo.png</url><title>TechCrunch</title></image><atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="self" href="http://feeds.feedburner.com/Techcrunch" type="application/rss+xml" /><feedburner:emailServiceId>Techcrunch</feedburner:emailServiceId><feedburner:feedburnerHostname>http://feedburner.google.com</feedburner:feedburnerHostname><feedburner:feedFlare href="http://add.my.yahoo.com/rss?url=http%3A%2F%2Ffeeds.feedburner.com%2FTechcrunch" src="http://us.i1.yimg.com/us.yimg.com/i/us/my/addtomyyahoo4.gif">Subscribe with My Yahoo!</feedburner:feedFlare><feedburner:feedFlare href="http://www.newsgator.com/ngs/subscriber/subext.aspx?url=http%3A%2F%2Ffeeds.feedburner.com%2FTechcrunch" src="http://www.newsgator.com/images/ngsub1.gif">Subscribe with NewsGator</feedburner:feedFlare><feedburner:feedFlare href="http://feeds.my.aol.com/add.jsp?url=http%3A%2F%2Ffeeds.feedburner.com%2FTechcrunch" src="http://o.aolcdn.com/favorites.my.aol.com/webmaster/ffclient/webroot/locale/en-US/images/myAOLButtonSmall.gif">Subscribe with My AOL</feedburner:feedFlare><feedburner:feedFlare href="http://www.bloglines.com/sub/http://feeds.feedburner.com/Techcrunch" src="http://www.bloglines.com/images/sub_modern11.gif">Subscribe with Bloglines</feedburner:feedFlare><feedburner:feedFlare href="http://www.netvibes.com/subscribe.php?url=http%3A%2F%2Ffeeds.feedburner.com%2FTechcrunch" src="http://www.netvibes.com/img/add2netvibes.gif">Subscribe with Netvibes</feedburner:feedFlare><feedburner:feedFlare href="http://fusion.google.com/add?feedurl=http%3A%2F%2Ffeeds.feedburner.com%2FTechcrunch" src="http://buttons.googlesyndication.com/fusion/add.gif">Subscribe with Google</feedburner:feedFlare><feedburner:feedFlare href="http://www.pageflakes.com/subscribe.aspx?url=http%3A%2F%2Ffeeds.feedburner.com%2FTechcrunch" src="http://www.pageflakes.com/ImageFile.ashx?instanceId=Static_4&amp;fileName=ATP_blu_91x17.gif">Subscribe with Pageflakes</feedburner:feedFlare><feedburner:browserFriendly>This is an XML content feed. It is intended to be viewed in a newsreader or syndicated to another site.</feedburner:browserFriendly><atom10:link xmlns:atom10="http://www.w3.org/2005/Atom" rel="hub" href="http://pubsubhubbub.appspot.com" /><item>
+			<title>Google Maps Don’t Lie.  Sweden And Canada Among Worst Greenhouse Gas Emitters.</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/T9BOI-OnpB4/</link>
+			<comments>http://www.techcrunch.com/2009/07/31/google-maps-dont-lie-sweden-and-canada-among-worst-greenhouse-gas-emitters/#comments</comments>
+			<pubDate>Fri, 31 Jul 2009 20:43:17 +0000</pubDate>
+			<dc:creator>Erick Schonfeld</dc:creator>
+			
+		<category><![CDATA[Web 2.0 News & Ideas]]></category>
+
+		<category><![CDATA[Google-Maps]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88626</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/global-warming-map-215x182.jpg" width="215" height="182" />
+
+Which countries are the worst greenhouse gas emitters?  Now you can see for yourself on this <a href="http://maps.unfccc.int/di/map/">handy Google Map</a> created by a department of the UN and Google.  The map shows changes in greenhouse gas emissions from 1990 to 2006.  Green is good (a decrease in emissions) and purple is bad (an increase).
+
+So who are the worst offenders?  Topping the list is Sweden!  The country has managed to increase its emissions by 110 percent over that time period.  So much for Nordic purity.  Following Sweden is Turkey (with a 103 percent increase) and Canada (with a 55 percent increase).  Yes, Canada.  What is it with these northern countries?]]></description>
+					<content:encoded><![CDATA[<p><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/global-warming-map.jpg"/></p>
+<p>Which countries are the worst greenhouse gas emitters?  Now you can see for yourself on this <a href="http://maps.unfccc.int/di/map/">handy Google Map</a> created by a department of the UN and Google.  The map shows changes in greenhouse gas emissions from 1990 to 2006.  Green is good (a decrease in emissions) and purple is bad (an increase).</p>
+<p>So who are the worst offenders?  Topping the list is Sweden!  The country has managed to increase its emissions by 110 percent over that time period.  So much for Nordic purity.  Following Sweden is Turkey (with a 103 percent increase) and Canada (with a 55 percent increase).  Yes, Canada.  What is it with these northern countries?</p>
+<p>You&#8217;d think the U.S. would top the list, but it is actually only the tenth worst country with a 14 percent increase in emissions (still well within purple territory).  It is kind of embarrassing that Russia is greener than we are.  But at least we are better than Canada (and Sweden).</p>
+<p>Or are we?  The map itself lets you drill down into the data to find out.  You can sort by industry, type of emission (CO2, CH4, N2O, etc), or year, and if click on a country it gives you a detailed breakdown of emissions by economic sector and other variables.  For instance, over the 1990 to 2006 time span, Russia has actually seen a 29 percent decrease in emissions, but if you look at <a href="http://maps.unfccc.int/di/map/?year=2006&#038;gas=Aggregate_GHGs&#038;sector=to">just 2006</a>, Russia starts getting pretty purple, and rises to the No. 3 worst emitter.  And the USA rises to No. 1.  </p>
+<p>Hey, we&#8217;re No. 1!</p>
+<p><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/global-warming-table.jpg"/></p>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchboard.com">CrunchBoard</a><em> </em>because it&#8217;s time for you to find a new Job2.0</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=732' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=1557&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=1077' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=1604&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/3aaKydPuUW89UUPrFyMqztxrGYI/0/da"><img src="http://feedads.g.doubleclick.net/~at/3aaKydPuUW89UUPrFyMqztxrGYI/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/3aaKydPuUW89UUPrFyMqztxrGYI/1/da"><img src="http://feedads.g.doubleclick.net/~at/3aaKydPuUW89UUPrFyMqztxrGYI/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=T9BOI-OnpB4:KtuSNlOegC0:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=T9BOI-OnpB4:KtuSNlOegC0:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=T9BOI-OnpB4:KtuSNlOegC0:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=T9BOI-OnpB4:KtuSNlOegC0:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=T9BOI-OnpB4:KtuSNlOegC0:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=T9BOI-OnpB4:KtuSNlOegC0:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/T9BOI-OnpB4" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/31/google-maps-dont-lie-sweden-and-canada-among-worst-greenhouse-gas-emitters/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/31/google-maps-dont-lie-sweden-and-canada-among-worst-greenhouse-gas-emitters/</feedburner:origLink></item>
+				<item>
+			<title>Testing The Reverberations Of ECHO Commenting On TechCrunch</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/PJu0qb7117A/</link>
+			<comments>http://www.techcrunch.com/2009/07/31/testing-the-reverberations-of-echo-commenting-on-techcrunch/#comments</comments>
+			<pubDate>Fri, 31 Jul 2009 20:02:37 +0000</pubDate>
+			<dc:creator>MG Siegler</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[echo]]></category>
+
+		<category><![CDATA[js-kit]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88624</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/cp_1249070557_shirt-sticker-small-200x200.png" width="200" height="200" />"<em>We're here today to announce the death of comments.</em>"
+
+That's what <a href="http://js-kit.com">JS-Kit</a> CEO <a href="http://www.crunchbase.com/person/khris-loux">Khris Loux</a> said in his opening remarks at <a href="http://www.techcrunch.com/2009/07/10/js-kits-real-time-commenting-widget-echo-captures-the-pulse-of-comments-on-the-web/">our Real-Time Stream CrunchUp</a> earlier this month. He went on to unveil <a href="http://js-kit.com/echo/">ECHO</a>, JS-Kit's new take on how conversations should be happening around content on the web. And today, we're going to try a limited test of this new system on the TechCrunch Network.
+
+To reiterate, this is just a test that will reside under only this post for the time-being, so let us know what you think.
+
+While at first glance, the comments you see below this post may look like a slight variation of any other commenting system, the reality is much different. Sure, a part of ECHO is made up by what we think of as traditional comments, that is, comments you fill out on a particular article and post to it. But the majority of the content in this commenting area will actually be populated from sources all around the web talking about this piece of content.]]></description>
+					<content:encoded><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/cp_1249070557_shirt-sticker-small-200x200.png" width="200" height="200" />"<em>We're here today to announce the death of comments.</em>"
+
+That's what <a href="http://js-kit.com">JS-Kit</a> CEO <a href="http://www.crunchbase.com/person/khris-loux">Khris Loux</a> said in his opening remarks at <a href="http://www.techcrunch.com/2009/07/10/js-kits-real-time-commenting-widget-echo-captures-the-pulse-of-comments-on-the-web/">our Real-Time Stream CrunchUp</a> earlier this month. He went on to unveil <a href="http://js-kit.com/echo/">ECHO</a>, JS-Kit's new take on how conversations should be happening around content on the web. And today, we're going to try a limited test of this new system on the TechCrunch Network.
+
+To reiterate, this is just a test that will reside under only this post for the time-being, so let us know what you think.
+
+While at first glance, the comments you see below this post may look like a slight variation of any other commenting system, the reality is much different. Sure, a part of ECHO is made up by what we think of as traditional comments, that is, comments you fill out on a particular article and post to it. But the majority of the content in this commenting area will actually be populated from sources all around the web talking about this piece of content.
+<p><a href="http://feedads.g.doubleclick.net/~at/9eXpqRZk8j8xSPCYVht6uTfHKho/0/da"><img src="http://feedads.g.doubleclick.net/~at/9eXpqRZk8j8xSPCYVht6uTfHKho/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/9eXpqRZk8j8xSPCYVht6uTfHKho/1/da"><img src="http://feedads.g.doubleclick.net/~at/9eXpqRZk8j8xSPCYVht6uTfHKho/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=PJu0qb7117A:XWoQ1vZOR7Y:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=PJu0qb7117A:XWoQ1vZOR7Y:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=PJu0qb7117A:XWoQ1vZOR7Y:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=PJu0qb7117A:XWoQ1vZOR7Y:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=PJu0qb7117A:XWoQ1vZOR7Y:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=PJu0qb7117A:XWoQ1vZOR7Y:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/PJu0qb7117A" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/31/testing-the-reverberations-of-echo-commenting-on-techcrunch/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunchit.com/2009/07/31/testing-the-reverberations-of-echo-commenting-on-techcrunch/</feedburner:origLink></item>
+				<item>
+			<title>Geek Weekend: Minneapolis-Saint Paul, MN</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/Hu_VYr6NTeU/</link>
+			<comments>http://www.techcrunch.com/2009/07/31/geek-weekend-minneapolis-saint-paul-mn/#comments</comments>
+			<pubDate>Fri, 31 Jul 2009 19:16:56 +0000</pubDate>
+			<dc:creator>Doug Aamoth</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[geek weekend]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88618</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/cp_1249067816_FileMinneapolisSkyline-215x172.jpg" width="215" height="172" />We've been getting requests from various citizens to feature their respective cities in our new Geek Weekend feature on CrunchGear, so when a request came in for the Twin Cities, John asked me to write it up and I thought, <del>"Oh, great. More work."</del> "Perfect! I'm from Minneapolis! I know where geeky stuff is located!"
+
+<strong>Background Info:</strong> The Twin Cities denotes the capital city of St. Paul, MN and the larger, more cosmopolitan city of Minneapolis, MN. Together the two cities are home to roughly 2.5 million people.
+
+There's always been a friendly little rivalry going on between the two cities, with some people from Minneapolis viewing people from St. Paul as more blue-collar and rough-around-the-edges, while some from St. Paul think people from Minneapolis are yuppies. I've lived in both cities and they're both nice places. Overall, the rivalry is pretty silly, but it's there. Look hard enough in any city, though, and you'll find both a-holes and nice people. No different in the Twin Cities. Everyone's pretty nice, overall, though.]]></description>
+					<content:encoded><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/cp_1249067816_FileMinneapolisSkyline-215x172.jpg" width="215" height="172" />We've been getting requests from various citizens to feature their respective cities in our new Geek Weekend feature on CrunchGear, so when a request came in for the Twin Cities, John asked me to write it up and I thought, <del>"Oh, great. More work."</del> "Perfect! I'm from Minneapolis! I know where geeky stuff is located!"
+
+<strong>Background Info:</strong> The Twin Cities denotes the capital city of St. Paul, MN and the larger, more cosmopolitan city of Minneapolis, MN. Together the two cities are home to roughly 2.5 million people.
+
+There's always been a friendly little rivalry going on between the two cities, with some people from Minneapolis viewing people from St. Paul as more blue-collar and rough-around-the-edges, while some from St. Paul think people from Minneapolis are yuppies. I've lived in both cities and they're both nice places. Overall, the rivalry is pretty silly, but it's there. Look hard enough in any city, though, and you'll find both a-holes and nice people. No different in the Twin Cities. Everyone's pretty nice, overall, though.
+<p><a href="http://feedads.g.doubleclick.net/~at/OzFiC4vSPSM9M-Qfdl-iOp9e5Cc/0/da"><img src="http://feedads.g.doubleclick.net/~at/OzFiC4vSPSM9M-Qfdl-iOp9e5Cc/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/OzFiC4vSPSM9M-Qfdl-iOp9e5Cc/1/da"><img src="http://feedads.g.doubleclick.net/~at/OzFiC4vSPSM9M-Qfdl-iOp9e5Cc/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=Hu_VYr6NTeU:okjTT5C84QY:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=Hu_VYr6NTeU:okjTT5C84QY:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=Hu_VYr6NTeU:okjTT5C84QY:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=Hu_VYr6NTeU:okjTT5C84QY:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=Hu_VYr6NTeU:okjTT5C84QY:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=Hu_VYr6NTeU:okjTT5C84QY:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/Hu_VYr6NTeU" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/31/geek-weekend-minneapolis-saint-paul-mn/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.crunchgear.com/2009/07/31/geek-weekend-minneapolis-saint-paul-mn/</feedburner:origLink></item>
+				<item>
+			<title>The Online Ad Recession Continues. Is This What A Reset Looks Like?</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/OLe-6B5zGms/</link>
+			<comments>http://www.techcrunch.com/2009/07/31/the-online-ad-recession-continues-is-this-what-a-reset-looks-like/#comments</comments>
+			<pubDate>Fri, 31 Jul 2009 17:39:55 +0000</pubDate>
+			<dc:creator>Erick Schonfeld</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[Web 2.0 News & Ideas]]></category>
+
+		<category><![CDATA[Advertising]]></category>
+
+		<category><![CDATA[AOL]]></category>
+
+		<category><![CDATA[google]]></category>
+
+		<category><![CDATA[Microsoft]]></category>
+
+		<category><![CDATA[Yahoo]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88607</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/online-ad-rev-fever-chart-2q09-214x120.png" width="214" height="120" />
+
+The recession in online advertising, which began in the <a href=" http://www.techcrunch.com/2009/05/01/the-online-ad-recession-is-officially-here-first-quarterly-decline-in-revenues/">first quarter of 2009</a>, continued into the second. Every quarter we keep track of the combined advertising revenues of the four largest Web advertising companies (<a href="http://www.techcrunch.com/2009/07/17/how-google-made-its-q2-numbers-squeezing-expenses/">Google</a>, <a href="http://www.techcrunch.com/2009/07/21/yahoos-revenues-drop-13-percent-in-second-quarter-announces-5-percent-of-employees-to-lose-jobs/">Yahoo</a>, <a href="http://www.techcrunch.com/2009/07/23/microsofts-money-pit-every-dollar-of-online-revenue-is-wiped-out-by-a-dollar-of-loss/">Microsoft</a>, and <a href="http://www.techcrunch.com/2009/07/29/the-hangover-time-warners-q2-results-feature-a-lot-of-goodbye-aol-talk/">AOL</a>), which together represent the lion's share of all online advertising revenues and is a decent proxy for the market as a whole.  In the second quarter of 2009, their combined global ad revenues were $7.864 billion, down 3.4 percent from a year ago.
+
+In economics, a general rule of thumb is that two down quarters marks a recession.  Last quarter saw the first annual decline in advertising revenues of 2.1 percent. And the annual decline this quarter got a little worse.  However, on a sequential basis compared to last quarter, it is actually pretty much flat (but still down 0.18 percent).  So we now have two down quarters on both an annual and sequential basis.  
+
+Will this recession continue into the current quarter, or did we just witness a fundamental <a href="http://www.guardian.co.uk/media/2009/jun/24/microsoft-steve-ballmer-cannes">"reset"</a>, as Steve Ballmer likes to call it. ]]></description>
+					<content:encoded><![CDATA[<p><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/online-ad-rev-fever-chart-2q09.png"/></p>
+<p>The recession in online advertising, which began in the <a href=" http://www.techcrunch.com/2009/05/01/the-online-ad-recession-is-officially-here-first-quarterly-decline-in-revenues/">first quarter of 2009</a>, continued into the second. Every quarter we keep track of the combined advertising revenues of the four largest Web advertising companies (<a href="http://www.techcrunch.com/2009/07/17/how-google-made-its-q2-numbers-squeezing-expenses/">Google</a>, <a href="http://www.techcrunch.com/2009/07/21/yahoos-revenues-drop-13-percent-in-second-quarter-announces-5-percent-of-employees-to-lose-jobs/">Yahoo</a>, <a href="http://www.techcrunch.com/2009/07/23/microsofts-money-pit-every-dollar-of-online-revenue-is-wiped-out-by-a-dollar-of-loss/">Microsoft</a>, and <a href="http://www.techcrunch.com/2009/07/29/the-hangover-time-warners-q2-results-feature-a-lot-of-goodbye-aol-talk/">AOL</a>), which together represent the lion&#8217;s share of all online advertising revenues and is a decent proxy for the market as a whole.  In the second quarter of 2009, their combined global ad revenues were $7.864 billion, down 3.4 percent from a year ago.</p>
+<p><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/online-ad-decline-chart-2q09.png" class="shot2"/></p>
+<p>In economics, a general rule of thumb is that two down quarters marks a recession.  Last quarter saw the first annual decline in advertising revenues of 2.1 percent. And the annual decline this quarter got a little worse.  However, on a sequential basis compared to last quarter, it is actually pretty much flat (but still down 0.18 percent).  So we now have two down quarters on both an annual and sequential basis.  </p>
+<p>Will this recession continue into the current quarter, or did we just witness a fundamental <a href="http://www.guardian.co.uk/media/2009/jun/24/microsoft-steve-ballmer-cannes">&#8220;reset&#8221;</a>, as Steve Ballmer likes to call it.  What that implies is that advertising revenues have been reset to a lower level from which they can once again grow.  We&#8217;ll see what happens in the third quarter, but anecdotally I am hearing from advertising startups that the worst is behind us.  </p>
+<p>This may be wishful thinking, of course.  But barring any new economic catastrophe, the advertising levels of the past two quarters seems like the new floor.  But how long will it take to get up off that floor?</p>
+<p>These numbers represent global advertising revenues, and include network revenues paid to affiliates through AdSense and Yahoo’s ad network.  Google’s licensing revenues for Google Enterprise Apps have been stripped out.  For the other companies, we include only the advertising portions of their online revenues as reported in their quarterly earnings statements.</p>
+<p>Below is a table with all the numbers:</p>
+<p><strong>Online Advertising Revenues (in millions)</strong></p>
+<table border="1">
+<tbody>
+<tr>
+<th></th>
+<th>4Q07</th>
+<th>1Q08</th>
+<th>2Q08</th>
+<th>3Q08</th>
+<th>4Q08</th>
+<th>1Q09</th>
+<th>2Q09</th>
+</tr>
+<tr>
+<td>Google</td>
+<td>$4,758</td>
+<td>$5,086</td>
+<td>$5,185</td>
+<td>$5,352</td>
+<td>$5,504</td>
+<td>$5,331</td>
+<td>$5,336</td>
+</tr>
+<tr>
+<td>Yahoo</td>
+<td>$1,590</td>
+<td>$1,572</td>
+<td>$1,587</td>
+<td>$1,563</td>
+<td>$1,594</td>
+<td>$1,383</td>
+<td>$1,378</td>
+</tr>
+<tr>
+<td>Microsoft</td>
+<td>$860</td>
+<td>$840</td>
+<td>$840</td>
+<td>$770</td>
+<td>$866</td>
+<td>$721</td>
+<td>$731</td>
+</tr>
+<tr>
+<td>AOL</td>
+<td>$620</td>
+<td>$552</td>
+<td>$530</td>
+<td>$507</td>
+<td>$507</td>
+<td>$443</td>
+<td>$419</td>
+</tr>
+<tr>
+<th>Total</th>
+<td>$7,828</td>
+<td>$8,050</td>
+<td>$8,142</td>
+<td>$8,192</td>
+<td>$8,467</td>
+<td>$7,878</td>
+<td>$7864</td>
+</tr>
+<tr>
+<th>Sequential Growth Q/Q</th>
+<td></td>
+<td>2.84%</td>
+<td>1.14%</td>
+<td>0.61%</td>
+<td>-7.00%</td>
+<td>-0.18%</td>
+</tr>
+<tr>
+<th>Annual Growth Y/Y</th>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>8.21%</td>
+<td>-2.10%</td>
+<td>-3.41%</td>
+</tr>
+</tbody>
+</table>
+<p><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/online-ad-rev-chart-2q09.png"/>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchbase.com">CrunchBase</a><em> </em>the free database of technology companies, people, and investors</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=1556' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=573&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=1825' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=431&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/naoP0po4wGBgSu5gAsQRBg2HI3o/0/da"><img src="http://feedads.g.doubleclick.net/~at/naoP0po4wGBgSu5gAsQRBg2HI3o/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/naoP0po4wGBgSu5gAsQRBg2HI3o/1/da"><img src="http://feedads.g.doubleclick.net/~at/naoP0po4wGBgSu5gAsQRBg2HI3o/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=OLe-6B5zGms:C4I5SdVc7X0:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=OLe-6B5zGms:C4I5SdVc7X0:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=OLe-6B5zGms:C4I5SdVc7X0:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=OLe-6B5zGms:C4I5SdVc7X0:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=OLe-6B5zGms:C4I5SdVc7X0:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=OLe-6B5zGms:C4I5SdVc7X0:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/OLe-6B5zGms" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/31/the-online-ad-recession-continues-is-this-what-a-reset-looks-like/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/31/the-online-ad-recession-continues-is-this-what-a-reset-looks-like/</feedburner:origLink></item>
+				<item>
+			<title>While We Wait For 12seconds’ Robust iPhone App, We Get A Dead Simple One</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/RSEccO7ccfc/</link>
+			<comments>http://www.techcrunch.com/2009/07/31/while-we-wait-for-12seconds-robust-app-we-get-a-dead-simple-one/#comments</comments>
+			<pubDate>Fri, 31 Jul 2009 16:58:38 +0000</pubDate>
+			<dc:creator>MG Siegler</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[12seconds]]></category>
+
+		<category><![CDATA[Apple]]></category>
+
+		<category><![CDATA[iPhone]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88528</guid>
+				<description><![CDATA[<a href="http://12seconds.tv"><img src="http://www.techcrunch.com/wp-content/uploads/2009/07/picture-274-215x68.png" width="215" height="68" />12seconds</a> showed off a really <a href="http://www.techcrunch.com/2009/07/10/12seconds-lays-an-iphone-video-messenger-on-top-of-twitters-social-graph/">slick-looking new iPhone app</a> at our Real-Time Stream CrunchUp earlier this month. Unfortunately, that's not quite ready yet. But in the meantime, they have another iPhone app that is ready, and it's about as simple as can be — which may be good thing.
+
+Called 12cast, the app claims to be the "simplest way to get video on Twitter." Here's how it works, you open the app, enter a title for the video, then rotate it to the left to bring up the video camera. You then record footage, hit send, and you're done. (If you're not logged into Twitter, there will be a prompt that comes up to allow you to do that.)]]></description>
+					<content:encoded><![CDATA[<p><a href="http://12seconds.tv"><img class="alignright size-full wp-image-88529" title="picture-274" src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/picture-274.png" alt="picture-274" width="404" height="128" />12seconds</a> showed off a really <a href="http://www.techcrunch.com/2009/07/10/12seconds-lays-an-iphone-video-messenger-on-top-of-twitters-social-graph/">slick-looking new iPhone app</a> at our Real-Time Stream CrunchUp earlier this month. Unfortunately, that&#8217;s not quite ready yet. But in the meantime, they have another iPhone app that is ready, and it&#8217;s about as simple as can be — which may be good thing.</p>
+<p>Called 12cast, the app claims to be the &#8220;simplest way to get video on Twitter.&#8221; Here&#8217;s how it works, you open the app, enter a title for the video, then rotate it to the left to bring up the video camera. You then record footage, hit send, and you&#8217;re done. (If you&#8217;re not logged into Twitter, there will be a prompt that comes up to allow you to do that.)</p>
+<p>If the video you shot was over 12 seconds, it will only take the first 12 seconds. And because of the 12seconds limit, the uploading of the video occurs very quickly. And you can also use footage you&#8217;ve already shot and saved, by clicking the &#8220;library&#8221; link on the title page. Again, the 12 second rule will be in place.</p>
+<p>As with the larger 12seconds app they&#8217;re working on, 12cast is all about using the video service on top of the Twitter social graph. The goal here was to build an app with the lowest barrier way to put video onto Twitter. The plan for a future update is to include Facebook Connect as well.</p>
+<p>Obviously, this app will only work with the new iPhone 3GS, which has <a href="http://www.techcrunch.com/2009/06/20/it-really-should-have-been-called-the-iphone-3g-v-%E2%80%94-for-video/">video capabilities</a>.</p>
+<p>The app will be available for free in the App Store at some point later today.</p>
+<p><img class="alignnone size-full wp-image-88530" title="picture-283" src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/picture-283.png" alt="picture-283" width="610" height="500" /></p>
+<p><object width="580" height="363"><param name="allowfullscreen" value="true" /><param name="allowscriptaccess" value="always" /><param name="movie" value="http://vimeo.com/moogaloop.swf?clip_id=5853659&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=c9ff23&amp;fullscreen=1" /><embed src="http://vimeo.com/moogaloop.swf?clip_id=5853659&amp;server=vimeo.com&amp;show_title=1&amp;show_byline=1&amp;show_portrait=0&amp;color=c9ff23&amp;fullscreen=1" type="application/x-shockwave-flash" allowfullscreen="true" allowscriptaccess="always" width="580" height="363"></embed></object>
+<p><a href="http://vimeo.com/5853659">12cast introduction and overview</a> from <a href="http://vimeo.com/user1029607">Sol Lipman</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchgear.com">CrunchGear</a><em> </em>drool over the sexiest new gadgets and hardware.</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=1408' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=1879&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=1656' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=1906&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/Dp7EfnXvlXnfkbn7TuQ0bPOF3X4/0/da"><img src="http://feedads.g.doubleclick.net/~at/Dp7EfnXvlXnfkbn7TuQ0bPOF3X4/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/Dp7EfnXvlXnfkbn7TuQ0bPOF3X4/1/da"><img src="http://feedads.g.doubleclick.net/~at/Dp7EfnXvlXnfkbn7TuQ0bPOF3X4/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=RSEccO7ccfc:gXu1xeM09gg:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=RSEccO7ccfc:gXu1xeM09gg:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=RSEccO7ccfc:gXu1xeM09gg:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=RSEccO7ccfc:gXu1xeM09gg:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=RSEccO7ccfc:gXu1xeM09gg:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=RSEccO7ccfc:gXu1xeM09gg:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/RSEccO7ccfc" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/31/while-we-wait-for-12seconds-robust-app-we-get-a-dead-simple-one/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/31/while-we-wait-for-12seconds-robust-app-we-get-a-dead-simple-one/</feedburner:origLink></item>
+				<item>
+			<title>Should Journalists Be On Twitter?  Three Quarters Of NYTimes Readers Don’t Think So.</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/EpL5-Pq5l4w/</link>
+			<comments>http://www.techcrunch.com/2009/07/31/should-journalists-be-on-twitter-three-quarters-of-nytimes-readers-dont-think-so/#comments</comments>
+			<pubDate>Fri, 31 Jul 2009 15:36:13 +0000</pubDate>
+			<dc:creator>Robin Wauters</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[New-York-Times]]></category>
+
+		<category><![CDATA[NY Times]]></category>
+
+		<category><![CDATA[The New York Times]]></category>
+
+		<category><![CDATA[Twitter]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88580</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/ny-times-214x145.png" width="214" height="145" />
+
+Apparently, the New York Times is still unsure whether its reporters should be allowed to Tweet or not.  Intrigued by <a href="http://twitter.com/stoweboyd/status/2950495721">this tweet</a> from writer and consultant <a href="http://www.stoweboyd.com/">Stowe Boyd</a>, I registered for the New York Times' <a href="https://www.nytinsightlab.com">Insight Lab</a>, an online community / focus group made up of Times readers interested in providing the media company with direct feedback.
+
+The homepage features a quick poll asking members if they want to see Times’ reporters and editors on <a href="http://twitter.com">Twitter</a> or not.  I guess this is the most pressing issue the New York Times wants to hear from its readers about.
+
+For some reason, close to three quarters of the respondents indicated that they'd prefer if the journalists stay far away from the micro-sharing service.  Only 7 percent had no idea what Twitter is.  ]]></description>
+					<content:encoded><![CDATA[<p><img class="shot2" src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/ny-times.png" alt="" /></p>
+<p>Apparently, the New York Times is still unsure whether its reporters should be allowed to Tweet or not.  Intrigued by <a href="http://twitter.com/stoweboyd/status/2950495721">this tweet</a> from writer and consultant <a href="http://www.stoweboyd.com/">Stowe Boyd</a>, I registered for the New York Times&#8217; <a href="https://www.nytinsightlab.com">Insight Lab</a>, an online community / focus group made up of Times readers interested in providing the media company with direct feedback.</p>
+<p>The homepage features a quick poll asking members if they want to see Times’ reporters and editors on <a href="http://twitter.com">Twitter</a> or not.  I guess this is the most pressing issue the New York Times wants to hear from its readers about.</p>
+<p>For some reason, close to three quarters of the respondents indicated that they&#8217;d prefer if the journalists stay far away from the micro-sharing service.  Only 7 percent had no idea what Twitter is.  There is zero indication on the site how many people are actually registered members of the Insight Lab, let alone how many so far participated in this poll. Nevertheless, I&#8217;m surprised to see the negative answer leading at this point.</p>
+<p>In my mind, journalists are free to join any social networking site they want as long as they conduct themselves online the way they&#8217;re supposed to behave in meat space e.g. not embarrass themselves or the publications they work for and never do or say anything that could call their professional reputation into question. Here&#8217;s <a href="http://www.poynter.org/content/content_view.asp?id=157136">their policy</a> on those sorts of things (a <a href="http://savethemedia.com/2009/05/14/more-on-newspapers-use-of-social-media/">wee bit paranoid</a> indeed, but understandable).</p>
+<p>What&#8217;s the point of asking readers if Times journalists should be on Twitter, come to think of it?   Maybe the Times is just looking for guidance, but something tells me they&#8217;d get better answers if they asked this question on Twitter itself. The <a href="http://twitter.com/NyTimes">@NYTimes </a>  account has 1.5 million followers, which is probably a much bigger sample than the people who managed to find the poll hidden away on the Insight Lab site.  </p>
+<p>Twitter&#8217;s far from perfect, but it&#8217;s not a fad. In my experience, you can get a lot of value out of the service as a reporter even if you choose not to engage in public tweeting but rather keep to a close circle. Heck, even Twitter Search seems to me an essential tool for journalists tracking breaking stories and events. Why would readers want journalists to be <em>less</em> informed?</p>
+<p>Help the New York Times by answering our our own poll:</p>
+<p><script src="http://static.polldaddy.com/p/1825922.js" type="text/javascript"></script><noscript> &lt;a href=&#8221;http://answers.polldaddy.com/poll/1825922/&#8221; mce_href=&#8221;http://answers.polldaddy.com/poll/1825922/&#8221;&gt;Do you want to see NYT reporters and editors on Twitter?&lt;/a&gt;&lt;span style=&#8221;font-size:9px;&#8221; mce_style=&#8221;font-size:9px;&#8221;&gt;(&lt;a href=&#8221;http://www.polldaddy.com&#8221; mce_href=&#8221;http://www.polldaddy.com&#8221;&gt;online surveys&lt;/a&gt;)&lt;/span&gt; </noscript> <img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/jenny.png" alt="" /></p>
+<div class="cbw snap_nopreview">
+<div class="cbw_header"><script src="http://www.crunchbase.com/javascripts/widget.js" type="text/javascript"></script></p>
+<div class="cbw_header_text"><a rel="nofollow" href="http://www.crunchbase.com/">CrunchBase Information</a></div>
+</div>
+<div class="cbw_content">
+<div class="cbw_subheader"><a href="http://www.crunchbase.com/company/twitter">Twitter</a></div>
+<div class="cbw_subcontent"><script src="http://www.crunchbase.com/cbw/company/twitter.js" type="text/javascript"></script></div>
+<div class="cbw_footer">Information provided by <a rel="nofollow" href="http://www.crunchbase.com/">CrunchBase</a></div>
+</div>
+</div>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchboard.com">CrunchBoard</a><em> </em>because it&#8217;s time for you to find a new Job2.0</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=1418' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=1877&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=408' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=77&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/erz4w-6QhOdicpVfdwfR1B-VOBc/0/da"><img src="http://feedads.g.doubleclick.net/~at/erz4w-6QhOdicpVfdwfR1B-VOBc/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/erz4w-6QhOdicpVfdwfR1B-VOBc/1/da"><img src="http://feedads.g.doubleclick.net/~at/erz4w-6QhOdicpVfdwfR1B-VOBc/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=EpL5-Pq5l4w:4ja4WzwOsKA:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=EpL5-Pq5l4w:4ja4WzwOsKA:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=EpL5-Pq5l4w:4ja4WzwOsKA:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=EpL5-Pq5l4w:4ja4WzwOsKA:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=EpL5-Pq5l4w:4ja4WzwOsKA:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=EpL5-Pq5l4w:4ja4WzwOsKA:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/EpL5-Pq5l4w" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/31/should-journalists-be-on-twitter-three-quarters-of-nytimes-readers-dont-think-so/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/31/should-journalists-be-on-twitter-three-quarters-of-nytimes-readers-dont-think-so/</feedburner:origLink></item>
+				<item>
+			<title>BongoBing Opposes Microsoft Trademark Application For “Bing”</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/sUo4SfqR0Sw/</link>
+			<comments>http://www.techcrunch.com/2009/07/31/bongobing-opposes-microsoft-trademark-application-for-bing/#comments</comments>
+			<pubDate>Fri, 31 Jul 2009 13:29:41 +0000</pubDate>
+			<dc:creator>Robin Wauters</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[bing]]></category>
+
+		<category><![CDATA[bongobing]]></category>
+
+		<category><![CDATA[Microsoft]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88568</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/bongobing-215x79.png" width="215" height="79" />The Laptop Company, operator of a web-based shopping platform through its <a href="http://www.BongoBing.com">BongoBing</a> website, has filed a request for an extension of time to oppose Microsoft in its efforts to register a trademark for the name <a href="http://bing.com">“Bing”</a> with the USPTO. Furthermore, The Trademark Trial and Appeal Board has effectively granted the extension request until October 28, 2009.
+
+Here's what BongoBing CEO and co-founder Raul Pellerano had to say about it: 
+
+
+
+<blockquote>“We have worked hard and invested significant resources in building our BongoBingTM brand and identity, our website and services, and our corporate identity. We believe it is important for a small company like The Laptop Company to continue to use its trademarks and conduct business without confusion in the marketplace.”</blockquote>]]></description>
+					<content:encoded><![CDATA[<p><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/bongobing.png" class="shot2" />The Laptop Company, operator of a web-based shopping platform through its <a href="http://www.BongoBing.com">BongoBing</a> website, has filed a request for an extension of time to oppose Microsoft in its efforts to register a trademark for the name <a href="http://bing.com">“Bing”</a> with the USPTO. Furthermore, The Trademark Trial and Appeal Board has effectively granted the extension request until October 28, 2009.</p>
+<p>Here&#8217;s what BongoBing CEO and co-founder Raul Pellerano had to say about it: </p>
+<blockquote><p>“We have worked hard and invested significant resources in building our BongoBingTM brand and identity, our website and services, and our corporate identity. We believe it is important for a small company like The Laptop Company to continue to use its trademarks and conduct business without confusion in the marketplace.”</p></blockquote>
+<p>I have a <a href="http://twitter.com/BongoBing/status/2944855183">sneaking suspicion</a> that The Laptop Company is doing this because of the almost guaranteed press attention this will be getting, in which case its strategy has already paid off. </p>
+<p>Hands up if you think they actually have a case.</p>
+<p>(Hat tip to <a href="http://www.twitter.com/dbarner">Dave Barner</a>)</p>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.mobilecrunch.com/">MobileCrunch</a><em> </em>Mobile Gadgets and Applications, Delivered Daily.</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=914' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=623&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=710' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=1680&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/Yc6OZVmMbOaCZwCSeBCiSonX4fc/0/da"><img src="http://feedads.g.doubleclick.net/~at/Yc6OZVmMbOaCZwCSeBCiSonX4fc/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/Yc6OZVmMbOaCZwCSeBCiSonX4fc/1/da"><img src="http://feedads.g.doubleclick.net/~at/Yc6OZVmMbOaCZwCSeBCiSonX4fc/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=sUo4SfqR0Sw:tjeGDXEZ8Fc:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=sUo4SfqR0Sw:tjeGDXEZ8Fc:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=sUo4SfqR0Sw:tjeGDXEZ8Fc:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=sUo4SfqR0Sw:tjeGDXEZ8Fc:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=sUo4SfqR0Sw:tjeGDXEZ8Fc:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=sUo4SfqR0Sw:tjeGDXEZ8Fc:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/sUo4SfqR0Sw" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/31/bongobing-opposes-microsoft-trademark-application-for-bing/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/31/bongobing-opposes-microsoft-trademark-application-for-bing/</feedburner:origLink></item>
+				<item>
+			<title>Am I Last To Find Out You Can Circumvent PDF Usage Restrictions With Gmail?</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/jWmEHQkTrD4/</link>
+			<comments>http://www.techcrunch.com/2009/07/31/am-i-last-to-find-out-you-can-circumvent-pdf-usage-restrictions-with-gmail/#comments</comments>
+			<pubDate>Fri, 31 Jul 2009 11:52:40 +0000</pubDate>
+			<dc:creator>Robin Wauters</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[Adobe]]></category>
+
+		<category><![CDATA[adobe systems]]></category>
+
+		<category><![CDATA[Gmail]]></category>
+
+		<category><![CDATA[google]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88543</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/unlock-186x200.gif" width="186" height="200" />I expect many of you already were aware of this, but I can imagine at least some of you aren't yet, so here goes: apparently you can lift the usage restrictions from <a href="http://en.wikipedia.org/wiki/PDF">Adobe PDF</a> files by simply forwarding them as attachments to your <a href="http://gmail.com">Gmail</a> account and <a href="http://mail.google.com/support/bin/answer.py?answer=30719&#038;hl=en">opening them in HTML mode</a> right from your inbox. That way, you can copy whatever the 'secured' PDF contains to a text editing program and do whatever you want with it.
+
+For your reference: PDFs (Portable Document Format) can be encrypted so that a password is needed to view or edit its content, and they can also contain embedded DRM restrictions that provide further controls that limit copying, editing or printing.]]></description>
+					<content:encoded><![CDATA[<p><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/unlock.gif" class="shot2" />I expect many of you already were aware of this, but I can imagine at least some of you aren&#8217;t yet, so here goes: apparently you can lift the usage restrictions from <a href="http://en.wikipedia.org/wiki/PDF">Adobe PDF</a> files by simply forwarding them as attachments to your <a href="http://gmail.com">Gmail</a> account and <a href="http://mail.google.com/support/bin/answer.py?answer=30719&#038;hl=en">opening them in HTML mode</a> right from your inbox. That way, you can copy whatever the &#8217;secured&#8217; PDF contains to a text editing program and do whatever you want with it.</p>
+<p>For your reference: PDFs (Portable Document Format) can be encrypted so that a password is needed to view or edit its content, and they can also contain embedded DRM restrictions that provide further controls that limit copying, editing or printing.</p>
+<p>Turns out the &#8220;View in HTML&#8221; feature in Gmail can display an HTML version of the encrypted file, stripping out the restrictions. Part of the layout might be lost in the process, but the text can easily be extracted with a simple copy/paste command. In case the original PDF file had printing restrictions, those are stripped as well.</p>
+<p>I searched a bit for similar reports and found <a href="http://chosaq.net/archives/2006/04/circumvent-pdf-drm-with-gmail.html">this article</a>, dated April 2006, which was one of the first to discover the trick. The same blog later <a href="http://chosaq.net/archives/2006/05/gmail-cripples-drmed-pdf-files-view-as-html-functionality.html">updated readers</a> on the situation, stating Google crippled the security circumvention so that DRMed PDF files could no longer be opened in HTML mode, but a quick test with a secured file just worked fine right here and now. (<strong>Update:</strong> apparently, it doesn&#8217;t <em>always</em> work)</p>
+<p>I don&#8217;t know about you, but this&#8217;ll save me some trouble next time someone sends me an encrypted Adobe PDF file that I&#8217;d like to copy or edit. Unless it&#8217;s illegal, in which case this post doesn&#8217;t exist.</p>
+<p>(Via <a href="http://twitter.com/Toon/status/2949141696">@Toon</a>)</p>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchgear.com">CrunchGear</a><em> </em>drool over the sexiest new gadgets and hardware.</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=1338' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=1182&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=213' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=726&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/iq0FIEo27KwKKq06LovznvLeO-k/0/da"><img src="http://feedads.g.doubleclick.net/~at/iq0FIEo27KwKKq06LovznvLeO-k/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/iq0FIEo27KwKKq06LovznvLeO-k/1/da"><img src="http://feedads.g.doubleclick.net/~at/iq0FIEo27KwKKq06LovznvLeO-k/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=jWmEHQkTrD4:BlSFd1sMMLY:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=jWmEHQkTrD4:BlSFd1sMMLY:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=jWmEHQkTrD4:BlSFd1sMMLY:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=jWmEHQkTrD4:BlSFd1sMMLY:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=jWmEHQkTrD4:BlSFd1sMMLY:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=jWmEHQkTrD4:BlSFd1sMMLY:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/jWmEHQkTrD4" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/31/am-i-last-to-find-out-you-can-circumvent-pdf-usage-restrictions-with-gmail/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/31/am-i-last-to-find-out-you-can-circumvent-pdf-usage-restrictions-with-gmail/</feedburner:origLink></item>
+				<item>
+			<title>Should The Government Jail The Hacker That Broke Into The Pentagon? Or Hire him?</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/BkJM9kYLBK4/</link>
+			<comments>http://www.techcrunch.com/2009/07/31/should-the-government-jail-the-hacker-that-broke-the-pentagon-or-hire-him/#comments</comments>
+			<pubDate>Fri, 31 Jul 2009 11:41:22 +0000</pubDate>
+			<dc:creator>Mike Butcher</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88546</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/cp_1249040471_crowe-141x200.jpg" width="141" height="200" />British hacker Gary McKinnon has finally <a href="http://news.bbc.co.uk/1/hi/uk/8177561.stm">lost</a> his latest High Court bid to avoid extradition to the United States to face charges for breaking into US military and Nasa computers in 2001 and 2002. After his arrest, and without a lawyer present, McKinnon admitted to hacking, but denies it was malicious or that he caused damage costing $800,000 (£487,000). The argument of his lawyers was not that he shouldn't be tried, but that he should be tried in the UK and that his extreme <a href="http://en.wikipedia.org/wiki/Asperger_syndrome">Asperger's Syndrome</a>, an autism spectrum disorder, should be taken into account, especially since it could lead to suicide, if he was to be extradited.
+
+He faces up to 70 years in prison if convicted in the U.S. of what prosecutors have called "the biggest military computer hack of all time". He accessed 97 government computers belonging to organisations including the US Navy and Nasa.
+
+Now, exactly what was this hack? McKinnon has always insisted he was looking for classified documents on UFOs which he believed the US authorities had suppressed. This is not a normal guy here. This is a mega geek who believed in UFOs. We're not talking terrorist material. He's been described as a 43-year-old "UFO eccentric". 
+
+In fact McKinnon's case reminds me very much of the story of <a href="http://en.wikipedia.org/wiki/John_Forbes_Nash,_Jr.">John Forbes Nash, Jr.</a>, the subject of the 2001 movie <a href="http://www.imdb.com/title/tt0268978/">A Beautiful Mind</a>. Nash was a mathematical genius who suffered from extreme paranoia - but his work on game theory ended up contributing to U.S. strategy during the Cold War.
+
+Should Gary McKinnon therefore be left to rot in a U.S. jail for the rest of his life? Or should his skills be put to better use?]]></description>
+					<content:encoded><![CDATA[<p><img src="http://uk.techcrunch.com/wp-content/uploads/crowe.jpg" class="shot2" />British hacker Gary McKinnon has finally <a href="http://news.bbc.co.uk/1/hi/uk/8177561.stm">lost</a> his latest High Court bid to avoid extradition to the United States to face charges for breaking into US military and Nasa computers in 2001 and 2002. After his arrest, and without a lawyer present, McKinnon admitted to hacking, but denies it was malicious or that he caused damage costing $800,000 (£487,000). The argument of his lawyers was not that he shouldn&#8217;t be tried, but that he should be tried in the UK and that his extreme <a href="http://en.wikipedia.org/wiki/Asperger_syndrome">Asperger&#8217;s Syndrome</a>, an autism spectrum disorder, should be taken into account, especially since it could lead to suicide, if he was to be extradited.</p>
+<p>He faces up to 70 years in prison if convicted in the U.S. of what prosecutors have called &#8220;the biggest military computer hack of all time&#8221;. He accessed 97 government computers belonging to organisations including the US Navy and Nasa.</p>
+<p>Now, exactly what was this hack? McKinnon has always insisted he was looking for classified documents on UFOs which he believed the US authorities had suppressed. This is not a normal guy here. This is a mega geek who believed in UFOs. We&#8217;re not talking terrorist material. He&#8217;s been described as a 43-year-old &#8220;UFO eccentric&#8221;. </p>
+<p>In fact McKinnon&#8217;s case reminds me very much of the story of <a href="http://en.wikipedia.org/wiki/John_Forbes_Nash,_Jr.">John Forbes Nash, Jr.</a>, the subject of the 2001 movie <a href="http://www.imdb.com/title/tt0268978/">A Beautiful Mind</a>. Nash was a mathematical genius who suffered from extreme paranoia - but his work on game theory ended up contributing to U.S. strategy during the Cold War.</p>
+<p>Should Gary McKinnon therefore be left to rot in a U.S. jail for the rest of his life? Or should his skills be put to better use?
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchboard.com">CrunchBoard</a><em> </em>because it&#8217;s time for you to find a new Job2.0</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=1184' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=1076&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=1025' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=54&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/SVS_H17SOAZvW0MUaYGp_J41RVw/0/da"><img src="http://feedads.g.doubleclick.net/~at/SVS_H17SOAZvW0MUaYGp_J41RVw/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/SVS_H17SOAZvW0MUaYGp_J41RVw/1/da"><img src="http://feedads.g.doubleclick.net/~at/SVS_H17SOAZvW0MUaYGp_J41RVw/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=BkJM9kYLBK4:xtqau2cHnuA:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=BkJM9kYLBK4:xtqau2cHnuA:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=BkJM9kYLBK4:xtqau2cHnuA:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=BkJM9kYLBK4:xtqau2cHnuA:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=BkJM9kYLBK4:xtqau2cHnuA:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=BkJM9kYLBK4:xtqau2cHnuA:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/BkJM9kYLBK4" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/31/should-the-government-jail-the-hacker-that-broke-the-pentagon-or-hire-him/feed/</wfw:commentRss>
+					<feedburner:origLink>http://uk.techcrunch.com/2009/07/31/should-the-us-hire-the-hacker-that-broke-into-the-pentagon/</feedburner:origLink></item>
+				<item>
+			<title>I Quit The iPhone</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/BhNBBrjUvlc/</link>
+			<comments>http://www.techcrunch.com/2009/07/31/i-quit-the-iphone/#comments</comments>
+			<pubDate>Fri, 31 Jul 2009 09:46:55 +0000</pubDate>
+			<dc:creator>Michael Arrington</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[Apple]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88526</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/noiphone-215x95.jpg" width="215" height="95" />I have loved the iPhone, but now I am quitting the iPhone. 
+
+This is not an easy decision.
+
+I was <a href="http://www.techcrunch.com/2007/01/09/apple-announces-iphone-stock-soars/">there</a> in January 2007 when it was announced and I bought the <a href="http://www.crunchbase.com/product/iphone">first iPhone</a> as soon as it was available. I happily bought the <a href="http://www.crunchbase.com/product/iphone-3g">iPhone 3G</a> a year later. I've proudly <a href="http://www.techcrunch.com/2008/06/10/i-am-a-member-of-the-cult-of-iphone/">yelled</a> <em>"I Am A Member Of The Cult Of iPhone."</em> I've been an unabashed cheerleader for the device <a href="http://www.techcrunch.com/2008/07/24/mossberg-levy-and-arrington-talk-iphone-yahoo-on-charlie-rose/">to all who'll listen</a>. And I've <a href="http://www.techcrunch.com/2008/09/14/of-course-youll-keep-developing-for-the-iphone/">scoffed</a> at developers who said they'd abandon the platform.
+
+But I'm not going to upgrade to the <a href="http://www.crunchbase.com/product/iphone-3gs">iPhone 3GS</a>. Instead, I'm abandoning the iPhone and AT&#038;T. I will grudgingly pay the $175 AT&#038;T termination fee and then I will move on to another device.
+
+What finally put me over the edge? ]]></description>
+					<content:encoded><![CDATA[<p><img src='http://cache0.techcrunch.com/wp-content/uploads/2009/07/noiphone.jpg'class="snap_nopreview shot2" alt="" />I have loved the iPhone, but now I am quitting the iPhone. </p>
+<p>This is not an easy decision.</p>
+<p>I was <a href="http://www.techcrunch.com/2007/01/09/apple-announces-iphone-stock-soars/">there</a> in January 2007 when it was announced and I bought the <a href="http://www.crunchbase.com/product/iphone">first iPhone</a> as soon as it was available. I happily bought the <a href="http://www.crunchbase.com/product/iphone-3g">iPhone 3G</a> a year later. I&#8217;ve proudly <a href="http://www.techcrunch.com/2008/06/10/i-am-a-member-of-the-cult-of-iphone/">yelled</a> <em>&#8220;I Am A Member Of The Cult Of iPhone.&#8221;</em> I&#8217;ve been an unabashed cheerleader for the device <a href="http://www.techcrunch.com/2008/07/24/mossberg-levy-and-arrington-talk-iphone-yahoo-on-charlie-rose/">to all who&#8217;ll listen</a>. And I&#8217;ve <a href="http://www.techcrunch.com/2008/09/14/of-course-youll-keep-developing-for-the-iphone/">scoffed</a> at developers who said they&#8217;d abandon the platform.</p>
+<p>But I&#8217;m not going to upgrade to the <a href="http://www.crunchbase.com/product/iphone-3gs">iPhone 3GS</a>. Instead, I&#8217;m abandoning the iPhone and AT&#038;T. I will grudgingly pay the $175 AT&#038;T termination fee and then I will move on to another device.</p>
+<p>What finally put me over the edge? It wasn&#8217;t the routinely dropped calls, something you can only truly understand once you have owned an iPhone (and which <a href="http://gigaom.com/2009/02/11/my-big-iphone-break-up/">drove</a> my friend Om Malik to bail). I&#8217;ve lived with that for two years. It&#8217;s not the lack of AT&#038;T coverage at home. I&#8217;ve lived with that for two years, too. It certainly isn&#8217;t the lack of a physical keyboard, that has never bothered me. No, what finally put me over the edge is the Google Voice debacle. </p>
+<p>Most of you won&#8217;t know what I&#8217;m talking about, so I&#8217;ll explain.</p>
+<p>Google Voice is a call management service that lets you determine what calls get through to you based on who&#8217;s calling and what time of day it is, among other factors. It has amazing features, like automatically transcribing all your voicemails. And you can forward calls to any other phone easily and automatically. Here&#8217;s an <a href="http://www.techcrunch.com/2009/03/11/grand-central-to-finally-launch-as-google-voice-its-very-very-good/">overview of the service</a> if you aren&#8217;t familiar with it.</p>
+<p>I&#8217;ve always wanted to use Google Voice but there&#8217;s a big switching cost - changing your phone number. Too many people have that phone number and use it to call in great stories. There&#8217;s no way I&#8217;m giving that up. And there&#8217;s another problem with Google Voice. When you make outbound calls from a phone, it (obviously) doesn&#8217;t use your Google Voice phone number, so recipients don&#8217;t know it&#8217;s you calling. Those were two hurdles I wasn&#8217;t willing to jump over.</p>
+<p>But now Google is planning on <a href="http://www.techcrunch.com/2009/06/14/google-voices-secret-weapon-number-portability/">rolling out number portability</a>, so I can move my mobile phone number to Google. None of my friends, family or contacts have to store a new number.</p>
+<p>That still leaves the problem of outbound calls, though. I can move my mobile number to Google and then get a new iPhone account, but outbound calls won&#8217;t be identified because they are on the new number. Google has a solution for that too, though. They are <a href="http://www.techcrunch.com/2009/07/14/google-voice-apps-for-android-and-blackberry-are-here/">releasing apps for a variety of handsets</a> that effectively take over the native dialer, address book and call log. Problem solved. I can use any phone I like, or a bunch of phones, and just choose the one that makes sense at any time. I never have to be tied to a carrier and their restrictive contracts again.</p>
+<p>Or so I thought. Apple and AT&#038;T are <a href="http://www.techcrunch.com/2009/07/27/apple-is-growing-rotten-to-the-core-and-its-likely-atts-fault/">now blocking</a> the iPhone version of the Google Voice app. Why? Because they absolutely don&#8217;t want people doing exactly what I&#8217;m doing - moving their phone number to Google and using the carrier as a dumb pipe.</p>
+<p>So I have to choose between the iPhone and Google Voice. It&#8217;s not an easy decision. Except, it sort of is. Google isn&#8217;t forcing the decision on me, Apple and AT&#038;T are. So I choose to work with the company that isn&#8217;t forcing me to do things their way. And in this case, that&#8217;s Google.</p>
+<p>So what phone will I use next? Well, that decision is easy, too. I&#8217;d move to the <a href="http://www.mobilecrunch.com/2009/06/22/review-palm-pre/">Palm Pre</a> because I believe it is the best phone out there other than the iPhone 3GS. But Google hasn&#8217;t created an app for the Palm Pre yet, just Android and Blackberry phones. So for now I&#8217;m going to use the new <a href="http://www.techcrunch.com/2009/06/21/t-mobile-will-drop-its-second-android-phone-the-mytouch-3g-this-august-for-199/">Android myTouch 3G</a> along with the Google Voice App. As soon as something better comes out, or Google makes an app for the Pre, I&#8217;ll switch. And keep the same phone number. No long term contracts for me.</p>
+<p>And Apple, if you ever decide to put the hammer down on AT&#038;T and do the right thing for your loyal users, I&#8217;ll consider switching back. In the meantime, I&#8217;ll just use one of many iPod Touches laying around our office to test out new apps.</p>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchbase.com">CrunchBase</a><em> </em>the free database of technology companies, people, and investors</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=1777' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=501&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=820' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=509&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/OtLlOnCYubvKp6qk9QkMv4wTdrQ/0/da"><img src="http://feedads.g.doubleclick.net/~at/OtLlOnCYubvKp6qk9QkMv4wTdrQ/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/OtLlOnCYubvKp6qk9QkMv4wTdrQ/1/da"><img src="http://feedads.g.doubleclick.net/~at/OtLlOnCYubvKp6qk9QkMv4wTdrQ/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=BhNBBrjUvlc:Tuz0VecDTnI:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=BhNBBrjUvlc:Tuz0VecDTnI:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=BhNBBrjUvlc:Tuz0VecDTnI:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=BhNBBrjUvlc:Tuz0VecDTnI:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=BhNBBrjUvlc:Tuz0VecDTnI:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=BhNBBrjUvlc:Tuz0VecDTnI:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/BhNBBrjUvlc" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/31/i-quit-the-iphone/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/31/i-quit-the-iphone/</feedburner:origLink></item>
+				<item>
+			<title>Ebay In Litigation With Skype Founders Over Key Technology</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/dL0gKZ1D5EI/</link>
+			<comments>http://www.techcrunch.com/2009/07/31/ebay-in-litigation-with-skype-founders-over-key-technology/#comments</comments>
+			<pubDate>Fri, 31 Jul 2009 07:10:36 +0000</pubDate>
+			<dc:creator>Michael Arrington</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[ebay]]></category>
+
+		<category><![CDATA[Skype]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88522</guid>
+				<description><![CDATA[<a href="http://www.crunchbase.com/company/skype"><img src="http://www.techcrunch.com/wp-content/skype_logo.jpg" width="165" height="74" /></a>Perhaps with the benefit of hindsight, <a href="http://www.techcrunch.com/2007/10/01/skype-ceo-zennstrom-steps-down-only-13-of-earnout-paid/">firing</a> Skype founder <a href="http://www.crunchbase.com/person/niklas-zennstrom">Niklas Zennstrom</a> as CEO in 2007 and paying out only 1/3 of the potential earnout wasn't the best idea. Zennstrom seems to be holding quite a grudge.
+
+eBay is developing new peer-to-peer software to run the <a href="http://www.crunchbase.com/company/skype">Skype service</a>, they revealed in a quarterly SEC statement. 
+
+The existing peer-to-peer software is controlled by <a href="http://www.joltid.com/">Joltid</a>, a company controlled by Skype's founders Zennstrom and <a href="http://www.crunchbase.com/person/janus-friis">Janus Friis</a>. The software was not acquired by eBay in its <a href="http://www.techcrunch.com/2005/09/12/skype-sells-to-ebay-for-41-billion/">2005 acquisition</a> of the Skype service and is now the subject of litigation in the UK.
+
+eBay is developing the new software in the event they lose the right to continue to license that technology, but warns that <em>"such software development may not be successful, may result in loss of functionality or customers even if successful, and will in any event be expensive." </em>
+]]></description>
+					<content:encoded><![CDATA[<p><a href="http://www.crunchbase.com/company/skype"><img src="http://cache0.techcrunch.com/wp-content/skype_logo.jpg" class="shot" style="float: left" alt="skype_logo.jpg" /></a>Perhaps with the benefit of hindsight, <a href="http://www.techcrunch.com/2007/10/01/skype-ceo-zennstrom-steps-down-only-13-of-earnout-paid/">firing</a> Skype founder <a href="http://www.crunchbase.com/person/niklas-zennstrom">Niklas Zennstrom</a> as CEO in 2007 and paying out only 1/3 of the potential earnout wasn&#8217;t the best idea. Zennstrom seems to be holding quite a grudge.</p>
+<p>eBay is developing new peer-to-peer software to run the <a href="http://www.crunchbase.com/company/skype">Skype service</a>, they revealed in a quarterly SEC statement. </p>
+<p>The existing peer-to-peer software is controlled by <a href="http://www.joltid.com/">Joltid</a>, a company controlled by Skype&#8217;s founders Zennstrom and <a href="http://www.crunchbase.com/person/janus-friis">Janus Friis</a>. The software was not acquired by eBay in its <a href="http://www.techcrunch.com/2005/09/12/skype-sells-to-ebay-for-41-billion/">2005 acquisition</a> of the Skype service and is now the subject of litigation in the UK.</p>
+<p>eBay is developing the new software in the event they lose the right to continue to license that technology, but warns that <em>&#8220;such software development may not be successful, may result in loss of functionality or customers even if successful, and will in any event be expensive.&#8221; </em></p>
+<p>This comes as eBay prepares to <a href="http://www.techcrunch.com/2009/04/14/breaking-ebay-announces-plans-to-sell-skype/">spin off Skype</a> as in independent public company. And the service is surging in popularity, with 480 million registered users and $170 million in quarterly revenue.</p>
+<p>The case isn&#8217;t scheduled for trial until June 2010. Don&#8217;t expect an IPO before that, unless a settlement is reached quickly.</p>
+<p>From the <a href="http://www.sec.gov/Archives/edgar/data/1065088/000119312509157212/d10q.htm">10Q</a>:</p>
+<blockquote><p>Skype licenses peer-to-peer communication technology from Joltid Limited pursuant to a license agreement between the parties. The parties had been discussing a dispute over the license. In March 2009, Skype Technologies S.A. filed a claim in the English High Court of Justice (No. HC09C00756) against Joltid Limited. Following the filing of the claim, Joltid purported to terminate the license agreement between the parties. In particular, Joltid has alleged that Skype should not possess, use or modify certain software source code and that, by doing so, and by disclosing such code in certain U.S. patent cases pursuant to orders from U.S. courts, Skype has breached the license agreement. Joltid has brought a counterclaim alleging that Skype has repudiated the license agreement, infringed Joltid’s copyright and misused confidential information. On the basis of, among other things, the parties’ mutual dealings since the execution of the license agreement, Skype asked the English High Court for declaratory relief, including findings that Skype is not in breach of the license agreement, that Joltid’s notice of breach and subsequent notice of termination are invalid, and that Joltid has certain indemnity obligations in relation to the U.S. patent proceedings. Trial is currently scheduled for June 2010. Although Skype is confident of its legal position, as with any litigation, there is the possibility of an adverse result if the matter is not resolved through negotiation. Skype has begun to develop alternative software to that licensed through Joltid. However, such software development may not be successful, may result in loss of functionality or customers even if successful, and will in any event be expensive. If Skype was to lose the right to use the Joltid software as the result of the litigation, and if alternative software was not available, Skype would be severely and adversely affected and the continued operation of Skype’s business as currently conducted would likely not be possible. </p></blockquote>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.mobilecrunch.com/">MobileCrunch</a><em> </em>Mobile Gadgets and Applications, Delivered Daily.</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=57' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=1897&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=112' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=1614&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/YZhP0cVIKIhpic5JDqCd40MAOG8/0/da"><img src="http://feedads.g.doubleclick.net/~at/YZhP0cVIKIhpic5JDqCd40MAOG8/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/YZhP0cVIKIhpic5JDqCd40MAOG8/1/da"><img src="http://feedads.g.doubleclick.net/~at/YZhP0cVIKIhpic5JDqCd40MAOG8/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=dL0gKZ1D5EI:gxD4euqMcuE:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=dL0gKZ1D5EI:gxD4euqMcuE:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=dL0gKZ1D5EI:gxD4euqMcuE:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=dL0gKZ1D5EI:gxD4euqMcuE:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=dL0gKZ1D5EI:gxD4euqMcuE:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=dL0gKZ1D5EI:gxD4euqMcuE:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/dL0gKZ1D5EI" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/31/ebay-in-litigation-with-skype-founders-over-key-technology/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/31/ebay-in-litigation-with-skype-founders-over-key-technology/</feedburner:origLink></item>
+				<item>
+			<title>Fed Up, A Popular Mac Developer Quits The iPhone</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/Qe24cIheB60/</link>
+			<comments>http://www.techcrunch.com/2009/07/30/fed-up-a-popular-mac-developer-quits-the-iphone/#comments</comments>
+			<pubDate>Fri, 31 Jul 2009 03:49:50 +0000</pubDate>
+			<dc:creator>MG Siegler</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[Apple]]></category>
+
+		<category><![CDATA[AT&T]]></category>
+
+		<category><![CDATA[iPhone]]></category>
+
+		<category><![CDATA[palm-pre]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88513</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/3709438002_021cb145181-133x200.jpg" width="133" height="200" />By now, you've heard the horror stories. Developers put their heart and soul into building an application for the iPhone App Store only to have it rejected by Apple. And sometimes apps are at first accepted and then later pulled for odd reasons. And sometimes app updates are rejected, even though there isn't much difference with the version accepted. We get a half dozen or so stories sent to us now <em>every single day</em>. It's no wonder that a lot of mobile developers are growing wary of the App Store. But Steven Frank is not one of those developers.
+
+Steven Frank doesn't make iPhone apps, specifically for the reasons stated above. But he is a very popular Mac developer, that co-founded the OS X development house <a href="http://www.panic.com/">Panic</a>, makers of the popular coding application <a href="http://www.panic.com/coda/">Coda</a>, among other apps. Frank is well-known in some circles as a Mac enthusiast. You know, the kind of person that is often derided as a "fanboy." And that's why what I'm about to tell you is surprising: He's ditching his iPhone.]]></description>
+					<content:encoded><![CDATA[<p><img class="alignright size-full wp-image-88515" title="3709438002_021cb145181" src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/3709438002_021cb145181.jpg" alt="3709438002_021cb145181" width="256" height="384" />By now, you&#8217;ve heard the horror stories. Developers put their heart and soul into building an application for the iPhone App Store only to have it rejected by Apple. And sometimes apps are at first accepted and then later pulled for odd reasons. And sometimes app updates are rejected, even though there isn&#8217;t much difference with the version accepted. We get a half dozen or so stories sent to us now <em>every single day</em>. It&#8217;s no wonder that a lot of mobile developers are growing wary of the App Store. But Steven Frank is not one of those developers.</p>
+<p>Steven Frank doesn&#8217;t make iPhone apps, specifically for the reasons stated above. But he is a very popular Mac developer, that co-founded the OS X development house <a href="http://www.panic.com/">Panic</a>, makers of the popular coding application <a href="http://www.panic.com/coda/">Coda</a>, among other apps. Frank is well-known in some circles as a Mac enthusiast. You know, the kind of person that is often derided as a &#8220;fanboy.&#8221; And that&#8217;s why what I&#8217;m about to tell you is surprising: He&#8217;s ditching his iPhone.</p>
+<p>In <a href="http://stevenf.tumblr.com/post/152606616/im-furious-with-apple-and-at-t-right-now-with">a candid post</a> today, Frank explains his utter frustration with both Apple and AT&amp;T over the way they&#8217;ve handled the device and its developers. The whole Google Voice <a href="http://www.techcrunch.com/2009/07/27/apple-is-growing-rotten-to-the-core-and-its-likely-atts-fault/">fiasco</a> was the last straw for him. Again, Frank doesn&#8217;t make iPhone apps, but he&#8217;s simply disgusted as an end-user — someone who pays close to or over $100 a month, and can&#8217;t use a range of apps that are available on other phones, including some also on AT&amp;T.</p>
+<p>And so he&#8217;s now ditching his iPhone and boycotting any device that runs the iPhone OS (including, if applicable, the <a href="http://www.techcrunch.com/2009/07/24/report-the-large-form-ipod-touch-apples-tablet-on-track-for-early-2010/">rumored Mac tablet</a>). He says he&#8217;s going to get a Palm Pre, a device he considers inferior to the iPhone, but one that doesn&#8217;t (at least so far) have the app issues the iPhone does. (Nor does it have the AT&amp;T issues.)</p>
+<p>Is Frank crazy? If he is, he&#8217;s not the only one.</p>
+<p>Perhaps you heard about Om Malik of GigaOM <a href="http://gigaom.com/2009/02/11/my-big-iphone-break-up/">doing the same thing</a> over frustrations with AT&amp;T several months ago. And as someone who covers the iPhone ecosystem quite a bit, I&#8217;ve had a number of discussions with iPhone users who have either ditched their device over similar concerns, or are considering it.</p>
+<p>Personally, I&#8217;m not there yet. I still consider the iPhone to be too far ahead of the other smartphones even with its (sometimes major) flaws in the App Store. But I&#8217;m getting much closer than I ever imagined to looking at other phones simply because of my <a href="http://www.techcrunch.com/2009/07/18/att-is-a-big-steaming-heap-of-failure/">complete and utter disliking of AT&amp;T</a> at this point. At the very least, if Apple doesn&#8217;t get rid of the AT&amp;T exclusivity agreement next year (which, for the record, <a href="http://www.techcrunch.com/2009/07/28/can-att-handle-the-iphone/">I think it will</a>), I&#8217;m going to unlock my iPhone to use it on another network.</p>
+<p>But that&#8217;s a separate issue from Frank&#8217;s. He&#8217;s right about Apple&#8217;s often odd, and sometimes downright hostile actions towards developers in regards to the iPhone. It needs a better set of guidelines for developers to work with, because clearly, the current ones aren&#8217;t cutting it. And it needs to be more consistant with adhering to its guidelines. I&#8217;d also say that some more transparency would be nice, but I know that will fall upon deaf ears. This is Apple, after all.</p>
+<p>The iPhone and the App Store remain too far ahead of the competition for one person, no matter how big, or even a group of people leaving, to have much of an impact. But Apple has to be careful that its rivals don&#8217;t mature quicker than anticipated (the Pre finally opened its webOS SDK, for example), or we could see some serious defections. By that I mean at first some developers, fed up with the App Store, may move on to other platforms. And that may lead to more doing then same. Eventually, that will trickle down to the end-users.</p>
+<p>I&#8217;m not saying that will happen, but there is a lot of outcry for changes right now. And it&#8217;s getting louder everyday.</p>
+<p><em>[photo: flickr/<a href="http://www.flickr.com/photos/thetechbuzz/3709438002/">thetechbuzz</a>]</p>
+<p></em>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchbase.com">CrunchBase</a><em> </em>the free database of technology companies, people, and investors</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=470' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=1938&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=45' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=1878&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/I5IdgpMk1UB89Wj25f9ZIGP-9TQ/0/da"><img src="http://feedads.g.doubleclick.net/~at/I5IdgpMk1UB89Wj25f9ZIGP-9TQ/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/I5IdgpMk1UB89Wj25f9ZIGP-9TQ/1/da"><img src="http://feedads.g.doubleclick.net/~at/I5IdgpMk1UB89Wj25f9ZIGP-9TQ/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=Qe24cIheB60:WzQKAKy4Wv8:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=Qe24cIheB60:WzQKAKy4Wv8:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=Qe24cIheB60:WzQKAKy4Wv8:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=Qe24cIheB60:WzQKAKy4Wv8:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=Qe24cIheB60:WzQKAKy4Wv8:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=Qe24cIheB60:WzQKAKy4Wv8:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/Qe24cIheB60" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/30/fed-up-a-popular-mac-developer-quits-the-iphone/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/30/fed-up-a-popular-mac-developer-quits-the-iphone/</feedburner:origLink></item>
+				<item>
+			<title>The Little Secret of Web Startups</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/GsCoRm9HGKI/</link>
+			<comments>http://www.techcrunch.com/2009/07/30/the-little-secret-of-web-startups/#comments</comments>
+			<pubDate>Fri, 31 Jul 2009 02:51:47 +0000</pubDate>
+			<dc:creator>Guest Author</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[sampa]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=87419</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/marcelo-200x200.png" width="200" height="200" /><i>This guest post is written by <a href="http://www.crunchbase.com/person/marcelo-calbucci">Marcelo Calbucci</a>, the founder and CTO of <a href="http://www.sampa.com">Sampa</a> — a <a href="http://www.techcrunch.com/tag/sampa/">personal homepage creator</a> that will be shutting down next month. He’s writing a series of posts about the lessons learned from the venture at <a href="http://blog.calbucci.com">http://blog.calbucci.com</a>. He’s also the publisher of Seattle 2.0, a web resource for tech entrepreneurs and startups in Seattle.</i>
+
+Consumer startups are tough. You have two basic choices: A paid offering or a free offering (or freemium). If you charge people a penny, you’ll turn off the bulk of your visitors. If you offer free services, you might grow to be the next YouTube, Wordpress or Facebook. Most entrepreneurs are not risk-averse and the dream of being big is just too appealing and the majority of us take the “free-route”.
+
+Once you offer something for free, all shades of people will try to benefit from your service. You’d think a service like Sampa with a strong family and baby branding would just repel small business, teenagers, criminals, etc. but that’s not the case at all. And I suspect most blogging services; photo-sharing or web-site building solutions face the exact same issue we did.
+]]></description>
+					<content:encoded><![CDATA[<p><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/marcelo.png" class="shot2"/><i>This guest post is written by <a href="http://www.crunchbase.com/person/marcelo-calbucci">Marcelo Calbucci</a>, the founder and CTO of <a href="http://www.sampa.com">Sampa</a> — a <a href="http://www.techcrunch.com/tag/sampa/">personal homepage creator</a> that will be shutting down next month. He’s writing a series of posts about the lessons learned from the venture at <a href="http://blog.calbucci.com">http://blog.calbucci.com</a>. He’s also the publisher of Seattle 2.0, a web resource for tech entrepreneurs and startups in Seattle.</i></p>
+<p>Consumer startups are tough. You have two basic choices: A paid offering or a free offering (or freemium). If you charge people a penny, you’ll turn off the bulk of your visitors. If you offer free services, you might grow to be the next YouTube, Wordpress or Facebook. Most entrepreneurs are not risk-averse and the dream of being big is just too appealing and the majority of us take the “free-route”.</p>
+<p>Once you offer something for free, all shades of people will try to benefit from your service. You’d think a service like Sampa with a strong family and baby branding would just repel small business, teenagers, criminals, etc. but that’s not the case at all. And I suspect most blogging services; photo-sharing or web-site building solutions face the exact same issue we did.</p>
+<p>Most entrepreneurs and investors will look at data analysis and talk about averages or totals: Averages number of blog posts per user per week, average number of sign-ins per user per month, viral coefficient, total number of active users, etc. Entrepreneurs who are more sophisticated will split their “averages” and “totals” in two or three groups. For example, fixing one of the dimensions into users that sign-in 30 or more times per month (very engaged), between 10 and 29 times per month (engaged), and between 0-9 times per month (on the brink of leaving) and then run the averages and totals for the different groups (e.g. &#8220;very engaged users upload 25 pictures/month, engaged users upload 7 pictures/month, etc.&#8221;)</p>
+<p>Very few startups actually look at demographic and psychographic data as a way to group their users. Primarily, because it’s hard to get gender, age, income, interests and intentions without asking the user, and once you ask them you might just scare them way or get the wrong information.</p>
+<p>One time we went to pitch Sampa to a VC in Seattle, and out of the blue he mentions this other startup growing amazingly fast – had nothing to do with our business. After the meeting I went to check the startup website. Their Compete and Alexa growth was just amazing. Their website contained profiles of all users since it was a public social network. So I clicked on the profile of the 20 people featured on their homepage (“most recent users to join”). Of those, about 75% were girls between the age of 9 and 13 – likely the worst demographic to make any revenue from.</p>
+<p>Did the startup know about this? Oh, yeah. Did that VC that was looking at investing on them? Likely not.</p>
+<p>In the middle of 2008 we decide to do a qualitative analysis of our user base. People of all kinds were creating sites on Sampa. There wasn’t an automated way to know if it was a baby site, a family site, a small business, a technology blog, etc. We looked at more than 300 sites, randomly selected and created a spreadsheet with the category, the demographic of the author (if we could figure out) and we plugged that into our own analytic system to split our averages and totals for each site category. The results sucked!</p>
+<p>Just 20% of our users were on the target audience. That meant 80% were not building any kind of family or baby site. Ok, maybe we can live with that. But it turned out that more than 25% were by pre-teens. There are two problems with that: First, It’s actually illegal in the US and most countries to allow a younger than 13-year-old to sign up to your service without parental consent. Second, pre-teens are not a great audience to build an advertising-based business model.</p>
+<p>However the data showed an even worse picture. Pre-teens were a quick burning flame. They would come, upload lots of pictures, write lots of blog posts, “bling” their site, invite 20+ friends and they would be completely gone in a month. That behavior skewed our data enough that once we looked at our growth, viral rates, and everything else, our business didn’t look so great.</p>
+<p>Being Proactive Can Backfire</p>
+<p>Can you force users to comply with your Terms-Of-Service and still be successful on a UGC service? Yes, you can. Facebook manage to be very aggressive on the enforcement of their TOS, and so did Flickr. However, if you look at most Web 2.0 startups, they are not doing that at all. The most prominent case is YouTube, which allowed copyright infringement on their website and can plot a $1.6B exit based on their “turn a blind eye” strategy.</p>
+<p>We didn’t do that at Sampa, and I’m sure we could have seen 2 or 3 times more growth if we had used the same strategy. We proactively removed pre-teens websites. They weren’t easy to find, but every time we found one, we would remove the website and notify the owner she was 12-years-old. They would be mad at us and tell that “Jamie, Emily and Sally also have a website on Sampa”, and we would say thank you and delete all their friends websites too.</p>
+<p>We would also proactively delete porn websites. There is nothing wrong with porn. It’s not illegal or immoral in my view, but it didn’t go well with our family-oriented business proposition. Also, most UGC porn sites are infringing in someone else copyright and we just didn’t want to deal with DMCA or lawyers.</p>
+<p>We also found criminal websites, from people trying to steal credit-card and passwords to the ugly side of online pedophilia. We had the FBI come over twice to collect evidence.</p>
+<p>And let’s not forget link-farms. Although we had CAPTCHA and email confirmation for new websites, every once in a while someone managed to create dozens of websites in a single day all full of links to some bank, real estate agent, mortgage broker, auto dealer, etc. I’m sure the business that were benefiting from it didn’t know they hired a “black-hat” SEO.</p>
+<p>Pretty much every Social Network-builder, website builder or content sharing site deals with the same issues we dealt with. A good number of entrepreneurs (and most investors) will be oblivious to those facts and just think that everything is going great and the growth is sustainable and proof they are creating great value and soon will be able to turn a huge profit or to sell for hundreds of millions of dollars, until someone takes the time to figure out what people are using their service for and finds out it’s really not what they thought it was.</p>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.mobilecrunch.com/">MobileCrunch</a><em> </em>Mobile Gadgets and Applications, Delivered Daily.</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=1816' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=1701&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=1783' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=1234&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/eO7WIdJOxk6w-BfhEzjoulbDtRU/0/da"><img src="http://feedads.g.doubleclick.net/~at/eO7WIdJOxk6w-BfhEzjoulbDtRU/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/eO7WIdJOxk6w-BfhEzjoulbDtRU/1/da"><img src="http://feedads.g.doubleclick.net/~at/eO7WIdJOxk6w-BfhEzjoulbDtRU/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=GsCoRm9HGKI:xjEXmdcPRWo:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=GsCoRm9HGKI:xjEXmdcPRWo:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=GsCoRm9HGKI:xjEXmdcPRWo:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=GsCoRm9HGKI:xjEXmdcPRWo:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=GsCoRm9HGKI:xjEXmdcPRWo:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=GsCoRm9HGKI:xjEXmdcPRWo:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/GsCoRm9HGKI" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/30/the-little-secret-of-web-startups/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/30/the-little-secret-of-web-startups/</feedburner:origLink></item>
+				<item>
+			<title>Wall Street Journal Creating New “LinkedIn Killer” Called WSJ Connect</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/T-9Z-punKZE/</link>
+			<comments>http://www.techcrunch.com/2009/07/30/wall-street-journal-creating-new-linkedin-killer-called-wsj-connect/#comments</comments>
+			<pubDate>Fri, 31 Jul 2009 01:13:47 +0000</pubDate>
+			<dc:creator>Michael Arrington</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[Linkedin]]></category>
+
+		<category><![CDATA[Slingshot-labs]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88437</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/wsj-215x33.jpg" width="215" height="33" />The Wall Street Journal has long envied the success of professional social network LinkedIn and its 15 million or so monthly visitors (WSJ.com has just a third of that). In late 2008 they <a href="http://www.msnbc.msn.com/id/26719416/ns/technology_and_science-internet/">launched</a> <a href="http://online.wsj.com/community">WSJ Community</a>, a social network bolted onto the main WSJ site. That community is a ghost town - raise your hand if you've even heard of it, let alone visited it. At some point, they'll likely shut it down as quietly as possible.
+
+But they are still serious about gunning for the LinkedIn crowd and all those monetization opportunities (jobs, ads and a heck of a marketing pool for WSJ subscriptions). They've been working on a new social network, to be called WSJ Connect, we've confirmed. And instead of building it internally, like they did with WSJ Community, they've enlisted the help of another arm of parent company News Corp. - <a href="http://slingshotlabs.com">Slingshot Labs</a>. And yes, they call it "LinkedIn Killer" internally.
+
+Slingshot Labs is the <a href="http://www.crunchbase.com/company/slingshot-labs">R&#038;D arm of News Corp.</a> and <a href="http://www.techcrunch.com/2008/01/21/myspace-answers-facebooks-fbfund-with-slingshot-labs/">works on</a> digital products. Their first product was <a href="http://www.crunchbase.com/company/daily-fill">Daily Fill</a>, which <a href="http://www.techcrunch.com/2009/01/23/dailyfill-news-corps-gossip-experiment-blasts-off/">launched</a> earlier this year. They also built the <a href="http://www.techcrunch.com/2009/03/12/myspaces-experimental-new-events-product-finally-taps-into-the-social-graph/">MySpace Events product</a> that we covered in March. They operate fairly independently, have their own funding and 40-50 staff, according to one person familiar with their operations.
+
+WSJ Connect is still in the planning/conceptual stages, says one source, but there is "strong interest" to move the project forward. Importantly, it would leverage the WSJ brand but would be a separate property and unencumbered by the need for a paid subscription to the newspaper.]]></description>
+					<content:encoded><![CDATA[<p><img src='http://cache0.techcrunch.com/wp-content/uploads/2009/07/wsj.jpg'class="snap_nopreview shot" alt="" />The Wall Street Journal has long envied the success of professional social network LinkedIn and its 15 million or so monthly visitors (WSJ.com has just a third of that). In late 2008 they <a href="http://www.msnbc.msn.com/id/26719416/ns/technology_and_science-internet/">launched</a> <a href="http://online.wsj.com/community">WSJ Community</a>, a social network bolted onto the main WSJ site. That community is a ghost town - raise your hand if you&#8217;ve even heard of it, let alone visited it. At some point, they&#8217;ll likely shut it down as quietly as possible.</p>
+<p>But they are still serious about gunning for the LinkedIn crowd and all those monetization opportunities (jobs, ads and a heck of a marketing pool for WSJ subscriptions). They&#8217;ve been working on a new social network, to be called WSJ Connect, we&#8217;ve confirmed. And instead of building it internally, like they did with WSJ Community, they&#8217;ve enlisted the help of another arm of parent company News Corp. - <a href="http://slingshotlabs.com">Slingshot Labs</a>. And yes, they call it &#8220;LinkedIn Killer&#8221; internally.</p>
+<p>Slingshot Labs is the <a href="http://www.crunchbase.com/company/slingshot-labs">R&#038;D arm of News Corp.</a> and <a href="http://www.techcrunch.com/2008/01/21/myspace-answers-facebooks-fbfund-with-slingshot-labs/">works on</a> digital products. Their first product was <a href="http://www.crunchbase.com/company/daily-fill">Daily Fill</a>, which <a href="http://www.techcrunch.com/2009/01/23/dailyfill-news-corps-gossip-experiment-blasts-off/">launched</a> earlier this year. They also built the <a href="http://www.techcrunch.com/2009/03/12/myspaces-experimental-new-events-product-finally-taps-into-the-social-graph/">MySpace Events product</a> that we covered in March. They operate fairly independently, have their own funding and 40-50 staff, according to one person familiar with their operations.</p>
+<p>WSJ Connect is still in the planning/conceptual stages, says one source, but there is &#8220;strong interest&#8221; to move the project forward. Importantly, it would leverage the WSJ brand but would be a separate property and unencumbered by the need for a paid subscription to the newspaper.</p>
+<p>Conceptual screenshots of the product are apparently floating around Slingshot, the WSJ and MySpace. We&#8217;re trying to track them down.</p>
+<p>Absolutely no one responded to our requests for comment. Luckily, lots of ex-MySpace employees are happy to talk.</p>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchboard.com">CrunchBoard</a><em> </em>because it&#8217;s time for you to find a new Job2.0</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=1577' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=191&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=1312' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=491&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/N9I6Wku9aDfq9f_X2kTF_2wlX3w/0/da"><img src="http://feedads.g.doubleclick.net/~at/N9I6Wku9aDfq9f_X2kTF_2wlX3w/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/N9I6Wku9aDfq9f_X2kTF_2wlX3w/1/da"><img src="http://feedads.g.doubleclick.net/~at/N9I6Wku9aDfq9f_X2kTF_2wlX3w/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=T-9Z-punKZE:JtSG72TvFh8:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=T-9Z-punKZE:JtSG72TvFh8:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=T-9Z-punKZE:JtSG72TvFh8:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=T-9Z-punKZE:JtSG72TvFh8:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=T-9Z-punKZE:JtSG72TvFh8:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=T-9Z-punKZE:JtSG72TvFh8:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/T-9Z-punKZE" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/30/wall-street-journal-creating-new-linkedin-killer-called-wsj-connect/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/30/wall-street-journal-creating-new-linkedin-killer-called-wsj-connect/</feedburner:origLink></item>
+				<item>
+			<title>Gmail Kisses “On Behalf Of” Goodbye, Enables Support For Third-Party Outbound Servers</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/flVy8T9qd_c/</link>
+			<comments>http://www.techcrunch.com/2009/07/30/gmail-kisses-on-behalf-of-goodbye-enables-support-for-third-party-outbound-servers/#comments</comments>
+			<pubDate>Fri, 31 Jul 2009 00:08:36 +0000</pubDate>
+			<dc:creator>Jason Kincaid</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[Gmail]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88446</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/picture-80.png" width="141" height="72" />Anyone who has ever tried to use Gmail as a central hub for their Email has likely fallen prey to one of the service's annoying flaws: there was no way to use another site's outgoing SMTP servers to send Email.  For the vast majority of people this wasn't an issue — Gmail was happy to send your Email for you from your Gmail account, along with message indicating that it was being sent "On Behalf Of" your other account.  But those three words were still there, serving as a constant thorn in our sides.  And to make matters worse, it could also confuse people: they might start sending messages to your Gmail account rather than your primary Email address.  Today, you can kiss those "On Behalf Of"'s goodbye, as Gmail has just started <a href="http://gmailblog.blogspot.com/2009/07/send-mail-from-another-address-without.html">allowing</a> users to send their messages from third party SMTP servers.
+
+If the previous paragraph confused you, here's an explanation: Many people like to use Gmail's web interface for their Email but don't have the option of using Google Apps on their mail server, especially when it's for their work account.  ]]></description>
+					<content:encoded><![CDATA[<p><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/picture-80.png" class="shot2"/>Anyone who has ever tried to use Gmail as a central hub for their Email has likely fallen prey to one of the service&#8217;s annoying flaws: there was no way to use another site&#8217;s outgoing SMTP servers to send Email.  For the vast majority of people this wasn&#8217;t an issue — Gmail was happy to send your Email for you from your Gmail account, along with message indicating that it was being sent &#8220;On Behalf Of&#8221; your other account.  But those three words were still there, serving as a constant thorn in our sides.  And to make matters worse, it could also confuse people: they might start sending messages to your Gmail account rather than your primary Email address.  Today, you can kiss those &#8220;On Behalf Of&#8221;&#8217;s goodbye, as Gmail has just started <a href="http://gmailblog.blogspot.com/2009/07/send-mail-from-another-address-without.html">allowing</a> users to send their messages from third party SMTP servers.</p>
+<p>If the previous paragraph confused you, here&#8217;s an explanation: Many people like to use Gmail&#8217;s web interface for their Email but don&#8217;t have the option of using Google Apps on their mail server, especially when it&#8217;s for their work account.  Fortunately there&#8217;s a work around to this: simply have your work Email account auto-forward all incoming messages to your Gmail account.  The option even allows you to send messages and make them look like they&#8217;re coming from your work account, rather than you Gmail account, but with one caveat: rather than actually send these messages from your work address, Google includes a message that says the message was sent &#8220;<i>On Behalf Of</i>&#8221; your address, while still showing the name of the Gmail account it was actually sent from.</p>
+<p>It&#8217;s true that most people never noticed this (in fact many mail clients don&#8217;t show the &#8220;On Behalf Of&#8221; at all under default settings), and even if they did see it they probably didn&#8217;t care in the slightest.  But it&#8217;s still been a source of annoyance for many of us.</p>
+<p><center><br />
+<img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/gmailthing.png"/><br />
+</center></p>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchbase.com">CrunchBase</a><em> </em>the free database of technology companies, people, and investors</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=815' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=21&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=170' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=152&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/MLXZHl_lMX6aJ_V7pDdfjjruY7k/0/da"><img src="http://feedads.g.doubleclick.net/~at/MLXZHl_lMX6aJ_V7pDdfjjruY7k/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/MLXZHl_lMX6aJ_V7pDdfjjruY7k/1/da"><img src="http://feedads.g.doubleclick.net/~at/MLXZHl_lMX6aJ_V7pDdfjjruY7k/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=flVy8T9qd_c:eSOfTwUeJq8:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=flVy8T9qd_c:eSOfTwUeJq8:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=flVy8T9qd_c:eSOfTwUeJq8:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=flVy8T9qd_c:eSOfTwUeJq8:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=flVy8T9qd_c:eSOfTwUeJq8:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=flVy8T9qd_c:eSOfTwUeJq8:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/flVy8T9qd_c" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/30/gmail-kisses-on-behalf-of-goodbye-enables-support-for-third-party-outbound-servers/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/30/gmail-kisses-on-behalf-of-goodbye-enables-support-for-third-party-outbound-servers/</feedburner:origLink></item>
+				<item>
+			<title>And Bingo Was His Name-o</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/w2va4-c82p8/</link>
+			<comments>http://www.techcrunch.com/2009/07/30/and-bingo-was-his-name-o/#comments</comments>
+			<pubDate>Fri, 31 Jul 2009 00:00:44 +0000</pubDate>
+			<dc:creator>Dan Romero</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88398</guid>
+				<description><![CDATA[<a href="http://www.techcrunch.com/wp-content/uploads/2009/07/bingo.png"><img src="http://www.techcrunch.com/wp-content/uploads/2009/07/bingo2.png" width="200" height="100" /></a>
+
+Last February, when the news of the original Microsoft-Yahoo deal <a href="http://www.techcrunch.com/2008/02/01/wow-microsoft-offers-446-billion-to-acquire-yahoo/">first broke</a>, it didn't take long before people were Photoshopping new logos. <a href="http://flickr.com">Flickr</a> users were especially <a href="http://www.flickr.com/search/?s=int&#038;z=t&#038;w=all&#038;q=microsoft+yahoo&#038;m=text">passionate</a>, fearing that a Microsoft acquisition would ruin Flickr's <a href="http://www.flickr.com/photos/nerdmeister/2244147766/">creative</a> <a href="http://www.flickr.com/photos/ososment/2234957577/">appeal</a>. 
+
+This time around, it's the same story. Here are some of the more interesting logos:]]></description>
+					<content:encoded><![CDATA[<p>In February 2008, when the news of the original Microsoft-Yahoo deal <a href="http://www.techcrunch.com/2008/02/01/wow-microsoft-offers-446-billion-to-acquire-yahoo/">first broke</a>, it didn&#8217;t take long before people were Photoshopping new logos. <a href="http://flickr.com">Flickr</a> users were especially <a href="http://www.flickr.com/search/?s=int&#038;z=t&#038;w=all&#038;q=microsoft+yahoo&#038;m=text">passionate</a>, fearing that a Microsoft acquisition would ruin Flickr&#8217;s <a href="http://www.flickr.com/photos/nerdmeister/2244147766/">creative</a> <a href="http://www.flickr.com/photos/ososment/2234957577/">appeal</a>. </p>
+<p>This time around, it&#8217;s the same story. Here are some of the more interesting logos:</p>
+<p>
+<a href="http://www.techcrunch.com/wp-content/uploads/2009/07/bingo.png"><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/bingo2.png" /></a><br />
+Ariz Jacinto
+</p>
+<p>
+<a href="http://www.flickr.com/photos/sahaab/3772381110/"><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/yhoomsft2.png" alt="yhoomsft2" title="yhoomsft2" width="527" height="267" /></a><br />
+<em>Yahoo Search - Powered by Bing!</em> by <a href="http://www.flickr.com/photos/sahaab/3772381110/">sahaab</a>
+</p>
+<p>
+<a href="http://www.flickr.com/photos/kakoraptor16/3770598322/"><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/yhoomsft5.jpg" alt="yhoomsft5" title="yhoomsft5" width="500" height="183" /></a><br />
+<em>yabing!</em> by <a href="http://www.flickr.com/photos/kakoraptor16/3770598322/"">kakoraptor</a>
+</p>
+<p>
+<a href="http://www.flickr.com/photos/bruceclay/3770575016/"><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/yhoomsft6.jpg" alt="yhoomsft6" title="yhoomsft6" width="300" height="78" /></a><br />
+<em>Binghoo!</em> by <a href="http://www.flickr.com/photos/bruceclay/3770575016/">bruceclay</a>
+</p>
+<p>
+<a href="http://www.flickr.com/photos/ajkohn2001/3769755370/"><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/yhoomsft7.jpg" alt="yhoomsft7" title="yhoomsft7" width="316" height="99"/></a><br />
+<em>bingoo!</em> by <a href="http://www.flickr.com/photos/ajkohn2001/3769755370/">ajkohn2001</a>
+</p>
+<p>
+<a href="http://www.flickr.com/photos/patagonia/3770804029/"><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/yhoomsft4.jpg" alt="yhoomsft4" title="yhoomsft4" width="364" height="500" /></a><br />
+<em>Yahoo! &#038;* Microsoft? No!</em> by <a href="http://www.flickr.com/photos/patagonia/3770804029/">patagonia</a>
+</p>
+<p>
+<a href="http://www.flickr.com/photos/joeteixido/2245995179/"><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/yhoomsft3.jpg" alt="yhoomsft3" title="yhoomsft3" width="500" height="375" /></a><em><br />
+Yahoo</em> by <a href="http://www.flickr.com/photos/joeteixido/2245995179/">joeteixido</a>
+</p>
+<p>
+<a href="http://www.flickr.com/photos/thevoicewithin/3772549072/"><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/yhoomsft1.jpg" alt="Put down your search engine. You have 20 seconds to comply." title="Put down your search engine. You have 20 seconds to comply." /></a><br />
+<em>Put down your search engine. You have 20 seconds to comply.</em> by <a href="http://www.flickr.com/photos/thevoicewithin/3772549072/">thevoicewithin</a>
+</p>
+<p>Feel free to create your own. Tag them with the <a href="http://www.flickr.com/search/?s=int&#038;z=t&#038;w=all&#038;q=microsoft+yahoo+techcrunch&#038;m=tags">yahoo, microsoft, and techcrunch</a> (each word seperately) and we&#8217;ll add the best ones to our list. </p>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchboard.com">CrunchBoard</a><em> </em>because it&#8217;s time for you to find a new Job2.0</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=1204' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=384&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=879' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=387&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/2ouYR2iRPWr5lywXDBewf0_uXsw/0/da"><img src="http://feedads.g.doubleclick.net/~at/2ouYR2iRPWr5lywXDBewf0_uXsw/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/2ouYR2iRPWr5lywXDBewf0_uXsw/1/da"><img src="http://feedads.g.doubleclick.net/~at/2ouYR2iRPWr5lywXDBewf0_uXsw/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=w2va4-c82p8:_6vRyDVgagg:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=w2va4-c82p8:_6vRyDVgagg:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=w2va4-c82p8:_6vRyDVgagg:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=w2va4-c82p8:_6vRyDVgagg:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=w2va4-c82p8:_6vRyDVgagg:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=w2va4-c82p8:_6vRyDVgagg:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/w2va4-c82p8" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/30/and-bingo-was-his-name-o/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/30/and-bingo-was-his-name-o/</feedburner:origLink></item>
+				<item>
+			<title>The New MySpace Mail Quietly Emerges As A Big-Time Email Competitor</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/aHw8dB_q4Xs/</link>
+			<comments>http://www.techcrunch.com/2009/07/30/the-new-myspace-mail-quietly-emerges-as-a-big-time-email-competitor/#comments</comments>
+			<pubDate>Thu, 30 Jul 2009 23:50:11 +0000</pubDate>
+			<dc:creator>MG Siegler</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[Facebook]]></category>
+
+		<category><![CDATA[Gmail]]></category>
+
+		<category><![CDATA[MySpace]]></category>
+
+		<category><![CDATA[myspace mail]]></category>
+
+		<category><![CDATA[yahoo-mail]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88435</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/3-630x513-215x175.jpg" width="215" height="175" />We've been covering the <a href="http://www.techcrunch.com/2009/01/15/confirmed-myspace-building-stealth-webmail-product/">new web email project MySpace</a> has been working on <a href="http://www.techcrunch.com/2009/04/01/myspace-stealth-webmail-product-definitely-happening-internal-memo/">in stealth mode</a> for the past several month. Now it's ready to begin a quiet rollout today, in beta, for users around the globe.
+
+Here's why this matters: Right off the bat, MySpace Mail with a sexy new interface is a major player in the e-mail space based on sheer size alone. With nearly 130 million global users, it will enter the field as the 4th largest email provider in the world, and 2nd largest in the U.S. And it's being built on top of the MySpace Messaging service that plenty of people are already using a lot — it accounts for some 20% of MySpace's site traffic, we're told.
+
+Here's what else is nice: Because MySpace has had so-called vanity URLs since its inception (unlike Facebook, which <a href="http://www.techcrunch.com/2009/06/09/you-have-three-days-to-pick-your-facebook-vanity-url/">just rolled out the feature</a>), you can use those as your email address with the new MySpace Mail. So for a page that resides at myspace.com/techcrunch, the email would be techcrunch@myspace.com, for example. And, if you don't like the vanity URL you currently have, MySpace is giving you the opportunity to change it to something else (assuming it's available). This would also change your vanity URL for your profile.]]></description>
+					<content:encoded><![CDATA[<p><img class="alignright size-full wp-image-88441" title="23" src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/23.jpg" alt="23" width="94" height="49" />We&#8217;ve been covering the <a href="http://www.techcrunch.com/2009/01/15/confirmed-myspace-building-stealth-webmail-product/">new web email project MySpace</a> has been working on <a href="http://www.techcrunch.com/2009/04/01/myspace-stealth-webmail-product-definitely-happening-internal-memo/">in stealth mode</a> for the past several month. Now it&#8217;s ready to begin a quiet rollout today, in beta, for users around the globe.</p>
+<p>Here&#8217;s why this matters: Right off the bat, MySpace Mail with a sexy new interface is a major player in the e-mail space based on sheer size alone. With nearly 130 million global users, it will enter the field as the 4th largest email provider in the world, and 2nd largest in the U.S. (see chart). And it&#8217;s being built on top of the MySpace Messaging service that plenty of people are already using a lot — it accounts for some 20% of MySpace&#8217;s site traffic, we&#8217;re told.</p>
+<p><img class="alignright size-full wp-image-88456" title="picture-203" src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/picture-203.png" alt="picture-203" width="363" height="282" />Here&#8217;s what else is nice: Because MySpace has had so-called vanity URLs since its inception (unlike Facebook, which <a href="http://www.techcrunch.com/2009/06/09/you-have-three-days-to-pick-your-facebook-vanity-url/">just rolled out the feature</a>), you can use those as your email address with the new MySpace Mail. So for a page that resides at myspace.com/techcrunch, the email would be techcrunch@myspace.com, for example. And, if you don&#8217;t like the vanity URL you currently have, MySpace is giving you the opportunity to change it to something else (assuming it&#8217;s available). This would also change your vanity URL for your profile.</p>
+<p>So what&#8217;s different in this new version? Well, besides the obvious upgrades to the overall look, there&#8217;s a new Mail Activity Stream. This basically gives users a real-time view of what people you are having a conversation with, are doing on the site. The new MySpace Mail also allows you to embed photos in one step, and send music and video as attachments.</p>
+<p>And like Yahoo Mail, MySpace Mail comes with an unlimited amount of storage space. Contrast that with Google&#8217;s popular Gmail, which limits to just over 7 GB (though it is consistently growing).</p>
+<p><img class="alignnone size-medium wp-image-88438" title="3" src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/3-630x513.jpg" alt="3" width="630" height="513" /></p>
+<p>We&#8217;ve talked about <a href="http://www.techcrunch.com/2008/05/28/myspace-shows-facebook-how-its-done-google-gears-to-power-messaging/">MySpace using Gears</a> to do cool things with its messaging service in the past, and this new MySpace Mail will also utilize it to allow for power searching of mail.</p>
+<p>So the big question is, how does it compare to what Facebook is offering? Well, as we&#8217;ve <a href="http://www.techcrunch.com/2008/05/03/urgent-changes-are-needed-to-facebook-messaging/">written before</a>, Facebook mail has a lot of issues. Here&#8217;s how they stack up on some features (along with the other big guys):</p>
+<p><img class="alignnone size-full wp-image-88474" title="8" src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/8.jpg" alt="8" width="630" height="398" /></p>
+<p>As we said, this new MySpace Mail will begin rolling out today in beta, and it will continue to reach users across the globe over the next few weeks. When you first see it on your account, you&#8217;ll be greeting by a walk-through screen (pictured above) to set it up for the first time. This is where you&#8217;ll be able to choose which address you wish to use.</p>
+<p>Here&#8217;s the core functionality:</p>
+<ul>
+<li>New Mail center provides a snapshot of all your mail activities including messages, sent messages, requests, and notifications</li>
+<li>Send and receive messages from inside or outside the MySpace network</li>
+<li>Unlimited file storage</li>
+<li>One click to embed photos directly from your profile or desktop</li>
+<li>Send and receive file attachments including music and video</li>
+<li>Search within Mail using our Google Gears implementation</li>
+<li>Check out friends’ activities in real time via the new Mail Activity Stream module</li>
+<li>Address book that automatically saves your contacts</li>
+</ul>
+<p>In terms of privacy, here&#8217;s what MySpace is saying about the product:</p>
+<blockquote><p><strong>MySpace Mail is safe and reliable.</strong> MySpace has always taken a holistic approach to privacy and Mail is no exception.  MySpace Mail empowers users to be as open or as private as they choose.  Just like traditional mail, users can choose to receive messages from anyone whether they are in the MySpace network or not, while enhanced privacy features enable users to receive mail from only their MySpace ‘friends.’  Leading anti-spam technology and virus scanning ensure a safe, spam-free mail experience.</p></blockquote>
+<p>And here are a ton of screenshots:</p>
+<p><img class="alignnone size-medium wp-image-88439" title="4" src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/4-630x262.jpg" alt="4" width="630" height="262" /></p>
+<p><img class="alignnone size-medium wp-image-88440" title="5" src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/5-630x431.jpg" alt="5" width="630" height="431" /></p>
+<p><img class="alignnone size-medium wp-image-88448" title="6" src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/6-630x487.jpg" alt="6" width="630" height="487" /></p>
+<p><img class="alignnone size-medium wp-image-88449" title="7" src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/7-630x487.jpg" alt="7" width="630" height="487" />
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchgear.com">CrunchGear</a><em> </em>drool over the sexiest new gadgets and hardware.</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=1461' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=1905&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=442' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=1238&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/ySWFZaPWWFfK-GkWL5OI7o2s0u0/0/da"><img src="http://feedads.g.doubleclick.net/~at/ySWFZaPWWFfK-GkWL5OI7o2s0u0/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/ySWFZaPWWFfK-GkWL5OI7o2s0u0/1/da"><img src="http://feedads.g.doubleclick.net/~at/ySWFZaPWWFfK-GkWL5OI7o2s0u0/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=aHw8dB_q4Xs:dErw3OJHbaY:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=aHw8dB_q4Xs:dErw3OJHbaY:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=aHw8dB_q4Xs:dErw3OJHbaY:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=aHw8dB_q4Xs:dErw3OJHbaY:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=aHw8dB_q4Xs:dErw3OJHbaY:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=aHw8dB_q4Xs:dErw3OJHbaY:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/aHw8dB_q4Xs" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/30/the-new-myspace-mail-quietly-emerges-as-a-big-time-email-competitor/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/30/the-new-myspace-mail-quietly-emerges-as-a-big-time-email-competitor/</feedburner:origLink></item>
+				<item>
+			<title>Grooveshark’s iPhone App Is Great, But It’s About To Get Smacked Down By Apple</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/VBhfk6fbLSo/</link>
+			<comments>http://www.techcrunch.com/2009/07/30/groovesharks-iphone-app-is-great-but-its-about-to-get-smacked-down-by-apple/#comments</comments>
+			<pubDate>Thu, 30 Jul 2009 22:04:15 +0000</pubDate>
+			<dc:creator>Jason Kincaid</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[apple-app-store]]></category>
+
+		<category><![CDATA[Grooveshark]]></category>
+
+		<category><![CDATA[spotify]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88332</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/frankieval-133x200.png" width="133" height="200" />Over the last few days we've seen a lot of attention centered on the new iPhone <a href="http://uk.techcrunch.com/2009/07/28/weve-seen-the-spotify-iphone-app-in-detail-and-its-pretty-damn-good/">application</a> from <a href="http://www.spotify.com">Spotify</a>, the so-called 'iTunes Killer' subscription service that lets you plays songs on demand from a library of millions of tracks.   We still <a href="http://www.techcrunch.com/2009/07/27/spotify-in-the-iphone-app-store-—-but-will-apple-approve-it/">don't know</a> if that app is going to make it through Apple's nebulous approval process, but it's already got some possible competition: <a href="http://www.grooveshark.com">Grooveshark</a>, a streaming music service that lets you stream nearly any song from its web interface, has its own iPhone app ready for release and it's just about to submit it to Apple.  Like Spotify, the application lets you search for any song you want and stream it from the cloud almost instantly.
+
+Now Grooveshark just needs to face the daunting Apple approval process.  So will it make it though unscathed?  Almost certainly not.
+]]></description>
+					<content:encoded><![CDATA[<p><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/frankieval.png" class="shot2"/>Over the last few days we&#8217;ve seen a lot of attention centered on the new iPhone <a href="http://uk.techcrunch.com/2009/07/28/weve-seen-the-spotify-iphone-app-in-detail-and-its-pretty-damn-good/">application</a> from <a href="http://www.spotify.com">Spotify</a>, the so-called &#8216;iTunes Killer&#8217; subscription service that lets you plays songs on demand from a library of millions of tracks.   We still <a href="http://www.techcrunch.com/2009/07/27/spotify-in-the-iphone-app-store-—-but-will-apple-approve-it/">don&#8217;t know</a> if that app is going to make it through Apple&#8217;s nebulous approval process, but it&#8217;s already got some possible competition: <a href="http://www.grooveshark.com">Grooveshark</a>, a streaming music service that lets you stream nearly any song from its web interface, has its own iPhone app ready for release and it&#8217;s just about to submit it to Apple.  Like Spotify, the application lets you search for any song you want and stream it from the cloud almost instantly.</p>
+<p>Now Grooveshark just needs to face the daunting Apple approval process.  So will it make it though unscathed?  Almost certainly not.</p>
+<p>Grooveshark is a great service — the web interface is slick, and you can usually find whatever song you&#8217;re looking for in a matter of seconds, free of charge.  But it&#8217;s also not exactly on solid legal footing.  The company is holding true to its comparison to a &#8216;YouTube for music&#8217;, allowing users to upload whatever they want and generally only policing when they receive takedown notices, which doesn&#8217;t prevent the bulk of copyrighted songs from making their way onto the site (in its early days YouTube thrived on copyrighted content using a similar strategy) .  CEO Sam Tarantino says that Grooveshark is currently hammering out deals with the major record labels to remedy this issue, but EMI changed tactics midway through negotiations and decided to <a href="http://mediamemo.allthingsd.com/20090617/another-music-startup-sued-emi-takes-grooveshark-to-court/">sue</a> the company instead which isn&#8217;t helping their efforts.</p>
+<p>Still, Tarantino sounds optimistic about the future of the company, even if he isn&#8217;t counting on the iPhone app getting approved just yet.  The website gets 1.3 million visitors a month, 750,000 of which have registered.  The company is finalizing how it will deploy a subscription model (likely in the $5-$15 a month range), which will give it an added boost of legitimacy, and revenue.  Until then though, I wouldn&#8217;t expect this to pop up in the App Store any time soon.</p>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchboard.com">CrunchBoard</a><em> </em>because it&#8217;s time for you to find a new Job2.0</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=405' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=1262&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=1748' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=463&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/6neZbIVrK68ZO8CHrwa58groAxk/0/da"><img src="http://feedads.g.doubleclick.net/~at/6neZbIVrK68ZO8CHrwa58groAxk/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/6neZbIVrK68ZO8CHrwa58groAxk/1/da"><img src="http://feedads.g.doubleclick.net/~at/6neZbIVrK68ZO8CHrwa58groAxk/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=VBhfk6fbLSo:AEyAEBG9pYM:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=VBhfk6fbLSo:AEyAEBG9pYM:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=VBhfk6fbLSo:AEyAEBG9pYM:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=VBhfk6fbLSo:AEyAEBG9pYM:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=VBhfk6fbLSo:AEyAEBG9pYM:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=VBhfk6fbLSo:AEyAEBG9pYM:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/VBhfk6fbLSo" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/30/groovesharks-iphone-app-is-great-but-its-about-to-get-smacked-down-by-apple/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/30/groovesharks-iphone-app-is-great-but-its-about-to-get-smacked-down-by-apple/</feedburner:origLink></item>
+				<item>
+			<title>One Website To Rule Them All: Explosions And Boobs</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/0kX82nAxAIE/</link>
+			<comments>http://www.techcrunch.com/2009/07/30/one-website-to-rule-them-all-explosions-and-boobs/#comments</comments>
+			<pubDate>Thu, 30 Jul 2009 21:54:55 +0000</pubDate>
+			<dc:creator>MG Siegler</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[Ask.com]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88364</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/picture-167-630x344-215x117.png" width="215" height="117" />We on the web are a simple folk — especially us males. We need but two things to keep us happy: Explosions and boobs. And thank God someone has finally cut through all the BS, and given us exactly what we want in one brilliant site called yes, <a href="http://www.explosionsandboobs.com/">Explosions and Boobs</a>.
+
+The site is actually more elaborate than it may seem at first glorious glance. If you click on either the explosion picture or the picture of the boobs, you will get new pictures of explosions and boobs! Brilliant. It's hours of endless fun waiting to happen. Who needs to sit through an entire Michael Bay movie when you have this?]]></description>
+					<content:encoded><![CDATA[<p><img class="alignnone size-medium wp-image-88367" style="border: 1px solid gray" title="picture-167" src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/picture-167-630x344.png" alt="picture-167" width="630" height="344" /></p>
+<p>We on the web are a simple folk — especially us males. We need but two things to keep us happy: Explosions and boobs. And thank God someone has finally cut through all the BS, and given us exactly what we want in one brilliant site called yes, <a href="http://www.explosionsandboobs.com/">Explosions and Boobs</a>.</p>
+<p>The site is actually more elaborate than it may seem at first glorious glance. If you click on either the explosion picture or the picture of the boobs, you will get new pictures of explosions and boobs! Brilliant. It&#8217;s hours of endless fun waiting to happen. Who needs to sit through an entire Michael Bay movie when you have this?</p>
+<p>Just go to it and be amazed. Obviously, it may not be safe for everyone&#8217;s place of work. But it&#8217;s apparently safe enough for <a href="http://www.crunchbase.com/person/jim-lanzone-2">Jim Lanzone</a>, the former CEO of Ask.com to <a href="http://twitter.com/jlanzone/status/2938499529">tweet</a> about it. Or maybe not. As Michael <a href="http://twitter.com/arrington/status/2938640042">tweets</a> in response, &#8220;<em>see this is why you got fired as CEO of Ask.com.</em>&#8221;</p>
+<p><strong>Update</strong>: Alright, alright calm down. Lanzone wasn&#8217;t really fired as Ask.com CEO. But for those who read it on Twitter and assumed that it must be true, consider this the official debunking.</p>
+<p><img style="border: 1px solid gray" class="alignnone size-medium wp-image-88370" title="picture-176" src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/picture-176-630x343.png" alt="picture-176" width="630" height="343" /></p>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchboard.com">CrunchBoard</a><em> </em>because it&#8217;s time for you to find a new Job2.0</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=1159' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=1861&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=76' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=1629&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/bDXlM3VZBvCX1ZApICSiLNQ4yRE/0/da"><img src="http://feedads.g.doubleclick.net/~at/bDXlM3VZBvCX1ZApICSiLNQ4yRE/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/bDXlM3VZBvCX1ZApICSiLNQ4yRE/1/da"><img src="http://feedads.g.doubleclick.net/~at/bDXlM3VZBvCX1ZApICSiLNQ4yRE/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=0kX82nAxAIE:hkaZG0xuoAo:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=0kX82nAxAIE:hkaZG0xuoAo:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=0kX82nAxAIE:hkaZG0xuoAo:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=0kX82nAxAIE:hkaZG0xuoAo:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=0kX82nAxAIE:hkaZG0xuoAo:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=0kX82nAxAIE:hkaZG0xuoAo:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/0kX82nAxAIE" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/30/one-website-to-rule-them-all-explosions-and-boobs/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/30/one-website-to-rule-them-all-explosions-and-boobs/</feedburner:origLink></item>
+				<item>
+			<title>Firefox Will Hit 1 Billion Downloads Tomorrow</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/66DWbtd2xIc/</link>
+			<comments>http://www.techcrunch.com/2009/07/30/firefox-should-hit-1-billion-downloads-any-day-now/#comments</comments>
+			<pubDate>Thu, 30 Jul 2009 21:30:47 +0000</pubDate>
+			<dc:creator>MG Siegler</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[Firefox]]></category>
+
+		<category><![CDATA[Internet-Explorer]]></category>
+
+		<category><![CDATA[Mozilla]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88340</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/15-215x166.jpg" width="215" height="166" />Mozilla's Firefox browser is about to hit a major milestone: 1 billion total downloads. As you can see on <a href="http://twitter.com/FirefoxCounter">this Twitter account</a> set up to monitor the download numbers, it just crossed the 999,000,000 threshold earlier today. Judging by the rate at which it's increasing, it could hit the milestone as early as tomorrow.
+
+And Mozilla is preparing for the big day with a new site (not live yet), called <a href="http://www.onebillionplusyou.com/">www.onebillionplusyou.com</a>, which will go live on Monday. There, you'll find information about the one billion downloads Firefox has seen, we're told. When the browser hits the milestone, more information should also be available <a href="http://www.spreadfirefox.com/news_events">here</a>.]]></description>
+					<content:encoded><![CDATA[<p><img class="alignright size-full wp-image-88362" title="15" src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/15.jpg" alt="15" width="229" height="177" />Mozilla&#8217;s Firefox browser is about to hit a major milestone: 1 billion total downloads. As you can see on <a href="http://twitter.com/FirefoxCounter">this Twitter account</a> set up to monitor the download numbers, it just crossed the 999,000,000 threshold earlier today. Judging by the rate at which it&#8217;s increasing, it could hit the milestone as early as tomorrow <em>[update below, it will hit it tomorrow]</em>.</p>
+<p>And Mozilla is preparing for the big day with a new site (not live yet), called <a href="http://www.onebillionplusyou.com/">www.onebillionplusyou.com</a>, which will go live on Monday. There, you&#8217;ll find information about the one billion downloads Firefox has seen, we&#8217;re told. When the browser hits the milestone, more information should also be available <a href="http://www.spreadfirefox.com/news_events">here</a>.</p>
+<p>Firefox has made a major dent in Internet Explorer&#8217;s marketshare over the past few years. The <a href="http://www.techcrunch.com/2009/07/05/since-march-internet-explorer-lost-114-percent-share-to-firefox-safari-and-chrome/">latest numbers</a> put IE&#8217;s share just over 54%, while Firefox approaches 30%. That&#8217;s pretty incredible when you consider that just a few years ago, IE had over 90% marketshare.</p>
+<p><img class="alignright size-full wp-image-88350" title="picture-156" src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/picture-156.png" alt="picture-156" width="327" height="112" />This one billion number is obviously for all the versions of Firefox, since it was launched in 2002 (though the Firefox name officially took hold in 2004). The most recent version, 3.5, launched exactly a month ago. It <a href="http://www.techcrunch.com/2009/06/30/firefox-35-soars-past-a-million-downloads-approaching-100-downloads-a-second/">zoomed past</a> a million downloads very quickly, and had <a href="http://www.techcrunch.com/2009/07/01/firefox-35-hits-five-million-downloads-in-24-hours-respectable-but-not-a-record/">5 million downloads</a> after day one — a huge number, though not quite as huge as the Firefox 3.0 launch.</p>
+<p><strong>Update</strong>: Mozilla has just sent a note confirming that it will hit the milestone tomorrow:</p>
+<blockquote><p>It’s looking like Firefox will reach 1 billion downloads tomorrow (around 3:45 a.m. PT)! You can find out more here: <a href="http://www.spreadfirefox.com/fxbillion">http://www.spreadfirefox.com/fxbillion</a>.</p></blockquote>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchbase.com">CrunchBase</a><em> </em>the free database of technology companies, people, and investors</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=1798' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=121&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=1507' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=1614&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/AEqFu8ChbO2z0Q7mXgChzQ2Tb6M/0/da"><img src="http://feedads.g.doubleclick.net/~at/AEqFu8ChbO2z0Q7mXgChzQ2Tb6M/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/AEqFu8ChbO2z0Q7mXgChzQ2Tb6M/1/da"><img src="http://feedads.g.doubleclick.net/~at/AEqFu8ChbO2z0Q7mXgChzQ2Tb6M/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=66DWbtd2xIc:6pqlKid21dQ:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=66DWbtd2xIc:6pqlKid21dQ:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=66DWbtd2xIc:6pqlKid21dQ:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=66DWbtd2xIc:6pqlKid21dQ:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=66DWbtd2xIc:6pqlKid21dQ:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=66DWbtd2xIc:6pqlKid21dQ:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/66DWbtd2xIc" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/30/firefox-should-hit-1-billion-downloads-any-day-now/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/30/firefox-should-hit-1-billion-downloads-any-day-now/</feedburner:origLink></item>
+				<item>
+			<title>NewsGator Discontinues Online RSS Reader, Points To Google Reader</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/BgDHCUE52us/</link>
+			<comments>http://www.techcrunch.com/2009/07/30/newsgator-discontinues-online-rss-reader-points-to-google-reader/#comments</comments>
+			<pubDate>Thu, 30 Jul 2009 19:42:30 +0000</pubDate>
+			<dc:creator>Robin Wauters</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[google]]></category>
+
+		<category><![CDATA[NewsGator]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88314</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/newsgator-onlinepng-215x180.gif" width="215" height="180" /><a href="http://www.newsgator.com">NewsGator Online</a>, one of the first online RSS readers I used back in the day, is being tossed in the <a href="http://techcrunch.com/tag/deadpool">deadpool</a> by its parent company in a move that signals its newfound focus on desktop applications and social computing tools for businesses. 
+
+Users of the online feed reader are <a href="http://blogs.newsgator.com/daily/2009/07/newsgator-consumer-rss-reader-product-changes-google-sync.html">kindly requested</a> to migrate their subscriptions over to Google Reader before August 31, and NewsGator will provide <a href="http://www.newsgator.com/productinfo/producttransition.aspx">step-by-step instructions</a> and in-product reminders to make sure all goes smoothly.
+
+Speaking of NewsGator's <a href="http://www.newsgator.com/individuals/default.aspx">desktop RSS readers</a>, which include FeedDemon for Windows and NetNewsWire for Macs, they have both been updated to a new version. Users of the software programs are asked to download the updated versions in the next 30 days, and in another testament to the company's friendly relationship with Mountain View it is mostly touting the new synchronization feature with Google Reader as a selling point.]]></description>
+					<content:encoded><![CDATA[<p><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/newsgator-onlinepng.gif" class="shot2" /><a href="http://www.newsgator.com">NewsGator Online</a>, one of the first online RSS readers I used back in the day, is being tossed in the <a href="http://techcrunch.com/tag/deadpool">deadpool</a> by its parent company in a move that signals its newfound focus on desktop applications and social computing tools for businesses. </p>
+<p>Users of the online feed reader are <a href="http://blogs.newsgator.com/daily/2009/07/newsgator-consumer-rss-reader-product-changes-google-sync.html">kindly requested</a> to migrate their subscriptions over to Google Reader before August 31, and NewsGator will provide <a href="http://www.newsgator.com/productinfo/producttransition.aspx">step-by-step instructions</a> and in-product reminders to make sure all goes smoothly.</p>
+<p>Speaking of NewsGator&#8217;s <a href="http://www.newsgator.com/individuals/default.aspx">desktop RSS readers</a>, which include FeedDemon for Windows and NetNewsWire for Macs, they have both been updated to a new version. Users of the software programs are asked to download the updated versions in the next 30 days, and in another testament to the company&#8217;s friendly relationship with Mountain View it is mostly touting the new synchronization feature with Google Reader as a selling point. The programs are offered free of charge, but that hasn&#8217;t always been the case; in fact they announced they would be <a href="http://www.techcrunch.com/2008/01/09/newsgator-upgrades-rss-readers-provides-them-for-free/">waiving the cost of the products</a> in January 2008.</p>
+<p>NewsGator&#8217;s focus on its paying, enterprise-grade products <a href="http://venturebeat.com/2009/01/12/newsgators-focus-on-business-customers-is-paying-off/">makes a lot of sense</a>. just yesterday, the company released an announcement about the momentum for its enterprise social networking product <a href="http://www.newsgator.com/business/socialsites/default.aspx">Social Sites</a>, which recently hit the milestone of 1 million paying users. Earlier this year, we published an <a href="http://www.techcrunchit.com/2009/01/15/is-enterprise-rss-dead-newsgator-ceo-who-cares/">interesting interview</a> conducted with JB Holston, Newsgator’s CEO, in which he explains their focus on enterprise RSS even if they never call it that themselves.</p>
+<p>NewsGator has raised <a href="http://www.crunchbase.com/company/newsgator">$39 million</a> to date , mostly from Mobius Venture Capital and Masthead Venture Partners.</p>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchbase.com">CrunchBase</a><em> </em>the free database of technology companies, people, and investors</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=1822' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=1289&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=848' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=1399&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/1e-xQF8rvFVecvslLNQq7k8B4zY/0/da"><img src="http://feedads.g.doubleclick.net/~at/1e-xQF8rvFVecvslLNQq7k8B4zY/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/1e-xQF8rvFVecvslLNQq7k8B4zY/1/da"><img src="http://feedads.g.doubleclick.net/~at/1e-xQF8rvFVecvslLNQq7k8B4zY/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=BgDHCUE52us:WFQitjJ62bk:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=BgDHCUE52us:WFQitjJ62bk:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=BgDHCUE52us:WFQitjJ62bk:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=BgDHCUE52us:WFQitjJ62bk:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=BgDHCUE52us:WFQitjJ62bk:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=BgDHCUE52us:WFQitjJ62bk:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/BgDHCUE52us" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/30/newsgator-discontinues-online-rss-reader-points-to-google-reader/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/30/newsgator-discontinues-online-rss-reader-points-to-google-reader/</feedburner:origLink></item>
+				<item>
+			<title>Digg Commenters To Get At Least 10,000 Times More Annoying</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/8nR2yeSRjVM/</link>
+			<comments>http://www.techcrunch.com/2009/07/30/digg-commenters-to-get-at-least-10000-times-more-annoying/#comments</comments>
+			<pubDate>Thu, 30 Jul 2009 18:35:28 +0000</pubDate>
+			<dc:creator>MG Siegler</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[Digg]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88292</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/picture-148-185x200.png" width="185" height="200" />You know those idiotic commenters on Digg? Sure you do. You know, "FIRST", "LOLZ", "URGAY", etc. Yeah, those guys. Well Digg took a step today that could possibly make them at least 10,000 times more annoying: <a href="http://blog.digg.com/?p=921">Email alerts</a>.
+
+Now, let's be clear: This doesn't mean that people who post an item on Digg will get alerts every time someone comments — that would be awful. Instead, this means that if you leave a comment on an item, you will get alerted when someone comments on that. And this will occur only for top-level comments and not nested ones.
+
+And while that may not sound so bad, it's no secret that Digg, like many big sites, has a comment section that is almost completely run by trolls. It takes actions to combat that, such as the burying and promoting of certain comments, but this new email alert system will bypass that.]]></description>
+					<content:encoded><![CDATA[<p><img class="alignright size-medium wp-image-88302" title="picture-1213" src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/picture-1213-630x173.png" alt="picture-1213" width="441" height="121" />You know those idiotic commenters on Digg? Sure you do. You know, &#8220;FIRST&#8221;, &#8220;LOLZ&#8221;, &#8220;URGAY&#8221;, etc. Yeah, those guys. Well Digg took a step today that could possibly make them at least 10,000 times more annoying: <a href="http://blog.digg.com/?p=921">Email alerts</a>.</p>
+<p>Now, let&#8217;s be clear: This doesn&#8217;t mean that people who post an item on Digg will get alerts every time someone comments — that would be awful. Instead, this means that if you leave a comment on an item, you will get alerted when someone comments on that. And this will occur only for top-level comments and not nested ones.</p>
+<p>And while that may not sound so bad, it&#8217;s no secret that Digg, like many big sites, has a comment section that is almost completely run by trolls. It takes actions to combat that, such as the burying and promoting of certain comments, but this new email alert system will bypass that.</p>
+<p>So if I want to leave an insightful comment on Digg, my inbox is now likely to get overwhelmed by the random garbage comments left in response. Sure, some of them may be thoughtful replies, but in my experience, most will be rubbish. And that&#8217;s fine, but just don&#8217;t email them to me. But Digg is, by default.</p>
+<p>You can turn the email alerts off <a href="http://digg.com/settings/email">on this page</a>. Or, perhaps even easier, you could just do what plenty of Digg users do, and not comment.</p>
+<p><img class="alignnone size-medium wp-image-88301" title="picture-1115" src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/picture-1115-630x217.png" alt="picture-1115" width="630" height="217" /></p>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchboard.com">CrunchBoard</a><em> </em>because it&#8217;s time for you to find a new Job2.0</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=1481' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=159&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=1891' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=295&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/PK2RiH18vbdCv26CTGjKrfzY0X0/0/da"><img src="http://feedads.g.doubleclick.net/~at/PK2RiH18vbdCv26CTGjKrfzY0X0/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/PK2RiH18vbdCv26CTGjKrfzY0X0/1/da"><img src="http://feedads.g.doubleclick.net/~at/PK2RiH18vbdCv26CTGjKrfzY0X0/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=8nR2yeSRjVM:jvVHqCWsHQo:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=8nR2yeSRjVM:jvVHqCWsHQo:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=8nR2yeSRjVM:jvVHqCWsHQo:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=8nR2yeSRjVM:jvVHqCWsHQo:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=8nR2yeSRjVM:jvVHqCWsHQo:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=8nR2yeSRjVM:jvVHqCWsHQo:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/8nR2yeSRjVM" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/30/digg-commenters-to-get-at-least-10000-times-more-annoying/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/30/digg-commenters-to-get-at-least-10000-times-more-annoying/</feedburner:origLink></item>
+				<item>
+			<title>Lolligift, a Site For Collecting Money for Office Pools</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/IL8RlTwZR1M/</link>
+			<comments>http://www.techcrunch.com/2009/07/30/lolligift-a-site-for-collecting-money-for-office-pools/#comments</comments>
+			<pubDate>Thu, 30 Jul 2009 18:16:00 +0000</pubDate>
+			<dc:creator>John Biggs</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[lolligift]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88286</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/logo-215x57.gif" width="215" height="57" /><a HREF="http://lolligift.com/">Lolligift</a> solves a pressing problem in most offices. You know how when Maurice in accounting or Lydia on the dev team breaks a hip or has a birthday? And how Sarah in HR goes around collecting cash for a present for them? And how you have to fish out a ten-spot, the same ten-spot you were planning on using for lunch and now you have to use the ATM which isn't your bank and costs $2 to use? And how you're all like "Maybe tomorrow" and Sarah is all like "OK. I'll put you down for tomorrow but I have to go to get the Bed, Bath and Beyond gift certificate tonight so don't forget." And you're all like "Wait, here's ten." And Sarah thinks you're a freak?
+
+Well, Lolligift solves all that. By sending your co-workers <a HREF="http://lolligift.com/pools/213">a single link</a> (I will totally laugh if anyone donates to Nik's fund) they can begin sending cash. You then collect the funds via Paypal (less $5 and Paypal's cut) or request a free mailed check or Visa Check Card. You can overnight the check for $19.95.
+]]></description>
+					<content:encoded><![CDATA[<p><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/logo.gif" class="right" /><a HREF="http://lolligift.com/">Lolligift</a> solves a pressing problem in most offices. You know how when Maurice in accounting or Lydia on the dev team breaks a hip or has a birthday? And how Sarah in HR goes around collecting cash for a present for them? And how you know you have a ten-spot, the same ten-spot you were planning on using for lunch at the Pizza Hut all-you-can eat buffet and now you have to use the ATM which isn&#8217;t your bank and costs $2 to use? And how you&#8217;re all like &#8220;Maybe tomorrow&#8221; and Sarah is all like &#8220;OK. I&#8217;ll put you down for tomorrow but I have to go to get the Bed, Bath and Beyond gift certificate tonight so don&#8217;t forget.&#8221; And you&#8217;re all like &#8220;Wait, here&#8217;s ten.&#8221; And Sarah thinks you&#8217;re a freak?</p>
+<p>Well, Lolligift solves all that. By sending your co-workers <a HREF="http://lolligift.com/pools/213">a single link</a> (I will totally laugh if anyone donates to Nik&#8217;s fund) they can begin sending cash. You then collect the funds via Paypal (less $5 and Paypal&#8217;s cut) or request a free mailed check or Visa Check Card. You can overnight the check for $19.95.<br />
+<img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/scaledlolly1-2_jpg.jpg" alt="scaledlolly1-2_jpg" title="scaledlolly1-2_jpg" width="630" height="355" class="aligncenter size-full wp-image-88290" /></p>
+<p>The site is run by former Microsoft employees who, I&#8217;m sure, had to put a lot of cash into Bill Gates&#8217; annual birthday Lamborghini pool and therefore have extended experience in the &#8220;giving at the office&#8221; field. Presumably they&#8217;re making their money on holding the deposited cash in a bank account and on the $5 fees.</p>
+<p>Founders Adam Sheppard and William Lai is part of the <a HREF="http://8ninths.com/">8ninths incubator</a> in Seattle. It&#8217;s privately held and funded.</p>
+<p>As you see it&#8217;s simple to create a pool for almost anything. You enter the recipient, the gift, and then event time. The site then emails the participants.</p>
+<p><a href="http://www.techcrunch.com/wp-content/uploads/2009/07/scaledlolly2-2_jpg.jpg"><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/scaledlolly2-2_jpg.jpg" alt="scaledlolly2-2_jpg" title="scaledlolly2-2_jpg" width="630" height="466" class="aligncenter size-full wp-image-88291" /></a></p>
+<p>Like <a HREF="http://www.evite.com">evite</a>, <a HREF="http://www.eventbrite.com/">EventBrite</a> and <a HREF="http://www.socializr.com/">socializer</a> and all of those party invite systems you&#8217;ll use this site rarely but once you realize it&#8217;s there, you&#8217;ll probably keep using it. However it does make it much harder to skip out on office gift pools.</p>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchbase.com">CrunchBase</a><em> </em>the free database of technology companies, people, and investors</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=180' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=60&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=448' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=1384&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/0M6K3AaiM6oDBTDNx1MBxNGaS2k/0/da"><img src="http://feedads.g.doubleclick.net/~at/0M6K3AaiM6oDBTDNx1MBxNGaS2k/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/0M6K3AaiM6oDBTDNx1MBxNGaS2k/1/da"><img src="http://feedads.g.doubleclick.net/~at/0M6K3AaiM6oDBTDNx1MBxNGaS2k/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=IL8RlTwZR1M:oNhgm1cTMLk:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=IL8RlTwZR1M:oNhgm1cTMLk:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=IL8RlTwZR1M:oNhgm1cTMLk:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=IL8RlTwZR1M:oNhgm1cTMLk:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=IL8RlTwZR1M:oNhgm1cTMLk:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=IL8RlTwZR1M:oNhgm1cTMLk:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/IL8RlTwZR1M" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/30/lolligift-a-site-for-collecting-money-for-office-pools/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/30/lolligift-a-site-for-collecting-money-for-office-pools/</feedburner:origLink></item>
+				<item>
+			<title>YouTube: Viral Wedding Videos Are Great For Advertising</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/vwNWEs7-I78/</link>
+			<comments>http://www.techcrunch.com/2009/07/30/youtube-viral-wedding-videos-are-great-for-advertising/#comments</comments>
+			<pubDate>Thu, 30 Jul 2009 18:03:29 +0000</pubDate>
+			<dc:creator>Erick Schonfeld</dc:creator>
+			
+		<category><![CDATA[Web 2.0 News & Ideas]]></category>
+
+		<category><![CDATA[online advertiisng]]></category>
+
+		<category><![CDATA[YouTube]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88263</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/jk-wedding-dance-215x115.jpg" width="215" height="115" />
+
+The conventional wisdom out there on Web video advertising is that most advertisers don't want to risk being associated with user-generated videos (i.e., the vast bulk of videos on YouTube).  It is only the professionally-produced stuff on portions of YouTube and Hulu and Blip.tv where the advertising dollars are going.  This is the conventional wisdom because it is mostly true.
+
+But YouTube wants to change advertiser's minds (because the vast bulk of its videos are audience-produced, did we mention that?).  So in a <a href=" http://googleblog.blogspot.com/2009/07/i-now-pronounce-you-monetized-youtube.html">blog post</a> today, YouTube trots out a told-ya-so case study about the <a href="http://www.youtube.com/watch?v=4-94JhLEiN0">"JK Wedding Entrance Video" </a> (embedded below) that has been spreading around like crazy.  Since it was posted on July 19, it has been watched more than 12 million times.  ]]></description>
+					<content:encoded><![CDATA[<p><center><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/jk-wedding-dance.jpg"/></center></p>
+<p>The conventional wisdom out there on Web video advertising is that most advertisers don&#8217;t want to risk being associated with user-generated videos (i.e., the vast bulk of videos on YouTube).  It is only the professionally-produced stuff on portions of YouTube and Hulu and Blip.tv where the advertising dollars are going.  This is the conventional wisdom because it is mostly true.</p>
+<p>But YouTube wants to change advertiser&#8217;s minds (because the vast bulk of its videos are audience-produced, did we mention that?).  So in a <a href=" http://googleblog.blogspot.com/2009/07/i-now-pronounce-you-monetized-youtube.html">blog post</a> today, YouTube trots out a told-ya-so case study about the <a href="http://www.youtube.com/watch?v=4-94JhLEiN0">&#8220;JK Wedding Entrance Video&#8221; </a> (embedded below) that has been spreading around like crazy.  Since it was posted on July 19, it has been watched more than 12 million times.  It&#8217;s even spawned its own (professionally-produced) faux sequel, the &#8220;<a href="http://www.youtube.com/watch?v=zbr2ao86ww0">JK Divorce Entrance Dance&#8221;</a> (also embedded below).</p>
+<p>In case you haven&#8217;t seen it, the original video shows an entire wedding party boogieing down the aisle in Minnesota.  Instead of a traditional wedding march, the couple picked Chris Brown&#8217;s &#8220;Forever.&#8221;  YouTube&#8217;s content fingerprinting system picked that up and the copyright holders were able to place <a href=" http://www.techcrunch.com/2008/10/07/still-searching-for-a-video-business-model-google-introduces-the-youtubevertorial/">click-to-buy ads </a>on the video which linked to downloads of the song on iTunes and Amazon.  </p>
+<p>YouTube reports that the click-through rate on those ads was two times higher than the overall click-through rate for those types of ads on the site, and that there was even a spillover effect on official &#8220;Forever&#8221; music video, which also saw the click-through rate son the same ads go up 2.5 times the average.  (It makes sense that would be higher since people going to the official video presumably are more interested in the song itself).  </p>
+<p>Not only that, but &#8220;Forever&#8221; climbed the music charts, reaching the No. 4 spot <a href="http://www.apple.com/itunes/top-100/songs/">on iTunes</a> (it is now No. 15) and No. 3 spot on Amazon&#8217;s MP3 <a href="http://www.amazon.com/gp/bestsellers/dmusic/digital-music-track/ref=pd_ts_dmusic_nav">top seller&#8217;s list</a> (it is currently No. 4).  Not bad for a song that was released a year ago.</p>
+<p>YouTube presents this as proof that advertising works on viral videos even if they are audience produced.  I&#8217;m not sure it proves anything other than that breakout videos are good advertising vehicles no matter where they come from.  But YouTube needs to sell more of its video inventory to get to profitability, and the bulk of it is . . . </p>
+<p><object width="600" height="400"><param name="movie" value="http://www.youtube.com/v/4-94JhLEiN0&#038;hl=en&#038;fs=1&#038;"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/4-94JhLEiN0&#038;hl=en&#038;fs=1&#038;" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="600" height="400"></embed></object></p>
+<p><object width="600" height="400"><param name="movie" value="http://www.youtube.com/v/zbr2ao86ww0&#038;hl=en&#038;fs=1&#038;"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><embed src="http://www.youtube.com/v/zbr2ao86ww0&#038;hl=en&#038;fs=1&#038;" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="600" height="400"></embed></object></p>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.crunchgear.com">CrunchGear</a><em> </em>drool over the sexiest new gadgets and hardware.</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=445' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=1327&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=1772' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=1907&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/rkF24e3ekh61-uOTlaHPNVoIhog/0/da"><img src="http://feedads.g.doubleclick.net/~at/rkF24e3ekh61-uOTlaHPNVoIhog/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/rkF24e3ekh61-uOTlaHPNVoIhog/1/da"><img src="http://feedads.g.doubleclick.net/~at/rkF24e3ekh61-uOTlaHPNVoIhog/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=vwNWEs7-I78:MabRtIQumhY:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=vwNWEs7-I78:MabRtIQumhY:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=vwNWEs7-I78:MabRtIQumhY:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=vwNWEs7-I78:MabRtIQumhY:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=vwNWEs7-I78:MabRtIQumhY:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=vwNWEs7-I78:MabRtIQumhY:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/vwNWEs7-I78" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/30/youtube-viral-wedding-videos-are-great-for-advertising/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/30/youtube-viral-wedding-videos-are-great-for-advertising/</feedburner:origLink></item>
+				<item>
+			<title>Expedia Takes A Hit On Revenues And Net Income, Shares Soar</title>
+			<link>http://feedproxy.google.com/~r/Techcrunch/~3/3OWx812wOr0/</link>
+			<comments>http://www.techcrunch.com/2009/07/30/expedia-takes-a-hit-on-revenues-and-net-income-shares-soar/#comments</comments>
+			<pubDate>Thu, 30 Jul 2009 17:53:47 +0000</pubDate>
+			<dc:creator>Robin Wauters</dc:creator>
+			
+		<category><![CDATA[Company & Product Profiles]]></category>
+
+		<category><![CDATA[Expedia]]></category>
+
+		<category><![CDATA[hotels.com]]></category>
+
+		<category><![CDATA[hotwire]]></category>
+
+		<category><![CDATA[tripadvisor]]></category>
+			<guid isPermaLink="false">http://www.techcrunch.com/?p=88234</guid>
+				<description><![CDATA[<img src="http://www.techcrunch.com/wp-content/uploads/2009/07/expedia-215x121.jpg" width="215" height="121" />Online travel services group <a href="http://www.expediainc.com/phoenix.zhtml?c=190013&#038;p=home">Expedia</a> has reported its results for Q2 2009, and the financials aren't looking spectacular, but they are not as bad as expected. 
+
+Although the number of booking transactions handled by the company actually saw a small uptick, gross bookings decreased 5%. As a result, revenues went down 3% (from $795 million in 2008 to $770 million) and operating income decreased a staggering 33%.
+
+On the upside, Expedia's flight and hotel bookings rose 10% in the second quarter compared to the first quarter following some expense-cutting measures and airline fare cuts. The company's second-quarter profit was $41 million, or 14 cents per share.]]></description>
+					<content:encoded><![CDATA[<p><img src="http://cache0.techcrunch.com/wp-content/uploads/2009/07/expedia.jpg" class="shot2" />Online travel services group <a href="http://www.expediainc.com/phoenix.zhtml?c=190013&#038;p=home">Expedia</a> has reported its results for Q2 2009, and the financials aren&#8217;t looking spectacular, but they are not as bad as expected.</p>
+<p>Although the number of booking transactions handled by the company actually saw a small uptick, gross bookings decreased 5%. As a result, revenues went down 3% (from $795 million in 2008 to $770 million) and operating income decreased a staggering 33%.</p>
+<p>On the upside, Expedia&#8217;s flight and hotel bookings rose 10% in the second quarter compared to the first quarter following some expense-cutting measures and airline fare cuts. The company&#8217;s second-quarter profit was $41 million, or 14 cents per share.</p>
+<p>And while earnings fell 57%, Expedia&#8217;s results beat Wall Street expectations, sending <a href="http://www.google.com/finance?q=expedia">shares up 13%</a> at $20.73 in recent trading on Nasdaq. The stock has more than doubled this year, up about 37% in the past month.</p>
+<p><script src="http://charts.wikinvest.com/wikinvest/wikichart/javascript/scripts.php" type="text/javascript"></script>
+<div id="wikichartContainer_1FCF7CB6-6A76-A2CA-C8CC-CCCF2D1A7A14">
+<div style="width: 570px; text-align: center; vertical-align: center; margin-top: 82px;"><a href="http://get.adobe.com/flashplayer/"><img src="http://cdn.wikinvest.com/wikinvest/images/adobe_flash_logo.gif" alt="Flash" style="border-width: 0px;"/><br />Flash Player 9 or higher is required to view the chart<br /><strong>Click here to download Flash Player now</strong></a></div>
+</div>
+<p><script type="text/javascript">if (typeof(embedWikichart) != "undefined") {embedWikichart("http://charts.wikinvest.com/WikiChartMini.swf","wikichartContainer_1FCF7CB6-6A76-A2CA-C8CC-CCCF2D1A7A14","570","365",{"endDate":"30-07-2009","liveQuote":"true","ticker":"EXPE","startDate":"30-01-2009","showAnnotations":"true"});}</script>
+<div style="font-size:9px;text-align:right;width:570px;font-family:Verdana"><a href="http://www.wikinvest.com/chart/EXPE" style="text-decoration:underline; color:#0000ee;">View the full NASDAQ:EXPE chart</a> at <a href="http://www.wikinvest.com/">Wikinvest</a></div>
+<p>Expedia, next to online travel agency Expedia.com, owns a number of properties in the field, including Hotels.com, TripAdvisor and Hotwire.</p>
+<p><strong><em>Crunch Network</em></strong>:  <a href="http://www.mobilecrunch.com/">MobileCrunch</a><em> </em>Mobile Gadgets and Applications, Delivered Daily.</p>
+<div><a href='http://d.techcrunch.com/ck.php?n=a8e452d3&amp;cb=1232' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=38&amp;cb=213&amp;n=a8e452d3' border='0' alt='' /></a></div>
+<div><a href='http://d.techcrunch.com/ck.php?n=a9e88cf5&amp;cb=1144' target='_blank'><img src='http://d.techcrunch.com/avw.php?zoneid=13&amp;cb=1637&amp;n=a9e88cf5' border='0' alt='' /></a></div>
+
+
+<p><a href="http://feedads.g.doubleclick.net/~at/6zyIzPgZkENu4CRQKGyPFK8nXHw/0/da"><img src="http://feedads.g.doubleclick.net/~at/6zyIzPgZkENu4CRQKGyPFK8nXHw/0/di" border="0" ismap="true"></img></a><br/>
+<a href="http://feedads.g.doubleclick.net/~at/6zyIzPgZkENu4CRQKGyPFK8nXHw/1/da"><img src="http://feedads.g.doubleclick.net/~at/6zyIzPgZkENu4CRQKGyPFK8nXHw/1/di" border="0" ismap="true"></img></a></p><div class="feedflare">
+<a href="http://feeds.feedburner.com/~ff/Techcrunch?a=3OWx812wOr0:Ln2eDtxFopQ:2mJPEYqXBVI"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=2mJPEYqXBVI" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=3OWx812wOr0:Ln2eDtxFopQ:dnMXMwOfBR0"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=dnMXMwOfBR0" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=3OWx812wOr0:Ln2eDtxFopQ:D7DqB2pKExk"><img src="http://feeds.feedburner.com/~ff/Techcrunch?i=3OWx812wOr0:Ln2eDtxFopQ:D7DqB2pKExk" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=3OWx812wOr0:Ln2eDtxFopQ:7Q72WNTAKBA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=7Q72WNTAKBA" border="0"></img></a> <a href="http://feeds.feedburner.com/~ff/Techcrunch?a=3OWx812wOr0:Ln2eDtxFopQ:yIl2AUoC8zA"><img src="http://feeds.feedburner.com/~ff/Techcrunch?d=yIl2AUoC8zA" border="0"></img></a>
+</div><img src="http://feeds.feedburner.com/~r/Techcrunch/~4/3OWx812wOr0" height="1" width="1"/>]]></content:encoded>
+						<wfw:commentRss>http://www.techcrunch.com/2009/07/30/expedia-takes-a-hit-on-revenues-and-net-income-shares-soar/feed/</wfw:commentRss>
+					<feedburner:origLink>http://www.techcrunch.com/2009/07/30/expedia-takes-a-hit-on-revenues-and-net-income-shares-soar/</feedburner:origLink></item>
+			</channel>
+</rss>

@@ -1,0 +1,256 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Tue, 18 Aug 2009 22:21:22 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Afghanistan Imposes News Censorship on Election Day</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=bce74358f481e839164cfe035729f4c2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/world/asia/19afghan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/world/asia/19afghan.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/18/world/18afghan-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>The site of an attack in Kabul on Tuesday where at least seven people were killed and 52 wounded when a suicide car bomber struck a Western military convoy.</media:description>
+			<media:credit>Tyler Hicks/The New York Times</media:credit>
+			<description>Unnerved by another wave of attacks, the Afghan government on Tuesday banned news organizations from reporting violence during Thursday&#x2019;s vote.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=bce74358f481e839164cfe035729f4c2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=bce74358f481e839164cfe035729f4c2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CARLOTTA GALL</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 21:36:54 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+		</item>
+		<item>
+			<title>Obama Sees &#x2018;Positive Steps&#x2019; in Mideast</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f683ab1af20f455130fea6148c11f929</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/world/middleeast/19prexy.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/world/middleeast/19prexy.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/18/us/18prexy-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>President Barack Obama and President Hosni Mubarak of Egypt at the White House on Tuesday.</media:description>
+			<media:credit>Jim Young/Reuters</media:credit>
+			<description>Speaking after a meeting with President Hosni Mubarak of Egypt, President Obama said Israel was moving in the right direction on settlements.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f683ab1af20f455130fea6148c11f929&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f683ab1af20f455130fea6148c11f929&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By BRIAN KNOWLTON and  ISABEL KERSHNER</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 20:53:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Mubarak, Hosni</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Egypt</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Israel</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Palestinians</category>
+		</item>
+		<item>
+			<title>Frailty Lingers in Producer Price and Housing Reports</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ee51f6763ad7e6bb6b46394e80d8daa9</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/business/economy/19econ.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/business/economy/19econ.html</guid>
+			<description>New figures highlighted how weak the economy remains, even as some optimists declare the recession to be over.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ee51f6763ad7e6bb6b46394e80d8daa9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ee51f6763ad7e6bb6b46394e80d8daa9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 20:51:58 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Housing Starts</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Producer Price Index</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Economy</category>
+		</item>
+		<item>
+			<title>As Pension Funds Lagged, Managers Gave to Thompson Campaign</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=70a968d1c19145be7388ce418e405d8a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/nyregion/19pension.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/nyregion/19pension.html</guid>
+			<description>Comptroller William C. Thompson Jr., a Democratic mayoral contender, collected more than $500,000 from money managers.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=70a968d1c19145be7388ce418e405d8a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=70a968d1c19145be7388ce418e405d8a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL BARBARO and RUSS BUETTNER</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 21:09:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Thompson, William C Jr</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Democratic Party</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Pensions and Retirement Plans</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Campaign Finance</category>
+		</item>
+		<item>
+			<title>Maestro Still Runs the Show, Grandly</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=80b88b3cdce9e8eb648f5a4d6762e769</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/arts/music/19zeffirelli.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/arts/music/19zeffirelli.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/19/arts/19zeffirelli_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Franco Zeffirelli at his villa on the Appian Way in Rome this month.</media:description>
+			<media:credit>Kathryn Cook for The New York Times</media:credit>
+			<description>Few Italians since Fellini have had such an impact in the United States as Franco Zeffirelli.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=80b88b3cdce9e8eb648f5a4d6762e769&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=80b88b3cdce9e8eb648f5a4d6762e769&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By RACHEL DONADIO</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 22:09:42 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Zeffirelli, Franco</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Opera</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Movies</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Metropolitan Opera</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Christians and Christianity</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Classical Music</category>
+		</item>
+		<item>
+			<title>Robert Novak, Columnist, Dies at 78</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7c512e47939040effd49222e99dc8e67</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/business/media/19novak.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/business/media/19novak.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/18/obituaries/18novak3-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Robert Novak on NBC&#x2019;s &#x201C;Meet the Press&#x201D; in 2003, during the controversy after he published the name of a C.I.A. officer, Valerie Wilson. </media:description>
+			<media:credit>Photographs by Alex Wong/Getty Images, for &#x201C;Meet the Press&#x201D;</media:credit>
+			<description>Mr. Novak was a pugnacious columnist and cable TV fixture whose scoops reached across five decades.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7c512e47939040effd49222e99dc8e67&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7c512e47939040effd49222e99dc8e67&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DOUGLAS MARTIN  and JACQUES STEINBERG</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 20:20:32 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Novak, Robert</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">News and News Media</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Deaths (Obituaries)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Television</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Chicago Sun-Times</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Cable News Network</category>
+		</item>
+		<item>
+			<title>Corzine Rival Failed to Report Loan on Tax Returns</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=4c4a56f9bdff2f2ead216df7e3d697aa</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/nyregion/19christie.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/nyregion/19christie.html</guid>
+			<description>Aides to Christopher J. Christie, the challenger for governor in New Jersey, called it an oversight.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=4c4a56f9bdff2f2ead216df7e3d697aa&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=4c4a56f9bdff2f2ead216df7e3d697aa&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID M. HALBFINGER</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 18:56:49 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New Jersey</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Christie, Christopher J</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Taxation</category>
+		</item>
+		<item>
+			<title>In Another U-Turn, Favre Un-Retires</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=4852cc0c1f37fda5b36949dbaac64118</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/sports/football/19favre.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/sports/football/19favre.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/19/sports/19favre.3.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Brett Favre made his way to Vikings' camp on Tuesday.</media:description>
+			<media:credit>Hannah Foslien/Associated Press</media:credit>
+			<description>Quarterback Brett Favre, in a quick reversal of his latest decision, un-retired again and has joined the Minnesota Vikings for training camp.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=4852cc0c1f37fda5b36949dbaac64118&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=4852cc0c1f37fda5b36949dbaac64118&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JUDY BATTISTA and PAT BORZI</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 21:05:32 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Football</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Favre, Brett</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Minnesota Vikings</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Green Bay Packers</category>
+		</item>
+		<item>
+			<title>No Criminal Charges in Taconic Crash</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5a14b228d3af6e675d1b431d73d5922a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/nyregion/19taconic.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/nyregion/19taconic.html</guid>
+			<description>The Westchester district attorney said her office would not file criminal charges relating to a crash last month that killed eight people.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5a14b228d3af6e675d1b431d73d5922a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5a14b228d3af6e675d1b431d73d5922a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CHRISTINE HAUSER  and MATHEW R. WARREN</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 22:15:12 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Schuler, Diane</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Drunken and Reckless Driving</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Taconic State Parkway (NY)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">DiFiore, Janet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Westchester County (NY)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Accidents and Safety</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Marijuana</category>
+		</item>
+		<item>
+			<title>Hearing Begins on Lt. Governor Issue</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1c90fac093c22738ec5a12124f5d1b7f</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/nyregion/19succession.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/nyregion/19succession.html</guid>
+			<description>The questions before the court are straightforward, but the underlying constitutional issues in Gov. David A. Paterson&#x2019;s filling of a vacancy have far-reaching implications.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1c90fac093c22738ec5a12124f5d1b7f&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1c90fac093c22738ec5a12124f5d1b7f&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JEREMY W. PETERS</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 19:22:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Constitutions</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Democratic Party</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Paterson, David A</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York State</category>
+		</item>
+		<item>
+			<title>Tangier Journal: Family Law&#x2019;s Reach Is Limited in Morocco</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a502d9f22097aeca24d03dc26230b456</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/world/africa/19tangiers.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/world/africa/19tangiers.html</guid>
+			<description>Five years after changes were passed to family law in Morocco, conservatives are still angry, and young women are still falling through the cracks.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a502d9f22097aeca24d03dc26230b456&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a502d9f22097aeca24d03dc26230b456&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By STEVEN ERLANGER  and SOUAD MEKHENNET</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 19:57:44 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Morocco</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Women and Girls</category>
+		</item>
+		<item>
+			<title>Kim Dae-jung, 83, Ex-President of South Korea, Dies</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=997810be94ede356a31abe665afbdccc</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/world/asia/19kim.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/world/asia/19kim.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/world/18kim4_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Mr. Kim accepting the 2000 Nobel Peace Prize.</media:description>
+			<media:credit>Pool Photo by Lise Aserud</media:credit>
+			<description>Mr. Kim, a dissident who became president, sought to warm ties with North Korea and won the Nobel Peace Prize in 2000.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=997810be94ede356a31abe665afbdccc&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=997810be94ede356a31abe665afbdccc&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CHOE SANG-HUN</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 21:17:54 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Kim Dae Jung</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">South Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Deaths (Obituaries)</category>
+		</item>
+		<item>
+			<title>For Older Athletes, Drug Question Emerges</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=56fa5499654050d1c0fc94e91dc27f5b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/us/19athletes.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/us/19athletes.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/19/us/athletes75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Thomas Rice, 81, left, Robert Bruce, 81, and Edward Cox, 82, competed in the 100-meter run at a U.S.A. Masters Outdoor Track &amp; Field Championships event in East Stroudsburg, Pa., in June.</media:description>
+			<media:credit>Angela Jimenez for The New York Times</media:credit>
+			<description>Elderly athletes are setting records. Most are also taking several medications for their health, and that raises the question of what now constitutes a natural body.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=56fa5499654050d1c0fc94e91dc27f5b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=56fa5499654050d1c0fc94e91dc27f5b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOHN LELAND</dc:creator>
+			<pubDate>Tue, 18 Aug 2009 21:52:14 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Elderly</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Track and Field</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Running</category>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,275 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Tue, 04 Aug 2009 06:03:58 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Bill Clinton in North Korea to Seek Release of U.S. Reporters</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=03bfce8f950909d1229e7b10963bbefa</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/05/world/asia/05korea.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/05/world/asia/05korea.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/world/04korea2_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Former President Bill Clinton shook hands with a North Korean official in Pyongyang.</media:description>
+			<media:credit>Zhang Binyang/Xinhua, via Associated Press</media:credit>
+			<description>Former President Bill Clinton went to North Korea to negotiate the release of two American television journalists who were sentenced to 12 years of hard labor.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=03bfce8f950909d1229e7b10963bbefa&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=03bfce8f950909d1229e7b10963bbefa&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARK LANDLER and PETER BAKER</dc:creator>
+			<pubDate>Tue, 04 Aug 2009 05:54:57 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Bill</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Current TV</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ling, Laura</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Lee, Euna</category>
+		</item>
+		<item>
+			<title>Spurring Sales, Car Rebate Plan Is Left Up in Air</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5f1a81f04e40ea1ebce92a0224d2fb3f</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/business/04clunkers.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/business/04clunkers.html</guid>
+			<description>Approval of more funding for the &#x201C;cash for clunkers&#x201D; program took a step forward as it won the support of two senators who had earlier criticized the plan.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5f1a81f04e40ea1ebce92a0224d2fb3f&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5f1a81f04e40ea1ebce92a0224d2fb3f&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MATTHEW L. WALD and NICK BUNKLEY</dc:creator>
+			<pubDate>Tue, 04 Aug 2009 04:36:34 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Car Allowance Rebate System</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Rebates</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Senate</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">House of Representatives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Feinstein, Dianne</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Collins, Susan M</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Ford Motor Company|F|NYSE</category>
+		</item>
+		<item>
+			<title>Driven to Distraction: Cabbies Stay on Their Phones Despite Ban and Risks</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a250729ef8f279e11c7aa4910404b685</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/nyregion/04taxi.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/nyregion/04taxi.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/nyregion/04taxi_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Many New York cabbies can't seem to stop talking on their cellphones but very few are ticketed. </media:description>
+			<media:credit>Uli Seit for The New York Times</media:credit>
+			<description>New York City cabbies have been banned from using cellphones for a decade, but the rules remain almost entirely unenforced.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a250729ef8f279e11c7aa4910404b685&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a250729ef8f279e11c7aa4910404b685&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL M. GRYNBAUM</dc:creator>
+			<pubDate>Tue, 04 Aug 2009 04:36:34 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Cellular Telephones</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Taxicabs and Taxicab Drivers</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Wireless Communications</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Accidents and Safety</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taxi and Limousine Commission</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Manhattan (NYC)</category>
+		</item>
+		<item>
+			<title>Staying Tough in Crackdown on Immigrants</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1c8883e2c877e4aabd39acd13318df1e</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/us/politics/04immig.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/us/politics/04immig.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/04/us/04immig.span.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>In the custody of federal agents, an illegal immigrant from Guatemala waited in Phoenix last month to board a plane for deportation to his home country.</media:description>
+			<media:credit>Carlos Barria/Reuters</media:credit>
+			<description>After early pledges by President Obama to moderate the Bush administration&#x2019;s policy, his administration is aggressively pursuing illegal immigration.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1c8883e2c877e4aabd39acd13318df1e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1c8883e2c877e4aabd39acd13318df1e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JULIA PRESTON</dc:creator>
+			<pubDate>Tue, 04 Aug 2009 04:55:30 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Illegal Immigrants</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Immigration and Emigration</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Politics and Government</category>
+		</item>
+		<item>
+			<title>Fears of Fraud Cast Pall Over Afghan Election</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=edad5d88af9324cd224138e432604ef6</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/world/asia/04election.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/world/asia/04election.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/world/04election2_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Supporters of Abdullah Abdullah, the only serious challenger in the presidential race, gathered in Kabul on Monday to greet him with songs and balloons. </media:description>
+			<media:credit>Tyler Hicks/The New York Times</media:credit>
+			<description>With insurgents active in half the country, many Afghans remain doubtful that the election will take place.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=edad5d88af9324cd224138e432604ef6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=edad5d88af9324cd224138e432604ef6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CARLOTTA GALL</dc:creator>
+			<pubDate>Tue, 04 Aug 2009 04:35:39 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Elections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Karzai, Hamid</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Abdullah, Abdullah</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+		</item>
+		<item>
+			<title>Giant Particle Collider Fizzles</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=37749212ed2182fab5b379c9d95e8c4c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/science/earth/04collide.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/science/earth/04collide.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/04/world/04collide_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Many of the magnets meant to whiz subatomic particles around the 17-mile underground Large Hadron Collider outside Geneva have mysteriously lost their ability to operate at high energies.</media:description>
+			<media:credit>Valerio Mezzanotti for The New York Times</media:credit>
+			<description>After 15 years and a showy &#x201C;switch-on&#x201D; ceremony, the Large Hadron Collider is riddled with bad connections.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=37749212ed2182fab5b379c9d95e8c4c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=37749212ed2182fab5b379c9d95e8c4c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DENNIS OVERBYE</dc:creator>
+			<pubDate>Tue, 04 Aug 2009 04:33:32 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Large Hadron Collider</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">CERN</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Geneva (Switzerland)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Randall, Lisa</category>
+		</item>
+		<item>
+			<title>Income Loss Persists Long After Layoffs</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=becbfa66432cbed253b11f0996aa17e7</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/us/04layoffs.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/us/04layoffs.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/us/04layoffs3_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Dave Himmelheber on his lunch break in West Palm Beach, Fla., in July.    </media:description>
+			<media:credit>Josh Haner/The New York Times</media:credit>
+			<description>It can take years for income to bounce back after a layoff, and even longer in a recession, if at all, economists say.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=becbfa66432cbed253b11f0996aa17e7&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=becbfa66432cbed253b11f0996aa17e7&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL LUO</dc:creator>
+			<pubDate>Tue, 04 Aug 2009 04:36:41 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Wages and Salaries</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Recession and Depression</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Layoffs and Job Reductions</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Conditions and Trends</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Pratt &amp; Whitney</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Riviera Beach (Fla)</category>
+		</item>
+		<item>
+			<title>In Nigeria, an Insurgency Leaves a Heavy Toll</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=60867cebebd2b3c13cf4c0a03d4582f1</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/world/africa/04nigeria.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/world/africa/04nigeria.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/world/04nigeria_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A woman looked through the ruins of her apartment, which was torched by Islamic militants in the northern Nigerian city of Maiduguri, on Monday.  </media:description>
+			<media:credit>Akintunde Akinleye/Reuters</media:credit>
+			<description>The Nigerian government&#x2019;s attack on the Boko Haram sect left hundreds dead, and questions about the death of its leader remain.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=60867cebebd2b3c13cf4c0a03d4582f1&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=60867cebebd2b3c13cf4c0a03d4582f1&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SENAN MURRAY and ADAM NOSSITER</dc:creator>
+			<pubDate>Tue, 04 Aug 2009 03:05:04 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Nigeria</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Boko Haram</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Islam</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Fringe Groups and Movements</category>
+		</item>
+		<item>
+			<title>Nobel Halo Fades Fast for Climate Change Panel</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=43d1a97e043c94d19abbf363d67d88be</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/science/earth/04clima.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/science/earth/04clima.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/04/science/04climate-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>
+				<em class="bold">A WORLDWIDE ISSUE</em>A cement plant in Baokang, China. Despite the publicity surrounding the reports of the Intergovernmental Panel on Climate Change, there is little evidence that nations are heeding the warnings.</media:description>
+			<media:credit>Reuters</media:credit>
+			<description>The Intergovernmental Panel on Climate Change is searching for ways to guide, without prescribing action.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=43d1a97e043c94d19abbf363d67d88be&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=43d1a97e043c94d19abbf363d67d88be&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ANDREW C. REVKIN</dc:creator>
+			<pubDate>Tue, 04 Aug 2009 05:09:12 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Intergovernmental Panel on Climate Change</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Greenhouse Gas Emissions</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Global Warming</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Environment</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Science and Technology</category>
+		</item>
+		<item>
+			<title>City Hall Broke Rules Funneling Money to Groups</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=725586ccc3fe19461157e7a1f01f2265</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/nyregion/04funds.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/nyregion/04funds.html</guid>
+			<description>For years, aides to Mayor Michael R. Bloomberg routed hundreds of thousands of dollars in city money to at least two politically connected nonprofit groups.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=725586ccc3fe19461157e7a1f01f2265&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=725586ccc3fe19461157e7a1f01f2265&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL BARBARO and RAY RIVERA</dc:creator>
+			<pubDate>Tue, 04 Aug 2009 05:51:11 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Bloomberg, Michael R</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Frauds and Swindling</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">City Councils</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Lobbying and Lobbyists</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">City Council (New York City)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Agudath Israel of America</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+		</item>
+		<item>
+			<title>Health Plan Opponents Make Voices Heard</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=18f11db576ecdccc8614b90adee2990a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/health/policy/04townhalls.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/health/policy/04townhalls.html</guid>
+			<description>Lawmakers trying to make a case for a health care overhaul in public gatherings have been encountering protests.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=18f11db576ecdccc8614b90adee2990a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=18f11db576ecdccc8614b90adee2990a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID M. HERSZENHORN and SHERYL GAY STOLBERG</dc:creator>
+			<pubDate>Tue, 04 Aug 2009 05:43:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Demonstrations and Riots</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+		</item>
+		<item>
+			<title>New Leader Tries to Get Toyota Back on the Road</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=44b1dfe91e44d58127d600269f0d2069</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/business/global/04toyota.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/business/global/04toyota.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/04/business/04toyota_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Akio Toyoda, president of Toyota, is the grandson of its founder.</media:description>
+			<media:credit>Daniel Roland/Associated Press</media:credit>
+			<description>Known for reliability, Toyota has a lineup of mundane-looking vehicles that have failed to generate excitement among buyers.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=44b1dfe91e44d58127d600269f0d2069&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=44b1dfe91e44d58127d600269f0d2069&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHELINE MAYNARD</dc:creator>
+			<pubDate>Tue, 04 Aug 2009 05:36:48 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Toyota Motor Corp|TM|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Toyoda, Akio</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Executives and Management</category>
+		</item>
+		<item>
+			<title>Australia Launches Anti-Terror Operation</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=204e3d7a8c5172be18930dc567c59b7e</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/world/asia/04australia.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/world/asia/04australia.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/world/04australia_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Forensic police inspected a car at a house in View St., Glenroy in Melbourne, Australia, on Tuesday. </media:description>
+			<media:credit>Julian Smith/European Pressphoto Agency</media:credit>
+			<description>Police arrested four men with suspected links to a Somalia-based Islamic organization, saying they planned to stage a suicide attack on a military base.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=204e3d7a8c5172be18930dc567c59b7e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=204e3d7a8c5172be18930dc567c59b7e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MERAIAH FOLEY</dc:creator>
+			<pubDate>Tue, 04 Aug 2009 05:02:33 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Terrorism</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Australia</category>
+		</item>
+	</channel>
+</rss>

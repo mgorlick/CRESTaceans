@@ -1,0 +1,337 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Mon, 17 Aug 2009 08:26:39 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Threats by Taliban May Sway Vote in Afghanistan</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=2958a8c82ae0cc8595f5a72cb90f4502</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/world/asia/17taliban.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/world/asia/17taliban.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/world/asia/17taliban.span.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Marines talked about the coming presidential elections with a man in the Garmsir district of Helmand Province in Afghanistan.</media:description>
+			<media:credit>Peter van Agtmael/Magnum, for The New York Times</media:credit>
+			<description>The insurgents&#x2019; campaign against this week&#x2019;s election may cost President Hamid Karzai vital support from his fellow Pashtuns.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=2958a8c82ae0cc8595f5a72cb90f4502&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=2958a8c82ae0cc8595f5a72cb90f4502&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DEXTER FILKINS</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 07:16:09 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Karzai, Hamid</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Elections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+		</item>
+		<item>
+			<title>&#x2018;Public Option&#x2019; in Health Plan May Be Dropped</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6976e4abe87a32f5599564ee36fe4f94</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/health/policy/17talkshows.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/health/policy/17talkshows.html</guid>
+			<description>For President Obama, giving up on a public insurance plan could punch a hole in Republican arguments but could also alienate liberal Democrats.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6976e4abe87a32f5599564ee36fe4f94&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6976e4abe87a32f5599564ee36fe4f94&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SHERYL GAY STOLBERG</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 07:15:53 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Sebelius, Kathleen</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Gibbs, Robert L</category>
+		</item>
+		<item>
+			<title>Job Search Firms: Big Pitches at Big Fees, but Few Jobs</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=af44653c0dbd833194d8f8f6f246f59e</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/us/17career.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/us/17career.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/us/17career.751.jpg" medium="image" height="75" width="75"/>
+			<media:description>Kerry Fischman of Naperville, Ill., paid $8,250 to the ITS Corporation for help in his job search. Mr. Fischman said it did little more than redo his r&#xE9;sum&#xE9; and push him to cold-call employers.</media:description>
+			<media:credit>Peter Wynn Thompson for The New York Times</media:credit>
+			<description>In the most difficult market in decades, a bewildering and largely unregulated array of businesses offering assistance have left job seekers vulnerable.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=af44653c0dbd833194d8f8f6f246f59e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=af44653c0dbd833194d8f8f6f246f59e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL LUO</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 07:19:30 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Employment Agencies</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Attorneys General</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Careers and Professions</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Advertising and Marketing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">ITS Corporation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Suits and Litigation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">KHTX Management</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Conditions and Trends</category>
+		</item>
+		<item>
+			<title>Clerics&#x2019; Call for Removal Challenges Iran Leader</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=769eabf54f9f02aacfedb8b82187999e</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/world/middleeast/17iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/world/middleeast/17iran.html</guid>
+			<description>An anonymous letter calling Iran&#x2019;s supreme leader a dictator does not pose a real threat to Ayatollah Ali Khamenei, but indicates how his status has suffered.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=769eabf54f9f02aacfedb8b82187999e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=769eabf54f9f02aacfedb8b82187999e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT F. WORTH and NAZILA FATHI</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 06:28:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Khamenei, Ali</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+		</item>
+		<item>
+			<title>Bollywood Star&#x2019;s Questioning at Newark Airport Is Talk of India Day</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c4b6287fb58e5301712217b0cda66f2b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/nyregion/17india.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/nyregion/17india.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/nyregion/17india1_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>In the India Day parade in Manhattan, Pooja Patel, 15, was carried as part of a troupe advertising an online matrimonial site.</media:description>
+			<media:credit>Damon Winter/The New York Times</media:credit>
+			<description>Shahrukh Khan, traveling to promote a new film about racial profiling of Muslims, was questioned for over an hour at Newark Airport on Friday evening.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c4b6287fb58e5301712217b0cda66f2b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c4b6287fb58e5301712217b0cda66f2b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By WINNIE HU</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 07:50:06 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Khan, Shahrukh</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Customs and Border Protection (US)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Newark (NJ)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">India</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Times of India</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Newark Liberty International Airport (NJ)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Islam</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Discrimination</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">September 11 (2001)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Careers and Professions</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">World Trade Center (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Parades</category>
+		</item>
+		<item>
+			<title>Women at Arms: Living and Fighting Alongside Men, and Fitting In</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7dc6f3bf5f71dae858bc510f9145799d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/us/17women.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/us/17women.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/world/17women.span.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Staff Sgt. Patricia F. Bradford, left, and Specialist Jennifer M. Hoeppner attended a briefing before going on patrol.</media:description>
+			<media:credit>Moises Saman for The New York Times</media:credit>
+			<description>American military women have changed the way the United States goes to war, and they have done so without the disruption of discipline and unit cohesion that some feared.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7dc6f3bf5f71dae858bc510f9145799d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7dc6f3bf5f71dae858bc510f9145799d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By STEVEN LEE MYERS</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 07:18:01 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Women and Girls</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Afghanistan War (2001- )</category>
+		</item>
+		<item>
+			<title>Obama Pushes States to Shift on Education</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c2bc5c085b6b17a5be89390562c93cac</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/education/17educ.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/education/17educ.html</guid>
+			<description>An aggressive use of economic stimulus money has provoked heated debates over the uses of standardized testing and the proper federal role in education.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c2bc5c085b6b17a5be89390562c93cac&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c2bc5c085b6b17a5be89390562c93cac&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM DILLON</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 07:19:12 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Education and Schools</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">American Recovery and Reinvestment Act (2009)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Standards and Standardization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Tests and Testing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Teachers and School Employees</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">No Child Left Behind Act</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">State Legislatures</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">States (US)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Charter Schools</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Education Department (US)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Race to the Top Fund</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Duncan, Arne</category>
+		</item>
+		<item>
+			<title>Japan&#x2019;s Economy Shows Signs of Improvement</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=512dd381648d53fda77b26ef31632c77</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/business/global/17econ.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/business/global/17econ.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/business/econ-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A turnaround in exports and a vast fiscal stimulus program helped produce a 0.9 percent economic expansion in the latest quarter, including a 6.3 percent growth in exports of cars and electronics.</media:description>
+			<media:credit>Haruyoshi Yamaguchi/Bloomberg News</media:credit>
+			<description>A modest 0.9 percent expansion, which met expectations, may come to mark Japan&#x2019;s emergence from recession.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=512dd381648d53fda77b26ef31632c77&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=512dd381648d53fda77b26ef31632c77&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By HIROKO TABUCHI</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 07:43:31 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Japan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Conditions and Trends</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">International Trade and World Market</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Economics</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Subprime Mortgage Crisis</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Recession and Depression</category>
+		</item>
+		<item>
+			<title>For Winter Games in Vancouver, Ice Isn&#x2019;t So Easy</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=bc6f59163ea2d879ce3c80392d541764</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/sports/17ice.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/sports/17ice.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/sports/ice75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Tracy Seitz faces the challenge of making ice for competitors in bobsled, luge and skeleton.</media:description>
+			<media:credit>Jim Wilson/The New York Times</media:credit>
+			<description>Icemeisters face challenges in getting the ice just right in an area at sea-level elevation with high humidity.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=bc6f59163ea2d879ce3c80392d541764&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=bc6f59163ea2d879ce3c80392d541764&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOHN BRANCH</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 07:19:57 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Olympic Games (2010)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Ice</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Vancouver (British Columbia)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Olympic Games</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Stadiums and Arenas</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Water</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Luge Racing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Bobsledding</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Speed Skating</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Short Track Skating</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_keyword">Whistler Sliding Centre</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Weather</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_keyword">Richmond Olympic Oval</category>
+		</item>
+		<item>
+			<title>Storm Comes Ashore in Florida</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ab465cd230a3a4db217dc5cbdd3ceee5</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/18/us/18storm.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/18/us/18storm.html</guid>
+			<description>A tropical storm made landfall on the Florida Panhandle early Monday with maximum sustained winds near 50 miles per hour, the National Hurricane Center said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ab465cd230a3a4db217dc5cbdd3ceee5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ab465cd230a3a4db217dc5cbdd3ceee5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOSEPH B. TREASTER</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 06:36:39 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Hurricanes and Tropical Storms</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Florida</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Weather</category>
+		</item>
+		<item>
+			<title>Bolt Shatters 100-Meter World Record</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7d53c1861a07e9e71b49f97816b750e2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/sports/global/17track.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/sports/global/17track.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/16/sports/17bolt4_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Jamaica's Usain Bolt ran the 100 in a world-record time of 9.58 seconds.  </media:description>
+			<media:credit>Michael Steele/Getty Images</media:credit>
+			<description>The Jamaican sprinting sensation Usain Bolt became the first person to run under 9.6 seconds at track&#x2019;s world championship in Berlin.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7d53c1861a07e9e71b49f97816b750e2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7d53c1861a07e9e71b49f97816b750e2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CHRISTOPHER CLAREY</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 05:47:00 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Track and Field</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Bolt, Usain</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Gay, Tyson</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Powell, Asafa</category>
+		</item>
+		<item>
+			<title>North Korea to Reopen Its Border to the South</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=55b0315c84378a0596d681c8ffab7e95</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/world/asia/17korea.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/world/asia/17korea.html</guid>
+			<description>An agreement between North and South Korea will allow tourism and family reunions to resume.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=55b0315c84378a0596d681c8ffab7e95&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=55b0315c84378a0596d681c8ffab7e95&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARK McDONALD</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 07:29:29 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">South Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">International Relations</category>
+		</item>
+		<item>
+			<title>Association of Golf Club With A.I.G. Still Rankles</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=26862c10c7b5a24de6473acf691ea112</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/nyregion/17golf.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/nyregion/17golf.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/nyregion/17golf_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>
+				<em class="bold">SO CLOSE</em>Players at Richter Park, a public golf course in Danbury, Conn., can glimpse the private Morefar Back O&#x2019;Beyond.</media:description>
+			<media:credit>Yana Paskova for The New York Times</media:credit>
+			<description>Morefar Back O&#x2019;Beyond was long said to be a playground for executives and clients of the insurance giant. Since the insurer&#x2019;s bailout, however, that connection irks local golfers.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=26862c10c7b5a24de6473acf691ea112&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=26862c10c7b5a24de6473acf691ea112&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By COREY KILGANNON and NOAM COHEN</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 07:43:49 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">American International Group|AIG|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Emergency Economic Stabilization Act (2008)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Golf</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Subprime Mortgage Crisis</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Connecticut</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Greenberg, Maurice R</category>
+		</item>
+		<item>
+			<title>A New Test for Business and Biofuel</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e5eb60b99ffb4bb6e200bfce9504c436</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/business/energy-environment/17algae.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/business/energy-environment/17algae.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/business/energy-environment/17algae.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Algae produced at the Solix Biofuels plant, a start-up with unusual business partners.</media:description>
+			<media:credit>Eric Draper for The New York Times</media:credit>
+			<description>One of the nation&#x2019;s wealthiest American Indian communities is a major investor in a start-up with the twin goals of making fuel from algae and reducing emissions.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e5eb60b99ffb4bb6e200bfce9504c436&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e5eb60b99ffb4bb6e200bfce9504c436&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By KIRK JOHNSON</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 06:41:17 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Algae</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Biofuels</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Greenhouse Gas Emissions</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Start-ups</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Indians, American</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Alternative and Renewable Energy</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Environment</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Colorado</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Solix Biofuels</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Wilson, Bryan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Southern Utes</category>
+		</item>
+		<item>
+			<title>Y. E. Yang Shocks Woods to Win at P.G.A.</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3abe0e364e9a1ba3ca3c6992e8646576</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/sports/golf/17pga.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/sports/golf/17pga.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/sports/17yang.752.jpg" medium="image" height="75" width="75"/>
+			<media:description>Y. E. Yang finished at eight under, three strokes ahead of Tiger Woods.</media:description>
+			<media:credit>Eric Miller/Reuters</media:credit>
+			<description>In one of the biggest upsets in the sport&#x2019;s history, Y. E. Yang overcame Tiger Woods at the P.G.A. Championship to become the first Korean man to win a major.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3abe0e364e9a1ba3ca3c6992e8646576&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3abe0e364e9a1ba3ca3c6992e8646576&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LARRY DORMAN</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 05:43:13 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">PGA Championship</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Golf</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Woods, Tiger</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Yang, Y.E.</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Harrington, Padraig</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Westwood, Lee</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">McIlroy, Rory</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Glover, Lucas</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Stenson, Henrik</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Glover, Lucas</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Mickelson, Phil</category>
+		</item>
+	</channel>
+</rss>

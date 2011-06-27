@@ -1,9 +1,9 @@
 #lang racket/base
 
-(require (planet bzlib/thread:1:0)
-         racket/contract
+(require racket/contract
          racket/dict
-         racket/function)
+         racket/function
+         racket/match)
 (provide (all-defined-out))
 
 (define-syntax-rule (define-thread id body ...)
@@ -62,9 +62,11 @@
 ;; and if #:block? is #f, the pipeline element must test for no-message?
 (define/contract (receive-killswitch/whatever id? #:block? [block? #t])
   ([(any/c . -> . boolean?)] [#:block? boolean?] . ->* . any)
-  (receive/match [(list (? id? thd) (? symbol? cntrl)) cntrl]
-                 [whatever whatever]
-                 [after (if block? +inf.0 0) no-message]))
+  (if (sync/timeout (if block? +inf.0 0) (thread-receive-evt))
+      (match (thread-receive)
+        [(list (? id? thd) (? symbol? cntrl)) cntrl]
+        [whatever whatever])
+      no-message))
 
 ;;; -------------------------------------------------------------
 ;;; gathering up state reports from a pipeline after a killswitch
@@ -80,10 +82,9 @@
 ;; receives one state report from the thread matching the thread handle identifier encoded in id?
 (define/contract (receive/state-report id?)
   ((any/c . -> . boolean?) . -> . any/c)
-  (receive/match [(list (? id? thd) 
-                        (? state-report? sr)
-                        state)
-                  state]))
+  (match (thread-receive)
+    [(list (? id? thd) (? state-report? sr) state)
+     state]))
 
 ;; receive-state-report: functionally store the (string . whatever) in the dict,
 ;; where 'whatever' is what the thread identified by the thread handle sends in a state report

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Tue, 18 Aug 2009 09:29:33 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Source says Brett Favre will sign with Minnesota Vikings pending a physical]]></title>
+<description><![CDATA[A source said quarterback Brett Favre, pending a physical, will sign a contract with the Minnesota Vikings for between $10 million to $12 million, according to ESPN senior NFL analyst Chris Mortensen.]]></description>
+<pubDate>Tue, 18 Aug 2009 09:28:15 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4406963&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4406963&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Oakland Raiders' Tom Cable denies reports of punching aide]]></title>
+<description><![CDATA[Raiders coach Tom Cable denied reportedly hitting one of his assistants at training camp headquarters.]]></description>
+<pubDate>Tue, 18 Aug 2009 07:42:57 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4405681&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4405681&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Washington Nationals, Stephen Strasburg agree for over $15M]]></title>
+<description><![CDATA[The Washington Nationals beat the midnight deadline to sign No. 1 overall draft pick Stephen Strasburg.]]></description>
+<pubDate>Tue, 18 Aug 2009 09:27:24 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4403920&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4403920&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Usain Bolt advances to second round in 200 meters at world championships]]></title>
+<description><![CDATA[Looking for his second gold medal of the world championships, Usain Bolt easily advanced to the second round of the 200 meters Tuesday.]]></description>
+<pubDate>Tue, 18 Aug 2009 04:34:03 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/trackandfield/news/story?id=4406399&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/trackandfield/news/story?id=4406399&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Bruce Feldman]]></dc:creator>
+<title><![CDATA[Source: Baron Batch of Texas Tech Red Raiders to return sooner than expected from practice injury]]></title>
+<description><![CDATA[Baron Batch,Texas Tech's leading rusher in 2008, is likely to return from an elbow injury much sooner than previously reported, according to a source close to the situation.]]></description>
+<pubDate>Tue, 18 Aug 2009 07:42:06 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4406659&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4406659&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Graig Cooper of Miami Hurricanes is team's latest injury concern]]></title>
+<description><![CDATA[Running back Graig Cooper is Miami's newest injury concern.]]></description>
+<pubDate>Tue, 18 Aug 2009 07:41:31 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4406739&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4406739&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[NFL asks appeals court to OK bans for Pat and Kevin Williams]]></title>
+<description><![CDATA[The NFL asked a federal appeals court Tuesday to clear the way for the suspension of two Minnesota Vikings linemen for violating the league's anti-doping policy. ]]></description>
+<pubDate>Tue, 18 Aug 2009 09:22:57 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4407173&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4407173&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Brian Bennett]]></dc:creator>
+<title><![CDATA[Former Duke Blue Devils point guard Greg Paulus named Syracuse Orange starting quarterback]]></title>
+<description><![CDATA[Former Duke basketball player Greg Paulus was named Syracuse's starting quarterback, even though Paulus has not played football in four years and has never played a collegiate snap.]]></description>
+<pubDate>Mon, 17 Aug 2009 22:07:42 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4406074&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4406074&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Lance Armstrong, on Twitter, invites Glasgow cyclists along for casual ride]]></title>
+<description><![CDATA[Lance Armstrong has brought Scottish traffic to a standstill after more than 200 cyclists answered his Twitter invitation for a casual bike ride. ]]></description>
+<pubDate>Tue, 18 Aug 2009 07:46:52 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/cycling/news/story?id=4406766&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/cycling/news/story?id=4406766&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Chicago Bears QB Jay Cutler turns heads with Devin Hester criticism on interception]]></title>
+<description><![CDATA[One game into the preseason and already Chicago Bears quarterback Jay Cutler has had to smooth things out with one of his wide receivers.]]></description>
+<pubDate>Tue, 18 Aug 2009 08:30:05 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4405998&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4405998&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Terrell Owens returns to Buffalo Bills' drills after missing a week]]></title>
+<description><![CDATA[Terrell Owens is back on the practice field after the Buffalo Bills receiver missed a week nursing a sprained toe.]]></description>
+<pubDate>Tue, 18 Aug 2009 06:42:53 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4405858&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4405858&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Philadelphia Eagles quarterback Donovan McNabb says sharing snaps with Michael Vick is no problem]]></title>
+<description><![CDATA[Donovan McNabb says he has no problem with Michael Vick taking some of his snaps and warns opponents that the two quarterbacks could be on the field together at times.]]></description>
+<pubDate>Mon, 17 Aug 2009 16:42:34 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4404702&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4404702&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Mike Sando]]></dc:creator>
+<title><![CDATA[St. Louis Rams QB Marc Bulger out two weeks with broken pinkie]]></title>
+<description><![CDATA[The St. Louis Rams expect to be without Marc Bulger for at least two weeks after the veteran quarterback suffered a non-broken pinky finger on his throwing hand during practice Monday morning.]]></description>
+<pubDate>Mon, 17 Aug 2009 19:17:07 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4405373&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4405373&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

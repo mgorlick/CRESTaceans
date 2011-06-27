@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Wed, 19 Aug 2009 02:03:07 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Democrats Seem Set to Go Alone on a Health Bill</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=330f33c6b4437a852da27644c9f44a6a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/health/policy/19repubs.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/health/policy/19repubs.html</guid>
+			<description>Given hardening Republican opposition to Congressional health care proposals, Democrats now say they see little chance of the minority&#x2019;s cooperation in approving any overhaul.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=330f33c6b4437a852da27644c9f44a6a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=330f33c6b4437a852da27644c9f44a6a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CARL HULSE and JEFF ZELENY</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 01:59:31 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Republican Party</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Grassley, Charles E</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Democratic Party</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+		</item>
+		<item>
+			<title>F.B.I. Agents&#x2019; Role Is Transformed by Terror Fight</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=eff4e63afa03e869cdd73bf122748e41</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/us/19terror.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/us/19terror.html</guid>
+			<description>As part of the larger debate about the transformation of the F.B.I., some counterterrorism specialists question the value of threat squads that vet thousands of tips but find few valid leads.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=eff4e63afa03e869cdd73bf122748e41&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=eff4e63afa03e869cdd73bf122748e41&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ERIC SCHMITT</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 01:45:00 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Terrorism</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Federal Bureau of Investigation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Threats and Threatening Messages</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Los Angeles (Calif)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Security and Warning Systems</category>
+		</item>
+		<item>
+			<title>Clinton&#x2019;s Trip Gave Rare Insight on N. Korean Leaders</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=36f8fe0d25364794791683443b7eb99e</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/world/asia/19korea.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/world/asia/19korea.html</guid>
+			<description>The former president&#x2019;s visit gave the Obama administration its first detailed look into a nuclear-armed regime that looms as a signficant threat.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=36f8fe0d25364794791683443b7eb99e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=36f8fe0d25364794791683443b7eb99e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARK LANDLER and MARK MAZZETTI</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 01:57:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Bill</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Kim Jong Il</category>
+		</item>
+		<item>
+			<title>Afghanistan Imposes News Censorship on Election Day</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=bce74358f481e839164cfe035729f4c2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/world/asia/19afghan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/world/asia/19afghan.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/18/world/18afghan-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Reports said a NATO soldier and two Afghans working for the United Nations died in the bombing of the military convoy in Kabul.</media:description>
+			<media:credit>Tyler Hicks/The New York Times</media:credit>
+			<description>Unnerved by another wave of attacks, the Afghan government on Tuesday banned news organizations from reporting violence during Thursday&#x2019;s vote.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=bce74358f481e839164cfe035729f4c2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=bce74358f481e839164cfe035729f4c2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CARLOTTA GALL</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 01:55:43 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+		</item>
+		<item>
+			<title>Afghan Long Shots Seek Presidency, or Another Job</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=25bde1854058db8efdcd35150abf17e2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/world/asia/19candidates.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/world/asia/19candidates.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/18/world/19candidates_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Muhammad Rahmani, an Afghan presidential candidate who is a retired air force colonel and uses a bicycle to get around Kabul, stopped to put up a poster. </media:description>
+			<media:credit>Tyler Hicks/The New York Times</media:credit>
+			<description>The 41 Afghans who have put themselves up for president are playing the game for all manner of reasons.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=25bde1854058db8efdcd35150abf17e2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=25bde1854058db8efdcd35150abf17e2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CARLOTTA GALL</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 01:53:31 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Elections</category>
+		</item>
+		<item>
+			<title>For Older Athletes, Drug Question Emerges</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=56fa5499654050d1c0fc94e91dc27f5b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/us/19athletes.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/us/19athletes.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/19/us/athletes75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Thomas Rice, 81, left, Robert Bruce, 81, and Edward Cox, 82, competed in the 100-meter run at a U.S.A. Masters Outdoor Track &amp; Field Championships event in East Stroudsburg, Pa., in June.</media:description>
+			<media:credit>Angela Jimenez for The New York Times</media:credit>
+			<description>Elderly athletes are setting records. Most are also taking several medications for their health, and that raises the question of what now constitutes a natural body.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=56fa5499654050d1c0fc94e91dc27f5b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=56fa5499654050d1c0fc94e91dc27f5b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOHN LELAND</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 01:39:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Elderly</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Track and Field</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Running</category>
+		</item>
+		<item>
+			<title>Fugitive Still Licensed to Fly by the F.A.A.</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5d4fd753f41758a35b8e7e467be754a7</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/us/19license.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/us/19license.html</guid>
+			<description>A man charged with domestic terrorism still has his pilot&#x2019;s license and plane because federal agencies have apparently not shared information.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5d4fd753f41758a35b8e7e467be754a7&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5d4fd753f41758a35b8e7e467be754a7&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MATTHEW L. WALD</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 01:36:59 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Federal Bureau of Investigation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Terrorism</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Federal Aviation Administration</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Transportation Security Administration</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Security and Warning Systems</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Pilots</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Transportation Security Administration</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Animal Liberation Front</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Earth Liberation Front</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Safe Banking Systems</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Dibee, Joseph Mahmoud</category>
+		</item>
+		<item>
+			<title>From a Distant Comet, a Clue to Life</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ffc72d7c589bc109a78081bf9249a98c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/science/space/19comet.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/science/space/19comet.html</guid>
+			<description>A discovery has added to the prevailing notion that many ingredients for life came from asteroids and comets that made impact with the early Earth.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ffc72d7c589bc109a78081bf9249a98c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ffc72d7c589bc109a78081bf9249a98c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By KENNETH CHANG</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 01:31:37 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Space</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_keyword">Glycine</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Comets</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Acids</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">National Aeronautics and Space Administration</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Asteroids</category>
+		</item>
+		<item>
+			<title>Obama Sees &#x2018;Positive Steps&#x2019; in Mideast</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f683ab1af20f455130fea6148c11f929</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/world/middleeast/19prexy.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/world/middleeast/19prexy.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/18/us/18prexy-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>President Barack Obama and President Hosni Mubarak of Egypt at the White House on Tuesday.</media:description>
+			<media:credit>Jim Young/Reuters</media:credit>
+			<description>Speaking after a meeting with President Hosni Mubarak of Egypt, President Obama said Israel was moving in the right direction on settlements.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f683ab1af20f455130fea6148c11f929&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f683ab1af20f455130fea6148c11f929&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID STOUT and ISABEL KERSHNER</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 01:55:40 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Mubarak, Hosni</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Egypt</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Israel</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Palestinians</category>
+		</item>
+		<item>
+			<title>Sotomayor Casts First Vote on Court</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7ca8b42436d74c1a4e03b27f25f96790</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/us/19scotus.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/us/19scotus.html</guid>
+			<description>Justice Sonia Sotomayor cast her first vote in a Supreme Court death penalty case, aligning with the liberal wing.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7ca8b42436d74c1a4e03b27f25f96790&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7ca8b42436d74c1a4e03b27f25f96790&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ADAM LIPTAK</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 01:41:53 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Capital Punishment</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Sotomayor, Sonia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Supreme Court</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Ohio</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Getsy, Jason</category>
+		</item>
+		<item>
+			<title>No Criminal Charges in Taconic Crash</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5a14b228d3af6e675d1b431d73d5922a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/nyregion/19taconic.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/nyregion/19taconic.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/19/nyregion/19taconic.inline.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Daniel Schuler&#x2019;s wife, Diane, caused the fatal accident.</media:description>
+			<media:credit>Seth Wenig/Associated Press</media:credit>
+			<description>The Westchester district attorney said her office would not file criminal charges relating to last month&#x2019;s crash on the Taconic State Parkway that killed eight people.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5a14b228d3af6e675d1b431d73d5922a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5a14b228d3af6e675d1b431d73d5922a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CHRISTINE HAUSER and MATHEW R. WARREN</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 01:09:31 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Schuler, Diane</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Drunken and Reckless Driving</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Taconic State Parkway (NY)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">DiFiore, Janet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Westchester County (NY)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Accidents and Safety</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Marijuana</category>
+		</item>
+		<item>
+			<title>When Parents Scream Against Ice Cream</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=db0fa3b550e2d344c5e5b66d471bd077</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/19/dining/19soft.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/19/dining/19soft.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/19/dining/19soft75.9.jpg" medium="image" height="75" width="75"/>
+			<media:description>
+				<em class="bold">NEW IMAGE</em>Ice cream via motorcycle in Tacoma, Wash.</media:description>
+			<media:credit>Stuart Isett for The New York Times</media:credit>
+			<description>In a greener, more health-conscious, unsafe world, the ice cream man has lost some of his mojo.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=db0fa3b550e2d344c5e5b66d471bd077&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=db0fa3b550e2d344c5e5b66d471bd077&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By HELENE STAPINSKI</dc:creator>
+			<pubDate>Wed, 19 Aug 2009 01:21:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Ice Cream</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Vendors, Street</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Desserts</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Parenting</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Playgrounds</category>
+		</item>
+	</channel>
+</rss>

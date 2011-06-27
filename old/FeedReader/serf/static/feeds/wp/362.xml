@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[Dark Clouds Lurk Behind The Silver Lining of Data]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=b42d99aa78df154d13a99d5ab1ff676f]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081100988.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081100988.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 11 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Statistics point to improving economic conditions, but for now, benefits unlikely to materialize in the form of higher wages or tax receipts or more jobs. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=b42d99aa78df154d13a99d5ab1ff676f&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=b42d99aa78df154d13a99d5ab1ff676f&p=1"/></a>
+]]></description>
+			<author><![CDATA[Annys Shin]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Defending Bigger Government ]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=e742238cc7eed13a3ec6e99b825b0777]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081103164.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081103164.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 11 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[<span class="kicker1">The Take</span> | Health debate has become proxy for fight over size and power of federal government.
+
+<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=e742238cc7eed13a3ec6e99b825b0777&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=e742238cc7eed13a3ec6e99b825b0777&p=1"/></a>
+]]></description>
+			<author><![CDATA[Dan Balz]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Afghanistan Needs More Money]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=2847e29b4e4b5277eb0c26c63aba96dc]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081103341.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081103341.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 11 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[U.S. ambassador asks for an additional $2.5B next year for development and civilian reconstruction.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=2847e29b4e4b5277eb0c26c63aba96dc&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=2847e29b4e4b5277eb0c26c63aba96dc&p=1"/></a>
+]]></description>
+			<author><![CDATA[Karen DeYoung and Greg Jaffe]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Miers: Rove Was 'Agitated']]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=8af84fdc34ece2640f8cdadffea64538]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081102104.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081102104.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 11 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[E-mails, transcripts of testimony show aides actively involved in dismissal of U.S. prosecutor.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=8af84fdc34ece2640f8cdadffea64538&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=8af84fdc34ece2640f8cdadffea64538&p=1"/></a>
+]]></description>
+			<author><![CDATA[Carrie Johnson]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Nationals Are Anyone's Guess]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=abdec16d6c1fa1126bb408ceadc252e7]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081101835.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081101835.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Tue Aug 11 12:08 EDT 2009]]></pubDate>
+			<description><![CDATA[<a href="http://www.washingtonpost.com/wp-dyn/content/article/2009/08/11/AR2009081101835.html?hpid=topnews"><img src="http://media.washingtonpost.com/wp-dyn/content/photo/2009/08/11/PH2009081103509.jpg" width="80" height="72" border="0" class="imgrt" alt=""></a><span class="kicker1">Column</span> | It's impossible to make heads or tails of this team, which has become a potent ballclub in a month. <span style="font:normal 87% arial;">&raquo; <strong>Thomas Boswell</strong></span><br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=abdec16d6c1fa1126bb408ceadc252e7&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=abdec16d6c1fa1126bb408ceadc252e7&p=1"/></a>
+]]></description>
+			<author><![CDATA[Thomas Boswell]]></author>
+		</item>
+	</channel>
+</rss>

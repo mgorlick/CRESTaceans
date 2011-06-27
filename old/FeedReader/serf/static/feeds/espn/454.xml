@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Sat, 15 Aug 2009 15:19:33 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Michael Vick of Philadelphia Eagles returns to practice field, runs scout team offense.]]></title>
+<description><![CDATA[Michael Vick was back on an NFL practice field for the first time since completing his prison sentence.]]></description>
+<pubDate>Sat, 15 Aug 2009 14:32:11 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4401139&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4401139&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[External]]></dc:creator>
+<title><![CDATA[In progress: Tiger in control at PGA]]></title>
+<description><![CDATA[Visit ESPN.com for the complete story.]]></description>
+<pubDate>Sat, 15 Aug 2009 11:13:36 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/leaderboard?campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/leaderboard?campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Bill Williamson]]></dc:creator>
+<title><![CDATA[Source: Denver Broncos' Knowshon Moreno has slight MCL sprain]]></title>
+<description><![CDATA[The Denver Broncos, who lost seven tailbacks to injury in 2008, dodged a potential major problem when an MRI test showed that rookie running back Knowshon Moreno has a mild MCL sprain in his knee, a source close to the situation said Saturday. ]]></description>
+<pubDate>Sat, 15 Aug 2009 13:16:12 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4401336&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4401336&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Philadelphia Phillies right-hander Brett Myers hurts eye, will miss rehab start]]></title>
+<description><![CDATA[The Philadelphia Phillies said right-hander Brett Myers has changed his description of how he sustained an injury that forced him to miss his first scheduled rehab start. ]]></description>
+<pubDate>Sat, 15 Aug 2009 13:12:23 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4401301&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4401301&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[College football teams plan pregame handshakes for first week]]></title>
+<description><![CDATA[College football teams are planning to start the season off on a courteous note.]]></description>
+<pubDate>Sat, 15 Aug 2009 08:25:51 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4400204&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4400204&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Wisconsin Badgers suspend Aubrey Pleasant, Shane Carter]]></title>
+<description><![CDATA[Wisconsin has suspended safeties Aubrey Pleasant and Shane Carter. ]]></description>
+<pubDate>Sat, 15 Aug 2009 10:04:30 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4401077&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4401077&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Kyle Orton still Denver Broncos' QB despite struggles in start]]></title>
+<description><![CDATA[Kyle Orton only needs to worry about correcting his mistakes, not looking over his shoulder. ]]></description>
+<pubDate>Sat, 15 Aug 2009 13:00:30 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4401279&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4401279&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Usain Bolt, Tyson Gay cruise into second round of 100 meters at world championships]]></title>
+<description><![CDATA[Usain Bolt and Tyson Gay cruised into the second round of the 100 meters at the world championships, keeping on track for a showdown in the final.]]></description>
+<pubDate>Sat, 15 Aug 2009 12:44:54 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/trackandfield/news/story?id=4401006&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/trackandfield/news/story?id=4401006&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[West Virginia's Oakhurst Links course, America's oldest, up for sale]]></title>
+<description><![CDATA[The birthplace of American golf is up for sale.]]></description>
+<pubDate>Sat, 15 Aug 2009 10:35:06 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/news/story?id=4401187&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/news/story?id=4401187&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[External]]></dc:creator>
+<title><![CDATA[ESPN reaches deal to offer EPL in UK, Ireland]]></title>
+<description><![CDATA[ ]]></description>
+<pubDate>Sat, 15 Aug 2009 09:41:29 PDT</pubDate>
+<guid>http://soccernet.espn.go.com/news/story?id=667833&amp;sec=world&amp;cc=5901&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://soccernet.espn.go.com/news/story?id=667833&amp;sec=world&amp;cc=5901&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Denver Broncos wide receiver Brandon Marshall found not guilty in battery case]]></title>
+<description><![CDATA[A jury in Atlanta has found Denver Broncos wide receiver Brandon Marshall not guilty of misdemeanor battery. ]]></description>
+<pubDate>Fri, 14 Aug 2009 15:27:52 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4399940&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4399940&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Chad Millman]]></dc:creator>
+<title><![CDATA[Pro sports leagues granted hearing to stop Delaware sports betting]]></title>
+<description><![CDATA[An appeals court ruling gives leagues last chance to halt sports betting before Sept. 1]]></description>
+<pubDate>Fri, 14 Aug 2009 16:40:56 PDT</pubDate>
+<guid>http://sports.espn.go.com/espn/news/story?id=4400341&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/espn/news/story?id=4400341&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Rogers Cup: Roger Federer, Rafael Nadal ousted in quarterfinals]]></title>
+<description><![CDATA[Andy Murray has ended Nikolay Davydenko's 12-match winning streak with a 6-2, 6-4 victory in the quarterfinals of the Rogers Cup.]]></description>
+<pubDate>Fri, 14 Aug 2009 21:20:53 PDT</pubDate>
+<guid>http://sports.espn.go.com/sports/tennis/news/story?id=4399719&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/sports/tennis/news/story?id=4399719&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Martinez double sparks BoSox rally by Rangers ]]></title>
+<description><![CDATA[- Victor Martinez's two-run double keyed a six-run ninth inning that lifted the Boston Red Sox to an 8-4 victory over the Texas Rangers on Friday night, preserving their lead in the AL wild card.]]></description>
+<pubDate>Fri, 14 Aug 2009 23:26:58 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/recap?gameId=290814113&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/recap?gameId=290814113&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Orton's 3 INTs accent disastrous Denver debut]]></title>
+<description><![CDATA[Kyle Orton threw interceptions in his first three series during a disastrous Denver debut, while San Francisco's two quarterback candidates were steady in the 49ers' 17-16 victory over the Broncos on Friday night.]]></description>
+<pubDate>Sat, 15 Aug 2009 10:38:42 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/recap?gameId=290814025&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/recap?gameId=290814025&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

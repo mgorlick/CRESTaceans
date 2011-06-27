@@ -1,0 +1,221 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Mon, 03 Aug 2009 23:23:05 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Rebates for &#x2018;Clunkers&#x2019; Aid Ford Most as Car Sales Climb</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b5cf461e42b5846cf070c39acd7108ea</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/business/04auto.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/business/04auto.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/04/business/04auto75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A used vehicle on a Ford dealership lot advertises the government's "Cash for clunkers" program in Encinitas, California.</media:description>
+			<media:credit>Mike Blake/Reuters</media:credit>
+			<description>New vehicle sales hit an 11-month high in July, manufacturers reported, with Ford gaining more than G.M. or Chrysler from federal trade-in rebates.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b5cf461e42b5846cf070c39acd7108ea&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b5cf461e42b5846cf070c39acd7108ea&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NICK BUNKLEY</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 23:06:57 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Sales</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Car Allowance Rebate System</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Ford Motor Company|F|NYSE</category>
+		</item>
+		<item>
+			<title>Bank of America Settles S.E.C. Suit Over Merrill Deal</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=546c8d44db0bac752d4899e9626a82dc</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/business/04bofa.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/business/04bofa.html</guid>
+			<description>The S.E.C. accused Bank of America of misleading investors about plans to pay billions of dollars in bonuses at Merrill Lynch, the troubled brokerage giant it bought last year.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=546c8d44db0bac752d4899e9626a82dc&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=546c8d44db0bac752d4899e9626a82dc&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ZACHERY KOUWE</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 21:06:22 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Banks and Banking</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Bank of America Corp|BAC|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bonuses</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Merrill Lynch &amp; Co</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Mergers, Acquisitions and Divestitures</category>
+		</item>
+		<item>
+			<title>Income Loss Persists Long After Layoffs</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=becbfa66432cbed253b11f0996aa17e7</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/us/04layoffs.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/us/04layoffs.html</guid>
+			<description>It can take years for income to bounce back after a layoff, and even longer in a recession, if at all, economists say.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=becbfa66432cbed253b11f0996aa17e7&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=becbfa66432cbed253b11f0996aa17e7&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL LUO</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 22:43:57 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Wages and Salaries</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Recession and Depression</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Layoffs and Job Reductions</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Conditions and Trends</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Pratt &amp; Whitney</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Riviera Beach (Fla)</category>
+		</item>
+		<item>
+			<title>Google Chief Resigns as Apple Director</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e0066370a7746edf0fca8b3d224ffd10</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/technology/companies/04apple.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/technology/companies/04apple.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/business/schmidt.753.jpg" medium="image" height="75" width="75"/>
+			<media:description>Eric Schmidt, chief executive of Google, had been on Apple&#x2019;s board since August 2006.</media:description>
+			<media:credit>Matthew Staver/Bloomberg News</media:credit>
+			<description>The resignation of Eric E. Schmidt was described as a mutual decision. Regulators say they are still investigating a board overlap between the companies.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e0066370a7746edf0fca8b3d224ffd10&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e0066370a7746edf0fca8b3d224ffd10&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 22:32:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Google Inc|GOOG|NASDAQ</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Schmidt, Eric E</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Apple Inc|AAPL|NASDAQ</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Suspensions, Dismissals and Resignations</category>
+		</item>
+		<item>
+			<title>New U.S.-Israeli Crime Ring Detailed</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=53876596d7d0ac5eddaa7abf21cfd8bc</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/world/middleeast/04israel.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/world/middleeast/04israel.html</guid>
+			<description>The Israeli police said they cracked a ring that defrauded the U.S. tax authorities of tens of millions of dollars.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=53876596d7d0ac5eddaa7abf21cfd8bc&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=53876596d7d0ac5eddaa7abf21cfd8bc&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ISABEL KERSHNER</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 21:06:34 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">United States</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Israel</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Frauds and Swindling</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Berkowitz, Marvin</category>
+		</item>
+		<item>
+			<title>Jackson&#x2019;s Mother Wins Custody</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=045242db9309ca1dc8ad5008847540b1</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/us/04jackson.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/us/04jackson.html</guid>
+			<description>A hearing continued in Los Angeles Superior Court to determine who will control the estate of Michael Jackson.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=045242db9309ca1dc8ad5008847540b1&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=045242db9309ca1dc8ad5008847540b1&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SOLOMON MOORE</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 21:40:51 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jackson, Michael</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Child Custody and Support</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jackson, Katherine</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Wills and Estates</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Branca, John G</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">McClain, John</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Los Angeles (Calif)</category>
+		</item>
+		<item>
+			<title>The Puppy Diaries: Our Puppy Whisperer</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f6187262531f7960f69194b3cc3d9b67</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/garden/03PUPPY.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/garden/03PUPPY.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/garden/puppy-photo75.jpg" medium="image" height="75" width="75"/>
+			<media:description/>
+			<media:credit>Illustration by R.O. Blechman/The New York Times</media:credit>
+			<description>Although we had some luck teaching Scout to sit and come, our puppy training skills were still rusty until we put in a somewhat desperate call to a trainer.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f6187262531f7960f69194b3cc3d9b67&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f6187262531f7960f69194b3cc3d9b67&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JILL ABRAMSON</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 22:38:45 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Dogs</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Families and Family Life</category>
+		</item>
+		<item>
+			<title>Czech Leader, a Maverick, Tests E.U.&#x2019;s Shaky Unity</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=4c6e5ecbabf2144800ff686e7b9cd868</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/world/europe/04czech.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/world/europe/04czech.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/04/world/04czech00-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Czech Republic's President Vaclav Klaus prepared to cast his vote during the European Parliament election in Prague on June 6, 2009.</media:description>
+			<media:credit>David W. Cerny/Reuters</media:credit>
+			<description>President Vaclav Klaus is a potent symbol of a union divided between leaders who favor greater integration and those who cling to national sovereignty.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=4c6e5ecbabf2144800ff686e7b9cd868&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=4c6e5ecbabf2144800ff686e7b9cd868&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAN BILEFSKY and STEPHEN CASTLE</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 22:18:18 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">European Union</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Klaus, Vaclav</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Czech Republic</category>
+		</item>
+		<item>
+			<title>NATO Head Seeks Bigger Afghan Role by Europe</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=57a0d037bdd5020ddfbe7dfc67c48daf</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/world/04nato.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/world/04nato.html</guid>
+			<description>Anders Fogh Rasmussen called for &#x201C;increased European contributions&#x201D; so that the United States would not feel alone in the fight against the Taliban and Al Qaeda.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=57a0d037bdd5020ddfbe7dfc67c48daf&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=57a0d037bdd5020ddfbe7dfc67c48daf&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By STEVEN ERLANGER</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 21:45:42 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Rasmussen, Anders Fogh</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">North Atlantic Treaty Organization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Scheffer, Jaap de Hoop</category>
+		</item>
+		<item>
+			<title>Sidebar: Obama Brief on State Secrets Rankles the Left</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=bd0cef833edd6131eb6d84cf3fa5cf16</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/us/politics/04bar.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/us/politics/04bar.html</guid>
+			<description>In a Supreme Court filing, the administration held that the government&#x2019;s power to have lawsuits dismissed on national security grounds is rooted in the Constitution.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=bd0cef833edd6131eb6d84cf3fa5cf16&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=bd0cef833edd6131eb6d84cf3fa5cf16&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ADAM LIPTAK</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 23:03:27 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Suits and Litigation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_keyword">State Secrets</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Supreme Court</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Law and Legislation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Bush, George W</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+		</item>
+		<item>
+			<title>Controlling Interests: New York Test Scores Rise, but Criticism Continues</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=bc9ab3038b66f89efb6cd7b3ff48dbd4</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/nyregion/04scores.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/nyregion/04scores.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/nyregion/scores.75.33.jpg" medium="image" height="75" width="75"/>
+			<media:description>At Public School 398 in Brownsville, Brooklyn, 77 percent of students passed the math tests this year and 60 percent passed English, up from 56 and 43 percent last year.</media:description>
+			<media:credit>Ruby Washington/The New York Times</media:credit>
+			<description>The Bloomberg administration trumpets rising scores, but educators continue to debate the true value of the tests.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=bc9ab3038b66f89efb6cd7b3ff48dbd4&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=bc9ab3038b66f89efb6cd7b3ff48dbd4&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ELISSA GOOTMAN and ROBERT GEBELOFF</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 23:21:24 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Grading of Students</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Education Department (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Bloomberg, Michael R</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Tests and Testing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Education and Schools</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+		</item>
+	</channel>
+</rss>

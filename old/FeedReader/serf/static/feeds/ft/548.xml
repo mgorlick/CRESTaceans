@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Wed, 19 Aug 2009 20:14:55 GMT</pubDate>
+    <lastBuildDate>Wed, 19 Aug 2009 20:29:54 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>US hails victory in UBS tax battle</title>
+      <link>http://traxfer.ft.com/cms/s/0/35879d72-8cd5-11de-a540-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The US yesterday blasted a huge hole in Switzerland’s famed hallowed bank secrecy as Bern agreed to reveal the names of 4,450 wealthy rich Americans holding offshore accounts at UBS, the country’s biggest bank</description>
+      <pubDate>Wed, 19 Aug 2009 18:19:13 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/35879d72-8cd5-11de-a540-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>CBS and Pepsi bring video ads to printed page</title>
+      <link>http://traxfer.ft.com/cms/s/0/5cd04e14-8cf4-11de-a540-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>When some Entertainment Weekly readers open their magazines next month, they will discover peopleadvertisements talking to them from a wafer-thin video screen built into the printed page.</description>
+      <pubDate>Wed, 19 Aug 2009 19:30:39 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/5cd04e14-8cf4-11de-a540-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>White House hopeful on health reform</title>
+      <link>http://traxfer.ft.com/cms/s/0/228d7d78-8cf7-11de-a540-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The White House sought to quell suggestions it was preparing to pull the plug on further negotiations with the Republicans over healthcare reform even though the large majoritymost are bitterly opposed to nearly any Democratic-inspired change</description>
+      <pubDate>Wed, 19 Aug 2009 20:14:55 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/228d7d78-8cf7-11de-a540-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Taliban target Afghan polling stations</title>
+      <link>http://traxfer.ft.com/cms/s/0/a9abc64a-8cc3-11de-a540-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Officials and civilians have received warnings that militants will target voters in addition to military and government institutions.</description>
+      <pubDate>Wed, 19 Aug 2009 14:28:44 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/a9abc64a-8cc3-11de-a540-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Deere quarterly earnings beat expectations</title>
+      <link>http://traxfer.ft.com/cms/s/0/854add1a-8cc1-11de-a540-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>John Deere, the world’s biggest maker of agricultural equipment, indicated that it did not expect to make a profit in the remainder of its fiscal yearwould struggle to make a profit in its current fiscal quarter, as it warned it faced “persistent global economic pressure”</description>
+      <pubDate>Wed, 19 Aug 2009 18:22:26 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/854add1a-8cc1-11de-a540-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Rivals jostle in the electric car charge</title>
+      <link>http://traxfer.ft.com/cms/s/0/38ac7894-8ce2-11de-a540-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Green Technology, part three: In spite of the deep crisis in the automotive industry, several large carmakers are taking a gamble on electric cars. Governments globally are helping with generous subsidies and tax breaks for zero- and low-emission vehicles</description>
+      <pubDate>Wed, 19 Aug 2009 17:30:50 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/38ac7894-8ce2-11de-a540-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Developed markets feel China impact</title>
+      <link>http://traxfer.ft.com/cms/s/0/f056342e-8ce9-11de-a540-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The sickly Chinese stock market that has been blamed for infecting markets in other parts of the world</description>
+      <pubDate>Wed, 19 Aug 2009 18:11:13 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/f056342e-8ce9-11de-a540-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>More than 95 dead in Baghdad attacks</title>
+      <link>http://traxfer.ft.com/cms/s/0/2aa18bd8-8c9f-11de-a540-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Baghdad suffered a string of attacks that left more than 95 people dead in the latest sign that violence in Iraq has intensified in the wake of a handover from US troops to Iraqi security forces.</description>
+      <pubDate>Wed, 19 Aug 2009 15:00:36 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/2aa18bd8-8c9f-11de-a540-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>ECB urges further stimulus measures</title>
+      <link>http://traxfer.ft.com/cms/s/0/f9ad308c-8ca7-11de-a540-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Emergency growth-stimulating policies are still needed to support Europe’s fragile economic recovery, Axel Weber, Germany’s Bundesbank president, has warned</description>
+      <pubDate>Wed, 19 Aug 2009 18:14:49 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/f9ad308c-8ca7-11de-a540-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Sony cuts Slim PS3 price to lure players</title>
+      <link>http://traxfer.ft.com/cms/s/0/bcfa43f2-8ce6-11de-a540-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Sony’s games consoles have endured a fall from grace. In the previous round of the console wars, Sony’s PlayStation2 stormed the market, selling 138m units to date, compared with about 24m Microsoft XBoxes and 22m Nintendo GameCubes</description>
+      <pubDate>Wed, 19 Aug 2009 17:56:58 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/bcfa43f2-8ce6-11de-a540-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

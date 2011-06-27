@@ -1,0 +1,216 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Mon, 17 Aug 2009 18:23:56 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>More Troops Are Sought for Iraq&#x2019;s Restive North</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=327b56b779525e8845d1e3172fa49e7b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/18/world/middleeast/18iraq.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/18/world/middleeast/18iraq.html</guid>
+			<description>Gen. Ray Odierno, the U.S. commander in Iraq, said tensions between the Iraqi Army and the Kurdish militia were leaving a string of villages vulnerable to attack.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=327b56b779525e8845d1e3172fa49e7b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=327b56b779525e8845d1e3172fa49e7b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROD NORDLAND</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 14:16:50 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Odierno, Raymond T</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Kurds</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Iraqi Army</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Al Qaeda in Mesopotamia</category>
+		</item>
+		<item>
+			<title>Afghan Campaign Issue: Talking to the Taliban</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e594b4ac9d4a76d2397cc1fdb94b29c3</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/18/world/asia/18taliban.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/18/world/asia/18taliban.html</guid>
+			<description>Whether and how to negotiate peace with the Taliban has become the one issue no candidate in the Afghan presidential election can avoid taking a stand on.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e594b4ac9d4a76d2397cc1fdb94b29c3&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e594b4ac9d4a76d2397cc1fdb94b29c3&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CARLOTTA GALL</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 18:22:27 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Election Issues</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Elections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Karzai, Hamid</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Abdullah, Abdullah</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ghani, Ashraf</category>
+		</item>
+		<item>
+			<title>Lack of Medicare Appointee Puzzles Congress</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1bdf0a95d7df617692d30e560d15a1bb</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/18/health/policy/18health.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/18/health/policy/18health.html</guid>
+			<description>To some, trying to remake the health care system without a Medicare administrator is like fighting a war without a general.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1bdf0a95d7df617692d30e560d15a1bb&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1bdf0a95d7df617692d30e560d15a1bb&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT PEAR</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 18:20:26 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicare</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicaid</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+		</item>
+		<item>
+			<title>Women at Arms: Living and Fighting Alongside Men, and Fitting In</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7dc6f3bf5f71dae858bc510f9145799d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/17/us/17women.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/17/us/17women.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/world/17women.span.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Staff Sgt. Patricia F. Bradford, left, and Specialist Jennifer M. Hoeppner attended a briefing before going on patrol.</media:description>
+			<media:credit>Moises Saman for The New York Times</media:credit>
+			<description>American military women have changed the way the United States goes to war, and they have done so without the disruption of discipline and unit cohesion that some feared.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7dc6f3bf5f71dae858bc510f9145799d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7dc6f3bf5f71dae858bc510f9145799d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By STEVEN LEE MYERS</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 18:14:05 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Women and Girls</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Afghanistan War (2001- )</category>
+		</item>
+		<item>
+			<title>20 Die in Suicide Bombing in Russia</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c2cb636026d359b6d7e6b99cd9eeba03</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/18/world/europe/18russia.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/18/world/europe/18russia.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/world/russia.75755.jpg" medium="image" height="75" width="75"/>
+			<media:description>Emergency workers looked through debris at a destroyed police station in Nazran, Ingushetia, Russia on Monday.</media:description>
+			<media:credit>Musa Sadulayev/Associated Press</media:credit>
+			<description>At least 20 people were killed and dozens injured in a suicide bombing at a police headquarters in Russia&#x2019;s tumultuous North Caucasus region.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c2cb636026d359b6d7e6b99cd9eeba03&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c2cb636026d359b6d7e6b99cd9eeba03&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL SCHWIRTZ</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 17:44:38 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Russia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Ingushetia (Russian Republic)</category>
+		</item>
+		<item>
+			<title>Sidebar: Supreme Court to Hear Case on Executive Pay</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fdb37f3b9db170d86080464ff613652a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/18/us/18bar.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/18/us/18bar.html</guid>
+			<description>Jones v. Harris Associates may to be the court&#x2019;s first big statement on a culture that contributed to the recession.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fdb37f3b9db170d86080464ff613652a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fdb37f3b9db170d86080464ff613652a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ADAM LIPTAK</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 16:33:53 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Supreme Court</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Executive Compensation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Posner, Richard A</category>
+		</item>
+		<item>
+			<title>City Inquiry Into Concrete Testing Widens</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6c22cdaf2081111ae1e5164b009db40c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/18/nyregion/18concrete.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/18/nyregion/18concrete.html</guid>
+			<description>Prosecutors executed a search warrant at a company that supplies concrete to public works projects, marking an expansion of a probe into the concrete testing industry.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6c22cdaf2081111ae1e5164b009db40c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6c22cdaf2081111ae1e5164b009db40c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By WILLIAM K. RASHBAUM</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 16:36:04 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Buildings Department</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Concrete</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Tests and Testing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Manhattan (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Bloomberg, Michael R</category>
+		</item>
+		<item>
+			<title>Russia Says Ship and Crew Are Found Safe</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=958a7224eede5dce94b6a32fc4de861c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/18/world/europe/18ship.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/18/world/europe/18ship.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/world/arctic.7575.jpg" medium="image" height="75" width="75"/>
+			<media:description>The cargo ship Arctic Sea in Kotka, Finland, in December.</media:description>
+			<media:credit>Associated Press</media:credit>
+			<description>The Arctic Sea, missing since last month, was 300 miles off Cape Verde, the Russia Defense Ministry said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=958a7224eede5dce94b6a32fc4de861c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=958a7224eede5dce94b6a32fc4de861c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL SCHWIRTZ</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 18:19:37 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Ships and Shipping</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Russia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Cape Verde</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Logging Industry</category>
+		</item>
+		<item>
+			<title>For City&#x2019;s Poor, Banks Are Still a Matter of Distrust</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=429c05642dcea330ad9d4c6f93335eb2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/18/nyregion/18cash.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/18/nyregion/18cash.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/nyregion/CASH.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>At left, Humberto Vargas, a restaurant owner, has been trying to persuade one of his deliverymen, Che Che Matos, right, to join a bank and build a credit history.</media:description>
+			<media:credit>Michelle V. Agins/The New York Times</media:credit>
+			<description>Persuading the poorest to rely on bank accounts instead of paying bills by cash is an eternal struggle.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=429c05642dcea330ad9d4c6f93335eb2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=429c05642dcea330ad9d4c6f93335eb2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CHRISTINE HAUGHNEY</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 18:04:30 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Manhattan (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Banks and Banking</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Credit</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Consumer Affairs Department (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Federal Deposit Insurance Corp</category>
+		</item>
+		<item>
+			<title>Former Zambia Leader Is Acquitted</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=87982418806763d6e8c05aa340fd11d7</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/18/world/africa/18zambia.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/18/world/africa/18zambia.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/world/zambia.757575.jpg" medium="image" height="75" width="75"/>
+			<media:description>Former Zambian president Frederick Chiluba, center, outside the Lusaka Magistrates Court in Zambia after he was acquitted on Monday.</media:description>
+			<media:credit>Thomas Nsama/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>Frederick Chiluba, who was president between 1991 and 2002, was cleared of charges that he stole $500,000 from the state.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=87982418806763d6e8c05aa340fd11d7&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=87982418806763d6e8c05aa340fd11d7&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CELIA W. DUGGER</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 18:12:10 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Chiluba, Frederick</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Ethics</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Zambia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Decisions and Verdicts</category>
+		</item>
+		<item>
+			<title>Wall Street Joins a Global Downturn</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=092cf584268a66efcd42ecee8ccb7c51</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/18/business/18markets.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/18/business/18markets.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/17/business/wallstreet75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Pessimism about the global recovery settled over world markets, including Wall Street. Above, traders at work at the New York Stock Exchange. </media:description>
+			<media:credit>Seth Wenig/Associated Press</media:credit>
+			<description>Analysts said the sell-off was in part a reaction to weak consumer confidence numbers released in the U.S.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=092cf584268a66efcd42ecee8ccb7c51&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=092cf584268a66efcd42ecee8ccb7c51&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By GERRY SHIH</dc:creator>
+			<pubDate>Mon, 17 Aug 2009 17:27:20 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Stocks and Bonds</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Economy</category>
+		</item>
+	</channel>
+</rss>

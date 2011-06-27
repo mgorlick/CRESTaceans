@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Fri, 31 Jul 2009 16:11:21 GMT</pubDate>
+    <lastBuildDate>Fri, 31 Jul 2009 16:29:57 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>US GDP contraction slows to 1%</title>
+      <link>http://traxfer.ft.com/cms/s/0/34977262-7d48-11de-b8ee-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The US economy continued to shrink in the second quarter making this recession the longest on record, but the more moderate decline lifted hopes that government stimulus measures could be loosening the grip of the downturn</description>
+      <pubDate>Fri, 31 Jul 2009 12:51:42 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/34977262-7d48-11de-b8ee-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Wall St rallies on sign recession is abating</title>
+      <link>http://traxfer.ft.com/cms/s/0/f8d0667c-7d4b-11de-b8ee-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>US equities were trading higher after a government report showed that the economy contracted less than expected during the second quarter, suggesting the recession is abating</description>
+      <pubDate>Fri, 31 Jul 2009 14:46:22 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/f8d0667c-7d4b-11de-b8ee-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>UBS and US reach tentative tax case deal</title>
+      <link>http://traxfer.ft.com/cms/s/0/c25cddd6-7dd3-11de-8f8d-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The US government and UBS have tentatively settled a high profile dispute over the Swiss bank’s refusal to reveal the names of thousands of its offshore customers to the US Internal Revenue Service</description>
+      <pubDate>Fri, 31 Jul 2009 13:25:38 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/c25cddd6-7dd3-11de-8f8d-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Chevron profit tumbles 71%</title>
+      <link>http://traxfer.ft.com/cms/s/0/ffbd8ee6-7dd8-11de-8f8d-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Chevron the second-largest US oil company, has reported a 71 per cent drop in net income to $1.75bn for the second quarter, but a 5 per cent increase in its production volumes</description>
+      <pubDate>Fri, 31 Jul 2009 14:22:00 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/ffbd8ee6-7dd8-11de-8f8d-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>China in EU trade spat over screw imports</title>
+      <link>http://traxfer.ft.com/cms/s/0/b80f2d3e-7dc4-11de-8f8d-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Beijing has launched its first trade dispute against the European Union, complaining to the WTO that EU anti-dumping duties on Chinese screws and bolts are breaking global commerce rules</description>
+      <pubDate>Fri, 31 Jul 2009 16:11:21 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/b80f2d3e-7dc4-11de-8f8d-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Tarp banks award billions in bonuses</title>
+      <link>http://traxfer.ft.com/cms/s/0/ff921710-7d2a-11de-b8ee-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>JPMorgan Chase and Goldman Sachs paid the most million-dollar bonuses in 2008, while two banks that lost almost $28bn each last year, Citigroup and Merrill Lynch, also made hundreds of their employees millionaires, according to a newly released report on bonus payments by government-supported banks</description>
+      <pubDate>Thu, 30 Jul 2009 20:46:13 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/ff921710-7d2a-11de-b8ee-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>US Congress considers $2bn for car ‘clunkers’</title>
+      <link>http://traxfer.ft.com/cms/s/0/292613ae-7db4-11de-8f8d-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Legislation proposed on Friday in the US House of Representatives would extend $2 billion in new funding to support the government’s auto sales ”cash-for-clunkers” incentive plan</description>
+      <pubDate>Fri, 31 Jul 2009 15:23:03 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/292613ae-7db4-11de-8f8d-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>UK hacker loses bid to avoid extradition</title>
+      <link>http://traxfer.ft.com/cms/s/0/1b80cfd0-7db6-11de-8f8d-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Gary McKinnon, the self-confessed hacker wanted in the US for corrupting dozens of military computers, has lost his latest legal bid to avoid extradition to the US</description>
+      <pubDate>Fri, 31 Jul 2009 12:18:51 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/1b80cfd0-7db6-11de-8f8d-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Lenders win control of Delphi</title>
+      <link>http://traxfer.ft.com/cms/s/0/e5226a42-7d48-11de-b8ee-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>A US bankruptcy court has given the go-ahead for a group of lenders to take control of Delphi, the Michigan car-parts maker, bringing the end in sight to one of the lengthiest journeys by a US company through a Chapter 11 restructuring</description>
+      <pubDate>Fri, 31 Jul 2009 01:03:17 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/e5226a42-7d48-11de-b8ee-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>China vows ‘reasonable’ result in iron ore talks</title>
+      <link>http://traxfer.ft.com/cms/s/0/e96caa9c-7d91-11de-8f8d-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Beijing’s top steel negotiator is to keep pressing for a ‘reasonable’ outcome in annual iron ore price discussions as it urges local mills to put their ‘chaotic’ house in order</description>
+      <pubDate>Fri, 31 Jul 2009 05:58:41 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/e96caa9c-7d91-11de-8f8d-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

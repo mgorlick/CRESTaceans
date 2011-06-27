@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Mon, 17 Aug 2009 23:51:07 GMT</pubDate>
+    <lastBuildDate>Tue, 18 Aug 2009 03:29:48 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>Stocks hit despite growth in Japan</title>
+      <link>http://traxfer.ft.com/cms/s/0/daf34186-8b1c-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>World stocks tumbled on Monday as doubts about the strength of economic recovery threatened to derail the five-month rally in the global markets.</description>
+      <pubDate>Mon, 17 Aug 2009 20:39:18 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/daf34186-8b1c-11de-9f50-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Identity theft case puts 130m at risk</title>
+      <link>http://traxfer.ft.com/cms/s/0/b288c898-8b84-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The US brought criminal charges over the alleged theft of account details linked to 130m credit cards, a case of identity theft that far exceeds anything of its kind that has ever come to light before</description>
+      <pubDate>Mon, 17 Aug 2009 23:51:07 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/b288c898-8b84-11de-9f50-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Dell joins stampede to launch smartphone</title>
+      <link>http://traxfer.ft.com/cms/s/0/c57709c4-8b57-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Dell is preparing to enter the smartphone business as mobile handset and computer makers converge on one of the few parts of the personal technology market to showing strong growth and profits</description>
+      <pubDate>Mon, 17 Aug 2009 18:11:08 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/c57709c4-8b57-11de-9f50-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Investors’ fears are eased on Talf</title>
+      <link>http://traxfer.ft.com/cms/s/0/876e0202-8b5e-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The Federal Reserve and the US Treasury extended a $200bn (£122bn) programme designed to revive the securitisation market, bringing relief to investors concerned that the supply of cheap government financing was set to end.</description>
+      <pubDate>Mon, 17 Aug 2009 22:35:11 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/876e0202-8b5e-11de-9f50-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>GM completes Saab deal with Koenigsegg</title>
+      <link>http://traxfer.ft.com/cms/s/0/ef3331b2-8b79-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Accord will mark another step forward in efforts to restructure GM as the loss-making US carmaker narrows its range of brands</description>
+      <pubDate>Mon, 17 Aug 2009 22:13:28 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/ef3331b2-8b79-11de-9f50-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>US claims to have thwarted Taliban</title>
+      <link>http://traxfer.ft.com/cms/s/0/303afe12-8b55-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The US said that Taliban insurgents in Afghanistan had failed in a ferocious bid to derail the country’s Afghanistan’s elections, to be held on Thursday, with a wave of violent attacks.</description>
+      <pubDate>Mon, 17 Aug 2009 20:09:48 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/303afe12-8b55-11de-9f50-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>New AIG chief to receive $7m pay</title>
+      <link>http://traxfer.ft.com/cms/s/0/8ac70d7c-8b72-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Robert Benmosche, AIG’s new chief executive, will receive annual pay of $7m in cash and shares and be in line for a bonus of $3.5m a year, the government-controlled insurer announced</description>
+      <pubDate>Mon, 17 Aug 2009 21:40:17 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/8ac70d7c-8b72-11de-9f50-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Charles Schwab sued over auction-rate securities</title>
+      <link>http://traxfer.ft.com/cms/s/0/8c6cf512-8b5c-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Andrew Cuomo, the New York attorney-general, sued Charles Schwab, the biggest independent broker in the US, over its sales and marketing of auction-rate securities, in the latest stage of his investigation into the collapse of the market</description>
+      <pubDate>Mon, 17 Aug 2009 18:58:47 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/8c6cf512-8b5c-11de-9f50-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Spielberg’s DreamWorks raises $825m</title>
+      <link>http://traxfer.ft.com/cms/s/0/fb3ca04e-8b81-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Steven Spielberg announced the completion of a hard-fought $825m fundraising which will relaunch his DreamWorks studio as an independent venture, for which the biggest cheque – $325m – has been written by Reliance Group, Anil Ambani’s Indian conglomerate.</description>
+      <pubDate>Mon, 17 Aug 2009 23:17:21 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/fb3ca04e-8b81-11de-9f50-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Ill winds abate for battered sector</title>
+      <link>http://traxfer.ft.com/cms/s/0/8790ba48-8b51-11de-9f50-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Wind energy suffered a battering in the financial storm of the past year but, as one of the most mature renewables, it looks set for a period of calm</description>
+      <pubDate>Mon, 17 Aug 2009 18:41:03 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/8790ba48-8b51-11de-9f50-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

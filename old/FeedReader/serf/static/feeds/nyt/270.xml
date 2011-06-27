@@ -1,0 +1,248 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Sat, 08 Aug 2009 06:16:14 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Health Debate Turns Hostile at Town Hall Meetings</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=bfa035c18fbbc2d42a99c401ba5f3a3c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/us/politics/08townhall.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/us/politics/08townhall.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/08/us/08townhall.751.jpg" medium="image" height="75" width="75"/>
+			<media:description>Val Butsicaris of Taylor, Mich., center, confronts Representative John D. Dingell over health care.</media:description>
+			<media:credit>Kimberly P. Mitchell/Detroit Free Press, via Associated Press</media:credit>
+			<description>Members of Congress have been shouted down, hanged in effigy and taunted by crowds at town hall meetings on health care.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=bfa035c18fbbc2d42a99c401ba5f3a3c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=bfa035c18fbbc2d42a99c401ba5f3a3c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By IAN URBINA</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 05:13:54 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">FreedomWorks Foundation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Threats and Threatening Messages</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Demonstrations and Riots</category>
+		</item>
+		<item>
+			<title>Economic Scene: As Economy Turns, Washington Looks Better</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=bffe495ff431407176e9c3465218cbbc</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/business/08leonhardt.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/business/08leonhardt.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/08/business/LEONHARDT_76.jpg" medium="image" height="75" width="75"/>
+			<media:description>Major policy makers during the financial crisis have included, from left, President Obama, Timothy Geithner, Lawrence Summers, Ben Bernanke and Henry Paulson.</media:description>
+			<media:credit/>
+			<description>The so-called Great Recession seems to be at or near an end because of efforts by policy makers.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=bffe495ff431407176e9c3465218cbbc&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=bffe495ff431407176e9c3465218cbbc&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID LEONHARDT</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 05:12:27 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Subprime Mortgage Crisis</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Economy</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Conditions and Trends</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Recession and Depression</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Credit</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">American Recovery and Reinvestment Act (2009)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Economics</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Labor Department</category>
+		</item>
+		<item>
+			<title>Attacks on Homeless Bring Push on Hate Crime Laws</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=73a7c8a7a1179eb65908135f2aa08855</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/us/08homeless.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/us/08homeless.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/08/us/homel75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A homeless couple who are making their life in the flood channels beneath the Las Vegas Strip. Many would rather live there than face the troubles above.</media:description>
+			<media:credit>Isaac Brekken for The New York Times</media:credit>
+			<description>Unprovoked violence against the homeless has climbed, with nearly 900 documented cases, more than 200 of them fatalities, in the last decade.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=73a7c8a7a1179eb65908135f2aa08855&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=73a7c8a7a1179eb65908135f2aa08855&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ERIC LICHTBLAU</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 05:14:54 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Homeless Persons</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Assaults</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Hate Crimes</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Maryland</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">National Coalition for the Homeless</category>
+		</item>
+		<item>
+			<title>Kennedy Shriver in Critical Condition</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fe77d8a260765168ac591d1ace71bfb3</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/07/us/AP-US-Eunice-Kennedy-Shriver.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/07/us/AP-US-Eunice-Kennedy-Shriver.html</guid>
+			<description>Eunice Kennedy Shriver, a sister of President John F. Kennedy and a longtime champion for the disabled, was in critical condition Friday at a Massachusetts hospital.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fe77d8a260765168ac591d1ace71bfb3&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fe77d8a260765168ac591d1ace71bfb3&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 04:06:22 GMT</pubDate>
+		</item>
+		<item>
+			<title>Airspeed Systems Failed on U.S. Jets</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=81b5f00d7f41e2c44ff6ed02accd97c1</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/07/us/AP-US-Planes-Speed-Malfunction.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/07/us/AP-US-Planes-Speed-Malfunction.html</guid>
+			<description>On at least a dozen recent flights by U.S. jetliners, malfunctioning equipment made it impossible for pilots to know how fast they were flying, federal investigators have discovered.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=81b5f00d7f41e2c44ff6ed02accd97c1&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=81b5f00d7f41e2c44ff6ed02accd97c1&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 01:50:49 GMT</pubDate>
+		</item>
+		<item>
+			<title>Big City: A &#x2018;Perfect Mother,&#x2019; a Vodka Bottle and 8 Lives Lost</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=54544b311fa7bc86d4d0d12c3c23bf16</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/nyregion/08bigcity.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/nyregion/08bigcity.html</guid>
+			<description>An accident has raised an unsettling possibility: Was the driver among the alcoholics able to hide their drinking?&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=54544b311fa7bc86d4d0d12c3c23bf16&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=54544b311fa7bc86d4d0d12c3c23bf16&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SUSAN DOMINUS</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 04:57:41 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Schuler, Diane</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Accidents and Safety</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Alcohol Abuse</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Drunken and Reckless Driving</category>
+		</item>
+		<item>
+			<title>The Caucus: Clinton Defends Husband&#x2019;s Trip</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fc651ae21d041473cc32ee53d71e3b05</link>
+			<pheedo:origLink>http://thecaucus.blogs.nytimes.com/2009/08/07/clinton-defends-husbands-north-korea-trip-and-calls-iran-trials-sign-of-weakness/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://thecaucus.blogs.nytimes.com/2009/08/07/clinton-defends-husbands-north-korea-trip-and-calls-iran-trials-sign-of-weakness/index.html</guid>
+			<description>In a CNN interview, Secretary of State Hillary Rodham Clinton dismissed Republican criticism of a trip by her husband, former President Bill Clinton, to free two American journalists held in North Korea, and said Iran's prosecution of protesters showed that the country is "afraid of its own people.".&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fc651ae21d041473cc32ee53d71e3b05&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fc651ae21d041473cc32ee53d71e3b05&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ASHLEY SOUTHALL</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 04:38:24 GMT</pubDate>
+		</item>
+		<item>
+			<title>Dot Earth: Puberty on the Scale of a Planet</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=aabb88400a1fb4dc2ac57eff843959a2</link>
+			<pheedo:origLink>http://dotearth.blogs.nytimes.com/2009/08/07/puberty-on-the-scale-of-a-planet/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://dotearth.blogs.nytimes.com/2009/08/07/puberty-on-the-scale-of-a-planet/index.html</guid>
+			<description>Humanity appears to be in a planet-scale, teen-style growth spurt.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=aabb88400a1fb4dc2ac57eff843959a2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=aabb88400a1fb4dc2ac57eff843959a2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ANDREW C. REVKIN</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 04:18:15 GMT</pubDate>
+		</item>
+		<item>
+			<title>Bitten: Desperation Pantry Cooking</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=2fff0552677760c1f7e2fe788699e72e</link>
+			<pheedo:origLink>http://bitten.blogs.nytimes.com/2009/08/07/desperation-pantry-cooking/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://bitten.blogs.nytimes.com/2009/08/07/desperation-pantry-cooking/index.html</guid>
+			<description>The freezer is practically devoid of real food, and the fridge is pathetic, so I'm relying on the pantry more than ever.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=2fff0552677760c1f7e2fe788699e72e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=2fff0552677760c1f7e2fe788699e72e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARK BITTMAN</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 20:28:27 GMT</pubDate>
+		</item>
+		<item>
+			<title>Yankees 2, Red Sox 0: Rodriguez Trots Home to End Marathon</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f513478da2a4f7df1862eb948073a806</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/sports/baseball/08yankees.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/sports/baseball/08yankees.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/08/sports/baseball/08yankeesC-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Josh Beckett did not allow a run. </media:description>
+			<media:credit>Jeff Zelevansky/Getty Images</media:credit>
+			<description>With two outs in the bottom of the 15th inning, Alex Rodriguez connected for a two-run homer into the left-field bullpen to give the Yankees a 2-0 victory in five hours 33 minutes.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f513478da2a4f7df1862eb948073a806&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f513478da2a4f7df1862eb948073a806&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By TYLER KEPNER</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 06:14:22 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Baseball</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">New York Yankees</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Boston Red Sox</category>
+		</item>
+		<item>
+			<title>Called Up, Red Sox Pitcher Has Tough Debut</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=0fa2dd41329f6771b0fdb2a83b1343ff</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/sports/baseball/08curry.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/sports/baseball/08curry.html</guid>
+			<description>Junichi Tazawa was the first and the only pitcher on either team to give up a run, which is why the Yankees finally inched to a 2-0 victory.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=0fa2dd41329f6771b0fdb2a83b1343ff&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=0fa2dd41329f6771b0fdb2a83b1343ff&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK CURRY</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 05:39:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Baseball</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Tazawa, Junichi</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Boston Red Sox</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">New York Yankees</category>
+		</item>
+		<item>
+			<title>Pakistan&#x2019;s No. 1 Enemy: Ex-Ally Bent by Al Qaeda</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=35f19d95f4f0b3e6ed68ff302997a54d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/world/asia/08mehsud.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/world/asia/08mehsud.html</guid>
+			<description>The terrorist reportedly killed in a missile strike on Wednesday is perhaps the most prominent example of a Taliban fighter who turned against his country.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=35f19d95f4f0b3e6ed68ff302997a54d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=35f19d95f4f0b3e6ed68ff302997a54d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CARLOTTA GALL and ISMAIL KHAN</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 06:09:02 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Mehsud, Baitullah</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Al Qaeda</category>
+		</item>
+		<item>
+			<title>Year After Georgian War, Rage Has Only Hardened</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fafd6651975e826e78ed55327205a96b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/world/europe/08georgia.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/world/europe/08georgia.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/08/world/08georgia.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Russian soldiers cleaned their rifles on Friday in Tskhinvali, a city in the breakaway region of South Ossetia where Georgian shelling last Aug. 7 began the fighting.</media:description>
+			<media:credit>Sergey Ponomarev/Associated Press</media:credit>
+			<description>A year after the war, the question of who is to blame for the war between Georgia and Russia is still being fought out in public life.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fafd6651975e826e78ed55327205a96b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fafd6651975e826e78ed55327205a96b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ELLEN BARRY</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 06:03:46 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Georgia (Georgian Republic)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">South Ossetia (Georgian Republic)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Russia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Gori (Georgian Republic)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Saakashvili, Mikheil</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Medvedev, Dmitri A</category>
+		</item>
+		<item>
+			<title>An Appraisal: The &#x2019;80s Auteur of Teenage Angst</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=220e06a568c9187de88a3ad93d29a742</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/movies/08appraisal.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/movies/08appraisal.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/08/arts/08huges.751.jpg" medium="image" height="75" width="75"/>
+			<media:description>John Hughes in 1984, with Molly Ringwald and Michael Schoeffling of &#x201C;Sixteen Candles,&#x201D; which was his directorial debut.</media:description>
+			<media:credit>Universal Pictures/Everett Collection</media:credit>
+			<description>John Hughes crystallized the attitudes and anxieties of 1980s adolescence with just the right blend of teasing and sympathy.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=220e06a568c9187de88a3ad93d29a742&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=220e06a568c9187de88a3ad93d29a742&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By A. O. SCOTT</dc:creator>
+			<pubDate>Sat, 08 Aug 2009 05:15:35 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Movies</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Hughes, John</category>
+		</item>
+	</channel>
+</rss>
