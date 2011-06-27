@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 
 ;; Copyright 2010 Michael M. Gorlick
 
@@ -17,6 +17,8 @@
  ENVIRON/TEST)
 
 (require
+ racket/pretty
+ "persistent/environ.rkt"
  "persistent/vector.rkt"
  "persistent/hash.rkt"
  "persistent/set.rkt"
@@ -48,32 +50,64 @@
   
 ;; The following functions wrap host Scheme primitives allowing those primitives to be invoked
 ;; within Motile and to be properly "decompiled" for network transmission.
-(define (global/0 symbol procedure)
-  (case-lambda 
-    ((rtk) (rtk (procedure)))
-    ((k x) (vector 'reference/global symbol))))
+;(define (global/0 symbol procedure)
+;  (case-lambda 
+;    ((rtk) (rtk (procedure)))
+;    ((k x) (vector 'reference/global symbol))))
 
-(define (global/1 symbol procedure)
-  (lambda (rtk a) 
-    (if rtk
-        (rtk (procedure a))
-        (vector 'reference/global symbol))))
+(define (motile/global/0 symbol procedure)
+  (let ((descriptor (vector 'reference/global symbol)))
+    (lambda (k _rte _global)
+      (if k
+          (k (procedure))
+          descriptor))))
 
-(define (global/2 symbol procedure)
-  (case-lambda 
-    ((rtk a b) (rtk (procedure a b)))
-    ((k x) (vector 'reference/global symbol))))
+;(define (global/1 symbol procedure)
+;  (lambda (rtk a) 
+;    (if rtk
+;        (rtk (procedure a))
+;        (vector 'reference/global symbol))))
 
-(define (global/3 symbol procedure)
-  (case-lambda 
-    ((rtk a b c) (rtk (procedure a b c)))
-    ((k x) (vector 'reference/global symbol))))
+(define (motile/global/1 symbol procedure)
+  (let ((descriptor (vector 'reference/global symbol)))
+    (case-lambda
+      ((k _rte _global a) (k (procedure a)))
+      ((k _rte _global) (unless k descriptor)))))
+
+;(define (global/2 symbol procedure)
+;  (case-lambda 
+;    ((rtk a b) (rtk (procedure a b)))
+;    ((k x) (vector 'reference/global symbol))))
+
+(define (motile/global/2 symbol procedure)
+  (let ((descriptor (vector 'reference/global symbol)))
+    (case-lambda
+      ((k _rte _global a b) (k (procedure a b)))
+      ((k _rte _global) (unless k descriptor)))))
+
+;(define (global/3 symbol procedure)
+;  (case-lambda 
+;    ((rtk a b c) (rtk (procedure a b c)))
+;    ((k x) (vector 'reference/global symbol))))
+
+(define (motile/global/3 symbol procedure)
+  (let ((descriptor (vector 'reference/global symbol)))
+    (case-lambda
+      ((k _rte _global a b c) (k (procedure a b c)))
+      ((k _rte _global) (unless k descriptor)))))
 
 (define (global/N symbol procedure)
   (lambda (rtk . arguments)
     (if rtk
         (rtk (apply procedure arguments))
         (vector 'reference/global symbol))))
+
+(define (motile/global/N symbol procedure)
+  (let ((descriptor (vector 'reference/global symbol)))
+    (lambda (k _rte _global . arguments)
+      (if k
+          (k (apply procedure arguments))
+          descriptor))))
 
 ;(define (global/0/generate symbol procedure)
 ;  (case-lambda 
@@ -103,19 +137,19 @@
 ;        (vector 'reference/global symbol))))
 
 (define-syntax-rule (define/global/0 symbol procedure)
-  (cons symbol (global/0 symbol procedure)))
+  (cons symbol (motile/global/0 symbol procedure)))
 
 (define-syntax-rule (define/global/1 symbol procedure)
-  (cons symbol (global/1 symbol procedure)))
+  (cons symbol (motile/global/1 symbol procedure)))
 
 (define-syntax-rule (define/global/2 symbol procedure)
-  (cons symbol (global/2 symbol procedure)))
+  (cons symbol (motile/global/2 symbol procedure)))
 
 (define-syntax-rule (define/global/3 symbol procedure)
-  (cons symbol (global/3 symbol procedure)))
+  (cons symbol (motile/global/3 symbol procedure)))
 
 (define-syntax-rule (define/global/N symbol procedure)
-  (cons symbol (global/N symbol procedure)))
+  (cons symbol (motile/global/N symbol procedure)))
 
 (define-syntax-rule (define/combinator/2 symbol combinator)
   (cons symbol (motile/combinator/2 symbol combinator)))
@@ -158,7 +192,6 @@
      (let ((p (lambda (alpha beta) (less? k/RETURN alpha beta))))
        (rtk (sort items p))))
     ((k _) (global/decompile k 'sort))))
-
 
 
 ;; Motile-specific reworkings of persistent vector primitives that accept functions as arguments.
@@ -284,15 +317,16 @@
 
 ;; Motile-specific call/cc.
 (define (call/cc k f)
-  (if k
-      (f k                           ; Continuation at call position of call/cc.
-         (lambda (k/other v) (k v))) ; Continuation k reified as a function.
-      (vector 'reference/global 'call/cc)))
+  (let ((descriptor (vector 'reference/global 'call/cc)))
+    (if k
+        (f k                           ; Continuation at call position of call/cc.
+           (lambda (k/other v) (k v))) ; Continuation k reified as a function.
+        descriptor)))
 
 ;; The set of primitive procedures available to all Motile mobile code.
 (define BASELINE
-  (pairs/hash
-   hash/eq/null
+  (pairs/environ
+   environ/null
    (list
     ; Type testing.
     (define/global/1 'boolean?   boolean?)
@@ -326,6 +360,7 @@
     ; List construction and deconstruction.
     (define/global/2 'cons     cons)
     (define/global/N 'list     list)
+    (define/global/N 'list*    list*)
     (define/global/1 'car      car)
     (define/global/1 'cdr      cdr)
     (define/global/1 'caar     caar)
@@ -556,6 +591,14 @@
     (define/combinator/2 'tuple/map        tuple/map)
     (define/combinator/2 'tuple/partition  tuple/partition)
 
+    ; Binding environments
+    (cons 'environ/null environ/null)
+    (cons 'environ/capture
+          ; This one has to be hand crafted.
+          (let ((descriptor (vector 'reference/global 'environ/capture)))
+            (lambda (k e global)
+              (if k (k global) descriptor))))
+
     ; Higher order functions.
     (cons            'apply     motile/apply)
     (cons            'map       motile/map)
@@ -577,7 +620,7 @@
     )))
 
 (define ENVIRON/TEST
-  (pairs/hash
+  (pairs/environ
    BASELINE
    (list
     ; Mutable vectors for some regression tests.

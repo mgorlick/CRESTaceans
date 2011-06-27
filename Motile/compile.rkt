@@ -23,11 +23,15 @@
  "set.ss")
 
 (require racket/pretty) ; For testing only.
+(require "persistent/environ.rkt") ; Testing only at this point 2011.06.16
 
 (provide
  mischief/compile
  mischief/decompile
  mischief/start
+ motile/compile
+ motile/decompile
+ motile/start
  should-be
  start
  rtk/RETURN
@@ -47,7 +51,7 @@
  lambda/rest/inner/generate
  lambda/rest/generate
  or/generate
- reference/global/variable/generate
+ motile/reference/global/variable/generate
  sequence/generate
  setter/generate
  unless/generate
@@ -62,6 +66,7 @@
 ;; A value of #f for v[0] represents the bottom (empty frame) of the run-time environment.
 (define (rte/push rte arguments) (list->vector (cons rte arguments)))
 (define (rte/pop rte) (vector-ref rte 0))
+(define-syntax-rule (e/pop e) (vector-ref e 0))
 
 (define (evaluate e)
   (let ((closure (compile `(lambda () ,e))))
@@ -82,7 +87,7 @@
        ((eq? e 'null)
         (constant/null/generate))                          ; The constant, null.
        (else
-        (reference/global/variable/generate e))))          ; Global variable.
+        (motile/reference/global/variable/generate e))))          ; Global variable.
 
     ((not (pair? e))
      (constant/generate e))
@@ -133,6 +138,23 @@
     
     ((or? e)
      (or/compile e lexical))
+    
+    ; Special forms for binding environments.
+    
+    ; (environ/cons <environ> <symbol_1> ... <symbol_n>)
+    ((environ/cons? e)
+     (environ/cons/compile e lexical))
+    
+    ((environ/value? e)
+     (environ/value/compile e lexical))
+    
+    ; (environ/remove <environ> <symbol_1> ... <symbol_n>)
+    ((environ/remove? e)
+     (environ/remove/compile e lexical))
+
+    ; (environ/reflect E e_1 ... e_n)
+    ((environ/reflect? e)
+     (environ/reflect/compile e lexical))
 
     ; The following three cases deal with quasiquotation.
     ((quasiquote? e)
@@ -477,19 +499,19 @@
           (scheme/compile `(let ()  ,@body) lexical/body)) ; Compile the letrec body in its handcrafted lexical scope.
 
          (letrec/inner ; Lambda that binds letrec variable to its definition and then invokes the letrec body.
-          (lambda/1/generate
+          (motile/lambda/1/generate
            (sequence/generate
             2 
             (list 
-             (setter/1/generate) ; Set the letrec variable to its defined value.
+             (motile/setter/1/generate) ; Set the letrec variable to its defined value.
              letrec/body))))       ; Execute the letrec body post binding.
 
          (letrec/outer ; Lambda that defines the letrec variable and calls the inner lambda with the proper letrec binding value
-          (lambda/1/generate
-           (combination/1/generate letrec/inner letrec/e_1)))
+          (motile/lambda/1/generate
+           (motile/combination/1/generate letrec/inner letrec/e_1)))
          
          (final
-          (combination/1/generate letrec/outer (constant/false/generate))))
+          (motile/combination/1/generate letrec/outer (constant/false/generate))))
     final)) 
 
 (define (letrec/2/generate variables e_1 e_2 body lexical)
@@ -508,19 +530,19 @@
           (scheme/compile `(let () ,@body) lexical/body)) ; Compile the letrec body in its handcrafted lexical scope.
 
          (letrec/inner ; Lambda that binds the letrec variables and invokes the letrec body.
-          (lambda/2/generate
+          (motile/lambda/2/generate
            (sequence/generate
             2 
             (list 
-             (setter/2/generate) ; Set the letrec variables in letrec/outer to their defined values.
+             (motile/setter/2/generate) ; Set the letrec variables in letrec/outer to their defined values.
              letrec/body))))       ; Execute the letrec body post binding.
 
          (letrec/outer ; Lambda that defines the letrec variables and calls the inner lambda with the proper letrec binding value
-          (lambda/2/generate
-           (combination/2/generate letrec/inner letrec/e_1 letrec/e_2)))
+          (motile/lambda/2/generate
+           (motile/combination/2/generate letrec/inner letrec/e_1 letrec/e_2)))
          
          (final
-          (combination/2/generate letrec/outer (constant/false/generate) (constant/false/generate))))
+          (motile/combination/2/generate letrec/outer (constant/false/generate) (constant/false/generate))))
     final))
 
 (define (letrec/3/generate variables e_1 e_2 e_3 body lexical)
@@ -540,19 +562,19 @@
           (scheme/compile `(let () ,@body) lexical/body)) ; Compile the letrec body in its handcrafted lexical scope.
 
          (letrec/inner ; Lambda that binds the letrec variables and invokes the letrec body.
-          (lambda/3/generate
+          (motile/lambda/3/generate
            (sequence/generate
             2 
             (list 
-             (setter/3/generate) ; Set the letrec variables in letrec/outer to their defined values.
+             (motile/setter/3/generate) ; Set the letrec variables in letrec/outer to their defined values.
              letrec/body))))       ; Execute the letrec body post binding.
 
          (letrec/outer ; Defines the letrec variables and calls the inner lambda with the binding values for the letrec variables.
-          (lambda/3/generate
-           (combination/3/generate letrec/inner letrec/e_1 letrec/e_2 letrec/e_3)))
+          (motile/lambda/3/generate
+           (motile/combination/3/generate letrec/inner letrec/e_1 letrec/e_2 letrec/e_3)))
          
          (final
-          (combination/3/generate letrec/outer (constant/false/generate) (constant/false/generate) (constant/false/generate))))
+          (motile/combination/3/generate letrec/outer (constant/false/generate) (constant/false/generate) (constant/false/generate))))
     final))
 
 (define (letrec/N/generate n variables expressions body lexical)
@@ -574,37 +596,39 @@
            (sequence/generate
             2 
             (list 
-             (setter/N/generate n) ; Set the letrec variables in letrec/outer to their defined values.
+             (motile/setter/N/generate n) ; Set the letrec variables in letrec/outer to their defined values.
              letrec/body))))                          ; Execute the letrec body post binding.
 
          (letrec/outer ; Defines the letrec variables and calls the inner lambda with the binding values for the letrec variables.
-          (lambda/N/generate
+          (motile/lambda/N/generate
            n
-           (combination/N/generate letrec/inner letrec/expressions))) ; Body of letrec/outer.
+           (motile/combination/N/generate letrec/inner letrec/expressions))) ; Body of letrec/outer.
          
          (final
-          (combination/N/generate letrec/outer (make-list n (constant/false/generate))))) ; Apply letrec/outer to junk values.
+          (motile/combination/N/generate letrec/outer (make-list n (constant/false/generate))))) ; Apply letrec/outer to junk values.
     final))
 
 
 (define (test/letrec/1a)
   (let ((code (letrec/2/generate
-               '(a b)
-               11
-               '(lambda () (+ a 13))
-               '(b)
-               #f)))
-    (pretty-display (code #f #f))
-    (pretty-display (code rtk/RETURN RTE))))
+               '(a b)                 ; Variables.
+               11                     ; Expression_1.
+               '(lambda () (+ a 13))  ; Expression_2.
+               '(b)                   ; Body.
+               #f)))                  ; Lexical stack (empty).
+    (pretty-display (motile/decompile code))
+    (let ((f (motile/start code ENVIRON/TEST)))
+      (pretty-display (motile/start f ENVIRON/TEST)))))
+    ;(pretty-display (motile/start code ENVIRON/TEST)
 
 (define (test/letrec/1b)
   (let ((code (letrec/1/generate
-               'factorial
-               '(lambda (n) (if (= n 1) 1 (* n (factorial (sub1 n)))))
-               '(factorial 5)
+               'factorial ; Variable.
+               '(lambda (n) (if (= n 1) 1 (* n (factorial (sub1 n))))) ; Expression.
+               '(factorial 5) ; Body.
                #f))) ; Empty lexical stack
-    (pretty-display (code #f #f))
-    (pretty-display (code rtk/RETURN RTE))))
+    (pretty-display (motile/decompile code))
+    (pretty-display (motile/start code ENVIRON/TEST))))
 
 (define (test/letrec/2)
   (let ((code (letrec/2/generate
@@ -643,15 +667,21 @@
 ;; Only the recompiler uses this function. 
 (define (setter/generate n)
   (cond
-    ((= n 1) (setter/1/generate))
-    ((= n 2) (setter/2/generate))
-    ((= n 3) (setter/3/generate))
-    (else    (setter/N/generate n))))
+    ((= n 1) (motile/setter/1/generate))
+    ((= n 2) (motile/setter/2/generate))
+    ((= n 3) (motile/setter/3/generate))
+    (else    (motile/setter/N/generate n))))
 
 (define (setter/1/generate)
   (lambda (rtk rte)
     (if rtk
         (rtk (vector-set! (rte/pop rte) 1 (vector-ref rte 1))) ; Set address (1 . 1) to value of (0 . 1).
+        (vector 'setter 1))))
+
+(define (motile/setter/1/generate)
+  (lambda (k e _)
+    (if k
+        (k (vector-set! (rte/pop e) 1 (vector-ref e 1))) ; Set address (1 . 1) to value of (0 . 1).
         (vector 'setter 1))))
 
 (define (setter/2/generate)
@@ -663,6 +693,15 @@
            (vector-set! prior 2 (vector-ref rte 2)))) ; Set address (1 . 2) to value of (0 . 2).
         (vector 'setter 2))))
 
+(define (motile/setter/2/generate)
+  (lambda (k e _)
+    (if k
+        (k
+         (let ((prior (e/pop e)))
+           (vector-set! prior 1 (vector-ref e 1))   ; Set address (1 . 1) to value of (0 . 1).
+           (vector-set! prior 2 (vector-ref e 2)))) ; Set address (1 . 2) to value of (0 . 2).
+        (vector 'setter 2))))
+
 (define (setter/3/generate)
   (lambda (rtk rte)
     (if rtk
@@ -671,6 +710,16 @@
            (vector-set! prior 1 (vector-ref rte 1))   ; Set address (1 . 1) to value of (0 . 1).
            (vector-set! prior 2 (vector-ref rte 2))   ; Set address (1 . 2) to value of (0 . 2).
            (vector-set! prior 3 (vector-ref rte 3)))) ; Set address (1 . 3) to value of (0 . 3).
+        (vector 'setter 3))))
+
+(define (motile/setter/3/generate)
+  (lambda (k e _)
+    (if k
+        (k
+         (let ((prior (e/pop e)))
+           (vector-set! prior 1 (vector-ref e 1))   ; Set address (1 . 1) to value of (0 . 1).
+           (vector-set! prior 2 (vector-ref e 2))   ; Set address (1 . 2) to value of (0 . 2).
+           (vector-set! prior 3 (vector-ref e 3)))) ; Set address (1 . 3) to value of (0 . 3).
         (vector 'setter 3))))
 
 (define (setter/N/generate n)
@@ -686,6 +735,19 @@
               (loop prior (cdr values) (add1 i)))
              (else
               (void)))))
+        (vector 'setter n))))
+
+(define (motile/setter/N/generate n)
+  (lambda (k e _)
+    (if k
+        (k
+         (let loop ((prior (e/pop e))
+                    (values (vector-ref e 1)) ; The rest argument of the enclosing lambda.
+                    (i 1))
+           (when (pair? values)
+              (vector-set! prior i (car values))  ; Set address (1 . i) to the i'th value.
+              (loop prior (cdr values) (add1 i)))))
+
         (vector 'setter n))))
 
 ;; Extract the <name> from a definition.
@@ -921,6 +983,116 @@
            (if x (rtk x) (tail rtk rte)))
          rte)
         (vector 'or (head #f #f) (tail #f #f)))))
+
+;; Compilation of environ/... special forms.
+
+;; MUST implement restriction to lexical scope identifiers only !!!
+
+; (alphabet <environ> <identifier> ... <identifier>).
+(define (environ/cons/compile e lexical)
+  (shape e 3)
+  (let ((x (environ/cons/environ e)) ; <environ> expression
+        (identifiers (environ/cons/identifiers e))) ; <identifier> ... <identifier>
+    (if (andmap symbol? identifiers)
+        
+        ; In addition every <identifier> must be declared within lexical scope.
+        (if (andmap (lambda (s) (lexical/variable? lexical s)) identifiers)
+            (let ((environ/code ; The closure to evaluate the <environ> expression.
+                   (scheme/compile x lexical))
+                  (values/code  ; The closures for each identifier binding in lexical scope.
+                   (map (lambda (identifier) (scheme/compile identifier lexical)) identifiers)))
+              (environ/cons/generate environ/code (list->vector identifiers) (list->vector values/code)))
+            
+            (error (format "All symbols ~a in ~a must be in lexical scope" identifiers e)))
+
+        ; Some <identifier> is not a literal symbol.
+        (error (format "Non-symbol(s) appear in arguments ~a to ~a" identifiers e)))))
+
+;; environ/code - a Motile closure that will return a Motile binding environment
+;; identifiers - a vector of symbols s_1 ... s_n
+;; values/code - a vector of Motile closures v_1 ... v_n
+(define (environ/cons/generate environ/code identifiers values/code)
+  (lambda (k e g)
+    (if k
+        (k
+         (let
+             ; This code can't fail at the Motile-level since it is just lexical lookup.
+             ((values (vector-map (lambda (code) (code k/RETURN e g)) values/code)))
+           (environ/code
+            (lambda (environ) (vectors/environ environ identifiers values))
+            e
+            g)))
+        
+        (vector
+         'environ/cons
+         (vector-length identifiers)
+         (motile/decompile environ/code)
+         identifiers
+         (vector-map (lambda (code) (motile/decompile code)) values/code)))))
+
+;; (environ/value <environ> <symbol> <substitute>).
+(define (environ/value/compile e lexical)
+  (shape e 4)
+  (let ((environ    (environ/value/environ e))
+        (symbol     (environ/value/identifier e))
+        (substitute (environ/value/substitute e)))
+    (if (symbol? symbol)
+        (let ((environ/code (scheme/compile environ lexical))
+              (substitute/code (scheme/compile substitute lexical)))
+          (environ/value/generate environ/code symbol substitute/code))
+        (error (format "Expected symbol for identifier in ~a got ~a instead" e symbol)))))
+
+(define (environ/value/generate environ/code symbol failure/code)
+  (lambda (k e g)
+    (if k
+        (k
+         (environ/code
+          ; Continuation for environ/code.
+          (lambda (environ)
+            (failure/code 
+             ; Continuation for failure/code
+             (lambda (failure) (environ/value environ symbol failure))
+             e g))
+          e g))
+
+        (vector 'environ/value (motile/decompile environ/code) symbol (motile/decompile failure/code)))))
+
+;; (environ/remove <environ> <symbol_1> ... <symbol_n>)
+(define (environ/remove/compile e lexical)
+  (shape e 3)
+  (let ((x (environ/remove/e e)) ; <environ>
+        (symbols (environ/remove/symbols e)))
+    (if (andmap symbol? symbols)
+        (let ((environ/code (scheme/compile x lexical)))
+          (environ/remove/generate environ/code (list->vector symbols)))
+        (error "Illegal identifier in ~s" e))))
+
+;; environ/code - a Motile closure that will return a Motile binding environment
+;; symbols - a non-empty vector of symbols
+(define (environ/remove/generate environ/code symbols)
+  (lambda (k e g)
+    (if k
+        (k
+         (environ/code
+          (lambda (environ) (environ/vector/remove environ symbols)) ; Continuation for environ/code.
+          e g))
+
+        (vector 'environ/remove (vector-length symbols) (motile/decompile environ/code) symbols))))
+
+(define (environ/reflect/compile e lexical)
+  (shape e 2)
+  (let ((global/code (scheme/compile (environ/reflect/environ e) lexical))
+        (body        (sequence/compile (environ/reflect/expressions e) lexical)))
+    (environ/reflect/generate global/code body)))
+
+(define (environ/reflect/generate global/code body)
+  (lambda (k e g)
+    (if k
+        (global/code
+         (lambda (global) (body k e global)) ; Evaluate the body in the context of the reflected global binding environment.
+         e g)
+
+        (vector 'environ/reflect (motile/decompile global/code) (motile/decompile body)))))
      
 ;; The COMPILE-time (NOT the run-time) lexical scope stack is represented as (prior s_1 s_2 ... s_N)
 ;; where s_1, s_2, ..., s_N are the symbols available in the most recent lexical scope and
@@ -994,6 +1166,12 @@
 ;(define (closure/span v) (- (vector-length v) 2))
 ;(define (closure/code v)      (vector-ref v 0))
 ;(define (closure/addresses v) (vector-ref v 1))
+
+(define (pretty/e e)
+  (let loop ((e e))
+    (when (vector-ref e 0)
+      (pretty-display (cdr (vector->list e)))
+      (loop (e/pop e)))))
   
 
 ;; Fetch a value from a frame of the run-time environ.
@@ -1001,6 +1179,9 @@
   (let loop ((rte rte)
              (frame  (car address))
              (offset (cdr address)))
+    (display (format "frame: ~s offset: ~s\n" frame offset))
+    ;(pretty/e rte)
+    (newline)
     (cond
       ((= frame 0) (vector-ref rte offset))
       ((= frame 1) (vector-ref (vector-ref rte 0) offset))
@@ -1026,7 +1207,7 @@
 (define (reference/rte/frame/N/generate frame offset)
   (lambda (rtk rte)
     (if rtk
-        (rtk (vector-ref (rte/unwind rte frame offset)))
+        (rtk (vector-ref (rte/unwind rte frame) offset)) ;(rtk (vector-ref (rte/unwind rte frame offset)))
         (vector 'reference/local frame offset))))
 
 ;(define (reference/rte/frame/+2/generate closure)
@@ -1120,6 +1301,14 @@
    (hash/ref global symbol #f) ; We now use persistent functional hash tables rather than Racket immutable hash tables.
    (error 'global/find "undefined: ~s" symbol)))
 
+(define JUNK (gensym 'junk))
+
+(define (motile/global/find global symbol)
+  (let ((value (environ/value global symbol JUNK)))
+    (if (eq? value JUNK)
+        (error 'motile/global/find "undefined: ~s" symbol)
+        value)))
+
 ; Any variable not in lexical scope must appear in the global environ.
 ; Generate a closure to dereference the given symbol in the global environ.
 ;(define (reference/global/variable/generate symbol)
@@ -1137,32 +1326,16 @@
 ;; !!!! Experiment A !!!!
 ;; This version DOESN'T cache global values.
 ;; If we try to cache the values of global bindings then those cache values persist.
-(define (reference/global/variable/generate symbol)
-    (lambda (rtk rte)
-      (if rtk
-          (rtk (global/find (rte/bottom/global rte) symbol))
-          (vector 'reference/global symbol))))
-
-;; Experimental version for Motile where the global binding environment is a foundational object.
-;; However this version is NOT thread-safe.
-;(define (motile/reference/global/variable/generate symbol)
-;  (let ((global/seen #f)
-;        (value #f))
-;    (lambda (rtk rte global)
+;(define (reference/global/variable/generate symbol)
+;    (lambda (rtk rte)
 ;      (if rtk
-;          (rtk
-;           (cond
-;             ((eq? global/seen global) value)
-;             (else
-;              (set! global/seen global)
-;              (set! value (global/find global symbol))
-;              value)))
-;          (vector 'reference/global symbol)))))
+;          (rtk (global/find (rte/bottom/global rte) symbol))
+;          (vector 'reference/global symbol))))
 
 (define (motile/reference/global/variable/generate symbol)
-  (lambda (rtk rte global)
+  (lambda (rtk _ global)
     (if rtk
-        (rtk (global/find global symbol))
+        (rtk (motile/global/find global symbol))
         (vector 'reference/global symbol))))
             
         
@@ -1174,10 +1347,10 @@
       (rte/frame (rte/pop rte) (sub1 major))))
 
 (define-syntax-rule (macro/constant/generate c)
-  (lambda (rtk rte)
-    (cond
-      (rtk (rtk c))
-      (else (vector 'constant/generate c)))))
+  (lambda (k/apply e/apply _)
+    (if k/apply
+        (k/apply c)
+        (vector 'constant/generate c))))
 
 ;; Generate a closure for a constant value.
 (define (constant/generate value)
@@ -1226,14 +1399,23 @@
     (if/generate test then else)))                    
                     
 ;; Generate a closure for (if <test> <then> <else>). 
+;(define (if/generate test then else)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (test
+;         (lambda (x) ; The continuation for the test.
+;           (if x (then rtk rte) (else rtk rte)))
+;         rte)
+;        (vector 'if (test #f #f) (then #f #f) (else #f #f)))))
+
 (define (if/generate test then else)
-  (lambda (rtk rte)
-    (if rtk
+  (lambda (k e g)
+    (if k
         (test
-         (lambda (x) ; The continuation for the test.
-           (if x (then rtk rte) (else rtk rte)))
-         rte)
-        (vector 'if (test #f #f) (then #f #f) (else #f #f)))))
+         (lambda (x) (if x (then k e g) (else k e g))) ; The continuation for the test.
+         e g)
+        
+        (vector 'if (motile/decompile test) (motile/decompile then) (motile/decompile else)))))
     
 (define (when/compile e lexical)
   (shape e 3)
@@ -1278,135 +1460,255 @@
 ;; It returns a closure (lambda (rtk rte) ...) that:
 ;; (1) Ensures left-to-right evaluation of closures c_i
 ;; (2) Returns the value of the evaluation of c_N.
+;(define (sequence/generate n codes)
+;  (if (= n 1)
+;      (car codes)
+;
+;      (let ((c (car codes))
+;            (tail (sequence/generate (sub1 n) (cdr codes))))
+;        (lambda (rtk rte)
+;          (if rtk
+;            (c (lambda (_) (tail rtk rte)) rte)
+;            (vector 'sequence n (map (lambda (c) (c #f #f)) codes)))))))
+
 (define (sequence/generate n codes)
   (if (= n 1)
       (car codes)
 
       (let ((c (car codes))
             (tail (sequence/generate (sub1 n) (cdr codes))))
-        (lambda (rtk rte)
-          (if rtk
-            (c (lambda (_) (tail rtk rte)) rte)
-            (vector 'sequence n (map (lambda (c) (c #f #f)) codes)))))))
+        (lambda (k/apply e/apply g/apply)
+          (if k/apply
+              ; Let codes = (c_i c_{i+1} ... c_{n-1}).
+              ; Call c_i with three arguments:
+              ;   * A continuation that will invoke the tail of codes c_{i+1} ... c_{n-1}
+              ;   * e/apply, the stack at point of application
+              ;   * g/apply, the global binding environment at point of application.
+              (c (lambda (_) (tail k/apply e/apply g/apply)) e/apply g/apply)
+
+              ; Return a descriptor for the sequence.
+              (vector 'sequence n (map (lambda (c) (motile/decompile c)) codes)))))))
 
 ;; (lambda rest <body>).
+;(define (lambda/rest/1/generate body)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (let ((descriptor #f)
+;              (rte rte))
+;          (rtk
+;           (lambda (k . rest)
+;             (if k
+;                 (body k (vector rte rest))
+;
+;                 (let ((x (car rest)))
+;                   (cond
+;                     ((pair? x)
+;                      ; Reset the global binding environment where a = (#(#f <globals>)).
+;                      (set! rte (car x)))
+;                     ((vector? x)
+;                      ; Ignore any attempt to reset the nonexistent bindings for closed variables.
+;                      (void))
+;                     (else
+;                      ; x is #f. Return a descriptor.
+;                      (unless descriptor
+;                        (set! descriptor (vector 'lambda/rest/inner 1 (body #f #f))))
+;                      descriptor)))))))
+;
+;        (vector 'lambda/rest 1 (body #f #f)))))    
+
 (define (lambda/rest/1/generate body)
-  (lambda (rtk rte)
-    (if rtk
-        (let ((descriptor #f)
-              (rte rte))
-          (rtk
-           (lambda (k . rest)
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (let ((descriptor #f))
+          (k/define 
+           (lambda (k e global . rest)
              (if k
-                 (body k (vector rte rest))
+                 (body k (vector e/define rest) global)
 
-                 (let ((x (car rest)))
-                   (cond
-                     ((pair? x)
-                      ; Reset the global binding environment where a = (#(#f <globals>)).
-                      (set! rte (car x)))
-                     ((vector? x)
-                      ; Ignore any attempt to reset the nonexistent bindings for closed variables.
-                      (void))
-                     (else
-                      ; x is #f. Return a descriptor.
-                      (unless descriptor
-                        (set! descriptor (vector 'lambda/rest/inner 1 (body #f #f))))
-                      descriptor)))))))
+                 (when (zero? e)
+                   (return!
+                    descriptor
+                    (vector 'lambda/rest/inner 1 (motile/decompile body))))))))
 
-        (vector 'lambda/rest 1 (body #f #f)))))    
+        (vector 'lambda/rest 1 (motile/decompile body)))))
+
 
 ;; (lambda (a . rest) <body>)
-(define (lambda/rest/2/generate body)
-  (lambda (rtk rte)
-    (if rtk
-        (let ((descriptor #f)
-              (rte rte))
-          (rtk
-           (lambda (k x . rest)
-             (if k
-                 (body k (vector rte x rest))
-                 
-                 (cond
-                   ((pair? x)
-                    ; Reset the global binding environment where a = (#(#f <globals>)).
-                    (set! rte (car x)))
-                   ((vector? x)
-                    ; Ignore any attempt to reset the nonexistent bindings for closed variables.
-                    (void))
-                   (else
-                    ; x is #f. Return a descriptor.
-                    (unless descriptor
-                      (set! descriptor (vector 'lambda/rest/inner 2 (body #f #f))))
-                    descriptor))))))
+;(define (lambda/rest/2/generate body)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (let ((descriptor #f)
+;              (rte rte))
+;          (rtk
+;           (lambda (k x . rest)
+;             (if k
+;                 (body k (vector rte x rest))
+;                 
+;                 (cond
+;                   ((pair? x)
+;                    ; Reset the global binding environment where a = (#(#f <globals>)).
+;                    (set! rte (car x)))
+;                   ((vector? x)
+;                    ; Ignore any attempt to reset the nonexistent bindings for closed variables.
+;                    (void))
+;                   (else
+;                    ; x is #f. Return a descriptor.
+;                    (unless descriptor
+;                      (set! descriptor (vector 'lambda/rest/inner 2 (body #f #f))))
+;                    descriptor))))))
+;
+;        (vector 'lambda/rest 2 (body #f #f)))))
 
-        (vector 'lambda/rest 2 (body #f #f)))))
+(define (lambda/rest/2/generate body)
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (let ((descriptor #f))
+          (k/define
+           (case-lambda
+             ((k _ global x . rest) (body k (vector e/define x rest) global))
+             ((k n _)
+              (when (zero? n)
+                (return!
+                 descriptor
+                 (vector 'lambda/rest/inner 2 (motile/decompile body))))))))
+
+        (vector 'lambda/rest 2 (motile/decompile body)))))
+
 
 ;; (lambda (a b . rest) <body>).
-(define (lambda/rest/3/generate body)
-  (lambda (rtk rte)
-    (if rtk
-        (let ((descriptor #f)
-              (rte rte))
-          (rtk
-           (case-lambda
-             ((k a b . rest)
-              (body k (vector rte a b rest)))
-             ((k x)
-              (unless k
-                (cond
-                  ((pair? x)
-                   ; Reset the global binding environment where a = (#(#f <globals>)).
-                   (set! rte (car x)))
-                  ((vector? x)
-                   ; Ignore any attempt to reset the nonexistent bindings for closed variables.
-                   (void))
-                  (else
-                   ; x is #f. Return a descriptor.
-                   (unless descriptor
-                     (set! descriptor (vector 'lambda/rest/inner 3 (body #f #f))))
-                   descriptor)))))))
+;(define (lambda/rest/3/generate body)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (let ((descriptor #f)
+;              (rte rte))
+;          (rtk
+;           (case-lambda
+;             ((k a b . rest)
+;              (body k (vector rte a b rest)))
+;             ((k x)
+;              (unless k
+;                (cond
+;                  ((pair? x)
+;                   ; Reset the global binding environment where a = (#(#f <globals>)).
+;                   (set! rte (car x)))
+;                  ((vector? x)
+;                   ; Ignore any attempt to reset the nonexistent bindings for closed variables.
+;                   (void))
+;                  (else
+;                   ; x is #f. Return a descriptor.
+;                   (unless descriptor
+;                     (set! descriptor (vector 'lambda/rest/inner 3 (body #f #f))))
+;                   descriptor)))))))
+;
+;        (vector 'lambda/rest 3 (body #f #f)))))
 
-        (vector 'lambda/rest 3 (body #f #f)))))
+(define (lambda/rest/3/generate body)
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (let ((descriptor #f))
+          (k/define
+           (case-lambda
+             ((k _ global x y . rest) (body k (vector e/define x y rest) global))
+             ((k n _)
+              (when (zero? n)
+                (return!
+                 descriptor
+                 (vector 'lambda/rest/inner 3 (motile/decompile body))))))))
+
+        (vector 'lambda/rest 3 (motile/decompile body)))))
 
 ;; (lambda (a b c . rest) <body>)
-(define (lambda/rest/4/generate body)
-  (lambda (rtk rte)
-    (if rtk
-        (let ((descriptor #f)
-              (rte rte))
-          (rtk
-           (case-lambda
-             ((k a b c . rest)
-              (body k (vector rte a b c rest)))
-             ((k x)
-              (unless k
-                (cond
-                  ((pair? x)
-                   ; Reset the global binding environment where a = (#(#f <globals>)).
-                   (set! rte (car x)))
-                  ((vector? x)
-                   ; Ignore any attempt to reset the nonexistent bindings for closed variables.
-                   (void))
-                  (else
-                   ; x is #f. Return a descriptor.
-                   (unless descriptor
-                     (set! descriptor (vector 'lambda/rest/inner 4 (body #f #f))))
-                   descriptor)))))))
+;(define (lambda/rest/4/generate body)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (let ((descriptor #f)
+;              (rte rte))
+;          (rtk
+;           (case-lambda
+;             ((k a b c . rest)
+;              (body k (vector rte a b c rest)))
+;             ((k x)
+;              (unless k
+;                (cond
+;                  ((pair? x)
+;                   ; Reset the global binding environment where a = (#(#f <globals>)).
+;                   (set! rte (car x)))
+;                  ((vector? x)
+;                   ; Ignore any attempt to reset the nonexistent bindings for closed variables.
+;                   (void))
+;                  (else
+;                   ; x is #f. Return a descriptor.
+;                   (unless descriptor
+;                     (set! descriptor (vector 'lambda/rest/inner 4 (body #f #f))))
+;                   descriptor)))))))
+;
+;        (vector 'lambda/rest 4 (body #f #f)))))
 
-        (vector 'lambda/rest 4 (body #f #f)))))
+
+(define (lambda/rest/4/generate body)
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (let ((descriptor #f))
+          (k/define
+           (case-lambda
+             ((k _ global x y z . rest) (body k (vector e/define x y z rest) global))
+             ((k n _)
+              (when (zero? n)
+                (return!
+                 descriptor
+                 (vector 'lambda/rest/inner 4 (motile/decompile body))))))))
+
+        (vector 'lambda/rest 4 (motile/decompile body)))))
 
 ;; The general case with n > 3 parameters, for which the last is a rest parameter.
+;(define (lambda/rest/N/generate n body)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (let ((descriptor #f)
+;              (rte rte))
+;          (rtk
+;           (case-lambda 
+;             ((k a b c . rest)
+;              (let ((frame (make-vector (add1 n))))
+;                (vector-set! frame 0 rte)
+;                (vector-set! frame 1 a)
+;                (vector-set! frame 2 b)
+;                (vector-set! frame 3 c)
+;                (let loop ((i 4) (rest rest))
+;                  (cond
+;                    ((< i n)
+;                     (vector-set! frame i (car rest))
+;                     (loop (add1 i) (cdr rest)))
+;                    (else
+;                     (vector-set! frame n rest))))
+;                (body k frame)))
+;             ((k x)
+;              (unless k
+;                (cond
+;                  ((pair? x)
+;                   ; Reset the global binding environment where a = (#(#f <globals>)).
+;                   (set! rte (car x)))
+;                  ((vector? x)
+;                   ; Ignore any attempt to reset the nonexistent bindings for closed variables.
+;                   (void))
+;                  (else
+;                   ; x is #f. Return a descriptor.
+;                   (unless descriptor
+;                     (set! descriptor (vector 'lambda/rest/inner n (body #f #f))))
+;                   descriptor)))))))             
+;
+;        (vector 'lambda/rest n (body #f #f)))))
+
+;; The general case with n > 4 parameters, for which the last is a rest parameter.
 (define (lambda/rest/N/generate n body)
-  (lambda (rtk rte)
-    (if rtk
-        (let ((descriptor #f)
-              (rte rte))
-          (rtk
-           (case-lambda 
-             ((k a b c . rest)
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (let ((descriptor #f))
+          (k/define
+           (case-lambda
+             ((k _ global a b c . rest)
               (let ((frame (make-vector (add1 n))))
-                (vector-set! frame 0 rte)
+                (vector-set! frame 0 e/define)
                 (vector-set! frame 1 a)
                 (vector-set! frame 2 b)
                 (vector-set! frame 3 c)
@@ -1417,23 +1719,14 @@
                      (loop (add1 i) (cdr rest)))
                     (else
                      (vector-set! frame n rest))))
-                (body k frame)))
-             ((k x)
-              (unless k
-                (cond
-                  ((pair? x)
-                   ; Reset the global binding environment where a = (#(#f <globals>)).
-                   (set! rte (car x)))
-                  ((vector? x)
-                   ; Ignore any attempt to reset the nonexistent bindings for closed variables.
-                   (void))
-                  (else
-                   ; x is #f. Return a descriptor.
-                   (unless descriptor
-                     (set! descriptor (vector 'lambda/rest/inner n (body #f #f))))
-                   descriptor)))))))             
+                (body k frame global)))
+             ((k n _)
+              (when (zero? n)
+                (return!
+                 descriptor
+                 (vector 'lambda/rest/inner n (motile/decompile body))))))))
 
-        (vector 'lambda/rest n (body #f #f)))))
+        (vector 'lambda/rest n (motile/decompile body)))))
 
 
 ;; Return #t if symbol is a lambda parameter in the topmost lexical frame and #f otherwise.
@@ -1453,7 +1746,7 @@
   (let* ((parameters (lexical/frame/parameters lexical)) ; (p_1 ... p_M), M > 0.
          (tail       (memq symbol parameters))           ; (p_i ... p_M), i <= M.
          (offset (add1 (- (length parameters) (length tail)))))
-    (lambda (rtk rte) 
+    (lambda (rtk rte _) ; Motile mod 2011.06.18
       (if rtk
           (rtk (vector-ref rte offset))
           (vector 'reference/parameter offset)))))
@@ -1464,9 +1757,9 @@
            (closed     (lexical/frame/closed lexical))
            (tail       (memq symbol closed))
            (offset (+ 1 (length parameters) (- (length closed) (length tail))))) ; Offset from start of frame.
-        (lambda (rtk rte)
-          (if rtk
-              (rtk (vector-ref rte offset))
+        (lambda (k e _)
+          (if k
+              (k (vector-ref e offset))
               (vector 'reference/closed offset)))))
 
 (define (combination/compile e lexical)
@@ -1489,7 +1782,7 @@
 ;          (combination/base/generate (baseline/generate operator) arguments))
          (else
           ;(combination/global/generate (reference/global/variable/generate operator) arguments))))
-          (combination/generate (reference/global/variable/generate operator) arguments)))) ; Generate a reference to a global variable.
+          (combination/generate (motile/reference/global/variable/generate operator) arguments)))) ; Generate a reference to a global variable.
       ((pair? operator) ; Operator is a complex expression though not necessarily appropriate for this position.
        (combination/generate (scheme/compile operator lexical) arguments))
       (else ; Must be a constant.
@@ -1500,76 +1793,179 @@
   (let ((n (length arguments)))
     (cond
       ((= n 0)
-       (combination/0/generate operator))
+       (motile/combination/0/generate operator)) ;(combination/0/generate operator))
       ((= n 1)
-       (combination/1/generate operator (car arguments)))
+       (motile/combination/1/generate operator (car arguments)))
       ((= n 2)
-       (combination/2/generate operator (car arguments) (cadr arguments)))
+       (motile/combination/2/generate operator (car arguments) (cadr arguments)))
       ((= n 3)
-       (combination/3/generate operator (car arguments) (cadr arguments) (caddr arguments)))
+       (motile/combination/3/generate operator (car arguments) (cadr arguments) (caddr arguments)))
       (else
-       (combination/N/generate operator arguments)))))
+       (motile/combination/N/generate operator arguments)))))
+
+
+;; The decompilation of a closure is generated exactly once on demand and cached by the closure,
+;; thereby guaranteeing that if a closure C is referenced in more than one location then the serialization
+;; will correctly detect that C is shared or an element of a cycle. This in turn guarantees that
+;; the deserialization will correctly reconstruct the original reference graph where closure C is
+;; reconstructed exactly once and referenced thereafter.
+
+;; Since the caching of a closure descriptor (that data structure that contains the closure decompilation)
+;; is not thread-safe the island infrastructure for message transmission must ensure that exactly one
+;; thread is responsible for serialization and that no other thread on the island performs serialization.
+;; For now this is both feasible and efficient however when and if we get to the point of saving closures
+;; to disk independent of message transmission we will have to make some changes to the lower level island
+;; infrastructure. One option would be to offer serialization as an "island service" for both the outgoing
+;; messaging layer and any closure archive.
+
+
+
+
+(define-syntax-rule (return! variable value)
+  (begin
+    (unless variable (set! variable value))
+    variable))
+
+(define-syntax-rule (bind! variable value)
+  (unless variable (set! variable value)))
+      
 
 ;; The following five generators produce the code for a combination, (operator a_1 ... a_N).
 ;; where operator is a source procedure.
-(define (combination/0/generate operator)
-  (lambda (rtk rte)
-    (if rtk
-        (operator (lambda (o) (o rtk)) rte)
-        (vector 'combination 0 (operator #f #f) null))))
+;(define (combination/0/generate operator)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (operator (lambda (o) (o rtk)) rte)
+;        (vector 'combination 0 (operator #f #f) null))))
 
-(define (combination/1/generate operator x)
-  (lambda (rtk rte)
-    (if rtk
-        (operator
-         (lambda (o)
-           (x (lambda (a) (o rtk a)) rte))
-         rte)
-        (vector 'combination 1 (operator #f #f) (list (x #f #f))))))
+(define (motile/combination/0/generate operator)
+  (let ((descriptor #f))
+    (lambda (rtk rte global)
+      (if rtk
+          (operator (lambda (o) (o rtk rte global)) rte global)
+          
+          (return! descriptor (vector 'combination 0 (motile/decompile operator) null))))))
 
-(define (combination/2/generate operator x y)
-  (lambda (rtk rte)
-    (if rtk
-        (operator
-         (lambda (o)
-           (x
-            (lambda (a)
-              (y (lambda (b) (o rtk a b)) rte))
-            rte))
-         rte)
-        
-        (vector 'combination 2 (operator #f #f) (list (x #f #f) (y #f #f))))))
+;(define (combination/1/generate operator x)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (operator
+;         (lambda (o)
+;           (x (lambda (a) (o rtk a)) rte))
+;         rte)
+;        (vector 'combination 1 (operator #f #f) (list (x #f #f))))))
 
-(define (combination/3/generate operator x y z)
-  (lambda (rtk rte)
-    (if rtk
-        (operator
-         (lambda (o)
-           (x
-            (lambda (a)
-              (y
-               (lambda (b)
-                 (z (lambda (c) (o rtk a b c)) rte))
-               rte))
-            rte))
-         rte)
+(define (motile/combination/1/generate operator x)
+  (let ((descriptor #f))
+    (lambda (k e g)
+      (if k
+          (operator
+           (lambda (o) (x (lambda (a) (o k e g a)) e g)) ; Continuation for operator.
+           e
+           g)
+          
+          (return! descriptor (vector 'combination 1 (motile/decompile operator) (list (motile/decompile x))))))))
 
-        (vector 'combination 3 (operator #f #f) (list (x #f #f) (y #f #f) (z #f #f))))))
+;(define (combination/2/generate operator x y)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (operator
+;         (lambda (o)
+;           (x
+;            (lambda (a)
+;              (y (lambda (b) (o rtk a b)) rte))
+;            rte))
+;         rte)
+;        
+;        (vector 'combination 2 (operator #f #f) (list (x #f #f) (y #f #f))))))
+
+(define (motile/combination/2/generate operator x y)
+  (let ((descriptor #f))
+    (lambda (k/apply e/apply g/apply)
+      (if k/apply
+          (operator
+           (lambda (o)
+             (x
+              (lambda (a)
+                (y (lambda (b) (o k/apply e/apply g/apply a b)) e/apply g/apply))
+              e/apply
+              g/apply))
+           e/apply
+           g/apply)
+          
+          (return!
+           descriptor
+           (vector 'combination 2 (motile/decompile operator) (list (motile/decompile x) (motile/decompile y))))))))
+
+;(define (combination/3/generate operator x y z)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (operator
+;         (lambda (o)
+;           (x
+;            (lambda (a)
+;              (y
+;               (lambda (b)
+;                 (z (lambda (c) (o rtk a b c)) rte))
+;               rte))
+;            rte))
+;         rte)
+;
+;        (vector 'combination 3 (operator #f #f) (list (x #f #f) (y #f #f) (z #f #f))))))
+
+(define (motile/combination/3/generate operator x y z)
+  (let ((descriptor #f))
+    (lambda (k/apply e/apply g/apply)
+      (if k/apply 
+          (operator
+           (lambda (o)
+             (x
+              (lambda (a)
+                (y
+                 (lambda (b) (z (lambda (c) (o k/apply e/apply g/apply a b c)) e/apply g/apply)) ; Continuation for y.
+                 e/apply
+                 g/apply)) 
+              e/apply
+              g/apply))
+           e/apply
+           g/apply)
+          
+          (return!
+           descriptor
+           (vector 'combination 3 (motile/decompile operator) (list (motile/decompile x) (motile/decompile y) (motile/decompile z))))))))
 
 ;; (operator a_1 ... a_N) where N > 3.
-(define (combination/N/generate operator arguments)
-  (lambda (rtk rte)
-    (if rtk
-        (operator
-         (lambda (o)
-           (map/k
-            (lambda (a k) (a k rte))
-            arguments
-            (lambda (values) (apply o (cons rtk values)))))
-         rte)
+;(define (combination/N/generate operator arguments)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (operator
+;         (lambda (o)
+;           (map/k
+;            (lambda (a k) (a k rte))
+;            arguments
+;            (lambda (values) (apply o (cons rtk values)))))
+;         rte)
+;
+;        (let ((decompiles (map (lambda (a) (a #f #f)) arguments)))
+;          (vector 'combination (length arguments) (operator #f #f) decompiles)))))
 
-        (let ((decompiles (map (lambda (a) (a #f #f)) arguments)))
-          (vector 'combination (length arguments) (operator #f #f) decompiles)))))
+(define (motile/combination/N/generate operator arguments)
+  (let ((descriptor #f))
+    (lambda (k/apply e/apply g/apply)
+      (if k/apply
+          (operator
+           (lambda (o)
+             (map/k
+              (lambda (a k) (a k e/apply g/apply))
+              arguments
+              (lambda (values) (apply o (list* k/apply e/apply g/apply values)))))
+           e/apply
+           g/apply)
+          
+          (return!
+           descriptor
+           (let ((decompiles (map (lambda (a) (motile/decompile a)) arguments)))
+             (vector 'combination (length arguments) (motile/decompile operator) decompiles)))))))
 
 (define (quasiquote/compile e lexical) ; e is (quasiquote <object>)
   (quasiquotation/compile (cadr e) 1 lexical)) ; (cadr e) is <object>.
@@ -1684,7 +2080,7 @@
    (let loop ((frame rte))
      (if (vector-ref frame 0)
          (cons
-          (cdr (vector->list frame)) ; Topmost frame.
+          (cdr (vector->list frame)) ; Topmost frame. 
           (loop (vector-ref frame 0)))
          'GLOBAL))))
 
@@ -1711,6 +2107,13 @@
   (let* ((seen (make-hasheq))
          (outcome (e #f seen)))
     (list outcome seen)))
+
+(define-syntax-rule (motile/compile e) (scheme/compile e #f))
+(define-syntax-rule (motile/decompile c) (c #f 0 #f))
+(define rte/BASE (vector #f))
+(define e/BASE (vector #f)) ; The empty frame at the bottom of the stack.
+(define k/RETURN (lambda (x) x)) ; The triial continuation.
+(define-syntax-rule (motile/start f E) (f k/RETURN e/BASE E))
 
 ;; One or more closed variables in lambda body.
 ;; m: total number of formal parameters
@@ -1752,11 +2155,11 @@
 ;; body: code body of lambda expression.
 (define (lambda/generate m body)
   (cond
-    ((= m 0) (lambda/0/generate body))
-    ((= m 1) (lambda/1/generate body))
-    ((= m 2) (lambda/2/generate body))
-    ((= m 3) (lambda/3/generate body))
-    (else    (lambda/N/generate m body))))
+    ((= m 0) (motile/lambda/0/generate body)) ;; !! Experimental 2011.06.16     ;(lambda/0/generate body))
+    ((= m 1) (motile/lambda/1/generate body))
+    ((= m 2) (motile/lambda/2/generate body))
+    ((= m 3) (motile/lambda/3/generate body))
+    (else    (motile/lambda/N/generate m body))))
 
 ;; One or closed variables in the lambda body and the last formal parameter is a rest argument.
 ;; m: total number of formal parameters including the rest argument
@@ -1857,414 +2260,778 @@
 
 
 ;; Zero lambda parameters + N > 0 closed variables.
+;(define (closure/0/N/generate n addresses body)
+;  (lambda (rtk rte) ; rtk and rte are the continuation and environment respectively at point of DEFINITION.
+;    (if rtk
+;        (let ((bindings #f)   ; No closure bindings have been constructed.
+;              (descriptor #f) ; No closure descriptor has been constructed.
+;              (rte rte)       ; To reset the global binding environment per closure on reconstruction.
+;              (n n))
+;          ; Return the definition of the closure to the point of definition.
+;          (rtk
+;           (case-lambda 
+;             ((k) 
+;              (let ((frame (make-vector (add1 n))))
+;                (vector-set! frame 0 rte)
+;                ; Delay construction of closure bindings until after the letrec bindings (if any) are fully resolved.
+;                ; Note that the construction occurs at most once!
+;                (unless bindings
+;                  (set! bindings (closure/values/make rte addresses)))
+;                (vector-copy! frame 1 bindings) ; Add the closure bindings to the tail of the frame.
+;                (body k frame)))
+;             ((k x)
+;              (unless k
+;                (cond
+;                  ((pair? x)
+;                   ; Reset the global binding environment where x = (#(#f <globals>)), (car x) = #(#f <globals>).
+;                   (set! rte (car x)))
+;                  ((vector? x)
+;                   ; Reset the bindings to the recompiled values.
+;                   (set! bindings x)
+;                   (set! n (vector-length x)))
+;                  (else
+;                   ; If necessary generate the bindings for the closure.
+;                   (unless bindings
+;                     (set! bindings (closure/values/make rte addresses)))
+;                   (unless descriptor
+;                     (set! descriptor (vector 'closure/inner 0 n bindings (body #f #f))))
+;                   descriptor)))))))
+;        
+;        ; rtk is #f
+;        (vector 'closure 0 n addresses (body #f #f)))))
+
 (define (closure/0/N/generate n addresses body)
-  (lambda (rtk rte) ; rtk and rte are the continuation and environment respectively at point of DEFINITION.
-    (if rtk
-        (let ((bindings #f)   ; No closure bindings have been constructed.
-              (descriptor #f) ; No closure descriptor has been constructed.
-              (rte rte)       ; To reset the global binding environment per closure on reconstruction.
-              (n n))
-          ; Return the definition of the closure to the point of definition.
-          (rtk
-           (case-lambda 
-             ((k) 
-              (let ((frame (make-vector (add1 n))))
-                (vector-set! frame 0 rte)
-                ; Delay construction of closure bindings until after the letrec bindings (if any) are fully resolved.
-                ; Note that the construction occurs at most once!
-                (unless bindings
-                  (set! bindings (closure/values/make rte addresses)))
-                (vector-copy! frame 1 bindings) ; Add the closure bindings to the tail of the frame.
-                (body k frame)))
-             ((k x)
-              (unless k
-                (cond
-                  ((pair? x)
-                   ; Reset the global binding environment where x = (#(#f <globals>)), (car x) = #(#f <globals>).
-                   (set! rte (car x)))
-                  ((vector? x)
-                   ; Reset the bindings to the recompiled values.
-                   (set! bindings x)
-                   (set! n (vector-length x)))
-                  (else
-                   ; If necessary generate the bindings for the closure.
-                   (unless bindings
-                     (set! bindings (closure/values/make rte addresses)))
-                   (unless descriptor
-                     (set! descriptor (vector 'closure/inner 0 n bindings (body #f #f))))
-                   descriptor)))))))
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (k/define
+         (let ((bindings #f)   ; No closure bindings have been constructed.
+               (descriptor #f) ; No closure descriptor has been constructed.
+               (n n))
+           
+           (lambda  (k e g) 
+             (if k
+                 (let ((frame (make-vector (add1 n))))
+                   (vector-set! frame 0 e)
+                   ; Delay construction of closure bindings until after the letrec bindings (if any) are fully resolved
+                   ; by resolving the bindings (exactly once) at closure application time NOT at closure definition time.
+                   (bind! bindings (closure/values/make e/define addresses))
+                   (vector-copy! frame 1 bindings) ; Add the closure bindings to the tail of the frame.
+                   (body k frame g))
+                 
+                 ; k is #f so we are either decompiling or recompiling.
+                 (when (number? e)
+                   (cond
+                     ((zero? e)
+                      ; We are decompiling.
+                      (bind! bindings (closure/values/make e/define addresses))
+                      (return!
+                       descriptor
+                       (vector 'closure/inner 0 n bindings (motile/decompile body))))
+                     ((positive? e)
+                      ; We are recompiling. e > 0 is the total number of closed variables and g is a vector of bindings for the closed variables.
+                      (set! bindings g)
+                      (set! n e))))))))
         
-        ; rtk is #f
-        (vector 'closure 0 n addresses (body #f #f)))))
+        ; We are decompiling the closure at point of definition. 
+        (vector 'closure 0 n addresses (motile/decompile body)))))
 
 ;; One lambda parameter + n > 0 closed variables.
+;(define (closure/1/N/generate n addresses body)
+;  (lambda (rtk rte) ; rtk and rte are the continuation and environment respectively at point of DEFINITION.
+;    (if rtk
+;        (let ((bindings #f)   ; No closure bindings have been constructed.
+;              (descriptor #f) ; No closure descriptor has been constructed.
+;              (rte rte)       ; To reset the global binding environment per closure on reconstruction.
+;              (n n))
+;          ; Return the definition of the closure to the point of definition.
+;          (rtk
+;           (lambda (k a) ; k and a are the continuation and argument respectively at point of APPLICATION.
+;             (if k
+;                 (let ((frame (make-vector (+ 2 n))))
+;                   (vector-set! frame 0 rte)
+;                   (vector-set! frame 1 a)
+;                   ; Delay construction of closure bindings until after the letrec bindings (if any) are fully resolved.
+;                   ; Note that the construction occurs at most once!
+;                   (unless bindings
+;                     (set! bindings (closure/values/make rte addresses)))
+;                   (vector-copy! frame 2 bindings) ; Add the closure bindings to the tail of the frame.
+;                   (body k frame))
+;                 
+;                 (cond
+;                   ((vector? a)
+;                    ; Reset the bindings to the recompiled values.
+;                    (set! bindings a)
+;                    (set! n (vector-length a)))
+;                   ((pair? a)
+;                    ; Reset the global binding environment where a = (#(#f <globals>)).
+;                    (set! rte (car a)))
+;                   (else
+;                    ; If necessary generate the bindings for the closure.
+;                    (unless bindings
+;                      (set! bindings (closure/values/make rte addresses)))
+;                    (unless descriptor
+;                      (set! descriptor (vector 'closure/inner 1 n bindings (body #f #f))))
+;                    descriptor))))))
+;        
+;        (vector 'closure 1 n addresses (body #f #f)))))
+
 (define (closure/1/N/generate n addresses body)
-  (lambda (rtk rte) ; rtk and rte are the continuation and environment respectively at point of DEFINITION.
-    (if rtk
-        (let ((bindings #f)   ; No closure bindings have been constructed.
-              (descriptor #f) ; No closure descriptor has been constructed.
-              (rte rte)       ; To reset the global binding environment per closure on reconstruction.
-              (n n))
-          ; Return the definition of the closure to the point of definition.
-          (rtk
-           (lambda (k a) ; k and a are the continuation and argument respectively at point of APPLICATION.
-             (if k
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (k/define
+         (let ((bindings #f)   ; No closure bindings have been constructed.
+               (descriptor #f) ; No closure descriptor has been constructed.
+               (n n))
+           (case-lambda
+             ((k e g a)
                  (let ((frame (make-vector (+ 2 n))))
-                   (vector-set! frame 0 rte)
+                   (vector-set! frame 0 e)
                    (vector-set! frame 1 a)
-                   ; Delay construction of closure bindings until after the letrec bindings (if any) are fully resolved.
-                   ; Note that the construction occurs at most once!
-                   (unless bindings
-                     (set! bindings (closure/values/make rte addresses)))
+                   ; Delay construction of closure bindings until after the letrec bindings (if any) are fully resolved
+                   ; by resolving the bindings (exactly once) at closure application time NOT at closure definition time.
+                   (bind! bindings (closure/values/make e/define addresses))
                    (vector-copy! frame 2 bindings) ; Add the closure bindings to the tail of the frame.
-                   (body k frame))
-                 
-                 (cond
-                   ((vector? a)
-                    ; Reset the bindings to the recompiled values.
-                    (set! bindings a)
-                    (set! n (vector-length a)))
-                   ((pair? a)
-                    ; Reset the global binding environment where a = (#(#f <globals>)).
-                    (set! rte (car a)))
-                   (else
-                    ; If necessary generate the bindings for the closure.
-                    (unless bindings
-                      (set! bindings (closure/values/make rte addresses)))
-                    (unless descriptor
-                      (set! descriptor (vector 'closure/inner 1 n bindings (body #f #f))))
-                    descriptor))))))
+                   (body k frame g)))
+             ((k e g)
+                 ; k is #f so we are either decompiling or recompiling.
+                 (when (and (not k) (number? e))
+                   (cond
+                     ((zero? e)
+                      ; We are decompiling
+                      (bind! bindings (closure/values/make e/define addresses))
+                      (return!
+                       descriptor
+                       (vector 'closure/inner 1 n bindings (motile/decompile body))))
+                     ((positive? e)
+                      ; We are recompiling. e > 0 is the total number of closed variables and g is a vector of bindings for the closed variables.
+                      (set! bindings g)
+                      (set! n e))))))))
         
-        (vector 'closure 1 n addresses (body #f #f)))))
+        ; We are decompiling the closure at point of definition. 
+        (vector 'closure 1 n addresses (motile/decompile body)))))
 
 ;; Two lambda parameters + N > 0 closed variables.
+;(define (closure/2/N/generate n addresses body)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (let ((bindings #f)
+;              (descriptor #f)
+;              (rte rte)
+;              (n n))
+;          (rtk
+;           (case-lambda
+;             ((k a b)
+;              (let ((frame (make-vector (+ 3 n))))
+;                (vector-set! frame 0 rte)
+;                (vector-set! frame 1 a)
+;                (vector-set! frame 2 b)
+;                (unless bindings
+;                  (set! bindings (closure/values/make rte addresses)))
+;                (vector-copy! frame 3 bindings)
+;                (body k frame)))
+;             ((k x)
+;              (unless k
+;                (cond
+;                  ((pair? x)
+;                   ; Reset the global binding environment where a = (#(#f <globals>)).
+;                   (set! rte (car x)))
+;                  ((vector? x)
+;                   ; Reset the bindings to the recompiled values.
+;                   (set! bindings x)
+;                   (set! n (vector-length x)))
+;                  (else
+;                   ; If necessary generate the bindings for the closure.
+;                   (unless bindings
+;                     (set! bindings (closure/values/make rte addresses)))
+;                   (unless descriptor
+;                     (set! descriptor (vector 'closure/inner 2 n bindings (body #f #f))))
+;                   descriptor)))))))
+;        
+;        (vector 'closure 2 n addresses (body #f #f)))))
+
 (define (closure/2/N/generate n addresses body)
-  (lambda (rtk rte)
-    (if rtk
-        (let ((bindings #f)
-              (descriptor #f)
-              (rte rte)
-              (n n))
-          (rtk
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (k/define
+         (let ((bindings #f)   ; No closure bindings have been constructed.
+               (descriptor #f) ; No closure descriptor has been constructed.
+               (n n))
            (case-lambda
-             ((k a b)
-              (let ((frame (make-vector (+ 3 n))))
-                (vector-set! frame 0 rte)
-                (vector-set! frame 1 a)
-                (vector-set! frame 2 b)
-                (unless bindings
-                  (set! bindings (closure/values/make rte addresses)))
-                (vector-copy! frame 3 bindings)
-                (body k frame)))
-             ((k x)
-              (unless k
-                (cond
-                  ((pair? x)
-                   ; Reset the global binding environment where a = (#(#f <globals>)).
-                   (set! rte (car x)))
-                  ((vector? x)
-                   ; Reset the bindings to the recompiled values.
-                   (set! bindings x)
-                   (set! n (vector-length x)))
-                  (else
-                   ; If necessary generate the bindings for the closure.
-                   (unless bindings
-                     (set! bindings (closure/values/make rte addresses)))
-                   (unless descriptor
-                     (set! descriptor (vector 'closure/inner 2 n bindings (body #f #f))))
-                   descriptor)))))))
+             ((k e g a b)
+                 (let ((frame (make-vector (+ 3 n))))
+                   (vector-set! frame 0 e)
+                   (vector-set! frame 1 a)
+                   (vector-set! frame 2 b)
+                   ; Delay construction of closure bindings until after the letrec bindings (if any) are fully resolved
+                   ; by resolving the bindings (exactly once) at closure application time NOT at closure definition time.
+                   (bind! bindings (closure/values/make e/define addresses))
+                   (vector-copy! frame 3 bindings) ; Add the closure bindings to the tail of the frame.
+                   (body k frame g)))
+             ((k e g)
+                 ; k is #f so we are either decompiling or recompiling.
+                 (when (and (not k) (number? e))
+                   (cond
+                     ((zero? e)
+                      ; We are decompiling
+                      (bind! bindings (closure/values/make e/define addresses))
+                      (return!
+                       descriptor
+                       (vector 'closure/inner 2 n bindings (motile/decompile body))))
+                     ((positive? e)
+                      ; We are recompiling. e > 0 is the total number of closed variables and g is a vector of bindings for the closed variables.
+                      (set! bindings g)
+                      (set! n e))))))))
         
-        (vector 'closure 2 n addresses (body #f #f)))))
+        ; We are decompiling the closure at point of definition. 
+        (vector 'closure 2 n addresses (motile/decompile body)))))
   
 ;; Three lambda parameters + N > 0 closed variables.
+;(define (closure/3/N/generate n addresses body)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (let ((bindings #f)
+;              (descriptor #f)
+;              (rte rte)
+;              (n n))
+;          (rtk
+;           (case-lambda
+;             ((k a b c)
+;              (let ((frame (make-vector (+ 4 n))))
+;                (vector-set! frame 0 rte)
+;                (vector-set! frame 1 a)
+;                (vector-set! frame 2 b)
+;                (vector-set! frame 3 c)
+;                (unless bindings
+;                  (set! bindings (closure/values/make rte addresses)))
+;                (vector-copy! frame 4 bindings)
+;                (body k frame)))
+;             ((k x)
+;              (unless k
+;                (cond
+;                  ((pair? x)
+;                   ; Reset the global binding environment where a = (#(#f <globals>)).
+;                   (set! rte (car x)))
+;                  ((vector? x)
+;                   ; Reset the bindings to the recompiled values.
+;                   (set! bindings x)
+;                   (set! n (vector-length x)))
+;                  (else
+;                   ; If necessary generate the bindings for the closure.
+;                   (unless bindings
+;                     (set! bindings (closure/values/make rte addresses)))
+;                   (unless descriptor
+;                     (set! descriptor (vector 'closure/inner 3 n bindings (body #f #f))))
+;                   descriptor)))))))
+;        
+;        (vector 'closure 3 n addresses (body #f #f)))))
+
 (define (closure/3/N/generate n addresses body)
-  (lambda (rtk rte)
-    (if rtk
-        (let ((bindings #f)
-              (descriptor #f)
-              (rte rte)
-              (n n))
-          (rtk
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (k/define
+         (let ((bindings #f)   ; No closure bindings have been constructed.
+               (descriptor #f) ; No closure descriptor has been constructed.
+               (n n))
            (case-lambda
-             ((k a b c)
-              (let ((frame (make-vector (+ 4 n))))
-                (vector-set! frame 0 rte)
-                (vector-set! frame 1 a)
-                (vector-set! frame 2 b)
-                (vector-set! frame 3 c)
-                (unless bindings
-                  (set! bindings (closure/values/make rte addresses)))
-                (vector-copy! frame 4 bindings)
-                (body k frame)))
-             ((k x)
-              (unless k
-                (cond
-                  ((pair? x)
-                   ; Reset the global binding environment where a = (#(#f <globals>)).
-                   (set! rte (car x)))
-                  ((vector? x)
-                   ; Reset the bindings to the recompiled values.
-                   (set! bindings x)
-                   (set! n (vector-length x)))
-                  (else
-                   ; If necessary generate the bindings for the closure.
-                   (unless bindings
-                     (set! bindings (closure/values/make rte addresses)))
-                   (unless descriptor
-                     (set! descriptor (vector 'closure/inner 3 n bindings (body #f #f))))
-                   descriptor)))))))
+             ((k e g a b c)
+                 (let ((frame (make-vector (+ 4 n))))
+                   (vector-set! frame 0 e)
+                   (vector-set! frame 1 a)
+                   (vector-set! frame 2 b)
+                   (vector-set! frame 3 c)
+                   ; Delay construction of closure bindings until after the letrec bindings (if any) are fully resolved
+                   ; by resolving the bindings (exactly once) at closure application time NOT at closure definition time.
+                   (bind! bindings (closure/values/make e/define addresses))
+                   (vector-copy! frame 4 bindings) ; Add the closure bindings to the tail of the frame.
+                   (body k frame g)))
+             ((k e g)
+                 ; k is #f so we are either decompiling or recompiling.
+                 (when (and (not k) (number? e))
+                   (cond
+                     ((zero? e)
+                      ; We are decompiling
+                      (bind! bindings (closure/values/make e/define addresses))
+                      (return!
+                       descriptor
+                       (vector 'closure/inner 3 n bindings (motile/decompile body))))
+                     ((positive? e)
+                      ; We are recompiling. e > 0 is the total number of closed variables and g is a vector of bindings for the closed variables.
+                      (set! bindings g)
+                      (set! n e))))))))
         
-        (vector 'closure 3 n addresses (body #f #f)))))
+        ; We are decompiling the closure at point of definition. 
+        (vector 'closure 3 n addresses (motile/decompile body)))))
+
 
 ;; M > 3 lambda parameters + N > 0 closed variables.
-(define (closure/M/N/generate m n addresses body)
-  (lambda (rtk rte)
-    (if rtk
-        (let ((bindings #f)
-              (descriptor #f)
-              (rte rte)
-              (n n))
-          (rtk
-           (case-lambda
-             ((k a b c . d)
-              (let ((frame (make-vector (+ 1 m n))))
-                (vector-set! frame 0 rte)
-                (vector-set! frame 1 a)
-                (vector-set! frame 2 b)
-                (vector-set! frame 3 c)
-                (let loop ((i 4) (rest d))
-                  (when (<= i m)
-                    (vector-set! frame i (car rest))
-                    (loop (add1 i) (cdr rest))))
-                (unless bindings
-                  (set! bindings (closure/values/make rte addresses)))
-                (vector-copy! frame (add1 m) bindings)
-                (body k frame)))
-             ((k x)
-              (unless k
-                (cond
-                  ((pair? x)
-                   ; Reset the global binding environment where a = (#(#f <globals>)).
-                   (set! rte (car x)))
-                  ((vector? x)
-                   ; Reset the bindings to the recompiled values.
-                   (set! bindings x)
-                   (set! n (vector-length x)))
-                  (else
-                   ; If necessary generate the bindings for the closure.
-                   (unless bindings
-                     (set! bindings (closure/values/make rte addresses)))
-                   (unless descriptor
-                     (set! descriptor (vector 'closure/inner m n bindings (body #f #f))))
-                   descriptor)))))))
+;(define (closure/M/N/generate m n addresses body)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (let ((bindings #f)
+;              (descriptor #f)
+;              (rte rte)
+;              (n n))
+;          (rtk
+;           (case-lambda
+;             ((k a b c . d)
+;              (let ((frame (make-vector (+ 1 m n))))
+;                (vector-set! frame 0 rte)
+;                (vector-set! frame 1 a)
+;                (vector-set! frame 2 b)
+;                (vector-set! frame 3 c)
+;                (let loop ((i 4) (rest d))
+;                  (when (<= i m)
+;                    (vector-set! frame i (car rest))
+;                    (loop (add1 i) (cdr rest))))
+;                (unless bindings
+;                  (set! bindings (closure/values/make rte addresses)))
+;                (vector-copy! frame (add1 m) bindings)
+;                (body k frame)))
+;             ((k x)
+;              (unless k
+;                (cond
+;                  ((pair? x)
+;                   ; Reset the global binding environment where a = (#(#f <globals>)).
+;                   (set! rte (car x)))
+;                  ((vector? x)
+;                   ; Reset the bindings to the recompiled values.
+;                   (set! bindings x)
+;                   (set! n (vector-length x)))
+;                  (else
+;                   ; If necessary generate the bindings for the closure.
+;                   (unless bindings
+;                     (set! bindings (closure/values/make rte addresses)))
+;                   (unless descriptor
+;                     (set! descriptor (vector 'closure/inner m n bindings (body #f #f))))
+;                   descriptor)))))))
+;
+;        (vector 'closure m n addresses (body #f #f)))))
 
-        (vector 'closure m n addresses (body #f #f)))))
+(define (closure/M/N/generate m n addresses body)
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (k/define
+         (let ((bindings #f)   ; No closure bindings have been constructed.
+               (descriptor #f) ; No closure descriptor has been constructed.
+               (n n))
+           (case-lambda
+             ((k e g a b c . d)
+                 (let ((frame (make-vector (+ 1 m n))))
+                   (vector-set! frame 0 e)
+                   (vector-set! frame 1 a)
+                   (vector-set! frame 2 b)
+                   (vector-set! frame 3 c)
+                   (let loop ((i 4) (rest d))
+                     (when (<= i m)
+                       (vector-set! frame i (car rest))
+                       (loop (add1 i) (cdr rest))))
+                   ; Delay construction of closure bindings until after the letrec bindings (if any) are fully resolved
+                   ; by resolving the bindings (exactly once) at closure application time NOT at closure definition time.
+                   (bind! bindings (closure/values/make e/define addresses))
+                   (vector-copy! frame (add1 m) bindings) ; Add the closure bindings to the tail of the frame.
+                   (body k frame g)))
+             ((k e g)
+                 ; k is #f so we are either decompiling or recompiling.
+                 (when (and (not k) (number? e))
+                   (cond
+                     ((zero? e)
+                      ; We are decompiling
+                      (bind! bindings (closure/values/make e/define addresses))
+                      (return!
+                       descriptor
+                       (vector 'closure/inner m n bindings (motile/decompile body))))
+                     ((positive? e)
+                      ; We are recompiling. e > 0 is the total number of closed variables and g is a vector of bindings for the closed variables.
+                      (set! bindings g)
+                      (set! n e))))))))
+        
+        ; We are decompiling the closure at point of definition. 
+        (vector 'closure m n addresses (motile/decompile body)))))
+
+
 
 ;; One rest lambda parameter + N > 0 closed variables.
+;(define (closure/rest/1/N/generate n addresses body)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (let ((bindings #f)
+;              (descriptor #f)
+;              (rte rte)
+;              (n n))
+;          (rtk
+;           (lambda (k . rest)
+;             (if k
+;                 (let ((frame (make-vector (+ 2 n))))
+;                   (vector-set! frame 0 rte)
+;                   (vector-set! frame 1 rest)
+;                   (unless bindings
+;                     (set! bindings (closure/values/make rte addresses)))
+;                   (vector-copy! frame 2 bindings)
+;                   (body k frame))
+;                 
+;                 (let ((x (car rest)))
+;                   (cond
+;                     ((pair? x)
+;                      ; Reset the global binding environment where a = (#(#f <globals>)).
+;                      (set! rte (car x)))
+;                     ((vector? x)
+;                      ; Reset the bindings to the recompiled values.
+;                      (set! bindings x)
+;                      (set! n (vector-length x)))
+;                     (else
+;                      ; If necessary generate the bindings for the closure.
+;                      (unless bindings
+;                        (set! bindings (closure/values/make rte addresses)))
+;                      (unless descriptor
+;                        (set! descriptor (vector 'closure/rest/inner 1 n bindings (body #f #f))))
+;                      descriptor)))))))
+;        
+;        (vector 'closure/rest 1 n addresses (body #f #f)))))
+
 (define (closure/rest/1/N/generate n addresses body)
-  (lambda (rtk rte)
-    (if rtk
-        (let ((bindings #f)
-              (descriptor #f)
-              (rte rte)
-              (n n))
-          (rtk
-           (lambda (k . rest)
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (k/define
+         (let ((bindings #f)
+               (descriptor #f)
+               (n n))
+           
+           (lambda (k e g . rest)
              (if k
                  (let ((frame (make-vector (+ 2 n))))
-                   (vector-set! frame 0 rte)
+                   (vector-set! frame 0 e)
                    (vector-set! frame 1 rest)
-                   (unless bindings
-                     (set! bindings (closure/values/make rte addresses)))
+                   (bind! bindings (closure/values/make e/define addresses))
                    (vector-copy! frame 2 bindings)
-                   (body k frame))
+                   (body k frame g))
                  
-                 (let ((x (car rest)))
+                 (when (number? e)
                    (cond
-                     ((pair? x)
-                      ; Reset the global binding environment where a = (#(#f <globals>)).
-                      (set! rte (car x)))
-                     ((vector? x)
-                      ; Reset the bindings to the recompiled values.
-                      (set! bindings x)
-                      (set! n (vector-length x)))
-                     (else
-                      ; If necessary generate the bindings for the closure.
-                      (unless bindings
-                        (set! bindings (closure/values/make rte addresses)))
-                      (unless descriptor
-                        (set! descriptor (vector 'closure/rest/inner 1 n bindings (body #f #f))))
-                      descriptor)))))))
+                     ((zero? e)
+                      ; We are decompiling
+                      (bind! bindings (closure/values/make e/define addresses))
+                      (return!
+                       descriptor
+                       (vector 'closure/rest/inner 1 n bindings (motile/decompile body))))
+                     ((positive? e)
+                      ; We are recompiling. e > 0 is the total number of closed variables and g is a vector of bindings for the closed variables.
+                      (set! bindings g)
+                      (set! n e))))))))
         
-        (vector 'closure/rest 1 n addresses (body #f #f)))))
+        (vector 'closure/rest 1 n addresses (motile/decompile body)))))
 
 ;; Two lambda parameters including one rest parameter + N > 0 closed variables.
+;(define (closure/rest/2/N/generate n addresses body)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (let ((bindings #f)
+;              (descriptor #f)
+;              (rte rte)
+;              (n n))
+;          (rtk
+;           (lambda (k a . rest)
+;             (if k
+;                 (let ((frame (make-vector (+ 3 n))))
+;                   (vector-set! frame 0 rte)
+;                   (vector-set! frame 1 a)
+;                   (vector-set! frame 2 rest)
+;                   (unless bindings
+;                     (set! bindings (closure/values/make rte addresses)))
+;                   (vector-copy! frame 3 bindings)
+;                   (body k frame))
+;                 
+;                 (cond
+;                   ((pair? a)
+;                    ; Reset the global binding environment where a = (#(#f <globals>)).
+;                    (set! rte (car a)))
+;                   ((vector? a)
+;                    ; Reset the bindings to the recompiled values.
+;                    (set! bindings a)
+;                    (set! n (vector-length a)))
+;                   (else
+;                    ; If necessary generate the bindings for the closure.
+;                    (unless bindings
+;                      (set! bindings (closure/values/make rte addresses)))
+;                    (unless descriptor
+;                      (set! descriptor (vector 'closure/rest/inner 2 n bindings (body #f #f))))
+;                    descriptor))))))
+;
+;        (vector 'closure/rest 2 n addresses (body #f #f)))))
+
 (define (closure/rest/2/N/generate n addresses body)
-  (lambda (rtk rte)
-    (if rtk
-        (let ((bindings #f)
-              (descriptor #f)
-              (rte rte)
-              (n n))
-          (rtk
-           (lambda (k a . rest)
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (k/define
+         (let ((bindings #f)
+               (descriptor #f)
+               (n n))
+           
+           (lambda (k e g a . rest)
              (if k
                  (let ((frame (make-vector (+ 3 n))))
-                   (vector-set! frame 0 rte)
+                   (vector-set! frame 0 e)
                    (vector-set! frame 1 a)
                    (vector-set! frame 2 rest)
-                   (unless bindings
-                     (set! bindings (closure/values/make rte addresses)))
+                   (bind! bindings (closure/values/make e/define addresses))
                    (vector-copy! frame 3 bindings)
-                   (body k frame))
+                   (body k frame g))
                  
-                 (cond
-                   ((pair? a)
-                    ; Reset the global binding environment where a = (#(#f <globals>)).
-                    (set! rte (car a)))
-                   ((vector? a)
-                    ; Reset the bindings to the recompiled values.
-                    (set! bindings a)
-                    (set! n (vector-length a)))
-                   (else
-                    ; If necessary generate the bindings for the closure.
-                    (unless bindings
-                      (set! bindings (closure/values/make rte addresses)))
-                    (unless descriptor
-                      (set! descriptor (vector 'closure/rest/inner 2 n bindings (body #f #f))))
-                    descriptor))))))
-
-        (vector 'closure/rest 2 n addresses (body #f #f)))))
+                 (when (number? e)
+                   (cond
+                     ((zero? e)
+                      ; We are decompiling
+                      (bind! bindings (closure/values/make e/define addresses))
+                      (return!
+                       descriptor
+                       (vector 'closure/rest/inner 2 n bindings (motile/decompile body))))
+                     ((positive? e)
+                      ; We are recompiling. e > 0 is the total number of closed variables and g is a vector of bindings for the closed variables.
+                      (set! bindings g)
+                      (set! n e))))))))
+        
+        (vector 'closure/rest 2 n addresses (motile/decompile body)))))
 
 ;; Three lambda parameters including one rest parameter + N > 0 closed variables.
+;(define (closure/rest/3/N/generate n addresses body)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (let ((bindings #f)
+;              (descriptor #f)
+;              (rte rte)
+;              (n n))
+;          (rtk
+;           (case-lambda
+;             ((k a b . rest)
+;              (let ((frame (make-vector (+ 4 n))))
+;                (vector-set! frame 0 rte)
+;                (vector-set! frame 1 a)
+;                (vector-set! frame 2 b)
+;                (vector-set! frame 3 rest)
+;                (unless bindings
+;                  (set! bindings (closure/values/make rte addresses)))
+;                (vector-copy! frame 4 bindings)
+;                (body k frame)))
+;             ((k x)
+;              (unless k
+;                (cond
+;                  ((pair? x)
+;                   ; Reset the global binding environment where a = (#(#f <globals>)).
+;                   (set! rte (car x)))
+;                  ((vector? x)
+;                   ; Reset the bindings to the recompiled values.
+;                   (set! bindings x)
+;                   (set! n (vector-length x)))
+;                  (else
+;                   ; If necessary generate the bindings for the closure.
+;                   (unless bindings
+;                     (set! bindings (closure/values/make rte addresses)))
+;                   (unless descriptor
+;                     (set! descriptor (vector 'closure/rest/inner 3 n bindings (body #f #f))))
+;                   descriptor)))))))
+;        
+;        (vector 'closure/rest 3 n addresses (body #f #f)))))
+
+
 (define (closure/rest/3/N/generate n addresses body)
-  (lambda (rtk rte)
-    (if rtk
-        (let ((bindings #f)
-              (descriptor #f)
-              (rte rte)
-              (n n))
-          (rtk
-           (case-lambda
-             ((k a b . rest)
-              (let ((frame (make-vector (+ 4 n))))
-                (vector-set! frame 0 rte)
-                (vector-set! frame 1 a)
-                (vector-set! frame 2 b)
-                (vector-set! frame 3 rest)
-                (unless bindings
-                  (set! bindings (closure/values/make rte addresses)))
-                (vector-copy! frame 4 bindings)
-                (body k frame)))
-             ((k x)
-              (unless k
-                (cond
-                  ((pair? x)
-                   ; Reset the global binding environment where a = (#(#f <globals>)).
-                   (set! rte (car x)))
-                  ((vector? x)
-                   ; Reset the bindings to the recompiled values.
-                   (set! bindings x)
-                   (set! n (vector-length x)))
-                  (else
-                   ; If necessary generate the bindings for the closure.
-                   (unless bindings
-                     (set! bindings (closure/values/make rte addresses)))
-                   (unless descriptor
-                     (set! descriptor (vector 'closure/rest/inner 3 n bindings (body #f #f))))
-                   descriptor)))))))
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (k/define
+         (let ((bindings #f)
+               (descriptor #f)
+               (n n))
+           
+           (lambda (k e g a b . rest)
+             (if k
+                 (let ((frame (make-vector (+ 4 n))))
+                   (vector-set! frame 0 e)
+                   (vector-set! frame 1 a)
+                   (vector-set! frame 2 b)
+                   (vector-set! frame 3 rest)
+                   (bind! bindings (closure/values/make e/define addresses))
+                   (vector-copy! frame 4 bindings)
+                   (body k frame g))
+                 
+                 (when (number? e)
+                   (cond
+                     ((zero? e)
+                      ; We are decompiling
+                      (bind! bindings (closure/values/make e/define addresses))
+                      (return!
+                       descriptor
+                       (vector 'closure/rest/inner 3 n bindings (motile/decompile body))))
+                     ((positive? e)
+                      ; We are recompiling. e > 0 is the total number of closed variables and g is a vector of bindings for the closed variables.
+                      (set! bindings g)
+                      (set! n e))))))))
         
-        (vector 'closure/rest 3 n addresses (body #f #f)))))
+        (vector 'closure/rest 3 n addresses (motile/decompile body)))))
 
 ;; Four lambda parameters including one rest parameter + N > 0 closed variables.
-(define (closure/rest/4/N/generate n addresses body)
-  (lambda (rtk rte)
-    (if rtk
-        (let ((bindings #f)
-              (descriptor #f)
-              (rte rte)
-              (n n))
-          (rtk
-           (case-lambda 
-             ((k a b c . rest)
-              (let ((frame (make-vector (+ 5 n))))
-                (vector-set! frame 0 rte)
-                (vector-set! frame 1 a)
-                (vector-set! frame 2 b)
-                (vector-set! frame 3 c)
-                (vector-set! frame 4 rest)
-                (unless bindings
-                  (set! bindings (closure/values/make rte addresses)))
-                (vector-copy! frame 5 bindings)
-                (body k frame)))
-             ((k x)
-              (unless k
-                (cond
-                  ((pair? x)
-                   ; Reset the global binding environment where a = (#(#f <globals>)).
-                   (set! rte (car x)))
-                  ((vector? x)
-                   ; Reset the bindings to the recompiled values.
-                   (set! bindings x)
-                   (set! n (vector-length x)))
-                  (else
-                   ; If necessary generate the bindings for the closure.
-                   (unless bindings
-                     (set! bindings (closure/values/make rte addresses)))
-                   (unless descriptor
-                     (set! descriptor (vector 'closure/rest/inner 4 n bindings (body #f #f))))
-                   descriptor)))))))
+;(define (closure/rest/4/N/generate n addresses body)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (let ((bindings #f)
+;              (descriptor #f)
+;              (rte rte)
+;              (n n))
+;          (rtk
+;           (case-lambda 
+;             ((k a b c . rest)
+;              (let ((frame (make-vector (+ 5 n))))
+;                (vector-set! frame 0 rte)
+;                (vector-set! frame 1 a)
+;                (vector-set! frame 2 b)
+;                (vector-set! frame 3 c)
+;                (vector-set! frame 4 rest)
+;                (unless bindings
+;                  (set! bindings (closure/values/make rte addresses)))
+;                (vector-copy! frame 5 bindings)
+;                (body k frame)))
+;             ((k x)
+;              (unless k
+;                (cond
+;                  ((pair? x)
+;                   ; Reset the global binding environment where a = (#(#f <globals>)).
+;                   (set! rte (car x)))
+;                  ((vector? x)
+;                   ; Reset the bindings to the recompiled values.
+;                   (set! bindings x)
+;                   (set! n (vector-length x)))
+;                  (else
+;                   ; If necessary generate the bindings for the closure.
+;                   (unless bindings
+;                     (set! bindings (closure/values/make rte addresses)))
+;                   (unless descriptor
+;                     (set! descriptor (vector 'closure/rest/inner 4 n bindings (body #f #f))))
+;                   descriptor)))))))
+;
+;        (vector 'closure/rest 4 n addresses (body #f #f)))))
 
-        (vector 'closure/rest 4 n addresses (body #f #f)))))
+
+(define (closure/rest/4/N/generate n addresses body)
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (k/define
+         (let ((bindings #f)
+               (descriptor #f)
+               (n n))
+           
+           (lambda (k e g a b c . rest)
+             (if k
+                 (let ((frame (make-vector (+ 5 n))))
+                   (vector-set! frame 0 e)
+                   (vector-set! frame 1 a)
+                   (vector-set! frame 2 b)
+                   (vector-set! frame 3 c)
+                   (vector-set! frame 4 rest)
+                   (bind! bindings (closure/values/make e/define addresses))
+                   (vector-copy! frame 5 bindings)
+                   (body k frame g))
+                 
+                 (when (number? e)
+                   (cond
+                     ((zero? e)
+                      ; We are decompiling
+                      (bind! bindings (closure/values/make e/define addresses))
+                      (return!
+                       descriptor
+                       (vector 'closure/rest/inner 4 n bindings (motile/decompile body))))
+                     ((positive? e)
+                      ; We are recompiling. e > 0 is the total number of closed variables and g is a vector of bindings for the closed variables.
+                      (set! bindings g)
+                      (set! n e))))))))
+        
+        (vector 'closure/rest 4 n addresses (motile/decompile body)))))
 
 ;; M > 4 lambda parameters including one rest parameter + N > 0 closed variables.
+;(define (closure/rest/M/N/generate m n addresses body)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (let ((bindings #f)
+;              (descriptor #f)
+;              (rte rte)
+;              (n n))
+;          (rtk
+;           (case-lambda 
+;             ((k a b c . rest)
+;              (let ((frame (make-vector (+ 1 m n))))
+;                (vector-set! frame 0 rte)
+;                (vector-set! frame 1 a)
+;                (vector-set! frame 2 b)
+;                (vector-set! frame 3 c)
+;                (let loop ((i 4) (rest rest))
+;                  (cond
+;                    ((< i m)
+;                     (vector-set! frame i (car rest))
+;                     (loop (add1 i) (cdr rest)))
+;                    (else
+;                     (vector-set! frame m rest))))
+;                (unless bindings
+;                  (set! bindings (closure/values/make rte addresses)))
+;                (vector-copy! frame (add1 m) bindings)
+;                (body k frame)))
+;             ((k x)
+;              (unless k
+;                (cond
+;                  ((pair? x)
+;                   ; Reset the global binding environment where a = (#(#f <globals>)).
+;                   (set! rte (car x)))
+;                  ((vector? x)
+;                   ; Reset the bindings to the recompiled values.
+;                   (set! bindings x)
+;                   (set! n (vector-length x)))
+;                  (else
+;                   ; If necessary generate the bindings for the closure.
+;                   (unless bindings
+;                     (set! bindings (closure/values/make rte addresses)))
+;                   (unless descriptor
+;                     (set! descriptor (vector 'closure/rest/inner m n bindings (body #f #f))))
+;                   descriptor)))))))
+;        
+;    (vector 'closure/rest m n addresses (body #f #f)))))
+
 (define (closure/rest/M/N/generate m n addresses body)
-  (lambda (rtk rte)
-    (if rtk
-        (let ((bindings #f)
-              (descriptor #f)
-              (rte rte)
-              (n n))
-          (rtk
-           (case-lambda 
-             ((k a b c . rest)
-              (let ((frame (make-vector (+ 1 m n))))
-                (vector-set! frame 0 rte)
-                (vector-set! frame 1 a)
-                (vector-set! frame 2 b)
-                (vector-set! frame 3 c)
-                (let loop ((i 4) (rest rest))
-                  (cond
-                    ((< i m)
-                     (vector-set! frame i (car rest))
-                     (loop (add1 i) (cdr rest)))
-                    (else
-                     (vector-set! frame m rest))))
-                (unless bindings
-                  (set! bindings (closure/values/make rte addresses)))
-                (vector-copy! frame (add1 m) bindings)
-                (body k frame)))
-             ((k x)
-              (unless k
-                (cond
-                  ((pair? x)
-                   ; Reset the global binding environment where a = (#(#f <globals>)).
-                   (set! rte (car x)))
-                  ((vector? x)
-                   ; Reset the bindings to the recompiled values.
-                   (set! bindings x)
-                   (set! n (vector-length x)))
-                  (else
-                   ; If necessary generate the bindings for the closure.
-                   (unless bindings
-                     (set! bindings (closure/values/make rte addresses)))
-                   (unless descriptor
-                     (set! descriptor (vector 'closure/rest/inner m n bindings (body #f #f))))
-                   descriptor)))))))
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (k/define
+         (let ((bindings #f)
+               (descriptor #f)
+               (n n))
+           
+           (lambda (k e g a b c . rest)
+             (if k
+                 (let ((frame (make-vector (+ 1 m n))))
+                   (vector-set! frame 0 e)
+                   (vector-set! frame 1 a)
+                   (vector-set! frame 2 b)
+                   (vector-set! frame 3 c)
+                   (let loop ((i 4) (rest rest))
+                     (cond
+                       ((< i m)
+                        (vector-set! frame i (car rest))
+                        (loop (add1 i) (cdr rest)))
+                       (else
+                        (vector-set! frame m rest))))
+                   (bind! bindings (closure/values/make e/define addresses))
+                   (vector-copy! frame (add1 m) bindings)
+                   (body k frame g))
+                 
+                 (when (number? e)
+                   (cond
+                     ((zero? e)
+                      ; We are decompiling
+                      (bind! bindings (closure/values/make e/define addresses))
+                      (return!
+                       descriptor
+                       (vector 'closure/rest/inner m n bindings (motile/decompile body))))
+                     ((positive? e)
+                      ; We are recompiling. e > 0 is the total number of closed variables and g is a vector of bindings for the closed variables.
+                      (set! bindings g)
+                      (set! n e))))))))
         
-    (vector 'closure/rest m n addresses (body #f #f)))))
+        (vector 'closure/rest m n addresses (motile/decompile body)))))
 
-
+;; Used only by the recompiler.
 (define (lambda/inner/generate m body)
   (let ((code (lambda/generate m body)))
     (code rtk/RETURN #f)))
@@ -2272,7 +3039,7 @@
 ;; In the following four code generation routines
 ;; rte: the run-time-environment at the point of DEFINITION of the source procedure lambda body
 ;; body: the code generated for the source procedure lambda body
-;; A source procedure f is invoked (f k a_1 ... a_N) where k is the continuation and a_i is an argument to f
+;; A source procedure f is invoked (f k rte global a_1 ... a_N) where k is the continuation and a_i is an argument to f
 
 ;; Zero lambda parameters + zero closed variables.
 (define (lambda/0/generate body)
@@ -2300,95 +3067,198 @@
 
         (vector 'lambda 0 (body #f #f)))))
 
-;; One lambda parameter + zero closed variables.
-(define (lambda/1/generate body)
-  (lambda (rtk rte)
-    (if rtk
-        (let ((descriptor #f)
-              (rte rte))
-          (rtk
-           (lambda (k x)
-             (if k
-                 (body k (vector rte x))
-                 
-                 (cond
-                   ((pair? x)
-                    ; Reset the global binding environment where x = (#(#f <globals>)).
-                    (set! rte (car x)))
-                   ((vector? x)
-                    ; Ignore any attempt to reset the nonexistent bindings for closed variables.
-                    (void))
-                   (else
-                    ; x is #f. Return a descriptor.
-                    (unless descriptor
-                      (set! descriptor (vector 'lambda/inner 1 (body #f #f))))
-                    descriptor))))))
+(define (motile/lambda/0/generate body)
+  ; This outermost (lambda (k/define e/define g/define) ...) is evaluated at the point of lambda DEFINITION and if the
+  ; continuation k/define is not #f returns the closure (lambda (k n global) ...) suitable for use at point of APPLICATION.
+  ; k/define - continuation at point of DEFINTION or #f
+  ; e/define - run-time environ (stack) at point of DEFINITION or #f.
+  ; g/define - global binding environment at point of DEFINITION (used)
+    (lambda (k/define e/define g/define)
+      (if k/define
+          (let ((descriptor #f))
+            (k/define
+             (lambda (k e global)
+               (if k
+                   (body k e global) ; NB: we capture the stack at point of DEFINITION!
+                   
+                   ; Return decompilation at point of APPLICATION.
+                   (when (zero? e)
+                     (return!
+                      descriptor
+                      (vector 'lambda/inner 0 (motile/decompile body))))))))
 
-        (vector 'lambda 1 (body #f #f)))))
+        ; Return decompilation for lambda at point of lambda DEFINITION.
+        (vector 'lambda 0 (motile/decompile body)))))
+
+;; One lambda parameter + zero closed variables.
+;(define (lambda/1/generate body)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (let ((descriptor #f)
+;              (rte rte))
+;          (rtk
+;           (lambda (k x)
+;             (if k
+;                 (body k (vector rte x))
+;                 
+;                 (cond
+;                   ((pair? x)
+;                    ; Reset the global binding environment where x = (#(#f <globals>)).
+;                    (set! rte (car x)))
+;                   ((vector? x)
+;                    ; Ignore any attempt to reset the nonexistent bindings for closed variables.
+;                    (void))
+;                   (else
+;                    ; x is #f. Return a descriptor.
+;                    (unless descriptor
+;                      (set! descriptor (vector 'lambda/inner 1 (body #f #f))))
+;                    descriptor))))))
+;
+;        (vector 'lambda 1 (body #f #f)))))
+
+(define (motile/lambda/1/generate body)
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (let ((descriptor #f))
+          (k/define
+           (case-lambda
+             ((k e global x) (body k (vector e x) global))
+             ((k e _)
+              (when (and (not k) (zero? e))
+                (return!
+                 descriptor
+                 (vector 'lambda/inner 1 (motile/decompile body))))))))
+        
+        (vector 'lambda 1 (motile/decompile body)))))
 
 ;; Two lambda parameters + zero closed variables.
-(define (lambda/2/generate body)
-  (lambda (rtk rte)
-    (if rtk
-        (let ((descriptor #f)
-              (rte rte))
-          (rtk 
+;(define (lambda/2/generate body)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (let ((descriptor #f)
+;              (rte rte))
+;          (rtk 
+;           (case-lambda
+;             ((k a b) (body k (vector rte a b)))
+;             ((k x) ; Always invoked as (#f X).
+;              (unless k
+;                (cond
+;                  ((pair? x)
+;                   ; Reset the global binding environment where a = (#(#f <globals>)).
+;                   (set! rte (car x)))
+;                  ((vector? x)
+;                   ; Ignore any attempt to reset the nonexistent bindings for closed variables.
+;                   (void))
+;                  (else
+;                   ; x is #f. Return a descriptor.
+;                   (unless descriptor
+;                     (set! descriptor (vector 'lambda/inner 2 (body #f #f))))
+;                   descriptor)))))))
+;        
+;        (vector 'lambda 2 (body #f #f)))))
+
+(define (motile/lambda/2/generate body)
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (let ((descriptor #f))
+          (k/define
            (case-lambda
-             ((k a b) (body k (vector rte a b)))
-             ((k x) ; Always invoked as (#f X).
-              (unless k
-                (cond
-                  ((pair? x)
-                   ; Reset the global binding environment where a = (#(#f <globals>)).
-                   (set! rte (car x)))
-                  ((vector? x)
-                   ; Ignore any attempt to reset the nonexistent bindings for closed variables.
-                   (void))
-                  (else
-                   ; x is #f. Return a descriptor.
-                   (unless descriptor
-                     (set! descriptor (vector 'lambda/inner 2 (body #f #f))))
-                   descriptor)))))))
-        
-        (vector 'lambda 2 (body #f #f)))))
+             ((k _ global a b) (body k (vector e/define a b) global))
+             ((k n _)
+              (when (and (not k) (zero? n))
+                (return!
+                 descriptor
+                 (vector 'lambda/inner 2 (motile/decompile body))))))))
+            
+        (vector 'lambda 2 (motile/decompile body)))))
 
 ;; Three lambda parameters + zero closed variables.
-(define (lambda/3/generate body)
-  (lambda (rtk rte)
-    (if rtk
-        (let ((descriptor #f)
-              (rte rte))
-          (rtk 
-           (case-lambda
-             ((k a b c) (body k (vector rte a b c)))
-             ((k x) ; Always invoked as (#f X).
-              (unless k
-                (cond
-                  ((pair? x)
-                   ; Reset the global binding environment where a = (#(#f <globals>)).
-                   (set! rte (car x)))
-                  ((vector? x)
-                   ; Ignore any attempt to reset the nonexistent bindings for closed variables.
-                   (void))
-                  (else
-                   ; x is #f. Return a descriptor.
-                   (unless descriptor
-                     (set! descriptor (vector 'lambda/inner 3 (body #f #f))))
-                   descriptor)))))))
+;(define (lambda/3/generate body)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (let ((descriptor #f)
+;              (rte rte))
+;          (rtk 
+;           (case-lambda
+;             ((k a b c) (body k (vector rte a b c)))
+;             ((k x) ; Always invoked as (#f X).
+;              (unless k
+;                (cond
+;                  ((pair? x)
+;                   ; Reset the global binding environment where a = (#(#f <globals>)).
+;                   (set! rte (car x)))
+;                  ((vector? x)
+;                   ; Ignore any attempt to reset the nonexistent bindings for closed variables.
+;                   (void))
+;                  (else
+;                   ; x is #f. Return a descriptor.
+;                   (unless descriptor
+;                     (set! descriptor (vector 'lambda/inner 3 (body #f #f))))
+;                   descriptor)))))))
+;
+;        (vector 'lambda 3 (body #f #f)))))
 
-        (vector 'lambda 3 (body #f #f)))))
+(define (motile/lambda/3/generate body)
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (let ((descriptor #f))
+          (k/define
+           (case-lambda
+             ((k e global a b c) (body k (vector e a b c) global))
+             ((k e _)
+              (when (and (not k) (zero? e))
+                (return!
+                 descriptor
+                 (vector 'lambda/inner 3 (motile/decompile body))))))))
+        
+        (vector 'lambda 3 (motile/decompile body)))))
 
 ;; N > 3 lambda parameters + zero closed variables.
-(define (lambda/N/generate n body)
-  (lambda (rtk rte)
-    (if rtk
-        (let ((descriptor #f)
-              (rte rte))
-          (rtk
+;(define (lambda/N/generate n body)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (let ((descriptor #f)
+;              (rte rte))
+;          (rtk
+;           (case-lambda
+;             ((k a b c . d)
+;              (let ((frame (make-vector (add1 n))))
+;                (vector-set! frame 0 rte)
+;                (vector-set! frame 1 a)
+;                (vector-set! frame 2 b)
+;                (vector-set! frame 3 c)
+;                (let loop ((i 4) (rest d))
+;                  (if (<= i n)
+;                      (begin
+;                        (vector-set! frame i (car rest))
+;                        (loop (add1 i) (cdr rest)))
+;                      (body k frame)))))
+;             ((k x) ; Always invoked as (#f X).
+;              (unless k
+;                (cond
+;                  ((pair? x)
+;                   ; Reset the global binding environment where a = (#(#f <globals>)).
+;                   (set! rte (car x)))
+;                  ((vector? x)
+;                   ; Ignore any attempt to reset the nonexistent bindings for closed variables.
+;                   (void))
+;                  (else
+;                   ; x is #f. Return a descriptor.
+;                   (unless descriptor
+;                     (set! descriptor (vector 'lambda/inner n (body #f #f))))
+;                   descriptor)))))))             
+;        
+;        (vector 'lambda n (body #f #f)))))
+
+(define (motile/lambda/N/generate n body)
+  (lambda (k/define e/define g/define)
+    (if k/define
+        (let ((descriptor #f))
+          (k/define
            (case-lambda
-             ((k a b c . d)
+             ((k e global a b c . d)
               (let ((frame (make-vector (add1 n))))
-                (vector-set! frame 0 rte)
+                (vector-set! frame 0 e)
                 (vector-set! frame 1 a)
                 (vector-set! frame 2 b)
                 (vector-set! frame 3 c)
@@ -2397,23 +3267,15 @@
                       (begin
                         (vector-set! frame i (car rest))
                         (loop (add1 i) (cdr rest)))
-                      (body k frame)))))
-             ((k x) ; Always invoked as (#f X).
-              (unless k
-                (cond
-                  ((pair? x)
-                   ; Reset the global binding environment where a = (#(#f <globals>)).
-                   (set! rte (car x)))
-                  ((vector? x)
-                   ; Ignore any attempt to reset the nonexistent bindings for closed variables.
-                   (void))
-                  (else
-                   ; x is #f. Return a descriptor.
-                   (unless descriptor
-                     (set! descriptor (vector 'lambda/inner n (body #f #f))))
-                   descriptor)))))))             
+                      (body k frame global)))))
+             ((k e _)
+              (when (and (not k) (zero? e))
+                (return!
+                 descriptor
+                 (vector 'lambda/inner n (motile/decompile body))))))))
         
-        (vector 'lambda n (body #f #f)))))
+        (vector 'lambda n (motile/decompile body)))))
+
 
 (define (start f)
   (f rtk/RETURN RTE))
@@ -2570,73 +3432,96 @@
 
 (define (test/lambda)
   (define (test/lambda/1)
-    (let ((f (compile '((lambda () 1))))) ; Trivial zero argument lambda expression.
-      (should-be 'lambda/1 1 (start f))))
+    (let ((f (motile/compile '((lambda () 1))))) ; Trivial zero argument lambda expression.
+      (should-be 'lambda/1 1 (motile/start f ENVIRON/TEST))))
 
   (define (test/lambda/2)
-    (let ((f (compile '((lambda (x) x) 17)))) ; The identity function.
-      (should-be 'lambda/2 17 (start f))))
+    (let ((f (motile/compile '((lambda (x) x) 17)))) ; The identity function.
+      (should-be 'lambda/2 17 (motile/start f ENVIRON/TEST))))
 
   (define (test/lambda/3)
-    (let ((f (compile '((lambda (x) (1+ x)) 99)))) ; Single argument invoking a primitive in the global namespace.
-      (should-be 'lambda/3 100 (start f))))
+    (let ((f (motile/compile '((lambda (x) (1+ x)) 99)))) ; Single argument invoking a primitive in the global namespace.
+      (should-be 'lambda/3 100 (motile/start f ENVIRON/TEST))))
   
   (define (test/lambda/4)
-    (let ((f (compile '((lambda (x y) (+ x y)) 99 33)))) ; Two arguments.
-      (should-be 'lambda/4 132 (start f))))
+    (let ((f (motile/compile '((lambda (x y) (+ x y)) 99 33)))) ; Two arguments.
+      (display 'lambda/4) (newline)
+      (pretty-display (motile/decompile f))
+      (should-be 'lambda/4 132 (motile/start f ENVIRON/TEST))))
 
   (define (test/lambda/5)
-    (let ((f (compile '((lambda (x y z) (+ x y z)) 1 2 3)))) ; Three arguments.
-      (should-be 'lambda/5 6 (start f))))
+    (let ((f (motile/compile '((lambda (x y z) (+ x y z)) 1 2 3)))) ; Three arguments.
+      (display 'lambda/4) (newline)
+      (pretty-display (motile/decompile f))
+      (should-be 'lambda/5 6 (motile/start f ENVIRON/TEST))))
 
   (define (test/lambda/6)
-    (let ((f (compile '((lambda (w x y z) (+ w x y z)) 1 2 3 4)))) ; Four arguments.
-      (should-be 'lambda/6 10 (start f))))
+    (let ((f (motile/compile '((lambda (w x y z) (+ w x y z)) 1 2 3 4)))) ; Four arguments.
+      (should-be 'lambda/6 10 (motile/start f ENVIRON/TEST))))
 
   (define (test/lambda/7)
-    (let ((f (compile '((lambda (v w x y z) (+ v w x y z)) 1 2 3 4 5)))) ; Five arguments.
-      (should-be 'lambda/7 15 (start f))))    
+    (let ((f (motile/compile '((lambda (v w x y z) (+ v w x y z)) 1 2 3 4 5)))) ; Five arguments.
+      (should-be 'lambda/7 15 (motile/start f ENVIRON/TEST))))    
   
   (define (test/lambda/8)
-    (let ((f (compile
+    (let ((f (motile/compile
               '((lambda (x y z) ; In-order evaluation of a series of expressions in a lambda body.
                   (display (format "~a\n" x))
                   (display (format "~a\n" y))
                   (display (format "~a\n" z))
                   (+ x y z))
                 10 20 30))))
-      (should-be 'lambda/8 60 (start f))))
+      (should-be 'lambda/8 60 (motile/start f ENVIRON/TEST))))
   
   (define (test/lambda/9)
-    (let ((f (compile '((lambda rest rest) 3 17 22 87)))) ; Rest argument.
-      (should-be 'lambda/9 '(3 17 22 87) (start f))))
+    (let ((f (motile/compile '((lambda rest rest) 3 17 22 87)))) ; Rest argument.
+      (should-be 'lambda/9 '(3 17 22 87) (motile/start f ENVIRON/TEST))))
   
-  (define (test/lambda/10)
-    (let ((f (compile '((lambda (x . rest) (cons x rest)) 3 17 22 87)))) ; One positional argument + rest argument.
-      (should-be 'lambda/10 '(3 17 22 87) (start f))))
+  (define (test/lambda/10a)
+    (let ((f (motile/compile '((lambda (x . rest) (cons x rest)) 3 17 22 87)))) ; One positional argument + rest argument.
+      (should-be 'lambda/10a '(3 17 22 87) (motile/start f ENVIRON/TEST))))
+  
+  (define (test/lambda/10b)
+        (let ((f (motile/compile '((lambda (x y . rest) (cons (+ x y) rest)) 3 17 22 87)))) ; Two positional arguments + rest argument.
+      (should-be 'lambda/10b '(20 22 87) (motile/start f ENVIRON/TEST))))
 
-  (define (test/lambda/11)
-    (let ((f (compile '((lambda (x y z . rest)  ; Three positional arguments + rest argument.
-                          (cons (+ x y z) rest)) 3 17 22 87 127))))
-      (should-be 'lambda/11 '(42 87 127) (start f))))
+  (define (test/lambda/11a)
+    (let ((f (motile/compile
+              '((lambda (x y z . rest)  ; Three positional arguments + rest argument.
+                  (cons (+ x y z) rest)) 3 17 22 87 127))))
+      (should-be 'lambda/11a '(42 87 127) (motile/start f ENVIRON/TEST))))
+  
+    (define (test/lambda/11b)
+    (let ((f (motile/compile
+              '((lambda (a b c d . rest)  ; Three positional arguments + rest argument.
+                  (cons (+ a b c d) rest)) 3 17 22 87 127 999))))
+      (should-be 'lambda/11b '(129 127 999) (motile/start f ENVIRON/TEST))))
   
   (define (test/lambda/12a)
-    (let ((f (compile '((lambda (a)
-                          ((lambda (b) (+ a b)) 33))
-                        11))))
-      (pretty-display (mischief/decompile f))
-      (should-be 'lambda/12a 44 (start f))))
-
-  (define (test/lambda/12)
-    (let ((f (compile '((lambda (u v) ; Lexical scope.
-                          ((lambda (w x)
-                             (+ u v x))
-                           300 400))
-                        19 1))))
-      (should-be 'lambda/12 420 (start f))))
+    (let ((f (motile/compile
+              '(((lambda (a) (lambda () (add1 a))) 33)) ; One closed variable + zero parameters.
+              )))
+      (display 'lambda/12a) (newline)
+      (pretty-display (motile/decompile f))
+      (should-be 'lambda/12a 34 (motile/start f ENVIRON/TEST))))
+  
+  (define (test/lambda/12b)
+    (let ((f (motile/compile
+              '((lambda (a)
+                  ((lambda (b) (+ a b)) 33)) ; One closed variable + one parameter.
+                11))))
+      (pretty-display (motile/decompile f))
+      (should-be 'lambda/12b 44 (motile/start f ENVIRON/TEST))))
+  
+  (define (test/lambda/12c)
+    (let ((f (motile/compile
+              '((lambda (u v) ; Lexical scope.
+                  ((lambda (w x) (+ u v x)) 300 400)) ; This lambda has two closed variables, u and v and two parameters, w and x.
+                19 1))))
+      (should-be 'lambda/12c 420 (motile/start f ENVIRON/TEST))))
   
   (define (test/lambda/13)
-    (let ((f (compile
+    (let ((f (motile/compile
               '((lambda (a) ; Deeply nested lexical scope.
                   ((lambda (b)
                      ((lambda (c)
@@ -2649,25 +3534,31 @@
                       3))
                    2))
                 1))))
-      (should-be 'lambda/13 '(1 2 3 4 5 6) (start f))))
+      (should-be 'lambda/13 '(1 2 3 4 5 6) (motile/start f ENVIRON/TEST))))
            
   (define (test/lambda/14)
-    (let ((f (compile
+    (let ((f (motile/compile
               '((lambda (a b) ; Inner lexical scope shadows outer lexical scope.
                  ((lambda (b)
                     ((lambda (a) (+ a b)) 85))
                   22))
                5 10))))
-      (should-be 'lambda/14 107 (start f))))
+      (should-be 'lambda/14 107 (motile/start f ENVIRON/TEST))))
   
   ; Combining rest arguments with closed variables.
-  (define (test/lambda/15)
-    (let ((f (compile '((lambda rest ((lambda (a) (cons a rest)) 33)) 'alpha 'beta 'gamma))))
-      (should-be 'lambda/15 '(33 alpha beta gamma) (start f))))
+  (define (test/lambda/15a)
+    (let ((f (motile/compile '((lambda rest ((lambda (a) (cons a rest)) 33)) 'alpha 'beta 'gamma))))
+      (should-be 'lambda/15 '(33 alpha beta gamma) (motile/start f ENVIRON/TEST))))
+  
+  (define (test/lambda/15b)
+    (let ((f (motile/compile '((lambda (a b) ((lambda (x y . rest) (list* (+ a x) (+ b y) rest)) 100 200 300 400 500)) 11 13))))
+      (display 'lambda/15b) (newline)
+      (pretty-display (motile/decompile f)) (newline)
+      (should-be 'lambda/15b '(111 213 300 400 500) (motile/start f ENVIRON/TEST))))
 
   (define (test/lambda/99)
-    (let ((f (compile '((lambda lambda lambda) 7 8 9 10)))) ; lambda must not be a reserved symbol.
-      (should-be 'lambda/99 '(7 8 9 10) (start f))))  
+    (let ((f (motile/compile '((lambda lambda lambda) 7 8 9 10)))) ; lambda must not be a reserved symbol.
+      (should-be 'lambda/99 '(7 8 9 10) (motile/start f ENVIRON/TEST))))  
     
   (test/lambda/1)
   (test/lambda/2)
@@ -2678,13 +3569,17 @@
   (test/lambda/7)
   (test/lambda/8)
   (test/lambda/9)
-  (test/lambda/10)
-  (test/lambda/11)
+  (test/lambda/10a)
+  (test/lambda/10b)
+  (test/lambda/11a)
+  (test/lambda/11b)
   (test/lambda/12a)
-  (test/lambda/12)
+  (test/lambda/12b)
+  (test/lambda/12c)
   (test/lambda/13)
   (test/lambda/14)
-  (test/lambda/15)
+  (test/lambda/15a)
+  (test/lambda/15b)
   (test/lambda/99))
 
 (define (test/decompile)
@@ -2777,26 +3672,26 @@
 
 (define (test/let)
   (define (test/let/1)
-    (let ((e (compile '(let ((a 1) (b 2) (c 3)) (list a b c)))))
-      (should-be 'let/1 '(1 2 3) (start e))))
+    (let ((e (motile/compile '(let ((a 1) (b 2) (c 3)) (list a b c)))))
+      (should-be 'let/1 '(1 2 3) (motile/start e ENVIRON/TEST))))
   
   ; The lexical scope established by a let is seen only by the expressions in the body of the let.
   ; Here the cons in the body of the lambda should resolve to cons in the global namespace and
   ; the cons in the let body should resolve to the lambda expression.
   (define (test/let/2)
-    (let ((e (compile '(let ((cons (lambda (x y)
+    (let ((e (motile/compile '(let ((cons (lambda (x y)
                                      (cons (cons x '()) (cons y '()))))) ; Rebinding of cons in body of let.
                          (cons 'foo 'bar))))) ; Body of let
-      (should-be 'let/2 '((foo) bar) (start e))))
+      (should-be 'let/2 '((foo) bar) (motile/start e ENVIRON/TEST))))
   
   (define (test/let/3)
-    (let ((e (compile '(let ((a 1) (b 2) (c 3) (d "silly") (e #(8 9 10)) (f (list 'x 'y)))
+    (let ((e (motile/compile '(let ((a 1) (b 2) (c 3) (d "silly") (e #(8 9 10)) (f (list 'x 'y)))
                          (list a b c d e f)))))
-      (should-be 'let/3 '(1 2 3 "silly" #(8 9 10) (x y)) (start e))))
+      (should-be 'let/3 '(1 2 3 "silly" #(8 9 10) (x y)) (motile/start e ENVIRON/TEST))))
   
   (define (test/let/4)
-    (let ((e (compile (let () (display "alpha\n") (display "beta\n") "gamma")))) ; Let with no definitions.
-      (should-be 'let/4 "gamma" (start e))))
+    (let ((e (motile/compile (let () (display "alpha\n") (display "beta\n") "gamma")))) ; Let with no definitions.
+      (should-be 'let/4 "gamma" (motile/start e ENVIRON/TEST))))
   
   (test/let/1)
   (test/let/2)
@@ -2845,39 +3740,41 @@
 
 (define (test/letrec)
   (define (test/letrec/1)
-    (let ((e (compile '(letrec
+    (let ((e (motile/compile '(letrec
                            ((a 11)
                             (b (lambda () (+ a 13))))
                          (b)))))
-      (should-be 'letrec/1 24 (mischief/start e))))
+      (should-be 'letrec/1 24 (motile/start e ENVIRON/TEST))))
 
   (define (test/letrec/2a)
     (let* ((source '(letrec
                            ((f (lambda (n)
                                  (if (= n 1) 1 (* n (f (sub1 n))))))) ; Factorial.
                          (f 5)))
-           (e (compile source)))
-      (should-be 'letrec/2a 120 (start e))))
+           (e (motile/compile source)))
+      (should-be 'letrec/2a 120 (motile/start e ENVIRON/TEST))))
   
   (define (test/letrec/2b)
-    (let ((e (compile '(letrec
-                           ((f (lambda (n)
-                                 (if (= n 1) 1 (* n (f (sub1 n))))))) ; Factorial.
-                         f))))
+    (let ((e (motile/compile
+              '(letrec
+                   ((f (lambda (n)
+                         (if (= n 1) 1 (* n (f (sub1 n))))))) ; Factorial.
+                 f))))
       (display "letrec/2b\n")
-      (pretty-display (mischief/decompile e))))
+      (pretty-display (motile/decompile e))))
   
   (define (test/letrec/2c)
-    (let ((e (compile '(letrec
-                           ((f (lambda (n)
-                                 (if (= n 1) 1 (* n (f (sub1 n))))))) ; Factorial.
-                         f))))
+    (let ((e (motile/compile
+              '(letrec
+                   ((f (lambda (n)
+                         (if (= n 1) 1 (* n (f (sub1 n))))))) ; Factorial.
+                 f))))
       (display "letrec/2c\n")
-      (pretty-display (mischief/decompile (start e)))))
+      (motile/decompile (motile/start e ENVIRON/TEST))))
   
   ;; Recursive definition of two functions.
   (define (test/letrec/3a)
-    (let ((e (compile
+    (let ((e (motile/compile
               '(letrec ; Mutually recursive functions.
                    ((even?
                      (lambda (n)
@@ -2889,11 +3786,11 @@
                   (even? 12) (even? 3)
                   (odd? 17)  (odd? 8))))))
 
-      (should-be 'letrec/3a '(#t #f #t #f) (start e))))
+      (should-be 'letrec/3a '(#t #f #t #f) (motile/start e ENVIRON/TEST))))
   
   ;; Recursive definition of two functions.
   (define (test/letrec/3b)
-    (let ((e (compile
+    (let ((e (motile/compile
               '(letrec ; Mutually recursive functions.
                    ((even?
                      (lambda (n)
@@ -2906,11 +3803,11 @@
                   (odd? 17)  (odd? 8))))))
 
       (display "letrec/3b\n")
-      (pretty-display (decompile e))))
+      (pretty-display (motile/decompile e))))
   
   ;; Test of decompilation combining recursive function definitions with multiple (> 1) closed variables per function.
   (define (test/letrec/3c)
-    (let ((e (compile
+    (let ((e (motile/compile
               '(letrec ; Mutually recursive functions.
                    ((even?
                      (lambda (n)
@@ -2925,12 +3822,12 @@
                   (odd? 17)  (odd? 8))))))
 
       (display "letrec/3c\n")
-      (pretty-display (decompile e))))
+      (pretty-display (motile/decompile e))))
 
 
   ;; Recursive definition of three functions.
   (define (test/letrec/4)
-    (let ((e (compile
+    (let ((e (motile/compile
               '(letrec ; Mutually recursive functions.
                    ((even?
                      (lambda (n)
@@ -2947,12 +3844,12 @@
                   (odd? 17)  (odd? 8)
                   (factorial 5))))))
 
-      (should-be 'letrec/4 '(#t #f #t #f 120) (start e))))
+      (should-be 'letrec/4 '(#t #f #t #f 120) (motile/start e ENVIRON/TEST))))
 
 
   ;; Recursive definition of five bindings.
   (define (test/letrec/5)
-    (let ((e (compile
+    (let ((e (motile/compile
               '(letrec ; Mutually recursive functions.
                    ((even?
                      (lambda (n)
@@ -2972,17 +3869,17 @@
                   (factorial 5)
                   (b))))))
 
-      (should-be 'letrec/5 '(#t #f #t #f 120 24) (start e))))
+      (should-be 'letrec/5 '(#t #f #t #f 120 24) (motile/start e ENVIRON/TEST))))
   
   (define (test/letrec/6)
-    (let ((e (compile
+    (let ((e (motile/compile
               '(letrec ((foo (lambda (x) (eq? x foo))))
                  (foo foo)))))
-      (should-be 'letrec/6 #t (start e))))
+      (should-be 'letrec/6 #t (motile/start e ENVIRON/TEST))))
   
   ; Letrec with (define ...) in the body.
   (define (test/letrec/7)
-    (let ((e (compile
+    (let ((e (motile/compile
               '(letrec ; Mutually recursive functions.
                    ((even?
                      (lambda (n)
@@ -3002,10 +3899,10 @@
                   (odd?  a)  (odd? 8)
                   (factorial 5)
                   (b))))))
-      (should-be 'letrec/7 '(#t #f #t #f 120 24) (start e))))
+      (should-be 'letrec/7 '(#t #f #t #f 120 24) (motile/start e ENVIRON/TEST))))
 
   (define (test/letrec/tak) ; The (in)famous Takeuchi function.
-    (let ((e (compile
+    (let ((e (motile/compile
               '(letrec
                    ((tak
                      (lambda (x y z)
@@ -3015,7 +3912,7 @@
                                 (tak (- y 1) z x)
                                 (tak (- z 1) x y))))))
                  (tak 18 12 6)))))
-      (should-be 'letrec/tak 7 (start e))))
+      (should-be 'letrec/tak 7 (motile/start e ENVIRON/TEST))))
   
   (test/letrec/1)
   (test/letrec/2a)
@@ -3033,16 +3930,16 @@
 (define (test/closure/inner)
   ;; Definition of two mutually recursive functions.
   (define (closure/inner/1)
-    (let ((e (compile
+    (let ((e (motile/compile
            '(letrec
                 ((fact (lambda (n) (if (= n 1) 1 (* n (fact (sub1 n)))))))
               fact))))
       (display "closure/inner/1\n")
       (display "decompile of factorial\n")
-      (pretty-display (decompile (start e)))))
+      (pretty-display (motile/decompile (motile/start e ENVIRON/TEST)))))
   
   (define (closure/inner/2)
-    (let ((e (compile
+    (let ((e (motile/compile
               '(letrec ; Mutually recursive functions.
                    ((even?
                      (lambda (n)
@@ -3054,10 +3951,10 @@
 
       (display "closure/inner/2\n")
       (display "decompile of complete letrec\n")
-      (pretty-display (decompile e))))
+      (pretty-display (motile/decompile e))))
   
     (define (closure/inner/3)
-    (let ((e (compile
+    (let ((e (motile/compile
               '(letrec ; Mutually recursive functions.
                    ((even?
                      (lambda (n)
@@ -3069,42 +3966,39 @@
 
       (display "closure/inner/3\n")
       (display "decompile of even? and odd\n")
-      (let* ((x (start e))
+      (let* ((x (motile/start e ENVIRON/TEST))
              (even? (list-ref x 0))
              (odd?  (list-ref x 1)))
-        (pretty-display (decompile even?))
-        (pretty-display (decompile odd?)))))
+        (pretty-display (motile/decompile even?))
+        (pretty-display (motile/decompile odd?)))))
   
-
-
-
   (closure/inner/1)
   (closure/inner/2)
   (closure/inner/3))
 
 (define (test/let*)
   (define (test/let*/1)
-    (let ((e (compile
+    (let ((e (motile/compile
               '(let* ((a 1)
                       (b (+ a 13))
                       (c (+ a b 20)))
                  (+ a b c)))))
-      (should-be 'let*/1 50 (start e))))
+      (should-be 'let*/1 50 (motile/start e ENVIRON/TEST))))
   
     (define (test/let*/2)
-    (let ((e (compile
+    (let ((e (motile/compile
               '(let* ((a 1)
                       (b (+ a 13))
                       (c (lambda () (+ a b 20))))
                  (c)))))
-      (should-be 'let*/2 35 (start e))))
+      (should-be 'let*/2 35 (motile/start e ENVIRON/TEST))))
   
   (test/let*/1)
   (test/let*/2))
 
 (define (test/named-let)
   (define (test/named-let/1)
-    (let ((e (compile
+    (let ((e (motile/compile
               '(let loop ((numbers '(3 -2 1 6 -5))
                           (nonnegative '())
                           (negative '()))
@@ -3118,94 +4012,93 @@
                         (loop (cdr numbers)
                               nonnegative
                               (cons (car numbers) negative))))))))
-      (should-be 'named-let/1 '((6 1 3) (-5 -2)) (start e))))
+      (should-be 'named-let/1 '((6 1 3) (-5 -2)) (motile/start e ENVIRON/TEST))))
   
-  (test/named-let/1)
-  )
+  (test/named-let/1))
 
 (define (test/define)
   (define (test/define/1) ; A lambda may contain one or more definitions.
-    (let ((f (compile
+    (let ((f (motile/compile
               '((lambda (a b)
                   (define (a+) (add1 a))
                   (define (b-) (sub1 b))
                   (* (a+) (b-)))
                 8 -1))))
-      (should-be 'define/1 -18 (start f))))
+      (should-be 'define/1 -18 (motile/start f ENVIRON/TEST))))
   
   (define (test/define/2a) ; A definition may contain nested definitions.
-    (let ((f (compile
+    (let ((f (motile/compile
               '((lambda (a b)
                   (define (a+) ; Define within lambda body.
                     (define (b-) (sub1 b)) ; Nested definition within definition of a+
                     (* (add1 a) (b-))) ; Body of a+
                   (a+))))))
       (display "\ndefine/2a\n")
-      (pretty-display (decompile f))))  
+      (pretty-display (motile/decompile f))))  
   
 
    (define (test/define/2b) ; A definition may contain nested definitions.
-    (let ((f (compile
+    (let ((f (motile/compile
               '((lambda (a b)
                   (define (a+) ; Define within lambda body.
                     (define (f) b) ; Nested definition within definition of a+
                     (+ a (f))) ; Body of a+
                   (a+))))))
       (display "\ndefine/2b\n")
-      (pretty-display (decompile f))))
+      (pretty-display (motile/decompile f))))
   
   (define (test/define/2c) ; A definition may contain nested definitions.
-    (let ((f (compile
+    (let ((f (motile/compile
               '((lambda (a b)
                   (define (a*) ; Define within lambda body.
                     (define (b-) (sub1 b)) ; Nested definition within definition of a*
-                    (* a (b-))) ; Body of a+
+                    (* a (b-))) ; Body of a*
                   (a*))
                 8 -1))))
       (display "\ndefine/2c\n")
-      (pretty-display (decompile f))
-      (should-be 'define/2c -16 (start f))))
+      (pretty-display (motile/decompile f))
+      (should-be 'define/2c -16 (motile/start f ENVIRON/TEST))))
   
   (define (test/define/3) ; A definition may be recursive.
-    (let ((f (compile
+    (let ((f (motile/compile
               '((lambda (a)
                   (define (fib n)
                     (if (= n 0) 0 (if (= n 1) 1 (+ (fib (sub1 n)) (fib (- n 2))))))
                   (fib a))
                 13))))
-      (should-be 'define/3 233 (start f))))
+      (should-be 'define/3 233 (motile/start f ENVIRON/TEST))))
   
   (define (test/define/4) ; A let may contain one or more definitions.
-    (let ((f (compile
+    (let ((f (motile/compile
               '(let ((a 8) (b -1))
                   (define (a+) (add1 a))
                   (define (b-) (sub1 b))
                   (* (a+) (b-))))))
-      (should-be 'define/4 -18 (start f))))
+      (should-be 'define/4 -18 (motile/start f ENVIRON/TEST))))
   
   (define (test/define/5) ; A let* may contain one or more definitions.
-    (let ((f (compile
+    (let ((f (motile/compile
               '(let* ((a 8) (b (+ a 4)))
                  (define (fib n)
                    (if (= n 0) 0 (if (= n 1) 1 (+ (fib (sub1 n)) (fib (- n 2))))))
                  (list a (fib a) b (fib b))))))
-      (should-be 'define/5 '(8 21 12 144) (start f))))
+      (should-be 'define/5 '(8 21 12 144) (motile/start f ENVIRON/TEST))))
   
   (define (test/define/6) ; A letrec may contain one or more definitions.
-    (let ((f (compile
+    (let ((f (motile/compile
               '(letrec ((a 8) (b (lambda () (+ a 4))))
                  (define (fib n)
                    (if (= n 0) 0 (if (= n 1) 1 (+ (fib (sub1 n)) (fib (- n 2))))))
                  (list a (fib a) (b) (fib (b)))))))
-      (should-be 'define/6 '(8 21 12 144) (start f))))
+      (should-be 'define/6 '(8 21 12 144) (motile/start f ENVIRON/TEST))))
   
   (define (test/define/7) ; A letrec may contain one or more definitions.
-    (let ((f (compile
+    (let ((f (motile/compile
               '(letrec ((a 8) (b -1))
                   (define (a+) (add1 a))
                   (define (b-) (sub1 b))
                   (* (a+) (b-))))))
-      (should-be 'define/7 -18 (start f))))  
+      (should-be 'define/7 -18 (motile/start f ENVIRON/TEST))))  
   
   (test/define/1)
   (test/define/2a)
@@ -3397,7 +4290,7 @@
            (e (compile source)))
       (display "do/1\n")
       (pretty-display source)
-      (pretty-display (do/translate source))
+      (do/translate source)
       (should-be 'do/1 #(0 1 2 3 4) (start e))))
   
   (define (test/do/2)
@@ -3421,7 +4314,7 @@
            (e (compile source)))
       (display "do/3\n")
       (pretty-display source)
-      (should-be 'do/3 25 (start e))))  
+      (should-be 'do/3 25 (start e))))
   
   (test/do/1)
   (test/do/2)
@@ -4528,4 +5421,129 @@
            (sleep 0.2)
            (loop)))))))
 
+(define (test/environ)
 
+  (define (test/environ/1)
+    (let* ((e (mischief/compile '(lambda () (random))))
+           (E (environ/cons ENVIRON/TEST 'random (lambda (k _rte _global) (k (random 1000)))))
+           (f (motile/start e E)))
+      
+      (display 'test/environ/1) (newline)
+      (pretty-display (motile/decompile e)) (newline) (newline)
+      (pretty-display (motile/decompile f)) (newline) (newline)
+      (display (motile/start f E)) (newline)))
+  
+  (define (test/environ/2)
+    (let ((e (mischief/compile
+               '((lambda (x) (random x)) 17)))
+          (E (environ/cons ENVIRON/TEST 'random (lambda (k _rte _global x) (k (random x))))))
+      (display 'test/environ/2) (newline)
+      (display (motile/decompile e)) (newline) (newline)
+      (display (motile/start e E)) (newline)))
+      
+  (define (test/environ/3)
+    (let ((e (mischief/compile
+             '((lambda (n) (add1 n)) 33))))
+      (display 'test/environ/3) (newline)
+      (display (motile/decompile e)) (newline) (newline)
+      (display (motile/start e ENVIRON/TEST)) (newline)))
+
+  (test/environ/1)
+  (test/environ/2)
+  (test/environ/3))
+
+
+;; There is a serious bug in the compiler with regard to nested defines (and hence nested letrecs) that is illustrated
+;; by some of the tests in test/xdefine.
+;; I've decided to let it go for now (2011.06.23) since it is possible to write around it by avoiding nested defines
+;; but intend to come back to it when time permits.
+(define (test/xdefine)
+  (define (test/xdefine/1)
+    (let ((f (motile/compile
+              '((lambda ()
+                  (define (fact n) (if (= n 1) 1 (* n (fact (sub1 n)))))
+                  (fact 5))))))
+      (display "test/xdefine/1\n")
+      (display (motile/start f ENVIRON/TEST))))
+  
+  ;; Hand compilation of the nested define's in a lambda body.
+  (define (test/xdefine/2a)
+    (let ((f (motile/compile
+              '((lambda (a b)
+                  (letrec ((a* (lambda () (* a (b-))))
+                           (b- (lambda () (sub1 b))))
+                    (a*)))
+                8 -1))))
+      (should-be 'test/xdefine/2a -16 (motile/start f ENVIRON/TEST))))
+  
+  (define (test/xdefine/2b)
+    (let ((f (motile/compile
+              '((lambda (a b)
+                  (define (a*) (* a (b-)))
+                  (define (b-) (sub1 b))
+                  (a*))
+                8 -1))))
+      (should-be 'test/xdefine/2b -16 (motile/start f ENVIRON/TEST))))
+
+  
+  ; !!! This test exposes a bug in the code generation for nested defines. !!!
+  (define (test/xdefine/2d.1) 
+    (let ((f (motile/compile
+              '((lambda (a b)
+                  (define (a*)
+                    (define (b-) -2)
+                    (* a (b-)))
+                  (a*))
+                8 -1))))
+      (should-be 'test/xdefine/2d.1 -16 (motile/start f ENVIRON/TEST))))
+  
+
+  ; !!! This test fails as well---returning a compiler-generated closure---indicating a problem with stack accounting
+  ; and address generation for closed variables.
+  (define (test/xdefine/2d.2) 
+    (let ((f (motile/compile
+              '((lambda (a b)
+                  (define (a*)
+                    (define (b-) -2)
+                    a)
+                  (a*))
+                8 -1))))
+      (should-be 'test/xdefine/2d.2 8 (motile/start f ENVIRON/TEST))))
+  
+  ; !!! This test fails catastrophically with an exception in stack addressing.
+  (define (test/xdefine/2d.3) 
+    (let ((f (motile/compile
+              '((lambda (a b)
+                  (define (a*)
+                    (define (b-) -2)
+                    b)
+                  (a*))
+                8 -1))))
+      (should-be 'test/xdefine/2d.3 -1 (motile/start f ENVIRON/TEST))))
+
+  
+  ; This test is a hand-compilation of test 2d above into the letrec representation used by the compiler.
+  ; It fails in exactly the same way as test 2d.
+  ; There is an error in the stack accounting and address generation.
+  (define (test/xdefine/2c)
+    (let ((f (motile/compile
+              '((lambda (a b)
+                  (letrec
+                      ((a* (lambda ()
+                             (letrec ((b- (lambda () (sub1 b))))
+                               (* a (b-))))))
+                    (a*)))
+                8 -1))))
+      (should-be 'test/xdefine/2c -16 (motile/start f ENVIRON/TEST))))
+    
+  (test/xdefine/1)
+  (test/xdefine/2a)
+  (test/xdefine/2b)
+  (test/xdefine/2d.2)
+  (test/xdefine/2d.3))
+
+(define (test/hash/null)
+  (let ((f (motile/compile 'hash/eq/null)))
+    (motile/start f ENVIRON/TEST)))
+    
+    

@@ -63,23 +63,27 @@
  
  ; (environ/cons e x_1 ... x_m)
  environ/cons?
- environ/cons/e
+ environ/cons/e       ; Deprecated.
+ environ/cons/environ ; Synonym for environ/cons/e.
  environ/cons/identifiers
  
  ; (environ/remove e x_1 ... x_m)
  environ/remove?
- environ/remove/e
- environ/cons/identifers
+ environ/remove/e       ; Deprecated.
+ environ/remove/environ ; Synonym for environ/remove/environ.
+ environ/remove/symbols
  
  ; (environ/value e x v)
  environ/value?
- environ/value/e
+ environ/value/e ; Deprecated.
+ environ/value/environ ; Synonym for environ/value/e.
  environ/value/identifier
  environ/value/substitute
  
  ; (environ/reflect e e_1 ... e_m)
  environ/reflect?
- environ/reflect/e
+ environ/reflect/e       ; Deprecated.
+ environ/reflect/environ ; Synonym for environ/reflect/e.
  environ/reflect/expressions
  
  ; Internal set!
@@ -176,21 +180,24 @@
 ;; where e is an expression that evaluates to a binding environment and
 ;; x_1 ... x_m are identifiers in lexical scope.
 (define (environ/cons? e) (eq? 'environ/cons (car e)))
-(define (environ/cons/e e) (cadr e))
+(define (environ/cons/e e) (cadr e)) ; Deprecated.
+(define-syntax-rule (environ/cons/environ e) (cadr e))
 (define (environ/cons/identifiers e) (cddr e))
 
 ;; (environ/remove e x_1 ... x_m)
 ;; where e is an expression that evaluates to a binding environment and
-;; x_1 ... x_m are identifiers in lexical scope.
+;; x_1 ... x_m are symbols.
 (define (environ/remove? e) (eq? 'environ/remove (car e)))
-(define (environ/remove/e e) (cadr e))
-(define (environ/cons/identifers e) (cddr e))
+(define (environ/remove/e e) (cadr e)) ; Deprecated.
+(define-syntax-rule (environ/remove/environ e) (cadr e))
+(define (environ/remove/symbols e) (cddr e))
 
 ;; (environ/value e x v)
 ;; where e is an expression that evaluates to a binding environment, x is an identifier in lexical scope,
 ;; and v is an expression that evaluates to a substitute value.
 (define (environ/value? e) (eq? 'environ/value (car e)))
 (define (environ/value/e e) (cadr e))
+(define-syntax-rule (environ/value/environ e) (cadr e))
 (define (environ/value/identifier e) (caddr e))
 (define (environ/value/substitute e) (cadddr e))
 
@@ -198,7 +205,8 @@
 ;; where e is an expression that evaluates to a binding environment and e_1 ... e_m
 ;; are arbirary expressions that will be evaluated in the context of e.
 (define (environ/reflect? e) (eq? 'environ/reflect (car e)))
-(define (environ/reflect/e e) (cadr e))
+(define (environ/reflect/e e) (cadr e)) ; Deprecated.
+(define-syntax-rule (environ/reflect/environ e) (cadr e))
 (define (environ/reflect/expressions e) (cddr e))
 
 ;; Internal set!

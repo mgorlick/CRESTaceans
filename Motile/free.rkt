@@ -31,6 +31,7 @@
  lexical/push
  lexical/push/closed
  lexical/push/parameters
+ lexical/variable?
  macro?
  variables/closed
  )
@@ -130,6 +131,8 @@
 
 ;; We index (address) frames from the top of the lexical stack down, with the topmost frame as 0.
 ;; Locate the nearest enclosing scope that defines the given symbol.
+;; If the symbol is in lexical scope returns an integer i >= 0, the index of the defining frame for the symbol.
+;; Otherwise returns the symbol itself if the symbol does not appear in lexical scope.
 (define (lexical/frame/depth lexical symbol)
   (let loop ((lexical lexical) (symbol symbol) (i 0))
     (cond
@@ -144,6 +147,10 @@
                 "~a: local: ~a closed: ~a macros: ~a\n"
                 i (vector-ref lexical 1) (vector-ref lexical 2) (vector-ref lexical 3)))
       (loop (add1 i) (lexical/pop lexical)))))
+
+;; Return #t if symbol s is a variable in lexical scope and #f otherwise.
+(define (lexical/variable? lexical s) (integer? (lexical/frame/depth lexical s)))
+  
 
 ;;; Validates the formal parameters of a lambda expression and returns them as a flat list.
 ;;; The rest parameter, if any, appears as the last element of the list.
@@ -205,6 +212,8 @@
 
 ;; e: lambda body
 ;; lexical: lexical environment including parameters (if any).
+;; Returns the set (as a ordered list of symbols) of all closed variables in expression e.
+;; Returns the empty set (null) if expression e contains no closed variables.
 (define (variables/closed e lexical)
   (cond
     ((symbol? e)
@@ -229,6 +238,7 @@
     
     ((definition/macro? e) null) ; Ignore (define-macro ...).
 
+    ; I'm not sure that this is required at this point! - 2011.06.25
     ((setter? e)
      (set/union
       (variables/closed (setter/target e) lexical)
@@ -246,6 +256,33 @@
       (variables/closed (unless/test e) lexical)
       (foldl set/union null
        (map (lambda (x) (variables/closed x lexical)) (unless/elses e)))))
+    
+    ; Special forms for binding environments.
+
+    ; (environ/cons E s_1 s_2 ... s_n) where s_1, ..., s_n must be in lexical scope.
+    ((environ/cons? e)
+     (set/union
+      (variables/closed (environ/cons/environ e) lexical)
+      (foldl set/union null
+       (map (lambda (x) (variables/closed x lexical)) (environ/cons/identifiers e)))))
+
+    ; (environ/remove E s_1 s_2 ... s_n) where s_1, ..., s_n are all symbols.
+    ((environ/remove? e)
+     (variables/closed (environ/remove/environ e) lexical))
+
+    ; (environ/value E s x) where s is a symbol and x is an expression for a
+    ; substitute value if s does not appear in environ E.
+    ((environ/value? e)
+     (set/union
+      (variables/closed (environ/value/environ e) lexical)
+      (variables/closed (environ/value/substitute e) lexical)))
+
+    ; (environ/reflect E e_1 ... e_n) where each e_i is an expression.
+    ((environ/reflect? e)
+     (set/union
+      (variables/closed (environ/reflect/environ e) lexical)
+      (foldl set/union null
+       (map (lambda (x) (variables/closed x lexical)) (environ/reflect/expressions e)))))
 
     ((or (begin? e) (and? e) (or? e))
      (foldl set/union null

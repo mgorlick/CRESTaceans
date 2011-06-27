@@ -10,28 +10,35 @@
   hash/eq/null
   hash/merge
   hash/ref
-  hash/remove
+  hash/vector/remove
   hash/persist?
-  list/hash)
+  list/hash
+  pairs/hash
+  vector/hash
+  vectors/hash)
  
  )
 
 (provide
  environ/null
  environ?
- environ/cons/1
- environ/cons/2
+ ;environ/cons/1
+ ;environ/cons/2
+ environ/cons
+ vector/environ
+ vectors/environ
  environ/merge
- environ/remove
+ environ/vector/remove
  environ/value
  list/environ
+ pairs/environ
  )
           
 
 
 ;; A binding environment is a two-element vector v:
 ;; v[0] - the literal <environ/persist>
-;; v[1] - an eq? based persitent hash table whose keys are the names of lexical variables (given as symbols) and
+;; v[1] - an eq? based persistent hash table whose keys are the names of lexical variables (given as symbols) and
 ;;        arbirary Mischief values
 (define-accessor environ/map 1)
 
@@ -40,6 +47,7 @@
 (define (environ/construct h)
   (vector ENVIRON/FLAVOR h))
 
+;; The canonical empty binding environment.
 (define environ/null (environ/construct hash/eq/null))
 
 (define (environ? e)
@@ -49,15 +57,22 @@
    (eq? (vector-ref e 0) ENVIRON/FLAVOR)
    (hash/persist? (vector-ref e 1))))
 
+(define environ/cons
+  (case-lambda
+    ((e s_1 v_1)
+     (environ/construct (hash/cons (environ/map e) s_1 v_1)))
+    ((e . rest)
+     (environ/construct (list/hash (environ/map e) rest)))))
+
 ;; Join binding k_1/v_1 to environ e returning the successor environ containing binding k_1/v_1.
 ;; e remains unchanged.
-(define (environ/cons/1 e k_1 v_1)
-  (environ/construct (hash/cons (environ/map e) k_1 v_1)))
+;(define (environ/cons/1 e k_1 v_1)
+;  (environ/construct (hash/cons (environ/map e) k_1 v_1)))
 
 ;; Join bindings k_1/v_1 and k_2/v_2 to environ e returning the successor environ containing bindings k_1/v_1 and k_2/v_2.
 ;; e remains unchanged.
-(define (environ/cons/2 e k_1 v_1 k_2 v_2)
-  (environ/construct (list/hash (environ/map e) (list k_1 v_1 k_2 v_2))))
+;(define (environ/cons/2 e k_1 v_1 k_2 v_2)
+;  (environ/construct (list/hash (environ/map e) (list k_1 v_1 k_2 v_2))))
 
 ;; Given a list (input) of bindings (k_1 v_1 ... k_m v_m) join bindings k_1/v_1, ..., k_m/v_m to environ e returning the successor
 ;; environ containing k_1/v_1, ..., k_m/v_m.
@@ -65,26 +80,34 @@
 (define (list/environ e input)
   (environ/construct (list/hash (environ/map e) input)))
 
+(define (pairs/environ e pairs)
+  (environ/construct (pairs/hash (environ/map e) pairs)))
+
+;; Given an environ e and vector v = #(s_0 v_0 ... s_{n-1} v_{n-1}) where s_i, v_i is a symbol/value pair
+;; return a successor environ containing bindings s_0/v_0 ... s_{n-1}/v_{n-1}.
+;; Environ e remains unchanged.
+(define (vector/environ e v)
+  (environ/construct (vector/hash (environ/map e) v)))
+
+;; Given an environ e and two vectors, symbols = #(s_0 ... s_{n-1}) and values = #(v_0 ... v_{n-1})
+;; return a successor environ containing bindings s_0/v_0 ... s_{n-1}/v_{n-1}.
+;; Environ e remains unchanged.
+(define (vectors/environ e symbols values)
+  (environ/construct (vectors/hash (environ/map e) symbols values)))
+
 ;; Let variables be a list (possibly empty) of variable names (k_1 ... k_m).
 ;; Remove the bindings k_1/v_1, ..., k_m/v_m from environ e returning the successor environ that does not contain any
 ;; of k_1/v_1, ..., k_m/v_m.
 ;; e remains unchanged.
-(define (environ/remove e variables)
-  ;; Given a list of keys (k_1 ... k_m) remove the pairs k_1/v_1, ..., k_m/v_m from persistent hash table h returning
-  ;; the successor of h.
-  (define (hash/list/remove h keys)
-    (if (null? keys)
-        h
-        (hash/list/remove (hash/remove h (car keys)) (cdr keys))))
-  
-  (if (null? variables) e (environ/construct (hash/list/remove (environ/map e) variables))))
-
+(define (environ/vector/remove e variables)
+  (if (zero? (vector-length variables)) e (environ/construct (hash/vector/remove (environ/map e) variables))))
 
 ;; Returns the merge of environ beta into environ alpha returning a successor environ
 ;; where the bindings of beta are joined with those of alpha. The bindings of beta take precedence over those of alpha.
 (define (environ/merge alpha beta)
   (environ/construct (hash/merge (environ/map alpha) (environ/map beta))))
 
-(define (environ/value e symbol failure)
+(define-syntax-rule (environ/value e symbol failure)
   (hash/ref (environ/map e) symbol failure))
+
   

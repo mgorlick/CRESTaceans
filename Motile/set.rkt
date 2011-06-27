@@ -1,6 +1,7 @@
 #lang scheme
 
 (provide
+ list/set
  set/member?
  set/insert
  set/remove
@@ -84,3 +85,12 @@
     ((null? set) null)       ; Empty set.
     ((null? (cdr set)) set)  ; Singleton set.
     (else (sort set symbol<?))))
+
+;; Convert  a list of symbols (possibly containing duplicates) to an ordered duplicate-free set.
+(define (list/set source)
+  (let loop ((rest (set/sort source))
+             (target null))
+    (if (null? rest)
+        target
+        (loop (cdr rest) (set/insert (car rest) target)))))
+      

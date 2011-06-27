@@ -39,8 +39,11 @@
  hash/new
  list/hash
  pairs/hash
+ vector/hash
+ vectors/hash
  hash/cons
  hash/remove
+ hash/vector/remove
  hash/merge
  
  ; Hash table deconstructors.
@@ -136,6 +139,39 @@
           (let ((pair (car pairs)))
             (loop (cdr pairs) (trie/with equality? hasher t (car pair) (cdr pair) (hasher (car pair)) 0)))))))
 
+;; Nondestructively create a fresh hash table h' that is the union of the contents of the hash table h
+;; and the contents of vector v = #(k_0 v_0 k_1 v_1 ... k_{n-1} v_{n-1}).
+;; The vector equivalent of (pairs/hash h ((k_0 . v_0) ... (k_{n-1} . v_{n-1}))).
+(define (vector/hash h v)
+  (let ((equality? (hash/equality h))
+        (hasher    (hash/hash h))
+        (n         (vector-length v))) ; n must be even.
+    (let loop ((i 0)
+               (t (hash/root h)))
+      (if (= i n)
+          (hash/construct equality? hasher t) ; Return the merged hash table.
+          (let ((key   (vector-ref v i))
+                (value (vector-ref v (add1 i))))
+            (loop
+             (+ i 2)
+             (trie/with equality? hasher t key value (hasher key) 0)))))))
+
+(define (vectors/hash h keys values)
+  (let ((equality? (hash/equality h))
+        (hasher    (hash/hash h))
+        (n         (vector-length keys))) ; The lengths of keys and values must be identical.
+    (let loop ((i 0)
+               (t (hash/root h)))
+      (if (= i n)
+          (hash/construct equality? hasher t) ; Return the merged hash table.
+
+          ; Add key_i/value_i to the hash table.
+          (let ((key (vector-ref keys i)))
+            (loop
+             (add1 i)
+             (trie/with equality? hasher t key (vector-ref values i) (hasher key) 0)))))))
+  
+
 ;; Fold function f with seed over all pairs appearing in hash table h.
 (define (hash/fold h f seed)
   (pairs/fold f seed (hash/root h)))
@@ -170,6 +206,19 @@
       (if (eq? t (hash/root h))
           h
           (hash/construct equality? hasher t)))))
+
+;; Return a succesor to h whose contents are identical to h less the n pairs in h indexed by keys = #(k_0 ... k_{n-1}).
+(define (hash/vector/remove h keys)
+  (let ((equality? (hash/equality h))
+        (hasher    (hash/hash h))
+        (n         (vector-length keys)))
+    (let loop ((i 0)
+               (t (hash/root h)))
+      (if (= i n)
+          (if (eq? t (hash/root h)) h (hash/construct equality? hasher t))
+          (let ((key (vector-ref keys i)))
+            (loop (add1 i) (trie/without equality? t key (hasher key) 0)))))))
+                     
 
 ;; Returns #t if hash table h contains key and #f otherwise.
 (define (hash/contains? h key)
