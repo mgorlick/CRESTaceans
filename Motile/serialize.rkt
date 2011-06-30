@@ -251,7 +251,7 @@
             (hash-for-each v (lambda (k v) (loop k) (loop v)))]
            
            [(procedure? v)
-            (let ((descriptor (v #f #f))) ; All Mischief code/procedure/continuation descriptors are vectors.
+            (let ((descriptor (motile/decompile v))) ; All Mischief code/procedure/continuation descriptors are vectors.
               (loop descriptor))]
 
            [else (raise-type-error
@@ -635,7 +635,8 @@
          (lambda (p d)
            ; Reset the bindings of each closure to their values at the time of serialization.
            (when (or (code/closure/inner? d) (code/closure/rest/inner? d))
-             (p #f (code/closure/inner/bindings d)))
+             ;(p #f (code/closure/inner/bindings d)))
+             (p #f (code/closure/inner/bindings/span d) (code/closure/inner/bindings d)))
            ; If a global binding environment is given then supply each lambda and closure with the proper base frame
            ; (containing the global binding environment) for its run time stack.
            (when globals
