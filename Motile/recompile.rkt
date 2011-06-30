@@ -50,6 +50,7 @@
 
 (provide
  code/closure/inner/bindings
+ code/closure/inner/bindings/span
  code/closure/inner?
  code/closure/rest/inner?
  code/lambda/inner?
