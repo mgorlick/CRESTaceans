@@ -7,11 +7,11 @@
 
 (require "../../Motile/persistent/hash.rkt")
 
-(define SCHOOLBUS
-  (pairs/hash
+#|(define SCHOOLBUS
+  (pairs/environ
    ENVIRON/TEST
    (list (define/global/1 'sleep sleep)
-         (define/global/N 'printf printf))))
+         (define/global/N 'printf printf))))|#
 
 (define *RHOST* *LOCALHOST*)
 (define *RPORT* 5000)
@@ -23,7 +23,7 @@
 (define (handle-message message t)
   (match message
     [(vector <tuple> '(mischief message ask) #"SPAWN" an-url body a b c)
-     (start-program body #:be SCHOOLBUS t)]
+     (thread (λ () (start-program body #:be ENVIRON/TEST t)))]
     [(vector <tuple> '(mischief message ask) #"POST" an-url name a b c)
      #f]
     [anyelse

@@ -641,6 +641,7 @@
     (define/global/3 'vector-set!   vector-set!)
 
     ; For simple test output.
+    (define/global/N 'sleep          sleep)
     (define/global/1 'display        display)
     (define/global/N 'format         format)
     (define/global/0 'newline        newline)
