@@ -606,6 +606,7 @@
           (let ((descriptor (vector 'reference/global 'environ/capture)))
             (lambda (k e global)
               (if k (k global) descriptor))))
+    (define/global/2 'environ/merge environ/merge)
 
     ; Higher order functions.
     (cons            'apply     motile/apply)

@@ -49,3 +49,24 @@
    (motile/start (motile/recompile/unit code) BASELINE))
  '(700 #f 200)
  "Recompilation of environ/remove")
+
+(check-eqv?
+ (let ((code
+        (motile/decompile
+         (motile/compile
+          '(let ((E (let ((a 100) (b 200) (c 700) (plus +)) (environ/cons environ/null plus a b c))))
+             (environ/reflect E (plus a b c)))))))
+   (motile/start (motile/recompile/unit code) BASELINE))
+ 1000
+ "Recompilation of environ/reflect")
+
+(check-eqv?
+ (let ((code
+        (motile/decompile
+         (motile/compile
+          '(let* ((E (let ((a 100) (b 200) (c 700)) (environ/cons environ/null a b c)))
+                  (F (environ/merge (environ/capture) E))) ; BASElINE + a/100, b/200, and c/700.
+             (+ (environ/value F c 19) (environ/value F a 17) (environ/value F b 18)))))))
+   (motile/start (motile/recompile/unit code) BASELINE))
+ 1000
+ "Recompilation of environ/capture and environ/merge")
