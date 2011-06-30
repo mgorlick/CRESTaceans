@@ -957,14 +957,22 @@
         code)))
         
 (define (and/generate head tail)
-  (lambda (rtk rte)
-    (if rtk
+  (lambda (k e g)
+    (if k
         (head
          ; Continuation for evauation of head.
-         (lambda (x) 
-           (if x (tail rtk rte) (rtk #f)))
-         rte)
-        (vector 'and (head #f #f) (tail #f #f)))))
+         (lambda (x)  (if x (tail k e g) (k #f)))
+         e g)
+        
+        (vector 'and (motile/decompile head) (motile/decompile tail)))))
+;  (lambda (rtk rte)
+;    (if rtk
+;        (head
+;         ; Continuation for evauation of head.
+;         (lambda (x) 
+;           (if x (tail rtk rte) (rtk #f)))
+;         rte)
+;        (vector 'and (head #f #f) (tail #f #f)))))
 
 (define (or/compile e lexical)
   (let ((rest (cdr e)))
@@ -980,13 +988,19 @@
         code)))
 
 (define (or/generate head tail)
-  (lambda (rtk rte)
-    (if rtk
+  (lambda (k e g)
+    (if k
         (head
-         (lambda (x)
-           (if x (rtk x) (tail rtk rte)))
-         rte)
-        (vector 'or (head #f #f) (tail #f #f)))))
+         (lambda (x) (if x (k x) (tail k e g)))
+         e g)
+        (vector 'or (motile/decompile head) (motile/decompile tail)))))
+;  (lambda (rtk rte)
+;    (if rtk
+;        (head
+;         (lambda (x)
+;           (if x (rtk x) (tail rtk rte)))
+;         rte)
+;        (vector 'or (head #f #f) (tail #f #f)))))
 
 ;; Compilation of environ/... special forms.
 
@@ -1435,7 +1449,7 @@
          (lambda (x)
            (if x (thens rtk rte) (rtk (void))))
          rte)
-        (vector 'when (test #f #f) (thens #f #f)))))
+        (vector 'when (motile/decompile test) (motile/decompile thens)))))
 
 (define (unless/compile e lexical)
   (shape e 3)
@@ -1450,7 +1464,7 @@
          (lambda (x)
            (if (not x) (elses rtk rte) (rtk (void))))
          rte)
-        (vector 'unless (test #f #f) (elses #f #f)))))
+        (vector 'unless (motile/decompile test) (motile/decompile elses)))))
           
 (define (begin/compile e lexical)
   (shape e 2)
@@ -2105,7 +2119,7 @@
 ;; as a graph (of mostly vectors). If closure c contains cyclic data structures in its closed variable bindings
 ;; or recursive definitions (via a letrec) then the graph will contain cycles otherwise the graph will be acyclic
 ;; though some (sub)structures may be shared (referenced in multiple distinct locations within the graph).
-(define (mischief/decompile c) (c #f #f))
+(define (mischief/decompile c) (c #f 0 #f)) ; DEPRECATED! Use motile/decompile instead.
 
 (define (decompile e)
   (let* ((seen (make-hasheq))
@@ -3047,30 +3061,30 @@
 ;; A source procedure f is invoked (f k rte global a_1 ... a_N) where k is the continuation and a_i is an argument to f
 
 ;; Zero lambda parameters + zero closed variables.
-(define (lambda/0/generate body)
-  (lambda (rtk rte)
-    (if rtk
-        (let ((descriptor #f)
-              (rte rte))
-          (rtk
-           (case-lambda
-             ((k) (body k rte))
-             ((k x) ; Always invoked as (#f X).
-              (unless k
-                (cond
-                  ((pair? x)
-                   ; Reset the global binding environment where a = (#(#f <globals>)).
-                   (set! rte (car x)))
-                  ((vector? x)
-                   ; Ignore any attempt to reset the nonexistent bindings for closed variables.
-                   (void))
-                  (else
-                   ; x is #f. Return a descriptor.
-                   (unless descriptor
-                     (set! descriptor (vector 'lambda/inner 0 (body #f #f))))
-                   descriptor)))))))
-
-        (vector 'lambda 0 (body #f #f)))))
+;(define (lambda/0/generate body)
+;  (lambda (rtk rte)
+;    (if rtk
+;        (let ((descriptor #f)
+;              (rte rte))
+;          (rtk
+;           (case-lambda
+;             ((k) (body k rte))
+;             ((k x) ; Always invoked as (#f X).
+;              (unless k
+;                (cond
+;                  ((pair? x)
+;                   ; Reset the global binding environment where a = (#(#f <globals>)).
+;                   (set! rte (car x)))
+;                  ((vector? x)
+;                   ; Ignore any attempt to reset the nonexistent bindings for closed variables.
+;                   (void))
+;                  (else
+;                   ; x is #f. Return a descriptor.
+;                   (unless descriptor
+;                     (set! descriptor (vector 'lambda/inner 0 (body #f #f))))
+;                   descriptor)))))))
+;
+;        (vector 'lambda 0 (body #f #f)))))
 
 (define (motile/lambda/0/generate body)
   ; This outermost (lambda (k/define e/define g/define) ...) is evaluated at the point of lambda DEFINITION and if the
