@@ -25,7 +25,9 @@
 (require profile)
 (profile-thunk
  (λ ()
-   (define request-thread (run-tcp-peer *LOCALHOST* 1234 (current-thread)))
+   (define this-scurl (generate-scurl/defaults *LOCALHOST* 1234))
+   (define request-thread (run-tcp-peer *LOCALHOST* 1234 this-scurl (current-thread)))
+   (printf "Listening on ~a~n" (scurl->string this-scurl))
    
    (let loop ([t 0])
      (handle-message (thread-receive) t)

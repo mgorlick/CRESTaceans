@@ -9,11 +9,16 @@
 
 (profile-thunk
  (λ ()
+   (define *RKEY*
+     (with-handlers ([exn:fail? (λ (e) (printf "NO KEY SPECIFIED!~n") #f)])
+       (string->bytes/utf-8 (vector-ref (current-command-line-arguments) 0))))
+   
    (define port
      (with-handlers ([exn:fail? (λ (e) 5000)])
-       (string->number (vector-ref (current-command-line-arguments) 0))))
+       (string->number (vector-ref (current-command-line-arguments) 1))))
    
-   (define request-thread (run-tcp-peer *LOCALHOST* port (current-thread)))
+   (define this-scurl (generate-scurl/defaults *LOCALHOST* port))
+   (define request-thread (run-tcp-peer *LOCALHOST* port this-scurl (current-thread)))
    
    (define *RHOST* *LOCALHOST*)
    (define *RPORT* 1234)
@@ -29,17 +34,8 @@
                (loop))))
    
    (let loop ([x 99999])
-     ;(sleep 1)
-     (compile/serialize #"POST" request-thread *RHOST* *RPORT* name)
+     (compile/serialize #"POST" request-thread *RHOST* *RPORT* *RKEY* name)
      (unless (zero? x) (loop (sub1 x))))
    (semaphore-wait (make-semaphore)))
+ 
  #:threads #t)
-
-#|(printf "spawning this program:~n")
-(pretty-print the-gremlin)
-(printf "~n")
-
-(let loop ()
-  (send-gremlin)
-  (sleep 1)
-  (loop))|#

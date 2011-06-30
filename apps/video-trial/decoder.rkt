@@ -9,7 +9,9 @@
          racket/match)
 
 (define me (current-thread))
-(define server (run-tcp-peer *LOCALHOST* 5000 me))
+(define this-scurl (generate-scurl/defaults *LOCALHOST* 5000))
+(define server (run-tcp-peer *LOCALHOST* 5000 this-scurl me))
+(printf "Listening on ~a~n" (scurl->string this-scurl))
 
 (define decoder0 (thread (make-vp8-decoder me)))
 

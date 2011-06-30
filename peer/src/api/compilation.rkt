@@ -15,11 +15,11 @@
 
 ;; "client-side"
 
-(define (compile/serialize method request-thread host port expr [url "/"])
+(define (compile/serialize method request-thread host port key expr [url "/"])
   ;(bytes? thread? string? exact-nonnegative-integer? any/c . -> . void)
   (define the-compiled-expr (mischief/compile expr))
   (define msg (message/ask/new method url the-compiled-expr '()))
-  (thread-send request-thread (request host port msg)))
+  (thread-send request-thread (request host port key msg)))
 
 ;; "server-side"
 
