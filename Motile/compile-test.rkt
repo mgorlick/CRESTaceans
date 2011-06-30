@@ -112,6 +112,17 @@
   600
   "environ/reflect"))
  
- 
+(let ((f (motile/compile
+          '(let ((a 100) (b 200))
+             (let ((c 300) (d 400))
+               (let ((e 500) (f 600))
+                 (environ/cons environ/null a c e)))))))
+  (pretty-display (motile/decompile f)))
+
+(let ((f (motile/compile
+            '(let ((silly 1951))
+               (environ/cons environ/null silly))))) ; Create an environ with a single binding silly/1951.
+  (pretty-display (motile/decompile f)))
+      
 
 

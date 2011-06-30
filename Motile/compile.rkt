@@ -37,7 +37,7 @@
  rtk/RETURN
  RTE
  
- ; Code generation.
+ ; Code generation (for the recompiler)
  and/generate
  closure/inner/generate
  closure/generate
@@ -45,13 +45,17 @@
  closure/rest/generate
  combination/generate
  constant/generate
+ environ/cons/generate
+ environ/reflect/generate
+ environ/remove/generate
+ environ/value/generate
  if/generate
  lambda/inner/generate
  lambda/generate
  lambda/rest/inner/generate
  lambda/rest/generate
  or/generate
- motile/reference/global/variable/generate
+ reference/global/variable/generate
  sequence/generate
  setter/generate
  unless/generate
@@ -87,7 +91,7 @@
        ((eq? e 'null)
         (constant/null/generate))                          ; The constant, null.
        (else
-        (motile/reference/global/variable/generate e))))          ; Global variable.
+        (reference/global/variable/generate e))))          ; Global variable.
 
     ((not (pair? e))
      (constant/generate e))
@@ -1332,10 +1336,10 @@
 ;          (rtk (global/find (rte/bottom/global rte) symbol))
 ;          (vector 'reference/global symbol))))
 
-(define (motile/reference/global/variable/generate symbol)
-  (lambda (rtk _ global)
-    (if rtk
-        (rtk (motile/global/find global symbol))
+(define (reference/global/variable/generate symbol)
+  (lambda (k _ g)
+    (if k
+        (k (motile/global/find g symbol))
         (vector 'reference/global symbol))))
             
         
@@ -1782,7 +1786,7 @@
 ;          (combination/base/generate (baseline/generate operator) arguments))
          (else
           ;(combination/global/generate (reference/global/variable/generate operator) arguments))))
-          (combination/generate (motile/reference/global/variable/generate operator) arguments)))) ; Generate a reference to a global variable.
+          (combination/generate (reference/global/variable/generate operator) arguments)))) ; Generate a reference to a global variable.
       ((pair? operator) ; Operator is a complex expression though not necessarily appropriate for this position.
        (combination/generate (scheme/compile operator lexical) arguments))
       (else ; Must be a constant.
@@ -2113,6 +2117,7 @@
 (define rte/BASE (vector #f))
 (define e/BASE (vector #f)) ; The empty frame at the bottom of the stack.
 (define k/RETURN (lambda (x) x)) ; The triial continuation.
+;; Execute Motile function f in the context of Motile global binding environment E.
 (define-syntax-rule (motile/start f E) (f k/RETURN e/BASE E))
 
 ;; One or more closed variables in lambda body.
