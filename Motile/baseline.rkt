@@ -14,7 +14,8 @@
 
 (provide
  BASELINE
- ENVIRON/TEST)
+ ENVIRON/TEST
+ pairs/environ)
 
 (provide define/global/0
          define/global/1
