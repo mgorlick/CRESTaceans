@@ -342,7 +342,8 @@
        (cons (if (immutable? v) 'b 'b!) (serial (unbox v) #t))]
       
       [(procedure? v)
-       (cons 'M (serial (v #f #f) #t))]
+       ;(cons 'M (serial (v #f #f) #t))]
+       (cons 'M (serial (motile/decompile v) #t))]
 
       [(hash? v)
        ; The "serial" of a hash table is (h <mutable> <modifiers> (X_1 . Y_1) ... (X_N . Y_N) where:
