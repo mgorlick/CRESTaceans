@@ -23,7 +23,7 @@
 (define (handle-message message t)
   (match message
     [(vector <tuple> '(mischief message ask) #"SPAWN" an-url body a b c)
-     (thread (λ () (start-program body #:be ENVIRON/TEST t)))]
+     (thread (λ () (start-program body ENVIRON/TEST t)))]
     [(vector <tuple> '(mischief message ask) #"POST" an-url name a b c)
      #f]
     [anyelse

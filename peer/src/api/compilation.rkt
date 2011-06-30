@@ -21,11 +21,15 @@
 
 ;; "server-side"
 
-(define (bytes->message bstr)
-  (deserialize (read (open-input-bytes bstr)) BASELINE #f))
-
-(define (start-program expr #:be [be BASELINE] . program-args)
-  (define fun (motile/start expr be))
-  (cond [(procedure? fun)
-         (apply fun (cons rtk/RETURN (cons '#(#f) (cons be program-args))))]
-        [else fun]))
+(define-syntax start-program
+  (syntax-rules ()
+    [(k expr be)
+     (let ([fun (motile/start expr be)])
+       (cond [(procedure? fun)
+              (motile/start* fun be)]
+             [else fun]))]
+    [(k expr be arg0 ...)
+     (let ([fun (motile/start expr be)])
+       (cond [(procedure? fun)
+              (motile/start* fun be arg0 ...)]
+             [else fun]))]))

@@ -24,7 +24,7 @@
      (let loop ([x 1])
        (sleep 0.5)
        (display (format "Gremlin number ~a took ~a of your lug nuts~n" t x))
-       (loop (add1 x)))))
+       (loop (add1 x) ))))
 
 (let loop ()
   (sleep 1)
