@@ -29,9 +29,10 @@
  mischief/compile
  mischief/decompile
  mischief/start
- motile/compile
+  motile/compile
  motile/decompile
  motile/start
+ motile/start*
  should-be
  start
  rtk/RETURN
@@ -2133,6 +2134,8 @@
 (define k/RETURN (lambda (x) x)) ; The triial continuation.
 ;; Execute Motile function f in the context of Motile global binding environment E.
 (define-syntax-rule (motile/start f E) (f k/RETURN e/BASE E))
+(define (motile/start* f E . rest)
+  (apply f (list* k/RETURN e/BASE E rest)))
 
 ;; One or more closed variables in lambda body.
 ;; m: total number of formal parameters
