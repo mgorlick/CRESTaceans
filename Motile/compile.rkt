@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 
 ;; Copyright 2010 Michael M. Gorlick
 
@@ -12,7 +12,9 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(require srfi/1)
+(require
+ srfi/1
+ (only-in racket/vector vector-map))
 (require
  "baseline.rkt"
  "dissect.ss"
@@ -29,7 +31,7 @@
  mischief/compile
  mischief/decompile
  mischief/start
-  motile/compile
+ motile/compile
  motile/decompile
  motile/start
  motile/start*

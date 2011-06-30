@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 
 ;; Copyright 2010 Michael M. Gorlick
 
@@ -13,6 +13,11 @@
 ;; limitations under the License.
 
 
+(require
+ (only-in
+  racket/list
+  flatten))
+          
 (require "dissect.ss")
 (require "set.ss")
 
