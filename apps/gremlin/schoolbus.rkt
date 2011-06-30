@@ -16,13 +16,14 @@
 (define *RHOST* *LOCALHOST*)
 (define *RPORT* 5000)
 
-(define request-thread (run-tcp-peer *LOCALHOST* 1235 (current-thread)))
+(define this-scurl (generate-scurl/defaults *LOCALHOST* 1235))
+(define request-thread (run-tcp-peer *LOCALHOST* 1235 this-scurl (current-thread)))
+(printf "Listening on ~a~n" (scurl->string this-scurl))
 
 (define (handle-message message t)
   (match message
     [(vector <tuple> '(mischief message ask) #"SPAWN" an-url body a b c)
-     (start-program body #:be SCHOOLBUS t)
-     (compile/serialize #"POST" request-thread *RHOST* *RPORT* #"OK")]
+     (start-program body #:be SCHOOLBUS t)]
     [(vector <tuple> '(mischief message ask) #"POST" an-url name a b c)
      #f]
     [anyelse

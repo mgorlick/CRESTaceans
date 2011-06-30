@@ -2,4 +2,4 @@
 
 (provide (all-defined-out))
 
-(struct request (host port message))
+(struct request (host port key message))

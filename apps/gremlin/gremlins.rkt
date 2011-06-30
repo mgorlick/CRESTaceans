@@ -5,11 +5,16 @@
          (only-in "../../peer/src/api/compilation.rkt"
                   compile/serialize))
 
+(define *RKEY*
+  (with-handlers ([exn:fail? (λ (e) (printf "NO KEY SPECIFIED!~n") #f)])
+    (string->bytes/utf-8 (vector-ref (current-command-line-arguments) 0))))
+
 (define port
   (with-handlers ([exn:fail? (λ (e) 5000)])
-    (string->number (vector-ref (current-command-line-arguments) 0))))
+    (string->number (vector-ref (current-command-line-arguments) 1))))
 
-(define request-thread (run-tcp-peer *LOCALHOST* port (current-thread)))
+(define this-scurl (generate-scurl/defaults *LOCALHOST* port))
+(define request-thread (run-tcp-peer *LOCALHOST* port this-scurl (current-thread)))
 
 (define *RHOST* *LOCALHOST*)
 (define *RPORT* 1235)
@@ -23,5 +28,5 @@
 
 (let loop ()
   (sleep 1)
-  (compile/serialize #"SPAWN" request-thread *RHOST* *RPORT* the-gremlin)
+  (compile/serialize #"SPAWN" request-thread *RHOST* *RPORT* *RKEY* the-gremlin)
   (loop))
