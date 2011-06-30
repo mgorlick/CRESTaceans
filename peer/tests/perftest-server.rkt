@@ -9,12 +9,9 @@
 (define (handle-message message t)
   (match message
     [(vector <tuple> '(mischief message ask) #"SPAWN" an-url body a b c)
-     ;(printf "starting a program~n")
-     ;(mischief/start body)
      #f]
     
     [(vector <tuple> '(mischief message ask) #"POST" an-url name a b c)
-     ;(printf "the gremlin's name is ~a~n" (mischief/start name))
      #f]
     
     [anyelse (printf "some other message: ~s~n" anyelse)]))

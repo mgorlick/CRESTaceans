@@ -1,7 +1,6 @@
 #lang racket/base
 
-(require racket/function
-         "message.rkt"
+(require "message.rkt"
          "../net/structs.rkt"
          "../../../Motile/compile.rkt"
          "../../../Motile/serialize.rkt"
@@ -16,21 +15,21 @@
 ;; "client-side"
 
 (define (compile/serialize method request-thread host port key expr [url "/"])
-  ;(bytes? thread? string? exact-nonnegative-integer? any/c . -> . void)
-  (define the-compiled-expr (mischief/compile expr))
+  (define the-compiled-expr (motile/compile expr))
   (define msg (message/ask/new method url the-compiled-expr '()))
   (thread-send request-thread (request host port key msg)))
 
 ;; "server-side"
 
-(define (bytes->message bstr)
-  (deserialize (read (open-input-bytes bstr)) BASELINE #f))
-
-(define (start-program expr #:be [be BASELINE] . args)
-  (define fun (expr rtk/RETURN (vector #f be))) ; fun is either a procedure or a Motile primitive
-  (cond [(procedure? fun)
-         (if (equal? (sub1 (procedure-arity fun)) (length args)) ; first arg is always the continuation k
-             (thread (λ () (apply fun (cons rtk/RETURN args))))
-             (error (format "Generated code expects a different number of args: ~a"
-                            (sub1 (procedure-arity fun)))))]
-        [else fun]))
+(define-syntax start-program
+  (syntax-rules ()
+    [(k expr be)
+     (let ([fun (motile/start expr be)])
+       (cond [(procedure? fun)
+              (motile/start* fun be)]
+             [else fun]))]
+    [(k expr be arg0 ...)
+     (let ([fun (motile/start expr be)])
+       (cond [(procedure? fun)
+              (motile/start* fun be arg0 ...)]
+             [else fun]))]))
