@@ -1,14 +1,14 @@
 #lang racket/base
 
 (require racket/list
-         racket/stream)
+         racket/sequence)
 (provide (all-defined-out))
 
 ; read-lines: pathstring -> (listof string)
 ; return all the lines in a file
 (define (read-lines file-path)
   (with-input-from-file file-path
-    (λ () (stream->list (in-lines)))))
+    (λ () (sequence->list (in-lines)))))
 
 ; find-includes: (listof string) -> (listof string)
 ; return only the strings in the input list that match
@@ -33,10 +33,9 @@
    filecontents))
 
 ; get-aliases: (listof string) -> (hash string string)
-; ake a list of lines of the format produced by `find-defines'
+; take a list of lines of the format produced by `find-defines'
 ; e.g., "#define CONSTANT1 CONSTANT2"
-; and return a hash map cons cell form of the definition
-; e.g., #hash(("CONSTANT1" . "CONSTANT2"))
+; and return a hash map of, e.g., CONSTANT1 -> CONSTANT2
 (define (get-aliases dfs)
   (make-immutable-hash 
    (map (λ (df)
@@ -95,28 +94,23 @@
   (let ([h1-keys (hash-keys h1)])
     (foldl merge-an-entry h1 h1-keys)))
 
-; hash-values-filter: remove all entries in the hash
+; hash-values-map: call `f' on all entries in the hash
 ; whose values match the regex
-(define (hash-values-filter ahash rx do-if-match)
+(define (hash-values-map f rx ahash)
   (define (filter-matches key ahash)
-    (if (regexp-match-exact? rx (hash-ref ahash key))
-        (do-if-match ahash key)
+    (or (and (regexp-match-exact? rx (hash-ref ahash key)) (f ahash key))
         ahash))
   (foldl filter-matches ahash (hash-keys ahash)))
 
 (define (hash-dequote-string-value ahash key)
-  (hash-set ahash key (regexp-replace* "\"" (hash-ref ahash key) "")))
+  (hash-update ahash key (λ (v) (regexp-replace* "\"" v ""))))
 
 ; get-real-names: pathstring -> (hash string string)
 ; return the final combination of "prettified" names and constants in the API
 ; with their actual (installation-specific) values, for use in looking up
 ; in the shared lib (or defining as constant)
 (define (get-real-names file-path)
-  (let ([lines (read-lines file-path)])
-    (hash-values-filter
-     (hash-values-filter 
-      (merge (top-level-names lines) 
-             (cleanup (second-level-names file-path lines)))
-      "\"-\"" hash-remove) ; get rid of "\"-\"" values
-     "\"[A-Z|a-z|0-9|_|/)]+\"" hash-dequote-string-value) ; replace "\"sha512\"" with "sha512"
-    ))
+  (let* ([lines (read-lines file-path)]
+         [merged (merge (top-level-names lines) (cleanup (second-level-names file-path lines)))])
+    (hash-values-map hash-dequote-string-value "\"[A-Z|a-z|0-9|_|/)]+\"" ; replace "\"sha512\"" with "sha512" 
+                     (hash-values-map hash-remove "\"-\"" merged)))) ; get rid of "\"-\"" values

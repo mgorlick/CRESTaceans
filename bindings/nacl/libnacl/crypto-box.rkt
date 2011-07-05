@@ -1,6 +1,6 @@
 #lang racket/base
 
-(require "../libnacl/libnacl.rkt")
+(require "libnacl.rkt")
 (provide (all-defined-out))
 
 ;Function to generate a random byte sequence of length n. Use to generate nonces.
