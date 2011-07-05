@@ -19,11 +19,12 @@
 ;; "client-side"
 
 (define (ask/send method request-thread host port key expr
+                  #:compile? [compile? #t]
                   #:url [url "/"]
                   #:metadata [metadata :no-metadata:]
                   #:reply [reply :no-reply:]
                   #:echo [echo :no-echo:])
-  (define the-compiled-expr (motile/compile expr))
+  (define the-compiled-expr (if compile? (motile/compile expr) expr))
   (define msg (message/ask/new method url the-compiled-expr metadata reply echo))
   (thread-send request-thread (request host port key msg)))
 
