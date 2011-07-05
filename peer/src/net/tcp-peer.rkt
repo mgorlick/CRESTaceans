@@ -56,9 +56,9 @@
   
   (define/contract (input-next i decrypt)
     (input-port? (bytes? bytes? . -> . bytes?) . -> . void)
-    (define encrypted-message (readerfunction i))
-    (define message (decrypt (vector-ref encrypted-message 0) (vector-ref encrypted-message 1)))
-    (thread-send reply-thread (deserialize (read (open-input-bytes message)) BASELINE #f)))
+    (define encrypted-message (read i))
+    (define message (read (open-input-bytes (decrypt (vector-ref encrypted-message 0) (vector-ref encrypted-message 1)))))
+    (thread-send reply-thread (deserialize (decompress message) BASELINE #f)))
   
   ;; input thread: look for either (1) a signal on the control channel to exit,
   ;; or (3) a message to read, deserialize and deliver across the designated reply-to thread.
@@ -79,9 +79,10 @@
   (define (output-next o encrypt)
     (define m (thread-receive))
     (cond [(list? m)
-           (define b# (writable->bytes m)) 
+           (define compressed-message (compress m))
+           (define b# (writable->bytes compressed-message))
            (define-values (cipher nonce) (encrypt b#))
-           (write-out o (vector cipher nonce))]
+           (write (vector cipher nonce) o)]
           [else (raise/ccm exn:fail "An invalid outgoing message was queued for writing")]))
   
   ;; output thread: look for either a message to send out or a signal to exit.
@@ -99,6 +100,7 @@
   ;;; CONNECTING
   (define (do-accept)
     (define-values (i o) (tcp-accept listener))
+    (file-stream-buffer-mode o 'none)
     ;; first do the SCURL authentication protocol.
     (define-values (ra rp) (do-server-auth this-scurl revoke? i o))
     (cond [(and ra rp)
@@ -127,6 +129,7 @@
   (define/contract (connect/store! req)
     (request? . -> . (or/c #f thread?))  
     (define-values (i o) (tcp-connect (request-host req) (request-port req)))
+    (file-stream-buffer-mode o 'none)
     (define-values (la lp ra rp) (tcp-addresses i #t))
     ;; first do the SCURL authentication protocol.
     (define the-remote-scurl (do-client-auth (request-host req) (request-port req) (request-key req) this-scurl i o))
@@ -172,14 +175,3 @@
   (define o (open-output-bytes))
   (write t o)
   (get-output-bytes o))
-
-;; OUTPUT
-(define (write-w/-compression msg o) (write (compress msg) o))
-(define (write-w/o-compression msg o) (write msg o))
-(define writerfunction (if *USE-COMPRESSION?* write-w/-compression write-w/o-compression))
-(define (write-out o msg)
-  (writerfunction msg o)
-  (flush-output o))
-
-;; INPUT
-(define readerfunction (if *USE-COMPRESSION?* (compose decompress read) read))
