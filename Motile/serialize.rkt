@@ -632,10 +632,12 @@
       (when (positive? (hash-count procedures))
         (hash-for-each
          procedures
-         (lambda (p d)
+         (lambda (p d) ; p is the reconstituted Motile closure and d is the decompilation descriptor of that closure.
            ; Reset the bindings of each closure to their values at the time of serialization.
            (when (or (code/closure/inner? d) (code/closure/rest/inner? d))
              ;(p #f (code/closure/inner/bindings d)))
+             ; Call the reconstituted Motile closure p as (p #f n b) where
+             ; #f - informs the closure that is either being decompiled or re
              (p #f (code/closure/inner/bindings/span d) (code/closure/inner/bindings d)))
            ; If a global binding environment is given then supply each lambda and closure with the proper base frame
            ; (containing the global binding environment) for its run time stack.
