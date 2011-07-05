@@ -24,7 +24,7 @@
 (define this-scurl (generate-scurl/defaults *LOCALHOST* *LOCALPORT* #:key k))
 (define request-thread (run-tcp-peer *LOCALHOST* *LOCALPORT* this-scurl (current-thread)))
 
-(printf "Listening on ~a~n" (scurl->string this-scurl))
+(printf "Listening on ~a~n" (regexp-split "/" (scurl->string this-scurl)))
 
 (define (handle-message message t)
   (match message
@@ -43,8 +43,7 @@
      
      ;; reply back to the sender to deliver the program's new CURL 
      (ask/send "POST" request-thread *RHOST* *RPORT* echo ; echo-blob hardcoded to contain remote key
-               (string->immutable-string new-gremlin-curl))
-     ]
+               (string->immutable-string new-gremlin-curl))]
     
     [any-other-pattern (printf "some other message: ~s~n" any-other-pattern)]))
 
