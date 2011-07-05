@@ -44,5 +44,5 @@
     [(FrameBuffer buffer len λdisp)
      (define frame (subbytes buffer 0 len))
      (λdisp)
-     (ask/send #"POST" request-thread *RHOST* *RPORT* *RKEY* (subbytes buffer 0 len) #:compile? #f)
+     (ask/send #"POST" request-thread *RHOST* *RPORT* *RKEY* (subbytes buffer 0 len) #:compile? #f #:url "/video0")
      (loop)]))

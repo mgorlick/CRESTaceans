@@ -8,6 +8,8 @@
          "../../peer/src/api/message.rkt"
          racket/match)
 
+(define scurl->public-scurl-string (compose scurl->string scurl->public-scurl))
+
 (define *RHOST* *LOCALHOST*)
 (define *RPORT* 5000)
 
@@ -23,11 +25,14 @@
 
 (printf "Listening on ~a~n" (regexp-split "/" (scurl->string this-scurl)))
 (define decoder0 (thread (make-vp8-decoder me)))
+(define decoder0-curl (scurl->public-scurl-string (generate-scurl/defaults *LOCALHOST* *LOCALPORT* #:key k #:path "decoder0")))
+(hash-set! curls=>threads decoder0-curl decoder0)
+(printf "video0 decoder installed at ~a~n" decoder0-curl)
 
 (let loop ()
   (match (thread-receive)
-    [(vector '<tuple> '(mischief message ask) #"POST" url body metadata reply-curl echo)
+    [(vector '<tuple> '(mischief message ask) #"POST" "/video0" body metadata reply-curl echo)
      (if (bytes? body)
-         (thread-send decoder0 body)
+         (thread-send (hash-ref curls=>threads decoder0-curl) body)
          (printf "body is not bytes: ~a~n" body))])
   (loop))
