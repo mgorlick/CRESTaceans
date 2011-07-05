@@ -8,26 +8,37 @@
 
 (provide (all-defined-out)
          (all-from-out 
+          "message.rkt"
           "../../../Motile/compile.rkt"
           "../../../Motile/serialize.rkt"
           "../../../Motile/baseline.rkt"))
 
+(define (no-return)
+  (semaphore-wait (make-semaphore)))
+
 ;; "client-side"
 
-(define (compile/serialize method request-thread host port key expr [url "/"])
+(define (ask/send method request-thread host port key expr
+                  #:url [url "/"]
+                  #:metadata [metadata :no-metadata:]
+                  #:reply [reply :no-reply:]
+                  #:echo [echo :no-echo:])
   (define the-compiled-expr (motile/compile expr))
-  (define msg (message/ask/new method url the-compiled-expr '()))
+  (define msg (message/ask/new method url the-compiled-expr metadata reply echo))
   (thread-send request-thread (request host port key msg)))
 
 ;; "server-side"
 
 (define-syntax start-program
   (syntax-rules ()
+    [(k expr)
+     (start-program expr BASELINE)]
+    
     [(k expr be)
      (let ([fun (motile/start expr be)])
-       (cond [(procedure? fun)
-              (motile/start* fun be)]
+       (cond [(procedure? fun) (motile/start fun be)]
              [else fun]))]
+    
     [(k expr be arg0 ...)
      (let ([fun (motile/start expr be)])
        (cond [(procedure? fun)

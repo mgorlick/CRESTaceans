@@ -2,8 +2,7 @@
 #lang racket/base
 
 (require "../src/net/tcp-peer.rkt"
-         (only-in "../src/api/compilation.rkt"
-                  compile/serialize))
+         "../src/api/compilation.rkt")
 
 (require profile)
 
@@ -34,7 +33,7 @@
                (loop))))
    
    (let loop ([x 99999])
-     (compile/serialize #"POST" request-thread *RHOST* *RPORT* *RKEY* name)
+     (ask/send #"POST" request-thread *RHOST* *RPORT* *RKEY* name)
      (unless (zero? x) (loop (sub1 x))))
    (semaphore-wait (make-semaphore)))
  

@@ -2,8 +2,7 @@
 #lang racket/base
 
 (require "../src/net/tcp-peer.rkt"
-         (only-in "../src/api/compilation.rkt"
-                  compile/serialize))
+         "../src/api/compilation.rkt")
 
 (require profile)
 
@@ -30,7 +29,7 @@
           (printf "Gremlin number ~a took ~a of your lug nuts~n" t x)
           (loop (add1 x)))))
    
-   (define (send-gremlin) (compile/serialize #"SPAWN" request-thread *RHOST* *RPORT* *RKEY* the-gremlin))
+   (define (send-gremlin) (ask/send #"SPAWN" request-thread *RHOST* *RPORT* *RKEY* the-gremlin))
    
    (let loop ([z 99999])
      (send-gremlin)

@@ -34,7 +34,7 @@
     [(FrameBuffer buffer len λdisp)
      (define frame (subbytes buffer 0 len))
      (λdisp)
-     (compile/serialize #"RAW" server *RHOST* *RPORT* *RKEY* (subbytes buffer 0 len))
+     (ask/send #"RAW" server *RHOST* *RPORT* *RKEY* (subbytes buffer 0 len))
      (loop)]))
 ;   )
 ; #:threads #t)

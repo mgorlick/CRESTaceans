@@ -15,6 +15,7 @@
 (provide *LOCALHOST*
          run-tcp-peer
          generate-scurl/defaults
+         generate-key/defaults
          (all-from-out "scurl/peer-validation/scurl.rkt"))
 
 (define island-pair/c (cons/c string? exact-nonnegative-integer?))
@@ -40,7 +41,7 @@
   
   (define (make-abandon/signal port control-channel self-key)
     (λ (e)
-      (printf "~a thread error: ~a~n" (if (input-port? port) "Input" "Output") (exn-message e))
+      (printf "~a thread error: ~a~n" (if (input-port? port) "Input" "Output") e)
       (printf "terminating connection~n")
       (tcp-abandon-port port)
       (if (input-port? port)
@@ -72,7 +73,8 @@
          (define sige (handle-evt control-channel done/signalled))
          (define reade (handle-evt i (curry read-in/forward-message reply-thread)))
          (let loop ()
-           (sync eofe sige reade)
+           (sync ;eofe 
+            sige reade)
            (loop))))))
   
   ;;; SENDING
@@ -97,6 +99,7 @@
   (define (do-accepts)
     (let*-values ([(i o) (tcp-accept listener)])
       (define the-remote-scurl (handle-server-authentication this-scurl revoke? i o))
+      (flush-output o)
       (cond [(scurl? the-remote-scurl)
              (define the-remote-url (scurl-url the-remote-scurl))
              (define ra (url-host the-remote-url))
@@ -125,6 +128,7 @@
       (define the-remote-scurl
         (handle-client-authentication
          this-scurl (triple->scurl/defaults (request-host req) (request-port req) (request-key req)) i o))
+      (flush-output o)
       (cond [(scurl? the-remote-scurl)
              (printf "connected to ~a:~a~n" ra rp)
              (start-threads/store! i o ra rp)
@@ -165,15 +169,16 @@
 ;; OUTPUT
 (define (write-w/-compression msg o) (write (compress msg) o))
 (define (write-w/o-compression msg o) (write msg o))
-(define writer (if *USE-COMPRESSION?* write-w/-compression write-w/o-compression))
+(define writerfunction (if *USE-COMPRESSION?* write-w/-compression write-w/o-compression))
 (define (write-out o msg)
-  (writer msg o)
+  (writerfunction msg o)
   (flush-output o))
 
 ;; INPUT
-(define reader (if *USE-COMPRESSION?* (compose decompress read) read))
+(define readerfunction (if *USE-COMPRESSION?* (compose decompress read) read))
 (define (read-in/forward-message reply-thread i)
-  (thread-send reply-thread (deserialize (reader i) BASELINE #f)))
+  (define m (readerfunction i))
+  (thread-send reply-thread (deserialize m BASELINE #f)))
 
 ;; SCURL generation and recreation. 
 
@@ -182,10 +187,13 @@
 (define *KEY-TYPE* pkey:rsa)
 (define *KEY-LEN* 2048)
 
+(define (generate-key/defaults)
+  (generate-key *KEY-TYPE* *KEY-LEN*))
+
 ;; use generate-scurl/defaults when constructing URLs referring to self
-(define (generate-scurl/defaults hostname port [path ""])
+(define (generate-scurl/defaults hostname port #:path [path ""] #:key [key (generate-key/defaults)])
   (generate-scurl (format "imp://~a:~a/~a" hostname port path)
-                  *DIGEST-TYPE* *KEY-TYPE* (generate-key *KEY-TYPE* *KEY-LEN*)))
+                  *DIGEST-TYPE* *KEY-TYPE* key))
 
 ;; use triple->scurl/defaults when connecting to a known host:port:PK triple
 ;; (not useful for generating, as opposed to verifying, since it's never backed by a private key)
