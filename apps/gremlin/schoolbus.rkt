@@ -39,11 +39,11 @@
      
      ;; store the CURL
      (hash-set! curls=>threads new-gremlin-curl new-gremlin)
-     ;(printf "Installing ~a at ~s~n" new-gremlin new-gremlin-curl)
+     (printf "Installing ~a at ~s~n" new-gremlin new-gremlin-curl)
      
      ;; reply back to the sender to deliver the program's new CURL 
-     ;(ask/send "POST" request-thread *RHOST* *RPORT* echo ; echo-blob hardcoded to contain remote key
-     ;          (string->immutable-string new-gremlin-curl))
+     (ask/send "POST" request-thread *RHOST* *RPORT* echo ; echo-blob hardcoded to contain remote key
+               (string->immutable-string new-gremlin-curl))
      ]
     
     [any-other-pattern (printf "some other message: ~s~n" any-other-pattern)]))

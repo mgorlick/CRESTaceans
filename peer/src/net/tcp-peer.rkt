@@ -51,11 +51,6 @@
   
   ;; RECEIVING
   
-  ;; called if the input port gets an eof in input stream.
-  (define (done/eof v)
-    (when (eof-object? v)
-      (raise (make-exn:fail:network "Encountered EOF" (current-continuation-marks)))))
-  
   ;; called if input or output thread gets a signal through their distinguished
   ;; control async channel. typically one will signal the other.
   ;; (in the future, may need a third thread to share the ref)
@@ -69,12 +64,10 @@
     (thread
      (λ ()
        (with-handlers ([exn? (make-abandon/signal i control-channel (cons ra rp))])
-         (define eofe (handle-evt (eof-evt i) done/eof))
          (define sige (handle-evt control-channel done/signalled))
          (define reade (handle-evt i (curry read-in/forward-message reply-thread)))
          (let loop ()
-           (sync ;eofe 
-            sige reade)
+           (sync sige reade)
            (loop))))))
   
   ;;; SENDING
