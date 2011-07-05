@@ -20,7 +20,7 @@
 (define msg? list?) ; the contract representing post-serialization messages
 
 (define *LOCALHOST* "127.0.0.1")
-(define *USE-COMPRESSION?* #f)
+(define *USE-COMPRESSION?* #t)
 (print-graph #f)
 
 ;; run-tcp-peer: returns a thread handle used to communicate with the networking layer.
@@ -54,14 +54,21 @@
     (when (equal? 'exit v)
       (raise/ccm exn:fail:network "Received close command")))
   
-  ;; input thread: look for either (1) an EOF, (2) a signal on the control channel to exit,
+  (define/contract (input-next i decrypt)
+    (input-port? (bytes? bytes? . -> . bytes?) . -> . void)
+    (define encrypted-message (readerfunction i))
+    (define message (decrypt (vector-ref encrypted-message 0) (vector-ref encrypted-message 1)))
+    (thread-send reply-thread (deserialize (read (open-input-bytes message)) BASELINE #f)))
+  
+  ;; input thread: look for either (1) a signal on the control channel to exit,
   ;; or (3) a message to read, deserialize and deliver across the designated reply-to thread.
-  (define (run-input-thread i control-channel ra rp)
+  (define/contract (run-input-thread i control-channel self-key decrypt)
+    (input-port? async-channel? island-pair/c (bytes? bytes? . -> . bytes?) . -> . void)
     (thread
      (λ ()
-       (with-handlers ([exn? (make-abandon/signal i control-channel connects-i (cons ra rp))])
+       (with-handlers ([exn? (make-abandon/signal i control-channel connects-i self-key)])
          (define sige (handle-evt control-channel done/signalled))
-         (define reade (handle-evt i (curry read-in/forward-message reply-thread)))
+         (define reade (handle-evt i (λ (i) (input-next i decrypt))))
          (let loop ()
            (sync sige reade)
            (loop))))))
@@ -69,17 +76,21 @@
   ;;; SENDING
   
   ;; called if output thread receives anything in mailbox.
-  (define (output-next o)
+  (define (output-next o encrypt)
     (define m (thread-receive))
-    (cond [(list? m) (write-out o m)]
+    (cond [(list? m)
+           (define b# (writable->bytes m)) 
+           (define-values (cipher nonce) (encrypt b#))
+           (write-out o (vector cipher nonce))]
           [else (raise/ccm exn:fail "An invalid outgoing message was queued for writing")]))
   
   ;; output thread: look for either a message to send out or a signal to exit.
-  (define (run-output-thread o control-channel ra rp)
+  (define/contract (run-output-thread o control-channel self-key encrypt)
+    (output-port? async-channel? island-pair/c (bytes? . -> . (values bytes? bytes?)) . -> . void)
     (thread
      (λ ()
-       (with-handlers ([exn? (make-abandon/signal o control-channel connects-o (cons ra rp))])
-         (define msge (handle-evt (thread-receive-evt) (λ _ (output-next o))))
+       (with-handlers ([exn? (make-abandon/signal o control-channel connects-o self-key)])
+         (define msge (handle-evt (thread-receive-evt) (λ _ (output-next o encrypt))))
          (define sige (handle-evt control-channel done/signalled))
          (let loop ()
            (sync msge sige)
@@ -87,17 +98,18 @@
   
   ;;; CONNECTING
   (define (do-accept)
-    (let*-values ([(i o) (tcp-accept listener)])
-      (define the-remote-scurl (handle-server-authentication this-scurl revoke? i o))
-      (flush-output o)
-      (cond [(scurl? the-remote-scurl)
-             (define the-remote-url (scurl-url the-remote-scurl))
-             (define ra (url-host the-remote-url))
-             (define rp (url-port the-remote-url))
-             (printf "accepted from ~a:~a~n" ra rp)
-             (start-threads/store! i o ra rp)]
-            [else (printf "not accepted: the returned scurl auth is ~a~n" the-remote-scurl)])
-      (do-accept)))
+    (define-values (i o) (tcp-accept listener))
+    ;; first do the SCURL authentication protocol.
+    (define-values (ra rp) (do-server-auth this-scurl revoke? i o))
+    (cond [(and ra rp)
+           (printf "accepted from ~a:~a~n" ra rp)
+           ;; then do Diffie-Hellman key exchange.
+           (define-values (my-PK encrypter decrypter) (make-pk/encrypter/decrypter))
+           (define their-PK (do-DH-exchange my-PK i o))
+           ;; finally, ready to run normal input and output threads, which handle their own encryption/decryption.
+           (start-threads/store! i o ra rp their-PK encrypter decrypter)]
+          [else #f])
+    (do-accept))
   
   ;; Forward outbound message to the thread managing the appropriate output port.
   ;; if thread not found, connect and then try to send.
@@ -113,27 +125,28 @@
   ;; Do a synchronous tcp connect, then perform the client side of the SCURL authentication protocol.
   ;; finally, launch and register the input and output threads.
   (define/contract (connect/store! req)
-    (request? . -> . (or/c #f thread?))
-    (let*-values ([(i o) (tcp-connect (request-host req) (request-port req))]
-                  [(la lp ra rp) (tcp-addresses i #t)])
-      ;; construct a SCURL expressing the intent of our connection request.
-      ;; if the SCURL library returns a SCURL then we know the validation protocol succeeded.
-      (define should-be-scurl (triple->scurl/defaults (request-host req) (request-port req) (request-key req)))
-      (define the-remote-scurl (handle-client-authentication this-scurl should-be-scurl i o))
-      (flush-output o)
-      (cond [(scurl? the-remote-scurl)
-             (printf "connected to ~a:~a~n" ra rp)
-             (start-threads/store! i o ra rp)
-             (hash-ref connects-o (cons ra rp))]
-            [else (printf "not connected: the returned scurl auth is ~a~n" the-remote-scurl) #f])))
+    (request? . -> . (or/c #f thread?))  
+    (define-values (i o) (tcp-connect (request-host req) (request-port req)))
+    (define-values (la lp ra rp) (tcp-addresses i #t))
+    ;; first do the SCURL authentication protocol.
+    (define the-remote-scurl (do-client-auth (request-host req) (request-port req) (request-key req) this-scurl i o))
+    (cond [the-remote-scurl
+           (printf "connected to ~a:~a~n" ra rp)
+           ;; then do Diffie-Hellman key exchange.
+           (define-values (my-PK encrypter decrypter) (make-pk/encrypter/decrypter))
+           (define their-PK (do-DH-exchange my-PK i o))
+           ;; finally, ready to run normal input and output threads, which handle their own encryption/decryption.
+           (start-threads/store! i o ra rp their-PK encrypter decrypter)
+           (hash-ref connects-o (cons ra rp))]
+          [else (printf "not connected: the returned scurl auth is ~a~n" the-remote-scurl) #f]))
   
   ;; used by both the accepting and connecting processes to start and store threads
   ;; monitoring given output and input ports bound to the given canonical host:port
-  (define/contract (start-threads/store! i o ra rp)
-    (input-port? output-port? string? exact-nonnegative-integer? . -> . void)
+  (define/contract (start-threads/store! i o ra rp their-PK encrypter decrypter)
+    (input-port? output-port? string? exact-nonnegative-integer? bytes? encrypter/c decrypter/c . -> . void)
     (define control-channel (make-async-channel))
-    (define ot (run-output-thread o control-channel ra rp))
-    (define it (run-input-thread i control-channel ra rp))
+    (define ot (run-output-thread o control-channel (cons ra rp) (curry encrypter their-PK)))
+    (define it (run-input-thread i control-channel (cons ra rp) (curry decrypter their-PK)))
     (hash-set! connects-o (cons ra rp) ot)
     (hash-set! connects-i (cons ra rp) it))
   
@@ -151,10 +164,14 @@
   ((string? continuation-mark-set? . -> . exn?) string? . -> . exn?)
   (raise (f msg (current-continuation-marks))))
 
-
 (define/contract (request->serialized req)
   (request? . -> . msg?)
   (serialize (request-message req)))
+
+(define (writable->bytes t)
+  (define o (open-output-bytes))
+  (write t o)
+  (get-output-bytes o))
 
 ;; OUTPUT
 (define (write-w/-compression msg o) (write (compress msg) o))
@@ -166,6 +183,3 @@
 
 ;; INPUT
 (define readerfunction (if *USE-COMPRESSION?* (compose decompress read) read))
-(define (read-in/forward-message reply-thread i)
-  (define m (readerfunction i))
-  (thread-send reply-thread (deserialize m BASELINE #f)))
