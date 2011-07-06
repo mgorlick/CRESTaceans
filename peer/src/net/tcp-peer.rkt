@@ -45,6 +45,60 @@
       (hash-remove! hash self-key)
       (async-channel-put control-channel 'exit)))
   
+  ;;; CONNECTING
+  
+  (define (do-accept)
+    (with-handlers ([exn:fail:network? (λ (e) (printf "~a~n" (exn-message e)) #f)])
+      (define-values (i o) (tcp-accept listener))
+      (file-stream-buffer-mode o 'none)
+      ;; first do the SCURL authentication protocol.
+      (define-values (ra rp) (do-server-auth this-scurl revoke? i o))
+      (cond [(and ra rp)
+             (printf "accepted from ~a:~a~n" ra rp)
+             ;; then do Diffie-Hellman key exchange.
+             (define-values (my-PK set-PK) (make-pk/encrypter/decrypter))
+             (define their-PK (do-DH-exchange my-PK i o))
+             (define-values (encrypter decrypter) (set-PK their-PK))
+             ;; finally, ready to run normal input and output threads, which handle their own encryption/decryption.
+             (start-threads/store! i o ra rp encrypter decrypter)]
+            [else (tcp-abandon-port o)
+                  (tcp-abandon-port i)
+                  (raise/ccm exn:fail:network "not connected: failed the SCURL server-side auth protocol")]))
+    (do-accept))
+  
+  ;; Do a synchronous tcp connect, then perform the client side of the SCURL authentication protocol.
+  ;; finally, launch and register the input and output threads.
+  (define/contract (connect/store! req)
+    (request? . -> . void)
+    (define-values (i o) (tcp-connect (request-host req) (request-port req)))
+    (file-stream-buffer-mode o 'none)
+    (define-values (la lp ra rp) (tcp-addresses i #t))
+    ;; first do the SCURL authentication protocol.
+    (define the-remote-scurl (do-client-auth (request-host req) (request-port req) (request-key req) this-scurl i o))
+    (cond [(scurl? the-remote-scurl)
+           (printf "connected to ~a:~a~n" ra rp)
+           ;; then do Diffie-Hellman key exchange.
+           (define-values (my-PK set-PK) (make-pk/encrypter/decrypter))
+           (define their-PK (do-DH-exchange my-PK i o))
+           (define-values (encrypter decrypter) (set-PK their-PK))
+           ;; finally, ready to run normal input and output threads, which handle their own encryption/decryption.
+           (start-threads/store! i o ra rp encrypter decrypter)]
+          [else (tcp-abandon-port o)
+                (tcp-abandon-port i)
+                (raise/ccm exn:fail:network "not connected: failed the SCURL client-side auth protocol")]))
+  
+  ;; used by both the accepting and connecting processes to start and store threads
+  ;; monitoring given output and input ports bound to the given canonical host:port
+  (define/contract (start-threads/store! i o ra rp encrypter decrypter)
+    (input-port? output-port? string? exact-nonnegative-integer? encrypter/c decrypter/c . -> . void)
+    (define control-channel (make-async-channel))
+    (define ot (run-output-thread o control-channel (cons ra rp) encrypter))
+    (define it (run-input-thread i control-channel (cons ra rp) decrypter))
+    (hash-set! connects-o (cons ra rp) ot)
+    (hash-set! connects-i (cons ra rp) it))
+  
+  ;; -------------------------------------
+  
   ;; RECEIVING
   
   ;; called if input or output thread gets a signal through their distinguished
@@ -68,20 +122,20 @@
      (λ ()
        (with-handlers ([exn? (make-abandon/signal i control-channel connects-i self-key)])
          (define sige (handle-evt control-channel done/signalled))
-         (define reade (handle-evt i (λ (i) (input-next i decrypt))))
+         (define reade (handle-evt i (curryr input-next decrypt)))
          (let loop ()
            (sync sige reade)
            (loop))))))
   
-  ;;; SENDING
+  ;; -------------------------------------
+  
+  ;; SENDING
   
   ;; called if output thread receives anything in mailbox.
   (define (output-next o encrypt)
     (define m (thread-receive))
-    (cond [(list? m)
-           (define compressed-message (compress m))
-           (define b# (writable->bytes compressed-message))
-           (define-values (cipher nonce) (encrypt b#))
+    (cond [(msg? m)
+           (define-values (cipher nonce) (encrypt (writable->bytes (compress m))))
            (write (vector cipher nonce) o)]
           [else (raise/ccm exn:fail "An invalid outgoing message was queued for writing")]))
   
@@ -97,66 +151,22 @@
            (sync msge sige)
            (loop))))))
   
-  ;;; CONNECTING
-  (define (do-accept)
-    (define-values (i o) (tcp-accept listener))
-    (file-stream-buffer-mode o 'none)
-    ;; first do the SCURL authentication protocol.
-    (define-values (ra rp) (do-server-auth this-scurl revoke? i o))
-    (cond [(and ra rp)
-           (printf "accepted from ~a:~a~n" ra rp)
-           ;; then do Diffie-Hellman key exchange.
-           (define-values (my-PK set-PK) (make-pk/encrypter/decrypter))
-           (define their-PK (do-DH-exchange my-PK i o))
-           (define-values (encrypter decrypter) (set-PK their-PK))
-           ;; finally, ready to run normal input and output threads, which handle their own encryption/decryption.
-           (start-threads/store! i o ra rp encrypter decrypter)]
-          [else #f])
-    (do-accept))
-  
   ;; Forward outbound message to the thread managing the appropriate output port.
-  ;; if thread not found, connect and then try to send.
   ;; if no thread returned, assume connection attempt unauthorized.
-  ;; FIXME: don't silently fail here. (requires widening the interface between this layer and above)
   (define (do-sending)
     (define/contract req request? (thread-receive))
-    (define othread (hash-ref connects-o (cons (request-host req) (request-port req))
-                              (λ () (connect/store! req))))
+    (define othread (get-output-thread/maybe-connect req))
     (if othread
         (thread-send othread (request->serialized req) #f)
         (printf "unable to connect to host ~a:~a~n" (request-host req) (request-port req)))
     (do-sending))
   
-  ;; Do a synchronous tcp connect, then perform the client side of the SCURL authentication protocol.
-  ;; finally, launch and register the input and output threads.
-  (define/contract (connect/store! req)
-    (request? . -> . (or/c #f thread?))
-    (with-handlers ([exn:fail:network? (λ (e) #f)])
-      (define-values (i o) (tcp-connect (request-host req) (request-port req)))
-      (file-stream-buffer-mode o 'none)
-      (define-values (la lp ra rp) (tcp-addresses i #t))
-      ;; first do the SCURL authentication protocol.
-      (define the-remote-scurl (do-client-auth (request-host req) (request-port req) (request-key req) this-scurl i o))
-      (cond [the-remote-scurl
-             (printf "connected to ~a:~a~n" ra rp)
-             ;; then do Diffie-Hellman key exchange.
-             (define-values (my-PK set-PK) (make-pk/encrypter/decrypter))
-             (define their-PK (do-DH-exchange my-PK i o))
-             (define-values (encrypter decrypter) (set-PK their-PK))
-             ;; finally, ready to run normal input and output threads, which handle their own encryption/decryption.
-             (start-threads/store! i o ra rp encrypter decrypter)
-             (hash-ref connects-o (cons ra rp))]
-            [else (printf "not connected: the returned scurl auth is ~a~n" the-remote-scurl) #f])))
-  
-  ;; used by both the accepting and connecting processes to start and store threads
-  ;; monitoring given output and input ports bound to the given canonical host:port
-  (define/contract (start-threads/store! i o ra rp encrypter decrypter)
-    (input-port? output-port? string? exact-nonnegative-integer? encrypter/c decrypter/c . -> . void)
-    (define control-channel (make-async-channel))
-    (define ot (run-output-thread o control-channel (cons ra rp) encrypter))
-    (define it (run-input-thread i control-channel (cons ra rp) decrypter))
-    (hash-set! connects-o (cons ra rp) ot)
-    (hash-set! connects-i (cons ra rp) it))
+  (define (get-output-thread/maybe-connect req)
+    (hash-ref connects-o (cons (request-host req) (request-port req))
+              (λ ()
+                (with-handlers ([exn:fail:network? (λ (e) (printf "~a~n" (exn-message e)) #f)])
+                  (connect/store! req)
+                  (hash-ref connects-o (cons (request-host req) (request-port req)))))))
   
   ;; -------------------------------------
   
