@@ -1,6 +1,6 @@
 #lang racket/base
 
-(require "../../../bindings/pulse/pulse.rkt"
+(require "../bindings/pulse/pulse.rkt"
          "util.rkt"
          "structs.rkt"
          "bufferpool.rkt"

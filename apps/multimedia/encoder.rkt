@@ -1,9 +1,9 @@
 #! /usr/bin/env racket
 #lang racket/base
 
-(require "../../peer/src/multimed/vp8/v4l2-reader.rkt"
-         "../../peer/src/multimed/vp8/vp8enc.rkt"
-         "../../peer/src/multimed/structs.rkt"
+(require "pipeline/v4l2-reader.rkt"
+         "pipeline/vp8enc.rkt"
+         "pipeline/structs.rkt"
          "../../peer/src/net/tcp-peer.rkt"
          "../../peer/src/net/structs.rkt"
          "../../peer/src/api/compilation.rkt"

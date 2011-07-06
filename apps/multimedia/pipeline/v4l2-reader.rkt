@@ -1,8 +1,8 @@
 #lang racket/base
 
-(require "../util.rkt"
-         "../structs.rkt"
-         "../../../../bindings/vp8/vp8.rkt"
+(require "util.rkt"
+         "structs.rkt"
+         "../bindings/vp8/vp8.rkt"
          racket/contract
          racket/set
          racket/match)

@@ -1,9 +1,9 @@
 #lang racket/base
 
-(require "../../../../bindings/vp8/vp8.rkt"
-         "../util.rkt"
-         "../structs.rkt"
-         "../bufferpool.rkt"
+(require "../bindings/vp8/vp8.rkt"
+         "util.rkt"
+         "structs.rkt"
+         "bufferpool.rkt"
          racket/contract
          racket/match)
 

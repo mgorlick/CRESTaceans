@@ -1,8 +1,8 @@
 #lang racket/base
 
-(require "../../../../bindings/vorbis/libvorbis.rkt"
-         "../structs.rkt"
-         "../util.rkt"
+(require "../bindings/vorbis/libvorbis.rkt"
+         "structs.rkt"
+         "util.rkt"
          racket/contract)
 
 (provide make-ogg-demuxer)

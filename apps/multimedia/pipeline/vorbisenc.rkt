@@ -1,8 +1,8 @@
 #lang racket/base
 
-(require "../../../../bindings/vorbis/libvorbis.rkt"
-         "../util.rkt"
-         "../structs.rkt"
+(require "../bindings/vorbis/libvorbis.rkt"
+         "util.rkt"
+         "structs.rkt"
          racket/contract
          racket/match)
 

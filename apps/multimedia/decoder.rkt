@@ -1,7 +1,7 @@
 #! /usr/bin/env racket
 #lang racket/base
 
-(require "../../peer/src/multimed/vp8/vp8dec.rkt"
+(require "pipeline/vp8dec.rkt"
          "../../peer/src/net/tcp-peer.rkt"
          "../../peer/src/net/structs.rkt"
          "../../peer/src/api/compilation.rkt"
