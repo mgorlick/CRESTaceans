@@ -122,28 +122,31 @@
     (define/contract req request? (thread-receive))
     (define othread (hash-ref connects-o (cons (request-host req) (request-port req))
                               (λ () (connect/store! req))))
-    (when othread (thread-send othread (request->serialized req) #f))
+    (if othread
+        (thread-send othread (request->serialized req) #f)
+        (printf "unable to connect to host ~a:~a~n" (request-host req) (request-port req)))
     (do-sending))
   
   ;; Do a synchronous tcp connect, then perform the client side of the SCURL authentication protocol.
   ;; finally, launch and register the input and output threads.
   (define/contract (connect/store! req)
-    (request? . -> . (or/c #f thread?))  
-    (define-values (i o) (tcp-connect (request-host req) (request-port req)))
-    (file-stream-buffer-mode o 'none)
-    (define-values (la lp ra rp) (tcp-addresses i #t))
-    ;; first do the SCURL authentication protocol.
-    (define the-remote-scurl (do-client-auth (request-host req) (request-port req) (request-key req) this-scurl i o))
-    (cond [the-remote-scurl
-           (printf "connected to ~a:~a~n" ra rp)
-           ;; then do Diffie-Hellman key exchange.
-           (define-values (my-PK set-PK) (make-pk/encrypter/decrypter))
-           (define their-PK (do-DH-exchange my-PK i o))
-           (define-values (encrypter decrypter) (set-PK their-PK))
-           ;; finally, ready to run normal input and output threads, which handle their own encryption/decryption.
-           (start-threads/store! i o ra rp encrypter decrypter)
-           (hash-ref connects-o (cons ra rp))]
-          [else (printf "not connected: the returned scurl auth is ~a~n" the-remote-scurl) #f]))
+    (request? . -> . (or/c #f thread?))
+    (with-handlers ([exn:fail:network? (λ (e) #f)])
+      (define-values (i o) (tcp-connect (request-host req) (request-port req)))
+      (file-stream-buffer-mode o 'none)
+      (define-values (la lp ra rp) (tcp-addresses i #t))
+      ;; first do the SCURL authentication protocol.
+      (define the-remote-scurl (do-client-auth (request-host req) (request-port req) (request-key req) this-scurl i o))
+      (cond [the-remote-scurl
+             (printf "connected to ~a:~a~n" ra rp)
+             ;; then do Diffie-Hellman key exchange.
+             (define-values (my-PK set-PK) (make-pk/encrypter/decrypter))
+             (define their-PK (do-DH-exchange my-PK i o))
+             (define-values (encrypter decrypter) (set-PK their-PK))
+             ;; finally, ready to run normal input and output threads, which handle their own encryption/decryption.
+             (start-threads/store! i o ra rp encrypter decrypter)
+             (hash-ref connects-o (cons ra rp))]
+            [else (printf "not connected: the returned scurl auth is ~a~n" the-remote-scurl) #f])))
   
   ;; used by both the accepting and connecting processes to start and store threads
   ;; monitoring given output and input ports bound to the given canonical host:port
