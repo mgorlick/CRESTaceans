@@ -106,10 +106,11 @@
     (cond [(and ra rp)
            (printf "accepted from ~a:~a~n" ra rp)
            ;; then do Diffie-Hellman key exchange.
-           (define-values (my-PK encrypter decrypter) (make-pk/encrypter/decrypter))
+           (define-values (my-PK set-PK) (make-pk/encrypter/decrypter))
            (define their-PK (do-DH-exchange my-PK i o))
+           (define-values (encrypter decrypter) (set-PK their-PK))
            ;; finally, ready to run normal input and output threads, which handle their own encryption/decryption.
-           (start-threads/store! i o ra rp their-PK encrypter decrypter)]
+           (start-threads/store! i o ra rp encrypter decrypter)]
           [else #f])
     (do-accept))
   
@@ -136,20 +137,21 @@
     (cond [the-remote-scurl
            (printf "connected to ~a:~a~n" ra rp)
            ;; then do Diffie-Hellman key exchange.
-           (define-values (my-PK encrypter decrypter) (make-pk/encrypter/decrypter))
+           (define-values (my-PK set-PK) (make-pk/encrypter/decrypter))
            (define their-PK (do-DH-exchange my-PK i o))
+           (define-values (encrypter decrypter) (set-PK their-PK))
            ;; finally, ready to run normal input and output threads, which handle their own encryption/decryption.
-           (start-threads/store! i o ra rp their-PK encrypter decrypter)
+           (start-threads/store! i o ra rp encrypter decrypter)
            (hash-ref connects-o (cons ra rp))]
           [else (printf "not connected: the returned scurl auth is ~a~n" the-remote-scurl) #f]))
   
   ;; used by both the accepting and connecting processes to start and store threads
   ;; monitoring given output and input ports bound to the given canonical host:port
-  (define/contract (start-threads/store! i o ra rp their-PK encrypter decrypter)
-    (input-port? output-port? string? exact-nonnegative-integer? bytes? encrypter/c decrypter/c . -> . void)
+  (define/contract (start-threads/store! i o ra rp encrypter decrypter)
+    (input-port? output-port? string? exact-nonnegative-integer? encrypter/c decrypter/c . -> . void)
     (define control-channel (make-async-channel))
-    (define ot (run-output-thread o control-channel (cons ra rp) (curry encrypter their-PK)))
-    (define it (run-input-thread i control-channel (cons ra rp) (curry decrypter their-PK)))
+    (define ot (run-output-thread o control-channel (cons ra rp) encrypter))
+    (define it (run-input-thread i control-channel (cons ra rp) decrypter))
     (hash-set! connects-o (cons ra rp) ot)
     (hash-set! connects-i (cons ra rp) it))
   
