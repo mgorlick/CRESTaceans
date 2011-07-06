@@ -13,11 +13,13 @@ c:
 	cd bindings/allegro5/kbd-wrap && make
 	cd bindings/vorbis/wrapper && make
 	cd bindings/vp8/wrapper && make
+	cd bindings/pulse/wrapper && make
 
 install:
 	cd bindings/allegro5/kbd-wrap && make install RACKET_LIBS=$(RACKET_LIBS)
 	cd bindings/vorbis/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
 	cd bindings/vp8/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
+	cd bindings/pulse/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
 
 clean:
 	find . -name "compiled" -type d -print0 | xargs -0 rm -rfv
