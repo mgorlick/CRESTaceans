@@ -1,6 +1,6 @@
 #lang racket/base
 
-(require (planet soegaard/gzip))
+(require "../../../bindings/fastlz/fastlz.rkt")
 (provide compress
          decompress)
 
