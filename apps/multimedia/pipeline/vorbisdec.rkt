@@ -22,8 +22,11 @@
       (match (receive-killswitch/whatever is-signaller?)
         [(? bytes? packet) (handle-vorbis-buffer! vdec localstate packet (bytes-length packet))
                            (loop)]
-        [(FrameBuffer packet size λdisposal)
+        [(FrameBuffer packet size λdisposal ts)
+         ;(printf "\tstart encode => start decode: ~a ms~n" (- (current-inexact-milliseconds) ts))
+         (define current-ts (current-inexact-milliseconds))
          (handle-vorbis-buffer! vdec localstate packet size)
+         (printf "start of life => end of life: ~a ms~n" (- (current-inexact-milliseconds) ts))
          (λdisposal)
          (loop)]
         [(? die? sig) (vorbisdec-delete vdec)

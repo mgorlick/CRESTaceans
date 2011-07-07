@@ -10,6 +10,8 @@
 
 (struct encoder-settings (channels rate quality fl))
 
+(define current-ts 0.0)
+
 ;; component setup
 (define/contract (make-vorbis-encoder signaller setup receiver)
   (thread? encoder-settings? thread? . -> . (-> void))
@@ -30,14 +32,17 @@
          (vorbisenc-encode-pcm-samples enc buffer (bytes-length buffer)
                                        (encoder-settings-fl setup) output-packet)
          (loop)]
-        [(FrameBuffer buffer size λdisposal)
+        [(FrameBuffer buffer size λdisposal ts)
+         ;(printf "start sample => start encode: ~a ms~n" (- (current-inexact-milliseconds) ts))
+         (set! current-ts ts)
          (vorbisenc-encode-pcm-samples enc buffer size (encoder-settings-fl setup) output-packet)
-         (λdisposal)
+         (λdisposal)         
          (loop)]))))
 
 ;; encoder stuff
 (define/contract (make-packet-out-callback receiver)
   (thread? . -> . (ogg-packet-pointer? symbol? . -> . boolean?))
   (λ (packet type)
-    (thread-send receiver (bytes-copy (ogg-packet-data packet)))
+    (thread-send receiver (make-FrameBuffer (bytes-copy (ogg-packet-data packet))
+                                            (ogg-packet-size packet) void current-ts))
     #t))

@@ -14,13 +14,14 @@
   (thread? thread? . -> . (-> void))
   
   (define is-signaller? (make-thread-id-verifier signaller))
-  (define-values (pool λrequest) (make-bufferpool-handler 20 BUFFSIZE))
+  (define-values (pool λrequest) (make-bufferpool-handler 200 BUFFSIZE))
   (define s (pulsesrc-new))
   
   (define (grab)
     (let-values ([(buffer λdisposal) (λrequest)])
+      (define ts (current-inexact-milliseconds))
       (if (pulsesrc-read s BUFFSIZE buffer)
-          (thread-send receiver (make-FrameBuffer buffer BUFFSIZE λdisposal))
+          (thread-send receiver (make-FrameBuffer buffer BUFFSIZE λdisposal ts))
           (λdisposal))))
   
   (define (cleanup)

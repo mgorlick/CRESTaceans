@@ -45,8 +45,8 @@
                           (loop thds)]
               ;; pooling buffers and copying an incoming buffer to N outgoing buffers doesn't scale
               ;; in this case it's better to just let the GC handle it
-              [(FrameBuffer? m) (match-let ([(FrameBuffer inbytes size λdisposal) m])
-                                  (define frame (FrameBuffer (subbytes inbytes 0 size) size void))
+              [(FrameBuffer? m) (match-let ([(FrameBuffer inbytes size λdisposal ts) m])
+                                  (define frame (FrameBuffer (subbytes inbytes 0 size) size void ts))
                                   (map (curry (rev-params thread-send) frame) thds)
                                   (λdisposal)
                                   (loop thds))])))))

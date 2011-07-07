@@ -37,7 +37,7 @@
         (loop)))
     
     (define (make-frame data size i)
-      (make-FrameBuffer data size (λ () (requeue i))))
+      (make-FrameBuffer data size (λ () (requeue i)) (current-inexact-milliseconds)))
     
     (define (requeue i)
       (with-handlers ([exn:fail? (λ (e) (void))]) 

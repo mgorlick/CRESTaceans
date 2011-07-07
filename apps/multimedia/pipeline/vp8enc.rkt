@@ -30,9 +30,9 @@
           [(? die? _) (vp8enc-delete e)
                       (command/killswitch signaller receiver)
                       (reply/state-report signaller #f)]
-          [(FrameBuffer data size λdisposal)
+          [(FrameBuffer data size λdisposal ts)
            (let-values ([(outbuff λreturn) (λrequest)])
              (let ([written (vp8enc-encode e size data BUFSIZE outbuff)])
-               (thread-send receiver (make-FrameBuffer outbuff written λreturn))))
+               (thread-send receiver (make-FrameBuffer outbuff written λreturn (current-inexact-milliseconds)))))
            (λdisposal)
            (loop)])))))

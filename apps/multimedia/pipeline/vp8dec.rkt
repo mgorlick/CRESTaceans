@@ -21,7 +21,7 @@
                     (reply/state-report signaller #f)]
         [(? bytes? pkt) (vp8dec-decode d (bytes-length pkt) pkt)
                         (loop)]
-        [(FrameBuffer data size λdisposal)
+        [(FrameBuffer data size λdisposal ts)
          (vp8dec-decode d size data)
          (λdisposal)
          (loop)]))))

@@ -13,7 +13,8 @@
          ; match against it in untyped code
          ([data : Bytes]
           [size : Natural]
-          [λdisposal : (-> Void)]))
+          [λdisposal : (-> Void)]
+          [ts : Real]))
 
 (struct: VideoParams
          ([width : Natural]
