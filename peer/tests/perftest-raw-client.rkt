@@ -16,8 +16,10 @@
      (with-handlers ([exn:fail? (λ (e) 5000)])
        (string->number (vector-ref (current-command-line-arguments) 1))))
    
-   (define this-scurl (generate-scurl/defaults *LOCALHOST* port))
+   (define k (generate-key/defaults))
+   (define this-scurl (generate-scurl/defaults *LOCALHOST* port #:key k))
    (define request-thread (run-tcp-peer *LOCALHOST* port this-scurl (current-thread)))
+   
    
    (define *RHOST* *LOCALHOST*)
    (define *RPORT* 1234)
@@ -27,13 +29,8 @@
    (for/list ([i (in-range len)])
      (bytes-set! name i (random 255)))
    
-   (thread (λ ()
-             (let loop ()
-               (thread-receive)
-               (loop))))
-   
    (let loop ([x 99999])
-     (ask/send #"POST" request-thread *RHOST* *RPORT* *RKEY* name)
+     (ask/send #"POST" request-thread *RHOST* *RPORT* *RKEY* name #:compile? #f)
      (unless (zero? x) (loop (sub1 x))))
    (semaphore-wait (make-semaphore)))
  

@@ -8,22 +8,24 @@
 
 (define (handle-message message t)
   (match message
-    [(vector <tuple> '(mischief message ask) #"SPAWN" an-url body a b c)
+    [(vector <tuple> '(mischief message ask) "SPAWN" an-url body a b c)
      #f]
     
-    [(vector <tuple> '(mischief message ask) #"POST" an-url name a b c)
+    [(vector <tuple> '(mischief message ask) "POST" an-url name a b c)
      #f]
     
-    [anyelse (printf "some other message: ~s~n" anyelse)]))
+    [anyelse #f]))
 
 (define *RHOST* *LOCALHOST*)
 (define *RPORT* 5000)
+(define *LOCALPORT* 1234)
 
 (require profile)
 (profile-thunk
  (λ ()
-   (define this-scurl (generate-scurl/defaults *LOCALHOST* 1234))
-   (define request-thread (run-tcp-peer *LOCALHOST* 1234 this-scurl (current-thread)))
+   (define k (generate-key/defaults))
+   (define this-scurl (generate-scurl/defaults *LOCALHOST* *LOCALPORT* #:key k))
+   (define request-thread (run-tcp-peer *LOCALHOST* *LOCALPORT* this-scurl (current-thread)))
    (printf "Listening on ~a~n" (scurl->string this-scurl))
    
    (let loop ([t 0])
