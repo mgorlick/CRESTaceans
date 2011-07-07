@@ -16,10 +16,6 @@
          generate-key/defaults
          (all-from-out "scurls.rkt"))
 
-(define written 0)
-(define numwritten 0)
-(define start-time #f)
-
 (define island-pair/c (cons/c string? exact-nonnegative-integer?))
 (define msg? list?) ; the contract representing post-serialization messages
 
@@ -135,29 +131,12 @@
   
   ;; SENDING
   
-  (define (test cipher nonce)
-    (set! written (+ written (bytes-length cipher) (bytes-length nonce) 5))
-    (set! numwritten (add1 numwritten))
-    (when (= (modulo numwritten 100) 0)
-      (printf "wrote ~a messages (~a bytes) in ~a seconds (~a messages/sec; ~a bytes/sec)~n"
-              numwritten
-              written
-              (exact->inexact (/ (- (current-inexact-milliseconds) start-time) 1000))
-              (exact->inexact (/ numwritten 
-                                 (/ (- (current-inexact-milliseconds) start-time) 1000)))
-              (exact->inexact (/ written 
-                                 (/ (- (current-inexact-milliseconds) start-time) 1000))))))
-  
   ;; called if output thread receives anything in mailbox.
   (define (output-next o encrypt)
-    (when (boolean? start-time) (set! start-time (current-inexact-milliseconds)))
-    
     (define m (thread-receive))
     (cond [(msg? m)
            (define-values (cipher nonce) (encrypt (writable->bytes (compress m))))
-           (write (vector cipher nonce) o)
-           
-           (test cipher nonce)]
+           (write (vector cipher nonce) o)]
           [else (raise/ccm exn:fail "An invalid outgoing message was queued for writing")]))
   
   ;; output thread: look for either a message to send out or a signal to exit.
