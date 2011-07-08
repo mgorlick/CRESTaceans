@@ -7,12 +7,12 @@ ifeq ($(UNAME), Darwin)
 else ifeq ($(UNAME), Linux)
 	SO = libnacl.so
 	CFLAGS = -fPIC -c -g -O3 -Wall
-	SOCOMMAND = -shared -o $(SO)
+	SOCOMMAND = -fPIC -O3 -shared -o $(SO)
 endif
 
 all: so
 
-so: cpucycles.o randombytes.o libnacl.a box.o
+so: cpucycles.o randombytes.o box.o libnacl.a
 	$(CC) $(SOCOMMAND) $^
 
 box.o: box.c
