@@ -100,7 +100,7 @@ vorbisdec* vorbisdec_new (void) {
 
 int vorbisdec_finish_init (vorbisdec* dec) {
 
-  int res, default_driver;
+  int res;
   ao_device *device;
 
   ao_sample_format format;
@@ -124,8 +124,7 @@ int vorbisdec_finish_init (vorbisdec* dec) {
       /* format.matrix = (dec->vi->channels == 1 ? "M" : "L,R"); */
 
       /* open up the driver */
-      default_driver = ao_default_driver_id ();
-      device = ao_open_live (default_driver, &format, NULL);
+      device = ao_open_live (ao_driver_id ("pulse"), &format, NULL);
       if (!device) {
         printf ("Error opening device\n");
         goto err;
