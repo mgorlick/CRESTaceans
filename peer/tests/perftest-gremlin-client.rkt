@@ -29,7 +29,7 @@
           (printf "Gremlin number ~a took ~a of your lug nuts~n" t x)
           (loop (add1 x)))))
    
-   (define (send-gremlin) (ask/send #"SPAWN" request-thread *RHOST* *RPORT* *RKEY* the-gremlin))
+   (define (send-gremlin) (ask/send "SPAWN" request-thread *RHOST* *RPORT* *RKEY* the-gremlin))
    
    (let loop ([z 99999])
      (send-gremlin)

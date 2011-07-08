@@ -1,7 +1,0 @@
-#! /bin/sh
-
-echo $1
-cd so
-rm *wrapper*
-gcc -dynamiclib -o libnacl.dylib -lc `find . -name "*.o"`
-cp libnacl.dylib $1
