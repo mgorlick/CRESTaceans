@@ -6,6 +6,10 @@
          "pipeline/vorbisenc.rkt"
          "pipeline/pulsesrc.rkt"
          "pipeline/structs.rkt"
+         
+         "pipeline/vorbisdec.rkt"
+         "pipeline/vp8dec.rkt"
+         
          "../../peer/src/net/tcp-peer.rkt"
          "../../peer/src/net/structs.rkt"
          "../../peer/src/api/compilation.rkt"
@@ -38,23 +42,33 @@
 (define *RHOST* *LOCALHOST*)
 (define *RPORT* 1235)
 
+(define start-time 0)
+
 (define (relayer targeturl)
   (let loop ()
     (match (thread-receive)
-      [(FrameBuffer buffer len λdisp)
+      [(FrameBuffer buffer len λdisp ts)
        (define frame (subbytes buffer 0 len))
-       (ask/send "POST" request-thread *RHOST* *RPORT* *RKEY* (subbytes buffer 0 len) #:compile? #f #:url targeturl)
+       (ask/send "POST" request-thread *RHOST* *RPORT* *RKEY* (vector (- (current-process-milliseconds #f) start-time)
+                                                                      (subbytes buffer 0 len))
+                 #:compile? #f #:url targeturl)
        (λdisp)
        (loop)]
       [(? bytes? buffer)
-       (ask/send "POST" request-thread *RHOST* *RPORT* *RKEY* buffer #:compile? #f #:url targeturl)
+       (ask/send "POST" request-thread *RHOST* *RPORT* *RKEY* (vector (- (current-process-milliseconds #f) start-time)
+                                                                      buffer)
+                 #:compile? #f #:url targeturl)
        (loop)])))
 
-(define videorelay0 (thread (λ () (relayer "/video0"))))
-(define vp80 (thread (make-vp8-encoder me videorelay0)))
+(define videodecode (thread (make-vp8-decoder me)))
+;(define videorelay0 (thread (λ () (relayer "/video0"))))
+(define vp80 (thread (make-vp8-encoder me videodecode))) ;videorelay0)))
 (define video0 (thread (make-v4l2-reader me vp80)))
-(define audiorelay0 (thread (λ () (relayer "/audio0"))))
-(define vorbis0 (thread (make-vorbis-encoder me (encoder-settings 2 44100 1.0 'naive) audiorelay0)))
+
+(define audiodecode (thread (make-vorbis-decoder me)))
+;(define audiorelay0 (thread (λ () (relayer "/audio0"))))
+(define vorbis0 (thread (make-vorbis-encoder me (encoder-settings 2 44100 1.0 'naive) audiodecode))) ;audiorelay0)))
 (define pulse0 (thread (make-pulsesrc me vorbis0)))
 
+(set! start-time (current-process-milliseconds #f))
 (no-return)

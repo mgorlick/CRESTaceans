@@ -22,8 +22,8 @@
 (define curls=>threads (make-hash))
 
 (define k (generate-key/defaults))
-(define this-scurl (generate-scurl/defaults *LOCALHOST* *LOCALPORT* #:key k))
-(define request-thread (run-tcp-peer *LOCALHOST* *LOCALPORT* this-scurl me))
+(define this-scurl (generate-scurl/defaults *LOCALHOST* port #:key k))
+(define request-thread (run-tcp-peer *LOCALHOST* port this-scurl processor))
 
 (printf "Listening on ~a~n" (regexp-split "/" (scurl->string this-scurl)))
 
@@ -35,13 +35,10 @@
 (printf "audio0 decoder installed at ~a~n" audio0-curl)
 
 (let loop ()
-  (match (thread-receive)
+  (define v (thread-receive))
+  (match v
     [(vector '<tuple> '(mischief message ask) "POST" "/video0" body metadata reply-curl echo)
-     (if (bytes? body)
-         (thread-send (hash-ref curls=>threads video0-curl) body)
-         (printf "body is not bytes: ~a~n" body))]
+     (thread-send (hash-ref curls=>threads video0-curl) (vector-ref body 1))]
     [(vector '<tuple> '(mischief message ask) "POST" "/audio0" body metadata reply-curl echo)
-     (if (bytes? body)
-         (thread-send (hash-ref curls=>threads audio0-curl) body)
-         (printf "body is not bytes: ~a~n" body))])
+     (thread-send (hash-ref curls=>threads audio0-curl) (vector-ref body 1))])
   (loop))
