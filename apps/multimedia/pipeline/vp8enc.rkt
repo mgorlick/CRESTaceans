@@ -33,6 +33,6 @@
           [(FrameBuffer data size λdisposal ts)
            (let-values ([(outbuff λreturn) (λrequest)])
              (let ([written (vp8enc-encode e size data BUFSIZE outbuff)])
-               (thread-send receiver (make-FrameBuffer outbuff written λreturn (current-inexact-milliseconds)))))
+               (thread-send receiver (make-FrameBuffer outbuff written λreturn ts))))
            (λdisposal)
            (loop)])))))

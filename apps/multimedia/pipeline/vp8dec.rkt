@@ -22,6 +22,7 @@
         [(? bytes? pkt) (vp8dec-decode d (bytes-length pkt) pkt)
                         (loop)]
         [(FrameBuffer data size λdisposal ts)
+         (printf "\tvideo start of life => end of life: ~a ms~n" (- (current-inexact-milliseconds) ts))
          (vp8dec-decode d size data)
          (λdisposal)
          (loop)]))))

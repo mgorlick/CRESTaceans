@@ -16,23 +16,30 @@ void pulsesrc_delete (PulseSrc *src) {
   free (src);
 }
 
-PulseSrc* pulsesrc_new (void) {
+PulseSrc* pulsesrc_new (uint32_t rate, uint8_t channels) {
   PulseSrc *src;
-  pa_sample_spec ss = { PA_SAMPLE_FLOAT32NE, 44100, 2 };
+  int error;
+  pa_sample_spec ss;
+  
+  ss.format = PA_SAMPLE_FLOAT32NE;
+  ss.rate = rate;
+  ss.channels = channels;
 
   src = malloc (sizeof (PulseSrc));
   if (src == NULL) goto no_src;
+
   src->s = pa_simple_new (NULL, "CREST Pipeline", PA_STREAM_RECORD,
                           NULL, /* default device name */
-                          "Voice recording", &ss, NULL, NULL, NULL);
+                          "Voice recording", &ss, NULL, NULL, &error);
   if (src->s == NULL) goto no_pa;
+  
   return src;
 
 no_src:
-  printf ("Couldn't malloc PulseSrc component\n");
+  printf ("Couldn't malloc PulseSrc component: %s\n", pa_strerror (error));
   return NULL;
 no_pa:
-  printf ("Couldn't connect to PulseAudio device\n");
+  printf ("Couldn't connect to PulseAudio device: %s\n", pa_strerror (error));
   free (src);
   return NULL;
 }

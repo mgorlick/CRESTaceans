@@ -6,16 +6,18 @@
          "bufferpool.rkt"
          racket/contract)
 
-(provide make-pulsesrc)
+(provide (all-defined-out))
 
-(define BUFFSIZE 4096)
+(struct pulse-settings (channels rate buffer-size))
 
-(define/contract (make-pulsesrc signaller receiver)
-  (thread? thread? . -> . (-> void))
+(define/contract (make-pulsesrc signaller settings receiver)
+  (thread? pulse-settings? thread? . -> . (-> void))
+  
+  (define BUFFSIZE (pulse-settings-buffer-size settings))
   
   (define is-signaller? (make-thread-id-verifier signaller))
   (define-values (pool λrequest) (make-bufferpool-handler 200 BUFFSIZE))
-  (define s (pulsesrc-new))
+  (define s (pulsesrc-new (pulse-settings-rate settings) (pulse-settings-channels settings)))
   
   (define (grab)
     (let-values ([(buffer λdisposal) (λrequest)])
