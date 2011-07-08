@@ -32,15 +32,17 @@
        (printf "new CURL: ~s~n" (start-program (:message/ask/body (thread-receive))))
        (loop)))))
 
+(define *LISTENING-ON* *LOCALHOST*)
+(define *RHOST* *LOCALHOST*)
+(define *RPORT* 1235)
+
 (define k (generate-key/defaults))
-(define this-scurl (generate-scurl/defaults *LOCALHOST* port #:key k))
-(define request-thread (run-tcp-peer *LOCALHOST* port this-scurl processor))
+(define this-scurl (generate-scurl/defaults *LISTENING-ON* port #:key k))
+(define request-thread (run-tcp-peer *LISTENING-ON* port this-scurl processor))
 
 (define the-key-in-this-scurl
   (path/param-path (list-ref (url-path (string->url (scurl->string this-scurl))) 1)))
 
-(define *RHOST* *LOCALHOST*)
-(define *RPORT* 1235)
 
 (define (relayer targeturl)
   (let loop ()
@@ -62,8 +64,8 @@
 (define video0 (thread (make-v4l2-reader me vp80)))
 
 ;(define audiodecode (thread (make-vorbis-decoder me)))
-;(define audiorelay0 (thread (λ () (relayer "/audio0"))))
-;(define vorbis0 (thread (make-vorbis-encoder me (encoder-settings 2 44100 1.0 'naive) audiorelay0)))
-;(define pulse0 (thread (make-pulsesrc me (pulse-settings 2 44100 16384) vorbis0)))
+(define audiorelay0 (thread (λ () (relayer "/audio0"))))
+(define vorbis0 (thread (make-vorbis-encoder me (encoder-settings 2 44100 1.0 'naive) audiorelay0)))
+(define pulse0 (thread (make-pulsesrc me (pulse-settings 2 44100 16384) vorbis0)))
 
 (no-return)

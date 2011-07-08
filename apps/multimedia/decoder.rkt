@@ -11,11 +11,12 @@
          racket/match)
 
 (define (synthesize-scurl-string path)
-  (scurl->string (scurl->public-scurl (generate-scurl/defaults *LOCALHOST* *LOCALPORT* #:key k #:path path))))
+  (scurl->string (scurl->public-scurl (generate-scurl/defaults *LISTENING-ON* *LOCALPORT* #:key k #:path path))))
 
 (define *RHOST* *LOCALHOST*)
 (define *RPORT* 5000)
 
+(define *LISTENING-ON* *LOCALHOST*)
 (define *LOCALPORT* 1235)
 
 (define me (current-thread))
@@ -23,8 +24,8 @@
 (define curls=>threads (make-hash))
 
 (define k (generate-key/defaults))
-(define this-scurl (generate-scurl/defaults *LOCALHOST* *LOCALPORT* #:key k))
-(define request-thread (run-tcp-peer *LOCALHOST* *LOCALPORT* this-scurl (current-thread)))
+(define this-scurl (generate-scurl/defaults *LISTENING-ON* *LOCALPORT* #:key k))
+(define request-thread (run-tcp-peer *LISTENING-ON* *LOCALPORT* this-scurl (current-thread)))
 
 (printf "Listening on ~a~n" (regexp-split "/" (scurl->string this-scurl)))
 
