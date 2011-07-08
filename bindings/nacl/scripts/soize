@@ -1,7 +1,0 @@
-#! /bin/sh
-
-echo $1
-cd so
-rm *wrapper*
-gcc -shared -o libnacl.so -lc `find . -name "*.o"`
-cp libnacl.so $1

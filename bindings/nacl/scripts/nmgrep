@@ -1,8 +1,0 @@
-#! /bin/bash
-
-declare -a files
-files=(`find . -name "*.[a|o]" | tr '\r\n', ' '`)
-for file in ${files[@]}; do
-	echo "=== " $file " ==="
-	nm $file | grep $@
-done
