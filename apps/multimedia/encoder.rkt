@@ -58,14 +58,13 @@
                  #:compile? #f #:url targeturl)
        (loop)])))
 
-;(define videodecode (thread (make-vp8-decoder me)))
-(define videorelay0 (thread (λ () (relayer "/video0"))))
-(define vp80 (thread (make-vp8-encoder me videorelay0)))
-(define video0 (thread (make-v4l2-reader me vp80)))
-
-;(define audiodecode (thread (make-vorbis-decoder me)))
-(define audiorelay0 (thread (λ () (relayer "/audio0"))))
-(define vorbis0 (thread (make-vorbis-encoder me (encoder-settings 2 44100 1.0 'naive) audiorelay0)))
-(define pulse0 (thread (make-pulsesrc me (pulse-settings 2 44100 16384) vorbis0)))
-
-(no-return)
+(cond [(equal? port 5000)
+       (define videorelay0 (thread (λ () (relayer "/video0"))))
+       (define vp80 (thread (make-vp8-encoder me videorelay0)))
+       (define video0 (thread (make-v4l2-reader me vp80)))
+       (no-return)]
+      [else
+       (define audiorelay0 (thread (λ () (relayer "/audio0"))))
+       (define vorbis0 (thread (make-vorbis-encoder me (encoder-settings 2 44100 1.0 'naive) audiorelay0)))
+       (define pulse0 (thread (make-pulsesrc me (pulse-settings 2 44100 4096) vorbis0)))
+       (no-return)])
