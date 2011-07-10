@@ -3,20 +3,19 @@
 (require "util.rkt"
          "structs.rkt"
          "../bindings/vp8/vp8.rkt"
-         racket/contract
+         (rename-in racket/contract (-> c/->))
          racket/set
          racket/match)
 
 (provide make-v4l2-reader)
 
 (define/contract (make-v4l2-reader signaller receiver)
-  (thread? thread? . -> . (-> void))
+  (thread? thread? . c/-> . (c/-> void))
   (λ ()
     (define v (v4l2-reader-setup))
-    (define v-sema (make-semaphore 1)) ; protect v4l2 reader and pool representation
     (define-values (w h fn fd buffer-ct) (v4l2-reader-get-params v))
-    
     (thread-send receiver (make-VideoParams w h fn fd))
+    (define v-sema (make-semaphore 1)) ; protect v4l2 reader and pool representation
     
     (define in-pool-range/c (between/c 0 (sub1 buffer-ct)))
     ; FIXME: turn contracts back on here once performance is tuned
@@ -36,29 +35,30 @@
           (semaphore-post v-sema))
         (loop)))
     
-    (define (make-frame data size i)
-      (make-FrameBuffer data size (λ () (requeue i)) (current-inexact-milliseconds)))
-    
-    (define (requeue i)
-      (with-handlers ([exn:fail? (λ (e) (void))]) 
-        (thread-send pool-helper i)
-        (void)))
+    (define (make-frame data size i ts)
+      (define (requeue)
+        (thread-send pool-helper i #f))
+      (make-FrameBuffer data size requeue ts))
     
     (define is-signaller? (make-thread-id-verifier signaller))
     
-    (define (grab-frame)
+    (define sleep-time (/ (/ fn fd) 3))
+    
+    (define (grab-frame ts)
       (semaphore-wait v-sema)
       (cond
-        [(v4l2-reader-is-ready v)
+        [(v4l2-reader-is-ready v) ; we have to do busy waiting for now - can't select() at a lower level -or- here
          (let-values ([(d f s i) (v4l2-reader-get-frame v)])
            (when d
-             (thread-send receiver (make-frame d s i)) ; throw away framenum for now
+             (thread-send receiver (make-frame d s i ts)) ; throw away framenum for now
              (pool-remove! i))
-           (semaphore-post v-sema))]
+           (semaphore-post v-sema))
+         #t]
         [else
          (semaphore-post v-sema)
-         (sleep 0.01)]))
-    
+         (sleep sleep-time) ; sleep for a quarter of the frame duration
+         #f]))
+        
     (define (cleanup)
       (command/killswitch signaller receiver)
       (semaphore-wait v-sema)
@@ -72,7 +72,15 @@
       (v4l2-reader-delete v)
       (reply/state-report signaller #f))
     
-    (let loop ()
-      (match (receive-killswitch/whatever is-signaller? #:block? #f)
-        [(? no-message? _) (grab-frame) (loop)]
-        [(? die? _) (cleanup)]))))
+    (define (loop)
+      ;; need an inner loop to trampoline back from busy-wait-triggering grab-frame calls
+      ;; in order to keep accurate timestamps
+      (define ts (current-inexact-milliseconds))
+      (let loop2 ()
+        (match (receive-killswitch/whatever is-signaller? #:block? #f)
+          [(? no-message? _) (if (grab-frame ts)
+                                 (loop2)
+                                 (loop))]
+          [(? die? _) (cleanup)])))
+    
+    (loop)))
