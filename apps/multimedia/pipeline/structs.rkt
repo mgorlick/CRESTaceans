@@ -26,3 +26,6 @@
 ; the data constructor aliased to the type name
 (define make-FrameBuffer FrameBuffer)
 (define make-VideoParams VideoParams)
+(: dispose-FrameBuffer (FrameBuffer -> Void))
+(define (dispose-FrameBuffer fb)
+  ((FrameBuffer-disposal fb)))

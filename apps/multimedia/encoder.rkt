@@ -7,8 +7,7 @@
          "pipeline/pulsesrc.rkt"
          "pipeline/structs.rkt"
          
-         "pipeline/vorbisdec.rkt"
-         "pipeline/vp8dec.rkt"
+         "bindings/vp8/vp8.rkt"
          
          "../../peer/src/net/tcp-peer.rkt"
          "../../peer/src/net/structs.rkt"
@@ -43,7 +42,6 @@
 (define the-key-in-this-scurl
   (path/param-path (list-ref (url-path (string->url (scurl->string this-scurl))) 1)))
 
-
 (define (relayer targeturl)
   (let loop ()
     (match (thread-receive)
@@ -58,6 +56,22 @@
                  #:compile? #f #:url targeturl)
        (loop)])))
 
+(define code
+  (motile/compile
+   '(let ((src/decoder (lambda ()
+                         (let ((d (vp8dec-new)))
+                           (let loop ((v (thread-receive)))
+                             (printf "packet is ~a seconds old~n" (exact->inexact
+                                                                   (/ (- (current-inexact-milliseconds)
+                                                                         (FrameBuffer-ts v))
+                                                                      1000)))
+                             (vp8dec-decode d (FrameBuffer-size v) (FrameBuffer-data v))
+                             (dispose-FrameBuffer v)
+                             (loop (thread-receive)))))))
+      (src/decoder))))
+
+(ask/send "SPAWN" request-thread *RHOST* *RPORT* *RKEY* code #:compile? #f #:url "/")
+
 (cond [(equal? port 5000)
        (define videorelay0 (thread (λ () (relayer "/video0"))))
        (define vp80 (thread (make-vp8-encoder me videorelay0)))
@@ -68,3 +82,5 @@
        (define vorbis0 (thread (make-vorbis-encoder me (encoder-settings 2 44100 1.0 'naive) audiorelay0)))
        (define pulse0 (thread (make-pulsesrc me (pulse-settings 2 44100 4096) vorbis0)))
        (no-return)])
+
+(no-return)
