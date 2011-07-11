@@ -28,9 +28,9 @@
          (define/global/1 'FrameBuffer-ts FrameBuffer-ts)
          (define/global/1 'dispose-FrameBuffer dispose-FrameBuffer))))
 
-(define *RHOST* *LOCALHOST*)
+(define *RHOST* "128.195.58.146")
 (define *RPORT* 5000)
-(define *LISTENING-ON* *LOCALHOST*)
+(define *LISTENING-ON* "128.195.59.204")
 (define *LOCALPORT* 1235)
 
 (define me (current-thread))
