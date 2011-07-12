@@ -26,7 +26,7 @@ int main (void) {
   pa_sample_spec ss;
   ss.rate = 16000;
   ss.channels = 1;
-  ss.format = PA_SAMPLE_S16BE;
+  ss.format = PA_SAMPLE_S16LE;
   pa_simple *s = pa_simple_new (NULL, "CREST", PA_STREAM_RECORD, NULL,
 				"Voice", &ss, NULL, NULL, NULL);
 
@@ -37,44 +37,44 @@ int main (void) {
   format.bits = 16;
   format.rate =16000;
   format.channels = 1;
-  format.byte_format = AO_FMT_BIG;
+  format.byte_format = AO_FMT_LITTLE;
   ao_device *device = ao_open_live (ao_driver_id ("pulse"), &format, NULL);
 
   // ------------------
 
   int i = 0, k = 0, error = 0;
-  int sample_count = frame_size * sizeof (short);
-  char input_buff[sample_count], output_buff[10000];
+  int bytes_count = frame_size * sizeof (int16_t);
   int available = 0;
   
-  short *input_frame = calloc (frame_size, sizeof (short));
-  short *output_frame = calloc (frame_size, sizeof (short));
+  char *input_buff = calloc (bytes_count, sizeof (char));
+  char *output_buff = calloc (bytes_count, sizeof (char));
+  int16_t *input_frame = calloc (frame_size, sizeof (int16_t));
+  int16_t *output_frame = calloc (frame_size, sizeof (int16_t));
   
   // ------------------
 
   while (1) {
 
-    pa_simple_read (s, input_buff, sample_count, &error);
+    pa_simple_read (s, input_buff, bytes_count, &error);
 
     for (i = 0, k = 0; i < frame_size; i++, k+=2) {
-      //input_frame[i] = (short) input_buff[k];
-      input_frame[i] = (input_buff[k+1] << 8) + input_buff[k];
+      input_frame[i] = (input_buff[k+1] << 8) | (input_buff[k] & 0xFF);
     }
 
-    /*error = speex_encode_int (enc, input_frame, &enc_bits);
+    error = speex_encode_int (enc, input_frame, &enc_bits);
     speex_bits_insert_terminator (&enc_bits);
     available = speex_bits_write (&enc_bits, output_buff, 10000);
     speex_bits_reset (&enc_bits);
     
     speex_bits_read_from (&dec_bits, output_buff, available);
-    error = speex_decode_int (dec, &dec_bits, input_frame);*/
+    error = speex_decode_int (dec, &dec_bits, input_frame);
 
     for (i = 0, k = 0; i < frame_size; i++, k+=2) {
       input_buff[k+1] = (input_frame[i] >> 8) & 0xFF;
       input_buff[k] = input_frame[i] & 0xFF;
     }
 
-    ao_play (device, input_buff, sample_count);
+    ao_play (device, input_buff, bytes_count);
     
   };
 
