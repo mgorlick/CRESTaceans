@@ -75,12 +75,13 @@
                    [handle-buffer (lambda (buffer len)
                                     (cond [(not (vorbisdec-is-init dec))
                                            (cond [(equal? (packet-type buffer len) 'header)
+                                                  (printf "packet is header~n")
                                                   (header-packet-in dec buffer len)]
                                                  [else
                                                   (printf "error: non-header received when decoder uninitialized~n")
                                                   #f])]
                                           [else
-                                           (and (equal? (packet-type buffer) 'data)
+                                           (and (equal? (packet-type buffer len) 'data)
                                                 (data-packet-blockin dec buffer len))]))])
               (let loop ([v (thread-receive)])
                 (printf "packet is ~a ms old~n" (FrameBuffer-age v))
