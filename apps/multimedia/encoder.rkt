@@ -49,7 +49,8 @@
        (disp)
        (loop)]
       [(? bytes? buffer)
-       (ask/send "POST" request-thread *RHOST* *RPORT* *RKEY* `(FrameBuffer ,buffer ,(bytes-length buffer) void 0)
+       (ask/send "POST" request-thread *RHOST* *RPORT* *RKEY*
+                 `(FrameBuffer ,buffer ,(bytes-length buffer) void 0)
                  #:url targeturl)
        (loop)])))
 
@@ -67,13 +68,13 @@
   '(let ([src/decoder
           (lambda ()
             (let* ([dec (vorbisdec-new)]
-                   [packet-type (lambda (buffer)
-                                  (cond [(zero? (bytes-length buffer)) 'empty]
+                   [packet-type (lambda (buffer len)
+                                  (cond [(zero? len) 'empty]
                                         [(= 1 (bitwise-and 1 (bytes-ref buffer 0))) 'header]
                                         [else 'data]))]
                    [handle-buffer (lambda (buffer len)
                                     (cond [(not (vorbisdec-is-init dec))
-                                           (cond [(equal? (packet-type buffer) 'header)
+                                           (cond [(equal? (packet-type buffer len) 'header)
                                                   (header-packet-in dec buffer len)]
                                                  [else
                                                   (printf "error: non-header received when decoder uninitialized~n")
