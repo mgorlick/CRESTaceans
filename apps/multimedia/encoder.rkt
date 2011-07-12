@@ -6,9 +6,6 @@
          "pipeline/vorbisenc.rkt"
          "pipeline/pulsesrc.rkt"
          "pipeline/structs.rkt"
-         
-         "bindings/vp8/vp8.rkt"
-         
          "../../peer/src/net/tcp-peer.rkt"
          "../../peer/src/net/structs.rkt"
          "../../peer/src/api/compilation.rkt"
@@ -46,9 +43,8 @@
   (let loop ()
     (match (thread-receive)
       [(FrameBuffer buffer len disp ts)
-       (define frame (subbytes buffer 0 len))
        (ask/send "POST" request-thread *RHOST* *RPORT* *RKEY*
-                 `(FrameBuffer ,(subbytes buffer 0 len) ,len (lambda () #f) ,ts)
+                 `(FrameBuffer ,(subbytes buffer 0 len) ,len #f ,ts)
                  #:url targeturl)
        (disp)
        (loop)]
