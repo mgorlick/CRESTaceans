@@ -1,2 +1,2 @@
 all:
-	gcc -O3 `pkg-config --cflags --libs libpulse libpulse-simple ao speex speexdsp` -o speex enc.c
+	gcc -O3 -Wall -Werror `pkg-config --cflags --libs libpulse libpulse-simple ao speex speexdsp` -o test test.c
