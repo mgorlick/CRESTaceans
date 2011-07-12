@@ -23,8 +23,10 @@
     (let-values ([(buffer λdisposal) (λrequest)])
       (define ts (current-inexact-milliseconds))
       (if (pulsesrc-read s BUFFSIZE buffer)
-          (thread-send receiver (make-FrameBuffer buffer BUFFSIZE λdisposal ts))
-          (λdisposal))))
+          (begin (thread-send receiver (FrameBuffer buffer BUFFSIZE λdisposal ts))
+                 (printf "start sample => end sample took ~a ms~n" (- (current-inexact-milliseconds) ts)))
+          (begin (λdisposal)
+                 (printf "audio read failure~n")))))
   
   (define (cleanup)
     (kill-thread pool)

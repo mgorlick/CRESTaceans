@@ -10,7 +10,7 @@
 
 (struct encoder-settings (channels rate quality fl))
 
-(define current-ts 0.0)
+(define current-ts (current-inexact-milliseconds))
 
 ;; component setup
 (define/contract (make-vorbis-encoder signaller setup receiver)
@@ -43,6 +43,7 @@
 (define/contract (make-packet-out-callback receiver)
   (thread? . -> . (ogg-packet-pointer? symbol? . -> . boolean?))
   (λ (packet type)
-    (thread-send receiver (make-FrameBuffer (bytes-copy (ogg-packet-data packet))
+    (thread-send receiver (FrameBuffer (bytes-copy (ogg-packet-data packet))
                                             (ogg-packet-size packet) void current-ts))
+    (printf "start sample => end encoding took ~a ms~n" (- (current-inexact-milliseconds) current-ts))
     #t))

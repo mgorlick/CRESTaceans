@@ -14,7 +14,7 @@
   (λ ()
     (define v (v4l2-reader-setup))
     (define-values (w h fn fd buffer-ct) (v4l2-reader-get-params v))
-    (thread-send receiver (make-VideoParams w h fn fd))
+    (thread-send receiver (VideoParams w h fn fd))
     (define v-sema (make-semaphore 1)) ; protect v4l2 reader
     
     (define returners (for/vector ([i (in-range buffer-ct)]) (λ () (thread-send pool-helper i #f))))
@@ -29,7 +29,7 @@
         (loop)))
     
     (define (make-frame data size i ts)
-      (make-FrameBuffer data size (vector-ref returners i) ts))
+      (FrameBuffer data size (vector-ref returners i) ts))
     
     (define is-signaller? (make-thread-id-verifier signaller))
     
