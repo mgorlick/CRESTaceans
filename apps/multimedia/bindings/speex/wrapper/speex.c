@@ -10,6 +10,10 @@
 #include <speex/speex_echo.h>
 #include <speex/speex_preprocess.h>
 
+void init (void) {
+  ao_initialize ();
+}
+
 typedef struct SpeexEncoder {
   void *state;
   SpeexBits bits;
@@ -112,7 +116,6 @@ SpeexDecoder * new_speex_decoder (unsigned int frame_size) {
   dec->state = speex_decoder_init (&speex_uwb_mode);
   dec->frame_size = frame_size;
 
-  ao_initialize ();
   format.bits = 16;
   format.rate = 32000;
   format.channels = 1;
@@ -127,7 +130,6 @@ void delete_speex_decoder (SpeexDecoder *dec) {
   if (dec->state != NULL) speex_decoder_destroy (dec->state);
   if (dec->device != NULL) {
     ao_close (dec->device);
-    ao_shutdown ();
   }
 
   speex_bits_destroy (&dec->bits);

@@ -13,6 +13,9 @@
 (define-syntax-rule (defspx* typ obj ...)
   (begin (defspx obj typ) ...))
 
+(defspx init (_fun -> _void))
+(init)
+
 (define-cpointer-type _SpeexEncoder-pointer)
 (defspx new-speex-encoder (_fun _uint8 (framesize : (_ptr o _uint))
                                 -> (p : _SpeexEncoder-pointer)

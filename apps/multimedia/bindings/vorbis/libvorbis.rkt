@@ -40,6 +40,9 @@
 (define OV_EBADLINK -137)
 (define OV_ENOSEEK -138)
 
+(defvorbis~ init (_fun -> _void))
+(init)
+
 ;;; additions for building decoder
 
 (define-cpointer-type _vorbisdec-pointer)

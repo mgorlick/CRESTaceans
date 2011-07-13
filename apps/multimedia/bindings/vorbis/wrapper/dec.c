@@ -6,6 +6,10 @@
 #include <vorbis/codec.h>
 #include <ao/ao.h>
 
+void init (void) {
+  ao_initialize ();
+}
+
 typedef struct {
   int block_is_init;
   int dsp_is_init;
@@ -62,8 +66,6 @@ void vorbisdec_delete (vorbisdec* dec) {
     ao_close (dec->device);
     free (dec->sample_buffer);
   }
-
-  ao_shutdown ();
   
   free (dec);
 }
@@ -91,7 +93,6 @@ vorbisdec* vorbisdec_new (void) {
   vorbis_info_init (dec->vi);
   vorbis_comment_init (dec->vc);
 
-  ao_initialize ();
   dec->device = NULL;
   dec->ao_is_init = 0;
 
