@@ -15,6 +15,7 @@ c:
 	cd apps/multimedia/bindings/vorbis/wrapper && make
 	cd apps/multimedia/bindings/vp8/wrapper && make
 	cd apps/multimedia/bindings/pulse/wrapper && make
+	cd apps/multimedia/bindings/speex/wrapper && make
 
 install:
 	cd bindings/allegro5/kbd-wrap && make install RACKET_LIBS=$(RACKET_LIBS)
@@ -22,6 +23,7 @@ install:
 	cd apps/multimedia/bindings/vorbis/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
 	cd apps/multimedia/bindings/vp8/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
 	cd apps/multimedia/bindings/pulse/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
+	cd apps/multimedia/bindings/speex/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
 
 clean:
 	find . -name "compiled" -type d -print0 | xargs -0 rm -rfv
@@ -30,6 +32,7 @@ clean:
 	cd apps/multimedia/bindings/vorbis/wrapper && make clean
 	cd apps/multimedia/bindings/vp8/wrapper && make clean
 	cd apps/multimedia/bindings/pulse/wrapper && make clean
+	cd apps/multimedia/bindings/speex/wrapper && make clean
 
 clean-junk:
 	find . -name *~ -print0 | xargs -0 rm

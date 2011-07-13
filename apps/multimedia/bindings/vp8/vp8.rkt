@@ -5,7 +5,8 @@
 (provide (except-out (all-defined-out)
                      defvp8
                      defvp8+
-                     defvp8*))
+                     defvp8*
+                     lib))
 
 (define lib (ffi-lib "libracket-vp8-wrapper"))
 (define-syntax-rule (defvp8+ binding obj typ)

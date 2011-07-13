@@ -31,27 +31,37 @@
 
 (printf "Listening on ~a~n" (regexp-split "/" (scurl->string this-scurl)))
 
-(define video0-curl (synthesize-scurl-string "video0"))
-(define audio0-curl (synthesize-scurl-string "audio0"))
+(define vp8-curl (synthesize-scurl-string "/vp8"))
+(define speex-curl (synthesize-scurl-string "/speex"))
+(define vorbis-curl (synthesize-scurl-string "/vorbis"))
 
 (let loop ()
   (define v (thread-receive))
   (match v
-    ; spawn a new video decoder
+    ; spawn a new vp8 decoder
     [(vector '<tuple> '(mischief message ask) "SPAWN" "/" body '(("accepts" . "video/webm")) reply-curl echo)
-     (hash-set! curls=>threads video0-curl (spawn (start-program body VIDEO-DECODE)))
-     (printf "video0 decoder installed at ~a~n" video0-curl)]
+     (hash-set! curls=>threads vp8-curl (spawn (start-program body VIDEO-DECODE)))
+     (printf "vp8 decoder installed at ~a~n" vp8-curl)]
     
-    ; spawn a new audio decoder
+    ; spawn a new speex decoder
+    [(vector '<tuple> '(mischief message ask) "SPAWN" "/" body '(("accepts" . "audio/speex")) reply-curl echo)
+     (hash-set! curls=>threads speex-curl (spawn (start-program body AUDIO-DECODE)))
+     (printf "speex decoder installed at ~a~n" vp8-curl)]
+    
+    ; spawn a new vorbis decoder
     [(vector '<tuple> '(mischief message ask) "SPAWN" "/" body '(("accepts" . "audio/webm")) reply-curl echo)
-     (hash-set! curls=>threads audio0-curl (spawn (start-program body AUDIO-DECODE)))
-     (printf "audio0 decoder installed at ~a~n" audio0-curl)]
+     (hash-set! curls=>threads vorbis-curl (spawn (start-program body AUDIO-DECODE)))
+     (printf "vorbis decoder installed at ~a~n" vorbis-curl)]
     
-    ; forward a video packet to the video decoder
-    [(vector '<tuple> '(mischief message ask) "POST" "/video0" body metadata reply-curl echo)
-     (thread-send (hash-ref curls=>threads video0-curl) (start-program body VIDEO-DECODE))]
+    ; forward a video packet to the vp8 decoder
+    [(vector '<tuple> '(mischief message ask) "POST" "/vp8" body metadata reply-curl echo)
+     (thread-send (hash-ref curls=>threads vp8-curl) (start-program body VIDEO-DECODE))]
     
-    ; forward an audio packet to the audio decoder
-    [(vector '<tuple> '(mischief message ask) "POST" "/audio0" body metadata reply-curl echo)
-     (thread-send (hash-ref curls=>threads audio0-curl) (start-program body AUDIO-DECODE))])
+    ; forward an audio packet to the speex decoder
+    [(vector '<tuple> '(mischief message ask) "POST" "/speex" body metadata reply-curl echo)
+     (thread-send (hash-ref curls=>threads speex-curl) (start-program body AUDIO-DECODE))]
+    
+    ; forward an audio packet to the vorbis decoder
+    [(vector '<tuple> '(mischief message ask) "POST" "/vorbis" body metadata reply-curl echo)
+     (thread-send (hash-ref curls=>threads vorbis-curl) (start-program body AUDIO-DECODE))])
   (loop))
