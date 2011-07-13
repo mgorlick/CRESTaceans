@@ -45,7 +45,11 @@
  :no-body:
  :no-echo:
  :no-metadata:
- :no-reply:)
+ :no-reply:
+ 
+ ask
+ tell
+ uri)
 
 ;; Upper level of Accomplice messaging.
 
@@ -66,12 +70,28 @@
 ;(define :ask-id:  '33bd9138-f42d-4da2-b400-cc6aea1b402f)
 ;(define :tell-id: '92763926-abdf-4dc5-9c22-d02fcfe4b516)
 
-(define MISCHIEF/MESSAGE/ASK  '(mischief message ask))
-(define MISCHIEF/MESSAGE/TELL '(mischief message tell))
-(define MISCHIEF/MESSAGE/URI  '(mischief message uri))
+(define MOTILE/MESSAGE/ASK  '(motile message ask))
+(define MOTILE/MESSAGE/TELL '(motile message tell))
+(define MOTILE/MESSAGE/URI  '(motile message uri))
+
+
+(define-match-expander ask
+  (syntax-rules ()
+    [(_ method uri body metadata reply echo)
+     (vector '<tuple> (? (curry equal? MOTILE/MESSAGE/ASK) flavor) method uri body metadata reply echo)]))
+
+(define-match-expander tell
+  (syntax-rules ()
+    [(_ status reason body metadata echo)
+     #'(vector '<tuple> (? (curry equal? MOTILE/MESSAGE/TELL) flavor) status reason body metadata echo)]))
+
+(define-match-expander uri
+  (syntax-rules ()
+    [(_ scheme authority path query)
+     (vector '<tuple> (? (curry equal? MOTILE/MESSAGE/URI) flavor) scheme authority path query)]))
 
 ;; An "ask" message is a 7-tuple with the structure #(flavor method url body metadata reply echo) where:
-;;  flavor   - always the list (mischief message ask)
+;;  flavor   - always the list (motile message ask)
 ;;  method   - a symbol, one of GET, POST, PUT, DELETE, REMOTE, or SPAWN
 ;;  url      - an url denoting the target thread of the message
 ;;  body     - the payload of the request
@@ -82,7 +102,7 @@
 
 ;; A "tell" message is a response to an "ask" and is represented as a 6-tuple 
 ;; with the structure #(flavor status reason body metadata echo) where:
-;;  flavor   - always the list (mischief message tell)
+;;  flavor   - always the list (motile message tell)
 ;;  status   - a numeric code (positive integer) denoting the nature of the response
 ;;  reason   - a human-readable string expanding on the status code
 ;;  body     - the payload of the response
@@ -92,12 +112,11 @@
 (define message/ask/new
   (case-lambda
     ((method url)
-     (tuple MISCHIEF/MESSAGE/ASK method url :no-body: :no-metadata: :no-reply: :no-echo:))
+     (tuple MOTILE/MESSAGE/ASK method url :no-body: :no-metadata: :no-reply: :no-echo:))
     ((method url body metadata)
-     (tuple MISCHIEF/MESSAGE/ASK method url body      metadata      :no-reply: :no-echo:))
+     (tuple MOTILE/MESSAGE/ASK method url body      metadata      :no-reply: :no-echo:))
     ((method url body metadata reply echo)
-     (tuple MISCHIEF/MESSAGE/ASK method url body      metadata      reply      echo))))
-
+     (tuple MOTILE/MESSAGE/ASK method url body      metadata      reply      echo))))
 
 ;; Returns #t iff prefix, a list of symbols, is a prefix of, or equal to, actual.
 (define (list/prefix? prefix actual)
@@ -113,7 +132,7 @@
   (and
    (tuple? x)
    (= (tuple/length x) 7)
-   (list/prefix? MISCHIEF/MESSAGE/ASK (tuple/ref x 0))))
+   (list/prefix? MOTILE/MESSAGE/ASK (tuple/ref x 0))))
 
 (define-syntax-rule (message/ask/field m i field)
   (if (message/ask? m)
@@ -131,7 +150,7 @@
   (and
    (tuple? x)
    (= (tuple/length x) 6)
-   (list/prefix? MISCHIEF/MESSAGE/TELL (tuple/ref x 0))))
+   (list/prefix? MOTILE/MESSAGE/TELL (tuple/ref x 0))))
 
 (define-syntax-rule (message/tell/field m i field)
   (if (message/tell? m)
@@ -147,9 +166,9 @@
 (define message/tell/new
   (case-lambda
     ((status reason echo)
-     (tuple MISCHIEF/MESSAGE/TELL status reason :no-body: :no-metadata: echo))
+     (tuple MOTILE/MESSAGE/TELL status reason :no-body: :no-metadata: echo))
     ((status reason body metadata echo)
-     (tuple MISCHIEF/MESSAGE/TELL status reason body      metadata      echo))))
+     (tuple MOTILE/MESSAGE/TELL status reason body      metadata      echo))))
 
 ;(define (ask/new
 ;         method url
@@ -193,15 +212,15 @@
    (or
     (and
      (= (tuple/length x) 7)
-     (list/prefix? MISCHIEF/MESSAGE/ASK (tuple/ref x 0)))
+     (list/prefix? MOTILE/MESSAGE/ASK (tuple/ref x 0)))
     (and
      (= (tuple/length x) 6)
-     (list/prefix? MISCHIEF/MESSAGE/TELL (tuple/ref x 0))))))
+     (list/prefix? MOTILE/MESSAGE/TELL (tuple/ref x 0))))))
 
 
 
 ;; An URL or URI is a tuple #(flavor scheme authority path query) where:
-;;  flavor - always the list (mischief message uri)
+;;  flavor - always the list (motile message uri)
 ;;  scheme -    a symbol consisting of a letter  followed by any combination of letters,
 ;;               digits, and the plus ("+"), period ("."), or hyphen ("-") characters
 ;;  authority - one of a thread handle or  (domain . port) pair where domain is either
@@ -212,17 +231,17 @@
 (define message/uri/new
   (case-lambda
     ((scheme authority)
-     (tuple MISCHIEF/MESSAGE/URI scheme authority null :no-query:))
+     (tuple MOTILE/MESSAGE/URI scheme authority null :no-query:))
     ((scheme authority path)
-     (tuple MISCHIEF/MESSAGE/URI scheme authority path :no-query:))
+     (tuple MOTILE/MESSAGE/URI scheme authority path :no-query:))
     ((scheme authority path query)
-     (tuple MISCHIEF/MESSAGE/URI scheme authority path query))))
+     (tuple MOTILE/MESSAGE/URI scheme authority path query))))
 
 (define (message/uri? x)
   (and
    (tuple? x)
    (= (tuple/length x) 5)
-   (list/prefix? MISCHIEF/MESSAGE/URI (tuple/ref x 0))))
+   (list/prefix? MOTILE/MESSAGE/URI (tuple/ref x 0))))
 
 
 (define-syntax-rule (message/uri/field u i field)

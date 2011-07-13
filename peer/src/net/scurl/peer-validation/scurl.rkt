@@ -14,7 +14,7 @@
   ; a remote peer.  The digest-type, key-type and key are allowed to be
   ; null because it is still possible to validate a remote peer if all that
   ; is known is the url and host-id.
-  (struct scurl (url host-id digest-type key-type key))
+  (struct scurl (url host-id digest-type key-type key) #:transparent)
   (provide/contract
    [struct scurl ((url url?) ; url with the string encoded host-id.
                   (host-id bytes?) ; the byte encoded host-id.
