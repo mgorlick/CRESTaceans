@@ -3,7 +3,7 @@
 (require ffi/unsafe
          "../ctypes.rkt")
 
-(provide (except-out (all-defined-out) lib))
+(provide (except-out (all-defined-out) defspx+ defspx defspx* init lib))
 
 (define lib (ffi-lib "libracket-speex-wrapper"))
 (define-syntax-rule (defspx+ binding obj typ)

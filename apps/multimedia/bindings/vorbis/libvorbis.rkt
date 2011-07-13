@@ -6,7 +6,8 @@
                      defvorbis~
                      defvorbis~+
                      defvorbis~*
-                     libvorbis/adds))
+                     libvorbis/adds
+                     init))
 
 #|(define libvorbis (ffi-lib "libvorbis"))
 (define-syntax-rule (defvorbis+ binding obj typ)
