@@ -7,12 +7,22 @@
           (lambda ()
             (let ([d (vp8dec-new)])
               (let loop ([v (thread-receive)])
-                (printf "vp8 packet is ~a ms old~n" (FrameBuffer-age v))
+                ;(printf "vp8 packet is ~a ms old~n" (FrameBuffer-age v))
                 (vp8dec-decode d (FrameBuffer-size v) (FrameBuffer-data v))
                 (loop (thread-receive)))))])
      (src/decoder)))
 
-(define audio-decoder
+(define (speex-decoder framesize)
+  `(let ([src/decoder
+          (lambda ()
+            (let ([d (new-speex-decoder ,framesize)])
+              (let loop ([v (thread-receive)])
+                ;(printf "speex packet is ~a ms old~n" (FrameBuffer-age v))
+                (speex-decoder-decode d (FrameBuffer-size v) (FrameBuffer-data v))
+                (loop (thread-receive)))))])
+     (src/decoder)))
+
+(define vorbis-decoder
   '(let ([src/decoder
           (lambda ()
             (let* ([dec (vorbisdec-new)]
@@ -32,18 +42,8 @@
                                            (and (equal? (packet-type buffer len) 'data)
                                                 (data-packet-blockin dec buffer len))]))])
               (let loop ([v (thread-receive)])
-                (printf "vorbis packet is ~a ms old~n" (FrameBuffer-age v))
+                ;(printf "vorbis packet is ~a ms old~n" (FrameBuffer-age v))
                 (if (handle-buffer (FrameBuffer-data v) (FrameBuffer-size v))
                     (loop (thread-receive))
                     #f))))])
-     (src/decoder)))
-
-(define (speex-decoder framesize)
-  `(let ([src/decoder
-          (lambda ()
-            (let ([d (new-speex-decoder ,framesize)])
-              (let loop ([v (thread-receive)])
-                (printf "speex packet is ~a ms old~n" (FrameBuffer-age v))
-                (speex-decoder-decode d (FrameBuffer-size v) (FrameBuffer-data v))
-                (loop (thread-receive)))))])
      (src/decoder)))
