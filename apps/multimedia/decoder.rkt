@@ -6,7 +6,8 @@
          "../../peer/src/net/structs.rkt"
          "../../peer/src/api/compilation.rkt"
          "../../peer/src/api/message.rkt"
-         racket/match)
+         racket/match
+         racket/function)
 
 (define (synthesize-scurl-string path)
   (scurl->string (scurl->public-scurl (generate-scurl/defaults *LISTENING-ON* *LOCALPORT* #:key k #:path path))))
@@ -31,37 +32,37 @@
 
 (printf "Listening on ~a~n" (regexp-split "/" (scurl->string this-scurl)))
 
-(define vp8-curl (synthesize-scurl-string "/vp8"))
-(define speex-curl (synthesize-scurl-string "/speex"))
-(define vorbis-curl (synthesize-scurl-string "/vorbis"))
+(define vp8-curl (synthesize-scurl-string "vp8"))
+(define speex-curl (synthesize-scurl-string "speex"))
+(define vorbis-curl (synthesize-scurl-string "vorbis"))
+
+(define (reply-with-payload reply-curl payload)
+  (ask/send "POST" request-thread (vector-ref reply-curl 0) (vector-ref reply-curl 1) (vector-ref reply-curl 2)
+            payload
+            #:url (vector-ref reply-curl 3)))
 
 (let loop ()
   (define v (thread-receive))
   (match v
     ; spawn a new vp8 decoder
-    [(vector '<tuple> '(mischief message ask) "SPAWN" "/" body '(("accepts" . "video/webm")) reply-curl echo)
+    [(vector '<tuple> '(mischief message ask) "SPAWN" "/" body '(("accepts" . "video/webm")) reply echo)
      (hash-set! curls=>threads vp8-curl (spawn (start-program body VIDEO-DECODE)))
-     (printf "vp8 decoder installed at ~a~n" vp8-curl)]
+     (printf "vp8 decoder installed at ~a~n" vp8-curl)
+     (reply-with-payload reply vp8-curl)]
     
     ; spawn a new speex decoder
-    [(vector '<tuple> '(mischief message ask) "SPAWN" "/" body '(("accepts" . "audio/speex")) reply-curl echo)
+    [(vector '<tuple> '(mischief message ask) "SPAWN" "/" body '(("accepts" . "audio/speex")) reply echo)
      (hash-set! curls=>threads speex-curl (spawn (start-program body AUDIO-DECODE)))
-     (printf "speex decoder installed at ~a~n" vp8-curl)]
-    
-    ; spawn a new vorbis decoder
-    [(vector '<tuple> '(mischief message ask) "SPAWN" "/" body '(("accepts" . "audio/webm")) reply-curl echo)
-     (hash-set! curls=>threads vorbis-curl (spawn (start-program body AUDIO-DECODE)))
-     (printf "vorbis decoder installed at ~a~n" vorbis-curl)]
+     (printf "speex decoder installed at ~a~n" vp8-curl)
+     (reply-with-payload reply speex-curl)]
     
     ; forward a video packet to the vp8 decoder
-    [(vector '<tuple> '(mischief message ask) "POST" "/vp8" body metadata reply-curl echo)
+    [(vector '<tuple> '(mischief message ask) "POST" (? (curry equal? vp8-curl) u) body metadata reply echo)
      (thread-send (hash-ref curls=>threads vp8-curl) (start-program body VIDEO-DECODE))]
     
     ; forward an audio packet to the speex decoder
-    [(vector '<tuple> '(mischief message ask) "POST" "/speex" body metadata reply-curl echo)
+    [(vector '<tuple> '(mischief message ask) "POST" (? (curry equal? speex-curl) u) body metadata reply echo)
      (thread-send (hash-ref curls=>threads speex-curl) (start-program body AUDIO-DECODE))]
     
-    ; forward an audio packet to the vorbis decoder
-    [(vector '<tuple> '(mischief message ask) "POST" "/vorbis" body metadata reply-curl echo)
-     (thread-send (hash-ref curls=>threads vorbis-curl) (start-program body AUDIO-DECODE))])
+    [_ #f])
   (loop))
