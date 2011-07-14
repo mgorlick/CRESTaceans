@@ -44,20 +44,19 @@
        [(ask "POST" u body metadata reply echo)
         ;(printf "dispatch to ~a~n" u)
         (if ((conjoin thread? thread-running?) (hash-ref curls=>threads u #f))
-            (thread-send (hash-ref curls=>threads u) (start-program body (metadata->benv metadata) #f))
-            #f)])
+            (thread-send (hash-ref curls=>threads u) (start-program body (metadata->benv metadata)))
+            (printf "error: not a thread or not running: ~a~n" (hash-ref curls=>threads u #f)))]
+       [else (printf "Message not recognized: ~a~n" else)])
      (loop))))
 
 (define k (generate-key/defaults))
 (define this-scurl (generate-scurl/defaults *LISTENING-ON* *LOCALPORT* #:key k))
 (define request-thread (run-tcp-peer *LISTENING-ON* *LOCALPORT* this-scurl handler))
-
 (define make-curl (curry message/uri/new #f (cons *LISTENING-ON* *LOCALPORT*)))
 (define root-curl (make-curl "/"))
-
 (printf "listening on ~s~n" root-curl)
 
-(let cmdloop ()
+(let interpreter ()
   (printf "Enter command...~n")
   (define cmd (read))
   (with-handlers ([exn:fail? (λ (e) (printf "~a~n" (exn-message e)) #f)])
@@ -68,8 +67,8 @@
        ;; the destination for the new CURL notification
        (define u (make-curl uuid))
        (do-spawn request-thread (hash-ref curls=>motiles u) (hash-ref curls=>metadata u)
-                 (message/uri/new #f;(string->bytes/utf-8 (symbol->string key)) ; a CURL naming the new dest root clan
+                 (message/uri/new #f ;(string->bytes/utf-8 (symbol->string key)) ; a CURL naming the new dest root clan
                                   (cons (symbol->string host) port) "/")
-                 (hash-ref curls=>replycurls u))]
+                 (hash-ref curls=>replycurls u) #:compile? #f)]
       [a (printf "Command not recognized: ~s~n" a)]))
-  (cmdloop))
+  (interpreter))

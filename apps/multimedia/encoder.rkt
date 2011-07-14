@@ -36,6 +36,7 @@
   (match (thread-receive)
     [(? message/uri? new)
      (ask/send request-thread "POST" targeturl `(Quit))
+     (printf "Swapping target to ~a~n" new)
      (relayer new)]
     [(FrameBuffer buffer len disp ts)
      (ask/send request-thread "POST" targeturl `(FrameBuffer ,(subbytes buffer 0 len) ,len #f ,ts))

@@ -6,13 +6,15 @@
   '(let ([src/decoder
           (lambda ()
             (let ([d (vp8dec-new)])
+              (printf "starting~n")
               (let loop ([v (thread-receive)])
                 ;(printf "vp8 packet is ~a ms old~n" (FrameBuffer-age v))
                 (cond [(FrameBuffer? v)
                        (vp8dec-decode d (FrameBuffer-size v) (FrameBuffer-data v))
                        (loop (thread-receive))]
                       [(Quit? v)
-                       (vp8dec-delete d)]))))])
+                       (vp8dec-delete d)
+                       (printf "exiting~n")]))))])
      (src/decoder)))
 
 (define (speex-decoder framesize)
