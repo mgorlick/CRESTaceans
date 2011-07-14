@@ -52,7 +52,8 @@
       (define-values (i o) (tcp-accept listener))
       (file-stream-buffer-mode o 'none)
       ;; first do the SCURL authentication protocol.
-      (define-values (ra rp) (do-server-auth this-scurl revoke? i o))
+      ;(define-values (ra rp) (do-server-auth this-scurl revoke? i o))
+      (define-values (ra rp) (vector->values (read i)))
       (cond [(and ra rp)
              (printf "accepted from ~a:~a~n" ra rp)
              ;; then do Diffie-Hellman key exchange.
@@ -73,9 +74,11 @@
     (define-values (i o) (tcp-connect (request-host req) (request-port req)))
     (file-stream-buffer-mode o 'none)
     (define-values (la lp ra rp) (tcp-addresses i #t))
+    (write (vector la lp) o)
     ;; first do the SCURL authentication protocol.
-    (define the-remote-scurl (do-client-auth (request-host req) (request-port req) (request-key req) this-scurl i o))
-    (cond [(scurl? the-remote-scurl)
+    ;(define the-remote-scurl (do-client-auth (request-host req) (request-port req) (request-key req) this-scurl i o))
+    ;(cond [(scurl? the-remote-scurl)
+    (cond [#t
            (printf "connected to ~a:~a~n" ra rp)
            ;; then do Diffie-Hellman key exchange.
            (define-values (my-PK set-PK) (make-pk/encrypter/decrypter))

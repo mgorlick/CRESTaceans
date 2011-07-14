@@ -17,15 +17,15 @@
 (define *LOCALPORT* (with-handlers ([exn:fail? (λ (e) 5000)])
                       (string->number (vector-ref (current-command-line-arguments) 1))))
 
-(define *LISTENING-ON* *LOCALHOST*)
-(define *RHOST* *LOCALHOST*)
+(define *LISTENING-ON* "128.195.59.204")
+(define *RHOST* "128.195.59.204")
 (define *RPORT* 1235)
 
 (define k (generate-key/defaults))
 (define this-scurl (generate-scurl/defaults *LISTENING-ON* *LOCALPORT* #:key k))
 (define request-thread (run-tcp-peer *LISTENING-ON* *LOCALPORT* this-scurl (current-thread)))
 
-(define make-curl (curry message/uri/new (get-public-key this-scurl) (cons *LISTENING-ON* *LOCALPORT*)))
+(define make-curl (curry message/uri/new #f (cons *LISTENING-ON* *LOCALPORT*)))
 (define root-curl (make-curl "/"))
 (define relay-curl (make-curl (uuid)))
 

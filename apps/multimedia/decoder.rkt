@@ -10,7 +10,7 @@
          racket/function
          unstable/function)
 
-(define *LISTENING-ON* *LOCALHOST*)
+(define *LISTENING-ON* "128.195.59.204")
 (define *LOCALPORT* 1235)
 
 (define curls=>threads (make-hash)) ; dispatch on the actual running 
@@ -52,7 +52,7 @@
 (define this-scurl (generate-scurl/defaults *LISTENING-ON* *LOCALPORT* #:key k))
 (define request-thread (run-tcp-peer *LISTENING-ON* *LOCALPORT* this-scurl handler))
 
-(define make-curl (curry message/uri/new (get-public-key this-scurl) (cons *LISTENING-ON* *LOCALPORT*)))
+(define make-curl (curry message/uri/new #f (cons *LISTENING-ON* *LOCALPORT*)))
 (define root-curl (make-curl "/"))
 
 (printf "listening on ~s~n" root-curl)
