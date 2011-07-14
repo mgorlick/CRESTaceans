@@ -74,7 +74,7 @@
     (define-values (i o) (tcp-connect (request-host req) (request-port req)))
     (file-stream-buffer-mode o 'none)
     (define-values (la lp ra rp) (tcp-addresses i #t))
-    (write (vector la lp) o)
+    (write (vector la port) o)
     ;; first do the SCURL authentication protocol.
     ;(define the-remote-scurl (do-client-auth (request-host req) (request-port req) (request-key req) this-scurl i o))
     ;(cond [(scurl? the-remote-scurl)
