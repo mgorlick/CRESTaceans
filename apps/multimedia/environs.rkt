@@ -28,12 +28,14 @@
             (define/global/N 'subbytes subbytes)
             (define/global/N 'bitwise-and bitwise-and)
             (define/global/N 'FrameBuffer FrameBuffer)
-            (define/global/1 'FrameBuffer? FrameBuffer)
+            (define/global/1 'FrameBuffer? FrameBuffer?)
             (define/global/1 'FrameBuffer-size FrameBuffer-size)
             (define/global/1 'FrameBuffer-data FrameBuffer-data)
             (define/global/1 'FrameBuffer-ts FrameBuffer-ts)
             (define/global/1 'FrameBuffer-age (λ (v) (- (current-inexact-milliseconds) (FrameBuffer-ts v))))
-            (define/global/1 'dispose-FrameBuffer dispose-FrameBuffer))))
+            (define/global/1 'dispose-FrameBuffer dispose-FrameBuffer)
+            (define/global/0 'Quit Quit)
+            (define/global/1 'Quit? Quit?))))
 
 (define AUDIO-DECODE
   (++ MULTIMEDIA-BASE

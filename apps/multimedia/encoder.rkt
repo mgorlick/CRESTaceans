@@ -17,8 +17,8 @@
 (define *LOCALPORT* (with-handlers ([exn:fail? (λ (e) 5000)])
                       (string->number (vector-ref (current-command-line-arguments) 1))))
 
-(define *LISTENING-ON* "128.195.59.204")
-(define *RHOST* "128.195.59.204")
+(define *LISTENING-ON* "128.195.59.199")
+(define *RHOST* "128.195.59.199")
 (define *RPORT* 1235)
 
 (define k (generate-key/defaults))
@@ -35,6 +35,7 @@
 (define (relayer targeturl)
   (match (thread-receive)
     [(? message/uri? new)
+     (ask/send request-thread "POST" targeturl `(Quit))
      (relayer new)]
     [(FrameBuffer buffer len disp ts)
      (ask/send request-thread "POST" targeturl `(FrameBuffer ,(subbytes buffer 0 len) ,len #f ,ts))

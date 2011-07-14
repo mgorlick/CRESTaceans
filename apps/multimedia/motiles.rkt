@@ -8,8 +8,11 @@
             (let ([d (vp8dec-new)])
               (let loop ([v (thread-receive)])
                 ;(printf "vp8 packet is ~a ms old~n" (FrameBuffer-age v))
-                (vp8dec-decode d (FrameBuffer-size v) (FrameBuffer-data v))
-                (loop (thread-receive)))))])
+                (cond [(FrameBuffer? v)
+                       (vp8dec-decode d (FrameBuffer-size v) (FrameBuffer-data v))
+                       (loop (thread-receive))]
+                      [(Quit? v)
+                       (vp8dec-delete d)]))))])
      (src/decoder)))
 
 (define (speex-decoder framesize)
@@ -18,8 +21,11 @@
             (let ([d (new-speex-decoder ,framesize)])
               (let loop ([v (thread-receive)])
                 ;(printf "speex packet is ~a ms old~n" (FrameBuffer-age v))
-                (speex-decoder-decode d (FrameBuffer-size v) (FrameBuffer-data v))
-                (loop (thread-receive)))))])
+                (cond [(FrameBuffer? v) 
+                       (speex-decoder-decode d (FrameBuffer-size v) (FrameBuffer-data v))
+                       (loop (thread-receive))]
+                      [(Quit? v)
+                       (speex-decoder-delete d)]))))])
      (src/decoder)))
 
 (define vorbis-decoder
