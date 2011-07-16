@@ -92,7 +92,7 @@
 ;; Type test for overflow nodes.
 (define-syntax-rule (overflow? o)
   (and
-   (vector? 0)
+   (vector? o)
    (> (vector-length o) 1)
    (pair? (vector-ref o 0))))
 
@@ -112,7 +112,7 @@
   (= (vector-length t) 1))
 
 ;; Allocate an empty trie node with a map of zero and no allocated slots.
-(define (trie/empty/new) (trie/construct 0 0)) ; Equivalently just (vector 0).
+(define (trie/empty/new) (trie/construct 0 0)) ; Equivalently just #(0).
 
 ;; The constant denoting the universal shared empty trie node.
 (define trie/empty (trie/empty/new))
@@ -156,13 +156,15 @@
 (define-syntax-rule (trie/unmap t mask)
   (&& (trie/map t) (~ mask)))
 
+
+
 ;; Locate key/value pair in trie node t of hash h.
 ;; If found return the cons cell (key . value)
 ;; If not found return #f.
 (define (trie/get equality? t key hash shift)
-  (let ((mask (slot/mask hash shift))) ; Which hash slot should we try?
+  (let ((mask (slot/mask hash shift))) ; Which hash slot 0 ... 31 should we try?
     (if (slot/free? t mask)
-        #f ; No such key in this trie.
+        #f ; That trie slot is empty. No such key in this trie.
 
         ; The key/value pair may be here. Look further.
         (let* ((i    (slots/before (trie/map t) mask))
@@ -216,7 +218,7 @@
 ;             (error 'trie/add "unknown node type ~s" entry)))))))
 
 
-;; Non-destructively add the key/value pair to trie node t returnng the successor trie.
+;; Non-destructively add the key/value pair to trie node t returning the successor trie.
 ;; equality? - equality predicate for keys
 ;; hasher - hash function for keys
 ;; t - trie node
@@ -319,7 +321,7 @@
 
 
 ;; The hash table equivalent of car for lists.
-;; Assuming that trie node t is nonempty return the first key/value pair found in a left-to-rigth
+;; Assuming that trie node t is nonempty return the first key/value pair found in a left-to-right
 ;; depth-first search of the trie rooted at t.
 (define (trie/car t)
   (let ((entry (trie/slot t 0)))
