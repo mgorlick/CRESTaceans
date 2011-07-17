@@ -1,11 +1,8 @@
 #! /usr/bin/env racket
 #lang racket/base
 
-(require "motiles.rkt" "misc.rkt" "environs.rkt"
+(require "motiles.rkt" "misc.rkt" "message-types.rkt" "environs.rkt"
          "bindings/speex/speex.rkt"
-         "pipeline/v4l2-reader.rkt"
-         "pipeline/vp8enc.rkt"
-         "pipeline/structs.rkt"
          "pipeline/bufferpool.rkt"
          "../../peer/src/net/tcp-peer.rkt"
          "../../peer/src/api/compilation.rkt"
@@ -17,8 +14,8 @@
 (define *LOCALPORT* (with-handlers ([exn:fail? (λ (e) 5000)])
                       (string->number (vector-ref (current-command-line-arguments) 1))))
 
-(define *LISTENING-ON* "128.195.59.199")
-(define *RHOST* "128.195.59.199")
+(define *LISTENING-ON* *LOCALHOST*)
+(define *RHOST* *LOCALHOST*)
 (define *RPORT* 1235)
 
 (define k (generate-key/defaults))
@@ -38,9 +35,8 @@
      (ask/send request-thread "POST" targeturl `(Quit))
      (printf "Swapping target to ~a~n" new)
      (relayer new)]
-    [(FrameBuffer buffer len disp ts)
-     (ask/send request-thread "POST" targeturl `(FrameBuffer ,(subbytes buffer 0 len) ,len #f ,ts))
-     (disp)
+    [(FrameBuffer buffer len _ ts)
+     (ask/send request-thread "POST" targeturl `(FrameBuffer ,buffer ,len #f ,ts))
      (relayer targeturl)]))
 
 (define (handler relay)
@@ -55,9 +51,7 @@
                  relay-curl)
        (define targeturl (start-program (:message/ask/body (thread-receive))))
        (define relay (spawn (relayer targeturl)))
-       
-       (define vp8 (thread (make-vp8-encoder (current-thread) relay)))
-       (define video (thread (make-v4l2-reader (current-thread) vp8)))
+       (define encoder (spawn (start-program (motile/compile (video-reader/encoder relay)) VIDEO-ENCODE)))
        (handler relay)]
       
       [else

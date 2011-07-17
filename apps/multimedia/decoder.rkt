@@ -10,7 +10,7 @@
          racket/function
          unstable/function)
 
-(define *LISTENING-ON* "128.195.59.199")
+(define *LISTENING-ON* *LOCALHOST*)
 (define *LOCALPORT* 1235)
 
 (define curls=>threads (make-hash)) ; dispatch on the actual running 
