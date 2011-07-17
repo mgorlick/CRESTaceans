@@ -52,7 +52,10 @@
 
 (define VIDEO-ENCODE
   (++ MULTIMEDIA-BASE
-      (list (define/global/N 'vp8enc-new vp8enc-new)
+      (list (define/global/1 'vp8enc-new 
+              (λ (params)
+                (vp8enc-new (VideoParams-width params) (VideoParams-height params)
+                            (VideoParams-fpsNum params) (VideoParams-fpsDen params))))
             (define/global/1 'vp8enc-delete vp8enc-delete)
             (define/global/N 'vp8enc-encode/return-frame
               (λ (e frame outbuff)

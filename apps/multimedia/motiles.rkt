@@ -21,8 +21,7 @@
 (define (video-reader/encoder target)
   `(let* ([v (video-reader-setup)]
           [params (video-reader-get-params v)]
-          [e (vp8enc-new (VideoParams-width params) (VideoParams-height params)
-                         (VideoParams-fpsNum params) (VideoParams-fpsDen params))]
+          [e (vp8enc-new params)]
           [buffsize (* 1024 256)]
           [outbuff (make-bytes buffsize)]
           [grab-frame
