@@ -173,34 +173,62 @@
 (define (k/RETURN x) x) ; The trivial continuation.
 
 ;; Motile-specific reworkings of map, apply, and for-each that accomodates the closure argument correctly.
-(define (motile/map rtk f . arguments)
-  (if rtk
-      (let ((g (lambda rest (apply f k/RETURN rest))))
-        (rtk (apply map g arguments)))
-      (vector 'reference/global 'map)))
+;(define (motile/map rtk f . arguments)
+;  (if rtk
+;      (let ((g (lambda rest (apply f k/RETURN rest))))
+;        (rtk (apply map g arguments)))
+;      (vector 'reference/global 'map)))
 
-(define (motile/apply rtk f . arguments)
-  (if rtk
-      (rtk (apply f k/RETURN arguments))
-      (vector 'reference/global 'apply)))
+(define (motile/map k e g u . arguments)
+  (if k
+      (let ((v (lambda rest (apply u k/RETURN e g rest))))
+        (k (apply map v arguments)))
+      #(reference/global map)))
 
-(define (motile/for-each rtk f . arguments)
-  (if rtk
-      (let ((g (lambda rest (apply f k/RETURN rest))))
-        (rtk (apply for-each g arguments)))
-      (vector 'reference/global 'for-each)))
+;(define (motile/apply rtk f . arguments)
+;  (if rtk
+;      (rtk (apply f k/RETURN arguments))
+;      (vector 'reference/global 'apply)))
+
+(define (motile/apply k e g u . arguments)
+  (if k
+      (k (apply u k/RETURN e g arguments))
+      #(reference/global apply)))
+
+;(define (motile/for-each rtk f . arguments)
+;  (if rtk
+;      (let ((g (lambda rest (apply f k/RETURN rest))))
+;        (rtk (apply for-each g arguments)))
+;      (vector 'reference/global 'for-each)))
+
+(define (motile/for-each k e g u . arguments)
+  (if k
+      (let ((v (lambda rest (apply u k/RETURN e g rest))))
+        (k (apply for-each v arguments)))
+      #(reference/global for-each)))
 
 (define (global/decompile k name)
   (if k
       (error name "too few arguments")
       (vector 'reference/global name)))
 
+;(define motile/sort
+;  (case-lambda
+;    ((rtk items less?)
+;     (let ((p (lambda (alpha beta) (less? k/RETURN alpha beta))))
+;       (rtk (sort items p))))
+;    ((k _) (global/decompile k 'sort))))
+
 (define motile/sort
   (case-lambda
-    ((rtk items less?)
-     (let ((p (lambda (alpha beta) (less? k/RETURN alpha beta))))
-       (rtk (sort items p))))
-    ((k _) (global/decompile k 'sort))))
+    ((k e g items less?)
+     (let ((p (lambda (alpha beta) (less? k/RETURN e g alpha beta))))
+       (k (sort items p))))
+    ((k e g)
+     (if k
+         (error 'sort "too few arguments")
+         #(reference/global sort)))
+    (_ (error 'sort "incorrect number of arguments"))))
 
 
 ;; Motile-specific reworkings of persistent vector primitives that accept functions as arguments.
@@ -672,3 +700,4 @@
 ;(def-proc 'display                        display)
 ;(def-proc 'newline                        newline)
 ;(def-proc 'write-char                     write-char)
+
