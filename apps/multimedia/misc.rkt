@@ -21,9 +21,3 @@
     [(_ v) (curry equal? v)]))
 
 (define (uuid) (make-uuid))
-
-(define (do-spawn rqthread spawn metadata hosturl rpy-to #:compile? [compile? #t])
-  (ask/send rqthread "SPAWN" hosturl spawn #:metadata metadata #:reply rpy-to #:compile? compile?))
-
-(define (reply-with-payload rqthread rpy-to payload #:metadata [metadata :no-metadata:])
-  (ask/send rqthread "POST" rpy-to payload #:metadata metadata))

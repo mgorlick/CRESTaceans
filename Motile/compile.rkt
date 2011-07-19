@@ -1200,9 +1200,9 @@
   (let loop ((rte rte)
              (frame  (car address))
              (offset (cdr address)))
-    (display (format "frame: ~s offset: ~s\n" frame offset))
+    ;(display (format "frame: ~s offset: ~s\n" frame offset))
     ;(pretty/e rte)
-    (newline)
+    ;(newline)
     (cond
       ((= frame 0) (vector-ref rte offset))
       ((= frame 1) (vector-ref (vector-ref rte 0) offset))

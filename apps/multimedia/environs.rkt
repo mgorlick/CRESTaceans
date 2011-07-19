@@ -25,39 +25,46 @@
             (define/global/N 'thread-send thread-send)
             (define/global/0 'current-inexact-milliseconds current-inexact-milliseconds)
             (define/global/1 'exact->inexact exact->inexact)
+            
             (define/global/1 'bytes? bytes?)
             (define/global/N 'make-bytes make-bytes)
             (define/global/2 'bytes-ref bytes-ref)
             (define/global/1 'bytes-length bytes-length)
             (define/global/1 'bytes-copy bytes-copy)
             (define/global/N 'subbytes subbytes)
-            (define/global/N 'bitwise-and bitwise-and)
-            (define/global/1 'AddCURL AddCURL)
-            (define/global/1 'AddCURL? AddCURL)
+            (define/global/N 'bitwise-and bitwise-and))))
+
+(define MULTIMEDIA-BASE
+  (++ UTIL
+      (list (define/global/1 'AddCURL AddCURL)
+            (define/global/1 'AddCURL? AddCURL?)
             (define/global/1 'AddCURL.curl AddCURL.curl)
             (define/global/2 'AddCURL!curl AddCURL!curl)
+            
             (define/global/1 'RemoveCURL RemoveCURL)
             (define/global/1 'RemoveCURL? RemoveCURL?)
             (define/global/1 'RemoveCURL.curl RemoveCURL.curl)
             (define/global/1 'RemoveCURL!curl RemoveCURL!curl)
+            
             (define/global/0 'None None)
             (define/global/1 'None? None?)
+            
             (define/global/0 'Quit Quit)
-            (define/global/1 'Quit? Quit?))))
-
-(define MULTIMEDIA-BASE
-  (++ UTIL
-      (list (define/global/N 'Frame Frame)
+            (define/global/1 'Quit? Quit?)
+            
+            (define/global/N 'Frame Frame)
             (define/global/1 'Frame? Frame?)
             (define/global/1 'Frame.data Frame.data)
             (define/global/1 'Frame.timestamp Frame.timestamp)
             (define/global/2 'Frame!data Frame!data)
             (define/global/2 'Frame!timestamp Frame!timestamp)
+            
             (define/global/1 'FrameBuffer->Frame
               (λ (v)
                 (if (= (FrameBuffer-size v) (bytes-length (FrameBuffer-data v)))
                     (Frame (FrameBuffer-data v) (FrameBuffer-ts v))
                     (Frame (subbytes (FrameBuffer-data v) 0 (FrameBuffer-size v)) (FrameBuffer-ts v)))))
+            
             (define/global/N 'FrameBuffer FrameBuffer)
             (define/global/1 'FrameBuffer? FrameBuffer?)
             (define/global/1 'FrameBuffer-size FrameBuffer-size)
@@ -65,6 +72,7 @@
             (define/global/1 'FrameBuffer-ts FrameBuffer-ts)
             (define/global/1 'FrameBuffer-age (λ (v) (- (current-inexact-milliseconds) (FrameBuffer-ts v))))
             (define/global/1 'dispose-FrameBuffer dispose-FrameBuffer)
+            
             (define/global/N 'VideoParams VideoParams)
             (define/global/1 'VideoParams? VideoParams?)
             (define/global/1 'VideoParams-width VideoParams-width)

@@ -2,19 +2,27 @@
 
 (provide (all-defined-out))
 
-(define (relay metadata)
-  `(let loop ([curls '()]
-              [v (thread-receive)])
+(define (relayer metadata)
+  `(let relay ([curls (hash/new hash/equal/null)]
+               [v (thread-receive)])
+     
      (cond [(AddCURL? v)
-            (loop (cons (AddCURL.curl v) curls)
-                  (thread-receive))]
+            (relay (hash/cons curls (AddCURL.curl v) #f)
+                   (thread-receive))]
+           
            [(RemoveCURL? v)
-            (loop (filter (lambda (c) (not (equal? c (RemoveCURL.curl v)))) curls)
-                  (thread-receive))]
+            (ask/send* "POST" (RemoveCURL.curl v) (Quit))
+            (relay (hash/remove curls (RemoveCURL.curl v))
+                   (thread-receive))]
+           
            [(Frame? v)
-            (for-each (lambda (c)
-                        (ask/send* "POST" c v ,metadata)))
-            (loop curls (thread-receive))])))
+            (let sendloop ([c (hash/keys curls)])
+              (cond [(null? c) (void)]
+                    [else (ask/send* "POST" (car c) v)
+                          (sendloop (cdr c))]))
+            (relay curls (thread-receive))]
+           
+           [else (printf "relay else: ~a~n" v)])))
 
 ;; -----
 ;; VIDEO
@@ -55,7 +63,7 @@
        (cond [(FrameBuffer? v)
               ; Frame received successfully. Pass it on and then wait until
               ; the next frame should be active (modified by a fudge factor to account for processing time)
-              (ask/send* "POST" ,target (FrameBuffer->Frame v) '(("content-type" . "video/webm")))
+              (thread-send ,target (FrameBuffer->Frame v))
               (sleep (* 0.5 (/ (VideoParams-fpsNum params) (VideoParams-fpsDen params))))]
              [(None? v)
               ; oops, our fudge factor was off - just sleep some small amount of time before checking again

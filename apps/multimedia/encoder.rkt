@@ -32,28 +32,36 @@
   (case-lambda
     [(method url body) (ask/send request-thread method url body)]
     [(method url body metadata) (ask/send request-thread method url body #:metadata metadata)]))
+(define MULTIMEDIA-BASE* (++ MULTIMEDIA-BASE (list (define/global/N 'ask/send* ask/send*))))
 (define VIDEO-ENCODE* (++ VIDEO-ENCODE (list (define/global/N 'ask/send* ask/send*))))
 (define AUDIO-ENCODE* (++ AUDIO-ENCODE (list (define/global/N 'ask/send* ask/send*))))
 
 (define (handler relay)
-  (define v (start-program (:message/ask/body (thread-receive))))
-  (when (message/uri? v)
-    (thread-send relay v))
+  (define v (motile/start (:message/ask/body (thread-receive)) MULTIMEDIA-BASE))
+  (thread-send relay v)
   (handler relay))
 
-(define encoder
+(define-values (relay encoder)
   (cond [(equal? *LOCALPORT* 5000)
-         (do-spawn request-thread video-decoder '(("accepts" . "video/webm"))
-                   (remote-curl-root *RKEY* *RHOST* *RPORT*) relay-curl)
-         (define targeturl (motile/start (:message/ask/body (thread-receive)) MULTIMEDIA-BASE))
-         (define encoder (spawn (motile/start (motile/compile (video-reader/encoder targeturl)) VIDEO-ENCODE*)))
-         encoder]
+         (ask/send request-thread "SPAWN" (remote-curl-root *RKEY* *RHOST* *RPORT*) 
+                   video-decoder
+                   #:metadata '(("accepts" . "video/webm"))
+                   #:reply relay-curl)
+         
+         (define relay (spawn (motile/start (motile/compile (relayer '(("content-type" . "video/webm"))))
+                                            MULTIMEDIA-BASE*)))
+         (define encoder (spawn (motile/start (motile/compile (video-reader/encoder relay)) VIDEO-ENCODE*)))
+         (values relay encoder)]
         
         [else
-         (do-spawn request-thread (speex-decoder 640) '(("accepts" . "audio/speex"))
-                   (remote-curl-root *RKEY* *RHOST* *RPORT*) relay-curl)
-         (define targeturl (motile/start (:message/ask/body (thread-receive)) MULTIMEDIA-BASE))
-         (define encoder (spawn (motile/start (motile/compile (audio-reader/encoder 3 targeturl)) AUDIO-ENCODE*)))
-         encoder]))
+         (ask/send request-thread "SPAWN" (remote-curl-root *RKEY* *RHOST* *RPORT*) 
+                   (speex-decoder 640)
+                   #:metadata '(("accepts" . "video/webm"))
+                   #:reply relay-curl)
+         
+         (define relay (spawn (motile/start (motile/compile (relayer '(("content-type" . "audio/speex")))) 
+                                            MULTIMEDIA-BASE*)))
+         (define encoder (spawn (motile/start (motile/compile (audio-reader/encoder 3 relay)) AUDIO-ENCODE*)))
+         (values relay encoder)]))
 
-(no-return)
+(handler relay)
