@@ -86,6 +86,7 @@
 ;(define (lexical/frame/make parameters closed) (vector #f parameters closed)) ; UNUSED.
 
 ;; Extractors for the lexical stack.
+(define-syntax-rule (lexical/frame/prior frame)      (vector-ref frame 0))
 (define-syntax-rule (lexical/frame/parameters frame) (vector-ref frame 1))
 (define-syntax-rule (lexical/frame/closed frame)     (vector-ref frame 2))
 (define-syntax-rule (lexical/frame/macros frame)     (vector-ref frame 3))
@@ -102,6 +103,18 @@
          (cons (cons name procedure) frame/macros) ; Push the definition onto the association list.
          (list (cons name procedure))))            ; This is the first macro definition.
     lexical))
+
+;; name/procedure is the name/value pair of a macro definition in the current scope.
+;; Return a lexical stack identical to the existing lexical stack except that the
+;; macro hash table now contains the pair name/procedure.
+;; Note that the update is purely functional.
+(define-syntax-rule (xlexical/macro/push lexical name procedure)
+  (vector
+   (lexical/frame/prior      lexical)
+   (lexical/frame/parameters lexical)
+   (lexical/frame/closed     lexical)
+   (hash/cons (lexical/frame/macros lexical) name procedure)))
+
 
 ;; Returns #t if the syntactic keyword of expression e is the name of a macro definition and #f otherwise.
 (define (macro? e lexical)
