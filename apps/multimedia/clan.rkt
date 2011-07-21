@@ -7,7 +7,8 @@
          "../../peer/src/api/compilation.rkt"
          racket/match
          racket/function
-         unstable/function)
+         unstable/function
+         racket/date)
 (provide (all-defined-out))
 
 (define *LOCALPORT* (with-handlers ([exn:fail? (λ (e) 5000)])
@@ -25,7 +26,7 @@
   (hash-set! curls=>motiles curl body)
   (hash-set! curls=>metadata curl metadata)
   (hash-set! curls=>replycurls curl reply)
-  (printf "a new actor installed at ~n\t~s~n" curl))
+  (printf "(~a): a new actor installed at ~n\t~s~n" (date->string (current-date)) curl))
 
 ;; primitive for sending from the Motile level
 (define ask/send*
