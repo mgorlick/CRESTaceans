@@ -1,8 +1,7 @@
 #! /usr/bin/env racket
 #lang racket/base
 
-(require "motiles.rkt"
-         "misc.rkt"
+(require "misc.rkt"
          "environs.rkt"
          "../../peer/src/net/tcp-peer.rkt"
          "../../peer/src/api/compilation.rkt"
@@ -12,8 +11,9 @@
 (provide (all-defined-out))
 
 (define *LOCALPORT* (with-handlers ([exn:fail? (λ (e) 5000)])
-                      (string->number (vector-ref (current-command-line-arguments) 1))))
+                      (string->number (vector-ref (current-command-line-arguments) 0))))
 (define *LISTENING-ON* "128.195.59.199")
+(define block? (member "--block" (vector->list (current-command-line-arguments))))
 
 (define curls=>threads (make-hash)) ; dispatch on the actual running 
 (define curls=>motiles (make-hash)) ; save COMPILED motiles for retransmission later
@@ -25,7 +25,7 @@
   (hash-set! curls=>motiles curl body)
   (hash-set! curls=>metadata curl metadata)
   (hash-set! curls=>replycurls curl reply)
-  (printf "a new actor installed at ~s~n" curl))
+  (printf "a new actor installed at ~n\t~s~n" curl))
 
 ;; primitive for sending from the Motile level
 (define ask/send*
@@ -99,5 +99,5 @@
       [a (printf "Command not recognized: ~s~n" a)]))
   (interpreter))
 
-(when (equal? "--block" (vector-ref (current-command-line-arguments) 0))
+(when block?
   (interpreter))
