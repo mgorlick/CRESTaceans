@@ -15,7 +15,7 @@
                              (_int = (bytes-length ub))
                              (cb : (_bytes o (* 2 (bytes-length ub))))
                              -> (cl : _int)
-                             -> (subbytes cb 0 cl)))
+                             -> (cast cb _bytes (_bytes o cl))))
 
 (deflz fastlz-decompress (_fun (cb ul) ::
                                (cb : _bytes)
