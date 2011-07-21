@@ -19,7 +19,7 @@
  racket/vector
  "dissect.ss"
  (only-in
-  "compile.ss"
+  "compile.rkt"
   and/generate
   closure/inner/generate
   closure/generate
