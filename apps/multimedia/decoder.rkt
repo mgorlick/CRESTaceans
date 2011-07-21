@@ -3,14 +3,13 @@
 
 (require "environs.rkt" "misc.rkt"
          "../../peer/src/net/tcp-peer.rkt"
-         "../../peer/src/net/structs.rkt"
          "../../peer/src/api/compilation.rkt"
          "../../peer/src/api/message.rkt"
          racket/match
          racket/function
          unstable/function)
 
-(define *LISTENING-ON* "128.195.59.199")
+(define *LISTENING-ON* *LOCALHOST*)
 (define *LOCALPORT* 1235)
 
 (define curls=>threads (make-hash)) ; dispatch on the actual running 
@@ -25,11 +24,24 @@
   (hash-set! curls=>replycurls curl reply)
   (printf "a new actor installed at ~s~n" curl))
 
+;; primitive for sending from the Motile level
+(define ask/send*
+  (case-lambda
+    [(method url body) (ask/send request-thread method url body)]
+    [(method url body metadata) (ask/send request-thread method url body #:metadata metadata)]))
+(define MULTIMEDIA-BASE* (++ MULTIMEDIA-BASE (list (define/global/N 'ask/send* ask/send*))))
+(define VIDEO-ENCODE* (++ VIDEO-ENCODE (list (define/global/N 'ask/send* ask/send*))))
+(define AUDIO-ENCODE* (++ AUDIO-ENCODE (list (define/global/N 'ask/send* ask/send*))))
+(define VIDEO-DECODE* (++ VIDEO-DECODE (list (define/global/N 'ask/send* ask/send*))))
+(define AUDIO-DECODE* (++ AUDIO-DECODE (list (define/global/N 'ask/send* ask/send*))))
+
 (define (metadata->benv metadata)
   (match metadata
-    ['(("accepts" . "video/webm")) VIDEO-DECODE]
-    ['(("accepts" . "audio/speex")) AUDIO-DECODE]
-    [_ MULTIMEDIA-BASE]))
+    ['(("accepts" . "video/webm")) VIDEO-DECODE*]
+    ['(("accepts" . "audio/speex")) AUDIO-DECODE*]
+    ['(("produces" . "video/webm")) VIDEO-ENCODE*]
+    ['(("produces" . "audio/speex")) AUDIO-ENCODE*]
+    [_ MULTIMEDIA-BASE*]))
 
 (define handler
   (spawn
@@ -39,7 +51,7 @@
        [(ask "SPAWN" (? (is? root-curl) u) body metadata reply echo)
         (define curl (make-curl (uuid)))
         (handle-spawn curl body (metadata->benv metadata) metadata reply)
-        (reply-with-payload request-thread reply curl #:metadata '(("is-a" . "curl")))]
+        (ask/send request-thread "POST" reply `(AddCURL ,curl) #:metadata '(("is-a" . "curl")))]
        
        [(ask "POST" u body metadata reply echo)
         ;(printf "dispatch to ~a~n" u)
@@ -56,19 +68,30 @@
 (define root-curl (make-curl "/"))
 (printf "listening on ~s~n" root-curl)
 
+(define (cp u host port)
+  (ask/send request-thread
+            "SPAWN"
+            (message/uri/new #f (cons (symbol->string host) port) "/")
+            (hash-ref curls=>motiles u)
+            #:metadata (hash-ref curls=>metadata u)
+            #:reply (hash-ref curls=>replycurls u)
+            #:compile? #f))
+
 (let interpreter ()
   (printf "Enter command...~n")
   (define cmd (read))
   (with-handlers ([exn:fail? (λ (e) (printf "~a~n" (exn-message e)) #f)])
     (match cmd
-      [(list 'cp uuid host port key)
+      [(list 'mv uuid host port key)
        ;; look up the actor named by the uuid locally. then transmit its original decompiled
        ;; source representation to the new island and name the originating reply url as
        ;; the destination for the new CURL notification
        (define u (make-curl uuid))
-       (do-spawn request-thread (hash-ref curls=>motiles u) (hash-ref curls=>metadata u)
-                 (message/uri/new #f ;(string->bytes/utf-8 (symbol->string key)) ; a CURL naming the new dest root clan
-                                  (cons (symbol->string host) port) "/")
-                 (hash-ref curls=>replycurls u) #:compile? #f)]
+       (cp u host port)
+       (ask/send request-thread "POST" (hash-ref curls=>replycurls u) `(RemoveCURL ,u))]
+      
+      [(list 'cp uuid host port key)
+       (define u (make-curl uuid))
+       (cp u host port)]
       [a (printf "Command not recognized: ~s~n" a)]))
   (interpreter))

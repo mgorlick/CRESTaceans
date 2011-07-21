@@ -9,7 +9,6 @@
 ;; will eventually requeue the buffer for later reuse
 (struct FrameBuffer (data size disposal ts) #:transparent)
 (struct VideoParams (width height fpsNum fpsDen) #:transparent)
-(struct Quit () #:transparent)
 
 ;; Motile code gets confused when trying to run ((FrameBuffer-disposal v))
 (define (dispose-FrameBuffer fb)
