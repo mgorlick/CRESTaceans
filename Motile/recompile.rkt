@@ -41,7 +41,7 @@
   reference/global/variable/generate
   sequence/generate
   setter/generate
-  should-be ; For testing only. To be removed when we upgrade to rackunit.
+  ;should-be ; For testing only. To be removed when we upgrade to rackunit.
   unless/generate
   when/generate
   )
