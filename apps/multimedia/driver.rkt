@@ -15,7 +15,7 @@
 (define *RPORT* 1235)
 (define *RHOST* *LISTENING-ON*)
 
-(cond [(equal? *LOCALPORT* 5000)
+(cond [(member "--video" (vector->list (current-command-line-arguments)))
        (define relay-curl (make-curl (uuid)))
        (handle-spawn relay-curl
                      (motile/compile (relayer '(("content-type" . "video/webm"))))
