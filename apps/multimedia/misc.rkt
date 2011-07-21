@@ -21,3 +21,6 @@
     [(_ v) (curry equal? v)]))
 
 (define (uuid) (make-uuid))
+
+(define (remote-curl-root rkey rhost rport)
+  (message/uri/new rkey (cons rhost rport) "/"))
