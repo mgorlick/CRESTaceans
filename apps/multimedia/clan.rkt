@@ -1,19 +1,22 @@
 #! /usr/bin/env racket
 #lang racket/base
 
-(require "environs.rkt" "misc.rkt"
+(require "misc.rkt"
+         "environs.rkt"
          "../../peer/src/net/tcp-peer.rkt"
          "../../peer/src/api/compilation.rkt"
-         "../../peer/src/api/message.rkt"
          racket/match
          racket/function
          unstable/function)
+(provide (all-defined-out))
 
-(define *LISTENING-ON* *LOCALHOST*)
-(define *LOCALPORT* 1235)
+(define *LOCALPORT* (with-handlers ([exn:fail? (λ (e) 5000)])
+                      (string->number (vector-ref (current-command-line-arguments) 0))))
+(define *LISTENING-ON* "128.195.59.199")
+(define block? (member "--block" (vector->list (current-command-line-arguments))))
 
 (define curls=>threads (make-hash)) ; dispatch on the actual running 
-(define curls=>motiles (make-hash)) ; save motiles for retransmission later.....xxx fixme
+(define curls=>motiles (make-hash)) ; save COMPILED motiles for retransmission later
 (define curls=>metadata (make-hash)) ; save metadata for retransmission
 (define curls=>replycurls (make-hash)) ; save corresponding reply curls for retransmission
 
@@ -22,7 +25,7 @@
   (hash-set! curls=>motiles curl body)
   (hash-set! curls=>metadata curl metadata)
   (hash-set! curls=>replycurls curl reply)
-  (printf "a new actor installed at ~s~n" curl))
+  (printf "a new actor installed at ~n\t~s~n" curl))
 
 ;; primitive for sending from the Motile level
 (define ask/send*
@@ -77,7 +80,7 @@
             #:reply (hash-ref curls=>replycurls u)
             #:compile? #f))
 
-(let interpreter ()
+(define (interpreter)
   (printf "Enter command...~n")
   (define cmd (read))
   (with-handlers ([exn:fail? (λ (e) (printf "~a~n" (exn-message e)) #f)])
@@ -94,4 +97,7 @@
        (define u (make-curl uuid))
        (cp u host port)]
       [a (printf "Command not recognized: ~s~n" a)]))
+  (interpreter))
+
+(when block?
   (interpreter))

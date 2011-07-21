@@ -61,9 +61,7 @@
             
             (define/global/1 'FrameBuffer->Frame
               (λ (v)
-                (if (= (FrameBuffer-size v) (bytes-length (FrameBuffer-data v)))
-                    (Frame (FrameBuffer-data v) (FrameBuffer-ts v))
-                    (Frame (subbytes (FrameBuffer-data v) 0 (FrameBuffer-size v)) (FrameBuffer-ts v)))))
+                (Frame (subbytes (FrameBuffer-data v) 0 (FrameBuffer-size v)) (FrameBuffer-ts v))))
             
             (define/global/N 'FrameBuffer FrameBuffer)
             (define/global/1 'FrameBuffer? FrameBuffer?)
