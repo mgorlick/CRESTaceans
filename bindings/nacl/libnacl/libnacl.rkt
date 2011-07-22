@@ -56,20 +56,33 @@
                                     (n : _bytes) (pk : _bytes) (sk : _bytes)
                                     -> (r : _int) -> (values (subbytes message crypto-box-ZEROBYTES) r)))
 
-(defnacl crypto-box-beforenm-wrap (_fun (k : (_bytes o crypto-box-BEFORENMBYTES))
-                                        (pk : _bytes) (sk : _bytes)
-                                        -> (r : _int) -> (values k r)))
+(defnacl crypto-box-beforenm-wrap
+  (_fun (k : (_bytes o crypto-box-BEFORENMBYTES))
+        (pk : _bytes) (sk : _bytes)
+        -> (r : _int)
+        -> (values k r)))
 
-(defnacl crypto-box-afternm-wrap (_fun (m n k) ::
-                                       (ciphertext : (_bytes o message-length))
-                                       (message : _bytes = (bytes-append zeroes m)) 
-                                       (message-length : _ullong = (bytes-length message))
-                                       (n : _bytes) (k : _bytes)
-                                       -> (r : _int) -> (values (subbytes ciphertext crypto-box-BOXZEROBYTES) r)))
+(defnacl crypto-box-afternm-wrap 
+  (_fun (m n k) ::
+        (ciphertext : (_bytes o message-length))
+        (message : _bytes = (bytes-append zeroes m)) 
+        (message-length : _ullong = (bytes-length message))
+        (n : _bytes) (k : _bytes)
+        -> (r : _int)
+        -> (values 
+            ciphertext
+            r)))
 
-(defnacl crypto-box-open-afternm-wrap (_fun (c n k) ::
-                                            (message : (_bytes o cipher-length))
-                                            (ciphertext : _bytes = (bytes-append boxzeroes c))
-                                            (cipher-length : _ullong = (bytes-length ciphertext))
-                                            (n : _bytes) (k : _bytes)
-                                            -> (r : _int) -> (values (subbytes message crypto-box-ZEROBYTES) r)))
+(defnacl crypto-box-open-afternm-wrap
+  (_fun (c n k) ::
+        (message : (_bytes o cipher-length))
+        (ciphertext : _bytes = c)
+        (cipher-length : _ullong = (bytes-length ciphertext))
+        (n : _bytes) (k : _bytes)
+        -> (r : _int)
+        -> (values
+            ; (cast 
+            ;  (ptr-add message crypto-box-ZEROBYTES)
+            ; _pointer (_bytes o (- cipher-length crypto-box-ZEROBYTES)))
+            (subbytes message crypto-box-ZEROBYTES)
+            r)))
