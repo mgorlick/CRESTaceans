@@ -11,7 +11,7 @@
 
 #include "misc.h"
 
-int BUFFERS_REQUESTED = 30;
+int BUFFERS_REQUESTED = 5;
 
 typedef struct mmap_buffer {
   void *start;
