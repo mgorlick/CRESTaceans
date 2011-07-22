@@ -1,4 +1,6 @@
-#lang racket
+#lang racket/base
+
+(require racket/contract racket/list)
   ; This module provides the message definitions for the peer-secure-session protocol
   ; and creation and accessor functions for those messages.
   

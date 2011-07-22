@@ -1,4 +1,6 @@
-#lang racket
+#lang racket/base
+
+(require racket/contract racket/list)
   ; Provides the scurl structure and functions for scurl creation and scurl validation.
   ; As well as functions to generate the host-id for a scurl.
   

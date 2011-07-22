@@ -1,4 +1,6 @@
-#lang racket
+#lang racket/base
+
+(require racket/contract racket/list)
   ; Two methods are provided for encryption, one using a scurl structure
   ; that performs encryption using the enclosed pkey and one using a
   ; session structure that performs encryption using the enclosed ciphers.

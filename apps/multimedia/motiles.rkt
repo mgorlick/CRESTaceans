@@ -74,13 +74,13 @@
 ;; AUDIO
 ;; -----
 
-(define (audio-reader/encoder echomod targeturl)
+(define (audio-reader/speex-encoder echomod targeturl)
   `(let* ([enc (new-speex-encoder ,echomod)]
           [outbuff (make-bytes 1000)])
      (let loop ([ts (current-inexact-milliseconds)]
                 [available (speex-encoder-encode (vector-ref enc 0) outbuff)])
        (ask/send* "POST" ,targeturl 
-                  (vector (subbytes outbuff 0 available) ts)
+                  (Frame (subbytes outbuff 0 available) ts)
                   '(("content-type" . "audio/speex")))
        (loop (current-inexact-milliseconds)
              (speex-encoder-encode (vector-ref enc 0) outbuff)))))
@@ -88,11 +88,8 @@
 (define (speex-decoder framesize)
   `(let ([d (new-speex-decoder ,framesize)])
      (let loop ([v (thread-receive)])
-       (cond [(FrameBuffer? v) 
-              (speex-decoder-decode d (FrameBuffer-size v) (FrameBuffer-data v))
-              (loop (thread-receive))]
-             [(vector? v)
-              (speex-decoder-decode d (bytes-length (vector-ref v 0)) (vector-ref v 0))
+       (cond [(Frame? v) 
+              (speex-decoder-decode d (bytes-length (Frame.data v)) (Frame.data v))
               (loop (thread-receive))]
              [(Quit? v)
               (speex-decoder-delete d)]))))

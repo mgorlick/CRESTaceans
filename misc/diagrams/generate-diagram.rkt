@@ -1,5 +1,6 @@
-#lang racket
+#lang racket/base
 
+(require racket/list)
 (provide peer generate)
 
 ; a peer is a struct:

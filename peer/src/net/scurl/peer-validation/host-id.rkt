@@ -1,4 +1,6 @@
-#lang racket
+#lang racket/base
+
+(require racket/contract racket/list)
   ; Provides host-id definitions and utilities for conversion between
   ; string and byte representations.
   

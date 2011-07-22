@@ -22,8 +22,9 @@
                      (metadata->benv '(("content-type" . "video/webm")))
                      '(("content-type" . "video/webm"))
                      root-curl)
+       
        (handle-spawn (make-curl (uuid))
-                     (motile/compile (video-reader/encoder (hash-ref curls=>threads relay-curl)))
+                     (motile/compile (video-reader/encoder relay-curl))
                      (metadata->benv '(("produces" . "video/webm")))
                      '(("produces" . "video/webm"))
                      root-curl)
@@ -32,17 +33,24 @@
                  video-decoder
                  #:metadata '(("accepts" . "video/webm"))
                  #:reply relay-curl)]
-      #|      
-      [else
-       (ask/send request-thread "SPAWN" (remote-curl-root *RKEY* *RHOST* *RPORT*) 
-                 (speex-decoder 640)
-                 #:metadata '(("accepts" . "video/webm"))
-                 #:reply relay-curl)
+      
+      [(member "--audio" (vector->list (current-command-line-arguments)))
+       (define relay-curl (make-curl (uuid)))
+       (handle-spawn relay-curl
+                     (motile/compile (relayer '(("content-type" . "audio/speex"))))
+                     (metadata->benv '(("content-type" . "audio/speex")))
+                     '(("content-type" . "audio/speex"))
+                     root-curl)
        
-       (define relay (spawn (motile/start (motile/compile (relayer '(("content-type" . "audio/speex")))) 
-                                          MULTIMEDIA-BASE*)))
-       (define encoder (spawn (motile/start (motile/compile (audio-reader/encoder 3 relay)) AUDIO-ENCODE*)))
-       (values relay encoder)]))|#
-      )
+       (handle-spawn (make-curl (uuid))
+                     (motile/compile (audio-reader/speex-encoder 3 relay-curl))
+                     (metadata->benv '(("produces" . "audio/speex")))
+                     '(("produces" . "audio/speex"))
+                     root-curl)
+       
+       (ask/send request-thread "SPAWN" (remote-curl-root *RKEY* *RHOST* *RPORT*)
+                 (speex-decoder 640)
+                 #:metadata '(("accepts" . "audio/speex"))
+                 #:reply relay-curl)])
 
 (interpreter)

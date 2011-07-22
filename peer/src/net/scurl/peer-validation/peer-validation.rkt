@@ -1,4 +1,6 @@
-#lang racket
+#lang racket/base
+
+(require racket/contract racket/list)
 ; The peer-validation module contains the message protocol for validating two
 ; peers using scurls.  It also contains methods for validating the messages
 ; passed between peers.  The two methods of interest for any user would be
@@ -24,9 +26,9 @@
 ; Create a logger for this module.
 (define logger (make-logger 'peer-validation-logger peer-validation-parent-logger))
 
-(define error* (curry error logger))
-(define warning* (curry warning logger))
-(define debug* (curry debug logger))
+(define (error* m e) (error logger m e))
+(define (warning* m e) (warning logger m e))
+(define (debug* m e) (debug logger m e))
 
 ; The maximum version allowable in this implementation.
 (define +max-version+ 1.0)

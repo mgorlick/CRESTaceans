@@ -1,10 +1,11 @@
-#lang racket
+#lang racket/base
 
 ;; For performance testing only.
 ;(require
 ; profile
 ; srfi/42)
 
+(require (only-in racket/vector vector-copy))
 (provide
  list/vector
  vector/build

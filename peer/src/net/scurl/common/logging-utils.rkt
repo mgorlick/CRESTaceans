@@ -1,4 +1,6 @@
-#lang racket
+#lang racket/base
+
+(require racket/contract racket/list)
   (provide (all-defined-out))
   
   (define (fatal logger string-expr [data null])

@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 
 ;; Copyright 2010 Michael M. Gorlick
 
@@ -18,6 +18,7 @@
 ;;   v_0 is the literal symbol tuple
 ;;   v_i, i > 0 is a tuple element e_{i-1}.
 
+(require (only-in racket/vector vector-copy))
 (provide
  list/tuple
  tuple

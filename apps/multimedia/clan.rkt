@@ -13,7 +13,7 @@
 
 (define *LOCALPORT* (with-handlers ([exn:fail? (λ (e) 5000)])
                       (string->number (vector-ref (current-command-line-arguments) 0))))
-(define *LISTENING-ON* "128.195.59.199")
+(define *LISTENING-ON* "127.0.0.1")
 (define block? (member "--block" (vector->list (current-command-line-arguments))))
 
 (define curls=>threads (make-hash)) ; dispatch on the actual running 
@@ -62,6 +62,7 @@
         (if ((conjoin thread? thread-running?) (hash-ref curls=>threads u #f))
             (thread-send (hash-ref curls=>threads u) (start-program body (metadata->benv metadata)))
             (printf "error: not a thread or not running: ~a~n" (hash-ref curls=>threads u #f)))]
+       
        [else (printf "Message not recognized: ~a~n" else)])
      (loop))))
 

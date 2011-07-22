@@ -1,4 +1,6 @@
-#lang racket
+#lang racket/base
+
+(require racket/contract racket/list)
   ; Contains the message protocol implementation for establishing a shared session
   ; between two peers.  The initiating peer should call handle-peer-secure-request
   ; and the remote peer should call handle-peer-secure-response.

@@ -1,5 +1,7 @@
 #lang racket/base
 
+(require racket/contract racket/list)
+
 (require rackunit
 
          "revo-cert.rkt"

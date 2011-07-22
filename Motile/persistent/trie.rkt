@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 
 ;; Copyright 2010 Michael M. Gorlick
 
@@ -21,6 +21,7 @@
 ;;  http://suneido.svn.sourceforge.net/viewvc/suneido/jsuneido/src/suneido/util/PersistentMap.java?view=markup ).
 
 (require
+ (only-in racket/vector vector-copy)
  (only-in rnrs/arithmetic/bitwise-6 
           bitwise-bit-count
           bitwise-first-bit-set))

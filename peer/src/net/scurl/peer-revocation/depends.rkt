@@ -1,4 +1,6 @@
-#lang racket
+#lang racket/base
+
+(require racket/contract racket/list)
   (require net/url
            (planet vyzo/crypto:2:3)
            "../common/logging-utils.rkt")
