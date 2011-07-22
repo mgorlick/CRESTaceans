@@ -24,7 +24,7 @@
                      root-curl)
        
        (handle-spawn (make-curl (uuid))
-                     (motile/compile (video-reader/encoder relay-curl))
+                     (motile/compile (video-reader/encoder (hash-ref curls=>threads relay-curl)))
                      (metadata->benv '(("produces" . "video/webm")))
                      '(("produces" . "video/webm"))
                      root-curl)
