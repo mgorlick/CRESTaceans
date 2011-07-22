@@ -81,8 +81,8 @@
         (n : _bytes) (k : _bytes)
         -> (r : _int)
         -> (values
-            ; (cast 
-            ;  (ptr-add message crypto-box-ZEROBYTES)
-            ; _pointer (_bytes o (- cipher-length crypto-box-ZEROBYTES)))
-            (subbytes message crypto-box-ZEROBYTES)
+            (cast 
+             (ptr-add message crypto-box-ZEROBYTES)
+             _pointer (_bytes o (- cipher-length crypto-box-ZEROBYTES)))
+            ;(subbytes message crypto-box-ZEROBYTES)
             r)))
