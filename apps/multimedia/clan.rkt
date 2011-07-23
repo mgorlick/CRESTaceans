@@ -1,4 +1,3 @@
-#! /usr/bin/env racket
 #lang racket/base
 
 (require "misc.rkt"
@@ -8,13 +7,22 @@
          racket/match
          racket/function
          unstable/function
+         racket/list
          racket/date)
 (provide (all-defined-out))
 
-(define *LOCALPORT* (with-handlers ([exn:fail? (λ (e) 5000)])
-                      (string->number (vector-ref (current-command-line-arguments) 0))))
-(define *LISTENING-ON* "127.0.0.1")
-(define block? (member "--block" (vector->list (current-command-line-arguments))))
+
+(define (assoc/or/default key default #:no-val [no-val '()] #:call [call (λ (x) x)])
+  (define CLargs (map (curry regexp-split #rx"=") (vector->list (current-command-line-arguments))))
+  (let ([entry (assoc key CLargs)])
+    (if entry
+        (if (> (length entry) 1)
+            (call (second entry))
+            no-val)
+        default)))
+
+(define *LISTENING-ON* (assoc/or/default "--host" *LOCALHOST*))
+(define *LOCALPORT* (assoc/or/default "--port" 5000 #:call string->number))
 
 (define curls=>threads (make-hash)) ; dispatch on the actual running 
 (define curls=>motiles (make-hash)) ; save COMPILED motiles for retransmission later
@@ -58,7 +66,6 @@
         (ask/send request-thread "POST" reply `(AddCURL ,curl) #:metadata '(("is-a" . "curl")))]
        
        [(ask "POST" u body metadata reply echo)
-        ;(printf "dispatch to ~a~n" u)
         (if ((conjoin thread? thread-running?) (hash-ref curls=>threads u #f))
             (thread-send (hash-ref curls=>threads u) (start-program body (metadata->benv metadata)))
             (printf "error: not a thread or not running: ~a~n" (hash-ref curls=>threads u #f)))]
@@ -99,7 +106,4 @@
        (define u (make-curl uuid))
        (cp u host port)]
       [a (printf "Command not recognized: ~s~n" a)]))
-  (interpreter))
-
-(when block?
   (interpreter))

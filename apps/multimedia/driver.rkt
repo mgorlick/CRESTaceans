@@ -4,18 +4,14 @@
 (require "clan.rkt"
          "motiles.rkt"
          "misc.rkt"
-         "environs.rkt"
          "../../peer/src/net/tcp-peer.rkt"
-         "../../peer/src/api/compilation.rkt"
-         racket/match
-         racket/function
-         unstable/function)
+         "../../peer/src/api/compilation.rkt")
 
+(define *RHOST* (assoc/or/default "--rhost" *LOCALHOST*))
+(define *RPORT* (assoc/or/default "--rport" 1235 #:call string->number))
 (define *RKEY* #f)
-(define *RPORT* 1235)
-(define *RHOST* *LISTENING-ON*)
 
-(cond [(member "--video" (vector->list (current-command-line-arguments)))
+(cond [(assoc/or/default "--video" #f)
        (define relay-curl (make-curl (uuid)))
        (handle-spawn relay-curl
                      (motile/compile (relayer '(("content-type" . "video/webm"))))
@@ -32,9 +28,9 @@
        (ask/send request-thread "SPAWN" (remote-curl-root *RKEY* *RHOST* *RPORT*) 
                  video-decoder
                  #:metadata '(("accepts" . "video/webm"))
-                 #:reply relay-curl)]
-      
-      [(member "--audio" (vector->list (current-command-line-arguments)))
+                 #:reply relay-curl)])
+
+(cond [(assoc/or/default "--audio" #f)
        (define relay-curl (make-curl (uuid)))
        (handle-spawn relay-curl
                      (motile/compile (relayer '(("content-type" . "audio/speex"))))
