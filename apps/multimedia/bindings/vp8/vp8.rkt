@@ -18,6 +18,8 @@
 
 (define-cpointer-type _vp8enc-pointer)
 
+(defvp8 init-SDL (_fun -> _bool))
+
 (defvp8 vp8enc-new (_fun _int _int _int _int -> _vp8enc-pointer))
 (defvp8 vp8enc-delete (_fun _vp8enc-pointer -> _void))
 (defvp8 vp8enc-encode (_fun _vp8enc-pointer
@@ -69,3 +71,5 @@
 ;; consumers are done with its data
 (defvp8 v4l2-reader-enqueue-buffer
   (_fun _v4l2-reader-pointer _int -> _bool))
+
+(init-SDL)

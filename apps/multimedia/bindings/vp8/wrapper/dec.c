@@ -1,19 +1,31 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <stdint.h>
+#include <assert.h>
 #include <SDL/SDL.h>
+#include <libswscale/swscale.h>
 #include <vpx/vpx_decoder.h>
 #include <vpx/vp8dx.h>
+
+int init_SDL (void) {
+  if (SDL_Init (SDL_INIT_VIDEO) != 0 || SDL_VideoInit (NULL) != 0) {
+    printf ("Unable to init SDL: %s\n", SDL_GetError ());
+    return 0;
+  }
+  return 1;
+}
 
 typedef struct VP8Dec {
   vpx_codec_ctx_t *codec;
   int is_init;
-  int vid_is_init;
   int width;
   int height;
-  SDL_Surface *screen;
-  SDL_Overlay *yuv_overlay;
-  SDL_Rect rect;
+  // SDL window and surface for drawing
+  SDL_Window *wind;
+  SDL_Surface *surf;
+  // libswscale objects for pixel format conversion
+  struct SwsContext *swsctx;
 } VP8Dec;
 
 int init_video (VP8Dec *dec, const vpx_image_t *img);
@@ -21,23 +33,25 @@ void display_video (VP8Dec *dec, const vpx_image_t *img);
 
 void vp8dec_delete (VP8Dec *dec) {
   if (dec == NULL) return;
-
+  if (dec->wind != NULL) SDL_DestroyWindow (dec->wind);
+  
   if (dec->codec != NULL) free (dec->codec);
-  SDL_Quit ();
   free (dec);
 }
 
 VP8Dec* vp8dec_new (void) {  
   VP8Dec *dec = malloc (sizeof (VP8Dec));
-  dec->is_init = 0;
-  dec->vid_is_init = 0;
   dec->codec = malloc (sizeof (vpx_codec_ctx_t));
-  dec->screen = NULL;
-  dec->yuv_overlay = NULL;
-  if (0 > SDL_Init (SDL_INIT_VIDEO)) {
-    printf ("Unable to init SDL: %s\n", SDL_GetError ());
-    return NULL;
-  }
+
+  dec->is_init = 0;
+  dec->width = 0;
+  dec->height = 0;
+
+  dec->wind = NULL;
+  dec->surf = NULL;
+
+  dec->swsctx = NULL;
+    
   return dec;
 }
 
@@ -56,7 +70,7 @@ int vp8dec_init (VP8Dec *dec, const size_t size,
   if (!si.is_kf) goto not_kf;
   if (status != VPX_CODEC_OK) goto no_stream_info;
 
-  cfg.threads = 2;
+  cfg.threads = 4;
   cfg.h = si.h;
   cfg.w = si.w;
 
@@ -82,103 +96,105 @@ no_init:
 
 }
 
-void is_kf (const size_t size, const unsigned char *data) {
-  vpx_codec_stream_info_t si;
-  vpx_codec_err_t status;
-
-  memset (&si, 0, sizeof (si));
-  si.sz = sizeof (si);
-  status = vpx_codec_peek_stream_info (&vpx_codec_vp8_dx_algo, data, size, &si);
-
-  printf ("is kf? %d\n", si.is_kf);
-}
-
 int vp8dec_decode (VP8Dec *dec, const size_t size,
                    const unsigned char *data) {
   vpx_image_t *img;
   vpx_codec_err_t status;
   vpx_codec_iter_t iter = NULL;
   
+  // this might fail if we tune into a stream in between keyframes.
+  // in this case we'll just wait until we get one to move past this if block.
   if (0 == dec->is_init) {
     vp8dec_init (dec, size, data);
-    if (0 == dec->is_init) goto not_initialized;
+    if (0 == dec->is_init)
+      goto not_initialized;
   }
   
+  // only proceed here if we've seen at least one keyframe
   status = vpx_codec_decode (dec->codec, data, size, NULL, 0);
-  if (status != VPX_CODEC_OK) goto no_decode;
+  if (status != VPX_CODEC_OK)
+    goto no_decode;
 
   while (NULL != (img = vpx_codec_get_frame (dec->codec, &iter))) {
-    if (0 == dec->vid_is_init) {
-      init_video (dec, img);
-      if (0 == dec->vid_is_init) goto no_video;
-    }
+    if (NULL == dec->wind || NULL == dec->surf || NULL == dec->swsctx)
+      if (0 == init_video (dec, img))
+	goto no_video;
+
     display_video (dec, img);
   }
+
   return 1;
 
-not_initialized:
+ not_initialized: // not a cause for error unless vp8dec_init prints out an error
   return 0;
 no_decode:
   printf ("Failed to decode frame: %s\n", vpx_codec_err_to_string (status));
   return 0;
 no_video:
+  printf ("no video available\n");
   return 0;
-
 }
+
 int init_video (VP8Dec *dec, const vpx_image_t *img) {
+  SDL_DisplayMode mode;
+  
+  if (dec->wind == NULL) {    
+    dec->wind = SDL_CreateWindow ("A CREST Video Display",
+				  SDL_WINDOWPOS_UNDEFINED,
+				  SDL_WINDOWPOS_UNDEFINED,
+				  img->d_w, img->d_h,
+				  SDL_WINDOW_SHOWN);
+    if (dec->wind == NULL)
+      goto no_window_err;
+  }
 
-  int w, h, ov_w, ov_h;
-  w = img->d_w;
-  h = img->d_h;
-  ov_w = img->w;
-  ov_h = img->h;
+  // ensure that the output mode is RGB888. 
+  // right now, this is the only mode SDL seems to support (on this machine).
+  // therefore, I am hardcoding swscale's conversion to target it.
+  SDL_GetWindowDisplayMode (dec->wind, &mode);
+  mode.format = SDL_PIXELFORMAT_RGB888;
+  SDL_GetWindowDisplayMode (dec->wind, &mode);
+  assert (mode.format == SDL_PIXELFORMAT_RGB888);
+  
+  // set up the surface to draw on.
+  if (dec->surf == NULL) {
+    dec->surf = SDL_GetWindowSurface (dec->wind);
+    if (dec->surf == NULL)
+      goto no_surf_err;
+  }
 
-  dec->screen = SDL_SetVideoMode (w, h, 0, SDL_SWSURFACE);
-  if (dec->screen == NULL) goto screen_init_err;
-  dec->yuv_overlay = SDL_CreateYUVOverlay (w, h, SDL_YV12_OVERLAY, dec->screen);
-  if (dec->yuv_overlay == NULL) goto overlay_init_err;
+  if (dec->swsctx == NULL) {
+    dec->swsctx = sws_getContext (dec->surf->w, dec->surf->h, PIX_FMT_YUV420P, // src info
+				  dec->surf->w, dec->surf->h, PIX_FMT_RGB32, // dest info
+				  1, NULL, NULL, NULL); // what flags to use? who knows!
+    if (dec->swsctx == NULL)
+      goto no_sws_err;
+  }
 
-  dec->rect.x = 0;
-  dec->rect.y = 0;
-  dec->rect.w = w;
-  dec->rect.h = h;
-  dec->vid_is_init = 1;
   return 1;
   
-screen_init_err:
-  printf ("Error initializing SDL screen: %s\n", SDL_GetError());
+no_window_err:
+  printf ("Error initializing SDL window: %s\n", SDL_GetError ());
   return 0;
-overlay_init_err:
-  printf ("Error initializing SDL overlay: %s\n", SDL_GetError());
+ no_surf_err:
+  printf ("Could not get SDL surface: %s\n", SDL_GetError ());
+  return 0;
+ no_sws_err:
+  printf ("Could not initialize swscale\n");
   return 0;
 }
 
 void display_video (VP8Dec *dec, const vpx_image_t *img) {
-  int i;
-  
-  /* Lock SDL_yuv_overlay */
-  if (SDL_MUSTLOCK(dec->screen)) {
-    if (0 > SDL_LockSurface(dec->screen)) return;
-  }
-  if (0 > SDL_LockYUVOverlay(dec->yuv_overlay)) return;
-  
-  for (i = 0; i < dec->yuv_overlay->h; i++) {
-    memcpy (dec->yuv_overlay->pixels[0] + dec->yuv_overlay->pitches[0] * i,
-            img->planes[0] + img->stride[0] * i,
-            dec->yuv_overlay->w);
-  }
-  
-  /* reverse U and V since SDL thinks we're drawing a YV12 */
-  for (i = 0; i < dec->yuv_overlay->h/2; i++) {
-    memcpy (dec->yuv_overlay->pixels[1] + dec->yuv_overlay->pitches[1] * i,
-            img->planes[2] + img->stride[2] * i,
-            dec->yuv_overlay->w/2);
-    memcpy (dec->yuv_overlay->pixels[2] + dec->yuv_overlay->pitches[2] * i,
-            img->planes[1] + img->stride[1] * i,
-            dec->yuv_overlay->w/2);
-  }
-  
-  if (SDL_MUSTLOCK(dec->screen)) SDL_UnlockSurface(dec->screen);
-  SDL_UnlockYUVOverlay(dec->yuv_overlay);
-  SDL_DisplayYUVOverlay(dec->yuv_overlay, &(dec->rect));
+
+  uint8_t *img_planes[3] = { img->planes[0], img->planes[1], img->planes[2] };
+  int img_strides[3] = { img->stride[0], img->stride[1], img->stride[2] };
+  uint8_t *out = dec->surf->pixels;
+
+  SDL_LockSurface (dec->surf);
+
+  sws_scale (dec->swsctx, img_planes, img_strides, 0, dec->surf->h,
+	     &out, &dec->surf->pitch);
+
+  SDL_UnlockSurface (dec->surf);
+  SDL_UpdateWindowSurface (dec->wind);
 }

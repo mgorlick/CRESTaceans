@@ -2,8 +2,8 @@ SONAME = libracket-vp8-wrapper.so
 VERSION_MAJOR = 1
 VERSION_FULL = 1.0
 LDFLAGS = -Wl,-soname,$(SONAME).$(VERSION_MAJOR)
-CFLAGS = -fPIC -c -g -O3 -Wall
-LIBDEPS = $$(pkg-config --cflags --libs sdl)
+CFLAGS = -fPIC -c -g -O3 -Wall -Wformat
+LIBDEPS = $$(pkg-config --cflags --libs sdl libswscale)
 
 all: so
 
