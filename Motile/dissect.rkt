@@ -77,7 +77,7 @@
  environ/value?
  environ/value/e ; Deprecated.
  environ/value/environ ; Synonym for environ/value/e.
- environ/value/identifier
+  environ/value/identifier
  environ/value/substitute
  
  ; (environ/reflect e e_1 ... e_m)
@@ -182,6 +182,7 @@
 (define (environ/cons? e) (eq? 'environ/cons (car e)))
 (define (environ/cons/e e) (cadr e)) ; Deprecated.
 (define-syntax-rule (environ/cons/environ e) (cadr e))
+(define-syntax-rule (environ/cons/expression e) (cadr e))
 (define (environ/cons/identifiers e) (cddr e))
 
 ;; (environ/remove e x_1 ... x_m)
@@ -190,6 +191,7 @@
 (define (environ/remove? e) (eq? 'environ/remove (car e)))
 (define (environ/remove/e e) (cadr e)) ; Deprecated.
 (define-syntax-rule (environ/remove/environ e) (cadr e))
+(define-syntax-rule (environ/remove/expression e) (cadr e))
 (define (environ/remove/symbols e) (cddr e))
 
 ;; (environ/value e x v)
@@ -198,6 +200,7 @@
 (define (environ/value? e) (eq? 'environ/value (car e)))
 (define (environ/value/e e) (cadr e))
 (define-syntax-rule (environ/value/environ e) (cadr e))
+(define-syntax-rule (environ/value/expression e) (cadr e))
 (define (environ/value/identifier e) (caddr e))
 (define (environ/value/substitute e) (cadddr e))
 
