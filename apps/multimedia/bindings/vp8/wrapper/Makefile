@@ -1,27 +1,25 @@
-SONAME = libracket-vp8-wrapper.so
-VERSION_MAJOR = 1
-VERSION_FULL = 1.0
-LDFLAGS = -Wl,-soname,$(SONAME).$(VERSION_MAJOR)
-CFLAGS = -fPIC -c -g -O3 -Wall -Wformat
+VP8WRAPPER = libracket-vp8-wrapper.so
+VIDWRAPPER = libracket-v4l2-wrapper.so
+CFLAGS = -fPIC -c -g -O3 -Wall
 LIBDEPS = $$(pkg-config --cflags --libs sdl libswscale)
 
-all: so
+all: vp8 vid
 
-so: enc.o dec.o v4l2.o /usr/lib/libvpx.a
-	cc -shared $(LDFLAGS) -o $(SONAME).$(VERSION_FULL) $(LIBDEPS) $^
+vid: v4l2.o
+	cc -shared -o $(VIDWRAPPER) $(LIBDEPS) $^
+
+vp8: enc.o dec.o /usr/lib/libvpx.a
+	cc -shared -o $(VP8WRAPPER) $(LIBDEPS) $^
 
 %.o: %.c
 	cc $(CFLAGS) -o $@ $<
 
 install:
-	cp $(SONAME).$(VERSION_FULL) $(RACKET_LIBS)
-	ln -sf $(RACKET_LIBS)/$(SONAME).$(VERSION_FULL) \
-		$(RACKET_LIBS)/$(SONAME)
-	ln -sf $(RACKET_LIBS)/$(SONAME).$(VERSION_FULL) \
-		$(RACKET_LIBS)/$(SONAME).$(VERSION_MAJOR)
+	cp $(VP8WRAPPER) $(RACKET_LIBS)
+	cp $(VIDWRAPPER) $(RACKET_LIBS)
 
 clean:
 	rm -rf *.o
-	rm -rf $(SONAME).$(VERSION_FULL)
+	rm -rf *.so*
 
 .PHONY: all so clean install

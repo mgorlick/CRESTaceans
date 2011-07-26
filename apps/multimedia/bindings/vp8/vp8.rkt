@@ -6,11 +6,12 @@
                      defvp8
                      defvp8+
                      defvp8*
-                     lib))
+                     vp8lib
+                     v4l2lib))
 
-(define lib (ffi-lib "libracket-vp8-wrapper"))
+(define vp8lib (ffi-lib "libracket-vp8-wrapper"))
 (define-syntax-rule (defvp8+ binding obj typ)
-  (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) lib typ)))
+  (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) vp8lib typ)))
 (define-syntax-rule (defvp8 obj typ)
   (defvp8+ obj obj typ))
 (define-syntax-rule (defvp8* typ obj ...)
@@ -36,13 +37,21 @@
 
 ;; video capture
 
+(define v4l2lib (ffi-lib "libracket-v4l2-wrapper"))
+(define-syntax-rule (defv4l2+ binding obj typ)
+  (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) v4l2lib typ)))
+(define-syntax-rule (defv4l2 obj typ)
+  (defv4l2+ obj obj typ))
+(define-syntax-rule (defv4l2* typ obj ...)
+  (begin (defv4l2 obj typ) ...))
+
 (define-cpointer-type _v4l2-reader-pointer)
 
-(defvp8 v4l2-reader-setup (_fun -> _v4l2-reader-pointer))
+(defv4l2 v4l2-reader-setup (_fun -> _v4l2-reader-pointer))
 
-(defvp8 v4l2-reader-delete (_fun _v4l2-reader-pointer -> _void))
+(defv4l2 v4l2-reader-delete (_fun _v4l2-reader-pointer -> _void))
 
-(defvp8 v4l2-reader-get-params
+(defv4l2 v4l2-reader-get-params
   (_fun _v4l2-reader-pointer
         (frame-width : (_ptr o _int))
         (frame-height : (_ptr o _int))
@@ -52,14 +61,14 @@
         -> _void
         -> (values frame-width frame-height fps-num fps-denom buffer-ct)))
 
-(defvp8 v4l2-reader-is-ready
+(defv4l2 v4l2-reader-is-ready
   (_fun _v4l2-reader-pointer -> _bool))
 
 ;; get a valid pointer to the memory mapped bytestring with its size
 ;; and index number tracked. mmapped buffer is not requeued until
 ;; v4l2-reader-enqueue-buffer is called with the index number returned 
 ;; by v4l2-reader-get-frame-data
-(defvp8 v4l2-reader-get-frame 
+(defv4l2 v4l2-reader-get-frame 
   (_fun _v4l2-reader-pointer
         (size : (_ptr o _int))
         (framenum : (_ptr o _int))
@@ -69,7 +78,7 @@
 
 ;; requeue the buffer into the memory mapping queue once the downstream
 ;; consumers are done with its data
-(defvp8 v4l2-reader-enqueue-buffer
+(defv4l2 v4l2-reader-enqueue-buffer
   (_fun _v4l2-reader-pointer _int -> _bool))
 
 (init-SDL)
