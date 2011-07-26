@@ -10,7 +10,7 @@ int ENCODER_SPEEX = VPX_DL_REALTIME;
 int THREADS = 8;
 
 typedef struct VP8Enc {
-  vpx_codec_ctx_t codec;
+  vpx_codec_ctx_t *codec;
   vpx_image_t *image;
   int width;
   int height;
@@ -21,6 +21,7 @@ typedef struct VP8Enc {
 
 void vp8enc_delete (VP8Enc *enc) {
   if (enc == NULL) return;
+  if (enc->codec != NULL) free (enc->codec);
   if (enc->image != NULL) vpx_img_free (enc->image);
   if (enc->swsctx != NULL) sws_freeContext (enc->swsctx);
   free (enc);
@@ -38,6 +39,8 @@ VP8Enc* vp8enc_new (int enc_frame_width, int enc_frame_height,
 
   enc = malloc (sizeof (VP8Enc));
   if (enc == NULL) goto no_enc_alloc;
+
+  enc->codec = malloc (sizeof (vpx_codec_ctx_t));
 
   cfg.g_w = enc_frame_width;
   cfg.g_h = enc_frame_height;
@@ -61,13 +64,13 @@ VP8Enc* vp8enc_new (int enc_frame_width, int enc_frame_height,
   cfg.g_lag_in_frames = 0;
   cfg.g_usage = VPX_CQ;
 
-  status = vpx_codec_enc_init (&enc->codec, &vpx_codec_vp8_cx_algo, &cfg, 0);
+  status = vpx_codec_enc_init (enc->codec, &vpx_codec_vp8_cx_algo, &cfg, 0);
   if (status != VPX_CODEC_OK) goto no_init;
 
   int ctrls[] = { VP8E_SET_CQ_LEVEL, VP8E_SET_TUNING };
   int vals[] = { 63, VP8_TUNE_PSNR };
   for (i = 0; i < sizeof (ctrls) / sizeof (*ctrls); i++) {
-    status = vpx_codec_control_ (&enc->codec, ctrls[i], vals[i]);
+    status = vpx_codec_control_ (enc->codec, ctrls[i], vals[i]);
     if (status != VPX_CODEC_OK) 
       printf ("vpx encoder: ouldn't set setting %d, proceeding anyway (status %d)\n",
 	      i, status);
@@ -127,20 +130,17 @@ int vp8enc_encode (VP8Enc *enc,
   int need_extra_copy = 0;
   
   convert_yuv422_to_yuv420p (enc, buffer);
- 
-  /* XXX fixme set force-keyframe flag only when commanded */
-  /* if (enc->n_frames % 7 == 0) flags |= VPX_EFLAG_FORCE_KF; */
-  
-  status = vpx_codec_encode (&enc->codec, enc->image, enc->n_frames++, 
+   
+  status = vpx_codec_encode (enc->codec, enc->image, enc->n_frames++, 
 			     1, flags, VPX_DL_REALTIME);
   if (status != VPX_CODEC_OK) goto no_frame;
 
-  status = vpx_codec_set_cx_data_buf (&enc->codec, &fbuff, 0, 0);
+  status = vpx_codec_set_cx_data_buf (enc->codec, &fbuff, 0, 0);
   if (status != VPX_CODEC_OK) need_extra_copy = 1;
 
   /* XXX fixme this only takes the first packet from the iterator
      and discards the rest corresponding to the input buffer */
-  if (NULL != (pkt = vpx_codec_get_cx_data (&enc->codec, &iter))) {
+  if (NULL != (pkt = vpx_codec_get_cx_data (enc->codec, &iter))) {
     switch (pkt->kind) {
       case VPX_CODEC_CX_FRAME_PKT:
         if (need_extra_copy) memcpy (out, pkt->data.frame.buf, pkt->data.frame.sz);

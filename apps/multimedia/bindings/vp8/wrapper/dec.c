@@ -17,7 +17,7 @@ int init_SDL (void) {
 }
 
 typedef struct VP8Dec {
-  vpx_codec_ctx_t codec;
+  vpx_codec_ctx_t *codec;
   int is_init;
   int width;
   int height;
@@ -35,7 +35,7 @@ void vp8dec_delete (VP8Dec *dec) {
   if (dec == NULL) return;
   if (dec->wind != NULL) SDL_DestroyWindow (dec->wind);
 
-  //if (dec->codec != NULL) free (dec->codec);
+  if (dec->codec != NULL) free (dec->codec);
 
   if (dec->swsctx != NULL) free (dec->swsctx);
   free (dec);
@@ -43,7 +43,15 @@ void vp8dec_delete (VP8Dec *dec) {
 
 VP8Dec* vp8dec_new (void) {  
   VP8Dec *dec = malloc (sizeof (VP8Dec));
-  //dec->codec = malloc (sizeof (vpx_codec_ctx_t));
+  if (dec == NULL) {
+    printf ("Could not allocate VP8 decoder container object\n");
+    return NULL;
+  }
+  dec->codec = malloc (sizeof (vpx_codec_ctx_t));
+  if (dec->codec == NULL) {
+    printf ("Could not allocate VP8 decoder codec\n");
+    return NULL;
+  }
 
   dec->is_init = 0;
   dec->width = 0;
@@ -51,7 +59,6 @@ VP8Dec* vp8dec_new (void) {
 
   dec->wind = NULL;
   dec->surf = NULL;
-
   dec->swsctx = NULL;
     
   return dec;
@@ -76,7 +83,7 @@ int vp8dec_init (VP8Dec *dec, const size_t size,
   cfg.h = si.h;
   cfg.w = si.w;
 
-  status = vpx_codec_dec_init (&dec->codec, &vpx_codec_vp8_dx_algo, &cfg, flags);
+  status = vpx_codec_dec_init (dec->codec, &vpx_codec_vp8_dx_algo, &cfg, flags);
   if (status != VPX_CODEC_OK) goto no_init;
 
   dec->is_init = 1;
@@ -113,11 +120,11 @@ int vp8dec_decode (VP8Dec *dec, const size_t size,
   }
   
   // only proceed here if we've seen at least one keyframe
-  status = vpx_codec_decode (&dec->codec, data, size, NULL, 0);
+  status = vpx_codec_decode (dec->codec, data, size, NULL, 0);
   if (status != VPX_CODEC_OK)
     goto no_decode;
 
-  while (NULL != (img = vpx_codec_get_frame (&dec->codec, &iter))) {
+  while (NULL != (img = vpx_codec_get_frame (dec->codec, &iter))) {
     if (NULL == dec->wind || NULL == dec->surf || NULL == dec->swsctx)
       if (0 == init_video (dec, img))
 	goto no_video;
