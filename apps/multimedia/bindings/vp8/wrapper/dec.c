@@ -186,7 +186,7 @@ no_window_err:
 
 void display_video (VP8Dec *dec, const vpx_image_t *img) {
 
-  uint8_t *img_planes[3] = { img->planes[0], img->planes[1], img->planes[2] };
+  const uint8_t *img_planes[3] = { img->planes[0], img->planes[1], img->planes[2] };
   int img_strides[3] = { img->stride[0], img->stride[1], img->stride[2] };
   uint8_t *out = dec->surf->pixels;
 
