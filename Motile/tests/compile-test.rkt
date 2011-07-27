@@ -6,12 +6,12 @@
  rackunit
  rackunit/text-ui
  racket/pretty
- "compile.rkt"
- "baseline.rkt"
- "persistent/environ.rkt"
- "persistent/hash.rkt")
+ "../compile.rkt"
+ "../baseline.rkt"
+ "../persistent/environ.rkt"
+ "../persistent/hash.rkt")
 
-(require/expose "compile.rkt"
+(require/expose "../compile.rkt"
                 (decompile
                  setter/tag
                  do/translate))

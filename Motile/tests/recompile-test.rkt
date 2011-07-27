@@ -1,19 +1,20 @@
 #lang racket/base
 
 (require
- rackunit "recompile.rkt"
+ rackunit
+ "../recompile.rkt"
 
  (only-in
-  "persistent/environ.rkt"
+  "../persistent/environ.rkt"
   environ/value)
 
  (only-in
-  "compile.rkt"
+  "../compile.rkt"
   motile/compile
   motile/decompile
   motile/start)
 
- "baseline.rkt")
+ "../baseline.rkt")
 
 ; Motile source is:
 ; (let ((silly 1951))
