@@ -208,7 +208,9 @@
   (test-case
    "Simple letrec case with two definitions"
    (check-equal? 24
-                 (compile/start '(letrec ((a 11) (b (lambda () (+ a 13)))) (b)))))
+                 (compile/start '(letrec ((a 11) 
+                                          (b (lambda () (+ a 13))))
+                                   (b)))))
   (test-case
    "Letrec with one function definition"
    (check-equal? 120
@@ -250,7 +252,8 @@
                                    (list (even? 12) (even? 3) (odd? a) (odd? 8) (factorial 5) (b))))))
   (test-case
    "Self-recursive definition"
-   (check-true (compile/start '(letrec ((foo (lambda (x) (eq? x foo)))) (foo foo)))))
+   (check-true (compile/start '(letrec ((foo (lambda (x) (eq? x foo))))
+                                 (foo foo)))))
   (test-case
    "Letrec with define in the body"
    (check-equal? '(#t #f #t #f 120 24)
