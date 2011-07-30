@@ -46,30 +46,39 @@
           [e (vp8enc-new params)]
           [buffsize (* 1024 256)]
           [outbuff (make-bytes buffsize)]
-          [framerate (/ (VideoParams.fpsNum params) (VideoParams.fpsDen params))]
-          [grab-frame
-           ;; Number -> or (None) (FrameBuffer)
-           (lambda (ts)
-             (cond [(video-reader-is-ready? v) (video-reader-get-frame v ts)]
-                   [else (None)]))]
-          [encode-frame
-           ;; or (None) (FrameBuffer) -> or (None) (FrameBuffer)
-           (lambda (frame)
-             (cond [(None? frame) frame]
-                   [else (vp8enc-encode/return-frame e frame outbuff)]))]
-          [grab/encode (lambda () (encode-frame (grab-frame (current-inexact-milliseconds))))])
-     
-     (sleep framerate)
-     (let loop ([v (grab/encode)])
+          [default-fudge 0.5]
+          [fudge-step 0.01]
+          [framerate (/ (VideoParams.fpsNum params) (VideoParams.fpsDen params))])
+     ; grab-frame: int -> or FrameBuffer None
+     (define (grab-frame ts)
+       (cond [(video-reader-is-ready? v) (video-reader-get-frame v ts)]
+             [else (None)]))
+     ; encode-frame: or FrameBuffer None -> or FrameBuffer None
+     (define (encode-frame frame)
+       (cond [(None? frame) frame]
+             [else (vp8enc-encode/return-frame e frame outbuff)]))
+     ; grab/encode: -> or FrameBuffer None
+     (define (grab/encode)
+       (encode-frame (grab-frame (current-inexact-milliseconds))))
+     (let loop ([v (grab/encode)] [fudge default-fudge])
        (cond [(FrameBuffer? v)
+              ;(printf "HIT: fudge ~a~n" fudge)
+              
               ; Frame received successfully. Pass it on and then wait until
-              ; the next frame should be active (modified by a fudge factor to account for processing time)
+              ; the next frame should be active (modified by a factor to account for processing time)
               (ask/send* "POST" ,target (FrameBuffer->Frame v) '(("content-type" . "video/webm")))
-              (sleep (* 0.5 framerate))]
+              (sleep (* fudge framerate))
+              ; decrease fudge factor for next frame a la AIMD.
+              (loop (grab/encode) (if (>= fudge fudge-step)
+                                      (- fudge fudge-step)
+                                      0))]
              [(None? v)
-              ; oops, our fudge factor was off - just sleep some small amount of time before checking again
-              (sleep 0.025)])
-       (loop (grab/encode)))))
+              ;(printf "MISS: fudge ~a~n" fudge)
+              (loop (grab/encode)
+                    ; increase fudge factor for next frame a la AIMD.
+                    (min default-fudge (* 2 (if (zero? fudge)
+                                                fudge-step
+                                                fudge))))]))))
 
 ;; -----
 ;; AUDIO
