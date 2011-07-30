@@ -46,6 +46,7 @@
           [e (vp8enc-new params)]
           [buffsize (* 1024 256)]
           [outbuff (make-bytes buffsize)]
+          [framerate (/ (VideoParams.fpsNum params) (VideoParams.fpsDen params))]
           [grab-frame
            ;; Number -> or (None) (FrameBuffer)
            (lambda (ts)
@@ -58,13 +59,13 @@
                    [else (vp8enc-encode/return-frame e frame outbuff)]))]
           [grab/encode (lambda () (encode-frame (grab-frame (current-inexact-milliseconds))))])
      
-     (sleep (/ (VideoParams-fpsNum params) (VideoParams-fpsDen params)))
+     (sleep framerate)
      (let loop ([v (grab/encode)])
        (cond [(FrameBuffer? v)
               ; Frame received successfully. Pass it on and then wait until
               ; the next frame should be active (modified by a fudge factor to account for processing time)
-              (thread-send ,target (FrameBuffer->Frame v))
-              (sleep (* 0.5 (/ (VideoParams-fpsNum params) (VideoParams-fpsDen params))))]
+              (ask/send* "POST" ,target (FrameBuffer->Frame v) '(("content-type" . "video/webm")))
+              (sleep (* 0.5 framerate))]
              [(None? v)
               ; oops, our fudge factor was off - just sleep some small amount of time before checking again
               (sleep 0.025)])
