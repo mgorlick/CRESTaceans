@@ -4,6 +4,7 @@
          "bindings/vp8/vp8.rkt"
          "bindings/speex/speex.rkt"
          "../../peer/src/api/compilation.rkt"
+         racket/function
          (for-syntax racket/base))
 (provide (all-defined-out))
 
@@ -25,6 +26,13 @@
 
 (define (++ base-environment . global-defines-lists)
   (foldl (flip pairs/environ) base-environment global-defines-lists))
+
+; ++/map: add a list of global definitions to each environment in a list of environments
+; (listof environs) (listof global-defines) -> (listof environs)
+(define (++/map environs gdefines)
+  (define (++/one-gdefine gdefine)
+    (map (curry (flip ++) gdefine) environs))
+  (map ++/one-gdefine gdefines))
 
 (define UTIL
   (++ ENVIRON/TEST

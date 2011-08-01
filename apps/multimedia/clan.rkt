@@ -7,13 +7,12 @@
          racket/match
          racket/function
          unstable/function
-         racket/list
-         racket/date)
+         racket/list)
 (provide (all-defined-out))
 
+(define CLargs (map (curry regexp-split #rx"=") (vector->list (current-command-line-arguments))))
 
-(define (assoc/or/default key default #:no-val [no-val '()] #:call [call (λ (x) x)])
-  (define CLargs (map (curry regexp-split #rx"=") (vector->list (current-command-line-arguments))))
+(define (assoc/or/default key [default #f] #:no-val [no-val '()] #:call [call (λ (x) x)])
   (let ([entry (assoc key CLargs)])
     (if entry
         (if (> (length entry) 1)
@@ -29,23 +28,21 @@
 (define curls=>metadata (make-hash)) ; save metadata for retransmission
 (define curls=>replycurls (make-hash)) ; save corresponding reply curls for retransmission
 
-(define (handle-spawn curl body benv metadata reply)
-  (hash-set! curls=>threads curl (spawn (start-program body benv)))
+(define (handle-spawn curl body metadata reply)
+  (define benv (metadata->benv metadata))
+  (define args (match metadata
+                 [(or '(("accepts" . "video/webm"))
+                      '(("accepts" . "audio/speex")))
+                  (list curl reply)]
+                 [(or '(("produces" . "video/webm"))
+                      '(("produces" . "audio/speex")))
+                  (list reply)]
+                 [_ '()]))
+  (hash-set! curls=>threads curl (spawn (start-program body benv args)))
   (hash-set! curls=>motiles curl body)
   (hash-set! curls=>metadata curl metadata)
   (hash-set! curls=>replycurls curl reply)
-  (printf "(~a): a new actor installed at ~n\t~s~n" (date->string (current-date)) curl))
-
-;; primitive for sending from the Motile level
-(define ask/send*
-  (case-lambda
-    [(method url body) (ask/send request-thread method url body)]
-    [(method url body metadata) (ask/send request-thread method url body #:metadata metadata)]))
-(define MULTIMEDIA-BASE* (++ MULTIMEDIA-BASE (list (define/global/N 'ask/send* ask/send*))))
-(define VIDEO-ENCODE* (++ VIDEO-ENCODE (list (define/global/N 'ask/send* ask/send*))))
-(define AUDIO-ENCODE* (++ AUDIO-ENCODE (list (define/global/N 'ask/send* ask/send*))))
-(define VIDEO-DECODE* (++ VIDEO-DECODE (list (define/global/N 'ask/send* ask/send*))))
-(define AUDIO-DECODE* (++ AUDIO-DECODE (list (define/global/N 'ask/send* ask/send*))))
+  (printf "a new actor installed at ~n\t~s~n" curl))
 
 (define (metadata->benv metadata)
   (match metadata
@@ -55,6 +52,21 @@
     ['(("produces" . "audio/speex")) AUDIO-ENCODE*]
     [_ MULTIMEDIA-BASE*]))
 
+;; primitive for sending from the Motile level
+(define (ask/send* method u body [metadata :no-metadata:])
+  (cond [(hash-has-key? curls=>threads u)
+         (thread-send (hash-ref curls=>threads u)
+                      (motile/start (motile/compile body) (metadata->benv metadata)))]
+        [(message/uri? u)
+         (ask/send request-thread method u body #:metadata metadata #:compile? (not (procedure? body)))]))
+(define additions (global-defines ask/send*))
+
+(define MULTIMEDIA-BASE* (++ MULTIMEDIA-BASE additions))
+(define VIDEO-ENCODE* (++ VIDEO-ENCODE additions))
+(define AUDIO-ENCODE* (++ AUDIO-ENCODE additions))
+(define VIDEO-DECODE* (++ VIDEO-DECODE additions))
+(define AUDIO-DECODE* (++ AUDIO-DECODE additions))
+
 (define handler
   (spawn
    (let loop ()
@@ -62,13 +74,15 @@
      (match v
        [(ask "SPAWN" (? (is? root-curl) u) body metadata reply echo)
         (define curl (make-curl (uuid)))
-        (handle-spawn curl body (metadata->benv metadata) metadata reply)
-        (ask/send request-thread "POST" reply `(AddCURL ,curl) #:metadata '(("is-a" . "curl")))]
+        (handle-spawn curl body metadata reply)]
+       
+       [(ask _ (? (is? root-curl) u) body metadata _ _)
+        (printf "Dropping message at root: ~a ~a~n" body metadata)]
        
        [(ask "POST" u body metadata reply echo)
         (if ((conjoin thread? thread-running?) (hash-ref curls=>threads u #f))
             (thread-send (hash-ref curls=>threads u) (start-program body (metadata->benv metadata)))
-            (printf "error: not a thread or not running: ~a~n" (hash-ref curls=>threads u #f)))]
+            (printf "error: not a thread or not running: ~a / directed to: ~a~n" (hash-ref curls=>threads u #f) u))]
        
        [else (printf "Message not recognized: ~a~n" else)])
      (loop))))
@@ -94,16 +108,16 @@
   (define cmd (read))
   (with-handlers ([exn:fail? (λ (e) (printf "~a~n" (exn-message e)) #f)])
     (match cmd
-      [(list 'mv uuid host port key)
-       ;; look up the actor named by the uuid locally. then transmit its original decompiled
-       ;; source representation to the new island and name the originating reply url as
-       ;; the destination for the new CURL notification
-       (define u (make-curl uuid))
-       (cp u host port)
-       (ask/send request-thread "POST" (hash-ref curls=>replycurls u) `(RemoveCURL ,u))]
       
-      [(list 'cp uuid host port key)
+      [`(cp ,uuid ,host ,port)
        (define u (make-curl uuid))
        (cp u host port)]
+      
+      [`(mv ,uuid ,host ,port)
+       (define u (make-curl uuid))
+       (cp u host port)
+       (ask/send request-thread "POST" (hash-ref curls=>replycurls u) `(RemoveCURL ,u) #:metadata
+                 '(("is-a" . "removeCURL")))]
+      
       [a (printf "Command not recognized: ~s~n" a)]))
   (interpreter))
