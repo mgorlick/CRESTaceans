@@ -124,7 +124,8 @@
                        [font (make-object font% 14 'swiss)]
                        [callback
                         (λ (button event)
-                          (add-small-video-playback small-panel (add-video)))]))
+                          (define smallvid (add-small-video-playback small-panel (add-video)))
+                          (send smallvid on-event (new mouse-event% [event-type 'left-down])))]))
 (define main-window (make-main-video-window frame 800 600))
 (define small-panel (new horizontal-panel% 
                          [parent frame] 
