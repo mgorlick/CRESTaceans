@@ -44,14 +44,15 @@
 
 (define video-reader/encoder
   '(lambda (relayer-curl)
-     (define default-fudge 0.5)
-     (define fudge-step 0.01)
-     (let* ([v (video-reader-setup)]
+     (let* ([default-fudge 0.5]
+            [fudge-step 0.01]
+            [v (video-reader-setup)]
             [params (video-reader-get-params v)]
             [e (vp8enc-new params)]
             [buffsize (* 1024 256)]
             [outbuff (make-bytes buffsize)]
             [framerate (/ (VideoParams.fpsNum params) (VideoParams.fpsDen params))])
+       
        ; grab-frame: int -> or FrameBuffer None
        (define (grab-frame ts)
          (cond [(video-reader-is-ready? v) (video-reader-get-frame v ts)]
@@ -63,25 +64,38 @@
        ; grab/encode: -> or FrameBuffer None
        (define (grab/encode)
          (encode-frame (grab-frame (current-inexact-milliseconds))))
-       (let loop ([v (grab/encode)] [fudge default-fudge])
-         (cond [(FrameBuffer? v)
-                ;(printf "HIT: fudge ~a~n" fudge)
-                
+       
+       ; decrease-fudge: int -> int
+       ; calculate the next fudge step by decreasing down to zero, additively. 
+       ; called only when frame was successfully captured.
+       (define (decrease-fudge current-fudge)
+         (if (>= current-fudge fudge-step)
+             (- current-fudge fudge-step)
+             0))
+       
+       ; increase-fudge: int -> int
+       ; calculate the next fudge step by increasing up to the default, multiplicatively.
+       ; called only when the next frame could not be captured due to camera delay
+       (define (increase-fudge current-fudge)
+         (min default-fudge 
+              (* 2 (if (zero? current-fudge)
+                       fudge-step
+                       current-fudge))))
+       
+       (define (fwd-frame fb)
+         (ask/send* "POST" relayer-curl (FrameBuffer->Frame fb) '(("content-type" . "video/webm"))))
+       
+       ; loop: or FrameBuffer None, int
+       (let loop ([fb (grab/encode)] [fudge default-fudge])
+         (cond [(FrameBuffer? fb)
                 ; Frame received successfully. Pass it on and then wait until
                 ; the next frame should be active (modified by a factor to account for processing time)
-                (ask/send* "POST" relayer-curl (FrameBuffer->Frame v) '(("content-type" . "video/webm")))
+                (fwd-frame fb)
                 (sleep (* fudge framerate))
-                ; decrease fudge factor for next frame a la AIMD.
-                (loop (grab/encode) (if (>= fudge fudge-step)
-                                        (- fudge fudge-step)
-                                        0))]
-               [(None? v)
-                ;(printf "MISS: fudge ~a~n" fudge)
-                (loop (grab/encode)
-                      ; increase fudge factor for next frame a la AIMD.
-                      (min default-fudge (* 2 (if (zero? fudge)
-                                                  fudge-step
-                                                  fudge))))])))))
+                (loop (grab/encode) (decrease-fudge fudge))]
+               
+               [(None? fb)
+                (loop (grab/encode) (increase-fudge fudge))])))))
 
 ;; -----
 ;; AUDIO

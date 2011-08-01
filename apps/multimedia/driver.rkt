@@ -21,11 +21,12 @@
 
 (cond [(assoc/or/default "--video")
        (define relay-curl (make-curl (uuid)))
-       (handle-spawn relay-curl (motile/compile (relayer type/webm))
-                     type/webm root-curl)
+       (handle-spawn relay-curl (motile/compile (relayer type/webm)) type/webm root-curl)
        
-       (handle-spawn (make-curl (uuid)) (motile/compile video-reader/encoder)
-                     produces/webm relay-curl)
+       (handle-spawn (make-curl (uuid)) (motile/compile video-reader/encoder) produces/webm relay-curl)
+       
+       ;(ask/send request-thread "SPAWN" (remote-curl-root *RKEY* *RHOST* *RPORT*)
+        ;          video-reader/encoder #:metadata produces/webm #:reply relay-curl)
        
        (ask/send request-thread "SPAWN" (remote-curl-root *RKEY* *RHOST* *RPORT*)
                  video-decoder #:metadata accepts/webm #:reply relay-curl)])
