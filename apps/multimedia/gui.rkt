@@ -18,7 +18,10 @@
   (bytes-length (video-playback-buffer v)))
 
 (define (make-video width height #:static [static #f])
-  (video-playback (make-bytes (* 4 width height))
+  (define buffer (make-bytes (* 4 width height)))
+  (for ([i (in-range 0 (* 4 width height) 4)])
+    (bytes-set! buffer i 255))
+  (video-playback buffer
                   (make-bitmap width height)
                   (string-append "video" (number->string (current-inexact-milliseconds)))
                   width height
@@ -70,8 +73,8 @@
   (define thisstate (video-gui #f #f #f #f))
   
   (define starting-video (make-video 800 600 #:static #t))
-  (for ([i (in-range (video-playback-buffersize starting-video))])
-    (bytes-set! (video-playback-buffer starting-video) i 128))
+  (for ([i (in-range 0 (video-playback-buffersize starting-video) 4)])
+    (bytes-set! (video-playback-buffer starting-video) i 255))
   
   (define current-video starting-video)
   
