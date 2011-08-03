@@ -1,6 +1,7 @@
 #lang racket/base
 
 (require "message-types.rkt"
+         "gui.rkt"
          "bindings/vp8/vp8.rkt"
          "bindings/speex/speex.rkt"
          "../../peer/src/api/compilation.rkt"
@@ -94,7 +95,14 @@
            (FrameBuffer data size (λ () (v4l2-reader-enqueue-buffer v index)) ts))))))
 
 (define VIDEO-DECODE
-  (++ MULTIMEDIA-BASE (global-defines vp8dec-new vp8dec-delete vp8dec-decode)))
+  (++ MULTIMEDIA-BASE
+      (global-defines vp8dec-new vp8dec-delete vp8dec-decode vp8dec-decode-copy)
+      (global-defines new-video-gui
+                       video-gui-add-video!
+                       video-playback-lock
+                       video-playback-unlock
+                       video-playback-buffersize
+                       video-playback-buffer)))
 
 (define AUDIO-ENCODE
   (++ MULTIMEDIA-BASE (global-defines new-speex-encoder speex-encoder-encode delete-speex-encoder)))

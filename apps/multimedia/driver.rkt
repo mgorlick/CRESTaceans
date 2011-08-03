@@ -28,7 +28,7 @@
                      produces/webm relay-curl)
        
        (ask/send request-thread "SPAWN" (remote-curl-root *RKEY* *RHOST* *RPORT*)
-                 video-decoder #:metadata accepts/webm #:reply relay-curl)])
+                 video-decoder/gui #:metadata accepts/webm #:reply relay-curl)])
 
 (cond [(assoc/or/default "--audio")
        (define relay-curl (make-curl (uuid)))
@@ -41,4 +41,4 @@
        (ask/send request-thread "SPAWN" (remote-curl-root *RKEY* *RHOST* *RPORT*)
                  (speex-decoder 640) #:metadata accepts/speex #:reply relay-curl)])
 
-(interpreter)
+(no-return)

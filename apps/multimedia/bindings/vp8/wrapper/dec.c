@@ -105,6 +105,61 @@ no_init:
 
 }
 
+int vp8dec_decode_copy (VP8Dec *dec, const size_t input_size, const unsigned char *input,
+			const size_t output_size, unsigned char *output) {
+    vpx_image_t *img;
+  vpx_codec_err_t status;
+  vpx_codec_iter_t iter = NULL;
+  
+  // this might fail if we tune into a stream in between keyframes.
+  // in this case we'll just wait until we get one to move past this if block.
+  if (0 == dec->is_init) {
+    vp8dec_init (dec, input_size, input);
+    if (0 == dec->is_init)
+      goto not_initialized;
+  }
+  
+  // only proceed here if we've seen at least one keyframe
+  status = vpx_codec_decode (dec->codec, input, input_size, NULL, 0);
+  if (status != VPX_CODEC_OK)
+    goto no_decode;
+
+  while (NULL != (img = vpx_codec_get_frame (dec->codec, &iter))) {
+
+    if (dec->swsctx == NULL) {
+      dec->swsctx = sws_getContext (img->d_w, img->d_h, PIX_FMT_YUV420P, // src info
+				    img->d_w, img->d_h, PIX_FMT_RGB24, // dest info
+				    1, NULL, NULL, NULL); // what flags to use? who knows!
+    }
+
+    int w = img->d_w;
+    int h = img->d_h;
+#define BPP 3
+    
+    assert (output_size == BPP * w * h);
+    
+    const uint8_t *src_planes[3] = { img->planes[0], img->planes[1], img->planes[2] };
+    int src_strides[3] = { img->stride[0], img->stride[1], img->stride[2] };
+    int dest_stride = BPP * img->d_w;
+
+    sws_scale (dec->swsctx, src_planes, src_strides, 0, h,
+	       &output, &dest_stride);
+
+#undef BPP
+  }
+
+  return 1;
+
+ not_initialized: // not a cause for error unless vp8dec_init prints out an error
+  return 0;
+no_decode:
+  printf ("Failed to decode frame: %s\n", vpx_codec_err_to_string (status));
+  return 0;
+no_video:
+  printf ("no video available\n");
+  return 0;
+}
+
 int vp8dec_decode (VP8Dec *dec, const size_t size,
                    const unsigned char *data) {
   vpx_image_t *img;
@@ -161,8 +216,6 @@ int init_video (VP8Dec *dec, const vpx_image_t *img) {
   // right now, this is the only mode SDL seems to support (on this machine).
   // therefore, I am hardcoding swscale's conversion to target it.
   SDL_GetWindowDisplayMode (dec->wind, &mode);
-  mode.format = SDL_PIXELFORMAT_RGB888;
-  SDL_GetWindowDisplayMode (dec->wind, &mode);
   assert (mode.format == SDL_PIXELFORMAT_RGB888);
   
   // set up the surface to draw on.
@@ -174,7 +227,7 @@ int init_video (VP8Dec *dec, const vpx_image_t *img) {
 
   if (dec->swsctx == NULL) {
     dec->swsctx = sws_getContext (dec->surf->w, dec->surf->h, PIX_FMT_YUV420P, // src info
-				  dec->surf->w, dec->surf->h, PIX_FMT_RGB32, // dest info
+				  dec->surf->w, dec->surf->h, PIX_FMT_ARGB, // dest info
 				  1, NULL, NULL, NULL); // what flags to use? who knows!
     if (dec->swsctx == NULL)
       goto no_sws_err;

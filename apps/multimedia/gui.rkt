@@ -1,158 +1,88 @@
 #lang racket/gui
 
+(require sgl/gl
+         (only-in ffi/unsafe _byte)
+         (only-in ffi/unsafe/cvector make-cvector*)
+         racket/contract)
+
 (provide new-video-gui
          video-gui-add-video!
-         video-playback-copy-data
-         video-playback-randomize
          video-playback-buffersize
          video-playback-buffer
          video-playback-lock
          video-playback-unlock)
 
-(struct video-playback (buffer ; bytes?
-                        bmp ; bitmap%
-                        name ; string?
-                        w h sema)) ; integer? integer? semaphore?
+(define BYTES-PER-PIXEL 3)
 
-(define (video-playback-buffersize v)
+; the fixed size used for the preview windows at the bottom of the GUI.
+(define PREVIEW-WIDTH  80)
+(define PREVIEW-HEIGHT 60)
+
+; video-playback: used to track the metadata and state of an individual in-play, displayed video.
+(struct video-playback (buffer name w h sema)) ; bytes? string? integer? integer? semaphore?
+
+(define/contract (video-playback-buffersize v)
+  (video-playback? . -> . exact-nonnegative-integer?)
   (bytes-length (video-playback-buffer v)))
 
-(define (make-video width height #:static [static #f])
-  (define buffer (make-bytes (* 4 width height)))
-  (for ([i (in-range 0 (* 4 width height) 4)])
-    (bytes-set! buffer i 255))
+(define/contract (make-video-playback width height)
+  (exact-nonnegative-integer? exact-nonnegative-integer? . -> . video-playback?)
+  (define buffer (make-bytes (* BYTES-PER-PIXEL width height)))
   (video-playback buffer
-                  (make-bitmap width height)
                   (string-append "video" (number->string (current-inexact-milliseconds)))
                   width height
                   (make-semaphore 1)))
 
-(define (video-playback-lock v)
+(define/contract (video-playback-lock v)
+  (video-playback? . -> . void)
   (semaphore-wait (video-playback-sema v)))
 
-(define (video-playback-unlock v)
+(define/contract (video-playback-unlock v)
+  (video-playback? . -> . void)
   (semaphore-post (video-playback-sema v)))
-
-(define (video-playback-randomize v)
-  (video-playback-lock v)
-  (define buffer (video-playback-buffer v))
-  (define size (video-playback-buffersize v))
-  (for ([i (in-range 16384)])
-    (bytes-set! buffer (random size) (random 256)))
-  (video-playback-unlock v))
-
-(define (video-playback-copy-data v buffer)
-  (video-playback-lock v)
-  (bytes-copy! (video-playback-buffer v) 0 buffer)
-  (video-playback-unlock v))
 
 ;;;;;;;; ---------------------------
 
-(struct main-video-window (panel ; panel%
-                           address ; message%
-                           canvas) ; canvas%
-  #:transparent)
+; main-video-window holds the panel + message + canvas used for primary display.
+;; panel%, message%, canvas%
+(struct main-video-window (panel address canvas) #:transparent)
 
-(struct video-gui (frame ; frame%
-                   main-video-panel
-                   small-video-panel
-                   videos) ; listof video-playback
-  #:transparent #:mutable)
+; video-gui holds the main window, plus all the small preview windows, the overall frame
+; and a list of video-playback objects.
+;; frame? main-video-window? (is-a/c panel%) listof video-playback
+(struct video-gui (frame main-video-panel small-video-panel videos) #:transparent #:mutable)
 
-(define (video-gui-add-video! g w h)
-  (define nv (make-video w h))
+(define/contract (video-gui-add-video! g w h)
+  (video-gui? exact-nonnegative-integer? exact-nonnegative-integer? . -> . video-playback?)
+  
+  (define nv (make-video-playback w h))
   (set-video-gui-videos! g (cons nv (video-gui-videos g)))
-  (send (video-gui-small-video-panel g) add-video-canvas nv) 
+  (send (video-gui-small-video-panel g) add-video-canvas nv g)
+  (send (main-video-window-canvas (video-gui-main-video-panel g)) set-video nv)
+  (send (main-video-window-address (video-gui-main-video-panel g)) set-label (video-playback-name nv))
   nv)
 
-(define (new-video-gui width height)
-  
-  (define PREVIEW-WIDTH 80)
-  (define PREVIEW-HEIGHT 60)
-  
-  (define thisstate (video-gui #f #f #f #f))
-  
-  (define starting-video (make-video 800 600 #:static #t))
-  (for ([i (in-range 0 (video-playback-buffersize starting-video) 4)])
-    (bytes-set! (video-playback-buffer starting-video) i 255))
-  
-  (define current-video starting-video)
-  
-  ;; ---------- 
-  ;; the window classes
-  
-  (define small-playback-canvas%
-    (class canvas%
-      [init vpb]
-      
-      (define myvideo vpb)
-      (define updater 
-        (thread
-         (λ ()
-           (define bmp (video-playback-bmp myvideo))
-           (define w (video-playback-w myvideo))
-           (define h (video-playback-h myvideo))
-           (define buffer (video-playback-buffer myvideo))
-           (let loop ()
-             (sleep 1/60)
-             (when (send this is-shown?)
-               (video-playback-randomize myvideo)
-               (send bmp set-argb-pixels 0 0 w h buffer)
-               (send this refresh)
-               (loop))))))
-      (super-new)
-      
-      (define my-dc (send this get-dc))
-      (send my-dc scale
-            (/ PREVIEW-WIDTH (video-playback-w myvideo))
-            (/ PREVIEW-HEIGHT (video-playback-h myvideo)))
-      
-      (define/override (on-paint)
-        (send my-dc draw-bitmap (video-playback-bmp myvideo) 0 0))
-      
-      (define/override (on-event e)
-        (when (send e button-down?)
-          (send address-bar set-label (video-playback-name myvideo))
-          (set! current-video myvideo)))))
-  
-  (define small-video-panel%
-    (class horizontal-panel%
-      
-      (super-new)
-      (define/public (add-video-canvas v)
-        (new small-playback-canvas%
-             [vpb v]
-             [parent this]
-             [style '(border)]
-             [min-width PREVIEW-WIDTH]
-             [min-height PREVIEW-HEIGHT]
-             [stretchable-width #f]
-             [stretchable-height #f]))))
-  
-  ; windows themselves
+(define/contract (new-video-gui width height)
+  (exact-nonnegative-integer? exact-nonnegative-integer? . -> . video-gui?)
   
   (define frame (new frame% [label "Video command center"]))
   
   (define current-video-panel (new vertical-panel%
                                    [parent frame]
                                    [style '(border)]))
+  
   (define address-bar (new message% 
                            [label ""]
                            [parent current-video-panel]
                            [min-width 500]
                            [font (make-object font% 14 'swiss)]))
   
-  (define current-video-canvas (new canvas% 
+  (define current-video-canvas (new large-video-canvas% 
                                     [parent current-video-panel]
-                                    [style '(border)]
+                                    [cv (make-video-playback width height)] ; default blank video.
                                     [min-width width]
-                                    [min-height height]
-                                    [stretchable-width #t]
-                                    [stretchable-height #t]
-                                    [paint-callback
-                                     (λ (canvas dc)
-                                       (send dc draw-bitmap (video-playback-bmp current-video) 0 0))]))
-    
+                                    [min-height height]))
+  
   (define small-panel (new small-video-panel% 
                            [parent frame] 
                            [style '(border auto-hscroll)] 
@@ -160,32 +90,94 @@
                            [vert-margin 5]
                            [horiz-margin 20]
                            [min-height 80]))
-  
-  (define addbutton (new button%
-                         [label "Add video"]
-                         [parent frame]
-                         [font (make-object font% 14 'swiss)]
-                         [callback
-                          (λ (button event)
-                            (video-gui-add-video! thisstate 800 600))]))
-  
-  (define refreshloop
-    (thread
-     (λ ()
-       (let loop ()
-         (sleep 1/60)
-         (when (send current-video-canvas is-shown?)
-           (send current-video-canvas refresh)
-           (loop))))))
-  
-  (define main-window (main-video-window current-video-panel address-bar current-video-canvas))
-  
-  (set-video-gui-frame! thisstate frame)
-  (set-video-gui-main-video-panel! thisstate main-window)
-  (set-video-gui-small-video-panel! thisstate small-panel)
-  (set-video-gui-videos! thisstate '())
-  
   (send frame show #t)
-  thisstate)
+  
+  (video-gui frame (main-video-window current-video-panel address-bar current-video-canvas) small-panel '()))
 
-(define g (new-video-gui 800 600))
+; draw a video at normal size, flipped upside down (since Racket thinks the video is already upside down)
+(define (draw-video w h cvect)
+  (glRasterPos2i -1 1)
+  (glPixelZoom 1.0 -1.0)
+  (glDrawPixels w h GL_RGB GL_UNSIGNED_BYTE cvect))
+
+; like draw-video, but scaled to a fixed 80x60 window
+(define (draw-scaled-video w h cvect)
+  (glRasterPos2d -1 1)
+  (glPixelZoom (/ PREVIEW-WIDTH w) (/ (- PREVIEW-HEIGHT) h))
+  (glDrawPixels w h GL_RGB GL_UNSIGNED_BYTE cvect))
+
+; video-canvas% requires a video-playback struct provided as argument
+; and implements an on-paint function to paint that video's current buffer with opengl
+(define video-canvas%
+  (class canvas%
+    [init cv]
+    (super-new [style '(border gl no-autoclear)]
+               [stretchable-width #f]
+               [stretchable-height #f])
+    
+    (inherit refresh is-shown? with-gl-context swap-gl-buffers)
+    (field [myvideo cv])
+    (field [bytescv (make-cvector* (video-playback-buffer myvideo) _byte (video-playback-buffersize myvideo))])
+    
+    (define updater (thread (λ ()
+                              (let loop ()
+                                (sleep 1/30)
+                                (if myvideo
+                                    (when (is-shown?)
+                                      (refresh)
+                                      (loop))
+                                    (loop))))))
+    
+    (define/override (on-paint)
+      (with-gl-context (λ () (draw-video (video-playback-w myvideo) (video-playback-h myvideo) bytescv)))
+      (swap-gl-buffers))))
+
+; large-video-canvas% holds the "main" video being displayed.
+; !! FIXME !! make threadsafe
+(define large-video-canvas%
+  (class video-canvas% 
+    (super-new)
+    
+    (inherit refresh is-shown? with-gl-context swap-gl-buffers min-width min-height)
+    (inherit-field myvideo bytescv)
+    
+    (define/public (set-video v)
+      (printf "swapping video to ~a~n" (video-playback-name v))
+      (min-width (video-playback-w v))
+      (min-height (video-playback-h v))
+      (set! myvideo v)
+      (set! bytescv (make-cvector* (video-playback-buffer v) _byte (video-playback-buffersize v))))))
+
+; small-video-canvas%: used for the preview panes at the bottom of the screen.
+(define small-video-canvas%
+  (class video-canvas%
+    [init addressbar maincanvas]
+    (super-new [min-width PREVIEW-WIDTH]
+               [min-height PREVIEW-HEIGHT])
+    
+    (inherit refresh is-shown? with-gl-context swap-gl-buffers)
+    (inherit-field myvideo bytescv)
+    
+    (field [address-bar addressbar])
+    (field [main-canvas maincanvas])
+    
+    (define/override (on-paint)
+      (with-gl-context (λ () (draw-scaled-video (video-playback-w myvideo) (video-playback-h myvideo) bytescv)))
+      (swap-gl-buffers))
+    
+    (define/override (on-event e)
+      (when (send e button-down?)
+        (send address-bar set-label (video-playback-name myvideo))
+        (send main-canvas set-video myvideo)))))
+
+; small-video-panel: holds small-video-canvas%es as they are created.
+(define small-video-panel%
+  (class horizontal-panel%
+    (super-new)
+    
+    (define/public (add-video-canvas v g)
+      (new small-video-canvas%
+           [cv v]
+           [maincanvas (main-video-window-canvas (video-gui-main-video-panel g))]
+           [addressbar (main-video-window-address (video-gui-main-video-panel g))]
+           [parent this]))))

@@ -35,6 +35,9 @@
 (defvp8 vp8dec-delete (_fun _vp8dec-pointer -> _void))
 (defvp8 vp8dec-decode (_fun _vp8dec-pointer _size_t _bytes -> _bool))
 
+(defvp8 vp8dec-decode-copy (_fun _vp8dec-pointer _size_t _bytes _size_t _bytes -> _bool))
+                                 
+
 ;; video capture
 
 (define v4l2lib (ffi-lib "libracket-v4l2-wrapper"))

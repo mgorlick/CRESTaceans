@@ -42,6 +42,24 @@
                 (printf "exiting~n")]
                [else (printf "not a message: ~a~n" v)])))))
 
+(define video-decoder/gui
+  '(lambda (my-curl relayer-curl)
+     (ask/send* "POST" relayer-curl (AddCURL my-curl) '(("is-a" . "curl")))
+     (let* ([d (vp8dec-new)]
+            [g (new-video-gui 640 480)]
+            [playback (video-gui-add-video! g 640 480)])
+       (printf "starting~n")
+       (let loop ([v (thread-receive)])
+         (cond [(Frame? v)
+                (vp8dec-decode-copy d (bytes-length (Frame.data v)) (Frame.data v)
+                                    (video-playback-buffersize playback)
+                                    (video-playback-buffer playback))
+                (loop (thread-receive))]
+               [(Quit? v)
+                (vp8dec-delete d)
+                (printf "exiting~n")]
+               [else (printf "not a message: ~a~n" v)])))))
+
 (define video-reader/encoder
   '(lambda (relayer-curl)
      (define default-fudge 0.5)
