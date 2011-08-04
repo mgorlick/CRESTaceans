@@ -34,19 +34,19 @@
 ;; The following functions wrap host Scheme primitives allowing those primitives to be invoked
 ;; within Motile and to be properly "decompiled" for network transmission.
 
-(define (symbol->motile-procedure-name symbol)
-  (string->symbol (format "@motile-global@/~a" symbol)))
+(define (symbol->motile-procedure-name symbol n)
+  (string->symbol (format "@motile-global@/~a/~a" n symbol)))
 
-(define (motile-named-procedure symbol wrapper-lambda)
-  (cons symbol (procedure-rename wrapper-lambda (symbol->motile-procedure-name symbol))))
+(define (motile-named-procedure symbol n wrapper-lambda)
+  (cons symbol (procedure-rename wrapper-lambda (symbol->motile-procedure-name symbol n))))
 
 ; a special case for procedures whose arities are unconstrainted at environment-construction time.
 (define (define/global/N symbol procedure)
   (let ((descriptor (vector 'reference/global symbol)))
-    (motile-named-procedure symbol (lambda (k _rte _global . arguments)
-                                     (if k
-                                         (k (apply procedure arguments))
-                                         descriptor)))))
+    (motile-named-procedure symbol 'N (lambda (k _rte _global . arguments)
+                                        (if k
+                                            (k (apply procedure arguments))
+                                            descriptor)))))
 
 ; procedure arities for calls to define-global/K-definer ===> some define/global/K definition
 (define global-define-dispatch (make-hash))
@@ -63,9 +63,9 @@
        #'(begin
            (define (id:define/global symbol procedure)
              (motile-named-procedure
-              symbol (case-lambda
-                       [(k _rte _global id:global-args ...) (k (procedure id:global-args ...))]
-                       [(k _rte _global) (unless k (vector 'reference/global symbol))])))
+              symbol n (case-lambda
+                         [(k _rte _global id:global-args ...) (k (procedure id:global-args ...))]
+                         [(k _rte _global) (unless k (vector 'reference/global symbol))])))
            (hash-set! global-define-dispatch n id:define/global)
            (provide id:define/global)))]))
 
@@ -106,7 +106,7 @@
 (define-syntax (require-spec->global-defines stx)
   (syntax-case stx ()
     [(k spec)
-      ; process the require-spec to get imported IDs
+     ; process the require-spec to get imported IDs
      (let-values ([(imports import-sources) (expand-import #'spec)])
        (with-syntax ([(names ...) (map import-local-id imports)]) ; pull the IDs out
          ; rewrite in terms of a call to global-defines
@@ -131,7 +131,7 @@
 ;; The function defined here generates that wrapping.
 (define (define/combinator/2 symbol combinator)
   (motile-named-procedure
-   symbol
+   symbol 2
    (case-lambda
      ((rtk d f)
       (let ((g (lambda (x) (f k/RETURN x))))
@@ -145,7 +145,7 @@
 ;; The function defined here generates that wrapping.
 (define (define/combinator/3 symbol combinator)
   (motile-named-procedure
-   symbol
+   symbol 3
    (case-lambda
      ((rtk d f x)
       (let ((g (lambda (x y) (f k/RETURN x y))))
