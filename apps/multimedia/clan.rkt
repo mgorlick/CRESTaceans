@@ -23,6 +23,8 @@
 (define *LISTENING-ON* (assoc/or/default "--host" *LOCALHOST*))
 (define *LOCALPORT* (assoc/or/default "--port" 5000 #:call string->number))
 
+(define top-thread (current-thread))
+
 (define curls=>threads (make-hash)) ; dispatch on the actual running 
 (define curls=>motiles (make-hash)) ; save COMPILED motiles for retransmission later
 (define curls=>metadata (make-hash)) ; save metadata for retransmission
@@ -74,10 +76,11 @@
      (match v
        [(ask "SPAWN" (? (is? root-curl) u) body metadata reply echo)
         (define curl (make-curl (uuid)))
-        (handle-spawn curl body metadata reply)]
+        (handle-spawn curl body metadata reply)
+        (printf "returned from spawn handler~n")]
        
        [(ask _ (? (is? root-curl) u) body metadata _ _)
-        (printf "Dropping message at root: ~a ~a~n" body metadata)]
+        (thread-send top-thread (start-program body MULTIMEDIA-BASE*))]
        
        [(ask "POST" u body metadata reply echo)
         (if ((conjoin thread? thread-running?) (hash-ref curls=>threads u #f))

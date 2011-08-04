@@ -5,6 +5,7 @@
 
 (define-motile-struct AddCURL [curl])
 (define-motile-struct RemoveCURL [curl])
+(define-motile-struct AddDecodedVideo [w h decodercurl])
 (define-motile-struct Quit [])
 (define-motile-struct None [])
 (define-motile-struct Frame [data timestamp])

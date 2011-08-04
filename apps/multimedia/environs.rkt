@@ -9,41 +9,19 @@
          (for-syntax racket/base))
 (provide (all-defined-out))
 
-(define (flip f)
-  (λ (b a)
-    (f a b)))
-
-(define-syntax (global-defines stx)
-  (syntax-case stx ()
-    [(k p ...)
-     #'(list (case (procedure-arity p)
-               [(0) (define/global/0 'p p)]
-               [(1) (define/global/1 'p p)]
-               [(2) (define/global/2 'p p)]
-               [(3) (define/global/3 'p p)]
-               [else (define/global/N 'p p)])
-             ...
-             )]))
-
-(define (++ base-environment . global-defines-lists)
-  (foldl (flip pairs/environ) base-environment global-defines-lists))
-
-; ++/map: add a list of global definitions to each environment in a list of environments
-; (listof environs) (listof global-defines) -> (listof environs)
-(define (++/map environs gdefines)
-  (define (++/one-gdefine gdefine)
-    (map (curry (flip ++) gdefine) environs))
-  (map ++/one-gdefine gdefines))
+(define (message/uri->string u)
+  (format "[imp: ~a ~a ~a]" (:message/uri/authority u) (:message/uri/path u) (:message/uri/query u)))
 
 (define UTIL
-  (++ ENVIRON/TEST
+  (++ BASELINE
       (global-defines message/ask? message/ask/new :message/ask/method :message/ask/url
                       :message/ask/body :message/ask/metadata :message/ask/reply :message/ask/echo)
       (global-defines message/tell? message/tell/new :message/tell/status :message/tell/reason
                       :message/tell/body :message/tell/metadata :message/tell/echo)
       (global-defines message/uri? message/uri/new :message/uri/scheme
-                      :message/uri/authority :message/uri/path :message/uri/query)
-      (global-defines void printf thread-receive
+                      :message/uri/authority :message/uri/path :message/uri/query
+                      message/uri->string)
+      (global-defines void printf thread-receive sleep display vector-ref
                       current-inexact-milliseconds
                       exact->inexact)
       (global-defines bytes? byte? bytes make-bytes bytes-ref bytes-length 
@@ -57,6 +35,7 @@
       (global-defines
        AddCURL AddCURL? AddCURL.curl AddCURL!curl
        RemoveCURL RemoveCURL? RemoveCURL.curl RemoveCURL!curl
+       AddDecodedVideo AddDecodedVideo? AddDecodedVideo.w AddDecodedVideo.h AddDecodedVideo.decodercurl
        None None? Quit Quit?
        Frame Frame? Frame.data Frame.timestamp Frame!data Frame!timestamp
        FrameBuffer FrameBuffer? FrameBuffer.size FrameBuffer.data FrameBuffer.ts dispose-FrameBuffer
@@ -73,7 +52,7 @@
                        (VideoParams.fpsNum params)
                        (VideoParams.fpsDen params))))
        (define/global/1 'vp8enc-delete vp8enc-delete)
-       (define/global/N 'vp8enc-encode/return-frame
+       (define/global/3 'vp8enc-encode/return-frame
          (λ (e frame outbuff)
            (define written (vp8enc-encode e (FrameBuffer.size frame)
                                           (FrameBuffer.data frame)

@@ -25,13 +25,10 @@
   (video-playback? . -> . exact-nonnegative-integer?)
   (bytes-length (video-playback-buffer v)))
 
-(define/contract (make-video-playback width height)
-  (exact-nonnegative-integer? exact-nonnegative-integer? . -> . video-playback?)
+(define/contract (make-video-playback width height name)
+  (exact-nonnegative-integer? exact-nonnegative-integer? string? . -> . video-playback?)
   (define buffer (make-bytes (* BYTES-PER-PIXEL width height)))
-  (video-playback buffer
-                  (string-append "video" (number->string (current-inexact-milliseconds)))
-                  width height
-                  (make-semaphore 1)))
+  (video-playback buffer name width height (make-semaphore 1)))
 
 (define/contract (video-playback-lock v)
   (video-playback? . -> . void)
@@ -52,10 +49,10 @@
 ;; frame? main-video-window? (is-a/c panel%) listof video-playback
 (struct video-gui (frame main-video-panel small-video-panel videos) #:transparent #:mutable)
 
-(define/contract (video-gui-add-video! g w h)
-  (video-gui? exact-nonnegative-integer? exact-nonnegative-integer? . -> . video-playback?)
+(define/contract (video-gui-add-video! g w h name)
+  (video-gui? exact-nonnegative-integer? exact-nonnegative-integer? string? . -> . video-playback?)
   
-  (define nv (make-video-playback w h))
+  (define nv (make-video-playback w h name))
   (set-video-gui-videos! g (cons nv (video-gui-videos g)))
   (send (video-gui-small-video-panel g) add-video-canvas nv g)
   (send (main-video-window-canvas (video-gui-main-video-panel g)) set-video nv)
@@ -65,34 +62,36 @@
 (define/contract (new-video-gui width height)
   (exact-nonnegative-integer? exact-nonnegative-integer? . -> . video-gui?)
   
-  (define frame (new frame% [label "Video command center"]))
-  
-  (define current-video-panel (new vertical-panel%
-                                   [parent frame]
-                                   [style '(border)]))
-  
-  (define address-bar (new message% 
-                           [label ""]
-                           [parent current-video-panel]
-                           [min-width 500]
-                           [font (make-object font% 14 'swiss)]))
-  
-  (define current-video-canvas (new large-video-canvas% 
-                                    [parent current-video-panel]
-                                    [cv (make-video-playback width height)] ; default blank video.
-                                    [min-width width]
-                                    [min-height height]))
-  
-  (define small-panel (new small-video-panel% 
-                           [parent frame] 
-                           [style '(border auto-hscroll)] 
-                           [spacing 20]
-                           [vert-margin 5]
-                           [horiz-margin 20]
-                           [min-height 80]))
-  (send frame show #t)
-  
-  (video-gui frame (main-video-window current-video-panel address-bar current-video-canvas) small-panel '()))
+  (parameterize ([current-eventspace (make-eventspace)])
+    
+    (define frame (new frame% [label "Video command center"]))
+    
+    (define current-video-panel (new vertical-panel%
+                                     [parent frame]
+                                     [style '(border)]))
+    
+    (define address-bar (new message% 
+                             [label ""]
+                             [parent current-video-panel]
+                             [min-width 500]
+                             [font (make-object font% 12 'swiss)]))
+    
+    (define current-video-canvas (new large-video-canvas% 
+                                      [parent current-video-panel]
+                                      [cv (make-video-playback width height "")] ; default blank video.
+                                      [min-width width]
+                                      [min-height height]))
+    
+    (define small-panel (new small-video-panel% 
+                             [parent frame] 
+                             [style '(border auto-hscroll)] 
+                             [spacing 20]
+                             [vert-margin 5]
+                             [horiz-margin 20]
+                             [min-height 80]))
+    (send frame show #t)
+    
+    (video-gui frame (main-video-window current-video-panel address-bar current-video-canvas) small-panel '())))
 
 ; draw a video at normal size, flipped upside down (since Racket thinks the video is already upside down)
 (define (draw-video w h cvect)
@@ -118,19 +117,20 @@
     (inherit refresh is-shown? with-gl-context swap-gl-buffers)
     (field [myvideo cv])
     (field [bytescv (make-cvector* (video-playback-buffer myvideo) _byte (video-playback-buffersize myvideo))])
+    (field [time-between-paint 1/30])
+    
+    (define/override (on-paint)
+      (with-gl-context (λ () (draw-video (video-playback-w myvideo) (video-playback-h myvideo) bytescv)))
+      (swap-gl-buffers))
     
     (define updater (thread (λ ()
                               (let loop ()
-                                (sleep 1/30)
+                                (sleep time-between-paint)
                                 (if myvideo
                                     (when (is-shown?)
                                       (refresh)
                                       (loop))
-                                    (loop))))))
-    
-    (define/override (on-paint)
-      (with-gl-context (λ () (draw-video (video-playback-w myvideo) (video-playback-h myvideo) bytescv)))
-      (swap-gl-buffers))))
+                                    (loop))))))))
 
 ; large-video-canvas% holds the "main" video being displayed.
 ; !! FIXME !! make threadsafe
@@ -142,7 +142,6 @@
     (inherit-field myvideo bytescv)
     
     (define/public (set-video v)
-      (printf "swapping video to ~a~n" (video-playback-name v))
       (min-width (video-playback-w v))
       (min-height (video-playback-h v))
       (set! myvideo v)
@@ -152,11 +151,13 @@
 (define small-video-canvas%
   (class video-canvas%
     [init addressbar maincanvas]
-    (super-new [min-width PREVIEW-WIDTH]
-               [min-height PREVIEW-HEIGHT])
     
     (inherit refresh is-shown? with-gl-context swap-gl-buffers)
-    (inherit-field myvideo bytescv)
+    (inherit-field myvideo bytescv time-between-paint)
+    (set! time-between-paint 1)
+    
+    (super-new [min-width PREVIEW-WIDTH]
+               [min-height PREVIEW-HEIGHT])
     
     (field [address-bar addressbar])
     (field [main-canvas maincanvas])

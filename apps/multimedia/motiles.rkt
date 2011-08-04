@@ -2,6 +2,14 @@
 
 (provide (all-defined-out))
 
+(define accepts/webm '(("accepts" . "video/webm")))
+(define produces/webm '(("produces" . "video/webm")))
+(define type/webm '(("content-type" . "video/webm")))
+
+(define accepts/speex '(("accepts" . "audio/speex")))
+(define produces/speex '(("produces" . "audio/speex")))
+(define type/speex '(("content-type" . "audio/speex")))
+
 (define (relayer metadata)
   `(let relay ([curls (hash/new hash/equal/null)]
                [v (thread-receive)])
@@ -28,37 +36,36 @@
 ;; VIDEO
 ;; -----
 
-(define video-decoder
-  '(lambda (my-curl relayer-curl)
-     (ask/send* "POST" relayer-curl (AddCURL my-curl) '(("is-a" . "curl")))
-     (let ([d (vp8dec-new)])
-       (printf "starting~n")
+(define command-center-gui
+  '(lambda (my-curl reply-curl)
+     (let ([g (new-video-gui 640 480)])
+       (ask/send* "POST" reply-curl my-curl '(("is-a" . "curl")))
        (let loop ([v (thread-receive)])
-         (cond [(Frame? v)
-                (vp8dec-decode d (bytes-length (Frame.data v)) (Frame.data v))
-                (loop (thread-receive))]
-               [(Quit? v)
-                (vp8dec-delete d)
-                (printf "exiting~n")]
-               [else (printf "not a message: ~a~n" v)])))))
+         (cond [(AddDecodedVideo? v)
+                (let ([playback (video-gui-add-video! g (AddDecodedVideo.w v) (AddDecodedVideo.h v) 
+                                                      (message/uri->string (AddDecodedVideo.decodercurl v)))])
+                  (ask/send* "POST" (AddDecodedVideo.decodercurl v) playback '(("is-a" . "gui/video")))
+                  (loop (thread-receive)))]
+               [else
+                (printf "Not a valid request to GUI: ~a~n" v)
+                (loop (thread-receive))])))))
 
-(define video-decoder/gui
-  '(lambda (my-curl relayer-curl)
-     (ask/send* "POST" relayer-curl (AddCURL my-curl) '(("is-a" . "curl")))
+(define (video-decoder/gui gui-curl)
+  `(lambda (my-curl reply-curl)
+     (ask/send* "POST" ,gui-curl (AddDecodedVideo 640 480 my-curl))
      (let* ([d (vp8dec-new)]
-            [g (new-video-gui 640 480)]
-            [playback (video-gui-add-video! g 640 480)])
-       (printf "starting~n")
+            [playback (thread-receive)]
+            [sz (video-playback-buffersize playback)]
+            [buffer (video-playback-buffer playback)]
+            [__ignore (ask/send* "POST" reply-curl (AddCURL my-curl))])
        (let loop ([v (thread-receive)])
          (cond [(Frame? v)
-                (vp8dec-decode-copy d (bytes-length (Frame.data v)) (Frame.data v)
-                                    (video-playback-buffersize playback)
-                                    (video-playback-buffer playback))
+                (vp8dec-decode-copy d (bytes-length (Frame.data v)) (Frame.data v) sz buffer)
                 (loop (thread-receive))]
                [(Quit? v)
-                (vp8dec-delete d)
-                (printf "exiting~n")]
-               [else (printf "not a message: ~a~n" v)])))))
+                (vp8dec-delete d)]
+               [else
+                (printf "not a message: ~a~n" v)])))))
 
 (define video-reader/encoder
   '(lambda (relayer-curl)
@@ -84,7 +91,6 @@
        (let loop ([v (grab/encode)] [fudge default-fudge])
          (cond [(FrameBuffer? v)
                 ;(printf "HIT: fudge ~a~n" fudge)
-                
                 ; Frame received successfully. Pass it on and then wait until
                 ; the next frame should be active (modified by a factor to account for processing time)
                 (ask/send* "POST" relayer-curl (FrameBuffer->Frame v) '(("content-type" . "video/webm")))
