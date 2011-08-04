@@ -33,7 +33,7 @@
 (define command-center-gui
   (motile/compile
    '(lambda (my-curl reply-curl)
-      (let ([g (new-video-gui 1280 720)])
+      (let ([g (new-video-gui 640 480)])
         (ask/send* "POST" reply-curl my-curl #f)
         (let loop ([v (thread-receive)])
           (cond [(AddDecodedVideo? v)
@@ -48,7 +48,7 @@
 (define (video-decoder/gui gui-curl)
   (motile/compile
    `(lambda (my-curl reply-curl)
-      (ask/send* "POST" ,gui-curl (AddDecodedVideo 1280 720 my-curl) #f)
+      (ask/send* "POST" ,gui-curl (AddDecodedVideo 640 480 my-curl) #f)
       (let* ([d (vp8dec-new)]
              [playback (thread-receive)]
              [sz (video-playback-buffersize playback)]
