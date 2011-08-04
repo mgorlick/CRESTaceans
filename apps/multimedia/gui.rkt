@@ -186,7 +186,7 @@
     (field [preview-scale-h (fl/ (->fl preview-h) (->fl h))])
     
     (define/override (on-paint)
-      (with-gl-context void (λ () (draw-scaled-video w h preview-scale-w preview-scale-h buffer)))
+      (with-gl-context (λ () (draw-scaled-video w h preview-scale-w preview-scale-h buffer)))
       (queue-refresh))
     
     (define/override (on-event e)
