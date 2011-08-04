@@ -4,6 +4,7 @@
          "gui.rkt"
          "bindings/vp8/vp8.rkt"
          "bindings/speex/speex.rkt"
+         "../../peer/src/api/message.rkt"
          "../../peer/src/api/compilation.rkt"
          racket/function
          (for-syntax racket/base))
@@ -14,14 +15,9 @@
 
 (define UTIL
   (++ BASELINE
-      (global-defines message/ask? message/ask/new :message/ask/method :message/ask/url
-                      :message/ask/body :message/ask/metadata :message/ask/reply :message/ask/echo)
-      (global-defines message/tell? message/tell/new :message/tell/status :message/tell/reason
-                      :message/tell/body :message/tell/metadata :message/tell/echo)
-      (global-defines message/uri? message/uri/new :message/uri/scheme
-                      :message/uri/authority :message/uri/path :message/uri/query
-                      message/uri->string)
-      (global-defines void printf thread-receive sleep display vector-ref
+      (require-spec->global-defines (except-in "../../peer/src/api/message.rkt" ask tell uri))
+      (global-defines message/uri->string
+                      void printf thread-receive sleep display vector-ref
                       current-inexact-milliseconds
                       exact->inexact)
       (global-defines bytes? byte? bytes make-bytes bytes-ref bytes-length 
@@ -31,16 +27,7 @@
                       bitwise-bit-set? bitwise-bit-field arithmetic-shift integer-length)))
 
 (define MULTIMEDIA-BASE
-  (++ UTIL
-      (global-defines
-       AddCURL AddCURL? AddCURL.curl AddCURL!curl
-       RemoveCURL RemoveCURL? RemoveCURL.curl RemoveCURL!curl
-       AddDecodedVideo AddDecodedVideo? AddDecodedVideo.w AddDecodedVideo.h AddDecodedVideo.decodercurl
-       None None? Quit Quit?
-       Frame Frame? Frame.data Frame.timestamp Frame!data Frame!timestamp
-       FrameBuffer FrameBuffer? FrameBuffer.size FrameBuffer.data FrameBuffer.ts dispose-FrameBuffer
-       VideoParams VideoParams? VideoParams.width VideoParams.height VideoParams.fpsNum VideoParams.fpsDen
-       FrameBuffer->Frame)))
+  (++ UTIL (require-spec->global-defines "message-types.rkt")))
 
 (define VIDEO-ENCODE
   (++ MULTIMEDIA-BASE
@@ -76,12 +63,7 @@
 (define VIDEO-DECODE
   (++ MULTIMEDIA-BASE
       (global-defines vp8dec-new vp8dec-delete vp8dec-decode vp8dec-decode-copy)
-      (global-defines new-video-gui
-                       video-gui-add-video!
-                       video-playback-lock
-                       video-playback-unlock
-                       video-playback-buffersize
-                       video-playback-buffer)))
+      (require-spec->global-defines "gui.rkt")))
 
 (define AUDIO-ENCODE
   (++ MULTIMEDIA-BASE (global-defines new-speex-encoder speex-encoder-encode delete-speex-encoder)))

@@ -12,26 +12,24 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(provide
- BASELINE
- ENVIRON/TEST
- pairs/environ)
+(require (for-syntax racket/base)
+         racket/pretty
+         "persistent/environ.rkt"
+         "persistent/vector.rkt"
+         "persistent/hash.rkt"
+         "persistent/set.rkt"
+         "persistent/tuple.rkt")
 
-(provide ++
+(provide BASELINE
+         ENVIRON/TEST
+         pairs/environ
+         ++
          global-defines
+         require-spec->global-defines
          define/global/0
          define/global/N
          define/combinator/2
          define/combinator/3)
-
-(require
- (for-syntax racket/base)
- racket/pretty
- "persistent/environ.rkt"
- "persistent/vector.rkt"
- "persistent/hash.rkt"
- "persistent/set.rkt"
- "persistent/tuple.rkt")
 
 ;; The following functions wrap host Scheme primitives allowing those primitives to be invoked
 ;; within Motile and to be properly "decompiled" for network transmission.
@@ -99,6 +97,20 @@
                   [else cons])
             'p p)
            ...)]))
+
+; require-spec->global-defines:
+; take the imports instantiated from a module via a require-spec and produce global-defines out of them.
+; note: current implementation requires callee to use `(except-in spec macro1 macro2 macro3)'
+; since there appears to be no way to filter out macro identifiers at macro processing time.
+(require (for-syntax racket/require-transform))
+(define-syntax (require-spec->global-defines stx)
+  (syntax-case stx ()
+    [(k spec)
+      ; process the require-spec to get imported IDs
+     (let-values ([(imports import-sources) (expand-import #'spec)])
+       (with-syntax ([(names ...) (map import-local-id imports)]) ; pull the IDs out
+         ; rewrite in terms of a call to global-defines
+         #'(global-defines names ...)))]))
 
 ; add one or more (list (define/global/A 'foo foo) (define/global/B 'bar bar) ...)
 ; to an environment yielding a new environment
