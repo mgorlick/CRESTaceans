@@ -33,65 +33,25 @@
  "persistent/set.rkt"
  "persistent/tuple.rkt")
 
-;; Many of the persistent functional data structures implement combinators of the form (P d f)
-;; where C is a combinator of the persistent functional data structure, d is an instance
-;; of the data structure, and f a function applied by the combinator.
-;; These combinators must be wrapped before they can be used within Motile.
-;; The function defined here generates that wrapping.
-(define (motile/combinator/2 symbol combinator)
-  (case-lambda
-    ((rtk d f)
-     (let ((g (lambda (x) (f k/RETURN x))))
-       (rtk (combinator d g))))
-    ((k _) (global/decompile k symbol))))
-
-;; In the same vein many of the persistent functional data structures implement fold-like
-;; combinators that require three arguments, a data structure instance d, a function f of two arguments
-;; applied by the combinator, and a seed value.
-;; As above, these combinators must be wrapped before they can be used within Motile.
-;; The function defined here generates that wrapping.
-(define (motile/combinator/3 symbol combinator)
-  (case-lambda
-    ((rtk d f x)
-     (let ((g (lambda (x y) (f k/RETURN x y))))
-       (rtk (combinator d g x))))
-    ((k _) (global/decompile k symbol))))
-
 ;; The following functions wrap host Scheme primitives allowing those primitives to be invoked
 ;; within Motile and to be properly "decompiled" for network transmission.
 
-(define (motile/global/0 symbol procedure)
-  (define motile-procedure-name (string->symbol (string-append "@motile-global@/" (symbol->string symbol))))
+(define (symbol->motile-procedure-name symbol)
+  (string->symbol (format "@motile-global@/~a" symbol)))
+
+(define (motile-named-procedure symbol wrapper-lambda)
+  (cons symbol (procedure-rename wrapper-lambda (symbol->motile-procedure-name symbol))))
+
+; a special case for procedures whose arities are unconstrainted at environment-construction time.
+(define (define/global/N symbol procedure)
   (let ((descriptor (vector 'reference/global symbol)))
-    (procedure-rename (lambda (k _rte _global)
-                        (if k
-                            (k (procedure))
-                            descriptor))
-                      motile-procedure-name)))
-
-(define (motile/global/N symbol procedure)
-  (define motile-procedure-name (string->symbol (string-append "@motile-global@/" (symbol->string symbol))))
-  (let ((descriptor (vector 'reference/global symbol)))
-    (procedure-rename (lambda (k _rte _global . arguments)
-                        (if k
-                            (k (apply procedure arguments))
-                            descriptor))
-                      motile-procedure-name)))
-
-(define (define/global/0 symbol procedure)
-  (cons symbol (motile/global/0 symbol procedure)))
-
-(define (define/global/N symbol procedure) 
-  (cons symbol (motile/global/N symbol procedure)))
-
-(define-syntax-rule (define/combinator/2 symbol combinator)
-  (cons symbol (motile/combinator/2 symbol combinator)))
-
-(define-syntax-rule (define/combinator/3 symbol combinator)
-  (cons symbol (motile/combinator/3 symbol combinator)))
+    (motile-named-procedure symbol (lambda (k _rte _global . arguments)
+                                     (if k
+                                         (k (apply procedure arguments))
+                                         descriptor)))))
 
 ; procedure arities for calls to define-global/K-definer ===> some define/global/K definition
-(define global-define-dispatch (make-hash `((0 . ,define/global/0))))
+(define global-define-dispatch (make-hash))
 
 (define-syntax (define-global/K-definer stx)
   (syntax-case stx ()
@@ -99,23 +59,19 @@
      (with-syntax 
          ([id:define/global 
            (datum->syntax #'k ; produces define/global/K as an identifier
-                          (string->symbol (string-append "define/global/" (number->string (syntax->datum #'n)))))]
+                          (string->symbol (format "define/global/~a" (syntax->datum #'n))))]
           [(id:global-args ...) ; generated identifiers for use inside define/global/K definition - see below
            (generate-temporaries (build-list (syntax->datum #'n) values))])
        #'(begin
            (define (id:define/global symbol procedure)
-             (define motile-procedure-name (string->symbol (string-append "@motile-global@/" (symbol->string symbol))))
-             (cons symbol
-                   (procedure-rename 
-                    (case-lambda
-                      [(k _rte _global id:global-args ...) (k (procedure id:global-args ...))]
-                      [(k _rte _global) (unless k (vector 'reference/global symbol))])
-                    motile-procedure-name)))
-           
+             (motile-named-procedure
+              symbol (case-lambda
+                       [(k _rte _global id:global-args ...) (k (procedure id:global-args ...))]
+                       [(k _rte _global) (unless k (vector 'reference/global symbol))])))
            (hash-set! global-define-dispatch n id:define/global)
-           
            (provide id:define/global)))]))
 
+(define-global/K-definer 0)
 (define-global/K-definer 1)
 (define-global/K-definer 2)
 (define-global/K-definer 3)
@@ -127,26 +83,62 @@
 (define-global/K-definer 9)
 (define-global/K-definer 10)
 
-; given the name of a procedure with arity K and only K,
-; produce a call to the arity-correct define/global/K function
+; global-defines: for each function P in the arguments list:
+; - if P has arity K and only K, produce a call to the arity-correct define/global/K function to wrap P.
+; - if P is a multiple-arity function wrap it with define/global/N.
+; - if P is not a function just cons it with its symbol.
+; result: form a list of all produced global definitions, as expected by ++
 (define-syntax global-defines
   (syntax-rules ()
     [(k p ...)
-     (list ((cond [(procedure? p) (hash-ref global-define-dispatch (procedure-arity p)
-                                            (λ () define/global/N))]
+     (list ((cond [(not (symbol? 'p))
+                   (error (format "error: unnameable procedure ~a given to global-defines" p))]
+                  [(procedure? p)
+                   (hash-ref global-define-dispatch (procedure-arity p)
+                             (λ () define/global/N))]
                   [else cons])
             'p p)
            ...)]))
 
 ; add one or more (list (define/global/A 'foo foo) (define/global/B 'bar bar) ...)
-; to an environment yielding a new environent
+; to an environment yielding a new environment
 (define (++ base-environment . global-defines-lists)
   (define (flip f) (λ (b a) (f a b)))
   (foldl (flip pairs/environ) base-environment global-defines-lists))
 
+;; -------------------------
+
 ;; Special cases
 ;; Higher-order host primitives that accept a closure C as an argument, for example, apply or map,
 ;; require special treatment as a Motile closure requires a continuation k as its first argument.
+
+;; Many of the persistent functional data structures implement combinators of the form (P d f)
+;; where C is a combinator of the persistent functional data structure, d is an instance
+;; of the data structure, and f a function applied by the combinator.
+;; These combinators must be wrapped before they can be used within Motile.
+;; The function defined here generates that wrapping.
+(define (define/combinator/2 symbol combinator)
+  (motile-named-procedure
+   symbol
+   (case-lambda
+     ((rtk d f)
+      (let ((g (lambda (x) (f k/RETURN x))))
+        (rtk (combinator d g))))
+     ((k _) (global/decompile k symbol)))))
+
+;; In the same vein many of the persistent functional data structures implement fold-like
+;; combinators that require three arguments, a data structure instance d, a function f of two arguments
+;; applied by the combinator, and a seed value.
+;; As above, these combinators must be wrapped before they can be used within Motile.
+;; The function defined here generates that wrapping.
+(define (define/combinator/3 symbol combinator)
+  (motile-named-procedure
+   symbol
+   (case-lambda
+     ((rtk d f x)
+      (let ((g (lambda (x y) (f k/RETURN x y))))
+        (rtk (combinator d g x))))
+     ((k _) (global/decompile k symbol)))))
 
 (define (k/RETURN x) x) ; The trivial continuation.
 
