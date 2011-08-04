@@ -17,15 +17,15 @@
  ENVIRON/TEST
  pairs/environ)
 
-(provide define/global/0
-         define/global/1
-         define/global/2
-         define/global/3
+(provide ++
+         global-defines
+         define/global/0
          define/global/N
          define/combinator/2
          define/combinator/3)
 
 (require
+ (for-syntax racket/base)
  racket/pretty
  "persistent/environ.rkt"
  "persistent/vector.rkt"
@@ -56,108 +56,32 @@
      (let ((g (lambda (x y) (f k/RETURN x y))))
        (rtk (combinator d g x))))
     ((k _) (global/decompile k symbol))))
-  
+
 ;; The following functions wrap host Scheme primitives allowing those primitives to be invoked
 ;; within Motile and to be properly "decompiled" for network transmission.
-;(define (global/0 symbol procedure)
-;  (case-lambda 
-;    ((rtk) (rtk (procedure)))
-;    ((k x) (vector 'reference/global symbol))))
 
 (define (motile/global/0 symbol procedure)
+  (define motile-procedure-name (string->symbol (string-append "@motile-global@/" (symbol->string symbol))))
   (let ((descriptor (vector 'reference/global symbol)))
-    (lambda (k _rte _global)
-      (if k
-          (k (procedure))
-          descriptor))))
-
-;(define (global/1 symbol procedure)
-;  (lambda (rtk a) 
-;    (if rtk
-;        (rtk (procedure a))
-;        (vector 'reference/global symbol))))
-
-(define (motile/global/1 symbol procedure)
-  (let ((descriptor (vector 'reference/global symbol)))
-    (case-lambda
-      ((k _rte _global a) (k (procedure a)))
-      ((k _rte _global) (unless k descriptor)))))
-
-;(define (global/2 symbol procedure)
-;  (case-lambda 
-;    ((rtk a b) (rtk (procedure a b)))
-;    ((k x) (vector 'reference/global symbol))))
-
-(define (motile/global/2 symbol procedure)
-  (let ((descriptor (vector 'reference/global symbol)))
-    (case-lambda
-      ((k _rte _global a b) (k (procedure a b)))
-      ((k _rte _global) (unless k descriptor)))))
-
-;(define (global/3 symbol procedure)
-;  (case-lambda 
-;    ((rtk a b c) (rtk (procedure a b c)))
-;    ((k x) (vector 'reference/global symbol))))
-
-(define (motile/global/3 symbol procedure)
-  (let ((descriptor (vector 'reference/global symbol)))
-    (case-lambda
-      ((k _rte _global a b c) (k (procedure a b c)))
-      ((k _rte _global) (unless k descriptor)))))
-
-(define (global/N symbol procedure)
-  (lambda (rtk . arguments)
-    (if rtk
-        (rtk (apply procedure arguments))
-        (vector 'reference/global symbol))))
+    (procedure-rename (lambda (k _rte _global)
+                        (if k
+                            (k (procedure))
+                            descriptor))
+                      motile-procedure-name)))
 
 (define (motile/global/N symbol procedure)
+  (define motile-procedure-name (string->symbol (string-append "@motile-global@/" (symbol->string symbol))))
   (let ((descriptor (vector 'reference/global symbol)))
-    (lambda (k _rte _global . arguments)
-      (if k
-          (k (apply procedure arguments))
-          descriptor))))
+    (procedure-rename (lambda (k _rte _global . arguments)
+                        (if k
+                            (k (apply procedure arguments))
+                            descriptor))
+                      motile-procedure-name)))
 
-;(define (global/0/generate symbol procedure)
-;  (case-lambda 
-;    ((rtk) (rtk (procedure)))
-;    ((k x) (vector 'reference/global symbol))))
-;
-;(define (global/1/generate symbol procedure)
-;  (lambda (rtk a) 
-;    (if rtk
-;        (rtk (procedure a))
-;        (vector 'reference/global symbol))))
-;
-;(define (global/2/generate symbol procedure)
-;  (case-lambda 
-;    ((rtk a b) (rtk (procedure a b)))
-;    ((k x) (vector 'reference/global symbol))))
-;
-;(define (global/3/generate symbol procedure)
-;  (case-lambda 
-;    ((rtk a b c) (rtk (procedure a b c)))
-;    ((k x) (vector 'reference/global symbol))))
-;
-;(define (global/N/generate symbol procedure)
-;  (lambda (rtk . arguments)
-;    (if rtk
-;        (rtk (apply procedure arguments))
-;        (vector 'reference/global symbol))))
-
-(define-syntax-rule (define/global/0 symbol procedure)
+(define (define/global/0 symbol procedure)
   (cons symbol (motile/global/0 symbol procedure)))
 
-(define-syntax-rule (define/global/1 symbol procedure)
-  (cons symbol (motile/global/1 symbol procedure)))
-
-(define-syntax-rule (define/global/2 symbol procedure)
-  (cons symbol (motile/global/2 symbol procedure)))
-
-(define-syntax-rule (define/global/3 symbol procedure)
-  (cons symbol (motile/global/3 symbol procedure)))
-
-(define-syntax-rule (define/global/N symbol procedure)
+(define (define/global/N symbol procedure) 
   (cons symbol (motile/global/N symbol procedure)))
 
 (define-syntax-rule (define/combinator/2 symbol combinator)
@@ -165,6 +89,60 @@
 
 (define-syntax-rule (define/combinator/3 symbol combinator)
   (cons symbol (motile/combinator/3 symbol combinator)))
+
+; procedure arities for calls to define-global/K-definer ===> some define/global/K definition
+(define global-define-dispatch (make-hash `((0 . ,define/global/0))))
+
+(define-syntax (define-global/K-definer stx)
+  (syntax-case stx ()
+    [(k n) ; n can ONLY be a number literal
+     (with-syntax 
+         ([id:define/global 
+           (datum->syntax #'k ; produces define/global/K as an identifier
+                          (string->symbol (string-append "define/global/" (number->string (syntax->datum #'n)))))]
+          [(id:global-args ...) ; generated identifiers for use inside define/global/K definition - see below
+           (generate-temporaries (build-list (syntax->datum #'n) values))])
+       #'(begin
+           (define (id:define/global symbol procedure)
+             (define motile-procedure-name (string->symbol (string-append "@motile-global@/" (symbol->string symbol))))
+             (cons symbol
+                   (procedure-rename 
+                    (case-lambda
+                      [(k _rte _global id:global-args ...) (k (procedure id:global-args ...))]
+                      [(k _rte _global) (unless k (vector 'reference/global symbol))])
+                    motile-procedure-name)))
+           
+           (hash-set! global-define-dispatch n id:define/global)
+           
+           (provide id:define/global)))]))
+
+(define-global/K-definer 1)
+(define-global/K-definer 2)
+(define-global/K-definer 3)
+(define-global/K-definer 4)
+(define-global/K-definer 5)
+(define-global/K-definer 6)
+(define-global/K-definer 7)
+(define-global/K-definer 8)
+(define-global/K-definer 9)
+(define-global/K-definer 10)
+
+; given the name of a procedure with arity K and only K,
+; produce a call to the arity-correct define/global/K function
+(define-syntax global-defines
+  (syntax-rules ()
+    [(k p ...)
+     (list ((cond [(procedure? p) (hash-ref global-define-dispatch (procedure-arity p)
+                                            (λ () define/global/N))]
+                  [else cons])
+            'p p)
+           ...)]))
+
+; add one or more (list (define/global/A 'foo foo) (define/global/B 'bar bar) ...)
+; to an environment yielding a new environent
+(define (++ base-environment . global-defines-lists)
+  (define (flip f) (λ (b a) (f a b)))
+  (foldl (flip pairs/environ) base-environment global-defines-lists))
 
 ;; Special cases
 ;; Higher-order host primitives that accept a closure C as an argument, for example, apply or map,
@@ -545,7 +523,7 @@
     (define/global/2     'vector/ref        vector/ref)
     (define/global/N     'vector/subvector  vector/subvector)
     (define/global/3     'vector/update     vector/update)
-
+    
     ; Persistent functional hash tables.
     ; Type test for hash tables.
     (define/global/1 'hash/persist?      hash/persist?)
@@ -577,7 +555,7 @@
     (define/combinator/2 'hash/map       hash/map)
     (define/combinator/2 'hash/filter    hash/filter)
     (define/combinator/2 'hash/partition hash/partition)
-
+    
     ; Persistent functional unordered sets.
     (define/global/1     'set/persist?     set/persist?)
     (cons                'set/eq/null      set/eq/null)
@@ -606,7 +584,7 @@
     (define/combinator/2 'set/map          set/map)
     (define/combinator/2 'set/filter       set/filter)
     (define/combinator/2 'set/partition    set/partition)
-
+    
     ; Tuples.
     (define/global/1     'tuple?           tuple?)
     (define/global/1     'tuple/length     tuple/length)
@@ -627,7 +605,7 @@
     (define/combinator/2 'tuple/filter     tuple/filter)
     (define/combinator/2 'tuple/map        tuple/map)
     (define/combinator/2 'tuple/partition  tuple/partition)
-
+    
     ; Binding environments
     (cons 'environ/null environ/null)
     (cons 'environ/capture
@@ -636,23 +614,23 @@
             (lambda (k e global)
               (if k (k global) descriptor))))
     (define/global/2 'environ/merge environ/merge)
-
+    
     ; Higher order functions.
     (cons            'apply     motile/apply)
     (cons            'map       motile/map)
     (cons            'for-each  motile/for-each)
-
+    
     ; Control
     (cons 'call/cc call/cc)
     (cons 'call-with-current-continuation call/cc) ; Synonym.
-
+    
     ; Box
     (define/global/1 'box      box)
     (define/global/1 'box?     box?)
     (define/global/1 'unbox    unbox)
     (define/global/2 'box!     set-box!)
     (define/global/2 'set-box! set-box!) ; For compatibility with Racket.
-
+    
     ; Generic list sort.
     (cons 'sort motile/sort)
     )))
@@ -668,7 +646,7 @@
     (define/global/1 'vector-length vector-length)
     (define/global/2 'vector-ref    vector-ref)
     (define/global/3 'vector-set!   vector-set!)
-
+    
     ; For simple test output.
     (define/global/N 'sleep          sleep)
     (define/global/1 'display        display)
