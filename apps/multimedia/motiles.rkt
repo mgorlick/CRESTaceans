@@ -13,7 +13,7 @@
                     (thread-receive))]
             
             [(RemoveCURL? v)
-             (ask/send* "POST" (RemoveCURL.curl v) (Quit) '(("is-a" . "quit-message")))
+             (ask/send* "POST" (RemoveCURL.curl v) (Quit))
              (relay (hash/remove curls (RemoveCURL.curl v))
                     (thread-receive))]
             
@@ -34,12 +34,12 @@
   (motile/compile
    '(lambda (my-curl reply-curl)
       (let ([g (new-video-gui 640 480)])
-        (ask/send* "POST" reply-curl my-curl '(("is-a" . "curl")))
+        (ask/send* "POST" reply-curl my-curl)
         (let loop ([v (thread-receive)])
           (cond [(AddDecodedVideo? v)
                  (let ([playback (video-gui-add-video! g (AddDecodedVideo.w v) (AddDecodedVideo.h v) 
                                                        (message/uri->string (AddDecodedVideo.decodercurl v)))])
-                   (ask/send* "POST" (AddDecodedVideo.decodercurl v) playback '(("is-a" . "gui/video")))
+                   (ask/send* "POST" (AddDecodedVideo.decodercurl v) playback)
                    (loop (thread-receive)))]
                 [else
                  (printf "Not a valid request to GUI: ~a~n" v)

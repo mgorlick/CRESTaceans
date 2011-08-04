@@ -121,8 +121,7 @@
       [`(mv ,uuid ,host ,port)
        (define u (make-curl uuid))
        (cp u host port)
-       (ask/send request-thread "POST" (hash-ref curls=>replycurls u) `(RemoveCURL ,u)
-                 #:metadata '(("is-a" . "removeCURL")))]
+       (ask/send request-thread "POST" (hash-ref curls=>replycurls u) `(RemoveCURL ,u))]
       
       [a (printf "Command not recognized: ~s~n" a)]))
   (interpreter))
