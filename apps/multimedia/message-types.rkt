@@ -16,7 +16,10 @@
   ((FrameBuffer.disposal f)))
 
 (define (FrameBuffer->Frame v)
-  (Frame (subbytes (FrameBuffer.data v) 0 (FrameBuffer.size v)) (FrameBuffer.ts v)))
+  (Frame (if (equal? (bytes-length (FrameBuffer.data v)) (FrameBuffer.size v))
+             (FrameBuffer.data v)
+             (subbytes (FrameBuffer.data v) 0 (FrameBuffer.size v)))
+         (FrameBuffer.ts v)))
 
 #|(define b (AddCURL 'foo))
 b

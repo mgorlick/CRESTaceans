@@ -1,9 +1,10 @@
 #lang racket/gui
 
-(require sgl/gl
-         (only-in ffi/unsafe _byte)
+(require (planet "rgl.rkt" ("stephanh" "RacketGL.plt" 1 2)))
+(require (only-in ffi/unsafe _byte)
          (only-in ffi/unsafe/cvector make-cvector*)
-         racket/contract)
+         racket/contract
+         racket/flonum)
 
 (provide new-video-gui
          video-gui-add-video!
@@ -13,10 +14,6 @@
          video-playback-unlock)
 
 (define BYTES-PER-PIXEL 3)
-
-; the fixed size used for the preview windows at the bottom of the GUI.
-(define PREVIEW-WIDTH  80)
-(define PREVIEW-HEIGHT 60)
 
 ; video-playback: used to track the metadata and state of an individual in-play, displayed video.
 (struct video-playback (buffer name w h sema)) ; bytes? string? integer? integer? semaphore?
@@ -93,16 +90,30 @@
     
     (video-gui frame (main-video-window current-video-panel address-bar current-video-canvas) small-panel '())))
 
+(define (disable-opengl-features)
+  (glDisable GL_ALPHA_TEST)
+  (glDisable GL_BLEND)
+  (glDisable GL_DEPTH_TEST)
+  (glDisable GL_FOG)
+  (glDisable GL_LIGHTING)
+  (glDisable GL_LOGIC_OP)
+  (glDisable GL_STENCIL_TEST)
+  (glDisable GL_TEXTURE_1D)
+  (glDisable GL_TEXTURE_2D)
+  (glPixelTransferi GL_MAP_COLOR GL_FALSE)
+  (glPixelTransferi GL_RED_SCALE 1)
+  (glPixelTransferi GL_RED_BIAS 0)
+  (glPixelTransferi GL_GREEN_SCALE 1)
+  (glPixelTransferi GL_GREEN_BIAS 0)
+  (glPixelTransferi GL_BLUE_SCALE 1)
+  (glPixelTransferi GL_BLUE_BIAS 0)
+  (glPixelTransferi GL_ALPHA_SCALE 1)
+  (glPixelTransferi GL_ALPHA_BIAS 0))
+
 ; draw a video at normal size, flipped upside down (since Racket thinks the video is already upside down)
 (define (draw-video w h cvect)
   (glRasterPos2i -1 1)
   (glPixelZoom 1.0 -1.0)
-  (glDrawPixels w h GL_RGB GL_UNSIGNED_BYTE cvect))
-
-; like draw-video, but scaled to a fixed 80x60 window
-(define (draw-scaled-video w h cvect)
-  (glRasterPos2d -1 1)
-  (glPixelZoom (/ PREVIEW-WIDTH w) (/ (- PREVIEW-HEIGHT) h))
   (glDrawPixels w h GL_RGB GL_UNSIGNED_BYTE cvect))
 
 ; video-canvas% requires a video-playback struct provided as argument
@@ -119,12 +130,17 @@
     (field [bytescv (make-cvector* (video-playback-buffer myvideo) _byte (video-playback-buffersize myvideo))])
     (field [time-between-paint 1/30])
     
+    (define (this/refresh)
+      (refresh))
+    (define/public (queue-refresh)
+      (queue-callback this/refresh))
+    
     (define/override (on-paint)
-      (video-playback-lock myvideo)
-      (with-gl-context (λ () (draw-video (video-playback-w myvideo) (video-playback-h myvideo) bytescv)))
-      (video-playback-unlock myvideo)
+      (with-gl-context
+       (λ ()
+         (draw-video (video-playback-w myvideo) (video-playback-h myvideo) (video-playback-buffer myvideo))))
       (swap-gl-buffers)
-      (queue-callback (λ () (refresh))))))
+      (queue-refresh))))
 
 ; large-video-canvas% holds the "main" video being displayed.
 ; !! FIXME !! make threadsafe
@@ -132,7 +148,7 @@
   (class video-canvas% 
     (super-new)
     
-    (inherit refresh is-shown? with-gl-context swap-gl-buffers min-width min-height)
+    (inherit min-width min-height)
     (inherit-field myvideo bytescv)
     
     (define/public (set-video v)
@@ -141,27 +157,37 @@
       (set! myvideo v)
       (set! bytescv (make-cvector* (video-playback-buffer v) _byte (video-playback-buffersize v))))))
 
+; like draw-video, but scaled to a smaller window
+(define (draw-scaled-video w h scale-w scale-h cvect)
+  (glRasterPos2d -1 1)
+  (glPixelZoom scale-w scale-h)
+  (glDrawPixels w h GL_RGB GL_UNSIGNED_BYTE cvect))
+
 ; small-video-canvas%: used for the preview panes at the bottom of the screen.
 (define small-video-canvas%
   (class video-canvas%
-    [init addressbar maincanvas]
+    [init addressbar maincanvas previeww previewh]    
+    (define preview-w previeww)
+    (define preview-h previewh)
     
-    (inherit refresh is-shown? with-gl-context swap-gl-buffers)
+    (super-new [min-width previeww]
+               [min-height previewh])
+    
+    (inherit queue-refresh with-gl-context swap-gl-buffers)
     (inherit-field myvideo bytescv time-between-paint)
-    (set! time-between-paint 1)
-    
-    (super-new [min-width PREVIEW-WIDTH]
-               [min-height PREVIEW-HEIGHT])
     
     (field [address-bar addressbar])
     (field [main-canvas maincanvas])
+    (define w (video-playback-w myvideo))
+    (define h (video-playback-h myvideo))
+    (define buffer (video-playback-buffer myvideo))
+    
+    (field [preview-scale-w (fl/ (->fl preview-w) (->fl w))])
+    (field [preview-scale-h (fl/ (->fl preview-h) (->fl h))])
     
     (define/override (on-paint)
-      (video-playback-lock myvideo)
-      (with-gl-context (λ () (draw-scaled-video (video-playback-w myvideo) (video-playback-h myvideo) bytescv)))
-      (video-playback-unlock myvideo)
-      (swap-gl-buffers)
-      (queue-callback (λ () (refresh))))
+      (with-gl-context void (λ () (draw-scaled-video w h preview-scale-w preview-scale-h buffer)))
+      (queue-refresh))
     
     (define/override (on-event e)
       (printf "event caught~n")
@@ -179,4 +205,6 @@
            [cv v]
            [maincanvas (main-video-window-canvas (video-gui-main-video-panel g))]
            [addressbar (main-video-window-address (video-gui-main-video-panel g))]
+           [previeww (round (/ (video-playback-w v) 8))]
+           [previewh (round (/ (video-playback-h v) 8))]
            [parent this]))))

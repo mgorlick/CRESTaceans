@@ -13,14 +13,14 @@
                     (thread-receive))]
             
             [(RemoveCURL? v)
-             (ask/send* "POST" (RemoveCURL.curl v) (Quit))
+             (ask/send* "POST" (RemoveCURL.curl v) (Quit) #f)
              (relay (hash/remove curls (RemoveCURL.curl v))
                     (thread-receive))]
             
             [(Frame? v)
              (let sendloop ([c (hash/keys curls)])
                (cond [(null? c) (void)]
-                     [else (ask/send* "POST" (car c) v)
+                     [else (ask/send* "POST" (car c) v #f)
                            (sendloop (cdr c))]))
              (relay curls (thread-receive))]
             
@@ -33,13 +33,13 @@
 (define command-center-gui
   (motile/compile
    '(lambda (my-curl reply-curl)
-      (let ([g (new-video-gui 640 480)])
-        (ask/send* "POST" reply-curl my-curl)
+      (let ([g (new-video-gui 1280 720)])
+        (ask/send* "POST" reply-curl my-curl #f)
         (let loop ([v (thread-receive)])
           (cond [(AddDecodedVideo? v)
                  (let ([playback (video-gui-add-video! g (AddDecodedVideo.w v) (AddDecodedVideo.h v) 
                                                        (message/uri->string (AddDecodedVideo.decodercurl v)))])
-                   (ask/send* "POST" (AddDecodedVideo.decodercurl v) playback)
+                   (ask/send* "POST" (AddDecodedVideo.decodercurl v) playback #f)
                    (loop (thread-receive)))]
                 [else
                  (printf "Not a valid request to GUI: ~a~n" v)
@@ -48,17 +48,15 @@
 (define (video-decoder/gui gui-curl)
   (motile/compile
    `(lambda (my-curl reply-curl)
-      (ask/send* "POST" ,gui-curl (AddDecodedVideo 640 480 my-curl))
+      (ask/send* "POST" ,gui-curl (AddDecodedVideo 1280 720 my-curl) #f)
       (let* ([d (vp8dec-new)]
              [playback (thread-receive)]
              [sz (video-playback-buffersize playback)]
              [buffer (video-playback-buffer playback)]
-             [__ignore (ask/send* "POST" reply-curl (AddCURL my-curl))])
+             [__ignore (ask/send* "POST" reply-curl (AddCURL my-curl) #f)])
         (let loop ([v (thread-receive)])
           (cond [(Frame? v)      
-                 (video-playback-lock playback)
                  (vp8dec-decode-copy d (bytes-length (Frame.data v)) (Frame.data v) sz buffer)
-                 (video-playback-unlock playback)
                  (loop (thread-receive))]
                 [(Quit? v)
                  (vp8dec-delete d)]
