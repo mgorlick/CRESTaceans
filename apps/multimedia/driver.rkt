@@ -16,7 +16,7 @@
 
 (define CLargs (map (curry regexp-split #rx"=") (vector->list (current-command-line-arguments))))
 
-(define (assoc/or/default key [default #f] #:no-val [no-val '()] #:call [call (λ (x) x)])
+(define (argsassoc key #:no-val [no-val '()] #:call [call (λ (x) x)] #:default [default #f])
   (let ([entry (assoc key CLargs)])
     (if entry
         (if (> (length entry) 1)
@@ -24,8 +24,8 @@
             no-val)
         default)))
 
-(define *LISTENING-ON* (assoc/or/default "--host" *LOCALHOST*))
-(define *LOCALPORT* (assoc/or/default "--port" 5000 #:call string->number))
+(define *LISTENING-ON* (argsassoc "--host" #:default *LOCALHOST*))
+(define *LOCALPORT* (argsassoc "--port" #:default 5000 #:call string->number))
 
 (define top-thread (current-thread))
 
@@ -101,8 +101,7 @@
 (printf "listening on ~s~n" root-curl)
 
 (define (cp u host port)
-  (ask/send request-thread
-            "SPAWN"
+  (ask/send request-thread "SPAWN"
             (message/uri/new #f (cons (symbol->string host) port) "/")
             (hash-ref curls=>motiles u)
             #:metadata (hash-ref curls=>metadata u)
@@ -122,43 +121,38 @@
       [`(mv ,uuid ,host ,port)
        (define u (make-curl uuid))
        (cp u host port)
-       (ask/send request-thread "POST" (hash-ref curls=>replycurls u) `(RemoveCURL ,u) #:metadata
-                 '(("is-a" . "removeCURL")))]
+       (ask/send request-thread "POST" (hash-ref curls=>replycurls u) `(RemoveCURL ,u)
+                 #:metadata '(("is-a" . "removeCURL")))]
       
       [a (printf "Command not recognized: ~s~n" a)]))
   (interpreter))
 
-(define *RHOST* (assoc/or/default "--rhost" *LOCALHOST*))
-(define *RPORT* (assoc/or/default "--rport" 1235 #:call string->number))
-(define *RKEY* #f)
-(define remoteroot (remote-curl-root *RKEY* *RHOST* *RPORT*))
+(define remoteroot
+  (remote-curl-root #f (argsassoc "--rhost" #:default *LOCALHOST*)
+                    (argsassoc "--rport"#:default 1235 #:call string->number)))
 
-(cond [(assoc/or/default "--video")
+(cond [(argsassoc "--video")
        (define relay-curl (make-curl (uuid)))
-       (handle-spawn relay-curl (motile/compile (relayer type/webm))
-                     type/webm root-curl)
+       (handle-spawn relay-curl (relayer (metadata type/webm)) (metadata type/webm) root-curl)
        
-       (handle-spawn (make-curl (uuid)) (motile/compile video-reader/encoder)
-                     produces/webm relay-curl)
+       (handle-spawn (make-curl (uuid)) video-reader/encoder (metadata produces/webm) relay-curl)
        
-       (ask/send request-thread "SPAWN" remoteroot
-                 command-center-gui #:metadata accepts/webm #:reply root-curl)
+       (ask/send request-thread "SPAWN" remoteroot command-center-gui
+                 #:metadata (metadata accepts/webm) #:reply root-curl)
        
        (define remote-gui-curl (thread-receive))
        
-       (ask/send request-thread "SPAWN" remoteroot
-                 (video-decoder/gui remote-gui-curl) #:metadata accepts/webm #:reply relay-curl)])
+       (ask/send request-thread "SPAWN" remoteroot (video-decoder/gui remote-gui-curl) 
+                 #:metadata (metadata accepts/webm) #:reply relay-curl)])
 
-(cond [(assoc/or/default "--audio")
+(cond [(argsassoc "--audio")
        (define relay-curl (make-curl (uuid)))
-       (handle-spawn relay-curl (motile/compile (relayer type/speex))
-                     type/speex root-curl)
+       (handle-spawn relay-curl (relayer (metadata type/speex)) (metadata type/speex) root-curl)
        
-       (handle-spawn (make-curl (uuid)) (motile/compile (audio-reader/speex-encoder 3 relay-curl))
-                     produces/speex root-curl)
+       (handle-spawn (make-curl (uuid)) (audio-reader/speex-encoder 3 relay-curl) (metadata produces/speex) root-curl)
        
-       (ask/send request-thread "SPAWN" remoteroot
-                 (speex-decoder 640) #:metadata accepts/speex #:reply relay-curl)])
+       (ask/send request-thread "SPAWN" remoteroot (speex-decoder 640)
+                 #:metadata (metadata accepts/speex) #:reply relay-curl)])
 
 (spawn (interpreter))
 

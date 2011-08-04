@@ -122,8 +122,8 @@
     (define/override (on-paint)
       (video-playback-lock myvideo)
       (with-gl-context (λ () (draw-video (video-playback-w myvideo) (video-playback-h myvideo) bytescv)))
-      (swap-gl-buffers)
       (video-playback-unlock myvideo)
+      (swap-gl-buffers)
       (queue-callback (λ () (refresh))))))
 
 ; large-video-canvas% holds the "main" video being displayed.
@@ -159,8 +159,8 @@
     (define/override (on-paint)
       (video-playback-lock myvideo)
       (with-gl-context (λ () (draw-scaled-video (video-playback-w myvideo) (video-playback-h myvideo) bytescv)))
-      (swap-gl-buffers)
       (video-playback-unlock myvideo)
+      (swap-gl-buffers)
       (queue-callback (λ () (refresh))))
     
     (define/override (on-event e)

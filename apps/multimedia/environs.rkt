@@ -26,8 +26,28 @@
                       bitwise-and bitwise-ior bitwise-xor bitwise-not
                       bitwise-bit-set? bitwise-bit-field arithmetic-shift integer-length)))
 
+
+(define accepts/webm '("accepts" . "video/webm"))
+(define produces/webm '("produces" . "video/webm"))
+(define type/webm '("content-type" . "video/webm"))
+
+(define accepts/speex '("accepts" . "audio/speex"))
+(define produces/speex '("produces" . "audio/speex"))
+(define type/speex '("content-type" . "audio/speex"))
+
+(define (metadata . x)
+  x)
+
 (define MULTIMEDIA-BASE
-  (++ UTIL (require-spec->global-defines "message-types.rkt")))
+  (++ UTIL
+      (require-spec->global-defines "message-types.rkt")
+      (global-defines metadata)
+      `((accepts/webm . ,accepts/webm)
+        (produces/webm . ,produces/webm)
+        (type/webm . ,type/webm)
+        (accepts/speex . ,accepts/speex)
+        (produces/speex . ,produces/speex)
+        (type/speex . ,type/speex))))
 
 (define VIDEO-ENCODE
   (++ MULTIMEDIA-BASE
