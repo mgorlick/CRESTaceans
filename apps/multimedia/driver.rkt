@@ -12,7 +12,7 @@
          racket/list)
 (provide (all-defined-out))
 
-(require profile)
+(require profile profile/render-text)
 
 (profile-thunk
  (λ ()
@@ -158,4 +158,6 @@
    (spawn (interpreter))
    
    (no-return))
- #:threads #t)
+ #:threads #t
+ #:delay 0.01
+ #:render (λ (prof) (render prof #:hide-self 1/10000 #:hide-subs 1/10000)))

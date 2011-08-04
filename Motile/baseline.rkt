@@ -64,8 +64,8 @@
            (define (id:define/global symbol procedure)
              (motile-named-procedure
               symbol n (case-lambda
-                         [(k _rte _global id:global-args ...) (k (procedure id:global-args ...))]
-                         [(k _rte _global) (unless k (vector 'reference/global symbol))])))
+                         [(k _rte _global id:global-args ...) ((lambda () (k (procedure id:global-args ...))))]
+                         [(k _rte _global) ((lambda () (unless k (vector 'reference/global symbol))))])))
            (hash-set! global-define-dispatch n id:define/global)
            (provide id:define/global)))]))
 
