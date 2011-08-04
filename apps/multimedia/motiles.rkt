@@ -59,8 +59,10 @@
             [buffer (video-playback-buffer playback)]
             [__ignore (ask/send* "POST" reply-curl (AddCURL my-curl))])
        (let loop ([v (thread-receive)])
-         (cond [(Frame? v)
+         (cond [(Frame? v)      
+                (video-playback-lock playback)
                 (vp8dec-decode-copy d (bytes-length (Frame.data v)) (Frame.data v) sz buffer)
+                (video-playback-unlock playback)
                 (loop (thread-receive))]
                [(Quit? v)
                 (vp8dec-delete d)]

@@ -120,17 +120,11 @@
     (field [time-between-paint 1/30])
     
     (define/override (on-paint)
+      (video-playback-lock myvideo)
       (with-gl-context (λ () (draw-video (video-playback-w myvideo) (video-playback-h myvideo) bytescv)))
-      (swap-gl-buffers))
-    
-    (define updater (thread (λ ()
-                              (let loop ()
-                                (sleep time-between-paint)
-                                (if myvideo
-                                    (when (is-shown?)
-                                      (refresh)
-                                      (loop))
-                                    (loop))))))))
+      (swap-gl-buffers)
+      (video-playback-unlock myvideo)
+      (queue-callback (λ () (refresh))))))
 
 ; large-video-canvas% holds the "main" video being displayed.
 ; !! FIXME !! make threadsafe
@@ -163,10 +157,14 @@
     (field [main-canvas maincanvas])
     
     (define/override (on-paint)
+      (video-playback-lock myvideo)
       (with-gl-context (λ () (draw-scaled-video (video-playback-w myvideo) (video-playback-h myvideo) bytescv)))
-      (swap-gl-buffers))
+      (swap-gl-buffers)
+      (video-playback-unlock myvideo)
+      (queue-callback (λ () (refresh))))
     
     (define/override (on-event e)
+      (printf "event caught~n")
       (when (send e button-down?)
         (send address-bar set-label (video-playback-name myvideo))
         (send main-canvas set-video myvideo)))))
