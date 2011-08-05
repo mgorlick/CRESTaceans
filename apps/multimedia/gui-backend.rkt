@@ -145,7 +145,8 @@
        (λ ()
          (draw-video (video-playback-w myvideo) (video-playback-h myvideo) (video-playback-buffer myvideo))))
       (swap-gl-buffers)
-      (queue-refresh))))
+      (queue-refresh))
+    ))
 
 ; large-video-canvas% holds the "main" video being displayed.
 ; !! FIXME !! make threadsafe
@@ -164,7 +165,7 @@
 ; like draw-video, but scaled to a smaller window
 (define (draw-scaled-video w h scale-w scale-h cvect)
   (glRasterPos2d -1 1)
-  (glPixelZoom scale-w scale-h)
+  (glPixelZoom scale-w (- scale-h))
   (glDrawPixels w h GL_RGB GL_UNSIGNED_BYTE cvect))
 
 ; small-video-canvas%: used for the preview panes at the bottom of the screen.
@@ -190,7 +191,10 @@
     (field [preview-scale-h (fl/ (->fl preview-h) (->fl h))])
     
     (define/override (on-paint)
-      (with-gl-context (λ () (draw-scaled-video w h preview-scale-w preview-scale-h buffer)))
+      (with-gl-context
+       (λ ()
+         (draw-scaled-video w h preview-scale-w preview-scale-h buffer)))
+      (swap-gl-buffers)
       (queue-refresh))
     
     (define/override (on-event e)
