@@ -36,7 +36,8 @@
   (define benv (metadata->benv metadata))
   (define args (match metadata
                  [(or '(("accepts" . "video/webm"))
-                      '(("accepts" . "audio/speex")))
+                      '(("accepts" . "audio/speex"))
+                      '(("is" . "gui")))
                   (list curl reply)]
                  [(or '(("produces" . "video/webm"))
                       '(("produces" . "audio/speex")))
@@ -54,6 +55,7 @@
     ['(("accepts" . "audio/speex")) AUDIO-DECODE*]
     ['(("produces" . "video/webm")) VIDEO-ENCODE*]
     ['(("produces" . "audio/speex")) AUDIO-ENCODE*]
+    ['(("is" . "gui")) GUI*]
     [_ MULTIMEDIA-BASE*]))
 
 ;; primitive for sending from the Motile level
@@ -65,10 +67,12 @@
          (ask/send request-thread method u body #:metadata metadata #:compile? (not (procedure? body)))]))
 
 (define current-gui-curl
-  (let ([c #f])
+  (let ([c #f] [sema (make-semaphore 0)])
     (case-lambda
-      [() c]
-      [(f) (set! c f)])))
+      [() (semaphore-wait sema) (semaphore-post sema) c]
+      [(f) (printf "~a~n" f) 
+           (set! c f)
+           (semaphore-post sema)])))
 
 (define get-current-gui-curl (procedure-reduce-arity current-gui-curl 0))
 (define set-current-gui-curl! (procedure-reduce-arity current-gui-curl 1))
@@ -77,7 +81,8 @@
 (define MULTIMEDIA-BASE* (++ MULTIMEDIA-BASE (global-defines ask/send*)))
 (define VIDEO-ENCODE* (++ VIDEO-ENCODE (global-defines ask/send*)))
 (define AUDIO-ENCODE* (++ AUDIO-ENCODE (global-defines ask/send*)))
-(define VIDEO-DECODE* (++ VIDEO-DECODE (global-defines ask/send* get-current-gui-curl set-current-gui-curl!)))
+(define VIDEO-DECODE* (++ VIDEO-DECODE (global-defines ask/send* get-current-gui-curl)))
+(define GUI* (++ GUI (global-defines ask/send* get-current-gui-curl set-current-gui-curl!)))
 (define AUDIO-DECODE* (++ AUDIO-DECODE (global-defines ask/send*)))
 
 (define handler
@@ -88,10 +93,7 @@
        [(ask "SPAWN" (? (is? root-curl) u) body metadata reply echo)
         (define curl (make-curl (uuid)))
         (handle-spawn curl body metadata reply)]
-       
-       [(ask _ (? (is? root-curl) u) body metadata _ _)
-        (thread-send top-thread (start-program body MULTIMEDIA-BASE*))]
-       
+      
        [(ask "POST" u body metadata reply echo)
         (if ((conjoin thread? thread-running?) (hash-ref curls=>threads u #f))
             (thread-send (hash-ref curls=>threads u) (start-program body (metadata->benv metadata)))
@@ -140,15 +142,11 @@
 (cond [(argsassoc "--video")
        (define relay-curl (make-curl (uuid)))
        (handle-spawn relay-curl (relayer (metadata type/webm)) (metadata type/webm) root-curl)
-       
        (handle-spawn (make-curl (uuid)) (video-reader/encoder 640 480) (metadata produces/webm) relay-curl)
        
        (ask/send request-thread "SPAWN" remoteroot command-center-gui
-                 #:metadata (metadata accepts/webm) #:reply root-curl)
-       
-       (define remote-gui-curl (thread-receive))
-       
-       (ask/send request-thread "SPAWN" remoteroot (video-decoder/gui remote-gui-curl 640 480) 
+                 #:metadata (metadata is/gui) #:reply root-curl)       
+       (ask/send request-thread "SPAWN" remoteroot (video-decoder/gui 640 480) 
                  #:metadata (metadata accepts/webm) #:reply relay-curl)])
 
 (cond [(argsassoc "--audio")

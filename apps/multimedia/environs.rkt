@@ -41,6 +41,8 @@
 (define produces/speex '("produces" . "audio/speex"))
 (define type/speex '("content-type" . "audio/speex"))
 
+(define is/gui '("is" . "gui"))
+
 (define (metadata . x)
   x)
 
@@ -53,7 +55,8 @@
         (type/webm . ,type/webm)
         (accepts/speex . ,accepts/speex)
         (produces/speex . ,produces/speex)
-        (type/speex . ,type/speex))))
+        (type/speex . ,type/speex)
+        (is/gui . ,is/gui))))
 
 (define VIDEO-ENCODE
   (++ MULTIMEDIA-BASE
@@ -73,7 +76,12 @@
                                              vp8dec-new
                                              vp8dec-delete 
                                              vp8dec-decode-copy))
-      (require-spec->global-defines "gui.rkt")))
+      (require-spec->global-defines (only-in "gui.rkt"
+                                             video-playback-buffer
+                                             video-playback-buffersize))))
+
+(define GUI
+  (++ MULTIMEDIA-BASE (require-spec->global-defines "gui.rkt")))
 
 (define AUDIO-ENCODE
   (++ MULTIMEDIA-BASE (global-defines new-speex-encoder speex-encoder-encode delete-speex-encoder)))

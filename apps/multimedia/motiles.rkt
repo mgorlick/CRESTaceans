@@ -9,6 +9,7 @@
                 [v (thread-receive)])
       
       (cond [(AddCURL? v)
+             (printf "Have add request~n")
              (relay (hash/cons curls (AddCURL.curl v) #f)
                     (thread-receive))]
             
@@ -32,8 +33,8 @@
 (define command-center-gui
   (motile/compile
    '(lambda (my-curl reply-curl)
+      (set-current-gui-curl! my-curl)
       (let ([g (new-video-gui 640 480)])
-        (ask/send* "POST" reply-curl my-curl #f)
         (let loop ([v (thread-receive)])
           (cond [(AddDecodedVideo? v)
                  (let ([playback (video-gui-add-video! g (AddDecodedVideo.w v) (AddDecodedVideo.h v) 
@@ -43,16 +44,16 @@
                 [else
                  (printf "Not a valid request to GUI: ~a~n" v)
                  (loop (thread-receive))]))))))
-
-(define (video-decoder/gui gui-curl w h)
+                
+(define (video-decoder/gui w h)
   (motile/compile
    `(lambda (my-curl reply-curl)
-      (ask/send* "POST" ,gui-curl (AddDecodedVideo ,w ,h my-curl) #f)
+      (ask/send* "POST" (get-current-gui-curl) (AddDecodedVideo ,w ,h my-curl) #f)
       (let* ([d (vp8dec-new)]
              [playback (thread-receive)]
              [sz (video-playback-buffersize playback)]
              [buffer (video-playback-buffer playback)]
-             [__ignore (ask/send* "POST" reply-curl (AddCURL my-curl) #f)])
+             [_ (ask/send* "POST" reply-curl (AddCURL my-curl) #f)])
         (let loop ([v (thread-receive)])
           (cond [(Frame? v)      
                  (vp8dec-decode-copy d (bytes-length (Frame.data v)) (Frame.data v) sz buffer)
