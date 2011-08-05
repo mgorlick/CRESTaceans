@@ -82,7 +82,7 @@
 
 (define VIDEO-DECODE
   (++ MULTIMEDIA-BASE
-      (global-defines vp8dec-new vp8dec-delete vp8dec-decode vp8dec-decode-copy)
+      (global-defines vp8dec-new vp8dec-delete vp8dec-decode-copy)
       (require-spec->global-defines "gui.rkt")))
 
 (define AUDIO-ENCODE

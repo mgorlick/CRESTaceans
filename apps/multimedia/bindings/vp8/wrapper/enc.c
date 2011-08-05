@@ -77,7 +77,7 @@ VP8Enc* vp8enc_new (int enc_frame_width, int enc_frame_height,
   }
 
   /* pixel-format-specific offset and stride settings */
-  enc->image = vpx_img_alloc (NULL, VPX_IMG_FMT_VPXI420, cfg.g_w, cfg.g_h, 0);
+  enc->image = vpx_img_alloc (NULL, VPX_IMG_FMT_YV12, cfg.g_w, cfg.g_h, 0);
 
   /* tracking values for conversion and encoding later */
   enc->width = cfg.g_w;
