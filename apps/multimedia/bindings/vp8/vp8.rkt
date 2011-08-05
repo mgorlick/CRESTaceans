@@ -19,8 +19,6 @@
 
 (define-cpointer-type _vp8enc-pointer)
 
-(defvp8 init-SDL (_fun -> _bool))
-
 (defvp8 vp8enc-new (_fun _int _int _int _int -> _vp8enc-pointer))
 (defvp8 vp8enc-delete (_fun _vp8enc-pointer -> _void))
 (defvp8 vp8enc-encode (_fun _vp8enc-pointer
@@ -33,8 +31,6 @@
 (define-cpointer-type _vp8dec-pointer)
 (defvp8 vp8dec-new (_fun -> _vp8dec-pointer))
 (defvp8 vp8dec-delete (_fun _vp8dec-pointer -> _void))
-(defvp8 vp8dec-decode (_fun _vp8dec-pointer _size_t _bytes -> _bool))
-
 (defvp8 vp8dec-decode-copy (_fun _vp8dec-pointer _size_t _bytes _size_t _bytes -> _bool))
                                  
 
@@ -83,5 +79,3 @@
 ;; consumers are done with its data
 (defv4l2 v4l2-reader-enqueue-buffer
   (_fun _v4l2-reader-pointer _int -> _bool))
-
-(init-SDL)

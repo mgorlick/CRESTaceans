@@ -132,8 +132,11 @@
                [stretchable-height #f])
     
     (inherit refresh is-shown? with-gl-context swap-gl-buffers)
+    
     (field [myvideo cv])
     (field [time-between-paint 1/30])
+    
+    (define disabled? #f)
     
     (define (this/refresh)
       (refresh))
@@ -141,6 +144,9 @@
       (queue-callback this/refresh))
     
     (define/override (on-paint)
+      (unless disabled?
+        (with-gl-context disable-opengl-features)
+        (set! disabled? #t))
       (with-gl-context
        (λ ()
          (draw-video (video-playback-w myvideo) (video-playback-h myvideo) (video-playback-buffer myvideo))))
@@ -164,33 +170,36 @@
 ; like draw-video, but scaled to a smaller window
 (define (draw-scaled-video w h scale-w scale-h cvect)
   (glRasterPos2d -1 1)
-  (glPixelZoom scale-w scale-h)
+  (glPixelZoom scale-w (- scale-h))
   (glDrawPixels w h GL_RGB GL_UNSIGNED_BYTE cvect))
 
 ; small-video-canvas%: used for the preview panes at the bottom of the screen.
 (define small-video-canvas%
   (class video-canvas%
-    [init addressbar maincanvas previeww previewh]    
-    (define preview-w previeww)
-    (define preview-h previewh)
-    
+    [init addressbar maincanvas previeww previewh]   
     (super-new [min-width previeww]
                [min-height previewh])
-    
-    (inherit queue-refresh with-gl-context swap-gl-buffers)
+    (inherit queue-refresh with-gl-context swap-gl-buffers)    
     (inherit-field myvideo time-between-paint)
     
     (field [address-bar addressbar])
     (field [main-canvas maincanvas])
-    (define w (video-playback-w myvideo))
-    (define h (video-playback-h myvideo))
-    (define buffer (video-playback-buffer myvideo))
+    (field [buffer (video-playback-buffer myvideo)])
+    (field [w (video-playback-w myvideo)])
+    (field [h (video-playback-h myvideo)])
+    (field [preview-scale-w (fl/ (->fl previeww) (->fl w))])
+    (field [preview-scale-h (fl/ (->fl previewh) (->fl h))])
     
-    (field [preview-scale-w (fl/ (->fl preview-w) (->fl w))])
-    (field [preview-scale-h (fl/ (->fl preview-h) (->fl h))])
+    (define disabled? #f)
     
     (define/override (on-paint)
-      (with-gl-context (λ () (draw-scaled-video w h preview-scale-w preview-scale-h buffer)))
+      (unless disabled?
+        (with-gl-context disable-opengl-features)
+        (set! disabled? #t))
+      (with-gl-context
+       (λ ()
+         (draw-scaled-video w h preview-scale-w preview-scale-h buffer)))
+      (swap-gl-buffers)
       (queue-refresh))
     
     (define/override (on-event e)

@@ -13,13 +13,19 @@
 (define (message/uri->string u)
   (format "[imp: ~a ~a ~a]" (:message/uri/authority u) (:message/uri/path u) (:message/uri/query u)))
 
+(define bin- (procedure-reduce-arity - 2))
+(define bin+ (procedure-reduce-arity + 2))
+(define bin* (procedure-reduce-arity * 2))
+(define bin/ (procedure-reduce-arity / 2))
+(define min* (procedure-reduce-arity min 2))
+(define bin>= (procedure-reduce-arity >= 2))
+(define sleep* (procedure-reduce-arity sleep 1))
+
 (define UTIL
   (++ BASELINE
       (require-spec->global-defines (except-in "../../peer/src/api/message.rkt" ask tell uri))
-      (global-defines message/uri->string
-                      void printf thread-receive sleep display vector-ref
-                      current-inexact-milliseconds
-                      exact->inexact)
+      (global-defines bin* bin- bin+ bin/ bin>= min* sleep*
+                      message/uri->string void printf thread-receive display vector-ref current-inexact-milliseconds exact->inexact)
       (global-defines bytes? byte? bytes make-bytes bytes-ref bytes-length 
                       bytes-copy subbytes bytes-append
                       bytes=? bytes<? bytes>?
@@ -41,7 +47,7 @@
 (define MULTIMEDIA-BASE
   (++ UTIL
       (require-spec->global-defines "message-types.rkt")
-      (global-defines metadata)
+      (global-defines metadata sleep*)
       `((accepts/webm . ,accepts/webm)
         (produces/webm . ,produces/webm)
         (type/webm . ,type/webm)

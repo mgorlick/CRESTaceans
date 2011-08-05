@@ -19,9 +19,8 @@
             
             [(Frame? v)
              (let sendloop ([c (hash/keys curls)])
-               (cond [(null? c) (void)]
-                     [else (ask/send* "POST" (car c) v #f)
-                           (sendloop (cdr c))]))
+               (cond [(not (null? c)) (ask/send* "POST" (car c) v #f)
+                                      (sendloop (cdr c))]))
              (relay curls (thread-receive))]
             
             [else (printf "relay else: ~a~n" v)]))))
@@ -33,7 +32,7 @@
 (define command-center-gui
   (motile/compile
    '(lambda (my-curl reply-curl)
-      (let ([g (new-video-gui 800 600)])
+      (let ([g (new-video-gui 640 480)])
         (ask/send* "POST" reply-curl my-curl #f)
         (let loop ([v (thread-receive)])
           (cond [(AddDecodedVideo? v)
@@ -48,7 +47,7 @@
 (define (video-decoder/gui gui-curl)
   (motile/compile
    `(lambda (my-curl reply-curl)
-      (ask/send* "POST" ,gui-curl (AddDecodedVideo 800 600 my-curl) #f)
+      (ask/send* "POST" ,gui-curl (AddDecodedVideo 640 480 my-curl) #f)
       (let* ([d (vp8dec-new)]
              [playback (thread-receive)]
              [sz (video-playback-buffersize playback)]
@@ -71,9 +70,9 @@
       (let* ([v (video-reader-setup)]
              [params (video-reader-get-params v)]
              [e (vp8enc-new params)]
-             [buffsize (* 1024 256)]
+             [buffsize (bin* 1024 256)]
              [outbuff (make-bytes buffsize)]
-             [framerate (/ (VideoParams.fpsNum params) (VideoParams.fpsDen params))])
+             [framerate (bin/ (VideoParams.fpsNum params) (VideoParams.fpsDen params))])
         ; grab-frame: int -> or FrameBuffer None
         (define (grab-frame ts)
           (cond [(video-reader-is-ready? v) (video-reader-get-frame v ts)]
@@ -91,16 +90,16 @@
                  ; Frame received successfully. Pass it on and then wait until
                  ; the next frame should be active (modified by a factor to account for processing time)
                  (ask/send* "POST" relayer-curl (FrameBuffer->Frame v) (metadata type/webm))
-                 (sleep (* fudge framerate))
+                 (sleep* (bin* fudge framerate))
                  ; decrease fudge factor for next frame a la AIMD.
-                 (loop (grab/encode) (if (>= fudge fudge-step)
-                                         (- fudge fudge-step)
+                 (loop (grab/encode) (if (bin>= fudge fudge-step)
+                                         (bin- fudge fudge-step)
                                          0))]
                 [(None? v)
                  ;(printf "MISS: fudge ~a~n" fudge)
                  (loop (grab/encode)
                        ; increase fudge factor for next frame a la AIMD.
-                       (min default-fudge (* 2 (if (zero? fudge)
+                       (min* default-fudge (bin* 2 (if (zero? fudge)
                                                    fudge-step
                                                    fudge))))]))))))
 

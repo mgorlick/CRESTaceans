@@ -55,7 +55,7 @@
   (syntax-case stx ()
     [(k n) ; n can ONLY be a number literal
      (with-syntax 
-         ([id:define/global 
+         ([id:define/global
            (datum->syntax #'k ; produces define/global/K as an identifier
                           (string->symbol (format "define/global/~a" (syntax->datum #'n))))]
           [(id:global-args ...) ; generated identifiers for use inside define/global/K definition - see below
@@ -64,8 +64,8 @@
            (define (id:define/global symbol procedure)
              (motile-named-procedure
               symbol n (case-lambda
-                         [(k _rte _global id:global-args ...) ((lambda () (k (procedure id:global-args ...))))]
-                         [(k _rte _global) ((lambda () (unless k (vector 'reference/global symbol))))])))
+                         [(k _rte _global id:global-args ...) (k (procedure id:global-args ...))]
+                         [(k _rte _global) (unless k (vector 'reference/global symbol))])))
            (hash-set! global-define-dispatch n id:define/global)
            (provide id:define/global)))]))
 
