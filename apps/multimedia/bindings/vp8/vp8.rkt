@@ -46,7 +46,7 @@
 
 (define-cpointer-type _v4l2-reader-pointer)
 
-(defv4l2 v4l2-reader-setup (_fun -> _v4l2-reader-pointer))
+(defv4l2 v4l2-reader-setup (_fun _int _int -> _v4l2-reader-pointer))
 
 (defv4l2 v4l2-reader-delete (_fun _v4l2-reader-pointer -> _void))
 

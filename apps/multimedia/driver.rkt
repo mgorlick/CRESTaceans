@@ -63,13 +63,22 @@
                       (motile/start (motile/compile body) (metadata->benv metadata)))]
         [(message/uri? u)
          (ask/send request-thread method u body #:metadata metadata #:compile? (not (procedure? body)))]))
-(define additions (global-defines ask/send*))
 
-(define MULTIMEDIA-BASE* (++ MULTIMEDIA-BASE additions))
-(define VIDEO-ENCODE* (++ VIDEO-ENCODE additions))
-(define AUDIO-ENCODE* (++ AUDIO-ENCODE additions))
-(define VIDEO-DECODE* (++ VIDEO-DECODE additions))
-(define AUDIO-DECODE* (++ AUDIO-DECODE additions))
+(define current-gui-curl
+  (let ([c #f])
+    (case-lambda
+      [() c]
+      [(f) (set! c f)])))
+
+(define get-current-gui-curl (procedure-reduce-arity current-gui-curl 0))
+(define set-current-gui-curl! (procedure-reduce-arity current-gui-curl 1))
+
+(define additions (global-defines ask/send* current-gui-curl))
+(define MULTIMEDIA-BASE* (++ MULTIMEDIA-BASE (global-defines ask/send*)))
+(define VIDEO-ENCODE* (++ VIDEO-ENCODE (global-defines ask/send*)))
+(define AUDIO-ENCODE* (++ AUDIO-ENCODE (global-defines ask/send*)))
+(define VIDEO-DECODE* (++ VIDEO-DECODE (global-defines ask/send* get-current-gui-curl set-current-gui-curl!)))
+(define AUDIO-DECODE* (++ AUDIO-DECODE (global-defines ask/send*)))
 
 (define handler
   (spawn
@@ -132,14 +141,14 @@
        (define relay-curl (make-curl (uuid)))
        (handle-spawn relay-curl (relayer (metadata type/webm)) (metadata type/webm) root-curl)
        
-       (handle-spawn (make-curl (uuid)) video-reader/encoder (metadata produces/webm) relay-curl)
+       (handle-spawn (make-curl (uuid)) (video-reader/encoder 640 480) (metadata produces/webm) relay-curl)
        
        (ask/send request-thread "SPAWN" remoteroot command-center-gui
                  #:metadata (metadata accepts/webm) #:reply root-curl)
        
        (define remote-gui-curl (thread-receive))
        
-       (ask/send request-thread "SPAWN" remoteroot (video-decoder/gui remote-gui-curl) 
+       (ask/send request-thread "SPAWN" remoteroot (video-decoder/gui remote-gui-curl 640 480) 
                  #:metadata (metadata accepts/webm) #:reply relay-curl)])
 
 (cond [(argsassoc "--audio")

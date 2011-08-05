@@ -44,10 +44,10 @@
                  (printf "Not a valid request to GUI: ~a~n" v)
                  (loop (thread-receive))]))))))
 
-(define (video-decoder/gui gui-curl)
+(define (video-decoder/gui gui-curl w h)
   (motile/compile
    `(lambda (my-curl reply-curl)
-      (ask/send* "POST" ,gui-curl (AddDecodedVideo 640 480 my-curl) #f)
+      (ask/send* "POST" ,gui-curl (AddDecodedVideo ,w ,h my-curl) #f)
       (let* ([d (vp8dec-new)]
              [playback (thread-receive)]
              [sz (video-playback-buffersize playback)]
@@ -62,12 +62,12 @@
                 [else
                  (printf "not a message: ~a~n" v)]))))))
 
-(define video-reader/encoder
+(define (video-reader/encoder w h)
   (motile/compile
-   '(lambda (relayer-curl)
+   `(lambda (relayer-curl)
       (define default-fudge 0.5)
       (define fudge-step 0.01)
-      (let* ([v (video-reader-setup)]
+      (let* ([v (video-reader-setup ,w ,h)]
              [params (video-reader-get-params v)]
              [e (vp8enc-new params)]
              [buffsize (bin* 1024 256)]
