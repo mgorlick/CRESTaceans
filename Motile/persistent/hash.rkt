@@ -23,6 +23,8 @@
 (require
  "trie.rkt")
 
+(require "tuple.rkt") ; TEMPORARY! For tracking down weird tuple problem ONLY!
+
 (provide
  ; Type test.
  hash/persist?
@@ -89,8 +91,8 @@
 (define (hash/persist? h)
   (and
    (vector? h)
-   (eq? '<hash/persist> (vector-ref h 0))
-   (= (vector-length h) 4)))
+   (= (vector-length h) 4)
+   (eq? '<hash/persist> (vector-ref h 0))))
 
 ;; The constant empty hash tables that are the starting points for any persistent hash table instance.
 (define hash/eq/null    (hash/construct eq?    eq-hash-code    trie/empty))
@@ -370,3 +372,32 @@
 ;    (if (hash/empty? h)
 ;        outcome
 ;        (loop (hash/cdr h) (cons (hash/car h) outcome)))))
+
+(define XPATHS
+  (list
+   (tuple)           1
+   (tuple 'foo 'bar) 2
+   (tuple 'foo)      3
+   (tuple 'bar)      4))
+
+(define YPATHS
+  (list
+   '(<tuple>)          1
+   '(<tuple> foo bar)  2
+   '(<tuple> foo)      3
+   '(<tuple> bar)      4))
+
+(define bad (list/hash hash/equal/null XPATHS))
+(define bady (list/hash hash/equal/null YPATHS))
+
+;#(<hash/persist>
+;   #<procedure:equal?>
+;   #<procedure:equal-hash-code>
+;   #(2113538 (#(<tuple> foo bar) . 2)
+;             #(131072
+;               #(32768
+;                 #(128
+;                   #(2048
+;                     #(2097152
+;                       #(1 #((#(<tuple> foo) . 3) (#(<tuple> bar) . 4))))))))
+;             (#(<tuple>) . 1)))

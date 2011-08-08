@@ -70,8 +70,8 @@
 (define (set/persist? s)
   (and
    (vector? s)
-   (eq? (vector-ref s 0) '<set/persist>)
-   (= (vector-length s) 4)))
+   (= (vector-length s) 4)
+   (eq? (vector-ref s 0) '<set/persist>)))
 
 (define (set/eq? s)    (eq? (set/equality s) eq?))
 (define (set/eqv? s)   (eq? (set/equality s) eqv?))
