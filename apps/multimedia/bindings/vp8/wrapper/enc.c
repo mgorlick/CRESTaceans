@@ -15,7 +15,6 @@ typedef struct VP8Enc {
   int width;
   int height;
   vpx_codec_pts_t n_frames;
-
   struct SwsContext *swsctx;
 } VP8Enc;
 
@@ -54,7 +53,6 @@ VP8Enc* vp8enc_new (int enc_frame_width, int enc_frame_height,
 
   /* QUALITY SETTINGS */
 
-  /* scale bitrate linearly with width for now */
   cfg.rc_target_bitrate = cfg.g_w;
   cfg.g_threads = THREADS;
   /* these three settings disable the behavior where the first ~10-20MB
@@ -68,12 +66,11 @@ VP8Enc* vp8enc_new (int enc_frame_width, int enc_frame_height,
   if (status != VPX_CODEC_OK) goto no_init;
 
   int ctrls[] = { VP8E_SET_CQ_LEVEL, VP8E_SET_TUNING };
-  int vals[] = { 63, VP8_TUNE_PSNR };
+  int vals[] = { 63, VP8_TUNE_SSIM };
   for (i = 0; i < sizeof (ctrls) / sizeof (*ctrls); i++) {
     status = vpx_codec_control_ (enc->codec, ctrls[i], vals[i]);
     if (status != VPX_CODEC_OK) 
-      printf ("vpx encoder: ouldn't set setting %d, proceeding anyway (status %d)\n",
-	      i, status);
+      printf ("vpx encoder: couldn't set setting %d, proceeding anyway (status %d)\n", i, status);
   }
 
   /* pixel-format-specific offset and stride settings */
