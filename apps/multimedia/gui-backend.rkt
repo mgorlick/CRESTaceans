@@ -1,8 +1,7 @@
-#lang racket/base
-
+#lang racket/gui
 
 (require racket/place
-         racket/gui
+         ;racket/gui
          racket/flonum
          (planet "rgl.rkt" ("stephanh" "RacketGL.plt" 1 2)))
 
@@ -118,7 +117,7 @@
 
 ; draw a video at normal size, flipped upside down (since Racket thinks the video is already upside down)
 (define (draw-video w h cvect)
-  (glRasterPos2i -1 1)
+  (glRasterPos2d -1 1)
   (glPixelZoom 1.0 -1.0)
   (glDrawPixels w h GL_RGB GL_UNSIGNED_BYTE cvect))
 
@@ -149,8 +148,8 @@
         (set! disabled? #t))
       (with-gl-context
        (λ ()
-         (draw-video (video-playback-w myvideo) (video-playback-h myvideo) (video-playback-buffer myvideo))))
-      (swap-gl-buffers)
+         (draw-video (video-playback-w myvideo) (video-playback-h myvideo) (video-playback-buffer myvideo))
+         (swap-gl-buffers)))
       (queue-refresh))))
 
 ; large-video-canvas% holds the "main" video being displayed.
@@ -159,13 +158,17 @@
   (class video-canvas% 
     (super-new)
     
-    (inherit min-width min-height)
+    (inherit min-width min-height with-gl-context swap-gl-buffers)
     (inherit-field myvideo)
     
     (define/public (set-video v)
-      (min-width (video-playback-w v))
-      (min-height (video-playback-h v))
-      (set! myvideo v))))
+      (with-gl-context
+       (λ ()
+         (min-width (video-playback-w v))
+         (min-height (video-playback-h v))
+         (set! myvideo v)
+         (glViewport 0 0 (min-width) (min-height))
+         (glLoadIdentity))))))
 
 ; like draw-video, but scaled to a smaller window
 (define (draw-scaled-video w h scale-w scale-h cvect)
@@ -189,7 +192,7 @@
     (field [h (video-playback-h myvideo)])
     (field [preview-scale-w (fl/ (->fl previeww) (->fl w))])
     (field [preview-scale-h (fl/ (->fl previewh) (->fl h))])
-    
+        
     (define disabled? #f)
     
     (define/override (on-paint)

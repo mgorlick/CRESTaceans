@@ -14,16 +14,16 @@
 
 (define CLargs (map (curry regexp-split #rx"=") (vector->list (current-command-line-arguments))))
 
-(define (argsassoc key #:no-val [no-val '()] #:call [call (λ (x) x)] #:default [default #f])
+(define (argsassoc key #:call [call (λ (x) x)] #:no-val [no-val #f] #:default [default #t])
   (let ([entry (assoc key CLargs)])
     (if entry
         (if (> (length entry) 1)
             (call (second entry))
-            no-val)
-        default)))
+            default)
+        no-val)))
 
-(define *LISTENING-ON* (argsassoc "--host" #:default *LOCALHOST*))
-(define *LOCALPORT* (argsassoc "--port" #:default 5000 #:call string->number))
+(define *LISTENING-ON* (argsassoc "--host" #:no-val *LOCALHOST*))
+(define *LOCALPORT* (argsassoc "--port" #:no-val 5000 #:call string->number))
 
 (define top-thread (current-thread))
 
@@ -32,17 +32,18 @@
 (define curls=>metadata (make-hash)) ; save metadata for retransmission
 (define curls=>replycurls (make-hash)) ; save corresponding reply curls for retransmission
 
+(define (contains-any? mlst . vs)
+  (and (list? mlst) (ormap (curryr member mlst) vs)))
+
 (define (handle-spawn curl body metadata reply)
   (define benv (metadata->benv metadata))
-  (define args (match metadata
-                 [(or '(("accepts" . "video/webm"))
-                      '(("accepts" . "audio/speex"))
-                      '(("is" . "gui")))
-                  (list curl reply)]
-                 [(or '(("produces" . "video/webm"))
-                      '(("produces" . "audio/speex")))
-                  (list reply)]
-                 [_ '()]))
+  (define args
+    (cond
+      [(contains-any? metadata '("accepts" . "video/webm") '("accepts" . "audio/speex") '("is" . "gui"))
+       (list curl reply)]
+      [(contains-any? metadata '("produces" . "video/webm") '("produces" . "audio/speex"))
+       (list reply)]
+      [else '()]))
   (hash-set! curls=>threads curl (spawn (start-program body benv args)))
   (hash-set! curls=>motiles curl body)
   (hash-set! curls=>metadata curl metadata)
@@ -50,13 +51,19 @@
   (printf "a new actor installed at ~n\t~s~n" curl))
 
 (define (metadata->benv metadata)
-  (match metadata
-    ['(("accepts" . "video/webm")) VIDEO-DECODE*]
-    ['(("accepts" . "audio/speex")) AUDIO-DECODE*]
-    ['(("produces" . "video/webm")) VIDEO-ENCODE*]
-    ['(("produces" . "audio/speex")) AUDIO-ENCODE*]
-    ['(("is" . "gui")) GUI*]
-    [_ MULTIMEDIA-BASE*]))
+  (cond
+    [(contains-any? metadata '("accepts" . "video/webm"))
+     VIDEO-DECODE*]
+    [(contains-any? metadata '("accepts" . "audio/speex"))
+     AUDIO-DECODE*]
+    [(contains-any? metadata '("produces" . "video/webm"))
+     VIDEO-ENCODE*]
+    [(contains-any? metadata '("produces" . "audio/speex"))
+     AUDIO-ENCODE*]
+    [(contains-any? metadata '("is" . "gui"))
+     GUI*]
+    [else
+     MULTIMEDIA-BASE*]))
 
 ;; primitive for sending from the Motile level
 (define (ask/send* method u body metadata)
@@ -92,7 +99,7 @@
        [(ask "SPAWN" (? (is? root-curl) u) body metadata reply echo)
         (define curl (make-curl (uuid)))
         (handle-spawn curl body metadata reply)]
-      
+       
        [(ask "POST" u body metadata reply echo)
         (if ((conjoin thread? thread-running?) (hash-ref curls=>threads u #f))
             (thread-send (hash-ref curls=>threads u) (start-program body (metadata->benv metadata)))
@@ -135,17 +142,18 @@
   (interpreter))
 
 (define remoteroot
-  (remote-curl-root #f (argsassoc "--rhost" #:default *LOCALHOST*)
-                    (argsassoc "--rport"#:default 1235 #:call string->number)))
+  (remote-curl-root #f (argsassoc "--rhost" #:no-val *LOCALHOST*)
+                    (argsassoc "--rport"#:no-val 1235 #:call string->number)))
 
 (cond [(argsassoc "--video")
        (define relay-curl (make-curl (uuid)))
-       (handle-spawn relay-curl (relayer (metadata type/webm)) (metadata type/webm) root-curl)
-       (handle-spawn (make-curl (uuid)) (video-reader/encoder "/dev/video0" 1280 720) (metadata produces/webm) relay-curl)
+       (handle-spawn relay-curl (relayer (metadata type/webm '(sz . (640 480)))) (metadata type/webm) root-curl)
+       (handle-spawn (make-curl (uuid)) (video-reader/encoder (argsassoc "--video" #:default "/dev/video0")
+                                                              640 480) (metadata produces/webm) relay-curl)
        
        (ask/send request-thread "SPAWN" remoteroot command-center-gui
                  #:metadata (metadata is/gui) #:reply root-curl)       
-       (ask/send request-thread "SPAWN" remoteroot (video-decoder/gui 1280 720) 
+       (ask/send request-thread "SPAWN" remoteroot (video-decoder/gui 640 480) 
                  #:metadata (metadata accepts/webm) #:reply relay-curl)])
 
 (cond [(argsassoc "--audio")
