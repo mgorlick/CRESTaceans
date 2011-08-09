@@ -8,12 +8,16 @@
          "../../peer/src/api/compilation.rkt"
          racket/match
          racket/function
-         unstable/function
          racket/list)
 (provide (all-defined-out))
 
+; argsassoc: string [call: string -> any] [no-val: any] [default: any] -> any
+; separates the provided command line arguments of the form:
+;             --key1=val1 --key2=val2 --key3
+; if the provided key name is present and has a value, returns `call' applied to that value.
+; if the provided key name is present but has no value, returns `default'.
+; if the provided key name is not present, returns `no-val'.
 (define CLargs (map (curry regexp-split #rx"=") (vector->list (current-command-line-arguments))))
-
 (define (argsassoc key #:call [call (λ (x) x)] #:no-val [no-val #f] #:default [default #t])
   (let ([entry (assoc key CLargs)])
     (if entry
@@ -22,26 +26,32 @@
             default)
         no-val)))
 
+; these hash tables hold necessary values for tracking local state
+; and if necessary moving it to another island.
 (define curls=>threads (make-hash)) ; dispatch on the actual running 
 (define curls=>motiles (make-hash)) ; save COMPILED motiles for retransmission later
 (define curls=>metadata (make-hash)) ; save metadata for retransmission
 (define curls=>replycurls (make-hash)) ; save corresponding reply curls for retransmission
 
+; contains-any?: returns a non-false value iff any argument beyond the first is present in the first.
+; list any -> any
 (define (contains-any? mlst . vs)
   (and (list? mlst) (ormap (curryr member mlst) vs)))
 
+; handle-spawn: message/uri? any any message/uri? -> void
+; when a spawn comes in, assign it a binding environment and set of standard arguments
+; based on the metadata attached. then keep track of it in the above hashes
 (define (handle-spawn curl body metadata reply)
   (define benv (metadata->benv metadata))
   (define args
-    (cond
-      [(contains-any? metadata
-                      '("accepts" . "video/webm") 
-                      '("accepts" . "audio/speex")
-                      '("is" . "gui")
-                      '("produces" . "video/webm")
-                      '("produces" . "audio/speex"))
-       (list reply)]
-      [else '()]))
+    (cond [(contains-any? metadata
+                          '("accepts" . "video/webm") 
+                          '("accepts" . "audio/speex")
+                          '("is" . "gui")
+                          '("produces" . "video/webm")
+                          '("produces" . "audio/speex"))
+           (list reply)]
+          [else '()]))
   (parameterize ([current-curl curl])
     (hash-set! curls=>threads curl (spawn (start-program body benv args)))
     (hash-set! curls=>motiles curl body)
@@ -49,6 +59,11 @@
     (hash-set! curls=>replycurls curl reply)
     (printf "a new actor installed at ~n\t~s~n" curl)))
 
+(define (valid-actor? u)
+  (define t (hash-ref curls=>threads u #f))
+  (and (thread? t) (thread-running? t)))
+
+; the "actor" at 'root': hardcoded to receive all messages and then dispatches them as necessary 
 (define handler
   (spawn
    (let loop ()
@@ -58,10 +73,10 @@
         (define curl (make-curl (uuid)))
         (handle-spawn curl body metadata reply)]
        
-       [(ask "POST" u body metadata reply echo)
-        (if ((conjoin thread? thread-running?) (hash-ref curls=>threads u #f))
-            (thread-send (hash-ref curls=>threads u) (cons (start-program body (metadata->benv metadata))
-                                                           v))
+       [(ask _ u body metadata reply _)
+        (if (valid-actor? u)
+            (thread-send (hash-ref curls=>threads u) 
+                         (cons (start-program body (metadata->benv metadata)) v))
             (printf "error: not a thread or not running: ~a / directed to: ~a~n" (hash-ref curls=>threads u #f) u))]
        
        [else (printf "Message not recognized: ~a~n" else)])
@@ -177,8 +192,7 @@
 
 (cond [(argsassoc "--audio")
        (define relay-curl (make-curl (uuid)))
-       (handle-spawn relay-curl (relayer (metadata type/speex)) (metadata type/speex) root-curl)
-       
+       (handle-spawn relay-curl relayer (metadata type/speex) root-curl)
        (handle-spawn (make-curl (uuid)) (audio-reader/speex-encoder 3 relay-curl) (metadata produces/speex) root-curl)
        
        (ask/send request-thread "SPAWN" remoteroot (speex-decoder 640)
