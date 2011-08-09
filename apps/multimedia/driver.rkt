@@ -22,11 +22,6 @@
             default)
         no-val)))
 
-(define *LISTENING-ON* (argsassoc "--host" #:no-val *LOCALHOST*))
-(define *LOCALPORT* (argsassoc "--port" #:no-val 5000 #:call string->number))
-
-(define top-thread (current-thread))
-
 (define curls=>threads (make-hash)) ; dispatch on the actual running 
 (define curls=>motiles (make-hash)) ; save COMPILED motiles for retransmission later
 (define curls=>metadata (make-hash)) ; save metadata for retransmission
@@ -39,16 +34,38 @@
   (define benv (metadata->benv metadata))
   (define args
     (cond
-      [(contains-any? metadata '("accepts" . "video/webm") '("accepts" . "audio/speex") '("is" . "gui"))
-       (list curl reply)]
-      [(contains-any? metadata '("produces" . "video/webm") '("produces" . "audio/speex"))
+      [(contains-any? metadata
+                      '("accepts" . "video/webm") 
+                      '("accepts" . "audio/speex")
+                      '("is" . "gui")
+                      '("produces" . "video/webm")
+                      '("produces" . "audio/speex"))
        (list reply)]
       [else '()]))
-  (hash-set! curls=>threads curl (spawn (start-program body benv args)))
-  (hash-set! curls=>motiles curl body)
-  (hash-set! curls=>metadata curl metadata)
-  (hash-set! curls=>replycurls curl reply)
-  (printf "a new actor installed at ~n\t~s~n" curl))
+  (parameterize ([current-curl curl])
+    (hash-set! curls=>threads curl (spawn (start-program body benv args)))
+    (hash-set! curls=>motiles curl body)
+    (hash-set! curls=>metadata curl metadata)
+    (hash-set! curls=>replycurls curl reply)
+    (printf "a new actor installed at ~n\t~s~n" curl)))
+
+(define handler
+  (spawn
+   (let loop ()
+     (define v (thread-receive))
+     (match v
+       [(ask "SPAWN" (? (is? root-curl) u) body metadata reply echo)
+        (define curl (make-curl (uuid)))
+        (handle-spawn curl body metadata reply)]
+       
+       [(ask "POST" u body metadata reply echo)
+        (if ((conjoin thread? thread-running?) (hash-ref curls=>threads u #f))
+            (thread-send (hash-ref curls=>threads u) (cons (start-program body (metadata->benv metadata))
+                                                           v))
+            (printf "error: not a thread or not running: ~a / directed to: ~a~n" (hash-ref curls=>threads u #f) u))]
+       
+       [else (printf "Message not recognized: ~a~n" else)])
+     (loop))))
 
 (define (metadata->benv metadata)
   (cond
@@ -84,50 +101,47 @@
 (define get-current-gui-curl (procedure-reduce-arity current-gui-curl 0))
 (define set-current-gui-curl! (procedure-reduce-arity current-gui-curl 1))
 
-(define (cp u host port)
+(define (respawn u host port)
   (ask/send request-thread "SPAWN"
-            (message/uri/new #f (cons (symbol->string host) port) "/")
+            (message/uri/new #f (cons host port) "/")
             (hash-ref curls=>motiles u)
             #:metadata (hash-ref curls=>metadata u)
             #:reply (hash-ref curls=>replycurls u)
             #:compile? #f))
 
+(define (cp u host port)
+  (respawn u host port)
+  (ask/send* "POST" u `(CP ,host ,port) #f))
+
 (define (mv u host port)
-  (cp u host port)
-  (ask/send request-thread "POST" (hash-ref curls=>replycurls u) `(RemoveCURL ,u)))
+  (respawn u host port)
+  (ask/send* "POST" u `(Quit/MV ,host ,port) #f)
+  (ask/send* "POST" (hash-ref curls=>replycurls u) `(RemoveCURL ,u) #f))
 
-(define additions (global-defines ask/send* current-gui-curl))
-(define MULTIMEDIA-BASE* (++ MULTIMEDIA-BASE (global-defines ask/send*)))
-(define VIDEO-ENCODE* (++ VIDEO-ENCODE (global-defines ask/send*)))
-(define AUDIO-ENCODE* (++ AUDIO-ENCODE (global-defines ask/send*)))
-(define VIDEO-DECODE* (++ VIDEO-DECODE (global-defines ask/send* get-current-gui-curl)))
-(define GUI* (++ GUI (global-defines ask/send* get-current-gui-curl set-current-gui-curl! cp mv)))
-(define AUDIO-DECODE* (++ AUDIO-DECODE (global-defines ask/send*)))
-
-(define handler
-  (spawn
-   (let loop ()
-     (define v (thread-receive))
-     (match v
-       [(ask "SPAWN" (? (is? root-curl) u) body metadata reply echo)
-        (define curl (make-curl (uuid)))
-        (handle-spawn curl body metadata reply)]
-       
-       [(ask "POST" u body metadata reply echo)
-        (if ((conjoin thread? thread-running?) (hash-ref curls=>threads u #f))
-            (thread-send (hash-ref curls=>threads u) (cons (start-program body (metadata->benv metadata))
-                                                           v))
-            (printf "error: not a thread or not running: ~a / directed to: ~a~n" (hash-ref curls=>threads u #f) u))]
-       
-       [else (printf "Message not recognized: ~a~n" else)])
-     (loop))))
+(define *LISTENING-ON* (argsassoc "--host" #:no-val *LOCALHOST*))
+(define *LOCALPORT* (argsassoc "--port" #:no-val 5000 #:call string->number))
 
 (define k (generate-key/defaults))
 (define this-scurl (generate-scurl/defaults *LISTENING-ON* *LOCALPORT* #:key k))
 (define request-thread (run-tcp-peer *LISTENING-ON* *LOCALPORT* this-scurl handler))
+
 (define make-curl (curry message/uri/new #f (cons *LISTENING-ON* *LOCALPORT*)))
 (define root-curl (make-curl "/"))
+(define current-curl (make-parameter root-curl))
 (printf "listening on ~s~n" root-curl)
+
+(define MULTIMEDIA-BASE* 
+  (++ MULTIMEDIA-BASE (global-defines current-curl ask/send*)))
+(define VIDEO-ENCODE* 
+  (++ VIDEO-ENCODE    (global-defines current-curl ask/send*)))
+(define AUDIO-ENCODE* 
+  (++ AUDIO-ENCODE    (global-defines current-curl ask/send*)))
+(define VIDEO-DECODE* 
+  (++ VIDEO-DECODE    (global-defines current-curl ask/send* get-current-gui-curl)))
+(define GUI* 
+  (++ GUI             (global-defines current-curl ask/send* get-current-gui-curl set-current-gui-curl! cp mv)))
+(define AUDIO-DECODE* 
+  (++ AUDIO-DECODE    (global-defines current-curl ask/send*)))
 
 (define (interpreter)
   (printf "Enter command...~n")
@@ -137,11 +151,11 @@
       
       [`(cp ,uuid ,host ,port)
        (define u (make-curl uuid))
-       (cp u host port)]
+       (cp u (symbol->string host) port)]
       
       [`(mv ,uuid ,host ,port)
        (define u (make-curl uuid))
-       (mv u host port)]
+       (mv u (symbol->string host) port)]
       
       [a (printf "Command not recognized: ~s~n" a)]))
   (interpreter))
@@ -170,6 +184,6 @@
        (ask/send request-thread "SPAWN" remoteroot (speex-decoder 640)
                  #:metadata (metadata accepts/speex) #:reply relay-curl)])
 
-(spawn (interpreter))
+(interpreter)
 
 (no-return)

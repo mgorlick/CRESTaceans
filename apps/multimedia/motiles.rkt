@@ -32,39 +32,56 @@
 
 (define command-center-gui
   (motile/compile
-   `(lambda (my-curl reply-curl)
-      (set-current-gui-curl! my-curl)
+   `(lambda (reply-curl)
+      (set-current-gui-curl! (current-curl))
       (let ([g (new-video-gui 320 240)])
-        (let loop ([m (thread-receive)])
+        (let loop ([m (thread-receive)] [decoders (hash/new hash/equal/null)])
           (let ([v (car m)])
             (cond [(AddDecodedVideo? v)
                    (let ([playback 
                           (video-gui-add-video! g (AddDecodedVideo.w v) (AddDecodedVideo.h v)
                                                 (message/uri->string (AddDecodedVideo.decodercurl v)))])
                      (ask/send* "POST" (AddDecodedVideo.decodercurl v) playback #f)
-                     (loop (thread-receive)))]
+                     (loop (thread-receive) (hash/cons decoders (AddDecodedVideo.decodercurl v) #f)))]
+                  
+                  [(CP? v)
+                   (displayln "GUI is copying")
+                   (for-each (lambda (decoder)
+                               (cp decoder (CP.host v) (CP.port v)))
+                             (hash/keys decoders))
+                   (loop (thread-receive) decoders)]
+                  
+                  [(Quit/MV? v)
+                   (displayln "GUI is quitting")
+                   (for-each (lambda (decoder)
+                               (ask/send* "POST" decoder v #f)
+                               (mv decoder (Quit/MV.host v) (Quit/MV.port v)))
+                             (hash/keys decoders))]
+                  
                   [else
                    (printf "Not a valid request to GUI: ~a~n" v)
-                   (loop (thread-receive))])))))))
+                   (loop (thread-receive) decoders)])))))))
 
 (define (video-decoder/gui w h)
   (motile/compile
-   `(lambda (my-curl reply-curl)
-      (ask/send* "POST" (get-current-gui-curl) (AddDecodedVideo ,w ,h my-curl) #f)
+   `(lambda (reply-curl)
+      (ask/send* "POST" (get-current-gui-curl) (AddDecodedVideo ,w ,h (current-curl)) #f)
       (let* ([d (vp8dec-new)]
              [playback (car (thread-receive))]
              [sz (video-playback-buffersize playback)]
              [buffer (video-playback-buffer playback)]
-             [_ (ask/send* "POST" reply-curl (AddCURL my-curl) #f)])
+             [_ (ask/send* "POST" reply-curl (AddCURL (current-curl)) #f)])
         (let loop ([m (thread-receive)])
           (let* ([v (car m)] [r (cdr m)])
             (cond [(Frame? v)
                    (vp8dec-decode-copy d (bytes-length (Frame.data v)) (Frame.data v) sz buffer)
                    (loop (thread-receive))]
-                  [(Quit? v)
+                  [(Quit/MV? v)
+                   (displayln "Decoder is quitting")
                    (vp8dec-delete d)]
                   [else
-                   (printf "not a message: ~a~n" v)])))))))
+                   (printf "not a valid request to decoder: ~a~n" v)
+                   (loop (thread-receive))])))))))
 
 (define (video-reader/encoder devname w h)
   (motile/compile
@@ -129,5 +146,5 @@
         (cond [(Frame? v) 
                (speex-decoder-decode d (bytes-length (Frame.data v)) (Frame.data v))
                (loop (thread-receive))]
-              [(Quit? v)
+              [(Quit/MV? v)
                (speex-decoder-delete d)])))))

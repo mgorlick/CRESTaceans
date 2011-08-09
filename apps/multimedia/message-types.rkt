@@ -7,6 +7,8 @@
 (define-motile-struct RemoveCURL [curl])
 (define-motile-struct AddDecodedVideo [w h decodercurl])
 (define-motile-struct Quit [])
+(define-motile-struct Quit/MV [host port])
+(define-motile-struct CP [host port])
 (define-motile-struct None [])
 (define-motile-struct Frame [data timestamp])
 (define-motile-struct FrameBuffer [data size disposal ts])
