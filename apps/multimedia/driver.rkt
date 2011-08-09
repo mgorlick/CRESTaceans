@@ -107,11 +107,12 @@
          (ask/send request-thread method u body #:metadata metadata #:compile? (not (procedure? body)))]))
 
 (define current-gui-curl
-  (let ([c #f] [sema (make-semaphore 0)])
+  (let ([c #f] [writelock (make-semaphore 1)] [readlock (make-semaphore 0)])
     (case-lambda
-      [() (semaphore-wait sema) (semaphore-post sema) c]
-      [(f) (set! c f)
-           (semaphore-post sema)])))
+      [() (semaphore-wait readlock) (semaphore-post readlock) c]
+      [(f) (semaphore-wait writelock)
+           (set! c f)
+           (semaphore-post readlock)])))
 
 (define get-current-gui-curl (procedure-reduce-arity current-gui-curl 0))
 (define set-current-gui-curl! (procedure-reduce-arity current-gui-curl 1))
