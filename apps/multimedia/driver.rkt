@@ -69,7 +69,8 @@
 (define (ask/send* method u body metadata)
   (cond [(hash-has-key? curls=>threads u)
          (thread-send (hash-ref curls=>threads u)
-                      (motile/start (motile/compile body) (metadata->benv metadata)))]
+                      (cons (motile/start (motile/compile body) (metadata->benv metadata))
+                            (message/ask/new method u (motile/compile body) metadata)))]
         [(message/uri? u)
          (ask/send request-thread method u body #:metadata metadata #:compile? (not (procedure? body)))]))
 
@@ -83,12 +84,24 @@
 (define get-current-gui-curl (procedure-reduce-arity current-gui-curl 0))
 (define set-current-gui-curl! (procedure-reduce-arity current-gui-curl 1))
 
+(define (cp u host port)
+  (ask/send request-thread "SPAWN"
+            (message/uri/new #f (cons (symbol->string host) port) "/")
+            (hash-ref curls=>motiles u)
+            #:metadata (hash-ref curls=>metadata u)
+            #:reply (hash-ref curls=>replycurls u)
+            #:compile? #f))
+
+(define (mv u host port)
+  (cp u host port)
+  (ask/send request-thread "POST" (hash-ref curls=>replycurls u) `(RemoveCURL ,u)))
+
 (define additions (global-defines ask/send* current-gui-curl))
 (define MULTIMEDIA-BASE* (++ MULTIMEDIA-BASE (global-defines ask/send*)))
 (define VIDEO-ENCODE* (++ VIDEO-ENCODE (global-defines ask/send*)))
 (define AUDIO-ENCODE* (++ AUDIO-ENCODE (global-defines ask/send*)))
 (define VIDEO-DECODE* (++ VIDEO-DECODE (global-defines ask/send* get-current-gui-curl)))
-(define GUI* (++ GUI (global-defines ask/send* get-current-gui-curl set-current-gui-curl!)))
+(define GUI* (++ GUI (global-defines ask/send* get-current-gui-curl set-current-gui-curl! cp mv)))
 (define AUDIO-DECODE* (++ AUDIO-DECODE (global-defines ask/send*)))
 
 (define handler
@@ -102,7 +115,8 @@
        
        [(ask "POST" u body metadata reply echo)
         (if ((conjoin thread? thread-running?) (hash-ref curls=>threads u #f))
-            (thread-send (hash-ref curls=>threads u) (start-program body (metadata->benv metadata)))
+            (thread-send (hash-ref curls=>threads u) (cons (start-program body (metadata->benv metadata))
+                                                           v))
             (printf "error: not a thread or not running: ~a / directed to: ~a~n" (hash-ref curls=>threads u #f) u))]
        
        [else (printf "Message not recognized: ~a~n" else)])
@@ -114,14 +128,6 @@
 (define make-curl (curry message/uri/new #f (cons *LISTENING-ON* *LOCALPORT*)))
 (define root-curl (make-curl "/"))
 (printf "listening on ~s~n" root-curl)
-
-(define (cp u host port)
-  (ask/send request-thread "SPAWN"
-            (message/uri/new #f (cons (symbol->string host) port) "/")
-            (hash-ref curls=>motiles u)
-            #:metadata (hash-ref curls=>metadata u)
-            #:reply (hash-ref curls=>replycurls u)
-            #:compile? #f))
 
 (define (interpreter)
   (printf "Enter command...~n")
@@ -135,8 +141,7 @@
       
       [`(mv ,uuid ,host ,port)
        (define u (make-curl uuid))
-       (cp u host port)
-       (ask/send request-thread "POST" (hash-ref curls=>replycurls u) `(RemoveCURL ,u))]
+       (mv u host port)]
       
       [a (printf "Command not recognized: ~s~n" a)]))
   (interpreter))
@@ -147,13 +152,13 @@
 
 (cond [(argsassoc "--video")
        (define relay-curl (make-curl (uuid)))
-       (handle-spawn relay-curl (relayer (metadata type/webm '(sz . (640 480)))) (metadata type/webm) root-curl)
+       (handle-spawn relay-curl relayer (metadata) root-curl)
        (handle-spawn (make-curl (uuid)) (video-reader/encoder (argsassoc "--video" #:default "/dev/video0")
-                                                              640 480) (metadata produces/webm) relay-curl)
+                                                              1280 720) (metadata produces/webm) relay-curl)
        
        (ask/send request-thread "SPAWN" remoteroot command-center-gui
-                 #:metadata (metadata is/gui) #:reply root-curl)       
-       (ask/send request-thread "SPAWN" remoteroot (video-decoder/gui 640 480) 
+                 #:metadata (metadata is/gui) #:reply root-curl)
+       (ask/send request-thread "SPAWN" remoteroot (video-decoder/gui 1280 720)
                  #:metadata (metadata accepts/webm) #:reply relay-curl)])
 
 (cond [(argsassoc "--audio")

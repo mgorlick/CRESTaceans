@@ -26,7 +26,8 @@
   (++ BASELINE
       (require-spec->global-defines (except-in "../../peer/src/api/message.rkt" ask tell uri))
       (global-defines bin* bin- bin+ bin/ bin>= min* sleep* max*
-                      message/uri->string void printf thread-receive display vector-ref current-inexact-milliseconds exact->inexact)
+                      displayln message/uri->string void printf thread-receive display
+                      vector-ref current-inexact-milliseconds exact->inexact)
       (global-defines bytes? byte? bytes make-bytes bytes-ref bytes-length 
                       bytes-copy subbytes bytes-append
                       bytes=? bytes<? bytes>?

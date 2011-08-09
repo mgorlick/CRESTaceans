@@ -3,27 +3,28 @@
 (require "../../Motile/compile.rkt")
 (provide (all-defined-out))
 
-(define (relayer metadata)
+(define relayer
   (motile/compile
    `(let relay ([curls (hash/new hash/equal/null)]
-                [v (thread-receive)])
-      
-      (cond [(AddCURL? v)
-             (relay (hash/cons curls (AddCURL.curl v) #f)
-                    (thread-receive))]
-            
-            [(RemoveCURL? v)
-             (ask/send* "POST" (RemoveCURL.curl v) (Quit) #f)
-             (relay (hash/remove curls (RemoveCURL.curl v))
-                    (thread-receive))]
-            
-            [(Frame? v)
-             (let sendloop ([c (hash/keys curls)])
-               (cond [(not (null? c)) (ask/send* "POST" (car c) v #f)
-                                      (sendloop (cdr c))]))
-             (relay curls (thread-receive))]
-            
-            [else (printf "relay else: ~a~n" v)]))))
+                [m (thread-receive)])
+      (let ([v (car m)]
+            [r (cdr m)])
+        (cond [(AddCURL? v)
+               (relay (hash/cons curls (AddCURL.curl v) (:message/ask/metadata r))
+                      (thread-receive))]
+              
+              [(RemoveCURL? v)
+               (ask/send* "POST" (RemoveCURL.curl v) (Quit) (:message/ask/metadata r))
+               (relay (hash/remove curls (RemoveCURL.curl v))
+                      (thread-receive))]
+              
+              [(Frame? v)
+               (let sendloop ([c (hash/keys curls)])
+                 (cond [(not (null? c)) (ask/send* "POST" (car c) v (:message/ask/metadata r))
+                                        (sendloop (cdr c))]))
+               (relay curls (thread-receive))]
+              
+              [else (printf "relay else: ~a~n" v)])))))
 
 ;; -----
 ;; VIDEO
@@ -34,33 +35,36 @@
    `(lambda (my-curl reply-curl)
       (set-current-gui-curl! my-curl)
       (let ([g (new-video-gui 320 240)])
-        (let loop ([v (thread-receive)])
-          (cond [(AddDecodedVideo? v)
-                 (let ([playback (video-gui-add-video! g (AddDecodedVideo.w v) (AddDecodedVideo.h v) 
-                                                       (message/uri->string (AddDecodedVideo.decodercurl v)))])
-                   (ask/send* "POST" (AddDecodedVideo.decodercurl v) playback #f)
-                   (loop (thread-receive)))]
-                [else
-                 (printf "Not a valid request to GUI: ~a~n" v)
-                 (loop (thread-receive))]))))))
-                
+        (let loop ([m (thread-receive)])
+          (let ([v (car m)])
+            (cond [(AddDecodedVideo? v)
+                   (let ([playback 
+                          (video-gui-add-video! g (AddDecodedVideo.w v) (AddDecodedVideo.h v)
+                                                (message/uri->string (AddDecodedVideo.decodercurl v)))])
+                     (ask/send* "POST" (AddDecodedVideo.decodercurl v) playback #f)
+                     (loop (thread-receive)))]
+                  [else
+                   (printf "Not a valid request to GUI: ~a~n" v)
+                   (loop (thread-receive))])))))))
+
 (define (video-decoder/gui w h)
   (motile/compile
    `(lambda (my-curl reply-curl)
       (ask/send* "POST" (get-current-gui-curl) (AddDecodedVideo ,w ,h my-curl) #f)
       (let* ([d (vp8dec-new)]
-             [playback (thread-receive)]
+             [playback (car (thread-receive))]
              [sz (video-playback-buffersize playback)]
              [buffer (video-playback-buffer playback)]
              [_ (ask/send* "POST" reply-curl (AddCURL my-curl) #f)])
-        (let loop ([v (thread-receive)])
-          (cond [(Frame? v)      
-                 (vp8dec-decode-copy d (bytes-length (Frame.data v)) (Frame.data v) sz buffer)
-                 (loop (thread-receive))]
-                [(Quit? v)
-                 (vp8dec-delete d)]
-                [else
-                 (printf "not a message: ~a~n" v)]))))))
+        (let loop ([m (thread-receive)])
+          (let* ([v (car m)] [r (cdr m)])
+            (cond [(Frame? v)
+                   (vp8dec-decode-copy d (bytes-length (Frame.data v)) (Frame.data v) sz buffer)
+                   (loop (thread-receive))]
+                  [(Quit? v)
+                   (vp8dec-delete d)]
+                  [else
+                   (printf "not a message: ~a~n" v)])))))))
 
 (define (video-reader/encoder devname w h)
   (motile/compile
@@ -89,7 +93,7 @@
                  ;(printf "HIT: fudge ~a~n" fudge)
                  ; Frame received successfully. Pass it on and then wait until
                  ; the next frame should be active (modified by a factor to account for processing time)
-                 (ask/send* "POST" relayer-curl (FrameBuffer->Frame v) (metadata type/webm))
+                 (ask/send* "POST" relayer-curl (FrameBuffer->Frame v) (metadata type/webm (cons "params" params)))
                  (sleep* (bin* fudge framerate))
                  ; decrease fudge factor for next frame a la AIMD.
                  (loop (grab/encode) (if (bin>= fudge fudge-step)
@@ -120,7 +124,8 @@
 (define (speex-decoder framesize)
   (motile/compile
    `(let ([d (new-speex-decoder ,framesize)])
-      (let loop ([v (thread-receive)])
+      (let loop ([m (thread-receive)])
+        (define v (car m))
         (cond [(Frame? v) 
                (speex-decoder-decode d (bytes-length (Frame.data v)) (Frame.data v))
                (loop (thread-receive))]
