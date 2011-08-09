@@ -62,12 +62,12 @@
                 [else
                  (printf "not a message: ~a~n" v)]))))))
 
-(define (video-reader/encoder w h)
+(define (video-reader/encoder devname w h)
   (motile/compile
    `(lambda (relayer-curl)
       (define default-fudge 0.5)
       (define fudge-step 0.01)
-      (let* ([v (video-reader-setup ,w ,h)]
+      (let* ([v (video-reader-setup ,devname ,w ,h)]
              [params (video-reader-get-params v)]
              [e (vp8enc-new params)]
              [buffsize (bin* 1024 256)]

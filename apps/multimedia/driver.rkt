@@ -141,7 +141,7 @@
 (cond [(argsassoc "--video")
        (define relay-curl (make-curl (uuid)))
        (handle-spawn relay-curl (relayer (metadata type/webm)) (metadata type/webm) root-curl)
-       (handle-spawn (make-curl (uuid)) (video-reader/encoder 1280 720) (metadata produces/webm) relay-curl)
+       (handle-spawn (make-curl (uuid)) (video-reader/encoder "/dev/video0" 1280 720) (metadata produces/webm) relay-curl)
        
        (ask/send request-thread "SPAWN" remoteroot command-center-gui
                  #:metadata (metadata is/gui) #:reply root-curl)       

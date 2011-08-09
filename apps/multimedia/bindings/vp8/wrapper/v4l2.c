@@ -63,10 +63,10 @@ v4l2_reader* v4l2_reader_new (void) {
   return v;
 }
 
-int v4l2_reader_open (v4l2_reader *v, unsigned int w, unsigned int h) {
+int v4l2_reader_open (v4l2_reader *v, char *devicename, unsigned int w, unsigned int h) {
   v4l2_format format;
   
-  v->fd = open ("/dev/video0", O_RDWR);
+  v->fd = open (devicename, O_RDWR);
 
   /* set pixel format, width, height, fps */
   /* try setting format and size */
@@ -201,10 +201,10 @@ int v4l2_reader_enqueue_buffer (v4l2_reader *v, int index) {
   }
 }
 
-int v4l2_reader_dosetup (v4l2_reader *v, unsigned int w, unsigned int h) {
+int v4l2_reader_dosetup (v4l2_reader *v, char *devicename, unsigned int w, unsigned int h) {
   int res, i;
 
-  res = v4l2_reader_open (v,w,h) &&
+  res = v4l2_reader_open (v,devicename,w,h) &&
       v4l2_reader_make_buffers (v) &&
       v4l2_reader_start_stream (v);
 
@@ -217,7 +217,7 @@ int v4l2_reader_dosetup (v4l2_reader *v, unsigned int w, unsigned int h) {
   return res;
 }
 
-v4l2_reader* v4l2_reader_setup (int w, int h) {
+v4l2_reader* v4l2_reader_setup (char *devicename, int w, int h) {
 
   v4l2_reader *v = v4l2_reader_new ();
   
@@ -226,7 +226,7 @@ v4l2_reader* v4l2_reader_setup (int w, int h) {
     return NULL;
   }
   
-  if (!(v4l2_reader_dosetup (v,w,h))) {
+  if (!(v4l2_reader_dosetup (v,devicename,w,h))) {
     log_err ("reader setup");
     v4l2_reader_delete (v);
     return NULL;
