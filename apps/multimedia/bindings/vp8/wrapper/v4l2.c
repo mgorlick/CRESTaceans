@@ -11,7 +11,7 @@
 
 #include "misc.h"
 
-int BUFFERS_REQUESTED = 5;
+int BUFFERS_REQUESTED = 10;
 
 typedef struct mmap_buffer {
   void *start;
@@ -20,7 +20,7 @@ typedef struct mmap_buffer {
 
 typedef struct v4l2_reader {
   int fd;
-  size_t mmap_buffer_count;
+  int mmap_buffer_count;
   mmap_buffer *mmap_buffers;
 } v4l2_reader;
 
@@ -63,7 +63,7 @@ v4l2_reader* v4l2_reader_new (void) {
   return v;
 }
 
-int v4l2_reader_open (v4l2_reader *v, int w, int h) {
+int v4l2_reader_open (v4l2_reader *v, unsigned int w, unsigned int h) {
   v4l2_format format;
   
   v->fd = open ("/dev/video0", O_RDWR);
@@ -102,11 +102,11 @@ int v4l2_reader_open (v4l2_reader *v, int w, int h) {
 
 void v4l2_reader_get_params (v4l2_reader *v,
                              /* output */
-                             int *frame_width,
-                             int *frame_height,
-                             int *fps_num,
-                             int *fps_denom,
-                             int *buffer_count) {
+                             unsigned int *frame_width,
+                             unsigned int *frame_height,
+                             unsigned int *fps_num,
+                             unsigned int *fps_denom,
+                             unsigned int *buffer_count) {
   v4l2_streamparm stream;
   v4l2_format format;
 
@@ -137,7 +137,7 @@ void v4l2_reader_get_params (v4l2_reader *v,
 }
 
 int v4l2_reader_make_buffers (v4l2_reader *v) {
-  int i;
+  unsigned int i;
   v4l2_requestbuffers reqbuf;
   v4l2_buffer buffer;
       
@@ -201,7 +201,7 @@ int v4l2_reader_enqueue_buffer (v4l2_reader *v, int index) {
   }
 }
 
-int v4l2_reader_dosetup (v4l2_reader *v, int w, int h) {
+int v4l2_reader_dosetup (v4l2_reader *v, unsigned int w, unsigned int h) {
   int res, i;
 
   res = v4l2_reader_open (v,w,h) &&

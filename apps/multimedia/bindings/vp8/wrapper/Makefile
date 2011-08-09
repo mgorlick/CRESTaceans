@@ -1,6 +1,6 @@
 VP8WRAPPER = libracket-vp8-wrapper.so
 VIDWRAPPER = libracket-v4l2-wrapper.so
-CFLAGS = -fPIC -c -g -O3 -Wall
+CFLAGS = -fPIC -c -g -O3 -Wall -Wextra
 LIBDEPS = $$(pkg-config --cflags --libs libswscale)
 
 all: vp8 vid

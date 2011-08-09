@@ -30,11 +30,11 @@
 ;; VIDEO
 ;; -----
 
-(define command-center-gui
+(define (command-center-gui startw starth)
   (motile/compile
-   '(lambda (my-curl reply-curl)
+   `(lambda (my-curl reply-curl)
       (set-current-gui-curl! my-curl)
-      (let ([g (new-video-gui 640 480)])
+      (let ([g (new-video-gui ,startw ,starth)])
         (let loop ([v (thread-receive)])
           (cond [(AddDecodedVideo? v)
                  (let ([playback (video-gui-add-video! g (AddDecodedVideo.w v) (AddDecodedVideo.h v) 

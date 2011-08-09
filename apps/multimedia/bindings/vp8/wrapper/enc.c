@@ -29,7 +29,7 @@ void vp8enc_delete (VP8Enc *enc) {
 
 VP8Enc* vp8enc_new (int enc_frame_width, int enc_frame_height,
                     int enc_fps_numerator, int enc_fps_denominator) {
-  int i;
+  unsigned int i;
   vpx_codec_err_t status;
   vpx_codec_enc_cfg_t cfg;
   VP8Enc *enc;

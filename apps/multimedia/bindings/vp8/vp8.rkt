@@ -46,17 +46,17 @@
 
 (define-cpointer-type _v4l2-reader-pointer)
 
-(defv4l2 v4l2-reader-setup (_fun _int _int -> _v4l2-reader-pointer))
+(defv4l2 v4l2-reader-setup (_fun _uint _uint -> _v4l2-reader-pointer))
 
 (defv4l2 v4l2-reader-delete (_fun _v4l2-reader-pointer -> _void))
 
 (defv4l2 v4l2-reader-get-params
   (_fun _v4l2-reader-pointer
-        (frame-width : (_ptr o _int))
-        (frame-height : (_ptr o _int))
-        (fps-num : (_ptr o _int))
-        (fps-denom : (_ptr o _int))
-        (buffer-ct : (_ptr o _int))
+        (frame-width : (_ptr o _uint))
+        (frame-height : (_ptr o _uint))
+        (fps-num : (_ptr o _uint))
+        (fps-denom : (_ptr o _uint))
+        (buffer-ct : (_ptr o _uint))
         -> _void
         -> (values frame-width frame-height fps-num fps-denom buffer-ct)))
 

@@ -10,7 +10,6 @@ bindings:
 	find "bindings" -name "*.rkt" -print0 | xargs -0 raco make -v
 
 c:
-	cd bindings/allegro5/kbd-wrap && make
 	cd bindings/nacl/wrapper && make
 	cd apps/multimedia/bindings/vorbis/wrapper && make
 	cd apps/multimedia/bindings/vp8/wrapper && make
@@ -18,7 +17,6 @@ c:
 	cd apps/multimedia/bindings/speex/wrapper && make
 
 install:
-	cd bindings/allegro5/kbd-wrap && make install RACKET_LIBS=$(RACKET_LIBS)
 	cd bindings/nacl/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
 	cd apps/multimedia/bindings/vorbis/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
 	cd apps/multimedia/bindings/vp8/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
@@ -27,7 +25,6 @@ install:
 
 clean:
 	find . -name "compiled" -type d -print0 | xargs -0 rm -rfv
-	cd bindings/allegro5/kbd-wrap && make clean
 	cd bindings/nacl/wrapper && make clean
 	cd apps/multimedia/bindings/vorbis/wrapper && make clean
 	cd apps/multimedia/bindings/vp8/wrapper && make clean

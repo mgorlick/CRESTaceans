@@ -117,7 +117,7 @@ int vp8dec_decode_copy (VP8Dec *dec, const size_t input_size, const unsigned cha
     int h = img->d_h;
 
 #define BPP 3
-    assert (output_size == BPP * w * h);
+    assert (output_size == (size_t) BPP * w * h);
     int dest_stride = BPP * img->d_w;
     sws_scale (dec->swsctx, (const uint8_t * const *) img->planes, img->stride, 0, h,
 	       &output, &dest_stride);

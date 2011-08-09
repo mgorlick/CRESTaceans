@@ -1,5 +1,5 @@
 SONAME = libracket-vorbis-wrapper.so
-CFLAGS = -fPIC -c -g -Wall -O3
+CFLAGS = -fPIC -c -g -Wall -O3 -Wextra
 LIBDEPS = $$(pkg-config --cflags --libs ao vorbis vorbisenc)
 
 all: so

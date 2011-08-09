@@ -1,5 +1,5 @@
 SONAME = libracket-pulse-wrapper.so
-CFLAGS = -fPIC -c -g -O3 -Wall
+CFLAGS = -fPIC -c -g -O3 -Wall -Wextra
 LIBDEPS = $$(pkg-config --libs libpulse libpulse-simple)
 
 all: so
