@@ -70,8 +70,7 @@
   (let ([c #f] [sema (make-semaphore 0)])
     (case-lambda
       [() (semaphore-wait sema) (semaphore-post sema) c]
-      [(f) (printf "~a~n" f) 
-           (set! c f)
+      [(f) (set! c f)
            (semaphore-post sema)])))
 
 (define get-current-gui-curl (procedure-reduce-arity current-gui-curl 0))

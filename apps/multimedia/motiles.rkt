@@ -9,7 +9,6 @@
                 [v (thread-receive)])
       
       (cond [(AddCURL? v)
-             (printf "Have add request~n")
              (relay (hash/cons curls (AddCURL.curl v) #f)
                     (thread-receive))]
             
