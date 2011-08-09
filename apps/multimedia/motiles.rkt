@@ -29,11 +29,11 @@
 ;; VIDEO
 ;; -----
 
-(define (command-center-gui startw starth)
+(define command-center-gui
   (motile/compile
    `(lambda (my-curl reply-curl)
       (set-current-gui-curl! my-curl)
-      (let ([g (new-video-gui ,startw ,starth)])
+      (let ([g (new-video-gui 320 240)])
         (let loop ([v (thread-receive)])
           (cond [(AddDecodedVideo? v)
                  (let ([playback (video-gui-add-video! g (AddDecodedVideo.w v) (AddDecodedVideo.h v) 
@@ -99,9 +99,7 @@
                  ;(printf "MISS: fudge ~a~n" fudge)
                  (loop (grab/encode)
                        ; increase fudge factor for next frame a la AIMD.
-                       (min* default-fudge (bin* 2 (if (zero? fudge)
-                                                   fudge-step
-                                                   fudge))))]))))))
+                       (min* default-fudge (bin* 2 (max* fudge-step fudge))))]))))))
 
 ;; -----
 ;; AUDIO
