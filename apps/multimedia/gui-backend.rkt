@@ -16,8 +16,9 @@
        (define rq (place-channel-get pls))
        (match rq
          [(list 'add-video w h name)
-          (define playback (parameterize ([current-eventspace evtsp])
-                             (video-gui-add-video! g w h name)))
+          (define playback 
+            ;(parameterize ([current-eventspace evtsp])
+                             (video-gui-add-video! g w h name));)
           (place-channel-put pls (video-playback-buffer playback))
           (loop)]))]))
 
@@ -61,13 +62,17 @@
 ; ---------------------------------
 
 (define (new-video-gui width height)   
-  (define frame (new frame% [label ""]))
-  (define top-panel (new video-top-pane%
+  (define frame (new frame% 
+                     [label ""]
+                     [stretchable-width #f]
+                     [stretchable-height #f]
+                     [style '(no-resize-border)]))
+  (define top-panel (new video-top-panel%
                          [parent frame]
                          [alignment '(left top)]
                          [min-width width]
                          [min-height height]))
-  (define small-panel (new small-video-pane%
+  (define small-panel (new small-video-panel%
                            [parent top-panel] 
                            [alignment '(left top)]
                            [vert-margin 10]
@@ -78,17 +83,19 @@
 
 ; ---------------------------
 
-(define video-top-pane%
-  (class horizontal-pane%
+(define video-top-panel%
+  (class horizontal-panel%
     (super-new)
     
-    (inherit add-child delete-child)
+    (inherit add-child delete-child get-parent)
     (field [current-canvas #f])
     
     (define/public (swap-focused-video v)
       (when current-canvas
         (send current-canvas show #f)
         (delete-child current-canvas))
+      (send (get-parent) min-width (video-playback-w v))
+      (send (get-parent) min-height (video-playback-h v))
       (set! current-canvas (new video-canvas% 
                                 [parent this]
                                 [cv v]
@@ -98,21 +105,22 @@
                                 [min-height (video-playback-h v)])))))
 
 ; small-video-panel: holds small-video-canvas%es as they are created.
-(define small-video-pane%
-  (class vertical-pane%
+(define small-video-panel%
+  (class vertical-panel%
     (super-new)
     
     (inherit get-parent)
     
     (define/public (add-video-canvas v abr)
-      (send (get-parent) swap-focused-video v)
       (new small-video-canvas%
            [parent this]
            [cv v]
            [toppanel (get-parent)]
            [addressbar abr]
            [min-width (round (/ (video-playback-w v) 8))]
-           [min-height (round (/ (video-playback-h v) 8))]))))
+           [min-height (round (/ (video-playback-h v) 8))])
+      (sleep 0)
+      (send (get-parent) swap-focused-video v))))
 
 ; -------------------------
 
@@ -163,12 +171,12 @@
       (swap-gl-buffers)
       (send this refresh))
     
+    (super-new [style '(gl)]
+               [stretchable-width #f]
+               [stretchable-height #f])
+    
     (define/override (on-event e)
       (printf "event caught~n")
       (when (send e button-down?)
         ;(send address-bar set-label (video-playback-name myvideo))
-        (send top-panel set-video myvideo)))
-    
-    (super-new [style '(gl)]
-               [stretchable-width #f]
-               [stretchable-height #f])))
+        (send top-panel set-video myvideo)))))
