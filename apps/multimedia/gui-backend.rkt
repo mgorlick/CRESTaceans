@@ -18,7 +18,7 @@
          [(list 'add-video w h name)
           (define playback 
             ;(parameterize ([current-eventspace evtsp])
-                             (video-gui-add-video! g w h name));)
+            (video-gui-add-video! g w h name));)
           (place-channel-put pls (video-playback-buffer playback))
           (loop)]))]))
 
@@ -71,10 +71,14 @@
                          [parent frame]
                          [alignment '(left top)]
                          [min-width width]
-                         [min-height height]))
+                         [min-height height]
+                         ;[stretchable-width #f]
+                         ;[stretchable-height #f]
+                         ))
   (define small-panel (new small-video-panel%
                            [parent top-panel] 
                            [alignment '(left top)]
+                           [style '(vscroll)]
                            [vert-margin 10]
                            [horiz-margin 10]
                            [spacing 10]))
