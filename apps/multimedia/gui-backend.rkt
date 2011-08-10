@@ -62,15 +62,17 @@
 
 (define (new-video-gui width height)   
   (define frame (new frame% [label ""]))
-  (define pane (new vertical-pane% [parent frame]))
   (define top-panel (new video-top-pane%
-                         [parent pane]
+                         [parent frame]
+                         [alignment '(left top)]
                          [min-width width]
                          [min-height height]))
   (define small-panel (new small-video-pane%
                            [parent top-panel] 
                            [alignment '(left top)]
-                           [spacing 20]))
+                           [vert-margin 10]
+                           [horiz-margin 10]
+                           [spacing 10]))
   (send frame show #t)
   (video-gui frame top-panel #f small-panel '()))
 
@@ -84,10 +86,14 @@
     (field [current-canvas #f])
     
     (define/public (swap-focused-video v)
-      (when current-canvas (delete-child current-canvas))
+      (when current-canvas
+        (send current-canvas show #f)
+        (delete-child current-canvas))
       (set! current-canvas (new video-canvas% 
                                 [parent this]
                                 [cv v]
+                                [vert-margin 10]
+                                [horiz-margin 10]
                                 [min-width (video-playback-w v)]
                                 [min-height (video-playback-h v)])))))
 
@@ -99,14 +105,14 @@
     (inherit get-parent)
     
     (define/public (add-video-canvas v abr)
+      (send (get-parent) swap-focused-video v)
       (new small-video-canvas%
            [parent this]
            [cv v]
            [toppanel (get-parent)]
            [addressbar abr]
            [min-width (round (/ (video-playback-w v) 8))]
-           [min-height (round (/ (video-playback-h v) 8))])
-      (send (get-parent) swap-focused-video v))))
+           [min-height (round (/ (video-playback-h v) 8))]))))
 
 ; -------------------------
 
