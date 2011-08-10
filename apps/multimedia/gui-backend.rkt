@@ -1,7 +1,6 @@
 #lang racket/gui
 
 (require racket/place
-         ;racket/gui
          racket/flonum
          (planet "rgl.rkt" ("stephanh" "RacketGL.plt" 1 2)))
 
@@ -10,7 +9,7 @@
 (define (gui-main pls)
   (match (place-channel-get pls)
     [(list 'new-video-gui gw gh)
-     (define g (new-video-gui gw gh))
+     (define g (parameterize ([current-eventspace (make-eventspace)]) (new-video-gui gw gh)))
      (let loop ()
        (define rq (place-channel-get pls))
        (match rq
@@ -41,23 +40,26 @@
 
 ;;;;;;;; ---------------------------
 
-; main-video-window holds the panel + message + canvas used for primary display.
-;; panel%, message%, canvas%
-(struct main-video-window (panel address canvas) #:transparent)
-
-; video-gui holds the main window, plus all the small preview windows, the overall frame
-; and a list of video-playback objects.
-;; frame? main-video-window? (is-a/c panel%) listof video-playback
-(struct video-gui (frame main-video-panel small-video-panel videos) #:transparent #:mutable)
+(struct video-gui (frame top-panel 
+                         address-bar main-canvas
+                         small-video-panel videos) #:transparent #:mutable)
 
 (define/contract (video-gui-add-video! g w h name)
   (video-gui? exact-nonnegative-integer? exact-nonnegative-integer? string? . -> . video-playback?)
   
   (define nv (make-video-playback w h name))
   (set-video-gui-videos! g (cons nv (video-gui-videos g)))
-  (send (video-gui-small-video-panel g) add-video-canvas nv g)
-  (send (main-video-window-canvas (video-gui-main-video-panel g)) set-video nv)
-  (send (main-video-window-address (video-gui-main-video-panel g)) set-label (video-playback-name nv))
+  
+  (define main-canvas (video-gui-main-canvas g))
+  (define top-panel (video-gui-top-panel g))
+  ;(define address-bar (main-video-window-address (video-gui-main-video-panel g)))
+  (define small-panel (video-gui-small-video-panel g))
+  (send main-canvas suspend-flush)
+  (send small-panel add-video-canvas nv g)
+  ;(send address-bar set-label (video-playback-name nv))
+  (send main-canvas set-video nv)
+  ;(send main-panel reflow-container)
+  (send main-canvas resume-flush)
   nv)
 
 ; ---------------------------------
@@ -66,34 +68,40 @@
   
   (parameterize ([current-eventspace (make-eventspace)])
     
-    (define frame (new frame% [label "Video command center"]))
+    (define frame ; ha ha ha
+      (new frame% [label "Current video"]))
     
-    (define current-video-panel (new vertical-panel%
-                                     [parent frame]
-                                     [style '(border)]))
+    (define top-panel (new horizontal-panel%
+                           [parent frame]))
     
-    (define address-bar (new message% 
-                             [label ""]
-                             [parent current-video-panel]
-                             [min-width 500]
-                             [font (make-object font% 12 'swiss)]))
+    #;(define address-bar (new message% 
+                               [label ""]
+                               [parent current-video-panel]
+                               [min-width 500]
+                               [font (make-object font% 12 'swiss)]))
     
-    (define current-video-canvas (new large-video-canvas% 
-                                      [parent current-video-panel]
-                                      [cv (make-video-playback width height "")] ; default blank video.
-                                      [min-width width]
-                                      [min-height height]))
-    
-    (define small-panel (new small-video-panel% 
-                             [parent frame] 
-                             [style '(border auto-hscroll)] 
+    (define small-panel (new small-video-panel%
+                             [parent top-panel] 
+                             ;[style '(border auto-hscroll)] 
                              [spacing 20]
                              [vert-margin 5]
                              [horiz-margin 20]
                              [min-height 80]))
+    
+    (define current-video-canvas (new-cvc width height top-panel #f))
+    
     (send frame show #t)
     
-    (video-gui frame (main-video-window current-video-panel address-bar current-video-canvas) small-panel '())))
+    (video-gui frame top-panel 
+               #f #|address-bar|# current-video-canvas 
+               small-panel '())))
+
+(define (new-cvc width height parent cv)
+  (new large-video-canvas% 
+       [parent parent]
+       [cv #f]
+       [min-width width]
+       [min-height height]))
 
 (define (disable-opengl-features)
   (glDisable GL_ALPHA_TEST)
@@ -126,14 +134,15 @@
 (define video-canvas%
   (class canvas%
     [init cv]
-    (super-new [style '(border gl no-autoclear)]
+    (super-new [style '(border gl)]
                [stretchable-width #f]
                [stretchable-height #f])
     
     (inherit refresh is-shown? with-gl-context swap-gl-buffers)
     
-    (field [myvideo cv])
-    (field [time-between-paint 1/30])
+    (field [myvideo cv]
+           [time-between-paint 1/30]
+           [paintlock (make-semaphore 1)])
     
     (define disabled? #f)
     
@@ -143,13 +152,15 @@
       (queue-callback this/refresh))
     
     (define/override (on-paint)
-      (unless disabled?
-        (with-gl-context disable-opengl-features)
-        (set! disabled? #t))
-      (with-gl-context
-       (λ ()
-         (draw-video (video-playback-w myvideo) (video-playback-h myvideo) (video-playback-buffer myvideo))
-         (swap-gl-buffers)))
+      ;(unless disabled?
+      ;  (with-gl-context disable-opengl-features)
+      ;  (set! disabled? #t))
+      (when myvideo
+        (with-gl-context
+         (λ ()
+           (draw-video (video-playback-w myvideo) (video-playback-h myvideo) 
+                       (video-playback-buffer myvideo))
+           (swap-gl-buffers))))
       (queue-refresh))))
 
 ; large-video-canvas% holds the "main" video being displayed.
@@ -158,17 +169,28 @@
   (class video-canvas% 
     (super-new)
     
-    (inherit min-width min-height with-gl-context swap-gl-buffers)
-    (inherit-field myvideo)
+    (inherit get-parent suspend-flush resume-flush 
+             min-width min-height get-width get-height min-client-width min-client-height
+             with-gl-context swap-gl-buffers)
+    (inherit-field myvideo paintlock)
     
     (define/public (set-video v)
+      (suspend-flush)
+      ;
       (with-gl-context
        (λ ()
-         (min-width (video-playback-w v))
-         (min-height (video-playback-h v))
+         ; fixes the problem of the frame drawing halfway off the visible portion of the canvas
+         (when myvideo (glViewport 0 0 (video-playback-w myvideo) (video-playback-h myvideo)))
          (set! myvideo v)
-         (glViewport 0 0 (min-width) (min-height))
-         (glLoadIdentity))))))
+         (min-width (video-playback-w myvideo))
+         (min-height (video-playback-h myvideo))
+         (send (get-parent) min-width (min-width))
+         (send (get-parent) min-height (min-height))
+         (glViewport 0 0 (video-playback-w myvideo) (video-playback-h myvideo))))
+      (resume-flush)
+      (printf "resized to ~ax~a / min ~ax~a / client ~ax~a~n" 
+              (get-width) (get-height) (min-width) (min-height)
+              (min-client-width) (min-client-height)))))
 
 ; like draw-video, but scaled to a smaller window
 (define (draw-scaled-video w h scale-w scale-h cvect)
@@ -192,7 +214,7 @@
     (field [h (video-playback-h myvideo)])
     (field [preview-scale-w (fl/ (->fl previeww) (->fl w))])
     (field [preview-scale-h (fl/ (->fl previewh) (->fl h))])
-        
+    
     (define disabled? #f)
     
     (define/override (on-paint)
@@ -208,19 +230,19 @@
     (define/override (on-event e)
       (printf "event caught~n")
       (when (send e button-down?)
-        (send address-bar set-label (video-playback-name myvideo))
+        ;(send address-bar set-label (video-playback-name myvideo))
         (send main-canvas set-video myvideo)))))
 
 ; small-video-panel: holds small-video-canvas%es as they are created.
 (define small-video-panel%
-  (class horizontal-panel%
+  (class vertical-panel%
     (super-new)
     
     (define/public (add-video-canvas v g)
       (new small-video-canvas%
            [cv v]
-           [maincanvas (main-video-window-canvas (video-gui-main-video-panel g))]
-           [addressbar (main-video-window-address (video-gui-main-video-panel g))]
+           [maincanvas (video-gui-main-canvas g)]
+           [addressbar (video-gui-address-bar g)]
            [previeww (round (/ (video-playback-w v) 8))]
            [previewh (round (/ (video-playback-h v) 8))]
            [parent this]))))
