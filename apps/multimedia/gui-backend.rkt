@@ -1,7 +1,9 @@
-#lang racket/gui
+#lang racket/base
 
 (require racket/place
-         racket/flonum
+         racket/class
+         racket/gui/base
+         racket/match
          (planet "rgl.rkt" ("stephanh" "RacketGL.plt" 1 2)))
 
 (provide gui-main)
@@ -10,17 +12,17 @@
   (match (place-channel-get pls)
     [(list 'new-video-gui gw gh)
      (define evtsp (make-eventspace))
-     (define g (parameterize ([current-eventspace evtsp])
-                 (new-video-gui gw gh)))
-     (let loop ()
-       (define rq (place-channel-get pls))
-       (match rq
-         [(list 'add-video w h name)
-          (define playback 
-            ;(parameterize ([current-eventspace evtsp])
-            (video-gui-add-video! g w h name));)
-          (place-channel-put pls (video-playback-buffer playback))
-          (loop)]))]))
+     (parameterize ([current-eventspace evtsp])
+       (define g (new-video-gui gw gh))
+       (let loop ()
+         (define rq (place-channel-get pls))
+         (match rq
+           [(list 'add-video w h name)
+            (define playback 
+              ;(parameterize ([current-eventspace evtsp])
+              (video-gui-add-video! g w h name));)
+            (place-channel-put pls (video-playback-buffer playback))
+            (loop)])))]))
 
 ; ------------------------------
 
@@ -47,9 +49,7 @@
 (struct video-gui (frame top-panel address-bar
                          small-video-panel videos) #:transparent #:mutable)
 
-(define/contract (video-gui-add-video! g w h name)
-  (video-gui? exact-nonnegative-integer? exact-nonnegative-integer? string? . -> . video-playback?)
-  
+(define (video-gui-add-video! g w h name)  
   (define nv (make-video-playback w h name))
   (set-video-gui-videos! g (cons nv (video-gui-videos g)))
   
@@ -67,64 +67,96 @@
                      [stretchable-width #f]
                      [stretchable-height #f]
                      [style '(no-resize-border)]))
+  (define the-window (new vertical-panel%
+                          [parent frame]))
+  (define address-bar (new message%
+                           [parent the-window]
+                           [label ""]
+                           [min-width 80]
+                           [auto-resize #t]
+                           [font (make-object font% 12 'swiss)]))
   (define top-panel (new video-top-panel%
                          [parent frame]
+                         [addressbar address-bar]
                          [alignment '(left top)]
                          [min-width width]
                          [min-height height]
-                         ;[stretchable-width #f]
-                         ;[stretchable-height #f]
-                         ))
+                         [stretchable-width #t]
+                         [stretchable-height #t]))
   (define small-panel (new small-video-panel%
-                           [parent top-panel] 
+                           [parent top-panel]
+                           [main-panel top-panel]
                            [alignment '(left top)]
-                           [style '(vscroll)]
+                           [style '(auto-hscroll auto-vscroll)]
+                           [min-width 200]
                            [vert-margin 10]
                            [horiz-margin 10]
                            [spacing 10]))
   (send frame show #t)
-  (video-gui frame top-panel #f small-panel '()))
+  (video-gui frame top-panel address-bar small-panel '()))
 
 ; ---------------------------
 
 (define video-top-panel%
-  (class horizontal-panel%
+  (class horizontal-panel% [init addressbar]
     (super-new)
     
     (inherit add-child delete-child get-parent)
-    (field [current-canvas #f])
+    (define current-canvas #f)
+    (define address-bar addressbar)
+    
+    (define/public (showing? v)
+      (and current-canvas (send (weak-box-value current-canvas) same-video? v)))
     
     (define/public (swap-focused-video v)
+      
+      ;; fixme: the old child can be deleted from screen,
+      ;; but it's never actually garbage collected.
       (when current-canvas
-        (send current-canvas show #f)
-        (delete-child current-canvas))
+        (delete-child (weak-box-value current-canvas))
+        (send (weak-box-value current-canvas) show #f)
+        (send (weak-box-value current-canvas) enable #f))
+      
       (send (get-parent) min-width (video-playback-w v))
       (send (get-parent) min-height (video-playback-h v))
-      (set! current-canvas (new video-canvas% 
-                                [parent this]
-                                [cv v]
-                                [vert-margin 10]
-                                [horiz-margin 10]
-                                [min-width (video-playback-w v)]
-                                [min-height (video-playback-h v)])))))
+      (send address-bar set-label (video-playback-name v))
+      
+      (define cnvs
+        (new video-canvas% 
+             [parent this]
+             [cv v]
+             [vert-margin 10]
+             [horiz-margin 10]
+             [min-width (video-playback-w v)]
+             [min-height (video-playback-h v)]
+             [enabled #f]))
+      
+      (set! current-canvas (make-weak-box cnvs))
+      (send (weak-box-value current-canvas) enable #t)
+      (sleep 0))))
 
 ; small-video-panel: holds small-video-canvas%es as they are created.
 (define small-video-panel%
-  (class vertical-panel%
+  (class vertical-panel% [init main-panel]
     (super-new)
     
     (inherit get-parent)
     
+    (define top-panel main-panel)
+    
     (define/public (add-video-canvas v abr)
-      (new small-video-canvas%
-           [parent this]
-           [cv v]
-           [toppanel (get-parent)]
-           [addressbar abr]
-           [min-width (round (/ (video-playback-w v) 8))]
-           [min-height (round (/ (video-playback-h v) 8))])
+      (define cnvs
+        (new small-video-canvas%
+             [parent this]
+             [cv v]
+             [toppanel top-panel]
+             [addressbar abr]
+             [min-width (round (/ (video-playback-w v) 8))]
+             [min-height (round (/ (video-playback-h v) 8))]
+             [enabled #f]))
+      (send cnvs enable #t)
       (sleep 0)
-      (send (get-parent) swap-focused-video v))))
+      (send top-panel swap-focused-video v))))
 
 ; -------------------------
 
@@ -133,12 +165,23 @@
 (define video-canvas%
   (class canvas%
     [init cv]
-    (inherit refresh with-gl-context swap-gl-buffers)
+    (super-new [style '(gl no-autoclear)]
+               [stretchable-width #f]
+               [stretchable-height #f])
+    (inherit suspend-flush resume-flush)
+    (suspend-flush)
+    (inherit refresh is-enabled? with-gl-context swap-gl-buffers)
     
     (define myvideo cv)
     (define w (video-playback-w myvideo))
     (define h (video-playback-h myvideo))
     (define buffer (video-playback-buffer myvideo))
+    
+    (define refresher
+      (new timer% [notify-callback (λ () (refresh))] [interval 33] [just-once? #f]))
+    
+    (define/public (same-video? v)
+      (equal? myvideo v))
     
     (define/override (on-paint)
       (with-gl-context
@@ -147,24 +190,28 @@
          (glPixelZoom 1.0 -1.0)
          (glDrawPixels w h GL_RGB GL_UNSIGNED_BYTE buffer)))
       (swap-gl-buffers)
-      (send this refresh))
-    
-    (super-new [style '(gl)]
-               [stretchable-width #f]
-               [stretchable-height #f])))
+      (unless (is-enabled?)
+        (send refresher stop)))
+    (resume-flush)))
 
 ; small-video-canvas%: used for the preview panes at the bottom of the screen.
 (define small-video-canvas%
-  (class canvas%
-    [init cv addressbar toppanel]
-    (inherit refresh with-gl-context swap-gl-buffers)
+  (class canvas% [init cv addressbar toppanel]
+    (super-new [style '(gl)]
+               [stretchable-width #f]
+               [stretchable-height #f])
+    (inherit suspend-flush resume-flush)
+    (suspend-flush)
+    (inherit refresh is-enabled? with-gl-context swap-gl-buffers)
     
-    (define address-bar addressbar)
     (define top-panel toppanel)
-    (define myvideo cv)    
+    (define myvideo cv)
     (define buffer (video-playback-buffer myvideo))
     (define actual-w (video-playback-w myvideo))
     (define actual-h (video-playback-h myvideo))
+    
+    (define refresher
+      (new timer% [notify-callback (λ () (refresh))] [interval 100] [just-once? #f]))
     
     (define/override (on-paint)
       (with-gl-context
@@ -173,14 +220,12 @@
          (glPixelZoom 0.125 -0.125)
          (glDrawPixels actual-w actual-h GL_RGB GL_UNSIGNED_BYTE buffer)))
       (swap-gl-buffers)
-      (send this refresh))
-    
-    (super-new [style '(gl)]
-               [stretchable-width #f]
-               [stretchable-height #f])
+      (unless (is-enabled?)
+        (send refresher stop)))
     
     (define/override (on-event e)
-      (printf "event caught~n")
-      (when (send e button-down?)
-        ;(send address-bar set-label (video-playback-name myvideo))
-        (send top-panel set-video myvideo)))))
+      (when (and (send e button-down?)
+                 (not (send top-panel showing? myvideo)))
+        (send top-panel swap-focused-video myvideo)))
+    
+    (resume-flush)))
