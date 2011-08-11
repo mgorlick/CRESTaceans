@@ -35,32 +35,49 @@
    `(lambda (reply-curl)
       (set-current-gui-curl! (current-curl))
       (let ([g (new-video-gui 320 240)])
-        (let loop ([m (thread-receive)] [decoders (hash/new hash/equal/null)])
+        (let loop ([m (gui-thread-receive g)] [decoders (hash/new hash/equal/null)])
           (let ([v (car m)])
-            (cond [(AddDecodedVideo? v)
+            (cond [(gui-message-closed-feed? v)
+                   (printf "Feed of ~s was closed~n" (gui-message-closed-feed-curl v))
+                   (ask/send* "DELETE" (gui-message-closed-feed-curl v) (Quit) #f)
+                   (loop (gui-thread-receive g) (hash/remove decoders (gui-message-closed-feed-curl v)))]
+                  
+                  [(gui-message-closed-window? v)
+                   (displayln "GUI was closed")
+                   (ask/send* "DELETE" (current-curl) (Quit))
+                   (loop (gui-thread-receive g) decoders)]
+                  
+                  [(AddDecodedVideo? v)
                    (let ([playback 
                           (video-gui-add-video! g (AddDecodedVideo.w v) (AddDecodedVideo.h v)
-                                                (message/uri->string (AddDecodedVideo.decodercurl v)))])
+                                                (AddDecodedVideo.decodercurl v))])
                      (ask/send* "POST" (AddDecodedVideo.decodercurl v) playback #f)
-                     (loop (thread-receive) (hash/cons decoders (AddDecodedVideo.decodercurl v) #f)))]
+                     (loop (gui-thread-receive g)
+                           (hash/cons decoders (AddDecodedVideo.decodercurl v) #f)))]
                   
                   [(CP? v)
                    (displayln "GUI is copying")
                    (for-each (lambda (decoder)
                                (cp decoder (CP.host v) (CP.port v)))
                              (hash/keys decoders))
-                   (loop (thread-receive) decoders)]
+                   (loop (gui-thread-receive g) decoders)]
                   
                   [(Quit/MV? v)
+                   (displayln "GUI is moving")
+                   (for-each (lambda (decoder)
+                               (ask/send* "DELETE" decoder v #f)
+                               (mv decoder (Quit/MV.host v) (Quit/MV.port v)))
+                             (hash/keys decoders))]
+                  
+                  [(Quit? v)
                    (displayln "GUI is quitting")
                    (for-each (lambda (decoder)
-                               (ask/send* "POST" decoder v #f)
-                               (mv decoder (Quit/MV.host v) (Quit/MV.port v)))
+                               (ask/send* "DELETE" decoder v #f))
                              (hash/keys decoders))]
                   
                   [else
                    (printf "Not a valid request to GUI: ~a~n" v)
-                   (loop (thread-receive) decoders)])))))))
+                   (loop (gui-thread-receive g) decoders)])))))))
 
 (define (video-decoder/gui w h)
   (motile/compile
@@ -77,7 +94,12 @@
                    (vp8dec-decode-copy d (bytes-length (Frame.data v)) (Frame.data v) sz buffer)
                    (loop (thread-receive))]
                   [(Quit/MV? v)
+                   (displayln "Decoder is moving")
+                   (ask/send* "POST" reply-curl (RemoveCURL (current-curl)) #f)
+                   (vp8dec-delete d)]
+                  [(Quit? v)
                    (displayln "Decoder is quitting")
+                   (ask/send* "POST" reply-curl (RemoveCURL (current-curl)) #f)
                    (vp8dec-delete d)]
                   [else
                    (printf "not a valid request to decoder: ~a~n" v)

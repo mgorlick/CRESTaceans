@@ -11,18 +11,24 @@
 (define (gui-main pls)
   (match (place-channel-get pls)
     [(list 'new-video-gui gw gh)
-     (define evtsp (make-eventspace))
-     (parameterize ([current-eventspace evtsp])
+     (parameterize ([current-eventspace (make-eventspace)])
        (define g (new-video-gui gw gh))
        (let loop ()
          (define rq (place-channel-get pls))
          (match rq
            [(list 'add-video w h name)
             (define playback 
-              ;(parameterize ([current-eventspace evtsp])
-              (video-gui-add-video! g w h name));)
+              (video-gui-add-video! g w h name (λ (m) (place-channel-put pls m))))
             (place-channel-put pls (video-playback-buffer playback))
             (loop)])))]))
+
+; ------------------------------
+
+(define (gui-message-closed-feed u)
+  `#(closed-feed ,u))
+
+(define (gui-message-closed-window)
+  `#(close-window))
 
 ; ------------------------------
 
@@ -49,14 +55,14 @@
 (struct video-gui (frame top-panel address-bar
                          small-video-panel videos) #:transparent #:mutable)
 
-(define (video-gui-add-video! g w h name)  
+(define (video-gui-add-video! g w h name event-callback)  
   (define nv (make-video-playback w h name))
   (set-video-gui-videos! g (cons nv (video-gui-videos g)))
   
   (define top-panel (video-gui-top-panel g))
   (define address-bar (video-gui-address-bar g))
   (define small-panel (video-gui-small-video-panel g))
-  (send small-panel add-video-canvas nv address-bar)
+  (send small-panel add-video-canvas nv address-bar event-callback)
   nv)
 
 ; ---------------------------------
@@ -119,7 +125,7 @@
       
       (send (get-parent) min-width (video-playback-w v))
       (send (get-parent) min-height (video-playback-h v))
-      (send address-bar set-label (video-playback-name v))
+      (send address-bar set-label (format "~a" (video-playback-name v)))
       
       (define cnvs
         (new video-canvas% 
@@ -139,12 +145,10 @@
 (define small-video-panel%
   (class vertical-panel% [init main-panel]
     (super-new)
-    
     (inherit get-parent)
-    
     (define top-panel main-panel)
     
-    (define/public (add-video-canvas v abr)
+    (define/public (add-video-canvas v abr evt-cb)  
       (define cnvs
         (new small-video-canvas%
              [parent this]
@@ -154,9 +158,28 @@
              [min-width (round (/ (video-playback-w v) 8))]
              [min-height (round (/ (video-playback-h v) 8))]
              [enabled #f]))
+      
+      (define button
+        (new button%
+             [parent this]
+             [label "Unsubscribe"]
+             [callback (λ (btn ctrlevt)
+                         (evt-cb (gui-message-closed-feed (video-playback-name v)))
+                         (send cnvs enable #f)
+                         (send cnvs show #f)
+                         (send button enable #f)
+                         (send button show #f)
+                         (send this delete-child cnvs)
+                         (send this delete-child button)
+                         (let ([children (send this get-children)])
+                           (cond [(null? children) (void)]
+                                 [else (send (car children) promote-self)])))]
+             [enabled #f]))
+      
       (send cnvs enable #t)
+      (send button enable #t)
       (sleep 0)
-      (send top-panel swap-focused-video v))))
+      (send cnvs promote-self))))
 
 ; -------------------------
 
@@ -192,7 +215,9 @@
       (swap-gl-buffers)
       (unless (is-enabled?)
         (send refresher stop)))
-    (resume-flush)))
+    (resume-flush)
+    
+    (printf "Made a main canvas of ~ax~a~n" (send this min-width) (send this min-height))))
 
 ; small-video-canvas%: used for the preview panes at the bottom of the screen.
 (define small-video-canvas%
@@ -226,6 +251,9 @@
     (define/override (on-event e)
       (when (and (send e button-down?)
                  (not (send top-panel showing? myvideo)))
-        (send top-panel swap-focused-video myvideo)))
+        (send this promote-self)))
+    
+    (define/public (promote-self)
+      (send top-panel swap-focused-video myvideo))
     
     (resume-flush)))
