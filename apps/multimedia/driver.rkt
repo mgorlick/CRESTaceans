@@ -144,7 +144,7 @@
 ; thread-to-thread intra-island messaging
 ; looks the same as island-to-island messaging does.
 (define (ask/send* method u body metadata)
-    (cond [(hash-has-key? curls=>threads u)
+  (cond [(hash-has-key? curls=>threads u)
          (thread-send (hash-ref curls=>threads u)
                       (cons (motile/start (motile/compile body) (metadata->benv metadata))
                             (message/ask/new method u (motile/compile body) metadata)))]
@@ -218,15 +218,18 @@
   (remote-curl-root #f (argsassoc "--rhost" #:no-val *LOCALHOST*)
                     (argsassoc "--rport"#:no-val 1235 #:call string->number)))
 
-(cond [(argsassoc "--video")
+(cond [(argsassoc "--video")       
+       
+       (unless (argsassoc "--no-gui")
+         (ask/send request-thread "SPAWN" remoteroot command-center-gui
+                   #:metadata (metadata is/gui) #:reply root-curl))
+       
        (define relay-curl (make-curl (uuid)))
        (handle-spawn relay-curl relayer (metadata) root-curl)
        (handle-spawn (make-curl (uuid)) 
                      (video-reader/encoder (argsassoc "--video" #:default "/dev/video0") 1280 720) 
                      (metadata produces/webm) relay-curl)
        
-       (ask/send request-thread "SPAWN" remoteroot command-center-gui
-                 #:metadata (metadata is/gui) #:reply root-curl)
        (ask/send request-thread "SPAWN" remoteroot (video-decoder/gui 1280 720)
                  #:metadata (metadata accepts/webm) #:reply relay-curl)])
 

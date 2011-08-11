@@ -111,22 +111,26 @@
     (define current-canvas #f)
     (define address-bar addressbar)
     
-    (define/public (showing? v)
-      (and current-canvas (send (weak-box-value current-canvas) same-video? v)))
-    
-    (define/public (swap-focused-video v)
-      
+    (define (clear-current-canvas)
       ;; fixme: the old child can be deleted from screen,
       ;; but it's never actually garbage collected.
       (when current-canvas
         (delete-child (weak-box-value current-canvas))
         (send (weak-box-value current-canvas) show #f)
-        (send (weak-box-value current-canvas) enable #f))
-      
+        (send (weak-box-value current-canvas) enable #f)))
+    
+    (define/public (showing? v)
+      (and current-canvas (send (weak-box-value current-canvas) same-video? v)))
+    
+    (define/public (no-videos)
+      (clear-current-canvas)
+      (set! current-canvas #f))
+    
+    (define/public (swap-focused-video v)
+      (clear-current-canvas)
       (send (get-parent) min-width (video-playback-w v))
       (send (get-parent) min-height (video-playback-h v))
       (send address-bar set-label (format "~a" (video-playback-name v)))
-      
       (define cnvs
         (new video-canvas% 
              [parent this]
@@ -136,7 +140,6 @@
              [min-width (video-playback-w v)]
              [min-height (video-playback-h v)]
              [enabled #f]))
-      
       (set! current-canvas (make-weak-box cnvs))
       (send (weak-box-value current-canvas) enable #t)
       (sleep 0))))
@@ -172,7 +175,9 @@
                          (send this delete-child cnvs)
                          (send this delete-child button)
                          (let ([children (send this get-children)])
-                           (cond [(null? children) (void)]
+                           (cond [(null? children) 
+                                  (send abr set-label "")
+                                  (send top-panel no-videos)]
                                  [else (send (car children) promote-self)])))]
              [enabled #f]))
       
