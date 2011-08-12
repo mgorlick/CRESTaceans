@@ -103,7 +103,7 @@
                     [stretchable-width #f]
                     [parent button-panel]))
   (define port (new text-field%
-                    [label "IP"]
+                    [label "Port"]
                     [parent button-panel]
                     [init-value "1235"]
                     [min-width 50]
