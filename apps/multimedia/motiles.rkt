@@ -66,7 +66,7 @@
                                (ask/send* "DELETE" decoder v #f)
                                (respawn decoder (Quit/MV.host v) (Quit/MV.port v)))
                              (hash/keys decoders))
-                   (shutdown-gui g)
+                   ;(shutdown-gui g)
                    (clear-current-gui-curl!)]
                   
                   [(Quit? v)
@@ -74,7 +74,7 @@
                    (for-each (lambda (decoder)
                                (ask/send* "DELETE" decoder v #f))
                              (hash/keys decoders))
-                   (shutdown-gui g)
+                   ;(shutdown-gui g)
                    (clear-current-gui-curl!)]
                   
                   [(gui-message-closed-feed? v)
