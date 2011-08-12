@@ -118,10 +118,13 @@
                          [parent button-panel]
                          [label "Move this session"]
                          [callback (λ (btn ctrlevt)
+                                     (map (λ (child) (send frame delete-child child)) 
+                                          (send frame get-children))
+                                     (send frame show #f)
+                                     (send frame enable #f)
                                      (cb (gui-message-mv (send host get-value) 
                                                          (string->number (send port get-value))))
-                                     (send frame show #f)
-                                     (send frame enable #f))]))
+                                     (send frame on-close))]))
   
   (define top-panel (new video-top-panel%
                          [parent the-window]

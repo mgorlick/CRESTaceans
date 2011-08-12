@@ -149,6 +149,7 @@
                     (semaphore-wait readlock)
                     (define old-readlock readlock)
                     (set! c f)
+                    (semaphore-post writelock)
                     (set! writelock (make-semaphore 1))
                     (set! readlock (make-semaphore 0))
                     (semaphore-post old-readlock)])])))
