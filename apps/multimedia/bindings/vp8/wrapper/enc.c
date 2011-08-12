@@ -6,8 +6,7 @@
 #include <vpx/vpx_encoder.h>
 #include <vpx/vp8cx.h>
 
-int ENCODER_SPEEX = VPX_DL_REALTIME;
-int THREADS = 8;
+int ENCODER_SPEED = VPX_DL_REALTIME;
 
 typedef struct VP8Enc {
   vpx_codec_ctx_t *codec;
@@ -26,7 +25,8 @@ void vp8enc_delete (VP8Enc *enc) {
   free (enc);
 }
 
-VP8Enc* vp8enc_new (int enc_frame_width, int enc_frame_height,
+VP8Enc* vp8enc_new (int num_threads, 
+		    int enc_frame_width, int enc_frame_height,
                     int enc_fps_numerator, int enc_fps_denominator) {
   unsigned int i;
   vpx_codec_err_t status;
@@ -54,7 +54,7 @@ VP8Enc* vp8enc_new (int enc_frame_width, int enc_frame_height,
   /* QUALITY SETTINGS */
 
   cfg.rc_target_bitrate = cfg.g_w;
-  cfg.g_threads = THREADS;
+  cfg.g_threads = num_threads;
   /* these three settings disable the behavior where the first ~10-20MB
      of data gets produced in 50-75KB chunks, therefore speeding up
      the start of stream and reducing variation in picture quality */
@@ -129,7 +129,7 @@ int vp8enc_encode (VP8Enc *enc,
   convert_yuv422_to_yuv420p (enc, buffer);
    
   status = vpx_codec_encode (enc->codec, enc->image, enc->n_frames++, 
-			     1, flags, VPX_DL_REALTIME);
+			     1, flags, ENCODER_SPEED);
   if (status != VPX_CODEC_OK) goto no_frame;
 
   status = vpx_codec_set_cx_data_buf (enc->codec, &fbuff, 0, 0);
