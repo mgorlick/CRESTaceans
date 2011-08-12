@@ -6,8 +6,7 @@
 #include <vpx/vpx_encoder.h>
 #include <vpx/vp8cx.h>
 
-int ENCODER_SPEEX = VPX_DL_REALTIME;
-int THREADS = 8;
+int ENCODER_SPEED = VPX_DL_REALTIME;
 
 typedef struct VP8Enc {
   vpx_codec_ctx_t *codec;
@@ -15,7 +14,6 @@ typedef struct VP8Enc {
   int width;
   int height;
   vpx_codec_pts_t n_frames;
-
   struct SwsContext *swsctx;
 } VP8Enc;
 
@@ -27,9 +25,10 @@ void vp8enc_delete (VP8Enc *enc) {
   free (enc);
 }
 
-VP8Enc* vp8enc_new (int enc_frame_width, int enc_frame_height,
+VP8Enc* vp8enc_new (int num_threads, 
+		    int enc_frame_width, int enc_frame_height,
                     int enc_fps_numerator, int enc_fps_denominator) {
-  int i;
+  unsigned int i;
   vpx_codec_err_t status;
   vpx_codec_enc_cfg_t cfg;
   VP8Enc *enc;
@@ -54,9 +53,8 @@ VP8Enc* vp8enc_new (int enc_frame_width, int enc_frame_height,
 
   /* QUALITY SETTINGS */
 
-  /* scale bitrate linearly with width for now */
   cfg.rc_target_bitrate = cfg.g_w;
-  cfg.g_threads = THREADS;
+  cfg.g_threads = num_threads;
   /* these three settings disable the behavior where the first ~10-20MB
      of data gets produced in 50-75KB chunks, therefore speeding up
      the start of stream and reducing variation in picture quality */
@@ -68,16 +66,15 @@ VP8Enc* vp8enc_new (int enc_frame_width, int enc_frame_height,
   if (status != VPX_CODEC_OK) goto no_init;
 
   int ctrls[] = { VP8E_SET_CQ_LEVEL, VP8E_SET_TUNING };
-  int vals[] = { 63, VP8_TUNE_PSNR };
+  int vals[] = { 63, VP8_TUNE_SSIM };
   for (i = 0; i < sizeof (ctrls) / sizeof (*ctrls); i++) {
     status = vpx_codec_control_ (enc->codec, ctrls[i], vals[i]);
     if (status != VPX_CODEC_OK) 
-      printf ("vpx encoder: ouldn't set setting %d, proceeding anyway (status %d)\n",
-	      i, status);
+      printf ("vpx encoder: couldn't set setting %d, proceeding anyway (status %d)\n", i, status);
   }
 
   /* pixel-format-specific offset and stride settings */
-  enc->image = vpx_img_alloc (NULL, VPX_IMG_FMT_VPXI420, cfg.g_w, cfg.g_h, 0);
+  enc->image = vpx_img_alloc (NULL, VPX_IMG_FMT_YV12, cfg.g_w, cfg.g_h, 0);
 
   /* tracking values for conversion and encoding later */
   enc->width = cfg.g_w;
@@ -132,7 +129,7 @@ int vp8enc_encode (VP8Enc *enc,
   convert_yuv422_to_yuv420p (enc, buffer);
    
   status = vpx_codec_encode (enc->codec, enc->image, enc->n_frames++, 
-			     1, flags, VPX_DL_REALTIME);
+			     1, flags, ENCODER_SPEED);
   if (status != VPX_CODEC_OK) goto no_frame;
 
   status = vpx_codec_set_cx_data_buf (enc->codec, &fbuff, 0, 0);

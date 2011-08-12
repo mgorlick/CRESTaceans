@@ -3,6 +3,12 @@
 ; Utility routines used to construct the BASELINE and other principal island environs.
 
 (require
+ 
+ (for-syntax racket/base)
+ 
+ (only-in "../persistent/environ.rkt"
+          pairs/environ)
+ 
  (only-in
   "frame.rkt"
   arguments/pack
@@ -11,11 +17,11 @@
   a/EMPTY
   arity/verify
   vector/list/copy!)
-(only-in
- "utility.rkt"
- decompile?
- error/motile/internal/call
- k/RETURN))
+ (only-in
+  "utility.rkt"
+  decompile?
+  error/motile/internal/call
+  k/RETURN))
 
 (provide
  define/combinator/2
@@ -28,8 +34,12 @@
  descriptor/global
  motile/call
  motile/call/3
- motile/decompile)
- 
+ motile/decompile
+ pairs/environ
+ ++
+ global-defines
+ require-spec->global-defines)
+
 (define (descriptor/global symbol)
   (vector-immutable 'reference/global symbol))
 
@@ -73,6 +83,58 @@
            (k (combinator instance h seed))))
         ((decompile? k a g) descriptor)
         (else (error/motile/internal/call symbol))))))
+
+;; ----- BEGIN KYLE -----
+;; The following functions wrap host Scheme primitives allowing those primitives to be invoked
+;; within Motile and to be properly "decompiled" for network transmission.
+
+#|(define (symbol->motile-procedure-name symbol n)
+  (string->symbol (format "@motile-global@/~a/~a" n symbol)))
+
+(define (motile-named-procedure symbol n wrapper-lambda)
+  (cons symbol (procedure-rename wrapper-lambda (symbol->motile-procedure-name symbol n))))
+
+; a special case for procedures whose arities are unconstrainted at environment-construction time.
+(define (define/global/N symbol procedure)
+  (let ((descriptor (vector 'reference/global symbol)))
+    (motile-named-procedure symbol 'N (lambda (k _rte _global . arguments)
+                                        (if k
+                                            (k (apply procedure arguments))
+                                            descriptor)))))
+
+; procedure arities for calls to define-global/K-definer ===> some define/global/K definition
+(define global-define-dispatch (make-hash))
+
+(define-syntax (define-global/K-definer stx)
+  (syntax-case stx ()
+    [(k n) ; n can ONLY be a number literal
+     (with-syntax 
+         ([id:define/global
+           (datum->syntax #'k ; produces define/global/K as an identifier
+                          (string->symbol (format "define/global/~a" (syntax->datum #'n))))]
+          [(id:global-args ...) ; generated identifiers for use inside define/global/K definition - see below
+           (generate-temporaries (build-list (syntax->datum #'n) values))])
+       #'(begin
+           (define (id:define/global symbol procedure)
+             (motile-named-procedure
+              symbol n (case-lambda
+                         [(k _rte _global id:global-args ...) (k (procedure id:global-args ...))]
+                         [(k _rte _global) (unless k (vector 'reference/global symbol))])))
+           (hash-set! global-define-dispatch n id:define/global)
+           (provide id:define/global)))]))
+
+(define-global/K-definer 0)
+(define-global/K-definer 1)
+(define-global/K-definer 2)
+(define-global/K-definer 3)
+(define-global/K-definer 4)
+(define-global/K-definer 5)
+(define-global/K-definer 6)
+(define-global/K-definer 7)
+(define-global/K-definer 8)
+(define-global/K-definer 9)
+(define-global/K-definer 10)
+------ END KYLE ----------|#
 
 ;; The following helper functions: motile/global/0, ..., motile/global/3
 ;; wrap host Scheme functions so that they can be called from Motile programs.
@@ -154,16 +216,58 @@
 (define-syntax-rule (define/combinator/3 symbol combinator)
   (cons symbol (motile/combinator/3 symbol combinator)))
 
+; global-defines: for each function P in the arguments list:
+; - if P has arity K and only K, produce a call to the arity-correct define/global/K function to wrap P.
+; - if P is a multiple-arity function wrap it with define/global/N.
+; - if P is not a function just cons it with its symbol.
+; result: form a list of all produced global definitions, as expected by ++
+(define global-define-dispatch (vector motile/global/0 motile/global/1 motile/global/2 motile/global/3))
+(define-syntax global-defines
+  (syntax-rules ()
+    [(_ p ...)
+     (list (cond [(not (symbol? 'p))
+                  (error (format "error: unnameable procedure ~a given to global-defines" p))]
+                 [(procedure? p)
+                  (define arity (procedure-arity p))
+                  (cond [(and (exact-nonnegative-integer? arity) 
+                              (< arity (vector-length global-define-dispatch)))
+                         (cons 'p ((vector-ref global-define-dispatch arity) 'p p))]
+                        [else 
+                         (define/global/N 'p p)])]
+                 [else 
+                  (cons 'p p)])
+           ...)]))
+
+; require-spec->global-defines:
+; take the imports instantiated from a module via a require-spec and produce global-defines out of them.
+; note: current implementation requires callee to use `(except-in spec macro1 macro2 macro3)'
+; since there appears to be no way to filter out macro identifiers at macro processing time.
+(require (for-syntax racket/require-transform))
+(define-syntax (require-spec->global-defines stx)
+  (syntax-case stx ()
+    [(k spec)
+     ; process the require-spec to get imported IDs
+     (let-values ([(imports import-sources) (expand-import #'spec)])
+       (with-syntax ([(names ...) (map import-local-id imports)]) ; pull the IDs out
+         ; rewrite in terms of a call to global-defines
+         #'(global-defines names ...)))]))
+
+; add one or more (list (define/global/A 'foo foo) (define/global/B 'bar bar) ...)
+; to an environment yielding a new environment
+(define (++ base-environment . global-defines-lists)
+  (define (flip f) (λ (b a) (f a b)))
+  (foldl (flip pairs/environ) base-environment global-defines-lists))
+
 ;; This is the inverse of the helper macros above.
 ;; It allows a Scheme host function to a call a Motile function f in the context of global binding environ g.
 ;; The value returned is the value computed by f.
 (define (motile/call f g . arguments)
-  ;(f k/RETURN (if (null? arguments) a/EMPTY (arguments/list/pack arguments)) g))
   (f k/RETURN (if (null? arguments) #f (arguments/list/pack arguments)) g))
+
 ;; Like motile/call but the arguments to f must be assembled as a list.
 (define (motile/call/3 f g arguments)
-  ;(f k/RETURN (arguments/list/pack arguments) g))
   (f k/RETURN (if (null? arguments) #f (arguments/list/pack arguments)) g))
+
 ;; Given a Motile code closure c returns the decompilation of c as a
-;; Motile Assembly Languaage (MAL) graph.
+;; Motile Assembly Graph (MAG).
 (define (motile/decompile c) (c #f #f #f))

@@ -59,6 +59,20 @@
   error/motile/type
   k/RETURN))
 
+(require  racket/pretty
+         "persistent/environ.rkt"
+         "persistent/vector.rkt"
+         "persistent/hash.rkt"
+         "persistent/set.rkt"
+         "persistent/tuple.rkt")
+
+(provide BASELINE
+         ENVIRON/TEST
+         define/global/0
+         define/global/N
+         define/combinator/2
+         define/combinator/3)
+
 ;; Motile-specific reworkings of map, apply, and for-each.
 
 ;; Generates a wrapper for map-like combinators.
@@ -160,7 +174,6 @@
          (k g))
         ((decompile? k a g) descriptor)
         (else (error/motile/internal/call 'environ/capture))))))
-
 
 ;; Motile-specific call/cc.
 ;(define (call/cc k f)
@@ -378,7 +391,7 @@
     (define/global/2     'vector/ref        vector/ref)
     (define/global/N     'vector/subvector  vector/subvector)
     (define/global/3     'vector/update     vector/update)
-
+    
     ; Persistent functional hash tables.
     ; Type test for hash tables.
     (define/global/1 'hash/persist?      hash/persist?)
@@ -410,7 +423,7 @@
     (define/combinator/2 'hash/map       hash/map)
     (define/combinator/2 'hash/filter    hash/filter)
     (define/combinator/2 'hash/partition hash/partition)
-
+    
     ; Persistent functional unordered sets.
     (define/global/1     'set/persist?     set/persist?)
     (cons                'set/eq/null      set/eq/null)
@@ -439,7 +452,7 @@
     (define/combinator/2 'set/map          set/map)
     (define/combinator/2 'set/filter       set/filter)
     (define/combinator/2 'set/partition    set/partition)
-
+    
     ; Tuples.
     (define/global/1     'tuple?           tuple?)
     (define/global/1     'tuple/length     tuple/length)
@@ -460,12 +473,12 @@
     (define/combinator/2 'tuple/filter     tuple/filter)
     (define/combinator/2 'tuple/map        tuple/map)
     (define/combinator/2 'tuple/partition  tuple/partition)
-
+    
     ; Binding environments
     (cons 'environ/null environ/null)
     (cons 'environ/capture (motile/environ/capture))
     (define/global/2 'environ/merge environ/merge)
-
+    
     ; Higher order functions.
     (cons            'apply     (motile/apply))
     (cons            'map       (motile/metamap 'map      map))
@@ -481,7 +494,7 @@
     (define/global/1 'unbox    unbox)
     (define/global/2 'box!     set-box!)
     (define/global/2 'set-box! set-box!) ; For compatibility with Racket.
-
+    
     ; Generic list sort.
     (cons 'sort (motile/sort))
     )))
@@ -497,7 +510,7 @@
     (define/global/1 'vector-length vector-length)
     (define/global/2 'vector-ref    vector-ref)
     (define/global/3 'vector-set!   vector-set!)
-
+    
     ; For simple test output.
     (define/global/N 'sleep          sleep)
     (define/global/1 'display        display)

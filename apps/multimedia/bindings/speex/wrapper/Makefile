@@ -1,5 +1,5 @@
 SONAME = libracket-speex-wrapper.so
-CFLAGS = -fPIC -c -g -O3 -Wall
+CFLAGS = -fPIC -c -g -O3 -Wall -Wextra
 LIBDEPS = $$(pkg-config --cflags --libs libpulse-simple ao speex speexdsp)
 
 all: so

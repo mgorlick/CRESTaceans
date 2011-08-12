@@ -11,7 +11,7 @@
 
 #include "misc.h"
 
-int BUFFERS_REQUESTED = 5;
+int BUFFERS_REQUESTED = 10;
 
 typedef struct mmap_buffer {
   void *start;
@@ -20,7 +20,7 @@ typedef struct mmap_buffer {
 
 typedef struct v4l2_reader {
   int fd;
-  size_t mmap_buffer_count;
+  int mmap_buffer_count;
   mmap_buffer *mmap_buffers;
 } v4l2_reader;
 
@@ -63,10 +63,10 @@ v4l2_reader* v4l2_reader_new (void) {
   return v;
 }
 
-int v4l2_reader_open (v4l2_reader *v) {
+int v4l2_reader_open (v4l2_reader *v, char *devicename, unsigned int w, unsigned int h) {
   v4l2_format format;
   
-  v->fd = open ("/dev/video0", O_RDWR);
+  v->fd = open (devicename, O_RDWR);
 
   /* set pixel format, width, height, fps */
   /* try setting format and size */
@@ -78,10 +78,14 @@ int v4l2_reader_open (v4l2_reader *v) {
   }
   
   if (format.type != V4L2_BUF_TYPE_VIDEO_CAPTURE ||
-      format.fmt.pix.pixelformat != V4L2_PIX_FMT_YUYV) {
+      format.fmt.pix.pixelformat != V4L2_PIX_FMT_YUYV ||
+      format.fmt.pix.width != w ||
+      format.fmt.pix.height != h) {
     format.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
     format.fmt.pix.pixelformat = V4L2_PIX_FMT_YUYV;
     format.fmt.pix.field = 1;
+    format.fmt.pix.width = w;
+    format.fmt.pix.height = h;
 
     if (0 > ioctl (v->fd, VIDIOC_S_FMT, &format)) {
       log_err ("setting pixel format and frame dimensions");
@@ -92,48 +96,17 @@ int v4l2_reader_open (v4l2_reader *v) {
   memset (&format, 0x00, sizeof format);
   format.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   ioctl (v->fd, VIDIOC_G_FMT, &format);
-
-#if 0
-  v4l2_streamparm stream;
-  
-  /* device resets to 5 fps if this code runs, for some reason.
-   * figure out why? until then, just let it default to
-   * the highest framerate at the chosen resolution */
-  
-  /* stream params: first set type and get output params */
-  memset (&stream, 0x00, sizeof stream);
-  stream.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-  ioctl (v->fd, VIDIOC_G_PARM, &stream);
-
-  /* some cameras don't allow changing frame rates. try it... */
-  if (stream.parm.capture.capability & V4L2_CAP_TIMEPERFRAME) {
-    printf ("try changing framerate, d = %d, n = %d\n", enc_fps_numerator, enc_fps_denominator);
-    stream.parm.capture.timeperframe.numerator = enc_fps_numerator;
-    stream.parm.capture.timeperframe.denominator = enc_fps_denominator;
-
-    if (0 > ioctl (v->fd, VIDIOC_S_PARM, &stream)) {
-      log_err ("setting framerate");
-    } else {
-      memset (&stream, 0x00, sizeof stream);
-      stream.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
-      ioctl (v->fd, VIDIOC_G_PARM, &stream);
-      printf ("denom = %d, num = %d\n",
-              stream.parm.capture.timeperframe.denominator,
-              stream.parm.capture.timeperframe.numerator);
-    }
-  }
-#endif
   
   return 1;
 }
 
 void v4l2_reader_get_params (v4l2_reader *v,
                              /* output */
-                             int *frame_width,
-                             int *frame_height,
-                             int *fps_num,
-                             int *fps_denom,
-                             int *buffer_count) {
+                             unsigned int *frame_width,
+                             unsigned int *frame_height,
+                             unsigned int *fps_num,
+                             unsigned int *fps_denom,
+                             unsigned int *buffer_count) {
   v4l2_streamparm stream;
   v4l2_format format;
 
@@ -164,7 +137,7 @@ void v4l2_reader_get_params (v4l2_reader *v,
 }
 
 int v4l2_reader_make_buffers (v4l2_reader *v) {
-  int i;
+  unsigned int i;
   v4l2_requestbuffers reqbuf;
   v4l2_buffer buffer;
       
@@ -228,10 +201,10 @@ int v4l2_reader_enqueue_buffer (v4l2_reader *v, int index) {
   }
 }
 
-int v4l2_reader_dosetup (v4l2_reader *v) {
+int v4l2_reader_dosetup (v4l2_reader *v, char *devicename, unsigned int w, unsigned int h) {
   int res, i;
 
-  res = v4l2_reader_open (v) &&
+  res = v4l2_reader_open (v,devicename,w,h) &&
       v4l2_reader_make_buffers (v) &&
       v4l2_reader_start_stream (v);
 
@@ -244,7 +217,7 @@ int v4l2_reader_dosetup (v4l2_reader *v) {
   return res;
 }
 
-v4l2_reader* v4l2_reader_setup (void) {
+v4l2_reader* v4l2_reader_setup (char *devicename, int w, int h) {
 
   v4l2_reader *v = v4l2_reader_new ();
   
@@ -253,7 +226,7 @@ v4l2_reader* v4l2_reader_setup (void) {
     return NULL;
   }
   
-  if (!(v4l2_reader_dosetup (v))) {
+  if (!(v4l2_reader_dosetup (v,devicename,w,h))) {
     log_err ("reader setup");
     v4l2_reader_delete (v);
     return NULL;

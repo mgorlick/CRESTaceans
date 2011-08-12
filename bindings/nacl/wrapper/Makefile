@@ -2,11 +2,11 @@ UNAME := $(shell uname)
 
 ifeq ($(UNAME), Darwin)
 	SO = libnacl.dylib
-	CFLAGS = -m32 -fPIC -c -g -O3 -Wall
+	CFLAGS = -m32 -fPIC -c -g -O3 -Wall -Wextra -Werror
 	SOCOMMAND = -m32 -dynamiclib -o $(SO) -dylib
 else ifeq ($(UNAME), Linux)
 	SO = libnacl.so
-	CFLAGS = -fPIC -c -g -O3 -Wall
+	CFLAGS = -fPIC -c -g -O3 -Wall -Wextra -Werror
 	SOCOMMAND = -fPIC -O3 -shared -o $(SO)
 endif
 

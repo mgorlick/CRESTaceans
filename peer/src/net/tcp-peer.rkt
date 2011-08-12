@@ -115,7 +115,7 @@
     (input-port? (bytes? bytes? . -> . bytes?) . -> . void)
     (define encrypted-message (read i))
     (define message (read (open-input-bytes (decrypt (vector-ref encrypted-message 0) (vector-ref encrypted-message 1)))))
-    (thread-send reply-thread (deserialize (decompress message) BASELINE #f)))
+    (thread-send reply-thread (motile/deserialize (decompress message) #f)))
   
   ;; input thread: look for either (1) a signal on the control channel to exit,
   ;; or (3) a message to read, deserialize and deliver across the designated reply-to thread.
@@ -187,7 +187,7 @@
 
 (define/contract (request->serialized req)
   (request? . -> . msg?)
-  (serialize (request-message req)))
+  (motile/serialize (request-message req)))
 
 (define (writable->bytes t)
   (define o (open-output-bytes))
