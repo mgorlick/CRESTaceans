@@ -140,8 +140,7 @@
                            [style '(auto-hscroll auto-vscroll)]
                            [min-width 200]
                            [vert-margin 10]
-                           [horiz-margin 10]
-                           [spacing 10]))
+                           [horiz-margin 10]))
   (send frame show #t)
   (video-gui frame top-panel address-bar small-panel '()))
 
@@ -186,7 +185,7 @@
              [enabled #f]))
       (set! current-canvas (make-weak-box cnvs))
       (sleep 0)
-      (send (weak-box-value current-canvas) enable #t)))) 
+      (send (weak-box-value current-canvas) enable #t))))
 
 ; small-video-panel: holds small-video-canvas%es as they are created.
 (define small-video-panel%
@@ -197,16 +196,21 @@
     (define host-field hostfield)
     (define port-field portfield)
     
-    (define/public (add-video-canvas v abr evt-cb)  
+    (define/public (add-video-canvas v abr evt-cb)
+      
+      (define horizp (new horizontal-panel% [parent this] [alignment '(left top)]))
+      
       (define cnvs
         (new small-video-canvas%
-             [parent this]
+             [parent horizp]
              [cv v]
              [toppanel top-panel]
              [addressbar abr]
              [min-width (round (/ (video-playback-w v) 8))]
              [min-height (round (/ (video-playback-h v) 8))]
              [enabled #f]))
+      
+      (define vertp (new vertical-panel% [parent horizp] [alignment '(left top)]))
       
       (define (do-unsub tn ctrlevt)
         (evt-cb (gui-message-closed-feed (video-playback-name v)))
@@ -218,15 +222,17 @@
         (send cpy enable #f)
         (send mv show #f)
         (send mv enable #f)
-        (send this delete-child cnvs)
-        (send this delete-child unsub)
-        (send this delete-child cpy)
-        (send this delete-child mv)
+        (send horizp delete-child cnvs)
+        (send vertp delete-child unsub)
+        (send vertp delete-child cpy)
+        (send vertp delete-child mv)
+        (send horizp delete-child vertp)
+        (send this delete-child horizp)
         (let ([children (send this get-children)])
           (cond [(null? children) 
                  (send abr set-label "")
                  (send top-panel no-videos)]
-                [else (send (car children) promote-self)])))
+                [else (send (car (send (car children) get-children)) promote-self)])))
       
       (define (do-cpy btn ctrlevt)
         (evt-cb (gui-message-cp-child (video-playback-name v)
@@ -235,19 +241,19 @@
       
       (define unsub
         (new button%
-             [parent this]
+             [parent vertp]
              [label "Unsubscribe"]
              [callback do-unsub]))
       
       (define cpy
         (new button%
-             [parent this]
+             [parent vertp]
              [label "Share"]
              [callback do-cpy]))
       
       (define mv
         (new button%
-             [parent this]
+             [parent vertp]
              [label "Move"]
              [callback (λ (btn ctrlevt)
                          (do-cpy cpy ctrlevt)
