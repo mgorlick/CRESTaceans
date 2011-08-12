@@ -60,28 +60,6 @@
        [else (printf "Message not recognized: ~a~n" else)])
      (loop))))
 
-; extra console UI: not really an actor, though it probably should be in the future
-(define (consoleui)
-  (spawn
-   (let loop ()
-     (printf "Enter command...~n")
-     (define cmd (read))
-     (with-handlers ([exn:fail? (λ (e) (printf "~a~n" (exn-message e)) #f)])
-       (match cmd
-         
-         [`(cp ,uuid ,host ,port)
-          (define u (make-curl uuid))
-          (cp u (symbol->string host) port)]
-         
-         [`(mv ,uuid ,host ,port)
-          (define u (make-curl uuid))
-          (mv u (symbol->string host) port)]
-         
-         [a (printf "Command not recognized: ~s~n" a)]))
-     (loop))))
-
-(consoleui)
-
 ;; set up the listening server.
 (define *LISTENING-ON* (argsassoc "--host" #:no-val *LOCALHOST*))
 (define *LOCALPORT* (argsassoc "--port" #:no-val 5000 #:call string->number))
@@ -134,7 +112,7 @@
     (hash-set! curls=>motiles curl body)
     (hash-set! curls=>metadata curl metadata)
     (hash-set! curls=>replycurls curl reply)
-    (printf "a new actor installed at ~n\t~s~n" curl)))
+    (printf "a new actor installed at ~n\t~s (~a)~n" curl metadata)))
 
 ;; ----------
 ;; State-specific functions provided to actors (and chieftain)
@@ -160,15 +138,25 @@
 (define current-gui-curl
   (let ([c #f] [writelock (make-semaphore 1)] [readlock (make-semaphore 0)])
     (case-lambda
-      [() (semaphore-wait readlock) (semaphore-post readlock) c]
-      [(f) (semaphore-wait writelock)
-           (set! c f)
-           (semaphore-post readlock)])))
+      [() (call-with-semaphore readlock (λ () c))]
+      [(f) (cond [(message/uri? f)
+                  (semaphore-wait writelock)
+                  (set! c f)
+                  (semaphore-post readlock)]
+                 [(not f)
+                  (displayln "Giving up the GUI global lock")
+                  (semaphore-wait readlock)
+                  (define old-readlock readlock)
+                  (set! c f)
+                  (set! writelock (make-semaphore 1))
+                  (set! readlock (make-semaphore 0))
+                  (semaphore-post old-readlock)])])))
 
 ; allow an actor to get the current gui curl, set it, neither, or both, depending on binding environment.
 ; `current-gui-curl' itself shouldn't be added to a binding environment.
 (define get-current-gui-curl (procedure-reduce-arity current-gui-curl 0))
 (define set-current-gui-curl! (procedure-reduce-arity current-gui-curl 1))
+(define clear-current-gui-curl! (λ () (current-gui-curl #f)))
 
 ; a key piece of the ad hoc protocol we've set up:
 ; when a SPAWN message comes in, name the original reply-to CURL
@@ -180,18 +168,6 @@
             #:metadata (hash-ref curls=>metadata u)
             #:reply (hash-ref curls=>replycurls u)
             #:compile? #f))
-
-; copyable actors should respond to the `CP' message type if they need to do something special.
-; for example, upon recieving a `CP' the GUI recursively sends it to all the decoders connected.
-(define (cp u host port)
-  (respawn u host port)
-  (ask/send* "POST" u `(CP ,host ,port) #f))
-
-; moveable actors should respond to the `Quit/MV' message type if they need to do something special.
-; for example, cleaning up some non-garbage-collected resource.
-(define (mv u host port)
-  (respawn u host port)
-  (ask/send* "POST" u `(Quit/MV ,host ,port) #f))
 
 ;; the binding environs we'll use to parameterize actors spawned on this island
 (define MULTIMEDIA-BASE* 
@@ -205,8 +181,8 @@
                                       get-current-gui-curl)))
 (define GUI* 
   (++ GUI             (global-defines current-curl ask/send* 
-                                      get-current-gui-curl set-current-gui-curl! 
-                                      cp mv)))
+                                      get-current-gui-curl set-current-gui-curl! clear-current-gui-curl!
+                                      respawn)))
 (define AUDIO-DECODE* 
   (++ AUDIO-DECODE    (global-defines current-curl ask/send*)))
 
@@ -227,10 +203,10 @@
        (define relay-curl (make-curl (uuid)))
        (handle-spawn relay-curl relayer (metadata) root-curl)
        (handle-spawn (make-curl (uuid)) 
-                     (video-reader/encoder (argsassoc "--video" #:default "/dev/video0") 1280 720) 
+                     (video-reader/encoder (argsassoc "--video" #:default "/dev/video0") 640 480) 
                      (metadata produces/webm) relay-curl)
        
-       (ask/send request-thread "SPAWN" remoteroot (video-decoder/gui 1280 720)
+       (ask/send request-thread "SPAWN" remoteroot (video-decoder/gui 640 480)
                  #:metadata (metadata accepts/webm) #:reply relay-curl)])
 
 (cond [(argsassoc "--audio")

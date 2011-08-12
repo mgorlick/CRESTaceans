@@ -4,6 +4,7 @@
          racket/class
          racket/gui/base
          racket/match
+         "message-types.rkt"
          (planet "rgl.rkt" ("stephanh" "RacketGL.plt" 1 2)))
 
 (provide gui-main)
@@ -12,7 +13,7 @@
   (match (place-channel-get pls)
     [(list 'new-video-gui gw gh)
      (parameterize ([current-eventspace (make-eventspace)])
-       (define g (new-video-gui gw gh))
+       (define g (new-video-gui gw gh (λ (m) (place-channel-put pls m))))
        (let loop ()
          (define rq (place-channel-get pls))
          (match rq
@@ -29,6 +30,15 @@
 
 (define (gui-message-closed-window)
   `#(close-window))
+
+(define (gui-message-mv host port)
+  `#(mv ,host ,port))
+
+(define (gui-message-cp host port)
+  `#(cp ,host ,port))
+
+(define (gui-message-cp-child name host port)
+  `#(cp-child ,name ,host ,port))
 
 ; ------------------------------
 
@@ -55,7 +65,7 @@
 (struct video-gui (frame top-panel address-bar
                          small-video-panel videos) #:transparent #:mutable)
 
-(define (video-gui-add-video! g w h name event-callback)  
+(define (video-gui-add-video! g w h name event-callback)
   (define nv (make-video-playback w h name))
   (set-video-gui-videos! g (cons nv (video-gui-videos g)))
   
@@ -67,22 +77,54 @@
 
 ; ---------------------------------
 
-(define (new-video-gui width height)   
+(define (new-video-gui width height cb)   
   (define frame (new frame% 
                      [label ""]
                      [stretchable-width #f]
                      [stretchable-height #f]
                      [style '(no-resize-border)]))
+  
   (define the-window (new vertical-panel%
                           [parent frame]))
+  
   (define address-bar (new message%
                            [parent the-window]
                            [label ""]
                            [min-width 80]
+                           [min-height 10]
                            [auto-resize #t]
                            [font (make-object font% 12 'swiss)]))
+  
+  (define button-panel (new horizontal-panel%
+                            [parent the-window]))
+  (define host (new text-field%
+                    [label "Hostname"]
+                    [min-width 200]
+                    [stretchable-width #f]
+                    [parent button-panel]))
+  (define port (new text-field%
+                    [label "IP"]
+                    [parent button-panel]
+                    [init-value "1235"]
+                    [min-width 50]
+                    [stretchable-width #f]))
+  (define cp-button (new button%
+                         [parent button-panel]
+                         [label "Share this session"]
+                         [callback (λ (btn ctrlevt)
+                                     (cb (gui-message-cp (send host get-value) 
+                                                         (string->number (send port get-value)))))]))
+  (define mv-button (new button%
+                         [parent button-panel]
+                         [label "Move this session"]
+                         [callback (λ (btn ctrlevt)
+                                     (cb (gui-message-mv (send host get-value) 
+                                                         (string->number (send port get-value))))
+                                     (send frame show #f)
+                                     (send frame enable #f))]))
+  
   (define top-panel (new video-top-panel%
-                         [parent frame]
+                         [parent the-window]
                          [addressbar address-bar]
                          [alignment '(left top)]
                          [min-width width]
@@ -92,6 +134,8 @@
   (define small-panel (new small-video-panel%
                            [parent top-panel]
                            [main-panel top-panel]
+                           [hostfield host]
+                           [portfield port]
                            [alignment '(left top)]
                            [style '(auto-hscroll auto-vscroll)]
                            [min-width 200]
@@ -141,15 +185,17 @@
              [min-height (video-playback-h v)]
              [enabled #f]))
       (set! current-canvas (make-weak-box cnvs))
-      (send (weak-box-value current-canvas) enable #t)
-      (sleep 0))))
+      (sleep 0)
+      (send (weak-box-value current-canvas) enable #t)))) 
 
 ; small-video-panel: holds small-video-canvas%es as they are created.
 (define small-video-panel%
-  (class vertical-panel% [init main-panel]
+  (class vertical-panel% [init main-panel hostfield portfield]
     (super-new)
     (inherit get-parent)
     (define top-panel main-panel)
+    (define host-field hostfield)
+    (define port-field portfield)
     
     (define/public (add-video-canvas v abr evt-cb)  
       (define cnvs
@@ -162,28 +208,53 @@
              [min-height (round (/ (video-playback-h v) 8))]
              [enabled #f]))
       
-      (define button
+      (define (do-unsub tn ctrlevt)
+        (evt-cb (gui-message-closed-feed (video-playback-name v)))
+        (send cnvs show #f)
+        (send cnvs enable #f)
+        (send unsub show #f)
+        (send unsub enable #f)
+        (send cpy show #f)
+        (send cpy enable #f)
+        (send mv show #f)
+        (send mv enable #f)
+        (send this delete-child cnvs)
+        (send this delete-child unsub)
+        (send this delete-child cpy)
+        (send this delete-child mv)
+        (let ([children (send this get-children)])
+          (cond [(null? children) 
+                 (send abr set-label "")
+                 (send top-panel no-videos)]
+                [else (send (car children) promote-self)])))
+      
+      (define (do-cpy btn ctrlevt)
+        (evt-cb (gui-message-cp-child (video-playback-name v)
+                                      (send host-field get-value)
+                                      (string->number (send port-field get-value)))))
+      
+      (define unsub
         (new button%
              [parent this]
              [label "Unsubscribe"]
-             [callback (λ (btn ctrlevt)
-                         (evt-cb (gui-message-closed-feed (video-playback-name v)))
-                         (send cnvs enable #f)
-                         (send cnvs show #f)
-                         (send button enable #f)
-                         (send button show #f)
-                         (send this delete-child cnvs)
-                         (send this delete-child button)
-                         (let ([children (send this get-children)])
-                           (cond [(null? children) 
-                                  (send abr set-label "")
-                                  (send top-panel no-videos)]
-                                 [else (send (car children) promote-self)])))]
-             [enabled #f]))
+             [callback do-unsub]))
       
-      (send cnvs enable #t)
-      (send button enable #t)
+      (define cpy
+        (new button%
+             [parent this]
+             [label "Share"]
+             [callback do-cpy]))
+      
+      (define mv
+        (new button%
+             [parent this]
+             [label "Move"]
+             [callback (λ (btn ctrlevt)
+                         (do-cpy cpy ctrlevt)
+                         (do-unsub unsub ctrlevt))]))
+      
       (sleep 0)
+      (send cnvs enable #t)
       (send cnvs promote-self))))
 
 ; -------------------------

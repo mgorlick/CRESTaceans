@@ -9,6 +9,7 @@
 (define-motile-struct Quit [])
 (define-motile-struct Quit/MV [host port])
 (define-motile-struct CP [host port])
+(define-motile-struct CP-child [curl host port])
 (define-motile-struct None [])
 (define-motile-struct Frame [data timestamp])
 (define-motile-struct FrameBuffer [data size disposal ts])

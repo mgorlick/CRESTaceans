@@ -1,7 +1,8 @@
 #lang racket/base
 
 (require racket/place
-         racket/match)
+         unstable/match
+         "message-types.rkt")
 
 (provide (except-out (all-defined-out)
                      client/new-video-gui
@@ -15,36 +16,41 @@
 
 ; #('closed-feed <curl>)
 (define (gui-message-closed-feed? m)
-  (and (vector? m)
-       (= 2 (vector-length m))
-       (equal? (vector-ref m 0) 'closed-feed)))
+  (match? m (vector 'closed-feed _)))
 
 ; #('closed-window)
 (define (gui-message-closed-window? m)
-  (and (vector? m)
-       (= 1 (vector-length m))
-       (equal? (vector-ref m 0) 'closed-window)))
+  (match? m (vector 'closed-window)))
 
 ; #('pip-on <main curl> <sub curl>)
 (define (gui-message-pip-on? m)
-  (and (vector? m)
-       (= 3 (vector-length m))
-       (equal? (vector-ref m 0) 'pip-on)))
+  (match? m (vector 'pip-on _ _)))
 
 ; #('pip-off <main curl> <sub curl>)
 (define (gui-message-pip-off? m)
-  (and (vector? m)
-       (= 2 (vector-length m))
-       (equal? (vector-ref m 0) 'pip-off)))
+  (match? m (vector 'pip-off _ _)))
+
+; #('mv <host> <port>)
+(define (gui-message-mv? m)
+  (match? m (vector 'mv _ _)))
+
+; #('cp <host> <port>)
+(define (gui-message-cp? m)
+  (match? m (vector 'cp _ _)))
+
+; #('cp <curl> <host> <port>)
+(define (gui-message-cp-child? m)
+  (match? m (vector 'cp-child _ _ _)))
 
 (define (gui-message-closed-feed-curl m)
   (vector-ref m 1))
-(define (gui-message-pip-on-main-curl m)
-  (vector-ref m 1))
-(define (gui-message-pip-on-sub-curl m)
-  (vector-ref m 2))
-(define (gui-message-pip-off-main-curl m)
-  (vector-ref m 1))
+
+(define (selective-translate m)
+  (cond [(gui-message-mv? m) (Quit/MV (vector-ref m 1) (vector-ref m 2))]
+        [(gui-message-cp? m) (CP (vector-ref m 1) (vector-ref m 2))]
+        [(gui-message-closed-window? m) (Quit)]
+        [(gui-message-cp-child? m) (CP-child (vector-ref m 1) (vector-ref m 2) (vector-ref m 3))]
+        [else m]))
 
 ; places interface
 
@@ -55,6 +61,9 @@
   (place-channel-put pls (list 'new-video-gui w h))
   (video-gui-client pls (current-thread)))
 
+(define (shutdown-gui c)
+  (place-kill (video-gui-client-place c)))
+
 (define (client/video-gui-add-video! c w h name)
   (place-channel-put/get (video-gui-client-place c)
                          (list 'add-video w h name)))
@@ -63,7 +72,7 @@
   (define tre (thread-receive-evt))
   (define syncres (sync tre (video-gui-client-place c)))
   (cond [(equal? syncres tre) (thread-receive)]
-        [else (cons syncres #f)]))
+        [else (cons (selective-translate syncres) #f)]))
 
 (define (client/video-playback-buffersize p)
   (bytes-length p))
