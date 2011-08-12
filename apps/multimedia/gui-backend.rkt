@@ -258,13 +258,13 @@
       (define cpy
         (new button%
              [parent vertp]
-             [label "Share"]
+             [label "Share This Feed"]
              [callback do-cpy]))
       
       (define mv
         (new button%
              [parent vertp]
-             [label "Move"]
+             [label "Move This Feed"]
              [callback (λ (btn ctrlevt)
                          (do-cpy cpy ctrlevt)
                          (do-unsub unsub ctrlevt))]))
