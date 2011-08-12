@@ -30,6 +30,8 @@
  environ/merge
  environ/vector/remove
  environ/value
+ environ/symbol/value
+ environ/path/value
  list/environ
  pairs/environ
  )
@@ -107,7 +109,22 @@
 (define (environ/merge alpha beta)
   (environ/construct (hash/merge (environ/map alpha) (environ/map beta))))
 
-(define-syntax-rule (environ/value e symbol failure)
+(define (environ/value e accessor failure)
+  (cond
+    ((symbol? accessor) (environ/symbol/value e accessor failure))
+    ((vector? accessor) (environ/path/value   e accessor failure))
+    (else (error 'environ/value "accessor is neither symbol nor path but ~a" accessor))))
+
+(define (environ/symbol/value e symbol failure)
   (hash/ref (environ/map e) symbol failure))
+
+;; path is a vector of symbols.
+(define (environ/path/value e path failure)
+  (let loop ((e e) (i 0) (n (vector-length path)))
+    (cond
+      ((= i n) e)
+      ((environ? e)
+       (loop (environ/symbol/value e (vector-ref path i) failure) (add1 i) n))
+      (else failure))))
 
   

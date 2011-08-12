@@ -13,28 +13,16 @@
 ;; limitations under the License.
 
 ;; This implementation borrows heavily from Racket v5.0/collects/racket/private/serialize.rkt
-;; with numerous modifications to accommodate the serialized representations of Mischief mobile
-;; closures and continuations.
+;; with numerous modifications to accommodate the serialized representations of Motile mobile
+;; closures, continuations, and binding environments.
 ;; Many of the comments are paraphrases of the Racket Reference, Section 12.11, "Serialization."
 
 (require
- (only-in
-  "baseline.rkt" ; For testing only.
-  ENVIRON/TEST)
- "compile.rkt"
- "recompile.rkt"
+ (only-in "../generate/baseline.rkt" motile/decompile)
+ (only-in "recompile.rkt" motile/recompile motile/recompile/active?)
 
  (only-in
-  "persistent/vector.rkt"  ; For testing only.
-  vector/build
-  vector/update
-  vector/persist?)
-
- (only-in
-  "persistent/hash.rkt"
-  ; For testing only.
-  list/hash     
-  hash/eq/null
+  "../persistent/hash.rkt"
   ; Required for deconstruction and reconstruction.
   hash/persist?
   hash/eq?
@@ -46,10 +34,7 @@
   hash/construct)
  
  (only-in
-  "persistent/set.rkt"
-  ; For testing only.
-  list/set
-  set/eq/null
+  "../persistent/set.rkt"
   ; Required for deconstruction and reconstruction
   set/persist?
   set/eq?
@@ -60,21 +45,16 @@
   set/root
   set/construct)
  
- (only-in
-  "persistent/tuple.rkt"
-  ; For testing only.
-  tuple
-  list/tuple))
-
+ (only-in "../persistent/vector.rkt" vector/persist?))
+ 
 (provide 
  ;; Checks whether a value is serializable:
- serializable?
+ motile/serializable?
  
  ;; The two main routines:
- serialize
- deserialize
+ motile/serialize motile/deserialize
  
- serialized=?)
+ motile/serialized/equal?)
 
 ;; A serialized representation of a value v is a list
 ;; (<version> <structure-count> <structure-types> <n> <graph> <fixups> <final>) where:
@@ -88,6 +68,7 @@
 ;; <final> Serial specifier for the value v 
 
 ;; Graph points are either boxes whose contents specify the shape of a value to be constructed later:
+;; [Note: #&(...) is the reader form for a box]
 ;;   #&(v . N) denotes a vector N elements wide
 ;;   #&(b) denotes a box
 ;;   #&(h) denotes a hash table with eq? keys
@@ -122,7 +103,7 @@
   ;; serialize
   ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(define (serializable? v)
+(define (motile/serializable? v)
   (or 
    (boolean? v)
    (null? v)
@@ -167,7 +148,6 @@
       [(mutable? o) o]
       [else
        (find-mutable v (cdr cycle/stack))])))
-
 
 (define (share-id share cycle)
   (+ (hash-count share)
@@ -225,8 +205,8 @@
            [(or (string? v) (bytes? v))
             (void)] ; No sub-structure.
 
-           ; Persistent hash tables require particular care as the Mischief representation #('<hash/persist> <equality> <hash> <trie>)
-           ; contains two Racket (not Mischief!) procedures, <equality> and <hash>, the key equality test and the key hash code
+           ; Persistent hash tables require particular care as the Motile representation #('<hash/persist> <equality> <hash> <trie>)
+           ; contains two Racket (not Motile!) procedures, <equality> and <hash>, the key equality test and the key hash code
            ; generator respectively. We don't want the serializer to see either of those as it has no idea of what to do with them.
            ; The only element that requires deep inspection is the trie representing the contents of the persistent hash table.
            [(hash/persist? v) (loop (hash/root v))]
@@ -251,7 +231,7 @@
             (hash-for-each v (lambda (k v) (loop k) (loop v)))]
            
            [(procedure? v)
-            (let ((descriptor (motile/decompile v))) ; All Mischief code/procedure/continuation descriptors are vectors.
+            (let ((descriptor (motile/decompile v))) ; All Motile code/procedure/continuation descriptors are vectors.
               (loop descriptor))]
 
            [else (raise-type-error
@@ -375,7 +355,7 @@
                (if (not (hash-eq? v)) '(equal) null)
                (if (hash-weak? v) '(weak) null)))])) 
 
-(define (serialize v)
+(define (motile/serialize v)
   (let ([share (make-hasheq)]
         [cycle (make-hasheq)])
     ; Traverse v to find cycles and sharing
@@ -407,12 +387,17 @@
             [final (serialize-one v share #t)])
 
         (list '(2) ;; serialization-format version
-              0    ; Number of distinct structure types. Unused in Mischief and just temporary.
-              null ; List of distinct structure types. Unused in Mischief and just temporary.
+              0    ; Number of distinct structure types. Unused in Motile and just temporary.
+              null ; List of distinct structure types. Unused in Motile and just temporary.
               (length serializeds)
               serializeds ; The graph structure of the value.
               fixups
               final)))))
+
+(define (extract-version l)
+  (if (pair? (car l))
+      (values (caar l) (cdr l)) ; Values are <version> and (<unused_1> null <serializeds/length> <serializeds> <fixups> <final>) respectively.
+      (values 0 l)))
 
 ;; ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; deserialize
@@ -521,16 +506,16 @@
                         (make-immutable-hasheq al)
                         (make-immutable-hash al))))]
 
-         [(M) ; Mischief code descriptor.
+         [(M) ; Motile code descriptor.
           (let* ((descriptor (loop (cdr v)))
-                 (code (mischief/recompile/unit descriptor)))
-            (when (or 
-                   ;(code/reference/global?   descriptor)  ; References to global variables buried inside structures.
-                   (code/lambda/inner?       descriptor)
-                   (code/closure/inner?      descriptor)
-                   (code/lambda/rest/inner?  descriptor)
-                   (code/closure/rest/inner? descriptor))
-              (hash-set! procedures code descriptor))
+                 (code (motile/recompile descriptor)))
+            (when (motile/recompile/active? descriptor) (hash-set! procedures code descriptor))
+;            (when (or 
+;                   (lambda/inner?       descriptor)
+;                   (closure/inner?      descriptor)
+;                   (lambda/rest/inner?  descriptor)
+;                   (closure/rest/inner? descriptor))
+;              (hash-set! procedures code descriptor))
             code)]
 
          [else (error 'serialize "ill-formed serialization")])])))
@@ -581,9 +566,9 @@
           reconstruction)])]))
 
 (define (deserialize-with-map version l procedures)
-  (let ([share/n (list-ref l 2)]
-        [shares  (list-ref l 3)]
-        [fixups  (list-ref l 4)]  ; Association list of ((<id> . <serial>) ...) in ascending order of share-id.
+  (let ([share/n (list-ref l 2)]  ; <serializeds/length>
+        [shares  (list-ref l 3)]  ; <serializeds>
+        [fixups  (list-ref l 4)]  ; The fixups, an association list of ((<id> . <serial>) ...) in ascending order of the share-id.
         [final   (list-ref l 5)])
     ; Create vector for sharing:
     (let* ([fixup (make-vector share/n #f)]
@@ -607,10 +592,6 @@
       ; Deserialize final result. (If there's no sharing, then all the work is actually here.)
       (deserialize-one final share procedures))))
 
-(define (extract-version l)
-  (if (pair? (car l))
-      (values (caar l) (cdr l))
-      (values 0 l)))
 
 
 ;; Reconstitute the flat serialization into a live data structure closures and all.
@@ -622,36 +603,49 @@
 ;;   structure and whose values are the reconstituted closure descriptors embedded in the flat representation.
 ;;   The keys are effectively an enumeration of every closure contained in the live structure and the descriptors contain
 ;;   both the abstract assembly code for each closure as well as the the closed variables bindings for each closure.
-(define (deserialize flat globals procedures?)
+(define (motile/deserialize flat procedures?)
   (let-values ([(version flat) (extract-version flat)])
+    ; At this point version is a small positive integer and flat = (<unused> null <serializeds/length> <serializeds> <fixups> <final>).
+    ; The first two elements of flat are historical artifacts and will be removed in a future version of serialize/deserialize.
     (let* ((procedures (make-hasheq))
-           (outcome    (deserialize-with-map version flat procedures))
-           (frame      (and globals (vector #f globals)))
-           (reframe    (and frame (cons frame null))))
-      ; If there are Mischief procedures embedded somewhere in the deserialization then patch them up for execution.
-      (when (positive? (hash-count procedures))
-        (hash-for-each
-         procedures
-         (lambda (p d) ; p is the reconstituted Motile closure and d is the decompilation descriptor of that closure.
-           ; Reset the bindings of each closure to their values at the time of serialization.
-           (when (or (code/closure/inner? d) (code/closure/rest/inner? d))
-             ;(p #f (code/closure/inner/bindings d)))
-             ; Call the reconstituted Motile closure p as (p #f n b) where
-             ; #f - informs the closure that is either being decompiled or re
-             (p #f (code/closure/inner/bindings/span d) (code/closure/inner/bindings d)))
-           ; If a global binding environment is given then supply each lambda and closure with the proper base frame
-           ; (containing the global binding environment) for its run time stack.
-           (when globals
-             (p #f reframe)))))
+           (outcome    (deserialize-with-map version flat procedures)))
       (if procedures?
           (cons outcome procedures)
           outcome))))
 
+;(define (deserialize flat globals procedures?)
+;  (let-values ([(version flat) (extract-version flat)])
+;    ; At this point version is a small positive integer and flat = (<unused> null <serializeds/length> <serializeds> <fixups> <final>).
+;    ; The first two elements of flat are historical artifacts and will be removed in a future version of serialize/deserialize.
+;    (let* ((procedures (make-hasheq))
+;           (outcome    (deserialize-with-map version flat procedures))
+;           (frame      (and globals (vector #f globals)))
+;           (reframe    (and frame (cons frame null))))
+;      ; If there are Mischief procedures embedded somewhere in the deserialization then patch them up for execution.
+;      (when (positive? (hash-count procedures))
+;        (hash-for-each
+;         procedures
+;         (lambda (p d) ; p is the reconstituted Motile closure and d is the decompilation descriptor of that closure.
+;           ; Reset the bindings of each closure to their values at the time of serialization.
+;           (when (or (code/closure/inner? d) (code/closure/rest/inner? d))
+;             ;(p #f (code/closure/inner/bindings d)))
+;             ; Call the reconstituted Motile closure p as (p #f n b) where
+;             ; #f - informs the closure that is either being decompiled or re
+;             (p #f (code/closure/inner/bindings/span d) (code/closure/inner/bindings d)))
+;           ; If a global binding environment is given then supply each lambda and closure with the proper base frame
+;           ; (containing the global binding environment) for its run time stack.
+;           (when globals
+;             (p #f reframe)))))
+;      (if procedures?
+;          (cons outcome procedures)
+;          outcome))))
+
 ;; ----------------------------------------
 
-(define (serialized=? l1 l2)
+(define (motile/serialized/equal? v l1 l2)
   (let-values ([(version1 l1) (extract-version l1)]
                [(version2 l2) (extract-version l2)])
     (let ([v1 (deserialize-with-map version1 l1)]
           [v2 (deserialize-with-map version2 l2)])
       (equal? v1 v2))))
+

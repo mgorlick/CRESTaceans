@@ -4,6 +4,8 @@
  rackunit
  "../recompile.rkt"
 
+ racket/pretty
+
  (only-in
   "../persistent/environ.rkt"
   environ/value)
@@ -13,6 +15,8 @@
   motile/compile
   motile/decompile
   motile/start)
+ 
+ (only-in "serialize.rkt" serialize)
 
  "../baseline.rkt")
 
@@ -71,3 +75,32 @@
    (motile/start (motile/recompile/unit code) BASELINE))
  1000
  "Recompilation of environ/capture and environ/merge")
+
+(check-eqv?
+ (let ((code
+        (motile/decompile
+         (motile/compile
+          '(let ((E (let ((a 100) (b 200) (c 700) (+ +)) (environ/cons environ/null + a b c))))
+             (display E) (newline) (newline)
+             (environ/reflect E (+ a b c)))))))
+   (pretty-display code)
+   (motile/start (motile/recompile/unit code) ENVIRON/TEST))
+ 1000
+ "Recompilation of environ/reflect")
+
+;(let ((code
+;       (motile/decompile
+;        (motile/compile
+;         '(let ((+ +)
+;                (foo (lambda () 17))
+;                (bar (lambda () 3)))
+;           (environ/reflect (environ/cons environ/null + foo bar) (+ (foo) (bar))))))))
+;  (pretty-display code) (newline)
+;  (motile/start (motile/recompile/unit code) BASELINE))
+
+
+
+
+
+
+

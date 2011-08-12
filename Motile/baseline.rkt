@@ -17,348 +17,161 @@
  ENVIRON/TEST
  pairs/environ)
 
-(provide define/global/0
-         define/global/1
-         define/global/2
-         define/global/3
-         define/global/N
-         define/combinator/2
-         define/combinator/3)
-
 (require
  racket/pretty
- "persistent/environ.rkt"
- "persistent/vector.rkt"
+ (only-in
+  "persistent/environ.rkt"
+  environ/merge environ/null pairs/environ)
+ 
+"persistent/vector.rkt"
  "persistent/hash.rkt"
  "persistent/set.rkt"
- "persistent/tuple.rkt")
+ "persistent/tuple.rkt"
+ 
+ (only-in
+  "generate/baseline.rkt"
+  define/global/0
+  define/global/1
+  define/global/2
+  define/global/3
+  define/global/N
+  define/combinator/2
+  define/combinator/3
+  descriptor/global
+  motile/call)
+ 
+ (only-in
+  "generate/frame.rkt"
+  a/1 a/2 a/3 a/last
+  a/arity
+  a/flatten
+  a/rest
+  arguments/pack
+  arguments/list/pack
+  arity/verify
+  arity/rest/verify
+  vector/list/copy!)
+ 
+ (only-in
+  "generate/utility.rkt"
+  decompile?
+  error/motile/internal/call
+  error/motile/type
+  k/RETURN))
 
-;; Many of the persistent functional data structures implement combinators of the form (P d f)
-;; where C is a combinator of the persistent functional data structure, d is an instance
-;; of the data structure, and f a function applied by the combinator.
-;; These combinators must be wrapped before they can be used within Motile.
-;; The function defined here generates that wrapping.
-(define (motile/combinator/2 symbol combinator)
-  (case-lambda
-    ((rtk d f)
-     (let ((g (lambda (x) (f k/RETURN x))))
-       (rtk (combinator d g))))
-    ((k _) (global/decompile k symbol))))
+;; Motile-specific reworkings of map, apply, and for-each.
 
-;; In the same vein many of the persistent functional data structures implement fold-like
-;; combinators that require three arguments, a data structure instance d, a function f of two arguments
-;; applied by the combinator, and a seed value.
-;; As above, these combinators must be wrapped before they can be used within Motile.
-;; The function defined here generates that wrapping.
-(define (motile/combinator/3 symbol combinator)
-  (case-lambda
-    ((rtk d f x)
-     (let ((g (lambda (x y) (f k/RETURN x y))))
-       (rtk (combinator d g x))))
-    ((k _) (global/decompile k symbol))))
-  
-;; The following functions wrap host Scheme primitives allowing those primitives to be invoked
-;; within Motile and to be properly "decompiled" for network transmission.
-;(define (global/0 symbol procedure)
-;  (case-lambda 
-;    ((rtk) (rtk (procedure)))
-;    ((k x) (vector 'reference/global symbol))))
+;; Generates a wrapper for map-like combinators.
+;; symbol - name of map-like combinator
+;; base - host function for combinator
+(define (motile/metamap symbol base)
+  (let ((descriptor (descriptor/global symbol)))
+    (lambda (k a g) ; a = #(#f f L_1 L_2 ... L_n).
+      (cond
+        ((procedure? k)
+         (arity/rest/verify a 2 symbol)
+         (let ((f (a/1 a))
+               (arity (a/arity a)))
+           (cond
+             ((= arity 2) ; Common case of (base f L).
+              (k (base (lambda (x) (f k/RETURN (arguments/pack x) g)) (a/2 a))))
+             ((= arity 3) ; (base f L_1 L_2).
+              (k (base (lambda (x y) (f k/RETURN (arguments/pack x y) g)) (a/2 a) (a/3 a))))
+             (else ; (base f L_1 L_2 ... L_n).
+              (let ((Ls (a/rest a 2))) ; Ls = (L_1 ... L_n).
+                (k (apply base (lambda X (f k/RETURN (arguments/list/pack X) g)) Ls))))))) ; Awkward but unavoidable.
+        
+        ((decompile? k a g) descriptor)
+        
+        (else (error/motile/internal/call symbol))))))
 
-(define (motile/global/0 symbol procedure)
-  (let ((descriptor (vector 'reference/global symbol)))
-    (lambda (k _rte _global)
-      (if k
-          (k (procedure))
-          descriptor))))
+(define (motile/map)
+  (let ((descriptor (descriptor/global 'map)))
+    (lambda (k a g) ; a = #(#f f L_1 L_2 ... L_n).
+      (cond
+        ((procedure? k)
+         (arity/rest/verify a 2 'map)
+         (let ((f (a/1 a))
+               (arity (a/arity a)))
+           (cond
+             ((= arity 2) ; Common case of (map f L).
+              (k (map (lambda (x) (f k/RETURN (arguments/pack x) g)) (a/2 a))))
+             ((= arity 3) ; (map f L_1 L_2).
+              (k (map (lambda (x y) (f k/RETURN (arguments/pack x y) g)) (a/2 a) (a/3 a))))
+             (else ; (map f L_1 L_2 ... L_n).
+              (let ((Ls (a/rest a 2))) ; Ls = (L_1 ... L_n).
+                (k (apply map (lambda X (f k/RETURN (arguments/list/pack X) g)) Ls))))))) ; Awkward but unavoidable.
 
-;(define (global/1 symbol procedure)
-;  (lambda (rtk a) 
-;    (if rtk
-;        (rtk (procedure a))
-;        (vector 'reference/global symbol))))
+        ((decompile? k a g) descriptor)
 
-(define (motile/global/1 symbol procedure)
-  (let ((descriptor (vector 'reference/global symbol)))
-    (case-lambda
-      ((k _rte _global a) (k (procedure a)))
-      ((k _rte _global) (unless k descriptor)))))
+        (else (error/motile/internal/call 'map))))))
 
-;(define (global/2 symbol procedure)
-;  (case-lambda 
-;    ((rtk a b) (rtk (procedure a b)))
-;    ((k x) (vector 'reference/global symbol))))
+(define (motile/apply)
+  (let ((descriptor (descriptor/global 'apply)))
+    (lambda (k a g) ; a = #(#f f x_1 ... x_m L) where L = (y_1 ... y_n), a list, is required.
+      (cond
+        ((procedure? k)
+         (arity/rest/verify a 2 'apply) ; Must be a minimum of 2 arguments.
+         (let ((f    (a/1 a))
+               (last (a/last a)))       ; List L in the arguments.
+           (unless (list? last)
+             (error/motile/type 'apply "proper list" (a/arity a) last))
+           (if (= (a/arity a) 2)
+               ; Common special case of (apply f L).
+               (f k (arguments/list/pack last) g)
+               ; General case of (apply f x_1 ... x_m L).
+               (f k (a/flatten a 1) g)))) ; Call f with argument frame #(#f x_1 ... x_m y_1 ... y_n).
+        
+        ((decompile? k a g) descriptor)
+        
+        (else (error/motile/internal/call 'apply))))))
 
-(define (motile/global/2 symbol procedure)
-  (let ((descriptor (vector 'reference/global symbol)))
-    (case-lambda
-      ((k _rte _global a b) (k (procedure a b)))
-      ((k _rte _global) (unless k descriptor)))))
+(define (motile/sort)
+  (let ((descriptor (descriptor/global 'sort)))
+    (lambda (k a g) ; a = #(#f L less?) where L is a list of items to be sorted and less? is a comparison predicate.
+      (cond
+        ((procedure? k)
+         (arity/verify a 2 'sort)
+         (let ((items (a/1 a))
+               (less? (a/2 a)))
+           (k (sort items (lambda (alpha beta) (less? k/RETURN (arguments/pack alpha beta) g))))))
+        ((decompile? k a g) descriptor)
+        (else (error/motile/internal/call 'sort))))))
 
-;(define (global/3 symbol procedure)
-;  (case-lambda 
-;    ((rtk a b c) (rtk (procedure a b c)))
-;    ((k x) (vector 'reference/global symbol))))
+(define (motile/call-with-continuation)
+  (let ((descriptor (descriptor/global 'call/cc)))
+    (lambda (k a g) ; a = #(#f f) where f is the single-argument function passed to call/cc.
+      (cond
+        ((procedure? k)
+         (arity/verify a 1 'call/cc)
+         (let ((f (a/1 a))
+               (reification (lambda (_k a _g) (k (a/1 a))))) ; Continuation k reified as a one-argument Motile function.
+           ; Now call f with the reification as an argument.
+           (f k (arguments/pack reification) g))) ; NOTE: k here is continuation at call position of call/cc.
+        ((decompile? k a g) descriptor)
+        (else (error/motile/internal/call 'call/cc))))))
 
-(define (motile/global/3 symbol procedure)
-  (let ((descriptor (vector 'reference/global symbol)))
-    (case-lambda
-      ((k _rte _global a b c) (k (procedure a b c)))
-      ((k _rte _global) (unless k descriptor)))))
+(define (motile/environ/capture)
+  (let ((descriptor (descriptor/global 'environ/capture)))
+    (lambda (k a g)
+      (cond
+        ((procedure? k)
+         (arity/verify a 0 'environ/capture)
+         (k g))
+        ((decompile? k a g) descriptor)
+        (else (error/motile/internal/call 'environ/capture))))))
 
-(define (global/N symbol procedure)
-  (lambda (rtk . arguments)
-    (if rtk
-        (rtk (apply procedure arguments))
-        (vector 'reference/global symbol))))
-
-(define (motile/global/N symbol procedure)
-  (let ((descriptor (vector 'reference/global symbol)))
-    (lambda (k _rte _global . arguments)
-      (if k
-          (k (apply procedure arguments))
-          descriptor))))
-
-;(define (global/0/generate symbol procedure)
-;  (case-lambda 
-;    ((rtk) (rtk (procedure)))
-;    ((k x) (vector 'reference/global symbol))))
-;
-;(define (global/1/generate symbol procedure)
-;  (lambda (rtk a) 
-;    (if rtk
-;        (rtk (procedure a))
-;        (vector 'reference/global symbol))))
-;
-;(define (global/2/generate symbol procedure)
-;  (case-lambda 
-;    ((rtk a b) (rtk (procedure a b)))
-;    ((k x) (vector 'reference/global symbol))))
-;
-;(define (global/3/generate symbol procedure)
-;  (case-lambda 
-;    ((rtk a b c) (rtk (procedure a b c)))
-;    ((k x) (vector 'reference/global symbol))))
-;
-;(define (global/N/generate symbol procedure)
-;  (lambda (rtk . arguments)
-;    (if rtk
-;        (rtk (apply procedure arguments))
-;        (vector 'reference/global symbol))))
-
-(define-syntax-rule (define/global/0 symbol procedure)
-  (cons symbol (motile/global/0 symbol procedure)))
-
-(define-syntax-rule (define/global/1 symbol procedure)
-  (cons symbol (motile/global/1 symbol procedure)))
-
-(define-syntax-rule (define/global/2 symbol procedure)
-  (cons symbol (motile/global/2 symbol procedure)))
-
-(define-syntax-rule (define/global/3 symbol procedure)
-  (cons symbol (motile/global/3 symbol procedure)))
-
-(define-syntax-rule (define/global/N symbol procedure)
-  (cons symbol (motile/global/N symbol procedure)))
-
-(define-syntax-rule (define/combinator/2 symbol combinator)
-  (cons symbol (motile/combinator/2 symbol combinator)))
-
-(define-syntax-rule (define/combinator/3 symbol combinator)
-  (cons symbol (motile/combinator/3 symbol combinator)))
-
-;; Special cases
-;; Higher-order host primitives that accept a closure C as an argument, for example, apply or map,
-;; require special treatment as a Motile closure requires a continuation k as its first argument.
-
-(define (k/RETURN x) x) ; The trivial continuation.
-
-;; Motile-specific reworkings of map, apply, and for-each that accomodates the closure argument correctly.
-;(define (motile/map rtk f . arguments)
-;  (if rtk
-;      (let ((g (lambda rest (apply f k/RETURN rest))))
-;        (rtk (apply map g arguments)))
-;      (vector 'reference/global 'map)))
-
-(define (motile/map k e g u . arguments)
-  (if k
-      (let ((v (lambda rest (apply u k/RETURN e g rest))))
-        (k (apply map v arguments)))
-      #(reference/global map)))
-
-;(define (motile/apply rtk f . arguments)
-;  (if rtk
-;      (rtk (apply f k/RETURN arguments))
-;      (vector 'reference/global 'apply)))
-
-(define (motile/apply k e g u . arguments)
-  (if k
-      (k (apply u k/RETURN e g arguments))
-      #(reference/global apply)))
-
-;(define (motile/for-each rtk f . arguments)
-;  (if rtk
-;      (let ((g (lambda rest (apply f k/RETURN rest))))
-;        (rtk (apply for-each g arguments)))
-;      (vector 'reference/global 'for-each)))
-
-(define (motile/for-each k e g u . arguments)
-  (if k
-      (let ((v (lambda rest (apply u k/RETURN e g rest))))
-        (k (apply for-each v arguments)))
-      #(reference/global for-each)))
-
-(define (global/decompile k name)
-  (if k
-      (error name "too few arguments")
-      (vector 'reference/global name)))
-
-;(define motile/sort
-;  (case-lambda
-;    ((rtk items less?)
-;     (let ((p (lambda (alpha beta) (less? k/RETURN alpha beta))))
-;       (rtk (sort items p))))
-;    ((k _) (global/decompile k 'sort))))
-
-(define motile/sort
-  (case-lambda
-    ((k e g items less?)
-     (let ((p (lambda (alpha beta) (less? k/RETURN e g alpha beta))))
-       (k (sort items p))))
-    ((k e g)
-     (if k
-         (error 'sort "too few arguments")
-         #(reference/global sort)))
-    (_ (error 'sort "incorrect number of arguments"))))
-
-
-;; Motile-specific reworkings of persistent vector primitives that accept functions as arguments.
-
-;(define motile/vector/build
-;  (case-lambda
-;    ((rtk n f)
-;     (let ((g (lambda (i) (f k/RETURN i))))
-;        (rtk (vector/build n g))))
-;    ((k _) (global/decompile k 'vector/build))))
-;
-;(define motile/vector/fold/left
-;  (case-lambda
-;    ((rtk v f seed)
-;     (let ((g (lambda (value seed) (f k/RETURN value seed))))
-;        (rtk (vector/fold/left v g seed))))
-;    ((k _) (global/decompile k 'vector/fold/left))))
-;
-;(define motile/vector/fold/right
-;  (case-lambda
-;    ((rtk v f seed)
-;     (let ((g (lambda (value seed) (f k/RETURN value seed))))
-;        (rtk (vector/fold/right v g seed))))
-;    ((k _) (global/decompile k 'vector/fold/right))))
-;
-;(define motile/vector/filter
-;  (case-lambda
-;    ((rtk v p)
-;     (let ((q (lambda (value) (p k/RETURN value))))
-;       (rtk (vector/filter v q))))
-;    ((k _) (global/decompile k 'vector/filter))))
-;
-;(define motile/vector/map
-;  (case-lambda
-;    ((rtk v f)
-;     (let ((g (lambda (value) (f k/RETURN value))))
-;        (rtk (vector/map v g))))
-;    ((k _) (global/decompile 'vector/map))))
-
-;; Motile-specific reworkings of higher-order, persistent hash table primitives 
-
-;(define motile/hash/fold
-;  (case-lambda
-;    ((rtk h f seed)
-;     (let ((g (lambda (value seed) (f k/RETURN value seed))))
-;        (rtk (hash/fold h g seed))))
-;    ((k _) (global/decompile k 'hash/fold))))
-;
-;(define motile/hash/map
-;  (case-lambda
-;    ((rtk h f)
-;     (let ((g (lambda (pair) (f k/RETURN pair))))
-;        (rtk (hash/map h g))))
-;    ((k _) (global/decompile k 'hash/map))))
-;
-;(define motile/hash/filter
-;  (case-lambda
-;    ((rtk h p)
-;     (let ((q (lambda (pair) (p k/RETURN pair))))
-;        (rtk (hash/filter h q))))
-;    ((k _) (global/decompile k 'hash/filter))))
-;
-;(define motile/hash/partition
-;  (case-lambda
-;    ((rtk h p)
-;     (let ((q (lambda (pair) (p k/RETURN pair))))
-;        (rtk (hash/partition h q))))
-;    ((k _) (global/decompile k 'hash/partition))))
-
-;; Motile-specific reworkings of higher-order, persistent unordered set primitives.
-
-;(define motile/set/fold
-;  (case-lambda
-;    ((rtk s f seed)
-;     (let ((g (lambda (value seed) (f k/RETURN value seed))))
-;        (rtk (set/fold s g seed))))
-;    ((k _) (global/decompile k 'set/fold))))
-;
-;(define motile/set/map
-;  (case-lambda
-;    ((rtk s f)
-;     (let ((g (lambda (value) (f k/RETURN value))))
-;        (rtk (set/map s g))))
-;    ((k _) (global/decompile k 'set/map))))
-;
-;(define motile/set/filter
-;  (case-lambda
-;    ((rtk s p)
-;     (let ((q (lambda (value) (p k/RETURN value))))
-;        (rtk (set/filter s q))))
-;    ((k _) (global/decompile k 'set/filter))))
-;
-;(define motile/set/partition
-;  (case-lambda
-;    ((rtk s p)
-;     (let ((q (lambda (value) (p k/RETURN value))))
-;        (rtk (set/partition s q))))
-;    ((k _) (global/decompile k 'set/partition))))
-
-
-;; Motile-specific reworkings of higher-order tuple primitives.
-
-;(define (motile/tuple/build)
-;  (case-lambda
-;    ((rtk n f)
-;     (let ((g (lambda (index) (f k/RETURN index))))
-;       (rtk (tuple/build n g))))
-;    ((k _) (global/decompile k 'tuple/build))))
-;
-;(define(motile/tuple/filter)
-;  (case-lambda
-;    ((rtk t f)
-;     (let ((g (lambda (x) (f k/RETURN x))))
-;       (rtk (tuple/filter t g))))
-;    ((k _) (global/decompile k 'tuple/filter))))
-;
-;(define (motile/tuple/map)
-;  (case-lambda
-;    ((rtk t f)
-;     (let ((g (lambda (x) (f k/RETURN x))))
-;       (rtk (tuple/map t g))))
-;    ((k _) (global/decompile k 'tuple/map))))
 
 ;; Motile-specific call/cc.
-(define (call/cc k f)
-  (let ((descriptor (vector 'reference/global 'call/cc)))
-    (if k
-        (f k                           ; Continuation at call position of call/cc.
-           (lambda (k/other v) (k v))) ; Continuation k reified as a function.
-        descriptor)))
+;(define (call/cc k f)
+;  (let ((descriptor (vector 'reference/global 'call/cc)))
+;    (if k
+;        (f k                           ; Continuation at call position of call/cc.
+;           (lambda (k/other v) (k v))) ; Continuation k reified as a function.
+;        descriptor)))
+
+(define motile/CALL-CC (motile/call-with-continuation))
+
 
 ;; The set of primitive procedures available to all Motile mobile code.
 (define BASELINE
@@ -523,12 +336,32 @@
     (define/global/2 'string-ci>=?  string-ci>=?)
     (define/global/3 'substring     substring)
     (define/global/N 'string-append string-append)
+    (define/global/N 'format        format)
+    
+    ; Byte strings.
+    (define/global/1 'bytes?        bytes?)
+    (define/global/N 'bytes         bytes)
+    (define/global/1 'byte?         byte?)
+    (define/global/1 'bytes/length  bytes-length)
+    (define/global/2 'bytes/ref     bytes-ref)
+    (define/global/N 'subbytes      subbytes)
+    (define/global/N 'bytes/append  bytes-append)
+    ;(define/global/N 'bytes/append* bytes-append*) ; Not available in racket/base.
+    (define/global/1 'bytes/list    bytes->list)
+    (define/global/1 'list/bytes    list->bytes)
+    (define/global/N 'bytes=?       bytes=?)
+    (define/global/N 'bytes>?       bytes>?)
+    (define/global/N 'bytes<?       bytes<?)
     
     ; Symbols.
     (define/global/1 'symbol->string symbol->string)
+    (define/global/1 'symbol/string  symbol->string)
     (define/global/1 'string->symbol string->symbol)
+    (define/global/1 'string/symbol  symbol->string)
+    ;(define/global/1 'gensym         gensym) ; Uninterned symbols will not be deserialized as uninterned.
     
     ; Persistent functional vectors.
+    (define/global/1     'vector/persist?   vector/persist?)
     (define/global/2     'list/vector       list/vector)
     (define/combinator/2 'vector/build      vector/build)
     (define/combinator/3 'vector/fold/left  vector/fold/left)
@@ -630,21 +463,17 @@
 
     ; Binding environments
     (cons 'environ/null environ/null)
-    (cons 'environ/capture
-          ; This one has to be hand crafted.
-          (let ((descriptor (vector 'reference/global 'environ/capture)))
-            (lambda (k e global)
-              (if k (k global) descriptor))))
+    (cons 'environ/capture (motile/environ/capture))
     (define/global/2 'environ/merge environ/merge)
 
     ; Higher order functions.
-    (cons            'apply     motile/apply)
-    (cons            'map       motile/map)
-    (cons            'for-each  motile/for-each)
+    (cons            'apply     (motile/apply))
+    (cons            'map       (motile/metamap 'map      map))
+    (cons            'for-each  (motile/metamap 'for-each for-each))
 
     ; Control
-    (cons 'call/cc call/cc)
-    (cons 'call-with-current-continuation call/cc) ; Synonym.
+    (cons 'call/cc motile/CALL-CC)
+    (cons 'call-with-current-continuation motile/CALL-CC) ; Synonym.
 
     ; Box
     (define/global/1 'box      box)
@@ -654,7 +483,7 @@
     (define/global/2 'set-box! set-box!) ; For compatibility with Racket.
 
     ; Generic list sort.
-    (cons 'sort motile/sort)
+    (cons 'sort (motile/sort))
     )))
 
 (define ENVIRON/TEST
@@ -672,7 +501,6 @@
     ; For simple test output.
     (define/global/N 'sleep          sleep)
     (define/global/1 'display        display)
-    (define/global/N 'format         format)
     (define/global/0 'newline        newline)
     (define/global/1 'pretty-display pretty-display))))
 

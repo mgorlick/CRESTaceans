@@ -43,14 +43,17 @@
    (positive? (vector-length x))
    (eq? '<tuple> (vector-ref x 0))))
 
+(define tuple/null #(<tuple>))
+
 ;; Give a tuple with n elements return the length of its underlying vector representation.
 (define-syntax-rule (length/raw n) (add1 n))
 
 (define (tuple/raw n)
-  (let ((t (make-vector (length/raw n) #f)))
-    (vector-set! t 0 '<tuple>)
-    ; t_1 is for optional t-specific metadata.
-    t))
+  (if (zero? n)
+      tuple/null
+      (let ((t (make-vector (length/raw n) #f)))
+        (vector-set! t 0 '<tuple>)
+        t)))
 
 ;; Construct a tuple from the given list of values.
 (define (list/tuple values)
@@ -86,34 +89,69 @@
       (cdr (vector->list t)) ; Redact the type information.
       (error 'tuple/list "expects argument of type <tuple>; given ~s" t)))
 
+(define-syntax-rule (assert what where format x ...)
+  (when (not what)
+    (error where format x ...)))
+
+(define-syntax-rule (integer/natural? x) (and (integer? x) (not (negative? x))))
+
 ;; Generate a subtuple.
 ;; (tuple/copy t start) returns a tuple whose contents is t_start, t_{start+1}, ..., t_n where n = |t|-1.
 ;; (tuple/copy t start end) returns a tuple whose contents is t_start, t_{start+1}, ..., t_{end-1}.
 (define tuple/copy
   (case-lambda
     ((t start)
+     (assert (integer/natural? start) 'tuple/copy "expects start >= 0; given ~s" start)
      (if (tuple? t)
          (cond
            ((zero? start) t)
-           ((> start 0)
-            (let ((x (vector-copy (sub1 start))))
-              (vector-set! x (sub1 start) 'tuple)
+           ((positive? start)
+            (let ((x (vector-copy t start)))
+              (vector-set! x 0 '<tuple>)
               x))
-           (else
-            (error 'tuple/copy "expects start >= 0; given ~s" start)))
+           (else (error 'tuple/copy "expects start >= 0; given ~s" start)))
+
          (error 'tuple/copy "expects argument of type <tuple>; given ~s" t)))
+
     ((t start end)
+     (assert (integer/natural? start) 'tuple/copy "expects start >= 0; given ~s" start)
+     (assert (integer/natural? end)   'tuple/copy "expects end >= 0; given ~s" end)
+     (assert (< start end)            'tuple/copy "expects start < end; given ~s < ~s" start end)
      (if (tuple? t)
-         (cond
-           ((zero? start)
-            (vector-copy t start (add1 end)))
-           ((> start 0)
-            (let ((x (vector-copy t start (add1 end))))
-              (vector-set! x 0 'tuple)
-              x))
-           (else
-            (error 'tuple/copy "expects start >= 0; given ~s" start)))
+         (let ((x (vector-copy t start (add1 end))))
+           (when (positive? start)
+             (vector-set! x 0 '<tuple>))
+           x)
+
          (error 'tuple/copy "expects argument of type <tuple>; given ~s" t)))))
+
+;(define tuple/copy
+;  (case-lambda
+;    ((t start)
+;     (if (tuple? t)
+;         (cond
+;           ((zero? start) t)
+;           ((> start 0)
+;            (let ((x (vector-copy t start)))
+;              ;(vector-set! x (sub1 start) '<tuple>)
+;              (vector-set! x 0 '<tuple>)
+;              x))
+;           (else
+;            (error 'tuple/copy "expects start >= 0; given ~s" start)))
+;         (error 'tuple/copy "expects argument of type <tuple>; given ~s" t)))
+;
+;    ((t start end)
+;     (if (tuple? t)
+;         (cond
+;           ((zero? start)
+;            (vector-copy t start (add1 end)))
+;           ((> start 0)
+;            (let ((x (vector-copy t start (add1 end))))
+;              (vector-set! x 0 '<tuple>)
+;              x))
+;           (else
+;            (error 'tuple/copy "expects start >= 0; given ~s" start)))
+;         (error 'tuple/copy "expects argument of type <tuple>; given ~s" t)))))
 
 ;; Construct a tuple t of length n where each element t_i = (f i).
 (define (tuple/build n f)

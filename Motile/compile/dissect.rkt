@@ -18,25 +18,56 @@
  ; (quote ...)
  quote?
  quotation
+
  ; (if <test> <then> <else>)
  if?
  if/test
  if/then
  if/else
+ 
  ; (when <test> <thens>)
  when?
  when/test
  when/thens
+ 
  ; (unless <test> <elses>)
  unless?
  unless/test
  unless/elses
+ 
  ; (begin <expressions>)
  begin?
  begin/expressions
+ 
  ; (cond <clauses>)
  cond?
  cond/clauses
+ cond/clause/else?
+ cond/clause/=>?
+ cond/clause/test
+ cond/clause/procedure
+
+ ; (case <clauses>)
+ case?
+ case/key
+ case/clauses
+ case/clause/datums?
+ case/clause/else?
+ case/clause/datums
+ case/clause/expressions
+ 
+ definition/name
+ definition/value
+
+ do?
+ do/bindings
+ do/test
+ do/test/expressions
+ do/commands
+ do/binding/variable
+ do/binding/initial
+ do/binding/step
+
  ; (lambda <parameters> <body>)
  lambda?
  lambda/parameters
@@ -45,8 +76,8 @@
  and?
  ; (or <expressions>)
  or?
- ; (let <bindings> <body>)
- let?
+
+ ; For picking apart the forms: (let ...), (let* ...), and (letrec ...).
  let/bindings
  let/named/bindings
  let/named/body
@@ -77,7 +108,8 @@
  environ/value?
  environ/value/e ; Deprecated.
  environ/value/environ ; Synonym for environ/value/e.
-  environ/value/identifier
+ ;environ/value/identifier
+ environ/value/accessor
  environ/value/substitute
  
  ; (environ/reflect e e_1 ... e_m)
@@ -86,20 +118,24 @@
  environ/reflect/environ ; Synonym for environ/reflect/e.
  environ/reflect/expressions
  
- ; Internal set!
- setter?
- setter/tag
- setter/target
- setter/value
- 
  ; Macros.
  definition/macro?
+ definition/macro/name
+ definition/macro/formals
+ definition/macro/body
  
- ; Weird internal letrec/set!
- ; letrec/setter?
- ; letrec/setter/tag
- ; letrec/setter/target
- ; letrec/setter/value
+ ; (define <symbol> <expression>)
+ ; (define (<symbol> ...) <body>)
+ ; (define (<symbol> ... . <rest>) <body>)
+ definition?
+ definition/lambda?
+ definition/variable?
+ definition/variable/ok?
+ definition/variable/name
+ definition/variable/expression
+ definition/lambda/name
+ definition/lambda/formals
+ definition/lambda/body
  
  ; Is the form a symbol?
  variable?
@@ -140,6 +176,30 @@
 
 (define (cond? e) (eq? 'cond (car e)))
 (define (cond/clauses e) (cdr e))
+(define (cond/clause/else? c) (eq? 'else (car c))) ; (else e_1 ... e_N).
+(define (cond/clause/=>? c) ; (test => procedure).
+   (eq? '=> (cadr c))) 
+(define (cond/clause/test c) (car c)) ; (test ...).
+(define (cond/clause/procedure c) (caddr c)) ; (test => procedure).
+
+(define (case? e) (eq? 'case (car e)))
+(define (case/key e) (cadr e))
+(define (case/clauses e) (cddr e))
+(define (case/clause/datums? c) (pair? (car c)))
+(define (case/clause/else? c) (eq? 'else (car c)))
+(define (case/clause/datums c) (car c))
+(define (case/clause/expressions c) (cdr c))
+
+
+(define (do? e) (eq? 'do (car e)))
+(define (do/bindings e) (cadr e))
+(define (do/test e) (caddr e))
+(define (do/test/expressions t) (cdr t))
+(define (do/commands e) (cdddr e))
+(define (do/binding/variable b) (car b))
+(define (do/binding/initial b) (cadr b))
+(define (do/binding/step b) (caddr b))
+
 
 (define (lambda? e) (eq? 'lambda (car e)))
 (define (lambda/parameters e) (cadr e))
@@ -153,7 +213,7 @@
 
 ;; (let <bindings> <body>) or
 ;; (let <variable> <bindings> <body>).
-(define (let? e) (eq? 'let (car e)))
+;; (letrec <bindings> <body).
 (define (let/bindings e) (cadr e))
 (define (let/named/bindings e) (caddr e))
 (define (let/named/body e) (cdddr e))
@@ -201,7 +261,8 @@
 (define (environ/value/e e) (cadr e))
 (define-syntax-rule (environ/value/environ e) (cadr e))
 (define-syntax-rule (environ/value/expression e) (cadr e))
-(define (environ/value/identifier e) (caddr e))
+;(define (environ/value/identifier e) (caddr e))
+(define (environ/value/accessor e) (caddr e))
 (define (environ/value/substitute e) (cadddr e))
 
 ;; (environ/reflect e e_1 ... e_m)
@@ -212,32 +273,51 @@
 (define-syntax-rule (environ/reflect/environ e) (cadr e))
 (define (environ/reflect/expressions e) (cddr e))
 
-;; Internal set!
-(define setter/tag
-  (let ((tag (gensym 'setter/)))
-    (lambda () tag)))  ; Production.
-    ;(lambda () 'set!))) ; Debugging
-
-(define (setter? e) (eq? (setter/tag) (car e)))
-(define (setter/target e) (cadr e))
-(define (setter/value e)  (caddr e))
-
-;; Weird letrec/set tag.
-;(define letrec/setter/tag
-;  (let ((tag (gensym 'letrec/setter/)))
-;    (lambda () tag)))
-;
-;(define (letrec/setter? e)
-;  (eq? (letrec/setter/tag) (car e)))
-;
-;(define (letrec/setter/target e) (cadr e))
-;(define (letrec/setter/value e)  (caddr e))
-
 ;; Returns #t if x is a symbol otherwise raises an error exception.
 (define (variable? x)
   (if (symbol? x) #t (error (format "Identifier expected: ~a" x))))
 
+;; Pick apart (define-macro (<name> <formals>) <body>).
 (define (definition/macro? e) (eq? 'define-macro (car e)))
+(define (definition/macro/name e) (caadr e)) 
+(define (definition/macro/formals e) (cdadr e))
+(define (definition/macro/body e) (cddr e))
+
+;; Returns #t if e has form (define ...) and #f otherwise.
+(define (definition? e) (and (pair? e) (eq? 'define (car e))))
+;; Returns 3t if e has form (define <name> ...) and #f otherwise.
+(define (definition/variable? e) (symbol? (cadr e))) 
+(define (definition/lambda? e) (pair? (cadr e)))
+
+(define (definition/variable/ok? e) ; (define <variable> <expression>).
+  (shape e 3)
+  (definition/variable? e))
+
+(define (definition/variable/name e) (cadr e))
+(define (definition/variable/expression e) (caddr e))
+
+; Pick apart (define (<name> <formals>) <body>).
+(define (definition/lambda/name e) (caadr e)) 
+(define (definition/lambda/formals e) (cdadr e))
+(define (definition/lambda/body e) (cddr e))
+
+;; Extract the <name> from a definition:
+;;   (define (f ...) <body>) or (define x <body>)
+(define (definition/name e) 
+  (shape e 3)
+  (let ((name (if (definition/lambda? e) (definition/lambda/name e) (definition/variable/name e))))
+    (if (symbol? name)
+        name
+        (error (format "Identifier expected in ~a but got ~a" e name)))))
+
+;; e has one of two forms:
+;;   (define <name> <expression>) or
+;;   (define (<name> <parameters>) <body>) where <parameters> may be empty.
+;; Return the expression for the intended value of <name>.
+(define (definition/value e)
+  (if (definition/lambda? e)
+      `(lambda ,(definition/lambda/formals e) ,@(definition/lambda/body e))
+      (definition/variable/expression e)))
 
 ;; Returns #t if the given form is a list containing at least n >= 0 elements.
 (define (shape form n)
