@@ -3,122 +3,101 @@
 (require "message-types.rkt"
          "bindings/vp8/vp8.rkt"
          "bindings/speex/speex.rkt"
-         "../../Motile/persistent/hash.rkt"
          "../../peer/src/api/compilation.rkt"
+         racket/function
          (for-syntax racket/base))
 (provide (all-defined-out))
 
-(define-syntax ++
-  (syntax-rules ()
-    [(++ b1 b2)
-     (pairs/environ b1 b2)]
-    [(++ b1 b2 b3 ...)
-     (++ (++ b1 b2) b3 ...)]))
+(define (flip f)
+  (λ (b a)
+    (f a b)))
+
+(define-syntax (global-defines stx)
+  (syntax-case stx ()
+    [(k p ...)
+     #'(list (case (procedure-arity p)
+               [(0) (define/global/0 'p p)]
+               [(1) (define/global/1 'p p)]
+               [(2) (define/global/2 'p p)]
+               [(3) (define/global/3 'p p)]
+               [else (define/global/N 'p p)])
+             ...
+             )]))
+
+(define (++ base-environment . global-defines-lists)
+  (foldl (flip pairs/environ) base-environment global-defines-lists))
+
+; ++/map: add a list of global definitions to each environment in a list of environments
+; (listof environs) (listof global-defines) -> (listof environs)
+(define (++/map environs gdefines)
+  (define (++/one-gdefine gdefine)
+    (map (curry (flip ++) gdefine) environs))
+  (map ++/one-gdefine gdefines))
 
 (define UTIL
   (++ ENVIRON/TEST
-      (list (define/global/1 'message/uri? message/uri?)
-            (define/global/N 'message/uri/new message/uri/new)
-            (define/global/0 'void void)
-            (define/global/N 'printf printf)
-            (define/global/0 'thread-receive thread-receive)
-            (define/global/N 'thread-send thread-send)
-            (define/global/0 'current-inexact-milliseconds current-inexact-milliseconds)
-            (define/global/1 'exact->inexact exact->inexact)
-            
-            (define/global/1 'bytes? bytes?)
-            (define/global/N 'make-bytes make-bytes)
-            (define/global/2 'bytes-ref bytes-ref)
-            (define/global/1 'bytes-length bytes-length)
-            (define/global/1 'bytes-copy bytes-copy)
-            (define/global/N 'subbytes subbytes)
-            (define/global/N 'bitwise-and bitwise-and))))
+      (global-defines message/ask? message/ask/new :message/ask/method :message/ask/url
+                      :message/ask/body :message/ask/metadata :message/ask/reply :message/ask/echo)
+      (global-defines message/tell? message/tell/new :message/tell/status :message/tell/reason
+                      :message/tell/body :message/tell/metadata :message/tell/echo)
+      (global-defines message/uri? message/uri/new :message/uri/scheme
+                      :message/uri/authority :message/uri/path :message/uri/query)
+      (global-defines void printf thread-receive
+                      current-inexact-milliseconds
+                      exact->inexact)
+      (global-defines bytes? byte? bytes make-bytes bytes-ref bytes-length 
+                      bytes-copy subbytes bytes-append
+                      bytes=? bytes<? bytes>?
+                      bitwise-and bitwise-ior bitwise-xor bitwise-not
+                      bitwise-bit-set? bitwise-bit-field arithmetic-shift integer-length)))
 
 (define MULTIMEDIA-BASE
   (++ UTIL
-      (list (define/global/1 'AddCURL AddCURL)
-            (define/global/1 'AddCURL? AddCURL?)
-            (define/global/1 'AddCURL.curl AddCURL.curl)
-            (define/global/2 'AddCURL!curl AddCURL!curl)
-            
-            (define/global/1 'RemoveCURL RemoveCURL)
-            (define/global/1 'RemoveCURL? RemoveCURL?)
-            (define/global/1 'RemoveCURL.curl RemoveCURL.curl)
-            (define/global/1 'RemoveCURL!curl RemoveCURL!curl)
-            
-            (define/global/0 'None None)
-            (define/global/1 'None? None?)
-            
-            (define/global/0 'Quit Quit)
-            (define/global/1 'Quit? Quit?)
-            
-            (define/global/N 'Frame Frame)
-            (define/global/1 'Frame? Frame?)
-            (define/global/1 'Frame.data Frame.data)
-            (define/global/1 'Frame.timestamp Frame.timestamp)
-            (define/global/2 'Frame!data Frame!data)
-            (define/global/2 'Frame!timestamp Frame!timestamp)
-            
-            (define/global/1 'FrameBuffer->Frame
-              (λ (v)
-                (Frame (subbytes (FrameBuffer-data v) 0 (FrameBuffer-size v)) (FrameBuffer-ts v))))
-            
-            (define/global/N 'FrameBuffer FrameBuffer)
-            (define/global/1 'FrameBuffer? FrameBuffer?)
-            (define/global/1 'FrameBuffer-size FrameBuffer-size)
-            (define/global/1 'FrameBuffer-data FrameBuffer-data)
-            (define/global/1 'FrameBuffer-ts FrameBuffer-ts)
-            (define/global/1 'FrameBuffer-age (λ (v) (- (current-inexact-milliseconds) (FrameBuffer-ts v))))
-            (define/global/1 'dispose-FrameBuffer dispose-FrameBuffer)
-            
-            (define/global/N 'VideoParams VideoParams)
-            (define/global/1 'VideoParams? VideoParams?)
-            (define/global/1 'VideoParams-width VideoParams-width)
-            (define/global/1 'VideoParams-height VideoParams-height)
-            (define/global/1 'VideoParams-fpsNum VideoParams-fpsNum)
-            (define/global/1 'VideoParams-fpsDen VideoParams-fpsDen))))
+      (global-defines
+       AddCURL AddCURL? AddCURL.curl AddCURL!curl
+       RemoveCURL RemoveCURL? RemoveCURL.curl RemoveCURL!curl
+       None None? Quit Quit?
+       Frame Frame? Frame.data Frame.timestamp Frame!data Frame!timestamp
+       FrameBuffer FrameBuffer? FrameBuffer.size FrameBuffer.data FrameBuffer.ts dispose-FrameBuffer
+       VideoParams VideoParams? VideoParams.width VideoParams.height VideoParams.fpsNum VideoParams.fpsDen
+       FrameBuffer->Frame)))
 
 (define VIDEO-ENCODE
   (++ MULTIMEDIA-BASE
-      (list (define/global/1 'vp8enc-new 
-              (λ (params)
-                (vp8enc-new (VideoParams-width params) (VideoParams-height params)
-                            (VideoParams-fpsNum params) (VideoParams-fpsDen params))))
-            (define/global/1 'vp8enc-delete vp8enc-delete)
-            (define/global/N 'vp8enc-encode/return-frame
-              (λ (e frame outbuff)
-                (define written (vp8enc-encode e (FrameBuffer-size frame) (FrameBuffer-data frame)
-                                               (bytes-length outbuff) outbuff))
-                (dispose-FrameBuffer frame)
-                (FrameBuffer (subbytes outbuff 0 written) written #f (FrameBuffer-ts frame))))
-            (define/global/0 'video-reader-setup v4l2-reader-setup)
-            (define/global/1 'video-reader-get-params
-              (λ (v)
-                (define-values (w h num den buffct) (v4l2-reader-get-params v))
-                (VideoParams w h num den)))
-            (define/global/1 'video-reader-is-ready? v4l2-reader-is-ready)
-            (define/global/2 'video-reader-get-frame
-              (λ (v ts)
-                (define-values (data framenum size index) (v4l2-reader-get-frame v))
-                (FrameBuffer data size (λ () (v4l2-reader-enqueue-buffer v index)) ts))))))
+      (list
+       (define/global/1 'vp8enc-new 
+         (λ (params)
+           (vp8enc-new (VideoParams.width params)
+                       (VideoParams.height params)
+                       (VideoParams.fpsNum params)
+                       (VideoParams.fpsDen params))))
+       (define/global/1 'vp8enc-delete vp8enc-delete)
+       (define/global/N 'vp8enc-encode/return-frame
+         (λ (e frame outbuff)
+           (define written (vp8enc-encode e (FrameBuffer.size frame)
+                                          (FrameBuffer.data frame)
+                                          (bytes-length outbuff)
+                                          outbuff))
+           (dispose-FrameBuffer frame)
+           (FrameBuffer (subbytes outbuff 0 written) written #f (FrameBuffer.ts frame)))))
+      
+      (list
+       (define/global/0 'video-reader-setup v4l2-reader-setup)
+       (define/global/1 'video-reader-get-params
+         (λ (v)
+           (define-values (w h num den buffct) (v4l2-reader-get-params v))
+           (VideoParams w h num den)))
+       (define/global/1 'video-reader-is-ready? v4l2-reader-is-ready)
+       (define/global/2 'video-reader-get-frame
+         (λ (v ts)
+           (define-values (data framenum size index) (v4l2-reader-get-frame v))
+           (FrameBuffer data size (λ () (v4l2-reader-enqueue-buffer v index)) ts))))))
 
 (define VIDEO-DECODE
-  (++ MULTIMEDIA-BASE
-      (list (define/global/0 'vp8dec-new vp8dec-new)
-            (define/global/1 'vp8dec-delete vp8dec-delete)
-            (define/global/N 'vp8dec-decode vp8dec-decode))))
+  (++ MULTIMEDIA-BASE (global-defines vp8dec-new vp8dec-delete vp8dec-decode)))
 
 (define AUDIO-ENCODE
-  (++ MULTIMEDIA-BASE
-      (list (define/global/1 'new-speex-encoder new-speex-encoder)
-            (define/global/2 'speex-encoder-encode speex-encoder-encode)
-            (define/global/1 'delete-speex-encoder delete-speex-encoder))))
+  (++ MULTIMEDIA-BASE (global-defines new-speex-encoder speex-encoder-encode delete-speex-encoder)))
 
 (define AUDIO-DECODE
-  (++ MULTIMEDIA-BASE
-      (list (define/global/1 'new-speex-encoder new-speex-encoder)
-            (define/global/1 'delete-speex-encoder delete-speex-encoder)
-            (define/global/1 'new-speex-decoder new-speex-decoder)
-            (define/global/1 'delete-speex-decoder delete-speex-decoder)
-            (define/global/2 'speex-encoder-encode speex-encoder-encode)
-            (define/global/3 'speex-decoder-decode speex-decoder-decode))))
+  (++ MULTIMEDIA-BASE (global-defines new-speex-decoder speex-decoder-decode delete-speex-decoder)))

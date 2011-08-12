@@ -32,18 +32,8 @@
 
 ;; "server-side"
 
-(define-syntax start-program
-  (syntax-rules ()
-    [(k expr)
-     (start-program expr BASELINE)]
-    
-    [(k expr be)
-     (let ([fun (motile/start expr be)])
-       (cond [(procedure? fun) (motile/start fun be)]
-             [else fun]))]
-    
-    [(k expr be arg0 ...)
-     (let ([fun (motile/start expr be)])
-       (cond [(procedure? fun)
-              (motile/start* fun be arg0 ...)]
-             [else fun]))]))
+(define (start-program expr [be BASELINE] [args '()])
+  (let ([fun (motile/start expr be)])
+    (cond [(procedure? fun)
+           (apply motile/start* fun be args)]
+          [else fun])))

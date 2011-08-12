@@ -48,7 +48,7 @@
   ;;; CONNECTING
   
   (define (do-accept)
-    (with-handlers ([exn:fail:network? (λ (e) (printf "~a~n" (exn-message e)) #f)])
+    (with-handlers ([exn? (λ (e) (printf "~a~n" (exn-message e)) #f)])
       (define-values (i o) (tcp-accept listener))
       (file-stream-buffer-mode o 'none)
       ;; first do the SCURL authentication protocol.
