@@ -96,8 +96,8 @@
          (cond
            ((zero? start) t)
            ((> start 0)
-            (let ((x (vector-copy (sub1 start))))
-              (vector-set! x (sub1 start) 'tuple)
+            (let ((x (vector-copy t (sub1 start))))
+              (vector-set! x (sub1 start) '<tuple>)
               x))
            (else
             (error 'tuple/copy "expects start >= 0; given ~s" start)))

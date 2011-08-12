@@ -12,7 +12,8 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(require (only-in "../../../Motile/persistent/tuple.rkt" tuple tuple? tuple/length tuple/ref))
+(require (for-syntax racket/list racket/syntax)
+         "../../../Motile/persistent/tuple.rkt")
 
 
 (provide
@@ -51,29 +52,15 @@
  tell
  uri)
 
-;; Upper level of Accomplice messaging.
-
-;(define :method/get:     'get)
-;(define :method/post:    'post)
-;(define :method/put:     'put)
-;(define :method/delete:  'delete)
-;(define :method/remote:  'remote)
-;(define :method/response 'response)
-;(define :method/spawn:   'spawn)
-
 (define :no-body:     #f)
 (define :no-echo:     #f)
 (define :no-metadata: null)
 (define :no-query:    null)
 (define :no-reply:    #f)
 
-;(define :ask-id:  '33bd9138-f42d-4da2-b400-cc6aea1b402f)
-;(define :tell-id: '92763926-abdf-4dc5-9c22-d02fcfe4b516)
-
 (define MOTILE/MESSAGE/ASK  '(motile message ask))
 (define MOTILE/MESSAGE/TELL '(motile message tell))
 (define MOTILE/MESSAGE/URI  '(motile message uri))
-
 
 (define-match-expander ask
   (syntax-rules ()
@@ -109,15 +96,6 @@
 ;;  metadata - metadata regarding the body and/or the response as a whole
 ;;  echo     - the echo of the ask to which this tell corresponds
 
-(define message/ask/new
-  (case-lambda
-    ((method url)
-     (tuple MOTILE/MESSAGE/ASK method url :no-body: :no-metadata: :no-reply: :no-echo:))
-    ((method url body metadata)
-     (tuple MOTILE/MESSAGE/ASK method url body      metadata      :no-reply: :no-echo:))
-    ((method url body metadata reply echo)
-     (tuple MOTILE/MESSAGE/ASK method url body      metadata      reply      echo))))
-
 ;; Returns #t iff prefix, a list of symbols, is a prefix of, or equal to, actual.
 (define (list/prefix? prefix actual)
   (let loop ((prefix prefix) (actual actual))
@@ -127,6 +105,67 @@
       ((eq? (car prefix) (car actual))
        (loop (cdr prefix) (cdr actual)))
       (else #f))))
+
+(define-for-syntax (string->stx k s)
+  (datum->syntax k (string->symbol s)))
+(define-for-syntax (stx->string s)
+  (symbol->string (syntax->datum s)))
+
+(define-syntax (define-tuple-type stx)
+  (syntax-case stx (|| =>)
+    [(k '(namepath ...) [mandatory ...] || [optional => option-default-val] ...)
+     (let* ([namepath-strings (map stx->string (syntax->list #'(namepath ...)))]
+            [name/space/path/string (apply string-append (add-between namepath-strings "/"))]
+            [accessors
+             (map (λ (field) (string-append ":" (string-downcase name/space/path/string) "/" (stx->string field)))
+                  (append (syntax->list #'(mandatory ...)) (syntax->list #'(optional ...))))]
+            [acclen (length (append (syntax->list #'(mandatory ...)) (syntax->list #'(optional ...))))])
+       (with-syntax*
+        ([constructor    (string->stx #'k (string-append (string-downcase name/space/path/string) "/new"))]
+         [constructor?   (string->stx #'k (string-append (string-downcase name/space/path/string) "?"))]
+         [prefix         (string->stx #'k (string-upcase name/space/path/string))]
+         [mlen           (datum->syntax #'k acclen)]
+         [(mandatory-args ...) (generate-temporaries #'(mandatory ...))]
+         [(optional-args ...)  (generate-temporaries #'(optional ...))]
+         [(accessor-ref ...)   (build-list acclen add1)]
+         [(accessor-name ...)  (map (λ (acc) (string->stx #'k acc)) accessors)]
+         [(setter-name ...)    (map (λ (acc) (string->stx #'k (string-append "!" acc))) accessors)])
+        #'(begin
+            (define prefix '(namepath ...))
+            (define constructor
+              (case-lambda
+                [(mandatory-args ...)
+                 (tuple prefix mandatory-args ... option-default-val ...)]
+                [(mandatory-args ... optional-args ...)
+                 (tuple prefix mandatory-args ... optional-args ...)]))
+            (define (constructor? m)
+              (and (tuple? m) (= (tuple/length m) (add1 mlen)) (list/prefix? prefix (tuple/ref m 0))))
+            (define (accessor-name m)
+              (tuple/ref m accessor-ref))
+            ...
+            (define (setter-name m v)
+              (if (= accessor-ref (tuple/length m))
+                  (tuple/append (tuple/take/left m accessor-ref) (tuple v))
+                  (tuple/append (tuple/take/left m accessor-ref) (tuple v) (tuple/take/right m (sub1 accessor-ref)))))
+            ...
+            )))]))
+
+;(define-tuple-type '(message foo) [zuh buh] || [muh => #f] [guh => null])
+;MESSAGE/FOO
+;(message/foo/new #t #"Hello")
+;(message/foo/new 5 3 '() (λ (f) (add1 f)))
+;(message/foo? (message/foo/new #t #f))
+;(:message/foo/zuh (message/foo/new 12 24))
+;(!:message/foo/guh (message/foo/new 12 24) 6)
+
+(define message/ask/new
+  (case-lambda
+    ((method url)
+     (tuple MOTILE/MESSAGE/ASK method url :no-body: :no-metadata: :no-reply: :no-echo:))
+    ((method url body metadata)
+     (tuple MOTILE/MESSAGE/ASK method url body      metadata      :no-reply: :no-echo:))
+    ((method url body metadata reply echo)
+     (tuple MOTILE/MESSAGE/ASK method url body      metadata      reply      echo))))
 
 (define (message/ask? x)
   (and
@@ -170,41 +209,6 @@
     ((status reason body metadata echo)
      (tuple MOTILE/MESSAGE/TELL status reason body      metadata      echo))))
 
-;(define (ask/new
-;         method url
-;         #:body (body :no-body:)
-;         #:metadata (metadata :no-metadata:)
-;         #:reply (reply :no-reply:)
-;         #:echo (echo :no-echo:))
-;  (vector-immutable :ask-id: method url body metadata reply echo))
-;(define-syntax-rule (:ask/method   x) (vector-ref x 1)) ; Method designator.
-;(define-syntax-rule (:ask/url      x) (vector-ref x 2)) ; http/url structure.
-;(define-syntax-rule (:ask/body     x) (vector-ref x 3)) ; Payload.
-;(define-syntax-rule (:ask/metadata x) (vector-ref x 4)) ; Metadata regarding the request and/or payload.
-;(define-syntax-rule (:ask/reply    x) (vector-ref x 5)) ; Point to which response (if any) should be directed.
-;(define-syntax-rule (:ask/echo     x) (vector-ref x 6)) ; Arbitrary context provided by requestor to be echoed in response.
-
-;(define (tell/new status reason body metadata echo)
-;(define (tell/new
-;         code reason
-;         #:body (body :no-body:)
-;         #:metadata (metadata :no-metadata:)
-;         #:echo (echo :no-echo:))
-;  (vector-immutable :tell-id: code reason body metadata echo))
-;(define-syntax-rule (:tell/code     x) (vector-ref x 1)) ; Positive integer status code.
-;(define-syntax-rule (:tell/reason   x) (vector-ref x 2)) ; Brief reason phrase for status code.
-;(define-syntax-rule (:tell/body     x) (vector-ref x 3)) ; Payload.
-;(define-syntax-rule (:tell/metadata x) (vector-ref x 4)) ; Metadata regarding the response and/or payload.
-;(define-syntax-rule (:tell/echo     x) (vector-ref x 5)) ; Arbitrary context from requestor echoed in response.
-
-;(define (message/ask? x)
-;  (and (vector? x) (= (vector-length x) 7) (eq? (vector-ref x 0) :ask-id:)))
-
-;(define (message/tell? x)
-;  (and (vector? x) (= (vector-length x) 6) (eq? (vector-ref x 0) :tell-id:)))
-
-;(define alpha (response/new 'foobar "/a/b/c" (list 1  2 3) :no-metadata: (cons 33 "who cares?") "echo"))
-
 ;; A message is either an ask or a tell.
 (define (message/any? x)
   (and
@@ -216,8 +220,6 @@
     (and
      (= (tuple/length x) 6)
      (list/prefix? MOTILE/MESSAGE/TELL (tuple/ref x 0))))))
-
-
 
 ;; An URL or URI is a tuple #(flavor scheme authority path query) where:
 ;;  flavor - always the list (motile message uri)
@@ -253,108 +255,3 @@
 (define (:message/uri/authority u) (message/uri/field u 2 'message/uri/authority))
 (define (:message/uri/path      u) (message/uri/field u 3 'message/uri/path))
 (define (:message/uri/query     u) (message/uri/field u 4 'message/uri/query))
-
-;(define (message/any? x)
-;  (and (vector? x)
-;       (or
-;        (and (= (vector-length x) 7)
-;             (eq? (vector-ref x 0) :ask-id:))
-;        (or (= (vector-length x) 7)
-;            (eq? (vector-ref x 0) :tell-id:)))))
-
-; ask = #(id method uri body metadata reply echo)
-;(define-match-expander ask/method
-;  (syntax-rules ()
-;    [(_ pattern)
-;     (vector _ pattern _ _ _ _ _)]))
-;
-;(define-match-expander ask/url
-;  (syntax-rules ()
-;    [(_ pattern)
-;     (vector _ _ pattern _ _ _ _)]))
-;    
-;(define-match-expander ask/body
-;  (syntax-rules ()
-;    [(_ pattern)
-;     (vector _ _ _ pattern _ _ _)]))
-;
-;(define-match-expander ask/metadata
-;  (syntax-rules ()
-;    [(_ pattern)
-;     (vector _ _ _ _ pattern _ _)]))
-;
-;(define-match-expander ask/reply
-;  (syntax-rules ()
-;    [(_ pattern)
-;     (vector _ _ _ _ _ pattern _)]))
-;
-;(define-match-expander ask/echo
-;  (syntax-rules ()
-;    [(_ pattern)
-;     (vector _ _ _ _ _ _ pattern)]))
-;
-;;; tell = #(id code reason body metadata echo)
-;(define-match-expander tell/code
-;  (syntax-rules ()
-;    [(_ pattern)
-;     (vector _ pattern _ _ _ _)]))
-;
-;(define-match-expander tell/reason
-;  (syntax-rules ()
-;    [(_ pattern)
-;     (vector _ _ pattern _ _ _)]))     
-;
-;(define-match-expander tell/body
-;  (syntax-rules ()
-;    [(_ pattern)
-;     (vector _ _ _ pattern _ _)]))
-;
-;(define-match-expander tell/metadata
-;  (syntax-rules ()
-;    [(_ pattern)
-;     (vector _ _ _ _ pattern _)]))
-;
-;(define-match-expander tell/echo
-;  (syntax-rules ()
-;    [(_ pattern)
-;     (vector _ _ _ _ _ pattern)]))
-
-
-
-;(define (! to body . arguments)
-;  (match
-;   arguments
-;   (()                       (message/! to body :no-metadata: :no-reply: :no-echo:))
-;   ((,metadata)              (message/! to body metadata      :no-reply: :no-echo:))
-;   ((,metadata ,reply)       (message/! to body metadata      reply      :no-echo:))
-;   ((,metadata ,reply ,echo) (message/! to body metadata      reply      echo))))
-
-;; Used for the common case in the reply to a transaction in which:
-;; (1) The reply terminates the transaction
-;; (2) the intent of the transaction is wholly contained within or directly
-;;     implied to the receiver by the echo (context)
-;; Usage: (!! to body) or (!! to body echo).
-;; Any additional arguments beyond the echo are ignored and not transmitted.
-;(define (!! to body . arguments)
-;  (if (null? arguments)
-;      (message/! to body  :no-metadata: :no-reply: :no-echo:)
-;      (message/! to body  :no-metadata: :no-reply: (car arguments))))
-;
-;(define (message/! to body metadata reply echo)
-;  (cond
-;   ((pair? to) ; (mailbox . path)
-;    (let* ((mailbox (car to))
-;	   (path    (cdr to))
-;	   (m       (message/new path body metadata reply echo)))
-;      (mailbox/send! mailbox m)))
-;
-;   ((string? to) #f) ; Unimplemented. Here to is a text URL like "http://www.example.com/a/b/c".
-;
-;   (else #f))) ; Need to implement for <java.net.URI>.
-;
-;(define (message/test/01)
-;  (let ((alpha (make <mailbox>))
-;	(beta  (make <mailbox>))
-;	(m     #f))
-;    (! (@ alpha 'ping) (list 1 2 3) :no-metadata: (@ beta 'pong) 'foobar)
-;    (? alpha)))
