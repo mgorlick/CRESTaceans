@@ -128,26 +128,26 @@
         ; grab-frame: int -> or FrameBuffer None
         (define (grab-frame ts)
           (cond [(video-reader-is-ready? v) (video-reader-get-frame v ts)]
-                [else (None)]))
+                [else #f]))
         ; encode-frame: or FrameBuffer None -> or FrameBuffer None
         (define (encode-frame frame)
-          (cond [(None? frame) frame]
-                [else (vp8enc-encode/return-frame e frame outbuff)]))
+          (cond [frame (vp8enc-encode/return-frame e frame outbuff)]
+                [else frame]))
         ; grab/encode: -> or FrameBuffer None
         (define (grab/encode)
           (encode-frame (grab-frame (current-inexact-milliseconds))))
         (let loop ([v (grab/encode)] [fudge default-fudge])
-          (cond [(FrameBuffer? v)
-                 ;(printf "HIT: fudge ~a~n" fudge)
+          (cond [v
                  ; Frame received successfully. Pass it on and then wait until
                  ; the next frame should be active (modified by a factor to account for processing time)
+                 ;(printf "HIT: fudge ~a~n" fudge)
                  (ask/send* "POST" relayer-curl (FrameBuffer->Frame v) (metadata type/webm (cons "params" params)))
                  (sleep* (bin* fudge framerate))
                  ; decrease fudge factor for next frame a la AIMD.
                  (loop (grab/encode) (if (bin>= fudge fudge-step)
                                          (bin- fudge fudge-step)
                                          0))]
-                [(None? v)
+                [else
                  ;(printf "MISS: fudge ~a~n" fudge)
                  (loop (grab/encode)
                        ; increase fudge factor for next frame a la AIMD.
