@@ -37,12 +37,8 @@
       (let ([g (new-video-gui 320 240)])
         (let loop ([m (gui-thread-receive g)] [decoders (hash/new hash/equal/null)])
           (let ([v (car m)])
-            (cond [(gui-message-closed-feed? v)
-                   (printf "Feed of ~s was closed~n" (gui-message-closed-feed-curl v))
-                   (ask/send* "DELETE" (gui-message-closed-feed-curl v) (Quit) #f)
-                   (loop (gui-thread-receive g) (hash/remove decoders (gui-message-closed-feed-curl v)))]
-                  
-                  [(AddDecodedVideo? v)
+            (cond [(AddDecodedVideo? v)
+                   (displayln "GUI is adding a video")
                    (let ([playback 
                           (video-gui-add-video! g (AddDecodedVideo.w v) (AddDecodedVideo.h v)
                                                 (AddDecodedVideo.decodercurl v))])
@@ -80,6 +76,12 @@
                              (hash/keys decoders))
                    (shutdown-gui g)
                    (clear-current-gui-curl!)]
+                  
+                  [(gui-message-closed-feed? v)
+                   (printf "Feed of ~s was closed~n" (gui-message-closed-feed-curl v))
+                   (ask/send* "DELETE" (gui-message-closed-feed-curl v) (Quit) #f)
+                   (loop (gui-thread-receive g) 
+                         (hash/remove decoders (gui-message-closed-feed-curl v)))]
                   
                   [else
                    (printf "Not a valid request to GUI: ~a~n" v)

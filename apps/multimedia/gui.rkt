@@ -14,6 +14,9 @@
                      [client/video-playback-buffersize video-playback-buffersize]
                      [client/video-playback-buffer video-playback-buffer]))
 
+; Q: Why are these gussied-up vectors instead of motile structs?
+; A: because compiled Motile structs have procedures inside them and you can't
+; send a procedure over a channel.
 ; #('closed-feed <curl>)
 (define (gui-message-closed-feed? m)
   (match? m (vector 'closed-feed _)))

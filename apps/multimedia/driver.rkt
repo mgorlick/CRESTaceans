@@ -12,32 +12,34 @@
          racket/list)
 (provide (all-defined-out))
 
+;; -------
+;; Helpers
+;; -------
+
+; argsassoc: string [call: string -> any] [no-val: any] [default: any] -> any
+; separates the provided command line arguments of the form:
+;             --key1=val1 --key2=val2 --key3
+; if the provided key name is present and has a value, returns `call' applied to that value.
+; if the provided key name is present but has no value, returns `default'.
+; if the provided key name is not present, returns `no-val'.
+(define CLargs (map (curry regexp-split #rx"=") (vector->list (current-command-line-arguments))))
+(define (argsassoc key #:call [call (λ (x) x)] #:no-val [no-val #f] #:default [default #t])
+  (let ([entry (assoc key CLargs)])
+    (if entry
+        (if (> (length entry) 1)
+            (call (second entry))
+            default)
+        no-val)))
+
+; contains-any?: returns a non-false value iff any argument beyond the first is present in the first.
+; list any -> any
+(define (contains-any? mlst . vs)
+  (and (list? mlst) (ormap (curryr member mlst) vs)))
+
+(define *LISTENING-ON* (argsassoc "--host" #:no-val *LOCALHOST*))
+(define *LOCALPORT* (argsassoc "--port" #:no-val 5000 #:call string->number))
+
 (define (go!)
-  
-  ;; -------
-  ;; Helpers
-  ;; -------
-  
-  ; argsassoc: string [call: string -> any] [no-val: any] [default: any] -> any
-  ; separates the provided command line arguments of the form:
-  ;             --key1=val1 --key2=val2 --key3
-  ; if the provided key name is present and has a value, returns `call' applied to that value.
-  ; if the provided key name is present but has no value, returns `default'.
-  ; if the provided key name is not present, returns `no-val'.
-  (define CLargs (map (curry regexp-split #rx"=") (vector->list (current-command-line-arguments))))
-  (define (argsassoc key #:call [call (λ (x) x)] #:no-val [no-val #f] #:default [default #t])
-    (let ([entry (assoc key CLargs)])
-      (if entry
-          (if (> (length entry) 1)
-              (call (second entry))
-              default)
-          no-val)))
-  
-  ; contains-any?: returns a non-false value iff any argument beyond the first is present in the first.
-  ; list any -> any
-  (define (contains-any? mlst . vs)
-    (and (list? mlst) (ormap (curryr member mlst) vs)))
-  
   ;; ----------
   ;; Clan state
   ;; ----------
@@ -63,9 +65,6 @@
        (loop))))
   
   ;; set up the listening server.
-  (define *LISTENING-ON* (argsassoc "--host" #:no-val *LOCALHOST*))
-  (define *LOCALPORT* (argsassoc "--port" #:no-val 5000 #:call string->number))
-  
   (define k (generate-key/defaults))
   (define this-scurl (generate-scurl/defaults *LISTENING-ON* *LOCALPORT* #:key k))
   (define request-thread (run-tcp-peer *LISTENING-ON* *LOCALPORT* this-scurl (handler)))
@@ -228,4 +227,5 @@
 (profile-thunk go!
                #:threads #t
                #:delay 1/1000
-               #:render render)
+               #:render (λ (data)
+                          (render data #:hide-self 1/10000 #:hide-subs 1/10000)))

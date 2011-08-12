@@ -29,7 +29,7 @@
   `#(closed-feed ,u))
 
 (define (gui-message-closed-window)
-  `#(close-window))
+  `#(closed-window))
 
 (define (gui-message-mv host port)
   `#(mv ,host ,port))
@@ -78,12 +78,12 @@
 ; ---------------------------------
 
 (define (new-video-gui width height cb)   
-  (define frame (new frame% 
+  (define frame (new closeable-frame% 
                      [label ""]
                      [stretchable-width #f]
                      [stretchable-height #f]
-                     [style '(no-resize-border)]))
-  
+                     [style '(no-resize-border)]
+                     [callback (λ () (cb (gui-message-closed-window)))]))
   (define the-window (new vertical-panel%
                           [parent frame]))
   
@@ -145,6 +145,13 @@
   (video-gui frame top-panel address-bar small-panel '()))
 
 ; ---------------------------
+
+(define closeable-frame%
+  (class frame% [init callback]
+    (super-new)
+    (define on-close-callback callback)
+    (define/augment (on-close)
+      (on-close-callback))))
 
 (define video-top-panel%
   (class horizontal-panel% [init addressbar]
