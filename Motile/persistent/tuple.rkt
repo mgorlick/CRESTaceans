@@ -35,7 +35,9 @@
  tuple/partition
  tuple/ref
  tuple/take/left
- tuple/take/right)
+ tuple/take/right
+ tuple/and
+ tuple/or)
 
 (define (tuple? x)
   (and
@@ -248,6 +250,24 @@
       (if (< i n)
           (loop (add1 i) (f (vector-ref t i) seed))
           seed))))
+
+;; Returns #t if f(t_i) is #t for all elements t_i of t
+;; and #f otherwise.
+(define (tuple/and t f)
+  (let loop ((i 0) (n (tuple/length t)))
+    (cond
+      ((= i n) #t)
+      ((f (tuple/ref t i)) (loop (add1 i) n))
+      (else #f))))
+
+;; Returns #t if f(t_i) is #t for some element t_i of t
+;; and #f otherwise.
+(define (tuple/or t f)
+  (let loop ((i 0) (n (tuple/length t)))
+    (cond
+      ((= i n) #f)
+      ((f (tuple/ref t i)) #t)
+      (else (loop (add1 i) n)))))
 
       
 
