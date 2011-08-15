@@ -76,7 +76,7 @@
     (define req (thread-receive))
     (define othread (get-output-thread/maybe-connect req))
     (if othread
-        (thread-send othread (request->serialized req) #f)
+        (thread-send othread (motile/serialize (request-message req)) #f)
         (printf "unable to connect to host ~a:~a~n" (request-host req) (request-port req)))
     (run-sending-loop))
   
@@ -210,10 +210,6 @@
 (define/contract (raise/ccm f msg)
   ((string? continuation-mark-set? . -> . exn?) string? . -> . exn?)
   (raise (f msg (current-continuation-marks))))
-
-(define/contract (request->serialized req)
-  (request? . -> . msg?)
-  (motile/serialize (request-message req)))
 
 (define (writable->bytes t)
   (define o (open-output-bytes))
