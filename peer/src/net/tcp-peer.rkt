@@ -94,10 +94,7 @@
                     (run-output-loop o control-channel encrypter thread-receive)))))
     (define it (launch-input-thread i control-channel decrypter remote-id))
     (hash-set! connects-o remote-id ot)
-    (hash-set! connects-i remote-id it)
-    (displayln connects-i)
-    (displayln connects-o))
-  
+    (hash-set! connects-i remote-id it))
   
   ;; -------------------------------------
   
@@ -111,10 +108,6 @@
       (define remote-id (cons ra rp))
       (define it (launch-input-thread i control-channel decrypter remote-id))
       (hash-set! connects-i remote-id it)
-      
-      (displayln connects-i)
-      (displayln connects-o)
-      
       ;; the output thread is already set (in send/maybe-connect).
       (define exiter (make-abandon/signal o control-channel))
       ;; now turn into the output thread.
@@ -296,48 +289,8 @@
   ((string? continuation-mark-set? . -> . exn?) string? . -> . exn?)
   (raise (f msg (current-continuation-marks))))
 
-(define (writable->bytes t)
-  (define o (open-output-bytes))
-  (write t o)
-  (get-output-bytes o))
-
 (define (mbox->stream [end? (λ _ #f)])
   (define v (thread-receive))
   (if (end? v)
       empty-stream
       (stream-cons v (mbox->stream end?))))
-
-(require "../../../Motile/tests/compile-test.rkt"
-         "../../../Motile/compile/compile.rkt"
-         "../../../Motile/baseline.rkt"
-         "../../../Motile/generate/baseline.rkt")
-(define (Motile-tests)
-  (define-values (pk-A crypt-factory-A) (make-pk/encrypter/decrypter))
-  (define-values (pk-B crypt-factory-B) (make-pk/encrypter/decrypter))
-  (define-values (encrypt-A decrypt-A) (crypt-factory-A pk-B))
-  (define-values (encrypt-B decrypt-B) (crypt-factory-B pk-A))
-  
-  (define compile/serialize/start
-  (lambda (e) (motile/call (motile/deserialize (motile/serialize (motile/compile e)) #f)
-                           ENVIRON/TEST)))
-  
-  (define (compile/encrypt/serialize/start e)
-    (define m (motile/serialize (motile/compile e)))
-    (define-values (cipher nonce) (encrypt-A (writable->bytes m)))
-    (define decrypted-expr (decrypt-B cipher nonce))
-    (motile/call (motile/deserialize (read (open-input-bytes decrypted-expr)) #f) 
-                 ENVIRON/TEST))
-  
-  (define (compile/compress/encrypt/serialize/start e)
-    (define m (motile/serialize (motile/compile e)))
-    (define-values (cipher nonce) (encrypt-A (writable->bytes (compress m))))
-    (define decrypted-expr (decrypt-B cipher nonce))
-    (motile/call (motile/deserialize (decompress (read (open-input-bytes decrypted-expr))) #f)
-                 ENVIRON/TEST))
-  
-  (parameterize ([compile/start compile/serialize/start])
-    (compile/tests/all))
-  (parameterize ([compile/start compile/encrypt/serialize/start])
-    (compile/tests/all))
-  (parameterize ([compile/start compile/compress/encrypt/serialize/start])
-    (compile/tests/all)))
