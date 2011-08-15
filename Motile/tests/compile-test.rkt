@@ -14,6 +14,7 @@
 
 (provide
  compile/start
+ compile/tests/all
  ; Test suites.
  constants
  baseline
