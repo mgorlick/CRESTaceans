@@ -41,8 +41,8 @@
 (define *LOCALHOST* "127.0.0.1")
 (print-graph #f)
 
-(define num-connect-tries (make-parameter 10))
-(define secs-between-connect-attempts (make-parameter 0.1))
+(define num-connect-tries (make-parameter 8))
+(define secs-between-connect-attempts (make-parameter 1))
 (define (revoke? remote-scurl) #f)
 
 ; note on the use of async channels in this module:
@@ -123,16 +123,16 @@
     
     (thread 
      (λ ()
-       (let connectloop ([c (num-connect-tries)])
+       (let connectloop ([c (num-connect-tries)] [sleeptime (secs-between-connect-attempts)])
          (with-handlers ([exn:fail:network:scurl? 
                           ; the connection may have succeeded, but the SCURL 
                           ; auth protocol failed.just clean up and bail.
-                          (λ (e) (printf "~a~n" e) (connectloop 0))]
+                          (λ (e) (printf "~a~n" e) (connectloop 0 sleeptime))]
                          ; connection couldn't be made.
                          ; try again after waiting the policy-designated sleep time
-                         [exn:fail:network? (λ (e) 
-                                              (sleep (secs-between-connect-attempts))
-                                              (connectloop (sub1 c)))])
+                         [exn:fail:network? (λ (e)
+                                              (sleep sleeptime)
+                                              (connectloop (sub1 c) (* sleeptime 2)))])
            (cond [(zero? c) 
                   (printf "Connect attempts exceeded. Dropping all messages to ~a~n" remote-id)
                   (hash-remove! connects-o remote-id)]
