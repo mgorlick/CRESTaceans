@@ -4,17 +4,27 @@
          racket/contract
          racket/async-channel
          racket/provide
+         racket/stream
+         ffi/unsafe/atomic
          "../../../Motile/compile/serialize.rkt"
          "compression.rkt"
          "encryption.rkt"
          "scurls.rkt")
 
-(provide *LOCALHOST*
-         run-tcp-peer
-         generate-scurl/defaults
+(provide generate-scurl/defaults
          generate-key/defaults
-         (matching-identifiers-out #rx"request.*" (all-defined-out))
-         (all-from-out "scurls.rkt"))
+         (all-from-out "scurls.rkt")
+         (except-out (all-defined-out)
+                     output-next
+                     input-next
+                     done/signalled
+                     make-abandon/signal
+                     run-input-loop
+                     run-output-loop
+                     run-accept-loop
+                     connect
+                     writable->bytes
+                     mbox->stream))
 
 (struct request (host port key message))
 
@@ -31,6 +41,8 @@
 (define *LOCALHOST* "127.0.0.1")
 (print-graph #f)
 
+(define num-connect-tries (make-parameter 10))
+(define secs-between-connect-attempts (make-parameter 0.1))
 (define (revoke? remote-scurl) #f)
 
 ; note on the use of async channels in this module:
@@ -45,10 +57,10 @@
 ;; run-tcp-peer: returns a thread handle used to communicate with the networking layer.
 ;; encapsulates worker threads for connection I/O, connection startup and keying and teardown, etc.
 ;; (thread-send (run-tcp-peer ...) (request ...)) results in a new message being sent.
-(define/contract (run-tcp-peer hostname port this-scurl reply-thread)
+(define/contract (run-tcp-peer lhostname lport this-scurl reply-thread)
   (hostname/c portname/c private-scurl? thread? . -> . thread?)
   
-  (define listener (tcp-listen port 64 #f hostname))
+  (define listener (tcp-listen lport 64 #f lhostname))
   
   ;; hold output ports for active connections.
   (define/contract connects-o (hash/c island-pair/c thread?) (make-hash))
@@ -57,56 +69,102 @@
   
   ;;; CONNECTING
   
-  ;; used by both the accepting and connecting processes to start and store threads
+  (define/contract (launch-input-thread i control-channel decrypter remote-id)
+    (input-port? async-channel? decrypter/c island-pair/c . -> . thread?)
+    (thread
+     (λ ()
+       (define exiter (make-abandon/signal i control-channel))
+       (with-handlers ([exn? (λ (e)
+                               (exiter e)
+                               (hash-remove! connects-i remote-id))])
+         (run-input-loop i control-channel decrypter 
+                         (λ (m) (thread-send reply-thread m #f)))))))
+  
+  ;; used by the accepting process to start and store threads
   ;; monitoring given output and input ports bound to the given canonical host:port
   (define/contract (start-threads/store! i o ra rp encrypter decrypter control-channel)
     connect-responder/c
-    (define self-key (cons ra rp))
+    (define remote-id (cons ra rp))
     (define ot (thread
                 (λ ()
                   (define exiter (make-abandon/signal o control-channel))
                   (with-handlers ([exn? (λ (e)
                                           (exiter e)
-                                          (hash-remove! connects-o self-key))])
+                                          (hash-remove! connects-o remote-id))])
                     (run-output-loop o control-channel encrypter thread-receive)))))
-    (define it (thread
-                (λ ()
-                  (define exiter (make-abandon/signal i control-channel))
-                  (with-handlers ([exn? (λ (e)
-                                          (exiter e)
-                                          (hash-remove! connects-i self-key))])
-                    (run-input-loop i control-channel decrypter 
-                                    (λ (m) (thread-send reply-thread m #f)))))))
-    (hash-set! connects-o self-key ot)
-    (hash-set! connects-i self-key it))
+    (define it (launch-input-thread i control-channel decrypter remote-id))
+    (hash-set! connects-o remote-id ot)
+    (hash-set! connects-i remote-id it)
+    (displayln connects-i)
+    (displayln connects-o))
+  
   
   ;; -------------------------------------
   
-  (define (get-output-thread/maybe-connect req)
-    (hash-ref connects-o (cons (request-host req) (request-port req))
-              (λ ()
-                ; connection not found. do connect then try lookup again
-                (with-handlers ([exn:fail:network? (λ (e) (printf "~a~n" (exn-message e)) #f)])
-                  (connect port (request-host req) (request-port req) start-threads/store!)
-                  ; should be ready to lookup the connection now.
-                  (hash-ref connects-o (cons (request-host req) (request-port req)))))))
+  ;; used for the connecting process (i.e. called only by the thread spawned
+  ;; inside `send/maybe-connect') to store itself as the output thread, and
+  ;; a new thread as the input thread for a connection
+  (define (run-connector remote-id req)
+    
+    (define/contract (setup-connection! i o ra rp encrypter decrypter control-channel)
+      connect-responder/c
+      (define remote-id (cons ra rp))
+      (define it (launch-input-thread i control-channel decrypter remote-id))
+      (hash-set! connects-i remote-id it)
+      
+      (displayln connects-i)
+      (displayln connects-o)
+      
+      ;; the output thread is already set (in send/maybe-connect).
+      (define exiter (make-abandon/signal o control-channel))
+      ;; now turn into the output thread.
+      (with-handlers ([exn? (λ (e) (exiter e) (hash-remove! connects-o remote-id))])
+        (run-output-loop o control-channel encrypter thread-receive)))
+    
+    (thread 
+     (λ ()
+       (let connectloop ([c (num-connect-tries)])
+         (with-handlers ([exn:fail:network:scurl? 
+                          ; the connection may have succeeded, but the SCURL 
+                          ; auth protocol failed.just clean up and bail.
+                          (λ (e) (printf "~a~n" e) (connectloop 0))]
+                         ; connection couldn't be made.
+                         ; try again after waiting the policy-designated sleep time
+                         [exn:fail:network? (λ (e) 
+                                              (sleep (secs-between-connect-attempts))
+                                              (connectloop (sub1 c)))])
+           (cond [(zero? c) 
+                  (printf "Connect attempts exceeded. Dropping all messages to ~a~n" remote-id)
+                  (hash-remove! connects-o remote-id)]
+                 [else
+                  (connect lport (request-host req) (request-port req) setup-connection!)]))))))
   
-  ;; Forward outbound message to the thread managing the appropriate output port.
-  ;; if no thread returned, assume connection attempt unauthorized.
-  (define (run-sending-loop)
-    (define/contract req request? (thread-receive))
-    (define othread (get-output-thread/maybe-connect req))
-    (if othread
-        (thread-send othread (motile/serialize (request-message req)) #f)
-        (printf "unable to connect to host ~a:~a~n" (request-host req) (request-port req)))
-    (run-sending-loop))
+  (define/contract (send/maybe-connect req)
+    (request? . -> . void)
+    (define (->ser req) (motile/serialize (request-message req)))
+    (define remote-id (cons (request-host req) (request-port req)))
+    
+    (cond [(hash-has-key? connects-o remote-id)
+           ;; there's a connection active - forward the message to it and return.
+           (thread-send (hash-ref connects-o remote-id) (->ser req) #f)]
+          
+          [else
+           ;; launch a new thread that will LATER turn into the output thread,
+           ;; but first acts as the connecting thread.
+           ;; turn off threading here so that there's always an entry in the
+           ;; `connects-o' hash table for `connectloop' to remove, when necessary.
+           (start-atomic)
+           (define connector-t (run-connector remote-id req))
+           (thread-send connector-t (->ser req))
+           (hash-set! connects-o remote-id connector-t)
+           (end-atomic)]))
   
   ;; -------------------------------------
   
   ;; one thread to manage all tcp-accepts.  
   (define accepter (thread (λ () (run-accept-loop listener start-threads/store! this-scurl))))
   ;; one thread to monitor the outgoing messages and redirect them
-  (define sendmaster (thread run-sending-loop))
+  (define sendmaster (thread (λ () (stream-for-each send/maybe-connect (mbox->stream)))))
   
   sendmaster)
 
@@ -175,6 +233,8 @@
 
 ;; -------------------------------------
 
+(struct exn:fail:network:scurl exn:fail:network ())
+
 ; run-accept-loop: sit on a tcp listener forever, accepting new connections.
 (define/contract (run-accept-loop listener f this-scurl)
   (tcp-listener? connect-responder/c private-scurl? . -> . any/c)
@@ -194,7 +254,7 @@
            (f i o ra rp encrypter decrypter (make-async-channel))]
           [else (tcp-abandon-port o)
                 (tcp-abandon-port i)
-                (raise/ccm exn:fail:network
+                (raise/ccm exn:fail:network:scurl
                            "not connected: failed the SCURL server-side auth protocol")]))
   (run-accept-loop listener f this-scurl))
 
@@ -225,7 +285,8 @@
          (f i o ra rp encrypter decrypter (make-async-channel))]
         [else (tcp-abandon-port o)
               (tcp-abandon-port i)
-              (raise/ccm exn:fail:network "not connected: failed the SCURL client-side auth protocol")]))
+              (raise/ccm exn:fail:network:scurl 
+                         "not connected: failed the SCURL client-side auth protocol")]))
 
 ;; -------------------------------------
 
@@ -239,3 +300,9 @@
   (define o (open-output-bytes))
   (write t o)
   (get-output-bytes o))
+
+(define (mbox->stream [end? (λ _ #f)])
+  (define v (thread-receive))
+  (if (end? v)
+      empty-stream
+      (stream-cons v (mbox->stream end?))))
