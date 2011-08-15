@@ -19,11 +19,11 @@
 (struct request (host port key message))
 
 (define island-pair/c (cons/c string? exact-nonnegative-integer?))
-(define msg? list?) ; the contract representing post-serialization messages
+(define msg/c list?) ; the contract representing post-serialization messages
 (define hostname/c string?)
 (define portname/c exact-nonnegative-integer?)
 (define connect-responder/c
-  (input-port? output-port? hostname/c portname/c encrypter/c decrypter/c . -> . any/c))
+  (input-port? output-port? hostname/c portname/c encrypter/c decrypter/c async-channel? . -> . any/c))
 
 (define *LOCALHOST* "127.0.0.1")
 (print-graph #f)
@@ -45,18 +45,23 @@
   
   ;; used by both the accepting and connecting processes to start and store threads
   ;; monitoring given output and input ports bound to the given canonical host:port
-  (define/contract (start-threads/store! i o ra rp encrypter decrypter)
+  (define/contract (start-threads/store! i o ra rp encrypter decrypter control-channel)
     connect-responder/c
-    (define control-channel (make-async-channel))
     (define self-key (cons ra rp))
     (define ot (thread
                 (λ ()
-                  (with-handlers ([exn? (make-abandon/signal o control-channel connects-o self-key)])
-                    (run-output-loop o control-channel self-key encrypter thread-receive)))))
+                  (define exiter (make-abandon/signal o control-channel))
+                  (with-handlers ([exn? (λ (e)
+                                          (exiter e)
+                                          (hash-remove! connects-o self-key))])
+                    (run-output-loop o control-channel encrypter thread-receive)))))
     (define it (thread
                 (λ ()
-                  (with-handlers ([exn? (make-abandon/signal i control-channel connects-i self-key)])
-                    (run-input-loop i control-channel self-key decrypter 
+                  (define exiter (make-abandon/signal i control-channel))
+                  (with-handlers ([exn? (λ (e)
+                                          (exiter e)
+                                          (hash-remove! connects-i self-key))])
+                    (run-input-loop i control-channel decrypter 
                                     (λ (m) (thread-send reply-thread m #f)))))))
     (hash-set! connects-o self-key ot)
     (hash-set! connects-i self-key it))
@@ -73,7 +78,7 @@
   ;; Forward outbound message to the thread managing the appropriate output port.
   ;; if no thread returned, assume connection attempt unauthorized.
   (define (run-sending-loop)
-    (define req (thread-receive))
+    (define/contract req request? (thread-receive))
     (define othread (get-output-thread/maybe-connect req))
     (if othread
         (thread-send othread (motile/serialize (request-message req)) #f)
@@ -83,7 +88,7 @@
   ;; -------------------------------------
   
   ;; one thread to manage all tcp-accepts.  
-  (define accepter (thread (λ () (run-accept-loop listener start-threads/store!))))
+  (define accepter (thread (λ () (run-accept-loop listener start-threads/store! this-scurl))))
   ;; one thread to monitor the outgoing messages and redirect them
   (define sendmaster (thread run-sending-loop))
   
@@ -100,14 +105,13 @@
 
 ;; produce a function that should be fired when a connection needs to be 
 ;; terminated, given the exn that caused the termination.
-(define/contract (make-abandon/signal port control-channel hash self-key)
-  (port? async-channel? (hash/c island-pair/c thread?) island-pair/c . -> . (exn? . -> . void))
+(define/contract (make-abandon/signal port control-channel)
+  (port? async-channel? . -> . (exn? . -> . void))
   (λ (e)
     (printf "~a thread error: ~a~n" (if (input-port? port) "Input" "Output") e)
     (printf "terminating connection~n")
     (tcp-abandon-port port)
-    (async-channel-put control-channel 'exit)
-    (hash-remove! hash self-key)))
+    (async-channel-put control-channel 'exit)))
 
 ;; -------------------------------------
 
@@ -117,8 +121,8 @@
 
 ;; input thread: look for either (1) a signal on the control channel to exit,
 ;; or (2) a message to read, deserialize and deliver across the designated reply-to thread.
-(define/contract (run-input-loop i control-channel self-key decrypt msghandler)
-  (input-port? async-channel? island-pair/c decrypter/c input-msg-handler/c . -> . void)
+(define/contract (run-input-loop i control-channel decrypt msghandler)
+  (input-port? async-channel? decrypter/c input-msg-handler/c . -> . void)
   (define sige (handle-evt control-channel done/signalled))
   (define reade (handle-evt i (λ _ (input-next i decrypt msghandler))))
   (let loop ()
@@ -142,8 +146,8 @@
 (define output-msg-retriever/c (-> any/c))
 
 ;; output thread: look for either a message to send out or a signal to exit.
-(define/contract (run-output-loop o control-channel self-key encrypt getmsg)
-  (output-port? async-channel? island-pair/c encrypter/c output-msg-retriever/c . -> . void)
+(define/contract (run-output-loop o control-channel encrypt getmsg)
+  (output-port? async-channel? encrypter/c output-msg-retriever/c . -> . void)
   (define msge (handle-evt (thread-receive-evt) (λ _ (output-next o (getmsg) encrypt))))
   (define sige (handle-evt control-channel done/signalled))
   (let loop ()
@@ -152,14 +156,14 @@
 
 ;; given an outgoing message m, encrypt and compress m and then write it to the output port o.
 (define/contract (output-next o m encrypt)
-  (output-port? msg? encrypter/c . -> . void)
+  (output-port? msg/c encrypter/c . -> . void)
   (define-values (cipher nonce) (encrypt (writable->bytes (compress m))))
   (write (vector cipher nonce) o))
 
 ;; -------------------------------------
 
-(define/contract (run-accept-loop listener f)
-  (tcp-listener? connect-responder/c . -> . any/c)
+(define/contract (run-accept-loop listener f this-scurl)
+  (tcp-listener? connect-responder/c private-scurl? . -> . any/c)
   (with-handlers ([exn? (λ (e) (printf "~a~n" (exn-message e)) #f)])
     (define-values (i o) (tcp-accept listener))
     (file-stream-buffer-mode o 'none)
@@ -173,12 +177,12 @@
            (define their-PK (do-DH-exchange my-PK i o))
            (define-values (encrypter decrypter) (set-PK their-PK))
            ;; finally, ready to run normal input and output threads, which handle their own encryption/decryption.
-           (f i o ra rp encrypter decrypter)]
+           (f i o ra rp encrypter decrypter (make-async-channel))]
           [else (tcp-abandon-port o)
                 (tcp-abandon-port i)
                 (raise/ccm exn:fail:network
                            "not connected: failed the SCURL server-side auth protocol")]))
-  (run-accept-loop listener f))
+  (run-accept-loop listener f this-scurl))
 
 ;; Do a synchronous tcp connect, then perform the client side of the SCURL authentication protocol.
 ;; finally, launch and register the input and output threads.
@@ -187,18 +191,24 @@
   (define-values (i o) (tcp-connect host port))
   (file-stream-buffer-mode o 'none)
   (define-values (la lp ra rp) (tcp-addresses i #t))
-  (write (vector la port) o)
+  
   ;; first do the SCURL authentication protocol.
   ;(define the-remote-scurl (do-client-auth (request-host req) (request-port req) (request-key req) this-scurl i o))
   ;(cond [(scurl? the-remote-scurl)
+  
+  (write (vector la port) o)
   (cond [#t
+         
          (printf "connected to ~a:~a~n" ra rp)
+         
          ;; then do Diffie-Hellman key exchange.
          (define-values (my-PK set-PK) (make-pk/encrypter/decrypter))
          (define their-PK (do-DH-exchange my-PK i o))
          (define-values (encrypter decrypter) (set-PK their-PK))
-         ;; finally, ready to run normal input and output threads, which handle their own encryption/decryption.
-         (f i o ra rp encrypter decrypter)]
+         
+         ;; finally, ready to run normal input and output threads,
+         ;; which handle their own encryption/decryption.
+         (f i o ra rp encrypter decrypter (make-async-channel))]
         [else (tcp-abandon-port o)
               (tcp-abandon-port i)
               (raise/ccm exn:fail:network "not connected: failed the SCURL client-side auth protocol")]))
