@@ -289,6 +289,11 @@
   ((string? continuation-mark-set? . -> . exn?) string? . -> . exn?)
   (raise (f msg (current-continuation-marks))))
 
+(define (writable->bytes t)
+  (define o (open-output-bytes))
+  (write t o)
+  (get-output-bytes o))
+
 (define (mbox->stream [end? (λ _ #f)])
   (define v (thread-receive))
   (if (end? v)
