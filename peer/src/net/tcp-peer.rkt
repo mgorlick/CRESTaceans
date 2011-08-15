@@ -18,17 +18,29 @@
 
 (struct request (host port key message))
 
-(define island-pair/c (cons/c string? exact-nonnegative-integer?))
 (define msg/c list?) ; the contract representing post-serialization messages
 (define hostname/c string?)
 (define portname/c exact-nonnegative-integer?)
+(define island-pair/c (cons/c hostname/c portname/c))
+
 (define connect-responder/c
   (input-port? output-port? hostname/c portname/c encrypter/c decrypter/c async-channel? . -> . any/c))
+(define output-msg-retriever/c (-> any/c))
+(define input-msg-handler/c (any/c . -> . any/c))
 
 (define *LOCALHOST* "127.0.0.1")
 (print-graph #f)
 
 (define (revoke? remote-scurl) #f)
+
+; note on the use of async channels in this module:
+; for each pair of input and output threads spawned (i.e., those two threads monitoring
+; the ports of a tcp connection), an async channel is created and shared.
+; that channel is used to send termination signals back and forth: if one i/o thread raises
+; puts an exit signal onto the channel, the other will catch it and also exit.
+; this requires the orchestration logic to make an exception handler via
+; `make-abandon/signal' and install it as the exception handler over one i/o thread.
+; this should happen in the body of the user-provided `connect-responder/c'.
 
 ;; run-tcp-peer: returns a thread handle used to communicate with the networking layer.
 ;; encapsulates worker threads for connection I/O, connection startup and keying and teardown, etc.
@@ -38,7 +50,9 @@
   
   (define listener (tcp-listen port 64 #f hostname))
   
+  ;; hold output ports for active connections.
   (define/contract connects-o (hash/c island-pair/c thread?) (make-hash))
+  ;; hold input ports for active connections.
   (define/contract connects-i (hash/c island-pair/c thread?) (make-hash))
   
   ;;; CONNECTING
@@ -71,8 +85,10 @@
   (define (get-output-thread/maybe-connect req)
     (hash-ref connects-o (cons (request-host req) (request-port req))
               (λ ()
+                ; connection not found. do connect then try lookup again
                 (with-handlers ([exn:fail:network? (λ (e) (printf "~a~n" (exn-message e)) #f)])
                   (connect (request-host req) (request-port req) start-threads/store!)
+                  ; should be ready to lookup the connection now.
                   (hash-ref connects-o (cons (request-host req) (request-port req)))))))
   
   ;; Forward outbound message to the thread managing the appropriate output port.
@@ -98,7 +114,8 @@
 
 ;; called if input or output thread gets a signal through their distinguished
 ;; control async channel. typically one will signal the other.
-;; (in the future, may need a third thread to share the ref)
+;; (in the future, may need a third thread to share the ref. in that case,
+; that third thread should be responsible for signalling both.)
 (define (done/signalled v)
   (when (equal? 'exit v)
     (raise/ccm exn:fail:network "Received close command")))
@@ -117,10 +134,8 @@
 
 ;; RECEIVING
 
-(define input-msg-handler/c (any/c . -> . any/c))
-
 ;; input thread: look for either (1) a signal on the control channel to exit,
-;; or (2) a message to read, deserialize and deliver across the designated reply-to thread.
+;; or (2) a message to read, deserialize and deliver via the provided handler.
 (define/contract (run-input-loop i control-channel decrypt msghandler)
   (input-port? async-channel? decrypter/c input-msg-handler/c . -> . void)
   (define sige (handle-evt control-channel done/signalled))
@@ -143,8 +158,6 @@
 
 ;; SENDING
 
-(define output-msg-retriever/c (-> any/c))
-
 ;; output thread: look for either a message to send out or a signal to exit.
 (define/contract (run-output-loop o control-channel encrypt getmsg)
   (output-port? async-channel? encrypter/c output-msg-retriever/c . -> . void)
@@ -162,6 +175,7 @@
 
 ;; -------------------------------------
 
+; run-accept-loop: sit on a tcp listener forever, accepting new connections.
 (define/contract (run-accept-loop listener f this-scurl)
   (tcp-listener? connect-responder/c private-scurl? . -> . any/c)
   (with-handlers ([exn? (λ (e) (printf "~a~n" (exn-message e)) #f)])
