@@ -5,26 +5,24 @@
 
 (define relayer
   (motile/compile
-   `(let relay ([curls (hash/new hash/equal/null)]
+   `(let relay ([curls set/equal/null]
                 [m (thread-receive)])
-      (let ([v (car m)]
-            [r (cdr m)])
-        (cond [(AddCURL? v)
-               (relay (hash/cons curls (AddCURL.curl v) (:message/ask/metadata r))
-                      (thread-receive))]
-              
-              [(RemoveCURL? v)
-               (ask/send* "POST" (RemoveCURL.curl v) (Quit) (:message/ask/metadata r))
-               (relay (hash/remove curls (RemoveCURL.curl v))
-                      (thread-receive))]
-              
-              [(Frame? v)
-               (let sendloop ([c (hash/keys curls)])
-                 (cond [(not (null? c)) (ask/send* "POST" (car c) v (:message/ask/metadata r))
-                                        (sendloop (cdr c))]))
-               (relay curls (thread-receive))]
-              
-              [else (printf "relay else: ~a~n" v)])))))
+      (define v (car m))
+      (define r (cdr m))
+      (cond [(AddCURL? v)
+             (relay (set/cons curls (AddCURL.curl v))
+                    (thread-receive))]
+            
+            [(RemoveCURL? v)
+             (ask/send* "POST" (RemoveCURL.curl v) (Quit) (:message/ask/metadata r))
+             (relay (set/remove curls (RemoveCURL.curl v))
+                    (thread-receive))]
+            
+            [(Frame? v)
+             (set/map curls (lambda (crl) (ask/send* "POST" crl v (:message/ask/metadata r)))) 
+             (relay curls (thread-receive))]
+            
+            [else (printf "relay else: ~a~n" v)]))))
 
 ;; -----
 ;; VIDEO
@@ -33,127 +31,143 @@
 (define command-center-gui
   (motile/compile
    `(lambda (reply-curl)
+      (define g (new-video-gui 320 240))
       (set-current-gui-curl! (current-curl))
-      (let ([g (new-video-gui 320 240)])
-        (let loop ([m (gui-thread-receive g)] [decoders (hash/new hash/equal/null)])
-          (let ([v (car m)])
-            (cond [(AddDecodedVideo? v)
-                   (displayln "GUI is adding a video")
-                   (let ([playback 
-                          (video-gui-add-video! g (AddDecodedVideo.w v) (AddDecodedVideo.h v)
-                                                (AddDecodedVideo.decodercurl v))])
-                     (ask/send* "POST" (AddDecodedVideo.decodercurl v) playback #f)
-                     (loop (gui-thread-receive g)
-                           (hash/cons decoders (AddDecodedVideo.decodercurl v) #f)))]
-                  
-                  [(CP? v)
-                   (displayln "GUI is copying")
-                   (respawn (current-curl) (CP.host v) (CP.port v))
-                   (for-each (lambda (decoder)
-                               (respawn decoder (CP.host v) (CP.port v)))
-                             (hash/keys decoders))
-                   (loop (gui-thread-receive g) decoders)]
-                  
-                  [(CP-child? v)
-                   (displayln "GUI is copying a decoder")
-                   (respawn (CP-child.curl v) (CP.host v) (CP.port v))
-                   (loop (gui-thread-receive g) decoders)]
-                  
-                  [(Quit/MV? v)
-                   (displayln "GUI is moving")
-                   (respawn (current-curl) (CP.host v) (CP.port v))
-                   (for-each (lambda (decoder)
-                               (ask/send* "DELETE" decoder v #f)
-                               (respawn decoder (Quit/MV.host v) (Quit/MV.port v)))
-                             (hash/keys decoders))
-                   ;(shutdown-gui g)
-                   (clear-current-gui-curl!)]
-                  
-                  [(Quit? v)
-                   (displayln "GUI is quitting")
-                   (for-each (lambda (decoder)
-                               (ask/send* "DELETE" decoder v #f))
-                             (hash/keys decoders))
-                   ;(shutdown-gui g)
-                   (clear-current-gui-curl!)]
-                  
-                  [(gui-message-closed-feed? v)
-                   (printf "Feed of ~s was closed~n" (gui-message-closed-feed-curl v))
-                   (ask/send* "DELETE" (gui-message-closed-feed-curl v) (Quit) #f)
-                   (loop (gui-thread-receive g) 
-                         (hash/remove decoders (gui-message-closed-feed-curl v)))]
-                  
-                  [else
-                   (printf "Not a valid request to GUI: ~a~n" v)
-                   (loop (gui-thread-receive g) decoders)])))))))
+      (let loop ([m (gui-thread-receive g)]
+                 [decoders set/equal/null])
+        (define v (car m))
+        (cond [(AddDecodedVideo? v)
+               (displayln "GUI is adding a video")
+               (let ([playback 
+                      (video-gui-add-video! g (AddDecodedVideo.w v) (AddDecodedVideo.h v)
+                                            (AddDecodedVideo.decodercurl v))])
+                 (ask/send* "POST" (AddDecodedVideo.decodercurl v) playback #f)
+                 (loop (gui-thread-receive g)
+                       (set/cons decoders (AddDecodedVideo.decodercurl v))))]
+              
+              [(CP? v)
+               (displayln "GUI is copying")
+               (respawn (current-curl) (CP.host v) (CP.port v))
+               (set/map decoders (lambda (decoder) 
+                                   (respawn decoder (CP.host v) (CP.port v))))
+               (loop (gui-thread-receive g) decoders)]
+              
+              [(CP-child? v)
+               (displayln "GUI is copying a decoder")
+               (respawn (CP-child.curl v) (CP.host v) (CP.port v))
+               (loop (gui-thread-receive g) decoders)]
+              
+              [(Quit/MV? v)
+               (displayln "GUI is moving")
+               (respawn (current-curl) (CP.host v) (CP.port v))
+               (set/map decoders (lambda (decoder)
+                                   (ask/send* "DELETE" decoder v #f)
+                                   (respawn decoder (Quit/MV.host v) (Quit/MV.port v))))
+               ;(shutdown-gui g)
+               (clear-current-gui-curl!)]
+              
+              [(Quit? v)
+               (displayln "GUI is quitting")
+               (set/map decoders (lambda (decoder)
+                                   (ask/send* "DELETE" decoder v #f)))
+               ;(shutdown-gui g)
+               (clear-current-gui-curl!)]
+              
+              [(gui-message-closed-feed? v)
+               (printf "Feed of ~s was closed~n" (gui-message-closed-feed-curl v))
+               (ask/send* "DELETE" (gui-message-closed-feed-curl v) (Quit) #f)
+               (loop (gui-thread-receive g) 
+                     (set/remove decoders (gui-message-closed-feed-curl v)))]
+              [else
+               (printf "Not a valid request to GUI: ~a~n" v)
+               (loop (gui-thread-receive g) decoders)])))))
 
 (define (video-decoder/gui w h)
   (motile/compile
    `(lambda (reply-curl)
+      (define d (vp8dec-new))
       (ask/send* "POST" (get-current-gui-curl) (AddDecodedVideo ,w ,h (current-curl)) #f)
-      (let* ([d (vp8dec-new)]
-             [playback (car (thread-receive))]
+      (let* ([playback (car (thread-receive))]
              [sz (video-playback-buffersize playback)]
-             [buffer (video-playback-buffer playback)]
-             [_ (ask/send* "POST" reply-curl (AddCURL (current-curl)) #f)])
+             [buffer (video-playback-buffer playback)])
+        (ask/send* "POST" reply-curl (AddCURL (current-curl)) #f)
         (let loop ([m (thread-receive)])
-          (let* ([v (car m)] [r (cdr m)])
-            (cond [(Frame? v)
-                   (vp8dec-decode-copy d (bytes-length (Frame.data v)) (Frame.data v) sz buffer)
-                   (loop (thread-receive))]
-                  [(Quit/MV? v)
-                   (displayln "Decoder is moving")
-                   (ask/send* "POST" reply-curl (RemoveCURL (current-curl)) #f)
-                   (vp8dec-delete d)]
-                  [(Quit? v)
-                   (displayln "Decoder is quitting")
-                   (ask/send* "POST" reply-curl (RemoveCURL (current-curl)) #f)
-                   (vp8dec-delete d)]
-                  [(CP? v)
-                   (displayln "Asked to CP - nothing to do")
-                   (loop (thread-receive))]
-                  [else
-                   (printf "not a valid request to decoder: ~a~n" v)
-                   (loop (thread-receive))])))))))
+          (define v (car m))
+          (define r (cdr m))
+          (cond [(Frame? v)
+                 (vp8dec-decode-copy d (bytes-length (Frame.data v)) (Frame.data v) sz buffer)
+                 (loop (thread-receive))]
+                
+                [(Quit/MV? v)
+                 (displayln "Decoder is moving")
+                 (ask/send* "POST" reply-curl (RemoveCURL (current-curl)) #f)
+                 (vp8dec-delete d)]
+                
+                [(Quit? v)
+                 (displayln "Decoder is quitting")
+                 (ask/send* "POST" reply-curl (RemoveCURL (current-curl)) #f)
+                 (vp8dec-delete d)]
+                
+                [(CP? v)
+                 (displayln "Asked to CP - nothing to do")
+                 (loop (thread-receive))]
+                
+                [else
+                 (printf "not a valid request to decoder: ~a~n" v)
+                 (loop (thread-receive))]))))))
 
 (define (video-reader/encoder devname w h)
   (motile/compile
    `(lambda (relayer-curl)
-      (define default-fudge 0.5)
+      (define default-fudge 0.5) ; used as a FACTOR of the overall framerate.
+      ;; i.e., a default-fudge of 0.5 at a camera-specified framerate of 20 fps results in a
+      ;; waiting period of (1000/20) * 0.5 = 25 ms between the first and second capture attempt.
       (define fudge-step 0.01)
-      (let* ([v (video-reader-setup ,devname ,w ,h)]
-             [params (video-reader-get-params v)]
+      (define outbuff (make-bytes (bin* 1024 256))) ; used for encoding only, not capture.
+      (define v (video-reader-setup ,devname ,w ,h))
+      (let* ([params (video-reader-get-params v)]
              [e (vp8enc-new params)]
-             [buffsize (bin* 1024 256)]
-             [outbuff (make-bytes buffsize)]
              [framerate (bin/ (VideoParams.fpsNum params) (VideoParams.fpsDen params))])
-        ; grab-frame: int -> or FrameBuffer None
+        
+        ; grab-frame: int -> or FrameBuffer #f
         (define (grab-frame ts)
           (cond [(video-reader-is-ready? v) (video-reader-get-frame v ts)]
                 [else #f]))
-        ; encode-frame: or FrameBuffer None -> or FrameBuffer None
+        
+        ; encode-frame: or FrameBuffer #f -> or FrameBuffer #f
         (define (encode-frame frame)
           (cond [frame (vp8enc-encode/return-frame e frame outbuff)]
                 [else frame]))
-        ; grab/encode: -> or FrameBuffer None
+        
+        ; grab/encode: -> or FrameBuffer #f
         (define (grab/encode)
           (encode-frame (grab-frame (current-inexact-milliseconds))))
-        (let loop ([v (grab/encode)] [fudge default-fudge])
+        
+        ; loop: featuring AIMD waiting for camera frames.
+        ; 1. try to read the next frame.
+        ; 2a. if the frame was successfully read and encoded, send it off to the proxy curl.
+        ;     then, loop with an additive decrease in waiting time till the next frame.
+        ; 2b. if the frame was NOT successfully read and encoded, multiplicatively increase
+        ;     the waiting time til the next frame. 
+        ;     this seems to give relatively constant framerate overall, with few instances of
+        ;     many "misses" in a row, where a "miss" is checking the camera before it is ready.
+        (let loop ([fudge default-fudge])
+          (define v (grab/encode))
           (cond [v
                  ; Frame received successfully. Pass it on and then wait until
                  ; the next frame should be active (modified by a factor to account for processing time)
                  ;(printf "HIT: fudge ~a~n" fudge)
-                 (ask/send* "POST" relayer-curl (FrameBuffer->Frame v) (metadata type/webm (cons "params" params)))
+                 (ask/send* "POST" relayer-curl (FrameBuffer->Frame v) 
+                            (metadata type/webm (cons "params" params)))
                  (sleep* (bin* fudge framerate))
                  ; decrease fudge factor for next frame a la AIMD.
-                 (loop (grab/encode) (if (bin>= fudge fudge-step)
-                                         (bin- fudge fudge-step)
-                                         0))]
+                 (loop (if (bin>= fudge fudge-step)
+                           (bin- fudge fudge-step)
+                           0))]
                 [else
                  ;(printf "MISS: fudge ~a~n" fudge)
-                 (loop (grab/encode)
-                       ; increase fudge factor for next frame a la AIMD.
-                       (min* default-fudge (bin* 2 (max* fudge-step fudge))))]))))))
+                 ; increase fudge factor for next frame a la AIMD.
+                 (loop (min* default-fudge (bin* 2 (max* fudge-step fudge))))]))))))
 
 ;; -----
 ;; AUDIO
