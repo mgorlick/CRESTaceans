@@ -1,9 +1,8 @@
 #lang racket/base
 
 (require "message.rkt"
-         "../net/structs.rkt"
+         "../net/tcp-peer.rkt"
          "../../../Motile/baseline.rkt"
-         "../../../Motile/compile/serialize.rkt"
          "../../../Motile/compile/compile.rkt"
          "../../../Motile/generate/baseline.rkt")
 
@@ -11,7 +10,6 @@
          (all-from-out 
           "message.rkt"
           "../../../Motile/baseline.rkt"   
-          "../../../Motile/compile/serialize.rkt"
           "../../../Motile/compile/compile.rkt"
           "../../../Motile/generate/baseline.rkt"))
 

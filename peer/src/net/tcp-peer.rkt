@@ -2,10 +2,9 @@
 
 (require racket/tcp
          racket/contract
-         racket/function
          racket/async-channel
-         "../api/compilation.rkt"  
-         "structs.rkt"
+         racket/provide
+         "../../../Motile/compile/serialize.rkt"
          "compression.rkt"
          "encryption.rkt"
          "scurls.rkt")
@@ -14,7 +13,10 @@
          run-tcp-peer
          generate-scurl/defaults
          generate-key/defaults
+         (matching-identifiers-out #rx"request.*" (all-defined-out))
          (all-from-out "scurls.rkt"))
+
+(struct request (host port key message))
 
 (define island-pair/c (cons/c string? exact-nonnegative-integer?))
 (define msg? list?) ; the contract representing post-serialization messages
@@ -22,6 +24,8 @@
 (define *LOCALHOST* "127.0.0.1")
 (define *USE-COMPRESSION?* #t)
 (print-graph #f)
+
+(define (revoke? remote-scurl) #f)
 
 ;; run-tcp-peer: returns a thread handle used to communicate with the networking layer.
 ;; encapsulates worker threads for connection I/O, connection startup and keying and teardown, etc.
@@ -34,16 +38,6 @@
   (define/contract connects-o (hash/c island-pair/c thread?) (make-hash))
   (define/contract connects-i (hash/c island-pair/c thread?) (make-hash))
   
-  (define (revoke? remote-scurl) #f)
-  
-  (define/contract (make-abandon/signal port control-channel hash self-key)
-    (port? async-channel? (hash/c island-pair/c thread?) island-pair/c . -> . (exn? . -> . void))
-    (λ (e)
-      (printf "~a thread error: ~a~n" (if (input-port? port) "Input" "Output") e)
-      (printf "terminating connection~n")
-      (tcp-abandon-port port)
-      (hash-remove! hash self-key)
-      (async-channel-put control-channel 'exit)))
   
   ;;; CONNECTING
   
@@ -104,28 +98,17 @@
   
   ;; RECEIVING
   
-  ;; called if input or output thread gets a signal through their distinguished
-  ;; control async channel. typically one will signal the other.
-  ;; (in the future, may need a third thread to share the ref)
-  (define (done/signalled v)
-    (when (equal? 'exit v)
-      (raise/ccm exn:fail:network "Received close command")))
-  
-  (define/contract (input-next i decrypt)
-    (input-port? (bytes? bytes? . -> . bytes?) . -> . void)
-    (define encrypted-message (read i))
-    (define message (read (open-input-bytes (decrypt (vector-ref encrypted-message 0) (vector-ref encrypted-message 1)))))
-    (thread-send reply-thread (motile/deserialize (decompress message) #f)))
-  
   ;; input thread: look for either (1) a signal on the control channel to exit,
-  ;; or (3) a message to read, deserialize and deliver across the designated reply-to thread.
+  ;; or (2) a message to read, deserialize and deliver across the designated reply-to thread.
   (define/contract (run-input-thread i control-channel self-key decrypt)
-    (input-port? async-channel? island-pair/c (bytes? bytes? . -> . bytes?) . -> . void)
+    (input-port? async-channel? island-pair/c decrypter/c . -> . void)
     (thread
      (λ ()
        (with-handlers ([exn? (make-abandon/signal i control-channel connects-i self-key)])
          (define sige (handle-evt control-channel done/signalled))
-         (define reade (handle-evt i (curryr input-next decrypt)))
+         (define reade (handle-evt i 
+                                   (λ _ (input-next i decrypt 
+                                                    (λ (m) (thread-send reply-thread m #f))))))
          (let loop ()
            (sync sige reade)
            (loop))))))
@@ -134,21 +117,13 @@
   
   ;; SENDING
   
-  ;; called if output thread receives anything in mailbox.
-  (define (output-next o encrypt)
-    (define m (thread-receive))
-    (cond [(msg? m)
-           (define-values (cipher nonce) (encrypt (writable->bytes (compress m))))
-           (write (vector cipher nonce) o)]
-          [else (raise/ccm exn:fail "An invalid outgoing message was queued for writing")]))
-  
   ;; output thread: look for either a message to send out or a signal to exit.
   (define/contract (run-output-thread o control-channel self-key encrypt)
-    (output-port? async-channel? island-pair/c (bytes? . -> . (values bytes? bytes?)) . -> . void)
+    (output-port? async-channel? island-pair/c encrypter/c . -> . void)
     (thread
      (λ ()
        (with-handlers ([exn? (make-abandon/signal o control-channel connects-o self-key)])
-         (define msge (handle-evt (thread-receive-evt) (λ _ (output-next o encrypt))))
+         (define msge (handle-evt (thread-receive-evt) (λ _ (output-next o (thread-receive) encrypt))))
          (define sige (handle-evt control-channel done/signalled))
          (let loop ()
            (sync msge sige)
@@ -157,7 +132,7 @@
   ;; Forward outbound message to the thread managing the appropriate output port.
   ;; if no thread returned, assume connection attempt unauthorized.
   (define (do-sending)
-    (define/contract req request? (thread-receive))
+    (define req (thread-receive))
     (define othread (get-output-thread/maybe-connect req))
     (if othread
         (thread-send othread (request->serialized req) #f)
@@ -178,6 +153,46 @@
   ;; one thread to monitor the outgoing messages and redirect them
   (define sendmaster (thread do-sending))
   sendmaster)
+
+;; -------------------------------------
+
+;; given an outgoing message m, encrypt and compress m and then write it to the output port o.
+(define/contract (output-next o m encrypt)
+  (output-port? msg? encrypter/c . -> . void)
+  (define-values (cipher nonce) (encrypt (writable->bytes (compress m))))
+  (write (vector cipher nonce) o))
+
+;; read a message from i. decrypt, decompress and deserialize it. then call the 
+;; provided function to do something with the message.
+(define/contract (input-next i decrypt f)
+  (input-port? decrypter/c (any/c . -> . any/c) . -> . any/c)
+  (define encrypted-message (read i))
+  (define message 
+    (read (open-input-bytes (decrypt (vector-ref encrypted-message 0)
+                                     (vector-ref encrypted-message 1)))))
+  (f (motile/deserialize (decompress message) #f)))
+
+;; -------------------------------------
+
+;; called if input or output thread gets a signal through their distinguished
+;; control async channel. typically one will signal the other.
+;; (in the future, may need a third thread to share the ref)
+(define (done/signalled v)
+  (when (equal? 'exit v)
+    (raise/ccm exn:fail:network "Received close command")))
+
+;; produce a function that should be fired when a connection needs to be 
+;; terminated, given the exn that caused the termination.
+(define/contract (make-abandon/signal port control-channel hash self-key)
+  (port? async-channel? (hash/c island-pair/c thread?) island-pair/c . -> . (exn? . -> . void))
+  (λ (e)
+    (printf "~a thread error: ~a~n" (if (input-port? port) "Input" "Output") e)
+    (printf "terminating connection~n")
+    (tcp-abandon-port port)
+    (async-channel-put control-channel 'exit)
+    (hash-remove! hash self-key)))
+
+;; -------------------------------------
 
 ;; raise an exception given the exception's type and message.
 ;; this just alleviates having to type (current-continuation-marks) a lot
