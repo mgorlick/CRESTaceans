@@ -1869,7 +1869,7 @@
        8 -1))
     -16)))
 
-' --------------------
+; --------------------
 
 (define-test-suite frame-bug-tests
   (test-case
