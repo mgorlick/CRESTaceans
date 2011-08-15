@@ -87,7 +87,7 @@
               (λ ()
                 ; connection not found. do connect then try lookup again
                 (with-handlers ([exn:fail:network? (λ (e) (printf "~a~n" (exn-message e)) #f)])
-                  (connect (request-host req) (request-port req) start-threads/store!)
+                  (connect port (request-host req) (request-port req) start-threads/store!)
                   ; should be ready to lookup the connection now.
                   (hash-ref connects-o (cons (request-host req) (request-port req)))))))
   
@@ -200,20 +200,20 @@
 
 ;; Do a synchronous tcp connect, then perform the client side of the SCURL authentication protocol.
 ;; finally, launch and register the input and output threads.
-(define/contract (connect host port f)
-  (hostname/c portname/c connect-responder/c . -> . any/c)
+(define/contract (connect lport host port f)
+  (portname/c hostname/c portname/c connect-responder/c . -> . any/c)
   (define-values (i o) (tcp-connect host port))
   (file-stream-buffer-mode o 'none)
-  (define-values (la lp ra rp) (tcp-addresses i #t))
+  (define-values (la _ ra rp) (tcp-addresses i #t))
   
   ;; first do the SCURL authentication protocol.
   ;(define the-remote-scurl (do-client-auth (request-host req) (request-port req) (request-key req) this-scurl i o))
   ;(cond [(scurl? the-remote-scurl)
   
-  (write (vector la port) o)
+  (write (vector la lport) o)
   (cond [#t
          
-         (printf "connected to ~a:~a~n" ra rp)
+         (printf "~a:~a: connected to ~a:~a~n" la lport ra rp)
          
          ;; then do Diffie-Hellman key exchange.
          (define-values (my-PK set-PK) (make-pk/encrypter/decrypter))
