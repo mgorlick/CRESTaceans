@@ -140,7 +140,7 @@
                            [hostfield host]
                            [portfield port]
                            [alignment '(left top)]
-                           [style '(auto-hscroll auto-vscroll)]
+                           [style '(auto-vscroll)]
                            [min-width 200]
                            [vert-margin 10]
                            [horiz-margin 10]))
