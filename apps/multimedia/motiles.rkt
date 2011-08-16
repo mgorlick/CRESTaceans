@@ -40,12 +40,12 @@
         (cond [(message/uri? v)
                (displayln "GUI is adding a video")
                (let ([playback-function (let ([playback-canvas (box #f)]
-                                              [av! video-gui-add-video!]
-                                              [cp! bytes-copy!])
+                                              [av! video-gui-add-video!])
                                           (lambda (copyfunction w h)
                                             (unless (unbox playback-canvas)
                                               (box! playback-canvas (av! g w h v)))
-                                            (copyfunction (unbox playback-canvas))))])
+                                            (copyfunction (bytes-length (unbox playback-canvas))
+                                                          (unbox playback-canvas))))])
                  (ask/send* "POST" v playback-function #f)
                  (loop (gui-thread-receive g) (set/cons decoders v)))]
               
@@ -89,55 +89,47 @@
 (define video-decoder/single
   (motile/compile
    '(lambda (reply-curl)
+      
       (define (get-w/h frame)
         (let* ([metadata (:message/ask/metadata (cdr frame))]
                [params (cdr (assoc "params" metadata))])
           (cons (VideoParams.width params) (VideoParams.height params))))
-      (define (copy-a-frame decoder frame w h sz buffer playback-function)
-        (define (copy-from canvas)
-          (vp8dec-decode-copy decoder (bytes-length (Frame.data frame)) (Frame.data frame) sz canvas))
-        (playback-function copy-from w h))
       
       ;; 1. look up the current GUI, ask for a new display function
       (ask/send* "POST" (get-current-gui-curl) (current-curl) #f)
-      (let ([playback-function (car (thread-receive))])
+      (let ([playback-function (car (thread-receive))]
+            [d (vp8dec-new)])
         ;; 2. now that the decoder has a playback function it may decode frames, so ask for them.
         (ask/send* "POST" reply-curl (AddCURL (current-curl)) #f)
-        (let ([first (thread-receive)])
-          ;; 3. need to set up the buffer with an appropriate size. pull the frame size from the metadata
-          (cond [(Frame? (car first))
-                 (let* ([w/h (get-w/h first)]
-                        [w (car w/h)]
-                        [h (cdr w/h)]
-                        [sz (* 3 w h)]
-                        [buffer (make-bytes sz)]
-                        [d (vp8dec-new)])
-                   ;; 4. start decoding loop
-                   (let loop ([m first])
-                     (define v (car m))
-                     (define r (cdr m))
-                     (cond [(Frame? v)
-                            (copy-a-frame d v w h sz buffer playback-function)
-                            (loop (thread-receive))]
-                           
-                           [(Quit/MV? v)
-                            (displayln "Decoder is moving")
-                            (ask/send* "POST" reply-curl (RemoveCURL (current-curl)) #f)
-                            (vp8dec-delete d)]
-                           
-                           [(Quit? v)
-                            (displayln "Decoder is quitting")
-                            (ask/send* "POST" reply-curl (RemoveCURL (current-curl)) #f)
-                            (vp8dec-delete d)]
-                           
-                           [(CP? v)
-                            (displayln "Asked to CP - nothing to do")
-                            (loop (thread-receive))]
-                           
-                           [else
-                            (printf "not a valid request to decoder: ~a~n" v)
-                            (loop (thread-receive))])))]
-                [else (displayln "decoder protocol violation: message 2 should be frame #1")]))))))
+        ;; 3. start decoding loop
+        (let loop ([m (thread-receive)])
+          (define v (car m))
+          (define r (cdr m))
+          (cond [(Frame? v)
+                 (let ([w/h (get-w/h m)]
+                       [data (Frame.data v)])
+                   (playback-function (lambda (sz canvas)
+                                        (vp8dec-decode-copy d (bytes-length data) data sz canvas))
+                                      (car w/h) (cdr w/h)))
+                 (loop (thread-receive))]
+                
+                [(Quit/MV? v)
+                 (displayln "Decoder is moving")
+                 (ask/send* "POST" reply-curl (RemoveCURL (current-curl)) #f)
+                 (vp8dec-delete d)]
+                
+                [(Quit? v)
+                 (displayln "Decoder is quitting")
+                 (ask/send* "POST" reply-curl (RemoveCURL (current-curl)) #f)
+                 (vp8dec-delete d)]
+                
+                [(CP? v)
+                 (displayln "Asked to CP - nothing to do")
+                 (loop (thread-receive))]
+                
+                [else
+                 (printf "not a valid request to decoder: ~a~n" v)
+                 (loop (thread-receive))]))))))
 
 (define (video-reader/encoder devname w h)
   (motile/compile
