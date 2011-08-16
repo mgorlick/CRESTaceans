@@ -42,10 +42,10 @@
                (let ([playback-function (let ([playback-canvas (box #f)]
                                               [av! video-gui-add-video!]
                                               [cp! bytes-copy!])
-                                          (lambda (buffer w h)
+                                          (lambda (copyfunction w h)
                                             (unless (unbox playback-canvas)
                                               (box! playback-canvas (av! g w h v)))
-                                            (cp! (unbox playback-canvas) 0 buffer)))])
+                                            (copyfunction (unbox playback-canvas))))])
                  (ask/send* "POST" v playback-function #f)
                  (loop (gui-thread-receive g) (set/cons decoders v)))]
               
@@ -94,8 +94,9 @@
                [params (cdr (assoc "params" metadata))])
           (cons (VideoParams.width params) (VideoParams.height params))))
       (define (copy-a-frame decoder frame w h sz buffer playback-function)
-        (vp8dec-decode-copy decoder (bytes-length (Frame.data frame)) (Frame.data frame) sz buffer)
-        (playback-function buffer w h))
+        (define (copy-from canvas)
+          (vp8dec-decode-copy decoder (bytes-length (Frame.data frame)) (Frame.data frame) sz canvas))
+        (playback-function copy-from w h))
       
       ;; 1. look up the current GUI, ask for a new display function
       (ask/send* "POST" (get-current-gui-curl) (current-curl) #f)
