@@ -211,10 +211,10 @@
          (define relay-curl (make-curl (uuid)))
          (handle-spawn relay-curl relayer (metadata) root-curl)
          (handle-spawn (make-curl (uuid)) 
-                       (video-reader/encoder (argsassoc "--video" #:default "/dev/video0") 640 480) 
+                       (video-reader/encoder (argsassoc "--video" #:default "/dev/video0") 1280 720) 
                        (metadata produces/webm) relay-curl)
          
-         (ask/send request-thread "SPAWN" remoteroot (video-decoder/gui 640 480)
+         (ask/send request-thread "SPAWN" remoteroot video-decoder/single
                    #:metadata (metadata accepts/webm) #:reply relay-curl)])
   
   (cond [(argsassoc "--audio")
