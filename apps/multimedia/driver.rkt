@@ -125,8 +125,12 @@
   (define (ask/send* method u body metadata)
     (cond [(hash-has-key? curls=>threads u)
            (thread-send (hash-ref curls=>threads u)
-                        (cons (motile/call (motile/compile body) (metadata->benv metadata))
-                              (message/ask/new method u (motile/compile body) metadata))
+                        (cond [(procedure? body)
+                               (cons body
+                                     (message/ask/new method u body metadata))]
+                              [else             
+                               (cons (motile/call (motile/compile body) (metadata->benv metadata))
+                                     (message/ask/new method u (motile/compile body) metadata))])
                         #f)]
           [(message/uri? u)
            (ask/send request-thread method u body 
