@@ -73,6 +73,8 @@
          define/combinator/2
          define/combinator/3)
 
+; 
+
 ;; Motile-specific reworkings of map, apply, and for-each.
 
 ;; Generates a wrapper for map-like combinators.
@@ -261,7 +263,6 @@
     (define/global/2 'assq     assq)
     (define/global/2 'assv     assv)
     (define/global/2 'assoc    assoc)
-    (define/global/2 'filter   filter)
     
     ; Logical negation.
     (define/global/1 'not not)
@@ -483,6 +484,9 @@
     (cons            'apply     (motile/apply))
     (cons            'map       (motile/metamap 'map      map))
     (cons            'for-each  (motile/metamap 'for-each for-each))
+    (cons            'foldr     (motile/metamap 'foldr    foldr))
+    (cons            'foldl     (motile/metamap 'foldl    foldl))
+    (cons            'filter    (motile/metamap 'filter   filter))
 
     ; Control
     (cons 'call/cc motile/CALL-CC)
