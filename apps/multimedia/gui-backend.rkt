@@ -12,16 +12,22 @@
 (define (gui-main pls)
   (match (place-channel-get pls)
     [(list 'new-video-gui gw gh)
-     (parameterize ([current-eventspace (make-eventspace)])
-       (define g (new-video-gui gw gh (λ (m) (place-channel-put pls m))))
-       (let loop ()
-         (define rq (place-channel-get pls))
-         (match rq
-           [(list 'add-video w h name)
-            (define playback 
-              (video-gui-add-video! g w h name (λ (m) (place-channel-put pls m))))
-            (place-channel-put pls (video-playback-buffer playback))
-            (loop)])))]))
+     (define-values (i o) (place-channel))
+     (place-channel-put pls o)
+     (thread (λ ()
+               (parameterize ([current-eventspace (make-eventspace)])
+                 (define g (new-video-gui gw gh (λ (m) (place-channel-put i m))))
+                 (let loop ()
+                   (define rq (place-channel-get i))
+                   (match rq
+                     [(list 'add-video w h name)
+                      (define playback 
+                        (video-gui-add-video! g w h name (λ (m) (place-channel-put i m))))
+                      (place-channel-put i (video-playback-buffer playback))
+                      (loop)]
+                     [else (printf "GUI place channel: inner loop else~a~N" rq)])))))]
+    [else (printf "GUI place channel: outer loop else~a~n" else)])
+  (gui-main pls))
 
 ; ------------------------------
 

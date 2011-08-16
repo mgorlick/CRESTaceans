@@ -6,17 +6,13 @@
 
 (provide (except-out (all-defined-out)
                      client/new-video-gui
-                     client/video-gui-add-video!
-                     client/video-playback-buffersize
-                     client/video-playback-buffer)
+                     client/video-gui-add-video!)
          (rename-out [client/new-video-gui new-video-gui]
-                     [client/video-gui-add-video! video-gui-add-video!]
-                     [client/video-playback-buffersize video-playback-buffersize]
-                     [client/video-playback-buffer video-playback-buffer]))
+                     [client/video-gui-add-video! video-gui-add-video!]))
 
 ; Q: Why are these gussied-up vectors instead of motile structs?
 ; A: because compiled Motile structs have procedures inside them and you can't
-; send a procedure over a channel.
+; send a procedure over a place channel.
 ; #('closed-feed <curl>)
 (define (gui-message-closed-feed? m)
   (match? m (vector 'closed-feed _)))
@@ -59,10 +55,12 @@
 
 (struct video-gui-client (place actor-thread))
 
+(define main-pls (dynamic-place "gui-backend.rkt" 'gui-main))
+
 (define (client/new-video-gui w h)
-  (define pls (dynamic-place "gui-backend.rkt" 'gui-main))
-  (place-channel-put pls (list 'new-video-gui w h))
-  (video-gui-client pls (current-thread)))
+  (place-channel-put main-pls (list 'new-video-gui w h))
+  (define new-pls (place-channel-get main-pls))
+  (video-gui-client new-pls (current-thread)))
 
 (define (shutdown-gui c)
   (place-kill (video-gui-client-place c)))
@@ -76,9 +74,3 @@
   (define syncres (sync tre (video-gui-client-place c)))
   (cond [(equal? syncres tre) (thread-receive)]
         [else (cons (selective-translate syncres) #f)]))
-
-(define (client/video-playback-buffersize p)
-  (bytes-length p))
-
-(define (client/video-playback-buffer p)
-  p)

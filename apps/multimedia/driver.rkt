@@ -141,25 +141,6 @@
   ; some actors can ask for the curl identifying themselves.
   (define current-curl (make-parameter root-curl))
   
-  ; current-gui-curl: enforces the constraint that a gui is a unique global resource on an island.
-  (define current-gui-curl
-    (let ([c #f] [writelock (make-semaphore 1)] [readlock (make-semaphore 0)])
-      (case-lambda
-        [() (call-with-semaphore readlock (λ () c))]
-        [(f) (cond [(message/uri? f)
-                    (semaphore-wait writelock)
-                    (set! c f)
-                    (semaphore-post readlock)]
-                   [(not f)
-                    (displayln "Giving up the GUI global lock")
-                    (semaphore-wait readlock)
-                    (define old-readlock readlock)
-                    (set! c f)
-                    (semaphore-post writelock)
-                    (set! writelock (make-semaphore 1))
-                    (set! readlock (make-semaphore 0))
-                    (semaphore-post old-readlock)])])))
-  
   ; allow an actor to get the current gui curl, set it, neither, or both, depending on binding environment.
   ; `current-gui-curl' itself shouldn't be added to a binding environment.
   (define get-current-gui-curl (procedure-reduce-arity current-gui-curl 0))
@@ -185,12 +166,9 @@
   (define AUDIO-ENCODE* 
     (++ AUDIO-ENCODE    (global-defines current-curl ask/send*)))
   (define VIDEO-DECODE* 
-    (++ VIDEO-DECODE    (global-defines current-curl ask/send* 
-                                        get-current-gui-curl)))
+    (++ VIDEO-DECODE    (global-defines current-curl ask/send*)))
   (define GUI* 
-    (++ GUI             (global-defines current-curl ask/send* 
-                                        get-current-gui-curl set-current-gui-curl! clear-current-gui-curl!
-                                        respawn)))
+    (++ GUI             (global-defines current-curl ask/send* respawn)))
   (define AUDIO-DECODE* 
     (++ AUDIO-DECODE    (global-defines current-curl ask/send*)))
   

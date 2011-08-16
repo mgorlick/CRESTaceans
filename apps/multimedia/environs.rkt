@@ -50,28 +50,18 @@
 
 ; current-gui-curl: enforces the constraint that a gui is a unique global resource on an island.
 (define current-gui-curl
-  (let ([c #f] [writelock (make-semaphore 1)] [readlock (make-semaphore 0)])
+  (let ([c #f] [readlock (make-semaphore 0)])
     (case-lambda
       [() (call-with-semaphore readlock (λ () c))]
-      [(f) (cond [(message/uri? f)
-                  (semaphore-wait writelock)
-                  (set! c f)
-                  (semaphore-post readlock)]
-                 [(not f)
-                  (displayln "Giving up the GUI global lock")
-                  (semaphore-wait readlock)
-                  (define old-readlock readlock)
-                  (set! c f)
-                  (semaphore-post writelock)
-                  (set! writelock (make-semaphore 1))
-                  (set! readlock (make-semaphore 0))
-                  (semaphore-post old-readlock)])])))
+      [(f) (displayln "GUI CURL changed:")
+           (displayln f)
+           (set! c f)
+           (semaphore-post readlock)])))
 
 ; allow an actor to get the current gui curl, set it, neither, or both, depending on binding environment.
 ; `current-gui-curl' itself shouldn't be added to a binding environment.
 (define get-current-gui-curl (procedure-reduce-arity current-gui-curl 0))
 (define set-current-gui-curl! (procedure-reduce-arity current-gui-curl 1))
-(define clear-current-gui-curl! (λ () (current-gui-curl #f)))
 
 (define MULTIMEDIA-BASE
   (++ UTIL
@@ -103,14 +93,11 @@
                                              vp8dec-new
                                              vp8dec-delete 
                                              vp8dec-decode-copy))
-      (require-spec->global-defines (only-in "gui.rkt"
-                                             video-playback-buffer
-                                             video-playback-buffersize))
       (global-defines get-current-gui-curl)))
 
 (define GUI
   (++ MULTIMEDIA-BASE 
-      (global-defines set-current-gui-curl! clear-current-gui-curl! bytes-copy!)
+      (global-defines get-current-gui-curl set-current-gui-curl!)
       (require-spec->global-defines "gui.rkt")))
 
 (define AUDIO-ENCODE

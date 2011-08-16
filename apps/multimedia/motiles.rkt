@@ -33,21 +33,21 @@
    `(lambda (reply-curl)
       (define g (new-video-gui 320 240))
       
+      (define (add-new curl)
+        (let ([playback-canvas (box #f)]
+              [av! video-gui-add-video!])
+          (lambda (copyfunction w h)
+            (unless (unbox playback-canvas) (box! playback-canvas (av! g w h curl)))
+            (copyfunction (bytes-length (unbox playback-canvas)) (unbox playback-canvas)))))
+      
       (set-current-gui-curl! (current-curl))
       (let loop ([m (gui-thread-receive g)]
                  [decoders set/equal/null])
         (define v (car m))
         (cond [(message/uri? v)
                (displayln "GUI is adding a video")
-               (let ([playback-function (let ([playback-canvas (box #f)]
-                                              [av! video-gui-add-video!])
-                                          (lambda (copyfunction w h)
-                                            (unless (unbox playback-canvas)
-                                              (box! playback-canvas (av! g w h v)))
-                                            (copyfunction (bytes-length (unbox playback-canvas))
-                                                          (unbox playback-canvas))))])
-                 (ask/send* "POST" v playback-function #f)
-                 (loop (gui-thread-receive g) (set/cons decoders v)))]
+               (ask/send* "POST" v (add-new v) #f)
+               (loop (gui-thread-receive g) (set/cons decoders v))]
               
               [(CP? v)
                (displayln "GUI is copying")
@@ -66,16 +66,12 @@
                (respawn (current-curl) (CP.host v) (CP.port v))
                (set/map decoders (lambda (decoder)
                                    (ask/send* "DELETE" decoder v #f)
-                                   (respawn decoder (Quit/MV.host v) (Quit/MV.port v))))
-               ;(shutdown-gui g)
-               (clear-current-gui-curl!)]
+                                   (respawn decoder (Quit/MV.host v) (Quit/MV.port v))))]
               
               [(Quit? v)
                (displayln "GUI is quitting")
                (set/map decoders (lambda (decoder)
-                                   (ask/send* "DELETE" decoder v #f)))
-               ;(shutdown-gui g)
-               (clear-current-gui-curl!)]
+                                   (ask/send* "DELETE" decoder v #f)))]
               
               [(gui-message-closed-feed? v)
                (printf "Feed of ~s was closed~n" (gui-message-closed-feed-curl v))
@@ -108,9 +104,10 @@
           (cond [(Frame? v)
                  (let ([w/h (get-w/h m)]
                        [data (Frame.data v)])
-                   (playback-function (lambda (sz canvas)
-                                        (vp8dec-decode-copy d (bytes-length data) data sz canvas))
-                                      (car w/h) (cdr w/h)))
+                   (playback-function 
+                    (lambda (sz canvas)
+                      (vp8dec-decode-copy d (bytes-length data) data sz canvas))
+                    (car w/h) (cdr w/h)))
                  (loop (thread-receive))]
                 
                 [(Quit/MV? v)
