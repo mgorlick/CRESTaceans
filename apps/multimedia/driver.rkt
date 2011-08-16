@@ -122,19 +122,27 @@
   ; primitive for sending from the Motile level. 
   ; thread-to-thread intra-island messaging
   ; looks the same as island-to-island messaging does.
-  (define (ask/send* method u body metadata)
+  (define (ask/send* method u body metadata [rpy (current-curl)])
     (cond [(hash-has-key? curls=>threads u)
+           ;; precompiled motile procedures don't need to be recompiled, but
+           ;; other values (e.g., literals, data structures, ....) do need to be recompiled and called
+           ;; (to escape the enclosing thunk).
+           (define to-send (if (procedure? body)
+                               body
+                               (motile/call (motile/compile body) (metadata->benv metadata))))
+           ;; similarly, the attached copy of the payload only needs to be recompiled
+           ;; if it's not already a compiled procedure.
+           (define to-attach (if (procedure? body)
+                                 body
+                                 (motile/compile body)))
+           ;; for our purposes, reply address always == current curl is good enough.
            (thread-send (hash-ref curls=>threads u)
-                        (cond [(procedure? body)
-                               (cons body
-                                     (message/ask/new method u body metadata))]
-                              [else             
-                               (cons (motile/call (motile/compile body) (metadata->benv metadata))
-                                     (message/ask/new method u (motile/compile body) metadata))])
+                        (cons to-send (message/ask/new method u  to-attach metadata rpy :no-echo:))
                         #f)]
           [(message/uri? u)
+           ; it's going off-Island.
            (ask/send request-thread method u body 
-                     #:metadata metadata #:compile? (not (procedure? body)))]
+                     #:metadata metadata #:compile? (not (procedure? body)) #:reply rpy)]
           [else (displayln "Unknown delivery target:")
                 (displayln u)]))
   
