@@ -99,6 +99,7 @@
                             [parent the-window]))
   (define host (new text-field%
                     [label "Hostname"]
+                    [init-value "127.0.0.1"]
                     [min-width 200]
                     [stretchable-width #f]
                     [parent button-panel]))
@@ -307,9 +308,7 @@
       (swap-gl-buffers)
       (unless (is-enabled?)
         (send refresher stop)))
-    (resume-flush)
-    
-    (printf "Made a main canvas of ~ax~a~n" (send this min-width) (send this min-height))))
+    (resume-flush)))
 
 ; small-video-canvas%: used for the preview panes at the bottom of the screen.
 (define small-video-canvas%
