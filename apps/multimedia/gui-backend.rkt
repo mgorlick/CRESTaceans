@@ -216,6 +216,17 @@
     (define host-field hostfield)
     (define port-field portfield)
     
+    (define pip-major-curl #f)
+    (define pip-minor-curl #f)
+    
+    (define/public (pip-activation-evt evt-cb curl)
+      (cond [(not pip-major-curl) (set! pip-major-curl curl)]
+            [(not pip-minor-curl) (set! pip-minor-curl curl)])
+      (when (and pip-major-curl pip-minor-curl)
+        (evt-cb (gui-message-pip-on pip-major-curl pip-minor-curl))
+        (set! pip-major-curl #f)
+        (set! pip-minor-curl #f)))
+    
     (define/public (add-video-canvas v abr evt-cb)
       
       (define horizp (new horizontal-panel% [parent this] [alignment '(left top)]))
@@ -284,11 +295,7 @@
              [parent vertp]
              [label "PIP"]
              [callback (λ (btn ctrlevt)
-                         (do-pip-self))]))
-      
-      (define (do-pip-self)
-        (evt-cb (gui-message-pip-on (video-playback-name v)
-                                    (video-playback-name v))))
+                         (send this pip-activation-evt evt-cb (video-playback-name v)))]))
       
       (sleep 0)
       (send cnvs enable #t)
