@@ -69,9 +69,7 @@
         (message-length : _ullong = (bytes-length message))
         (n : _bytes) (k : _bytes)
         -> (r : _int)
-        -> (values 
-            ciphertext
-            r)))
+        -> (values ciphertext r)))
 
 (defnacl crypto-box-open-afternm-wrap
   (_fun (c n k) ::
@@ -81,8 +79,5 @@
         (n : _bytes) (k : _bytes)
         -> (r : _int)
         -> (values
-            (cast 
-             (ptr-add message crypto-box-ZEROBYTES)
-             _pointer (_bytes o (- cipher-length crypto-box-ZEROBYTES)))
-            ;(subbytes message crypto-box-ZEROBYTES)
+            (make-sized-byte-string (ptr-add message crypto-box-ZEROBYTES) (- cipher-length crypto-box-ZEROBYTES))
             r)))
