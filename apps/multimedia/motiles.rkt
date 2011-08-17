@@ -101,9 +101,9 @@
           (car (thread-receive)))
         (displayln "Step 2")
         (let ()
-          (define playback-function (retrieve-playback-function))
           (define majorpc (retrieve-proxy-from-decoder majordc))
           (define minorpc (retrieve-proxy-from-decoder minordc))
+          (define playback-function (retrieve-playback-function))
           ;; let the proxies know we're online...
           (displayln "Step 3")
           (ask/send* "POST" majorpc (AddCURL (current-curl)) #f)
