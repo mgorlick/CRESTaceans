@@ -59,7 +59,7 @@ int vp8dec_init (VP8Dec *dec, const size_t size,
   if (!si.is_kf) goto not_kf;
   if (status != VPX_CODEC_OK) goto no_stream_info;
 
-  cfg.threads = 4;
+  cfg.threads = 8;
   cfg.h = si.h;
   cfg.w = si.w;
 
@@ -85,21 +85,24 @@ no_init:
 
 }
 
-int vp8dec_decode_copy (VP8Dec *dec, const size_t input_size, const unsigned char *input,
-			const size_t output_size, unsigned char *output) {
-    vpx_image_t *img;
-  vpx_codec_err_t status;
-  vpx_codec_iter_t iter = NULL;
-  
-  // this might fail if we tune into a stream in between keyframes.
-  // in this case we'll just wait until we get one to move past this if block.
+int conditional_init (VP8Dec *dec, const size_t input_size, const unsigned char *input) {
   if (0 == dec->is_init) {
     vp8dec_init (dec, input_size, input);
     if (0 == dec->is_init)
-      goto not_initialized;
+      return 0;
   }
-  
-  // only proceed here if we've seen at least one keyframe
+  return 1;
+}
+
+
+int decode_and_scale (VP8Dec *dec, const size_t input_size, const unsigned char *input,
+		      const size_t output_size, unsigned char *output,
+		      float scale_factor) {
+  vpx_image_t *img;
+  vpx_codec_err_t status;
+  vpx_codec_iter_t iter = NULL;
+
+    // only proceed here if we've seen at least one keyframe
   status = vpx_codec_decode (dec->codec, input, input_size, NULL, 0);
   if (status != VPX_CODEC_OK)
     goto no_decode;
@@ -108,30 +111,63 @@ int vp8dec_decode_copy (VP8Dec *dec, const size_t input_size, const unsigned cha
 
     if (dec->swsctx == NULL) {
       dec->swsctx = sws_getContext (img->d_w, img->d_h, PIX_FMT_YUV420P, // src info
-				    img->d_w, img->d_h, PIX_FMT_RGB24, // dest info
+				    scale_factor * img->d_w, scale_factor * img->d_h, PIX_FMT_RGB24, // dest info
 				    1, NULL, NULL, NULL); // what flags to use? who knows!
     }
     if (dec->swsctx == NULL) goto no_video;
 
     int w = img->d_w;
     int h = img->d_h;
+    int BPP = 3;
 
-#define BPP 3
     assert (output_size == (size_t) BPP * w * h);
     int dest_stride = BPP * img->d_w;
     sws_scale (dec->swsctx, (const uint8_t * const *) img->planes, img->stride, 0, h,
 	       &output, &dest_stride);
-#undef BPP
   }
 
   return 1;
 
- not_initialized: // not a cause for error unless vp8dec_init prints out an error
-  return 0;
 no_decode:
   printf ("Failed to decode frame: %s\n", vpx_codec_err_to_string (status));
   return 0;
 no_video:
-  printf ("no video available\n");
+  printf ("no video available: could not initialize libswscale\n");
+  return 0;  
+}
+
+int vp8dec_decode_copy (VP8Dec *dec, const size_t input_size, const unsigned char *input,
+			const size_t output_size, unsigned char *output) {
+
+  // this might fail if we tune into a stream in between keyframes.
+  // in this case we'll just wait until we get one to move past this if block.
+  if (!(conditional_init (dec, input_size, input))) {
+      goto not_initialized;
+  }
+  
+  return decode_and_scale (dec, input_size, input, output_size, output, 1.0);
+
+ not_initialized: // not a cause for error unless vp8dec_init prints out an error
   return 0;
+}
+
+int vp8dec_decode_pip (VP8Dec *dec_1, const size_t input_size_1, const unsigned char *input_1,
+		       VP8Dec *dec_2, const size_t input_size_2, const unsigned char *input_2,
+		       const size_t output_size, unsigned char *output) {
+
+  // first we do the exact same logic for the simple case in which there is only a major frame.
+  // if the major frame decode doesn't work, then we have nothing to show.
+  if (!(vp8dec_decode_copy (dec_1, input_size_1, input_1, output_size, output))) {
+    // an error was already logged
+    return 0;
+  }
+
+  // if the primary is initialized but the secondary is not, just do a regular decode + copy
+  // because we're probably still waiting for the first keyframe of the minor stream.
+  if (!(conditional_init (dec_2, input_size_2, input_2))) {
+    // decoding succeeded in *some* capacity already (since primary decode succeeded).
+    return 1;
+  }
+
+  return decode_and_scale (dec_2, input_size_2, input_2, output_size, output, 0.25);
 }
