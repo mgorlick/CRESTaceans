@@ -46,6 +46,9 @@
 (define (gui-message-cp-child name host port)
   `#(cp-child ,name ,host ,port))
 
+(define (gui-message-pip-on major minor)
+  `#(pip-on ,major ,minor))
+
 ; ------------------------------
 
 (define BYTES-PER-PIXEL 3)
@@ -275,6 +278,17 @@
              [callback (λ (btn ctrlevt)
                          (do-cpy cpy ctrlevt)
                          (do-unsub unsub ctrlevt))]))
+      
+      (define pip
+        (new button%
+             [parent vertp]
+             [label "PIP"]
+             [callback (λ (btn ctrlevt)
+                         (do-pip-self))]))
+      
+      (define (do-pip-self)
+        (evt-cb (gui-message-pip-on (video-playback-name v)
+                                    (video-playback-name v))))
       
       (sleep 0)
       (send cnvs enable #t)

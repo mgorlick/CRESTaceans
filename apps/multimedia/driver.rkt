@@ -176,7 +176,7 @@
   (define VIDEO-DECODE* 
     (++ VIDEO-DECODE    (global-defines current-curl ask/send*)))
   (define GUI* 
-    (++ GUI             (global-defines current-curl ask/send* respawn)))
+    (++ GUI             (global-defines current-curl ask/send* respawn root-curl)))
   (define AUDIO-DECODE* 
     (++ AUDIO-DECODE    (global-defines current-curl ask/send*)))
   

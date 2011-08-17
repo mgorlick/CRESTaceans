@@ -155,9 +155,11 @@ int vp8dec_decode_pip (VP8Dec *dec_1, const size_t input_size_1, const unsigned 
 		       VP8Dec *dec_2, const size_t input_size_2, const unsigned char *input_2,
 		       const size_t output_size, unsigned char *output) {
 
+  unsigned char tmp[output_size];
+
   // first we do the exact same logic for the simple case in which there is only a major frame.
   // if the major frame decode doesn't work, then we have nothing to show.
-  if (!(vp8dec_decode_copy (dec_1, input_size_1, input_1, output_size, output))) {
+  if (!(vp8dec_decode_copy (dec_1, input_size_1, input_1, output_size, tmp))) {
     // an error was already logged
     return 0;
   }
@@ -169,5 +171,8 @@ int vp8dec_decode_pip (VP8Dec *dec_1, const size_t input_size_1, const unsigned 
     return 1;
   }
 
-  return decode_and_scale (dec_2, input_size_2, input_2, output_size, output, 0.25);
+  int rs = decode_and_scale (dec_2, input_size_2, input_2, output_size, tmp, 0.33);
+  if (!rs) return 0;
+  memcpy (output, tmp, output_size);
+  return 1;
 }

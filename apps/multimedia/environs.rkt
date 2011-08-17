@@ -3,6 +3,7 @@
 (require "message-types.rkt"
          "gui.rkt"
          "video.rkt"
+         "motiles.rkt"
          "bindings/speex/speex.rkt"
          "../../peer/src/api/message.rkt"
          "../../peer/src/api/compilation.rkt"
@@ -92,12 +93,16 @@
       (require-spec->global-defines (only-in "video.rkt" 
                                              vp8dec-new
                                              vp8dec-delete 
-                                             vp8dec-decode-copy))
+                                             vp8dec-decode-copy
+                                             vp8dec-decode-pip))
       (global-defines get-current-gui-curl)))
+
+(define (pip)
+  (motile/call video-decoder/pip BASELINE))
 
 (define GUI
   (++ MULTIMEDIA-BASE 
-      (global-defines get-current-gui-curl set-current-gui-curl!)
+      (global-defines get-current-gui-curl set-current-gui-curl! pip)
       (require-spec->global-defines "gui.rkt")))
 
 (define AUDIO-ENCODE

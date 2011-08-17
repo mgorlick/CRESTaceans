@@ -49,6 +49,7 @@
         [(gui-message-cp? m) (CP (vector-ref m 1) (vector-ref m 2))]
         [(gui-message-closed-window? m) (Quit)]
         [(gui-message-cp-child? m) (CP-child (vector-ref m 1) (vector-ref m 2) (vector-ref m 3))]
+        [(gui-message-pip-on? m) (PIPOn (vector-ref m 1) (vector-ref m 2))]
         [else m]))
 
 ; places interface

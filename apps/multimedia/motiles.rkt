@@ -19,7 +19,7 @@
                     (thread-receive))]
             
             [(Frame? v)
-             (set/map curls (lambda (crl) (ask/send* "POST" crl v (:message/ask/metadata r)))) 
+             (set/map curls (lambda (crl) (ask/send* "POST" crl v (:message/ask/metadata r))))
              (relay curls (thread-receive))]
             
             [else (printf "relay else: ~a~n" v)]))))
@@ -36,7 +36,7 @@
       (define (add-new curl)
         (let ([playback-canvas (box #f)]
               [av! video-gui-add-video!])
-          (lambda (copyfunction w h)
+          (lambda (w h copyfunction)
             (unless (unbox playback-canvas) (box! playback-canvas (av! g w h curl)))
             (copyfunction (bytes-length (unbox playback-canvas)) (unbox playback-canvas)))))
       
@@ -78,9 +78,92 @@
                (ask/send* "DELETE" (gui-message-closed-feed-curl v) (Quit) #f)
                (loop (gui-thread-receive g) 
                      (set/remove decoders (gui-message-closed-feed-curl v)))]
+              
+              [(PIPOn? v)
+               (let ([new-pip-decoder ((pip) (PIPOn.major v) (PIPOn.minor v))])
+                 (printf "New pip: ~a~n" new-pip-decoder)
+                 (ask/send* "SPAWN" root-curl new-pip-decoder (metadata accepts/webm) root-curl))
+               (loop (gui-thread-receive g) decoders)]
               [else
                (printf "Not a valid request to GUI: ~a~n" v)
                (loop (gui-thread-receive g) decoders)])))))
+
+(define video-decoder/pip
+  (motile/compile
+   '(lambda (majordc minordc)
+      (displayln "Step 1")
+      (lambda ()
+        (define (retrieve-playback-function)
+          (ask/send* "POST" (get-current-gui-curl) (current-curl) #f)
+          (car (thread-receive)))
+        (define (retrieve-proxy-from-decoder dcurl)
+          (ask/send* "POST" dcurl (CP #f #f) #f)
+          (car (thread-receive)))
+        (displayln "Step 2")
+        (let ()
+          (define playback-function (retrieve-playback-function))
+          (define majorpc (retrieve-proxy-from-decoder majordc))
+          (define minorpc (retrieve-proxy-from-decoder minordc))
+          ;; let the proxies know we're online...
+          (displayln "Step 3")
+          (ask/send* "POST" majorpc (AddCURL (current-curl)) #f)
+          (ask/send* "POST" minorpc (AddCURL (current-curl)) #f)
+          (let ()
+            (define decoder/major (vp8dec-new))
+            (define decoder/minor (vp8dec-new))
+            
+            (define (get-w/h m)
+              (let* ([metadata (:message/ask/metadata (cdr m))]
+                     [params (cdr (assoc "params" metadata))])
+                (cons (VideoParams.width params) (VideoParams.height params))))
+            
+            (define (major+minor w/h major-frame minor-frame)
+              (playback-function (car w/h) (cdr w/h)
+                                 (lambda (sz canvas)
+                                   (vp8dec-decode-pip decoder/major (bytes-length major-frame) major-frame
+                                                      decoder/minor (bytes-length minor-frame) minor-frame
+                                                      sz canvas))))
+            (define (major-only w/h major-frame)
+              (playback-function (car w/h) (cdr w/h)
+                                 (lambda (sz canvas)
+                                   (vp8dec-decode-copy decoder/major (bytes-length major-frame) major-frame
+                                                       sz canvas))))
+            (displayln "Step 4")
+            (let loop ([frames hash/equal/null] [m (thread-receive)])
+              (define v (car m))
+              (define r (cdr m))
+              (cond [(Frame? v)
+                     (let* ([replyaddr (:message/ask/reply r)]
+                            [frames (if (or (equal? replyaddr majorpc) (equal? replyaddr minorpc))
+                                        (hash/cons frames replyaddr v)
+                                        frames)])
+                       (cond [(and (hash/contains? frames majorpc) (hash/contains? frames minorpc))
+                              ; we can display both the major and minor as a picture-in-picture.
+                              (let ([major-frame (Frame.data (hash/ref frames majorpc #f))]
+                                    [minor-frame (Frame.data (hash/ref frames minorpc #f))])
+                                (major+minor (get-w/h m) major-frame minor-frame))
+                              (loop frames (thread-receive))]
+                             
+                             [(hash/contains? frames majorpc)
+                              ; we have only the major so display as normal.
+                              (let ([major-frame (Frame.data (hash/ref frames majorpc #f))])
+                                (major-only (get-w/h m) major-frame))
+                              (loop frames (thread-receive))]
+                             
+                             [else
+                              (displayln "None of the required frame sources have sent a frame.")
+                              (loop frames (thread-receive))]))]
+                    
+                    [(or (Quit/MV? v) (Quit? v))
+                     (displayln "PIP Decoder is quitting")
+                     (ask/send* "POST" majorpc (RemoveCURL (current-curl)) #f)
+                     (ask/send* "POST" minorpc (RemoteCURL (current-curl)) #f)
+                     (vp8dec-delete decoder/major)
+                     (vp8dec-delete decoder/minor)]
+                    
+                    [else
+                     (printf "not a valid request to PIP decoder: ~a~n" v)
+                     (loop frames (thread-receive))]))))))))
 
 (define video-decoder/single
   (motile/compile
@@ -104,25 +187,20 @@
           (cond [(Frame? v)
                  (let ([w/h (get-w/h m)]
                        [data (Frame.data v)])
-                   (playback-function 
-                    (lambda (sz canvas)
-                      (vp8dec-decode-copy d (bytes-length data) data sz canvas))
-                    (car w/h) (cdr w/h)))
+                   (playback-function (car w/h) (cdr w/h)
+                                      (lambda (sz canvas)
+                                        (vp8dec-decode-copy d (bytes-length data) data sz canvas))))
                  (loop (thread-receive))]
                 
-                [(Quit/MV? v)
+                [(CP? v)
+                 (displayln "Decoder is copying proxy CURL")
+                 (ask/send* "POST" (:message/ask/reply r) reply-curl #f)
+                 (loop (thread-receive))]
+                
+                [(or (Quit/MV? v) (Quit? v))
                  (displayln "Decoder is moving")
                  (ask/send* "POST" reply-curl (RemoveCURL (current-curl)) #f)
                  (vp8dec-delete d)]
-                
-                [(Quit? v)
-                 (displayln "Decoder is quitting")
-                 (ask/send* "POST" reply-curl (RemoveCURL (current-curl)) #f)
-                 (vp8dec-delete d)]
-                
-                [(CP? v)
-                 (displayln "Asked to CP - nothing to do")
-                 (loop (thread-receive))]
                 
                 [else
                  (printf "not a valid request to decoder: ~a~n" v)
