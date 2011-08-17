@@ -41,25 +41,25 @@
             (copyfunction (bytes-length (unbox playback-canvas)) (unbox playback-canvas)))))
       
       (set-current-gui-curl! (current-curl))
-      (let loop ([m (gui-thread-receive g)]
+      (let loop ([m (thread-receive)]
                  [decoders set/equal/null])
         (define v (car m))
         (cond [(message/uri? v)
                (displayln "GUI is adding a video")
                (ask/send* "POST" v (add-new v) #f)
-               (loop (gui-thread-receive g) (set/cons decoders v))]
+               (loop (thread-receive) (set/cons decoders v))]
               
               [(CP? v)
                (displayln "GUI is copying")
                (respawn (current-curl) (CP.host v) (CP.port v))
                (set/map decoders (lambda (decoder) 
                                    (respawn decoder (CP.host v) (CP.port v))))
-               (loop (gui-thread-receive g) decoders)]
+               (loop (thread-receive) decoders)]
               
               [(CP-child? v)
                (displayln "GUI is copying a decoder")
                (respawn (CP-child.curl v) (CP.host v) (CP.port v))
-               (loop (gui-thread-receive g) decoders)]
+               (loop (thread-receive) decoders)]
               
               [(Quit/MV? v)
                (displayln "GUI is moving")
@@ -73,20 +73,21 @@
                (set/map decoders (lambda (decoder)
                                    (ask/send* "DELETE" decoder v #f)))]
               
-              [(gui-message-closed-feed? v)
-               (printf "Feed of ~s was closed~n" (gui-message-closed-feed-curl v))
-               (ask/send* "DELETE" (gui-message-closed-feed-curl v) (Quit) #f)
-               (loop (gui-thread-receive g) 
-                     (set/remove decoders (gui-message-closed-feed-curl v)))]
+              [(RemoveCURL? v)
+               (printf "Feed of ~s was closed~n" (RemoveCURL.curl v))
+               (ask/send* "DELETE" (RemoveCURL.curl v) (Quit) #f)
+               (loop (thread-receive) 
+                     (set/remove decoders (RemoveCURL.curl v)))]
               
               [(PIPOn? v)
                (let ([new-pip-decoder ((pip) (PIPOn.major v) (PIPOn.minor v))])
                  (printf "New pip: ~a~n" new-pip-decoder)
                  (ask/send* "SPAWN" root-curl new-pip-decoder (metadata accepts/webm) root-curl))
-               (loop (gui-thread-receive g) decoders)]
+               (loop (thread-receive) decoders)]
+              
               [else
-               (printf "Not a valid request to GUI: ~a~n" v)
-               (loop (gui-thread-receive g) decoders)])))))
+               (printf "Not a valid request to GUI: ~a~n" m)
+               (loop (thread-receive) decoders)])))))
 
 (define video-decoder/pip
   (motile/compile
@@ -157,7 +158,7 @@
                     [(or (Quit/MV? v) (Quit? v))
                      (displayln "PIP Decoder is quitting")
                      (ask/send* "POST" majorpc (RemoveCURL (current-curl)) #f)
-                     (ask/send* "POST" minorpc (RemoteCURL (current-curl)) #f)
+                     (ask/send* "POST" minorpc (RemoveCURL (current-curl)) #f)
                      (vp8dec-delete decoder/major)
                      (vp8dec-delete decoder/minor)]
                     

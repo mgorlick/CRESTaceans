@@ -51,12 +51,16 @@
 
 ; current-gui-curl: enforces the constraint that a gui is a unique global resource on an island.
 (define current-gui-curl
-  (let ([c #f] [readlock (make-semaphore 0)])
+  (let ([c #f]
+        [writelock (make-semaphore 1)]
+        [readlock (make-semaphore 0)])
     (case-lambda
       [() (call-with-semaphore readlock (λ () c))]
-      [(f) (displayln "GUI CURL changed:")
+      [(f) (semaphore-wait writelock)
+           (displayln "GUI CURL changed:")
            (displayln f)
            (set! c f)
+           (semaphore-post writelock)
            (semaphore-post readlock)])))
 
 ; allow an actor to get the current gui curl, set it, neither, or both, depending on binding environment.
