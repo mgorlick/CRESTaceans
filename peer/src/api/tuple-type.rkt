@@ -1,6 +1,6 @@
 #lang racket/base
 
-(require (for-syntax racket/base racket/list racket/syntax syntax/parse)
+(require (for-syntax racket/base racket/list racket/syntax syntax/parse racket/function)
          racket/match
          racket/function
          "../../../Motile/persistent/tuple.rkt")

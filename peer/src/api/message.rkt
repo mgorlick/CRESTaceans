@@ -13,6 +13,7 @@
 ;; limitations under the License.
 
 (require "../../../Motile/persistent/tuple.rkt"
+         racket/function
          racket/match)
 
 
