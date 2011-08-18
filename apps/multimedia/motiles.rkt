@@ -92,7 +92,6 @@
 (define video-decoder/pip
   (motile/compile
    '(lambda (majordc minordc)
-      (displayln "Step 1")
       (lambda ()
         (define (retrieve-playback-function)
           (ask/send* "POST" (get-current-gui-curl) (current-curl) #f)
@@ -100,13 +99,13 @@
         (define (retrieve-proxy-from-decoder dcurl)
           (ask/send* "POST" dcurl (CP #f #f) #f)
           (car (thread-receive)))
-        (displayln "Step 2")
         (let ()
           (define majorpc (retrieve-proxy-from-decoder majordc))
           (define minorpc (retrieve-proxy-from-decoder minordc))
           (define playback-function (retrieve-playback-function))
+          (displayln "Using these proxy urls:")
+          (printf "~a / ~a~n" majorpc minorpc)
           ;; let the proxies know we're online...
-          (displayln "Step 3")
           (ask/send* "POST" majorpc (AddCURL (current-curl)) #f)
           (ask/send* "POST" minorpc (AddCURL (current-curl)) #f)
           (let ()
@@ -129,31 +128,38 @@
                                  (lambda (sz canvas)
                                    (vp8dec-decode-copy decoder/major (bytes-length major-frame) major-frame
                                                        sz canvas))))
-            (displayln "Step 4")
             (let loop ([frames hash/equal/null] [m (thread-receive)])
               (define v (car m))
               (define r (cdr m))
               (cond [(Frame? v)
                      (let* ([replyaddr (:message/ask/reply r)]
-                            [frames (if (or (equal? replyaddr majorpc) (equal? replyaddr minorpc))
-                                        (hash/cons frames replyaddr v)
-                                        frames)])
-                       (cond [(and (hash/contains? frames majorpc) (hash/contains? frames minorpc))
-                              ; we can display both the major and minor as a picture-in-picture.
-                              (let ([major-frame (Frame.data (hash/ref frames majorpc #f))]
-                                    [minor-frame (Frame.data (hash/ref frames minorpc #f))])
-                                (major+minor (get-w/h m) major-frame minor-frame))
-                              (loop frames (thread-receive))]
-                             
-                             [(hash/contains? frames majorpc)
-                              ; we have only the major so display as normal.
-                              (let ([major-frame (Frame.data (hash/ref frames majorpc #f))])
-                                (major-only (get-w/h m) major-frame))
-                              (loop frames (thread-receive))]
-                             
-                             [else
-                              (displayln "None of the required frame sources have sent a frame.")
-                              (loop frames (thread-receive))]))]
+                            ;; throw the new frame away if it's not one of the streams we're interested in
+                            ;; at the current time, or merge it with the old set of frames if we are.
+                            [frames* (cond [(equal? replyaddr majorpc)
+                                            (displayln "New major frame")
+                                            (hash/cons frames replyaddr v)]
+                                           [(equal? replyaddr minorpc)
+                                            (displayln "New minor frame")
+                                            (hash/cons frames replyaddr v)]
+                                           [else
+                                            frames])])
+                       ;; if the set of frames contains the latest frame from both major and minor,
+                       ;; we can display both the major and minor as a picture-in-picture.
+                       (cond 
+                         [(and (hash/contains? frames* majorpc) (hash/contains? frames* minorpc))
+                          (let ([major-frame (Frame.data (hash/ref frames* majorpc #f))]
+                                [minor-frame (Frame.data (hash/ref frames* minorpc #f))])
+                            (major+minor (get-w/h m) major-frame minor-frame))
+                          (loop frames* (thread-receive))]
+                         ;; otherwise, we play the major frame only while waiting for the first
+                         ;; minor frame to arrive.
+                         [(hash/contains? frames* majorpc)
+                          (let ([major-frame (Frame.data (hash/ref frames* majorpc #f))])
+                            (major-only (get-w/h m) major-frame))
+                          (loop frames* (thread-receive))]
+                         ;; no frames available to show.
+                         [else
+                          (loop frames* (thread-receive))]))]
                     
                     [(or (Quit/MV? v) (Quit? v))
                      (displayln "PIP Decoder is quitting")

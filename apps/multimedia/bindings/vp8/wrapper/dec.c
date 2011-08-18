@@ -109,23 +109,23 @@ int decode_and_scale (VP8Dec *dec, const size_t input_size, const unsigned char 
 
   while (NULL != (img = vpx_codec_get_frame (dec->codec, &iter))) {
 
+   int w = img->d_w;
+   int h = img->d_h;
+   int BPP = 3;
+   int dest_stride = BPP * w;
+   assert (output_size == (size_t) BPP * w * h);
+
     if (dec->swsctx == NULL) {
-      dec->swsctx = sws_getContext (img->d_w, img->d_h, PIX_FMT_YUV420P, // src info
-				    scale_factor * img->d_w, scale_factor * img->d_h, PIX_FMT_RGB24, // dest info
+      dec->swsctx = sws_getContext (w, h, PIX_FMT_YUV420P, // src info
+				    scale_factor * w, scale_factor * h, PIX_FMT_RGB24, // dest info
 				    1, NULL, NULL, NULL); // what flags to use? who knows!
     }
     if (dec->swsctx == NULL) goto no_video;
-
-    int w = img->d_w;
-    int h = img->d_h;
-    int BPP = 3;
-
-    assert (output_size == (size_t) BPP * w * h);
-    int dest_stride = BPP * img->d_w;
+    
     sws_scale (dec->swsctx, (const uint8_t * const *) img->planes, img->stride, 0, h,
 	       &output, &dest_stride);
   }
-
+  
   return 1;
 
 no_decode:
@@ -163,16 +163,16 @@ int vp8dec_decode_pip (VP8Dec *dec_1, const size_t input_size_1, const unsigned 
     // an error was already logged
     return 0;
   }
-
+  
   // if the primary is initialized but the secondary is not, just do a regular decode + copy
   // because we're probably still waiting for the first keyframe of the minor stream.
-  if (!(conditional_init (dec_2, input_size_2, input_2))) {
-    // decoding succeeded in *some* capacity already (since primary decode succeeded).
-    return 1;
+  if (conditional_init (dec_2, input_size_2, input_2)) {
+    // if we're here then both streams have valid decoders.
+    // if the minor decode fails we can still memcpy + return since
+    // we know the major decode succeeded.
+    decode_and_scale (dec_2, input_size_2, input_2, output_size, tmp, 1.0);
   }
 
-  int rs = decode_and_scale (dec_2, input_size_2, input_2, output_size, tmp, 0.33);
-  if (!rs) return 0;
   memcpy (output, tmp, output_size);
   return 1;
 }

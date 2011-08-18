@@ -18,7 +18,6 @@
                       the-actor-thread)))
 
 (define (client/video-gui-add-video! client w h name)
-  (displayln "in client/video-gui-add-video!")
   (video-playback-buffer
    (parameterize ([current-eventspace (make-eventspace)])
      (video-gui-add-video! (video-gui-client-gui client)
@@ -48,7 +47,7 @@
   (video-playback buffer name width height))
 
 (struct video-gui (frame top-panel address-bar
-                         small-video-panel videos) #:transparent #:mutable)
+                         small-video-panel) #:transparent #:mutable)
 
 (define (video-gui-add-video! g w h name evt-cb)
   (define nv (make-video-playback w h name))
@@ -129,7 +128,7 @@
                            [vert-margin 10]
                            [horiz-margin 10]))
   (send frame show #t)
-  (video-gui frame top-panel address-bar small-panel '()))
+  (video-gui frame top-panel address-bar small-panel))
 
 ; ---------------------------
 
@@ -154,7 +153,8 @@
       (when current-canvas
         (delete-child current-canvas)
         (send current-canvas show #f)
-        (send current-canvas enable #f)
+        (send current-canvas enable #f)        
+        (send current-canvas close)
         (set! current-canvas #f)))
     
     (define/public (showing? v)
@@ -297,6 +297,13 @@
     
     (define refresher
       (new timer% [notify-callback (λ () (refresh))] [interval 33] [just-once? #f]))
+    
+    (define/public (close)
+      (set! myvideo #f)
+      (set! w #f)
+      (set! h #f)
+      (set! buffer #f)
+      (set! refresher #f))
     
     (define/public (same-video? v)
       (equal? myvideo v))
