@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 
 ;; Copyright 2009 Michael M. Gorlick
 
@@ -12,8 +12,8 @@
 ;; See the License for the specific language governing permissions and
 ;; limitations under the License.
 
-(require (for-syntax racket/list racket/syntax)
-         "../../../Motile/persistent/tuple.rkt")
+(require "../../../Motile/persistent/tuple.rkt"
+         racket/match)
 
 
 (provide
@@ -70,7 +70,7 @@
 (define-match-expander tell
   (syntax-rules ()
     [(_ status reason body metadata echo)
-     #'(vector '<tuple> (? (curry equal? MOTILE/MESSAGE/TELL) flavor) status reason body metadata echo)]))
+     (vector '<tuple> (? (curry equal? MOTILE/MESSAGE/TELL) flavor) status reason body metadata echo)]))
 
 (define-match-expander uri
   (syntax-rules ()
@@ -105,58 +105,6 @@
       ((eq? (car prefix) (car actual))
        (loop (cdr prefix) (cdr actual)))
       (else #f))))
-
-(define-for-syntax (string->stx k s)
-  (datum->syntax k (string->symbol s)))
-(define-for-syntax (stx->string s)
-  (symbol->string (syntax->datum s)))
-
-(define-syntax (define-tuple-type stx)
-  (syntax-case stx (|| =>)
-    [(k '(namepath ...) [mandatory ...] || [optional => option-default-val] ...)
-     (let* ([namepath-strings (map stx->string (syntax->list #'(namepath ...)))]
-            [name/space/path/string (apply string-append (add-between namepath-strings "/"))]
-            [accessors
-             (map (λ (field) (string-append ":" (string-downcase name/space/path/string) "/" (stx->string field)))
-                  (append (syntax->list #'(mandatory ...)) (syntax->list #'(optional ...))))]
-            [acclen (length (append (syntax->list #'(mandatory ...)) (syntax->list #'(optional ...))))])
-       (with-syntax*
-        ([constructor    (string->stx #'k (string-append (string-downcase name/space/path/string) "/new"))]
-         [constructor?   (string->stx #'k (string-append (string-downcase name/space/path/string) "?"))]
-         [prefix         (string->stx #'k (string-upcase name/space/path/string))]
-         [mlen           (datum->syntax #'k acclen)]
-         [(mandatory-args ...) (generate-temporaries #'(mandatory ...))]
-         [(optional-args ...)  (generate-temporaries #'(optional ...))]
-         [(accessor-ref ...)   (build-list acclen add1)]
-         [(accessor-name ...)  (map (λ (acc) (string->stx #'k acc)) accessors)]
-         [(setter-name ...)    (map (λ (acc) (string->stx #'k (string-append "!" acc))) accessors)])
-        #'(begin
-            (define prefix '(namepath ...))
-            (define constructor
-              (case-lambda
-                [(mandatory-args ...)
-                 (tuple prefix mandatory-args ... option-default-val ...)]
-                [(mandatory-args ... optional-args ...)
-                 (tuple prefix mandatory-args ... optional-args ...)]))
-            (define (constructor? m)
-              (and (tuple? m) (= (tuple/length m) (add1 mlen)) (list/prefix? prefix (tuple/ref m 0))))
-            (define (accessor-name m)
-              (tuple/ref m accessor-ref))
-            ...
-            (define (setter-name m v)
-              (if (= accessor-ref (tuple/length m))
-                  (tuple/append (tuple/take/left m accessor-ref) (tuple v))
-                  (tuple/append (tuple/take/left m accessor-ref) (tuple v) (tuple/take/right m (sub1 accessor-ref)))))
-            ...
-            )))]))
-
-;(define-tuple-type '(message foo) [zuh buh] || [muh => #f] [guh => null])
-;MESSAGE/FOO
-;(message/foo/new #t #"Hello")
-;(message/foo/new 5 3 '() (λ (f) (add1 f)))
-;(message/foo? (message/foo/new #t #f))
-;(:message/foo/zuh (message/foo/new 12 24))
-;(!:message/foo/guh (message/foo/new 12 24) 6)
 
 (define message/ask/new
   (case-lambda
