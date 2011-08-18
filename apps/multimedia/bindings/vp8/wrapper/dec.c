@@ -22,7 +22,7 @@ void display_video (VP8Dec *dec, const vpx_image_t *img);
 void vp8dec_delete (VP8Dec *dec) {
   if (dec == NULL) return;
   if (dec->codec != NULL) free (dec->codec);
-  if (dec->swsctx != NULL) free (dec->swsctx);
+  if (dec->swsctx != NULL) sws_freeContext (dec->swsctx);
   free (dec);
 }
 
@@ -151,28 +151,10 @@ int vp8dec_decode_copy (VP8Dec *dec, const size_t input_size, const unsigned cha
   return 0;
 }
 
-int vp8dec_decode_pip (VP8Dec *dec_1, const size_t input_size_1, const unsigned char *input_1,
-		       VP8Dec *dec_2, const size_t input_size_2, const unsigned char *input_2,
-		       const size_t output_size, unsigned char *output) {
-
-  unsigned char tmp[output_size];
-
-  // first we do the exact same logic for the simple case in which there is only a major frame.
-  // if the major frame decode doesn't work, then we have nothing to show.
-  if (!(vp8dec_decode_copy (dec_1, input_size_1, input_1, output_size, tmp))) {
-    // an error was already logged
-    return 0;
+int vp8dec_decode_update_minor (VP8Dec *dec, const size_t input_size, const unsigned char *input,
+			      const size_t output_size, unsigned char *output) {
+  if (conditional_init (dec, input_size, input)) {
+    return decode_and_scale (dec, input_size, input, output_size, output, 0.33);
   }
-  
-  // if the primary is initialized but the secondary is not, just do a regular decode + copy
-  // because we're probably still waiting for the first keyframe of the minor stream.
-  if (conditional_init (dec_2, input_size_2, input_2)) {
-    // if we're here then both streams have valid decoders.
-    // if the minor decode fails we can still memcpy + return since
-    // we know the major decode succeeded.
-    decode_and_scale (dec_2, input_size_2, input_2, output_size, tmp, 1.0);
-  }
-
-  memcpy (output, tmp, output_size);
-  return 1;
+  return 0;
 }

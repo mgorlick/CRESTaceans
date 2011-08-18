@@ -10,6 +10,7 @@
       (define v (car m))
       (define r (cdr m))
       (cond [(AddCURL? v)
+             (printf "subscribing new consumer: ~a~n" (AddCURL.curl v))
              (relay (set/cons curls (AddCURL.curl v))
                     (thread-receive))]
             
@@ -117,49 +118,31 @@
                      [params (cdr (assoc "params" metadata))])
                 (cons (VideoParams.width params) (VideoParams.height params))))
             
-            (define (major+minor w/h major-frame minor-frame)
+            (define (update updater decoder w/h data)
               (playback-function (car w/h) (cdr w/h)
                                  (lambda (sz canvas)
-                                   (vp8dec-decode-pip decoder/major (bytes-length major-frame) major-frame
-                                                      decoder/minor (bytes-length minor-frame) minor-frame
-                                                      sz canvas))))
-            (define (major-only w/h major-frame)
-              (playback-function (car w/h) (cdr w/h)
-                                 (lambda (sz canvas)
-                                   (vp8dec-decode-copy decoder/major (bytes-length major-frame) major-frame
-                                                       sz canvas))))
+                                   (updater decoder (bytes-length data) data sz canvas))))
+            
             (let loop ([frames hash/equal/null] [m (thread-receive)])
               (define v (car m))
               (define r (cdr m))
               (cond [(Frame? v)
                      (let* ([replyaddr (:message/ask/reply r)]
-                            ;; throw the new frame away if it's not one of the streams we're interested in
-                            ;; at the current time, or merge it with the old set of frames if we are.
-                            [frames* (cond [(equal? replyaddr majorpc)
-                                            (displayln "New major frame")
-                                            (hash/cons frames replyaddr v)]
-                                           [(equal? replyaddr minorpc)
-                                            (displayln "New minor frame")
-                                            (hash/cons frames replyaddr v)]
-                                           [else
-                                            frames])])
-                       ;; if the set of frames contains the latest frame from both major and minor,
-                       ;; we can display both the major and minor as a picture-in-picture.
+                            [w/h (get-w/h m)])
                        (cond 
-                         [(and (hash/contains? frames* majorpc) (hash/contains? frames* minorpc))
-                          (let ([major-frame (Frame.data (hash/ref frames* majorpc #f))]
-                                [minor-frame (Frame.data (hash/ref frames* minorpc #f))])
-                            (major+minor (get-w/h m) major-frame minor-frame))
-                          (loop frames* (thread-receive))]
-                         ;; otherwise, we play the major frame only while waiting for the first
-                         ;; minor frame to arrive.
-                         [(hash/contains? frames* majorpc)
-                          (let ([major-frame (Frame.data (hash/ref frames* majorpc #f))])
-                            (major-only (get-w/h m) major-frame))
-                          (loop frames* (thread-receive))]
-                         ;; no frames available to show.
-                         [else
-                          (loop frames* (thread-receive))]))]
+                         [(equal? replyaddr minorpc)
+                          (update vp8dec-decode-update-minor decoder/minor w/h (Frame.data v))]
+                         [(equal? replyaddr majorpc)
+                          (update vp8dec-decode-copy decoder/major w/h (Frame.data v))])
+                       
+                       (loop 
+                        ;; throw the new frame away if it's not one of the streams we're interested in
+                        ;; at the current time, or merge it with the old set of frames if we are.
+                        (cond [(or (equal? replyaddr majorpc) (equal? replyaddr minorpc))
+                               (hash/cons frames replyaddr v)]
+                              [else
+                               frames])
+                        (thread-receive)))]
                     
                     [(or (Quit/MV? v) (Quit? v))
                      (displayln "PIP Decoder is quitting")

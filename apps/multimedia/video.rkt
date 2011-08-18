@@ -9,7 +9,7 @@
          vp8dec-new
          vp8dec-delete
          vp8dec-decode-copy
-         vp8dec-decode-pip)
+         vp8dec-decode-update-minor)
 
 (define (vp8enc-new* params)
   (vp8enc-new (VideoParams.width params)

@@ -33,9 +33,7 @@
 (defvp8 vp8dec-new (_fun -> _vp8dec-pointer))
 (defvp8 vp8dec-delete (_fun _vp8dec-pointer -> _void))
 (defvp8 vp8dec-decode-copy (_fun _vp8dec-pointer _size_t _bytes _size_t _bytes -> _bool))
-(defvp8 vp8dec-decode-pip (_fun _vp8dec-pointer _size_t _bytes
-                                _vp8dec-pointer _size_t _bytes
-                                _size_t _bytes -> _bool))
+(defvp8 vp8dec-decode-update-minor (_fun _vp8dec-pointer _size_t _bytes _size_t _bytes -> _bool))
                                  
 
 ;; video capture

@@ -98,7 +98,7 @@
                                              vp8dec-new
                                              vp8dec-delete 
                                              vp8dec-decode-copy
-                                             vp8dec-decode-pip))
+                                             vp8dec-decode-update-minor))
       (global-defines get-current-gui-curl)))
 
 (define (pip)
