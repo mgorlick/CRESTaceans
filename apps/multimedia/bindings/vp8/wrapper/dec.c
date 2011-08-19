@@ -7,6 +7,9 @@
 #include <vpx/vpx_decoder.h>
 #include <vpx/vp8dx.h>
 
+int BPP = 3;
+float SCALE = 0.25;
+
 typedef struct VP8Dec {
   vpx_codec_ctx_t *codec;
   int is_init;
@@ -15,9 +18,6 @@ typedef struct VP8Dec {
   // libswscale objects for pixel format conversion
   struct SwsContext *swsctx;
 } VP8Dec;
-
-int init_video (VP8Dec *dec, const vpx_image_t *img);
-void display_video (VP8Dec *dec, const vpx_image_t *img);
 
 void vp8dec_delete (VP8Dec *dec) {
   if (dec == NULL) return;
@@ -96,7 +96,6 @@ int conditional_init (VP8Dec *dec, const size_t input_size, const unsigned char 
   return 1;
 }
 
-
 int decode_and_scale (VP8Dec *dec, const size_t input_size, const unsigned char *input,
 		      const size_t output_size, unsigned char *output,
 		      float scale_factor) {
@@ -113,7 +112,6 @@ int decode_and_scale (VP8Dec *dec, const size_t input_size, const unsigned char 
 
    int w = img->d_w;
    int h = img->d_h;
-   int BPP = 3;
    int dest_stride = BPP * w;
    assert (output_size == (size_t) BPP * w * h);
 
@@ -140,24 +138,27 @@ no_video:
 
 int vp8dec_decode_copy (VP8Dec *dec, const size_t input_size, const unsigned char *input,
 			const size_t output_size, unsigned char *output) {
-
   // this might fail if we tune into a stream in between keyframes.
   // in this case we'll just wait until we get one to move past this if block.
-  if (!(conditional_init (dec, input_size, input))) {
-      goto not_initialized;
+  if ((conditional_init (dec, input_size, input))) {
+    return decode_and_scale (dec, input_size, input, output_size, output, 1.0);
   }
-  
-  return decode_and_scale (dec, input_size, input, output_size, output, 1.0);
+  return 0;
+}
 
- not_initialized: // not a cause for error unless vp8dec_init prints out an error
+int vp8dec_decode_update_minor (VP8Dec *dec, const size_t input_size, const unsigned char *input,
+			      const size_t output_size, unsigned char *output) {
+  if (conditional_init (dec, input_size, input)) {
+    return decode_and_scale (dec, input_size, input, output_size, output, SCALE);
+  }
   return 0;
 }
 
 int vp8dec_decode_update_major (VP8Dec *dec, const size_t input_size, const unsigned char *input,
 				const size_t output_size, unsigned char *output) {
-  int stride = dec->width * 3;
-  int bytes_per_row_scaled = stride * 0.25;
-  int rows_scaled = dec->height * 0.25;
+  int stride = dec->width * BPP;
+  int bytes_per_row_scaled = stride * SCALE;
+  int rows_scaled = dec->height * SCALE;
   int row = 0;
   unsigned char tmp[output_size];
   unsigned char *src_row = output;
@@ -175,12 +176,4 @@ int vp8dec_decode_update_major (VP8Dec *dec, const size_t input_size, const unsi
   } else {
     return 0;
   }
-}
-
-int vp8dec_decode_update_minor (VP8Dec *dec, const size_t input_size, const unsigned char *input,
-			      const size_t output_size, unsigned char *output) {
-  if (conditional_init (dec, input_size, input)) {
-    return decode_and_scale (dec, input_size, input, output_size, output, 0.25);
-  }
-  return 0;
 }
