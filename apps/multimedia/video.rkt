@@ -1,16 +1,13 @@
 #lang racket
 
-(require "message-types.rkt"
+(require racket/provide
+         "message-types.rkt"
          "bindings/vp8/vp8.rkt")
 
 (provide (except-out (all-defined-out) vp8enc-new*)
          (rename-out (vp8enc-new* vp8enc-new))
          vp8enc-delete
-         vp8dec-new
-         vp8dec-delete
-         vp8dec-decode-copy
-         vp8dec-decode-update-minor)
-
+         (matching-identifiers-out #rx"^vp8dec.*" (all-from-out "bindings/vp8/vp8.rkt")))
 (define (vp8enc-new* params)
   (vp8enc-new (VideoParams.width params)
               (VideoParams.height params)

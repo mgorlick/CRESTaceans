@@ -130,11 +130,13 @@
                      (let* ([replyaddr (:message/ask/reply r)]
                             [w/h (get-w/h m)])
                        (cond 
-                         [(equal? replyaddr minorpc)
-                          (update vp8dec-decode-update-minor decoder/minor w/h (Frame.data v))]
                          [(equal? replyaddr majorpc)
-                          (update vp8dec-decode-copy decoder/major w/h (Frame.data v))])
-                       
+                          (update (if (hash/contains? frames minorpc)
+                                      vp8dec-decode-update-major
+                                      vp8dec-decode-copy)
+                                  decoder/major w/h (Frame.data v))]
+                         [(equal? replyaddr minorpc)
+                          (update vp8dec-decode-update-minor decoder/minor w/h (Frame.data v))])
                        (loop 
                         ;; throw the new frame away if it's not one of the streams we're interested in
                         ;; at the current time, or merge it with the old set of frames if we are.

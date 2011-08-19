@@ -65,7 +65,9 @@ int vp8dec_init (VP8Dec *dec, const size_t size,
 
   status = vpx_codec_dec_init (dec->codec, &vpx_codec_vp8_dx_algo, &cfg, flags);
   if (status != VPX_CODEC_OK) goto no_init;
-
+  
+  dec->height = si.h;
+  dec->width = si.w;
   dec->is_init = 1;
   return 1;
 
@@ -151,10 +153,34 @@ int vp8dec_decode_copy (VP8Dec *dec, const size_t input_size, const unsigned cha
   return 0;
 }
 
+int vp8dec_decode_update_major (VP8Dec *dec, const size_t input_size, const unsigned char *input,
+				const size_t output_size, unsigned char *output) {
+  int stride = dec->width * 3;
+  int bytes_per_row_scaled = stride * 0.25;
+  int rows_scaled = dec->height * 0.25;
+  int row = 0;
+  unsigned char tmp[output_size];
+  unsigned char *src_row = output;
+  unsigned char *dst_row = tmp;
+
+  if (vp8dec_decode_copy (dec, input_size, input, output_size, tmp)) {
+    // copy the current minor picture (in *output) over the new decoded major
+    for (row = 0; row < rows_scaled; row++) {
+      memcpy (dst_row, src_row, bytes_per_row_scaled);
+      dst_row += stride;
+      src_row += stride;
+    }
+    memcpy (output, tmp, output_size);
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
 int vp8dec_decode_update_minor (VP8Dec *dec, const size_t input_size, const unsigned char *input,
 			      const size_t output_size, unsigned char *output) {
   if (conditional_init (dec, input_size, input)) {
-    return decode_and_scale (dec, input_size, input, output_size, output, 0.33);
+    return decode_and_scale (dec, input_size, input, output_size, output, 0.25);
   }
   return 0;
 }

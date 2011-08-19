@@ -7,6 +7,7 @@
          "bindings/speex/speex.rkt"
          "../../peer/src/api/message.rkt"
          "../../peer/src/api/compilation.rkt"
+         racket/require
          racket/function
          (for-syntax racket/base))
 (provide (all-defined-out))
@@ -94,11 +95,7 @@
 
 (define VIDEO-DECODE
   (++ MULTIMEDIA-BASE
-      (require-spec->global-defines (only-in "video.rkt" 
-                                             vp8dec-new
-                                             vp8dec-delete 
-                                             vp8dec-decode-copy
-                                             vp8dec-decode-update-minor))
+      (require-spec->global-defines (matching-identifiers-in #rx"^vp8dec-.*" "video.rkt"))
       (global-defines get-current-gui-curl)))
 
 (define (pip)
