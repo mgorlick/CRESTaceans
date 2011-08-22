@@ -64,6 +64,19 @@
          [else (printf "Message not recognized: ~a~n" else)])
        (loop))))
   
+  (thread
+   (λ ()
+     (let loop ()
+       (define cmd (read))
+       (match cmd
+         [`(cp ,uuid ,h ,p)
+          (define to-respawn (make-curl uuid))
+          (respawn to-respawn (symbol->string h) p)]
+         [`(mv ,uuid ,h ,p)
+          (define to-respawn (make-curl uuid))
+          (respawn to-respawn (symbol->string h) p)])
+       (loop))))
+  
   ;; set up the listening server.
   (define k (generate-key/defaults))
   (define this-scurl (generate-scurl/defaults *LISTENING-ON* *LOCALPORT* #:key k))
@@ -97,6 +110,13 @@
       [(contains-any? metadata is/gui) GUI*]
       [else MULTIMEDIA-BASE*]))
   
+  ; clean-up-spawn: when a spawn dies remove its entries from the registry
+  (define (clean-up-spawn curl)
+    (hash-remove! curls=>threads curl)
+    (hash-remove! curls=>motiles curl)
+    (hash-remove! curls=>metadata curl)
+    (hash-remove! curls=>replycurls curl))
+  
   ; handle-spawn: message/uri? any any message/uri? -> void
   ; when a spawn comes in, assign it a binding environment and set of standard arguments
   ; based on the metadata attached. then keep track of it in the above hashes
@@ -108,12 +128,16 @@
                             accepts/speex produces/speex is/gui)
              (list reply)]
             [else null]))
-    (parameterize ([current-curl curl])
-      (hash-set! curls=>threads curl (spawn (displayln "Starting") (start-program body benv args)))
-      (hash-set! curls=>motiles curl body)
-      (hash-set! curls=>metadata curl metadata)
-      (hash-set! curls=>replycurls curl reply)
-      (printf "a new actor installed at ~n\t~s (~a)~n" curl metadata)))
+    (hash-set! curls=>threads curl (spawn 
+                                    (parameterize ([current-curl curl])
+                                      (with-handlers ([exn:fail? (λ (e) (printf "Spawn died: ~a~n" e))])
+                                        (start-program body benv args))
+                                      (displayln "Spawn quitting")
+                                      (clean-up-spawn curl))))
+    (hash-set! curls=>motiles curl body)
+    (hash-set! curls=>metadata curl metadata)
+    (hash-set! curls=>replycurls curl reply)
+    (printf "a new actor installed at ~n\t~s (~a)~n" curl metadata))
   
   ;; ----------
   ;; State-specific functions provided to actors (and chieftain)
@@ -148,12 +172,6 @@
   
   ; some actors can ask for the curl identifying themselves.
   (define current-curl (make-parameter root-curl))
-  
-  ; allow an actor to get the current gui curl, set it, neither, or both, depending on binding environment.
-  ; `current-gui-curl' itself shouldn't be added to a binding environment.
-  (define get-current-gui-curl (procedure-reduce-arity current-gui-curl 0))
-  (define set-current-gui-curl! (procedure-reduce-arity current-gui-curl 1))
-  (define clear-current-gui-curl! (λ () (current-gui-curl #f)))
   
   ; a key piece of the ad hoc protocol we've set up:
   ; when a SPAWN message comes in, name the original reply-to CURL
@@ -214,11 +232,4 @@
   
   (no-return))
 
-(require profile
-         profile/render-text)
-
-(profile-thunk go!
-               #:threads #t
-               #:delay 1/1000
-               #:render (λ (data)
-                          (render data #:hide-self 1/10000 #:hide-subs 1/10000)))
+(go!)
