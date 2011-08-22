@@ -1,4 +1,4 @@
-#! /usr/bin/env gracket
+#! /usr/bin/env racket
 #lang racket/base
 
 (require "misc.rkt"
@@ -62,19 +62,6 @@
                       (hash-ref curls=>threads u #f) u))]
          
          [else (printf "Message not recognized: ~a~n" else)])
-       (loop))))
-  
-  (thread
-   (λ ()
-     (let loop ()
-       (define cmd (read))
-       (match cmd
-         [`(cp ,uuid ,h ,p)
-          (define to-respawn (make-curl uuid))
-          (respawn to-respawn (symbol->string h) p)]
-         [`(mv ,uuid ,h ,p)
-          (define to-respawn (make-curl uuid))
-          (respawn to-respawn (symbol->string h) p)])
        (loop))))
   
   ;; set up the listening server.
@@ -146,7 +133,7 @@
   ; primitive for sending from the Motile level. 
   ; thread-to-thread intra-island messaging
   ; looks the same as island-to-island messaging does.
-  (define (ask/send* method u body metadata [rpy (current-curl)])
+  (define (ask/send* method u body [metadata :no-metadata:] [rpy (current-curl)])
     (cond [(hash-has-key? curls=>threads u)
            ;; precompiled motile procedures don't need to be recompiled, but
            ;; other values (e.g., literals, data structures, ....) do need to be recompiled and called
@@ -170,9 +157,6 @@
           [else (displayln "Unknown delivery target:")
                 (displayln u)]))
   
-  ; some actors can ask for the curl identifying themselves.
-  (define current-curl (make-parameter root-curl))
-  
   ; a key piece of the ad hoc protocol we've set up:
   ; when a SPAWN message comes in, name the original reply-to CURL
   ; as the new reply-to recipient for the SPAWN relay. also package the original metadata.
@@ -184,23 +168,49 @@
               #:reply (hash-ref curls=>replycurls u)
               #:compile? #f))
   
+  ; some actors can ask for the curl identifying themselves.
+  (define current-curl (make-parameter root-curl))
+  
+  ; some actors can respawn themselves.
+  (define (respawn-self host port)
+    (respawn (current-curl) host port))
+  
+  ; some actors can ask for the root chieftain.
+  ; giving this URL out is a nontrivial decision since it means that 
+  ; anyone who can send messages may also send a SPAWN or REMOTE to the chieftain.
+  (define (get-root-curl)
+    root-curl)
+  
   ;; the binding environs we'll use to parameterize actors spawned on this island
   (define MULTIMEDIA-BASE* 
     (++ MULTIMEDIA-BASE (global-defines current-curl ask/send*)))
   (define VIDEO-ENCODE* 
-    (++ VIDEO-ENCODE    (global-defines current-curl ask/send*)))
+    (++ VIDEO-ENCODE    (global-defines current-curl ask/send* respawn-self)))
   (define AUDIO-ENCODE* 
-    (++ AUDIO-ENCODE    (global-defines current-curl ask/send*)))
+    (++ AUDIO-ENCODE    (global-defines current-curl ask/send* respawn-self)))
   (define VIDEO-DECODE* 
-    (++ VIDEO-DECODE    (global-defines current-curl ask/send*)))
+    (++ VIDEO-DECODE    (global-defines current-curl ask/send* respawn-self)))
   (define GUI* 
-    (++ GUI             (global-defines current-curl ask/send* respawn root-curl)))
+    (++ GUI             (global-defines current-curl ask/send* respawn-self get-root-curl)))
   (define AUDIO-DECODE* 
-    (++ AUDIO-DECODE    (global-defines current-curl ask/send*)))
+    (++ AUDIO-DECODE    (global-defines current-curl ask/send* respawn-self)))
   
   ;; ---------
   ;; Finally, spawn any initial actors if the command-line arguments request them
   ;; ---------
+  
+  (thread
+   (λ ()
+     (let loop ()
+       (define cmd (read))
+       (match cmd
+         [`(cp ,uuid ,h ,p)
+          (define to-respawn (make-curl uuid))
+          (ask/send* to-respawn `(CP ,(symbol->string h) ,p))]
+         [`(mv ,uuid ,h ,p)
+          (define to-respawn (make-curl uuid))
+          (ask/send* to-respawn `(Quit/MV ,(symbol->string h) ,p))])
+       (loop))))
   
   (define remoteroot
     (remote-curl-root #f (argsassoc "--rhost" #:no-val *LOCALHOST*)
@@ -215,7 +225,7 @@
          (define relay-curl (make-curl (uuid)))
          (handle-spawn relay-curl relayer (metadata) root-curl)
          (handle-spawn (make-curl (uuid)) 
-                       (video-reader/encoder (argsassoc "--video" #:default "/dev/video0") 800 600) 
+                       (video-reader/encoder (argsassoc "--video" #:default "/dev/video0") 640 480) 
                        (metadata produces/webm) relay-curl)
          
          (ask/send request-thread "SPAWN" remoteroot video-decoder/single

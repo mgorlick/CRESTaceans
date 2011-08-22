@@ -7,6 +7,7 @@
 (define-motile-struct RemoveCURL [curl])
 (define-motile-struct Quit [])
 (define-motile-struct Quit/MV [host port])
+(define-motile-struct GetParent [])
 (define-motile-struct CP [host port])
 (define-motile-struct CP-child [curl host port])
 (define-motile-struct Frame [data timestamp])
