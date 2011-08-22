@@ -66,7 +66,7 @@
                (displayln "GUI is copying")
                (respawn-self (CP.host v) (CP.port v))
                (set/map decoders (lambda (decoder) 
-                                   (ask/send "POST" decoder v)))
+                                   (ask/send* "POST" decoder v)))
                (loop (thread-receive) decoders)]
               
               [(CP-child? v)
@@ -225,28 +225,24 @@
       ;; waiting period of (1000/20) * 0.5 = 25 ms between the first and second capture attempt.
       (define fudge-step 0.01)
       (define outbuff (make-bytes (bin* 1024 256))) ; used for encoding only, not capture.
-      (define v (video-reader-setup ,devname ,w ,h))
-      (let* ([params (video-reader-get-params v)]
+      (define vreader (video-reader-setup ,devname ,w ,h))
+      (let* ([params (video-reader-get-params vreader)]
              [e (vp8enc-new params)]
              [framerate (bin/ (VideoParams.fpsNum params) (VideoParams.fpsDen params))])
         
         ; grab-frame: int -> or FrameBuffer #f
         (define (grab-frame ts)
-          (cond [(video-reader-is-ready? v) (video-reader-get-frame v ts)]
-                [else #f]))
+          (and (video-reader-is-ready? vreader) (video-reader-get-frame vreader ts)))
         
         ; encode-frame: or FrameBuffer #f -> or FrameBuffer #f
         (define (encode-frame frame)
-          (cond [frame (vp8enc-encode/return-frame e frame outbuff)]
-                [else frame]))
+          (and frame (vp8enc-encode/return-frame e frame outbuff)))
         
         ; grab/encode: -> or FrameBuffer #f
         (define (grab/encode)
           (encode-frame (grab-frame (current-inexact-milliseconds))))
         
-        (printf "Using ~ax~a for video size~n" (VideoParams.width params) (VideoParams.height params))
-        
-        ; loop: featuring AIMD waiting for camera frames.
+        ; one-frame!: featuring AIMD waiting for camera frames.
         ; 1. try to read the next frame.
         ; 2a. if the frame was successfully read and encoded, send it off to the proxy curl.
         ;     then, loop with an additive decrease in waiting time till the next frame.
@@ -254,7 +250,7 @@
         ;     the waiting time til the next frame. 
         ;     this seems to give relatively constant framerate overall, with few instances of
         ;     many "misses" in a row, where a "miss" is checking the camera before it is ready.
-        (let loop ([fudge default-fudge])
+        (define (one-frame! loop fudge)
           (define v (grab/encode))
           (cond [v
                  ; Frame received successfully. Pass it on and then wait until
@@ -270,7 +266,23 @@
                 [else
                  ;(printf "MISS: fudge ~a~n" fudge)
                  ; increase fudge factor for next frame a la AIMD.
-                 (loop (min* default-fudge (bin* 2 (max* fudge-step fudge))))]))))))
+                 (loop (min* default-fudge (bin* 2 (max* fudge-step fudge))))]))
+        
+        (define (control-message-in loop fudge m)
+          (define v (car m))
+          (define r (cdr m))
+          (cond [(Quit/MV? v)
+                 (video-reader-delete vreader)
+                 (vp8enc-delete e)
+                 (respawn-self (Quit/MV.host v) (Quit/MV.port v))]
+                [else (loop fudge)]))
+        
+        (printf "Using ~ax~a for video size~n" (VideoParams.width params) (VideoParams.height params))
+        
+        (let loop ([fudge default-fudge])
+          (if (thread-check-receive 0)
+              (control-message-in loop fudge (thread-receive))
+              (one-frame! loop fudge)))))))
 
 ;; -----
 ;; AUDIO

@@ -24,12 +24,16 @@
 (define bin>= (procedure-reduce-arity >= 2))
 (define sleep* (procedure-reduce-arity sleep 1))
 
+(define (thread-check-receive n)
+  (sync/timeout n (thread-receive-evt)))
+
 (define UTIL
   (++ BASELINE
       (require-spec->global-defines (except-in "../../peer/src/api/message.rkt" ask tell uri))
       (global-defines bin* bin- bin+ bin/ bin>= min* sleep* max*
-                      displayln message/uri->string void printf thread-receive display
-                      vector-ref current-inexact-milliseconds exact->inexact)
+                      display displayln void printf vector-ref
+                      thread-receive thread-check-receive message/uri->string 
+                      current-inexact-milliseconds exact->inexact)
       (global-defines bytes? byte? bytes make-bytes bytes-ref bytes-length 
                       bytes-copy subbytes bytes-append
                       bytes=? bytes<? bytes>?
@@ -83,19 +87,12 @@
 
 (define VIDEO-ENCODE
   (++ MULTIMEDIA-BASE
-      (require-spec->global-defines 
-       (only-in "video.rkt"
-                vp8enc-new
-                vp8enc-delete
-                vp8enc-encode/return-frame
-                video-reader-setup
-                video-reader-get-params
-                video-reader-is-ready?
-                video-reader-get-frame))))
+      (require-spec->global-defines (matching-identifiers-in #rx"^video-reader.*" "video.rkt"))
+      (require-spec->global-defines (matching-identifiers-in #rx"^vp8enc.*" "video.rkt"))))
 
 (define VIDEO-DECODE
   (++ MULTIMEDIA-BASE
-      (require-spec->global-defines (matching-identifiers-in #rx"^vp8dec-.*" "video.rkt"))
+      (require-spec->global-defines (matching-identifiers-in #rx"^vp8dec.*" "video.rkt"))
       (global-defines get-current-gui-curl)))
 
 (define (pip)

@@ -206,10 +206,10 @@
        (match cmd
          [`(cp ,uuid ,h ,p)
           (define to-respawn (make-curl uuid))
-          (ask/send* to-respawn `(CP ,(symbol->string h) ,p))]
+          (ask/send* "POST" to-respawn `(CP ,(symbol->string h) ,p))]
          [`(mv ,uuid ,h ,p)
           (define to-respawn (make-curl uuid))
-          (ask/send* to-respawn `(Quit/MV ,(symbol->string h) ,p))])
+          (ask/send* "DELETE" to-respawn `(Quit/MV ,(symbol->string h) ,p))])
        (loop))))
   
   (define remoteroot
