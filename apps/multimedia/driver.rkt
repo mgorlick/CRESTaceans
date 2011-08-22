@@ -110,9 +110,9 @@
   (define (handle-spawn curl body metadata reply)
     (define benv (metadata->benv metadata))
     (define args
-      (cond [(contains-any? metadata 
-                            accepts/webm produces/webm 
-                            accepts/speex produces/speex is/gui)
+      (cond [(assoc "spawnargs" metadata)
+             (list (assoc "spawnargs" metadata))]
+            [(contains-any? metadata accepts/webm produces/webm accepts/speex produces/speex is/gui)
              (list reply)]
             [else null]))
     (hash-set! curls=>threads curl (spawn 
@@ -159,21 +159,18 @@
   
   ; a key piece of the ad hoc protocol we've set up:
   ; when a SPAWN message comes in, name the original reply-to CURL
-  ; as the new reply-to recipient for the SPAWN relay. also package the original metadata.
-  (define (respawn u host port)
+  ; as the new reply-to recipient for the SPAWN relay.
+  ; also package the original metadata if no metadata is used to override it.
+  (define (respawn-self host port [meta (hash-ref curls=>metadata (current-curl))])
     (ask/send request-thread "SPAWN"
               (message/uri/new #f (cons host port) "/")
-              (hash-ref curls=>motiles u)
-              #:metadata (hash-ref curls=>metadata u)
-              #:reply (hash-ref curls=>replycurls u)
+              (hash-ref curls=>motiles (current-curl))
+              #:metadata meta
+              #:reply (hash-ref curls=>replycurls (current-curl))
               #:compile? #f))
   
   ; some actors can ask for the curl identifying themselves.
   (define current-curl (make-parameter root-curl))
-  
-  ; some actors can respawn themselves.
-  (define (respawn-self host port)
-    (respawn (current-curl) host port))
   
   ; some actors can ask for the root chieftain.
   ; giving this URL out is a nontrivial decision since it means that 
