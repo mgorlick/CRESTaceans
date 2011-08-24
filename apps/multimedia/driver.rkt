@@ -1,40 +1,12 @@
 #! /usr/bin/env racket
 #lang racket/base
 
-(require "misc.rkt"
-         "motiles.rkt"
+(require "motiles.rkt"
          "environs.rkt"
-         "gui.rkt"
-         "../../peer/src/net/tcp-peer.rkt"
-         "../../peer/src/api/compilation.rkt"
+         "../../peer/src/api/api.rkt"
          racket/match
-         racket/function
-         racket/list)
+         racket/function)
 (provide (all-defined-out))
-
-;; -------
-;; Helpers
-;; -------
-
-; argsassoc: string [call: string -> any] [no-val: any] [default: any] -> any
-; separates the provided command line arguments of the form:
-;             --key1=val1 --key2=val2 --key3
-; if the provided key name is present and has a value, returns `call' applied to that value.
-; if the provided key name is present but has no value, returns `default'.
-; if the provided key name is not present, returns `no-val'.
-(define CLargs (map (curry regexp-split #rx"=") (vector->list (current-command-line-arguments))))
-(define (argsassoc key #:call [call (λ (x) x)] #:no-val [no-val #f] #:default [default #t])
-  (let ([entry (assoc key CLargs)])
-    (if entry
-        (if (> (length entry) 1)
-            (call (second entry))
-            default)
-        no-val)))
-
-; contains-any?: returns a non-false value iff any argument beyond the first is present in the first.
-; list any -> any
-(define (contains-any? mlst . vs)
-  (and (list? mlst) (ormap (curryr member mlst) vs)))
 
 (define *LISTENING-ON* (argsassoc "--host" #:no-val *LOCALHOST*))
 (define *LOCALPORT* (argsassoc "--port" #:no-val 5000 #:call string->number))
@@ -161,13 +133,15 @@
   ; when a SPAWN message comes in, name the original reply-to CURL
   ; as the new reply-to recipient for the SPAWN relay.
   ; also package the original metadata if no metadata is used to override it.
-  (define (respawn-self host port [meta (hash-ref curls=>metadata (current-curl))])
-    (ask/send request-thread "SPAWN"
-              (message/uri/new #f (cons host port) "/")
+  (define (respawn-self host port 
+                        [meta (hash-ref curls=>metadata (current-curl))]
+                        [rpy (hash-ref curls=>replycurls (current-curl))])
+    (ask/send request-thread "SPAWN" (message/uri/new #f (cons host port) "/")
               (hash-ref curls=>motiles (current-curl))
               #:metadata meta
-              #:reply (hash-ref curls=>replycurls (current-curl))
-              #:compile? #f))
+              #:reply rpy
+              #:compile? #f ; never compile. by definition a spawned and stored Motile is already compiled
+              ))
   
   ; some actors can ask for the curl identifying themselves.
   (define current-curl (make-parameter root-curl))
@@ -220,7 +194,7 @@
                      #:metadata (metadata is/gui) #:reply root-curl))
          
          (define relay-curl (make-curl (uuid)))
-         (handle-spawn relay-curl relayer (metadata) root-curl)
+         (handle-spawn relay-curl pubsubproxy (metadata) root-curl)
          (handle-spawn (make-curl (uuid)) 
                        (video-reader/encoder (argsassoc "--video" #:default "/dev/video0") 640 480) 
                        (metadata produces/webm) relay-curl)
@@ -230,7 +204,7 @@
   
   (cond [(argsassoc "--audio")
          (define relay-curl (make-curl (uuid)))
-         (handle-spawn relay-curl relayer (metadata type/speex) root-curl)
+         (handle-spawn relay-curl pubsubproxy (metadata type/speex) root-curl)
          (handle-spawn (make-curl (uuid)) (audio-reader/speex-encoder 3 relay-curl) 
                        (metadata produces/speex) root-curl)
          
