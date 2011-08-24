@@ -6,7 +6,7 @@
          "motiles.rkt"
          "bindings/speex/speex.rkt"
          "../../peer/src/api/message.rkt"
-         "../../peer/src/api/compilation.rkt"
+         "../../peer/src/api/api.rkt"
          racket/require
          racket/function
          (for-syntax racket/base))
