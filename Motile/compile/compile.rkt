@@ -19,6 +19,7 @@
  "free.ss"
  "set.ss"
  (only-in "utility.rkt" vector/all?)
+ (only-in "match.rkt" match/translate)
  
  (only-in "../generate/baseline.rkt"    motile/call)
  (only-in "../generate/closure.rkt"     closure/generate closure/rest/generate)
@@ -696,6 +697,7 @@
     'letrec letrec/translate
     'let    let/translate
     'let*   let*/translate
+    'match  match/translate
      ))
    )
 
