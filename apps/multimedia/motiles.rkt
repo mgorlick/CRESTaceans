@@ -3,24 +3,44 @@
 (require "../../Motile/compile/compile.rkt")
 (provide (all-defined-out))
 
+(define (big-bang encoder-location video-device video-w video-h decoder-location)
+  (motile/compile
+   `(lambda ()
+      (displayln "Big bang on")
+      ; spawn the proxy
+      (ask/send* "SPAWN" ,encoder-location (make-pubsubproxy) (make-metadata is/proxy))
+      (displayln "Proxy spawned")
+      (let ([proxy-curl (car (thread-receive))])
+        ; spawn the encoder with the proxy as reply addr
+        (displayln "Spawning encoder")
+        (ask/send* "SPAWN" ,encoder-location
+                   (make-encoder ,video-device ,video-w ,video-h)
+                   (make-metadata produces/webm) proxy-curl)
+        ; spawn the decoder with the proxy as reply addr
+        (displayln "Spawning decoder")
+        (ask/send* "SPAWN" ,decoder-location (make-single-decoder) (make-metadata accepts/webm) proxy-curl)))))
+
 (define pubsubproxy
   (motile/compile
-   `(let loop ([curls set/equal/null]
-               [m (thread-receive)])
-      (define v (car m))
-      (define r (cdr m))
-      (cond [(AddCURL? v)
-             (loop (set/cons curls (AddCURL.curl v)) (thread-receive))]
-            
-            [(RemoveCURL? v)
-             (ask/send* "POST" (RemoveCURL.curl v) (Quit) (:message/ask/metadata r))
-             (loop (set/remove curls (RemoveCURL.curl v)) (thread-receive))]
-            
-            [(Frame? v)
-             (set/map curls (lambda (crl) (ask/send* "POST" crl v (:message/ask/metadata r))))
-             (loop curls (thread-receive))]
-            
-            [else (printf "proxy else: ~a~n" v)]))))
+   `(lambda (rpy)
+      (displayln "Proxy on")
+      (let loop ([curls set/equal/null]
+                 [m (thread-receive)])
+        (define v (car m))
+        (define r (cdr m))
+        (cond [(AddCURL? v)
+               (loop (set/cons curls (AddCURL.curl v)) (thread-receive))]
+              
+              [(RemoveCURL? v)
+               (ask/send* "POST" (RemoveCURL.curl v) (Quit) (:message/ask/metadata r))
+               (loop (set/remove curls (RemoveCURL.curl v)) (thread-receive))]
+              
+              [(Frame? v)
+               (set/map curls (lambda (crl) (ask/send* "POST" crl v (:message/ask/metadata r))))
+               (loop curls (thread-receive))]
+              
+              [else (printf "proxy else: ~a~n" v)
+                    (loop curls (thread-receive))])))))
 
 ;; -----
 ;; VIDEO
@@ -56,8 +76,11 @@
                      (set/remove decoders (RemoveCURL.curl v)))]
               
               [(PIPOn? v)
-               (ask/send* "SPAWN" (get-root-curl) ((pip) (PIPOn.major v) (PIPOn.minor v))
-                          (metadata accepts/webm) (get-root-curl))
+               (let ([the-pip ((make-pip-decoder) (list (PIPOn.major v) (PIPOn.minor v)))])
+                 (displayln the-pip)
+                 (ask/send* "SPAWN" (get-root-curl) the-pip
+                            (make-metadata accepts/webm)
+                            (get-root-curl)))
                (loop (thread-receive) decoders)]
               
               [(CP? v)
@@ -90,7 +113,7 @@
 
 (define video-decoder/pip
   (motile/compile
-   '(lambda decoder-curls
+   '(lambda (decoder-curls)
       (define (retrieve-playback-function)
         (ask/send* "POST" (get-current-gui-curl) (AddCURL (current-curl)))
         (car (thread-receive)))
@@ -100,9 +123,12 @@
       (define (get-w/h m)
         (let* ([metadata (:message/ask/metadata (cdr m))]
                [params (cdr (assoc "params" metadata))])
-          (cons (VideoParams.width params) (VideoParams.height params))))        
+          (cons (VideoParams.width params) (VideoParams.height params))))
+      (displayln "Generating PIP lambda")
+      (displayln "Proxies:")
       (let ([proxy-curls (map retrieve-proxy-from decoder-curls)])
-        (lambda ()      
+        (displayln proxy-curls)
+        (lambda ()
           (define playback-function (retrieve-playback-function))
           (define majorpc (car proxy-curls))
           (define minorpc (cadr proxy-curls))
@@ -255,7 +281,7 @@
                  ; the next frame should be active (modified by a factor to account for processing time)
                  ;(printf "HIT: fudge ~a~n" fudge)
                  (ask/send* "POST" proxy-curl (FrameBuffer->Frame v) 
-                            (metadata type/webm (cons "params" params)))
+                            (make-metadata type/webm (cons "params" params)))
                  (sleep* (bin* fudge framerate))
                  ; decrease fudge factor for next frame a la AIMD.
                  (loop (if (bin>= fudge fudge-step)

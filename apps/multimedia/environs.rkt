@@ -50,8 +50,9 @@
 (define type/speex '("content-type" . "audio/speex"))
 
 (define is/gui '("is" . "gui"))
+(define is/proxy '("is" . "proxy"))
 
-(define (metadata . x)
+(define (make-metadata . x)
   x)
 
 ; current-gui-curl: enforces the constraint that a gui is a unique global resource on an island.
@@ -73,17 +74,34 @@
 (define get-current-gui-curl (procedure-reduce-arity current-gui-curl 0))
 (define set-current-gui-curl! (procedure-reduce-arity current-gui-curl 1))
 
+; mirror our Motile programs into the binding environment
+
+(define (make-single-decoder)
+  video-decoder/single)
+(define (make-pip-decoder)
+  (motile/call video-decoder/pip BASELINE))
+(define (make-encoder name w h)
+  (video-reader/encoder name w h))
+(define (make-pubsubproxy)
+  pubsubproxy)
+
 (define MULTIMEDIA-BASE
   (++ UTIL
       (require-spec->global-defines "message-types.rkt")
-      (global-defines metadata sleep*)
+      (global-defines make-metadata
+                      sleep*
+                      make-single-decoder
+                      make-pip-decoder
+                      make-encoder
+                      make-pubsubproxy)
       `((accepts/webm . ,accepts/webm)
         (produces/webm . ,produces/webm)
         (type/webm . ,type/webm)
         (accepts/speex . ,accepts/speex)
         (produces/speex . ,produces/speex)
         (type/speex . ,type/speex)
-        (is/gui . ,is/gui))))
+        (is/gui . ,is/gui)
+        (is/proxy . ,is/proxy))))
 
 (define VIDEO-ENCODE
   (++ MULTIMEDIA-BASE
@@ -95,12 +113,9 @@
       (require-spec->global-defines (matching-identifiers-in #rx"^vp8dec.*" "video.rkt"))
       (global-defines get-current-gui-curl)))
 
-(define (pip)
-  (motile/call video-decoder/pip BASELINE))
-
 (define GUI
   (++ MULTIMEDIA-BASE 
-      (global-defines get-current-gui-curl set-current-gui-curl! pip)
+      (global-defines get-current-gui-curl set-current-gui-curl!)
       (require-spec->global-defines "gui.rkt")))
 
 (define AUDIO-ENCODE

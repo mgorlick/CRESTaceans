@@ -24,14 +24,20 @@
        (match v
          [(ask "SPAWN" (? (is? root-curl) u) body metadata reply echo)
           (define curl (make-curl (uuid)))
-          (handle-spawn curl body metadata reply)]
+          (handle-spawn curl body metadata reply)
+          (ask/send request-thread "POST" reply curl
+                    #:metadata (make-metadata `(is . curl)
+                                              `(in-response-to . ,echo)))]
+         
+         [(ask _ (? (is? root-curl) u) _ _ _ _)
+          'foo]
          
          [(ask method u body metadata reply echo)
-          (if (valid-actor? u)
-              (thread-send (hash-ref curls=>threads u) 
-                           (cons (start-program body (metadata->benv metadata)) v))
-              (printf "error: not a thread or not running: ~a / directed to: ~a~n" 
-                      (hash-ref curls=>threads u #f) u))]
+          (cond [(valid-actor? u)
+                 (thread-send (hash-ref curls=>threads u) 
+                              (cons (start-program body (metadata->benv metadata)) v))]
+                [else (printf "error: not a thread or not running: ~a at ~a / directed to: ~a~n" 
+                              method (hash-ref curls=>threads u #f) u)])]
          
          [else (printf "Message not recognized: ~a~n" else)])
        (loop))))
@@ -83,20 +89,28 @@
     (define benv (metadata->benv metadata))
     (define args
       (cond [(assoc "spawnargs" metadata)
-             (list (assoc "spawnargs" metadata))]
-            [(contains-any? metadata accepts/webm produces/webm accepts/speex produces/speex is/gui)
+             (displayln "Spawner: selecting custom metadata-specified call convention")
+             (cdr (assoc "spawnargs" metadata))]
+            [(contains-any? metadata 
+                            accepts/webm produces/webm accepts/speex produces/speex
+                            is/gui is/proxy)
+             (displayln "Spawner: selecting reply call convention")
              (list reply)]
-            [else null]))
+            [else
+             (displayln "Spawner: selecting null call convention")
+             null]))
+    (printf "USING THESE ARGS: ~a~n" args)
     (hash-set! curls=>threads curl (spawn 
                                     (parameterize ([current-curl curl])
-                                      (with-handlers ([exn:fail? (λ (e) (printf "Spawn died: ~a~n" e))])
+                                      (with-handlers ([exn:fail? (λ (e) (printf "Spawn died [~a]: ~a~n"
+                                                                                metadata e))])
                                         (start-program body benv args))
-                                      (displayln "Spawn quitting")
+                                      (printf "Spawn quitting [~a]" metadata)
                                       (clean-up-spawn curl))))
     (hash-set! curls=>motiles curl body)
     (hash-set! curls=>metadata curl metadata)
     (hash-set! curls=>replycurls curl reply)
-    (printf "a new actor installed at ~n\t~s (~a)~n" curl metadata))
+    (printf "a new actor installed at ~n\t~s~n\t[metadata: ~a]~n" curl metadata))
   
   ;; ----------
   ;; State-specific functions provided to actors (and chieftain)
@@ -185,31 +199,14 @@
   
   (define remoteroot
     (remote-curl-root #f (argsassoc "--rhost" #:no-val *LOCALHOST*)
-                      (argsassoc "--rport"#:no-val 1235 #:call string->number)))
+                      (argsassoc "--rport" #:no-val 1235 #:call string->number)))
   
-  (cond [(argsassoc "--video")       
+  (cond [(argsassoc "--video")
+         (define device (argsassoc "--video" #:default "/dev/video0"))
+         (define bang! (big-bang remoteroot device 320 240 root-curl))
          
-         (unless (argsassoc "--no-gui")
-           (ask/send request-thread "SPAWN" remoteroot command-center-gui
-                     #:metadata (metadata is/gui) #:reply root-curl))
-         
-         (define relay-curl (make-curl (uuid)))
-         (handle-spawn relay-curl pubsubproxy (metadata) root-curl)
-         (handle-spawn (make-curl (uuid)) 
-                       (video-reader/encoder (argsassoc "--video" #:default "/dev/video0") 640 480) 
-                       (metadata produces/webm) relay-curl)
-         
-         (ask/send request-thread "SPAWN" remoteroot video-decoder/single
-                   #:metadata (metadata accepts/webm) #:reply relay-curl)])
-  
-  (cond [(argsassoc "--audio")
-         (define relay-curl (make-curl (uuid)))
-         (handle-spawn relay-curl pubsubproxy (metadata type/speex) root-curl)
-         (handle-spawn (make-curl (uuid)) (audio-reader/speex-encoder 3 relay-curl) 
-                       (metadata produces/speex) root-curl)
-         
-         (ask/send request-thread "SPAWN" remoteroot (speex-decoder 640)
-                   #:metadata (metadata accepts/speex) #:reply relay-curl)])
+         (handle-spawn (make-curl (uuid)) command-center-gui (make-metadata is/gui) root-curl)
+         (handle-spawn (make-curl (uuid)) bang! (make-metadata) root-curl)])
   
   (no-return))
 
