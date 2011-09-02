@@ -26,14 +26,14 @@
 
  (only-in "baseline.rkt" motile/decompile)
  
- (only-in "../persistent/environ.rkt" environ/symbol/value environ/path/value environ/vector/remove vectors/environ))
+ (only-in "../persistent/environ.rkt" environ/ref/symbol environ/ref/path environ/vector/remove vectors/environ))
 
 (provide
  environ/cons/generate
  environ/reflect/generate
  environ/remove/generate
- environ/path/value/generate
- environ/symbol/value/generate)
+ environ/ref/path/generate
+ environ/ref/symbol/generate)
 
 ;; environ - closure whose evaluation returns an environ.
 ;; identfiers - vector of symbols
@@ -56,19 +56,18 @@
         ((procedure? k)
          (let ((Vs (vector-map (lambda (x) (x k/RETURN e g)) values))) ; Just lexical lookup at the Motile-level.
            (environ
-            (lambda (E) (k (vectors/environ E symbols Vs))) ; Continuation for environ/code.
+            (lambda (E) (k (vectors/environ E symbols Vs))) ; Continuation for environ Motile closure.
             e g)))
         ((decompile? k e g) (bind/return! descriptor (descriptor/environ/cons environ symbols values)))
         (else (error/motile/internal/call 'environ/cons/generate))))))
         
-
 ;; environ - closure whose evaluation returns an environ
 ;; symbol - name for binding in environ
 ;; failure - closure for value if symbol not present in environ
-(define (descriptor/environ/value environ symbol failure)
-  (vector-immutable 'environ/value (motile/decompile environ) symbol (motile/decompile failure)))
+(define (descriptor/environ/ref environ symbol failure)
+  (vector-immutable 'environ/ref (motile/decompile environ) symbol (motile/decompile failure)))
 
-(define (environ/symbol/value/generate environ symbol failure)
+(define (environ/ref/symbol/generate environ symbol failure)
   (let ((descriptor #f))
     (lambda (k e g)
       (cond
@@ -78,22 +77,22 @@
          ; (3) Lookup the symbol in environ E.
          (environ
           (lambda (E)
-            (failure (lambda (F) (k (environ/symbol/value E symbol F))) e g))
+            (failure (lambda (F) (k (environ/ref/symbol E symbol F))) e g))
           e g))
-        ((decompile? k e g) (bind/return! descriptor (descriptor/environ/value environ symbol failure)))
-        (else (error/motile/internal/call 'environ/symbol/value/generate))))))
+        ((decompile? k e g) (bind/return! descriptor (descriptor/environ/ref environ symbol failure)))
+        (else (error/motile/internal/call 'environ/ref/symbol/generate))))))
 
-(define (environ/path/value/generate environ path failure)
+(define (environ/ref/path/generate environ path failure)
   (let ((descriptor #f))
     (lambda (k e g)
       (cond
         ((procedure? k)
          (environ
           (lambda (E)
-            (failure (lambda (F) (k (environ/path/value E path F))) e g))
+            (failure (lambda (F) (k (environ/ref/path E path F))) e g))
           e g))
-        ((decompile? k e g) (bind/return! descriptor (descriptor/environ/value environ path failure)))
-        (else (error/motile/internal/call 'environ/path/value/generate))))))
+        ((decompile? k e g) (bind/return! descriptor (descriptor/environ/ref environ path failure)))
+        (else (error/motile/internal/call 'environ/ref/path/generate))))))
 
 
 ;; environ - closure whose evaluation returns an environ

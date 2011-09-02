@@ -31,12 +31,13 @@
 
  (only-in "../generate/environ.rkt"
           environ/cons/generate environ/reflect/generate
-          environ/remove/generate environ/path/value/generate environ/symbol/value/generate)
+          environ/remove/generate environ/ref/path/generate environ/ref/symbol/generate)
 
  (only-in "../generate/frame.rkt"   frame/pop stack/depth global/get/generate variable/get/generate)
  (only-in "../generate/lambda.rkt"  lambda/generate lambda/rest/generate)
  (only-in "../generate/letrec.rkt"  letrec/set/generate)
  (only-in "../generate/quasiquote.rkt" quasiquote/append/generate quasiquote/cons/generate quasiquote/tuple/generate)
+ (only-in "../generate/record.rkt" record/cons/generate record/new/generate record/ref/generate)
  (only-in "../generate/utility.rkt" k/RETURN))
 
 (provide
@@ -53,7 +54,7 @@
   (and (vector? x) (positive? (vector-length x)) (symbol? (vector-ref x 0))))
 
 ;; Returns #t for an integer > 0 and #f otherwise.
-(define-syntax-rule (integer/positive? n) (and (integer? n) (positive? n)))
+(define (integer/positive? n) (and (integer? n) (positive? n)))
 
 ;; Return #t iff the arity of a lambda without a rest parameter is >= 0.
 (define (arity/ok? n)
@@ -61,8 +62,7 @@
 ;; Return #t iff the arity of a lambda with a rest parameter is > 0.
 (define (arity/rest/ok? n) (integer/positive? n))
 ;; Return #t iff the number of closed variables n in a closure > 0.
-(define (closed/ok? n)
-  (and (integer? n) (positive? n)))
+(define (closed/ok? n) (integer/positive? n))
 
 ;; Returns #t if lexical stack s is structurally well-formed and #f otherwise.
 (define (lexical/ok? s)
@@ -498,27 +498,27 @@
       #t
       (recompile/error 'recompile/environ/cons e)))
        
-;; #(environ/value <environ> <accessor> <failure>)
+;; #(environ/ref <environ> <accessor> <failure>)
 ;; <environ> - MAG for expression whose evaluation yields a binding environment E
 ;; <accessor> - either name of binding in E or symbol path of a binding in E
 ;; <failure> - MAG for expression whose evaluation yields an alternate value if <symbol> not in E
-(define-syntax-rule (environ/value/environ e)   (vector-ref e 1))
-(define-syntax-rule (environ/value/accessor e)  (vector-ref e 2))
-(define-syntax-rule (environ/value/failure e)   (vector-ref e 3))
+(define-syntax-rule (environ/ref/environ e)   (vector-ref e 1))
+(define-syntax-rule (environ/ref/accessor e)  (vector-ref e 2))
+(define-syntax-rule (environ/ref/failure e)   (vector-ref e 3))
 (define (environ/path/ok? x)
   (and
    (vector? x)
    (immutable? x)
    (positive? (vector-length x))
    (vector/all? x symbol?)))
-(define (environ/value/ok? e)
+(define (environ/ref/ok? e)
   (if (and
        (= (vector-length e) 4)
-       (MAG? (environ/value/environ e))
-       (or (symbol? (environ/value/accessor e)) (environ/path/ok? (environ/value/accessor e)))
-       (MAG? (environ/value/failure e)))
+       (MAG? (environ/ref/environ e))
+       (or (symbol? (environ/ref/accessor e)) (environ/path/ok? (environ/ref/accessor e)))
+       (MAG? (environ/ref/failure e)))
       #t
-      (recompile/error 'recompile/environ/value e)))
+      (recompile/error 'recompile/environ/ref e)))
 
 ;; #(environ/remove <length> <environ> <symbols>)
 ;; <length> - length of vector <symbols>
@@ -554,6 +554,69 @@
       (recompile/error 'recompile/environ/reflect e)))
 
 (define-syntax-rule (MAG/tag x) (vector-ref x 0))
+
+;; Recompilation for record special forms.
+
+;; #(record/new name arity tags expressions)
+;; name - type name of record (a symbol)
+;; arity - n > 0 number of fields (tags) in record
+;; tags - vector of symbols (field names)
+;; expressions - n MAGs, one for each tag
+(define-syntax-rule (record/new/name  e)       (vector-ref e 1))
+(define-syntax-rule (record/new/arity e)       (vector-ref e 2))
+(define-syntax-rule (record/new/tags  e)       (vector-ref e 3))
+(define-syntax-rule (record/new/expressions e) (vector-ref e 4))
+(define (record/new/ok? x)
+  (if (and
+       (= (vector-length x) 5)
+       (symbol? (record/new/name x))
+       (integer/positive? (record/new/arity x))
+       (vector? (record/new/tags x))
+       (vector? (record/new/expressions x))
+       (= (record/new/arity x) (vector-length (record/new/tags x)))
+       (= (record/new/arity x) (vector-length (record/new/expressions x)))
+       (vector/all? (record/new/tags x) symbol?)
+       (vector/all? (record/new/expressions x) MAG?))
+      #t
+      (recompile/error 'recompile/record/new x)))
+
+;; #(record/cons record span fields expressions)
+;; r - Motile closure for record instance
+;; span - number of fields named in record/cons
+;; tags - vector of symbols naming modified fields
+;; expressions - Motile closures for new field values
+(define-syntax-rule (record/cons/record e) (vector-ref e 1))
+(define-syntax-rule (record/cons/span   e) (vector-ref e 2))
+(define-syntax-rule (record/cons/tags e)   (vector-ref e 3))
+(define-syntax-rule (record/cons/expressions e) (vector-ref e 4))
+(define (record/cons/ok? x)
+  (if (and
+       (= (vector-length x) 5)
+       (MAG? (record/cons/record x))
+       (integer/positive? (record/cons/span x))
+       (vector? (record/cons/tags x))
+       (vector? (record/cons/expressions x))
+       (= (record/cons/span x)
+          (vector-length (record/cons/tags x))
+          (vector-length (record/cons/expressions x)))
+       (vector/all? (record/cons/tags x) symbol?)
+       (vector/all? (record/cons/expressions x) MAG?))
+      #t
+      (recompile/error 'recompile/record/cons x)))
+
+;; #(record/ref record tag failure)
+(define-syntax-rule (record/ref/record e)  (vector-ref e 1))
+(define-syntax-rule (record/ref/tag e)     (vector-ref e 2))
+(define-syntax-rule (record/ref/failure e) (vector-ref e 3))
+(define (record/ref/ok? x)
+  (if (and
+       (= (vector-length x) 4)
+       (MAG? (record/ref/record x))
+       (symbol? (record/ref/tag x))
+       (or (MAG? (record/ref/failure x)) (eq? (record/ref/failure x) #f)))
+      #t
+      (recompile/error 'recompile/record/ref x)))
+
 
 (define (motile/recompile x)
   (cond
@@ -674,12 +737,30 @@
   (environ/remove/ok? x)
   (environ/remove/generate (motile/recompile (environ/remove/environ x)) (environ/remove/symbols x)))
 
-(define (environ/value/recompile x)
-  (environ/value/ok? x)
+(define (environ/ref/recompile x)
+  (environ/ref/ok? x)
   (let ((generator
-         (if (symbol? (environ/value/accessor x)) environ/symbol/value/generate environ/path/value/generate)))
+         (if (symbol? (environ/ref/accessor x)) environ/ref/symbol/generate environ/ref/path/generate)))
   (generator
-   (motile/recompile (environ/value/environ x)) (environ/value/accessor x) (motile/recompile (environ/value/failure x)))))
+   (motile/recompile (environ/ref/environ x)) (environ/ref/accessor x) (motile/recompile (environ/ref/failure x)))))
+
+(define (record/new/recompile x)
+  (record/new/ok? x)
+  (record/new/generate (record/new/name x) (record/new/tags x) (vector-map motile/recompile (record/new/expressions x))))
+
+(define (record/cons/recompile x)
+  (record/cons/ok? x)
+  (record/cons/generate
+   (motile/recompile (record/cons/record x))
+   (record/cons/tags x)
+   (vector-map motile/recompile (record/cons/expressions x))))
+
+(define (record/ref/recompile x)
+  (record/ref/ok? x)
+  (record/ref/generate
+   (motile/recompile (record/ref/record x))
+   (record/ref/tag x)
+   (if (record/ref/failure x) (motile/recompile (record/ref/failure x)) #f)))
 
 ;; x is a Motile descriptor.
 ;; Returns #t iff x is a descriptor for a lambda or closure that is "in use" at the time of recompilation.
@@ -731,11 +812,14 @@
     (cons 'environ/cons    environ/cons/recompile)
     (cons 'environ/reflect environ/reflect/recompile)
     (cons 'environ/remove  environ/remove/recompile)
-    (cons 'environ/value   environ/value/recompile))))
+    (cons 'environ/ref     environ/ref/recompile)
 
+   ; Records.
+   (cons 'record/new  record/new/recompile)
+   (cons 'record/cons record/cons/recompile)
+   (cons 'record/ref  record/ref/recompile)
 
-
-
+)))
   
 
 

@@ -92,6 +92,28 @@
  unquote?
  unquote-splicing?
  
+ ;; (record/new name <tag> <expression> <tag> <expression> ...)
+ record/new?
+ record/new/name
+ record/new/pairs
+ record/new/pairs/tag
+ record/new/pairs/expression
+ record/new/pairs/next
+ 
+ ;; (record/cons r <tag_1> <expression_1> <tag_2> <expression_2> ...)
+ record/cons?
+ record/cons/record
+ record/cons/pairs
+ record/cons/pairs/tag
+ record/cons/pairs/expression
+ record/cons/pairs/next
+ 
+ ;; (record/ref r <tag> [<failure>])
+ record/ref?
+ record/ref/record
+ record/ref/tag
+ record/ref/failure
+ 
  ; (environ/cons e x_1 ... x_m)
  environ/cons?
  environ/cons/e       ; Deprecated.
@@ -104,13 +126,11 @@
  environ/remove/environ ; Synonym for environ/remove/environ.
  environ/remove/symbols
  
- ; (environ/value e x v)
- environ/value?
- environ/value/e ; Deprecated.
- environ/value/environ ; Synonym for environ/value/e.
- ;environ/value/identifier
- environ/value/accessor
- environ/value/substitute
+ ; (environ/ref e x v)
+ environ/ref?
+ environ/ref/environ
+ environ/ref/accessor
+ environ/ref/substitute
  
  ; (environ/reflect e e_1 ... e_m)
  environ/reflect?
@@ -236,6 +256,29 @@
 (define (unquote-splicing? e)
   (eq? 'unquote-splicing (car e)))
 
+;; (record/new name <tag> <expression> <tag> <expression> ...)
+(define (record/new? e) (eq? 'record/new (car e)))
+(define-syntax-rule (record/new/name e)  (cadr e))
+(define-syntax-rule (record/new/pairs e) (cddr e)) ; (tag_1 expression_1 ...).
+(define-syntax-rule (record/new/pairs/tag x)        (car x))
+(define-syntax-rule (record/new/pairs/expression x) (cadr x))
+(define-syntax-rule (record/new/pairs/next x)       (cddr x))
+
+;; (record/cons r <tag_1> <expression_1> <tag_2> <expression_2> ...)
+(define (record/cons? e) (eq? 'record/cons (car e)))
+(define-syntax-rule (record/cons/record e) (cadr e))
+(define-syntax-rule (record/cons/pairs e)  (cddr e)) ; (tag_1 expression_1 ...).
+(define-syntax-rule (record/cons/pairs/tag x)        (cadr x))
+(define-syntax-rule (record/cons/pairs/expression x) (cadr x))
+(define-syntax-rule (record/cons/pairs/next x)       (cdr x))
+
+;; (record/ref r <tag> [<failure>])
+(define (record/ref? e) (eq? 'record/ref (car e)))
+(define-syntax-rule (record/ref/record e)  (cadr e))
+(define-syntax-rule (record/ref/tag e)     (caddr e))
+(define-syntax-rule (record/ref/failure e) (cadddr e))
+  
+
 ;; (environ/cons e x_1 ... x_m)
 ;; where e is an expression that evaluates to a binding environment and
 ;; x_1 ... x_m are identifiers in lexical scope.
@@ -254,16 +297,15 @@
 (define-syntax-rule (environ/remove/expression e) (cadr e))
 (define (environ/remove/symbols e) (cddr e))
 
-;; (environ/value e x v)
+;; (environ/ref e x v)
 ;; where e is an expression that evaluates to a binding environment, x is an identifier in lexical scope,
 ;; and v is an expression that evaluates to a substitute value.
-(define (environ/value? e) (eq? 'environ/value (car e)))
-(define (environ/value/e e) (cadr e))
-(define-syntax-rule (environ/value/environ e) (cadr e))
-(define-syntax-rule (environ/value/expression e) (cadr e))
-;(define (environ/value/identifier e) (caddr e))
-(define (environ/value/accessor e) (caddr e))
-(define (environ/value/substitute e) (cadddr e))
+(define (environ/ref? e) (eq? 'environ/ref (car e)))
+(define (environ/ref/e e) (cadr e))
+(define-syntax-rule (environ/ref/environ e) (cadr e))
+(define-syntax-rule (environ/ref/expression e) (cadr e))
+(define (environ/ref/accessor e) (caddr e))
+(define (environ/ref/substitute e) (cadddr e))
 
 ;; (environ/reflect e e_1 ... e_m)
 ;; where e is an expression that evaluates to a binding environment and e_1 ... e_m

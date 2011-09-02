@@ -282,12 +282,12 @@
     ((environ/remove? e)
      (variables/closed (environ/remove/environ e) lexical))
 
-    ; (environ/value E s x) where s is a symbol and x is an expression for a
+    ; (environ/ref E s x) where s is a symbol and x is an expression for a
     ; substitute value if s does not appear in environ E.
-    ((environ/value? e)
+    ((environ/ref? e)
      (set/union
-      (variables/closed (environ/value/environ e) lexical)
-      (variables/closed (environ/value/substitute e) lexical)))
+      (variables/closed (environ/ref/environ e) lexical)
+      (variables/closed (environ/ref/substitute e) lexical)))
 
     ; (environ/reflect E e_1 ... e_n) where each e_i is an expression.
     ((environ/reflect? e)

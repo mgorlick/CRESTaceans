@@ -19,11 +19,9 @@
 
 (require
  racket/pretty
- (only-in
-  "persistent/environ.rkt"
-  environ/merge environ/null pairs/environ)
- 
-"persistent/vector.rkt"
+ (only-in "persistent/environ.rkt" environ/merge environ/null pairs/environ)
+ (only-in "persistent/record.rkt" record? record/kind record/fields) 
+ "persistent/vector.rkt"
  "persistent/hash.rkt"
  "persistent/set.rkt"
  "persistent/tuple.rkt"
@@ -59,21 +57,13 @@
   error/motile/type
   k/RETURN))
 
-(require  racket/pretty
-         "persistent/environ.rkt"
-         "persistent/vector.rkt"
-         "persistent/hash.rkt"
-         "persistent/set.rkt"
-         "persistent/tuple.rkt")
-
-(provide BASELINE
-         ENVIRON/TEST
-         define/global/0
-         define/global/N
-         define/combinator/2
-         define/combinator/3)
-
-; 
+(provide
+ BASELINE
+ ENVIRON/TEST
+ define/global/0
+ define/global/N
+ define/combinator/2
+ define/combinator/3)
 
 ;; Motile-specific reworkings of map, apply, and for-each.
 
@@ -475,6 +465,12 @@
     (define/combinator/2 'tuple/map        tuple/map)
     (define/combinator/2 'tuple/partition  tuple/partition)
     
+    ; Records.
+    ; The functions record/new, record/cons, and record/ref are implemented as special forms.
+    (define/global/1 'record? record?)
+    (define/global/1 'record/kind record/kind)
+    (define/global/1 'record/fields record/fields)
+
     ; Binding environments
     (cons 'environ/null environ/null)
     (cons 'environ/capture (motile/environ/capture))
@@ -512,6 +508,7 @@
     (define/global/N 'make-vector   make-vector)
     (define/global/N 'vector        vector)
     (define/global/1 'vector-length vector-length)
+    (define/global/1 'vector->list  vector->list)
     (define/global/2 'vector-ref    vector-ref)
     (define/global/3 'vector-set!   vector-set!)
     

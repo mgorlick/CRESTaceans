@@ -15,6 +15,7 @@
 (require racket/pretty)
 
 (require
+ (only-in racket/vector vector-count vector-map)
  "dissect.ss"
  "free.ss"
  "set.ss"
@@ -40,13 +41,14 @@
   environ/cons/generate
   environ/reflect/generate
   environ/remove/generate
-  environ/path/value/generate
-  environ/symbol/value/generate)
+  environ/ref/path/generate
+  environ/ref/symbol/generate)
 
  (only-in "../generate/frame.rkt"      global/get/generate variable/get/generate)
  (only-in "../generate/lambda.rkt"     lambda/generate lambda/rest/generate)
  (only-in "../generate/letrec.rkt"     letrec/set/generate)
  (only-in "../generate/quasiquote.rkt" quasiquote/append/generate quasiquote/cons/generate quasiquote/tuple/generate)
+ (only-in "../generate/record.rkt"     record/cons/generate record/new/generate record/ref/generate)
  (only-in "../persistent/environ.rkt"  environ/null)
  (only-in "../persistent/hash.rkt"     hash/eq/null hash/ref vector/hash))
 
@@ -114,15 +116,29 @@
       ((or? e)
        (or/compile e lexical))
       
+      ; Special forms for records.
+      
+      ; (record/new <name> <tag_1> <expression_1> <tag_2> <expression_2> ...)
+      ((record/new? e)
+       (record/new/compile e lexical))
+      
+      ; (record/cons r <tag_1> <expression_1> <tag_2> <expression_2> ...)
+      ((record/cons? e)
+       (record/cons/compile e lexical))
+      
+      ; (record/ref r <tag> [<failure>])
+      ((record/ref? e)
+       (record/ref/compile e lexical))
+
       ; Special forms for binding environments.
       
       ; (environ/cons <environ> <symbol_1> ... <symbol_n>)
       ((environ/cons? e)
        (environ/cons/compile e lexical))
       
-      ; (environ/value <environ> <symbol> <substitute>)
-      ((environ/value? e)
-       (environ/value/compile e lexical))
+      ; (environ/ref <environ> <symbol> <substitute>)
+      ((environ/ref? e)
+       (environ/ref/compile e lexical))
       
       ; (environ/remove <environ> <symbol_1> ... <symbol_n>)
       ((environ/remove? e)
@@ -197,7 +213,6 @@
       (else
        ; (let () <body>).
        (scheme/compile `((lambda () ,@(let/body e))) lexical)))))
-
 
 (define (let*/compile e lexical)
   (shape e 3)
@@ -458,12 +473,12 @@
     ((environ/cons? e)
      `(environ/cons ,(motile/macro/expand (environ/cons/environ e) macros) ,@(environ/cons/identifiers e)))
 
-    ; (environ/value <environ> <symbol> <substitute>)
-    ((environ/value? e)
-     `(environ/value
-       ,(motile/macro/expand (environ/value/environ e) macros)
-       ,(environ/value/accessor e)
-       ,(motile/macro/expand (environ/value/substitute e) macros)))
+    ; (environ/ref <environ> <symbol> <substitute>)
+    ((environ/ref? e)
+     `(environ/ref
+       ,(motile/macro/expand (environ/ref/environ e) macros)
+       ,(environ/ref/accessor e)
+       ,(motile/macro/expand (environ/ref/substitute e) macros)))
 
     ; (environ/remove <environ> <symbol_1> ... <symbol_n>)
     ((environ/remove? e)
@@ -474,6 +489,22 @@
      `(environ/reflect
        ,(motile/macro/expand (environ/reflect/environ e) macros)
        ,@(map map/expand (environ/reflect/expressions e))))
+
+    ; (record/new <symbol> <symbol_1> e_1 ... <symbol_n> e_n)
+    ((record/new? e)
+     `(record/new
+       ,(motile/macro/expand (record/new/name e) macros)
+       ,@(map map/expand (record/new/pairs e))))
+
+    ; (record/cons E <symbol_1> e_1 ... <symbol_n> e_n)
+    ((record/cons? e)
+     `(record/cons
+       ,(motile/macro/expand (record/cons/record e) macros)
+       ,@(map map/expand (record/cons/pairs e))))
+
+    ((record/ref? e)
+     `(record/ref
+       ,@(map map/expand (cdr e))))
 
     (else (map map/expand e)))) ; Macro expand every element of s-expression e.
   
@@ -793,7 +824,95 @@
 
     (quasiquotation/compile l level lexical)))
 
+;; Reverse the elements of a vector v in place.
+;(define (vector/reverse! v)
+;  (let loop ((low 0) (high (sub1 (vector-length v))))
+;    (if (>= low high)
+;        v
+;        (let ((scratch (vector-ref v low)))
+;          (vector-set! v low (vector-ref v high))
+;          (vector-set! v high scratch)
+;          (loop (add1 low) (sub1 high))))))
 
+;; Compilation of record/... special forms.
+
+;; Given (tag_1 expression_1 tag_2 expression_2 ...) return
+;; two vectors #(tag_1 tag_2 ...) and #(expression_1 expression_2 ...).
+;; m - number of tags (= number of expressions)
+;; pairs - list (tag_1 expression_1 tag_2 expression_2 ...)
+(define (record/pairs/unpack m pairs)
+  (let ((tags        (make-vector m))
+        (expressions (make-vector m)))
+    ; Separate the tags from the expressions.
+    (let loop ((pairs pairs) (i 0))
+      (unless (null? pairs)
+        (vector-set! tags        i (record/new/pairs/tag        pairs))
+        (vector-set! expressions i (record/new/pairs/expression pairs))
+        (loop (record/new/pairs/next pairs) (add1 i))))
+    (values tags expressions)))
+
+;;; Extract and error check the (tag_1 expression_1 tag_2 expression_2) portion of a record/new special form.
+;(define (record/new/pairs/extract e)
+;  (let* ((pairs (record/new/pairs e))
+;         (n (length pairs)))
+;    (when (or (zero? n) (odd? n))
+;      (error 'record/new "incomplete set of tag/expression pairs in: ~s" e))
+;    (let-values ([(tags expressions) (record/new/pairs/unpack n pairs)])
+;      (when (< (vector-count symbol? tags) (vector-length tags))
+;        (error 'record/new "missing or non-symbol tag in: ~s" e))
+;      (values tags expressions))))
+
+;; (record/new name tag_1 expression_1 tag_2 expression_2 ...)
+(define (record/new/compile e lexical)
+  (shape e 4)
+  (let* ((name  (record/new/name  e))
+         (pairs (record/new/pairs e))
+         (n     (length pairs)))
+
+    (when (not (symbol? name))
+      (error 'record/new "record type name not symbol in: ~s" e))
+
+    (when (or (zero? n) (odd? n))
+      (error 'record/new "incomplete set of tag/expression pairs in: ~s" e))
+
+    (let-values ([(tags expressions) (record/pairs/unpack (/ n 2) pairs)])
+       (when (< (vector-count symbol? tags) (vector-length tags))
+         (error 'record/new "missing or non-symbol tag in: ~s" e))     
+      (record/new/generate
+       name tags
+       (vector-map (lambda (x) (scheme/compile x lexical)) expressions)))))
+
+;; (record/cons r tag_1 expression_1 tag_2 expression_2 ...)
+(define (record/cons/compile e lexical)
+  (shape e 3)
+  (let* ((r     (record/cons/record e))
+         (pairs (record/cons/pairs  e))
+         (n     (length pairs)))
+
+    (when (or (zero? n) (odd? n))
+      (error 'record/cons "incomplete set of tag/expression pairs in: ~s" e))
+
+    (let-values ([(tags expressions) (record/pairs/unpack (/ n 2) pairs)])
+      (when (< (vector-count symbol? tags) (vector-length tags))
+        (error 'record/cons "missing or non-symbol tag in: ~s" e))
+      (record/cons/generate
+       (scheme/compile r lexical)
+       tags
+       (vector-map (lambda (x) (scheme/compile x lexical)) expressions)))))
+
+;; (record/ref r tag [failure])
+(define (record/ref/compile e lexical)
+  (shape e 3)
+  (let* ((r   (record/ref/record e))
+         (tag (record/ref/tag    e)))
+    (when (not (symbol? tag))
+      (error 'record/ref "non-symbol tag ~s in ~s" tag e))
+    (record/ref/generate
+     (scheme/compile r lexical)
+     tag
+     (if (> (length e) 3) (scheme/compile (record/ref/failure e) lexical) #f))))
+
+         
 ;; Compilation of environ/... special forms.
 
 ;; MUST implement restriction to lexical scope identifiers only !!!
@@ -828,17 +947,16 @@
    (positive? (vector-length x))
    (vector/all? x symbol?)))
 
-;; (environ/value <environ> <symbol> <substitute>).
-(define (environ/value/compile e lexical)
+;; (environ/ref <environ> <symbol> <substitute>).
+(define (environ/ref/compile e lexical)
   (shape e 4)
-  (let ((environ    (environ/value/environ e))
-        ;(symbol     (environ/value/identifier e))
-        (accessor   (environ/value/accessor e))
-        (substitute (environ/value/substitute e)))
+  (let ((environ    (environ/ref/environ e))
+        (accessor   (environ/ref/accessor e))
+        (substitute (environ/ref/substitute e)))
     (let ((generator
            (cond
-             ((symbol? accessor)      environ/symbol/value/generate)
-             ((reader/path? accessor) environ/path/value/generate)
+             ((symbol? accessor)      environ/ref/symbol/generate)
+             ((reader/path? accessor) environ/ref/path/generate)
              (else (error (format "Expected symbol or reader/path for accessor in ~a but got ~a instead" e accessor))))))
       (generator (scheme/compile environ lexical) accessor (scheme/compile substitute lexical)))))
 

@@ -17,7 +17,7 @@
 (require
  (only-in racket/vector vector-copy)
  (only-in "utility.rkt" bind/return! decompile? error/motile/internal/call)
- (only-in "../persistent/environ.rkt" environ/symbol/value))
+ (only-in "../persistent/environ.rkt" environ/ref/symbol))
 
 (provide
  arity/verify
@@ -180,7 +180,7 @@
 (define UNDEFINED (gensym 'undefined.))
 
 (define (global/find g symbol)
-  (let ((binding (environ/symbol/value g symbol UNDEFINED)))
+  (let ((binding (environ/ref/symbol g symbol UNDEFINED)))
     (if (eq? binding UNDEFINED)
         (error 'motile/global/find "undefined: ~s" symbol)
         binding)))

@@ -37,7 +37,8 @@
  tuple/take/left
  tuple/take/right
  tuple/and
- tuple/or)
+ tuple/or
+ vector/tuple)
 
 (define (tuple? x)
   (and
@@ -268,6 +269,15 @@
       ((= i n) #f)
       ((f (tuple/ref t i)) #t)
       (else (loop (add1 i) n)))))
+
+;; Recreate a vector v as a tuple.
+;; This is used only within the Motile run-time.
+(define (vector/tuple v)
+  (let ((t (make-vector (add1 (vector-length v)))))
+    (vector-set!  t 0 '<tuple>)
+    (vector-copy! t 1 v)
+    t))
+        
 
       
 

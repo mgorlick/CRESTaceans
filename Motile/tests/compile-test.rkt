@@ -1668,6 +1668,144 @@
 
 ; -------------------------------------
 
+(define-test-suite record-tests
+  (test-case
+   "record/new/1"
+   (check-equal?
+    ((compile/start)
+     '(let ()
+        (record/new sample a 1 b 2 c "silly")))
+    #(<record> sample #(a b c) 1 2 "silly")))
+  
+  (test-case
+   "record/new does not confuse field names with bindings in lexical scope"
+   (check-equal?
+    ((compile/start)
+     '(let ((a 1) (b 2) (c "silly"))
+        (record/new sample a a b b c c)))
+    #(<record> sample #(a b c) 1 2 "silly")))
+
+  (test-case
+   "record/new evaluates expressions for field values"
+   (check-equal?
+    ((compile/start)
+     '(let ((x 1) (y 2) (z "foo"))
+        (record/new sample a (add1 x) b (* 3 y) c (string-append z "bar"))))
+    #(<record> sample #(a b c) 2 6 "foobar")))
+  
+  (test-case
+   "record/new expression evaluation interacts with call/cc correctly"
+   (check-equal?
+    ((compile/start)
+     '(let ()
+        (record/new sample a 1 b 2 c 3 d (call/cc (lambda (k) (* 5 (k 4)))) e 5 f 6)))
+     #(<record> sample #(a b c d e f) 1 2 3 4 5 6)))
+             
+  (test-case
+   "record/cons is persistent after one update"
+   (check-equal?
+    ((compile/start)
+     '(let* ((r1 (record/new sample a 1 b 2 c "silly"))
+             (r2 (record/cons r1 c "serious")))
+        (list r1 r2)))
+    '(#(<record> sample #(a b c) 1 2 "silly")
+      #(<record> sample #(a b c) 1 2 "serious"))))
+
+ (test-case
+   "record/cons is persistent after two successive updates"
+   (check-equal?
+    ((compile/start)
+     '(let* ((r1 (record/new sample a 1 b 2 c "silly"))
+             (r2 (record/cons r1 c "serious"))
+             (r3 (record/cons r2 a 11)))
+        (list r1 r3)))
+    '(#(<record> sample #(a b c) 1 2 "silly")
+      #(<record> sample #(a b c) 11 2 "serious"))))
+
+  (test-case
+   "record/cons accepts a pair of updates"
+   (check-equal?
+    ((compile/start)
+      '(let* ((r1 (record/new sample a 1 b 2 c "silly"))
+             (r2 (record/cons r1 c "serious" a 11)))
+         (list r1 r2)))
+    '(#(<record> sample #(a b c) 1 2 "silly")
+      #(<record> sample #(a b c) 11 2 "serious"))))
+
+  (test-case
+   "record/cons accepts a triple of updates"
+   (check-equal?
+    ((compile/start)
+     '(let* ((r1 (record/new sample a 1 b 2 c "silly"))
+             (r2 (record/cons r1 c "serious" a 11 b 99)))
+        (list r1 r2)))
+    '(#(<record> sample #(a b c) 1 2 "silly")
+      #(<record> sample #(a b c) 11 99 "serious"))))
+  
+  (test-case
+   "record/cons accepts a large number of updates"
+   (check-equal?
+    ((compile/start)
+     '(let* ((r1 (record/new sample a 1 b 2 c "silly" d #f e #f f #f))
+             (r2 (record/cons r1 c "serious" a 11 b 99 d 1 e 2 f 3 d 111 e 222 f 333))) ; Later fields overwrite earlier. 
+        (list r1 r2)))
+    '(#(<record> sample #(a b c d e f)  1  2 "silly"   #f  #f  #f)
+      #(<record> sample #(a b c d e f) 11 99 "serious" 111 222 333))))
+
+  (test-case
+   "record/ref accesses all fields"
+   (check-equal?
+    ((compile/start)
+     '(let ((r (record/new sample a 1 b 2 c "silly")))
+        (list
+         (record/ref r c)
+         (record/ref r a)
+         (record/ref r b))))
+    (list "silly" 1 2)))
+
+  (test-case
+   "record/ref provides a failure value"
+   (check-equal?
+    ((compile/start)
+     '(let ((r (record/new sample a 1 b 2 c "silly")))
+        (list
+         (record/ref r c)
+         (record/ref r foo (+ 29 (record/ref r b))) ; The failure value is 31.
+         (record/ref r a)
+         (record/ref r b))))
+    (list "silly" 31 1 2)))
+
+  (test-case
+   "record?"
+   (check-equal?
+    ((compile/start)
+     '(let ((r (record/new sample a 1 b 2 c "silly")))
+        (list (record? r) (record? 33) (record? (tuple r)))))
+    '(#t #f #f))) 
+  
+  (test-case
+   "record/kind"
+   (check-equal?
+    ((compile/start)
+     '(let ((r (record/new sample a 1 b 2 c "silly"))
+            (s (record/new tiny x 999))
+            (t (record/new large a 1 b 2 c "silly" d 44 e 55 f 66)))
+        (list (record/kind r) (record/kind s) (record/kind t))))
+    '(sample tiny large)))
+  
+  (test-case
+   "record/fields"
+   (check-equal?
+    ((compile/start)
+     '(let ((r (record/new sample a 1 b 2 c "silly"))
+            (s (record/new tiny x 999))
+            (t (record/new large a 1 b 2 c "silly" d 44 e 55 f 66)))
+        (list (tuple/list (record/fields r)) (tuple/list (record/fields s)) (tuple/list (record/fields t)))))
+    (list '(a b c) '(x) '(a b c d e f))))
+)
+
+; -------------------------------------
+
 (define-test-suite binding-environment-tests
   (test-case
    "environ/null is available in the Motile BASELINE enviroment"
@@ -1705,7 +1843,7 @@
     (let ((E ((compile/start)
                '(let ((silly 1951))
                   (environ/cons environ/null silly))))) ; Create an environ with a single binding silly/1951.
-       (environ/value E 'silly #f))
+       (environ/ref E 'silly #f))
     1951))
    
   (test-case
@@ -1717,22 +1855,22 @@
                      (c 3))
                  (environ/cons environ/null a b c)))))
       ; Here we use the version of environ/symbol/value available to Racket.
-      (list (environ/value E 'c #f) (environ/value E 'b #f) (environ/value E 'a #f)))
+      (list (environ/ref E 'c #f) (environ/ref E 'b #f) (environ/ref E 'a #f)))
 
     '(3 "second" "first")))
     
   (test-case
-   "Query an environ using environ/value"
+   "Query an environ using environ/ref"
    (check-equal?
     ((compile/start)
      '(let ((a 100) (b 200) (c 300))
         (let ((E (environ/cons environ/null a b c)))
-          (list (environ/value E c #f) (environ/value E a #f) (environ/value E b #f)))))
+          (list (environ/ref E c #f) (environ/ref E a #f) (environ/ref E b #f)))))
     
     '(300 100 200)))
     
   (test-case
-   "Query an nested environ using a path to environ/value"
+   "Query an nested environ using a path to environ/ref"
    (check-equal?
     '(100 200 300)
     ((compile/start)
@@ -1740,18 +1878,18 @@
         (let* ((E_c (environ/cons environ/null c))
                (E_b (environ/cons environ/null b E_c))
                (E_a (environ/cons environ/null a E_b)))
-          (list (environ/value E_a a #f) (environ/value E_a #(E_b b) #f) (environ/value E_a #(E_b E_c c) #f)))))))
+          (list (environ/ref E_a a #f) (environ/ref E_a #(E_b b) #f) (environ/ref E_a #(E_b E_c c) #f)))))))
 
   (test-case
-   "environ/value using a symbol not in the binding environ"
+   "environ/ref using a symbol not in the binding environ"
    (check-equal?
     ((compile/start)
      '(let ((a 100) (b 200) (c 300))
         (let ((E (environ/cons environ/null a b c)))
-          (list (environ/value E c #f)
-                (environ/value E a #f)
-                (environ/value E x #f) ; x is not a binding in E.
-                (environ/value E b #f)))))
+          (list (environ/ref E c #f)
+                (environ/ref E a #f)
+                (environ/ref E x #f) ; x is not a binding in E.
+                (environ/ref E b #f)))))
     
     '(300 100 #f 200))) ; The value #f comes from the query for symbol x.
 
@@ -1762,9 +1900,9 @@
      '(let ((a 100) (b 200) (c 300))
         (let* ((E_0 (environ/cons environ/null a b c))
                (E_1 (environ/remove E_0 b)))
-          (list (environ/value E_1 c #f)
-                (environ/value E_1 a #f)
-                (environ/value E_1 b #f)))))
+          (list (environ/ref E_1 c #f)
+                (environ/ref E_1 a #f)
+                (environ/ref E_1 b #f)))))
     '(300 100 #f))) ; The value #f comes from the query for symbol b in E_1.
   
   (test-case
@@ -1935,6 +2073,7 @@
   (run-tests closure-tests)
   (run-tests binding-environment-tests)
   (run-tests tuple-tests)
+  (run-tests record-tests)
   (run-tests vector-tests)
   (run-tests set-tests)
   (run-tests hash-tests)

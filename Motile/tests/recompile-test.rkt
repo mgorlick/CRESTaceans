@@ -2,101 +2,141 @@
 
 (require
  rackunit
- "../recompile.rkt"
+ rackunit/text-ui
+ (only-in "../compile/recompile.rkt" motile/recompile)
 
  racket/pretty
 
- (only-in
-  "../persistent/environ.rkt"
-  environ/value)
+ (only-in "../persistent/environ.rkt" environ/ref)
 
- (only-in
-  "../compile.rkt"
-  motile/compile
-  motile/decompile
-  motile/start)
- 
- (only-in "serialize.rkt" serialize)
+ (only-in "../compile/compile.rkt"   motile/compile)
+ (only-in "../generate/baseline.rkt" motile/call)
+ (only-in "../compile/serialize.rkt" motile/serialize)
+ (only-in "../generate/baseline.rkt" motile/decompile)
+ (only-in "../baseline.rkt" BASELINE ENVIRON/TEST))
 
- "../baseline.rkt")
+;; Convenient helper routines.
+(define (decompile x) (motile/decompile (motile/compile x)))
+(define (recompile/start x) (motile/call (motile/recompile x) ENVIRON/TEST))
 
-; Motile source is:
-; (let ((silly 1951))
-;   (environ/cons environ/null silly))
-(check-eqv?
- (let ((code (motile/recompile/unit
-              '#(combination
-                 1
-                 #(lambda 1 #(environ/cons 1 #(reference/global environ/null) #(silly) #(#(reference/parameter 1))))
-                 (#(constant/generate 1951))))))
-   (environ/value (motile/start code BASELINE) 'silly #f))
- 1951
- "Recompilation of environ/cons")
+(define-test-suite environ
+  (test-case
+   "environ/cons and environ/ref #1"
+   (check-equal?
+    (let ((code
+           (decompile
+            '(let ((silly 1951))
+               (environ/ref (environ/cons environ/null silly) silly #f)))))
+      (recompile/start code))
+    1951))
+  
+  (test-case
+   "environ/cons and environ/ref #2"
+   (check-equal?
+    (let ((code
+           (decompile
+            '(let ((E (let ((a 100) (b 200) (c 700)) (environ/cons environ/null a b c)))
+                   (x 0))
+               (list (environ/ref E c #f) (environ/ref E a #f) (environ/ref E b #f) (environ/ref E x "not there"))))))
+      (recompile/start code))
+    '(700 100 200 "not there")))
 
-(check-equal?
- (let ((code
-        (motile/decompile
-         (motile/compile
-          '(let ((E (let ((a 100) (b 200) (c 700)) (environ/cons environ/null a b c)))
-                 (x 0))
-             (list (environ/value E c #f) (environ/value E a #f) (environ/value E b #f) (environ/value E x "not there")))))))
-   (motile/start (motile/recompile/unit code) BASELINE))
- '(700 100 200 "not there")
- "Recompilation of environ/cons and environ/value")
+  (test-case
+   "environ/remove"
+   (check-equal?
+    (let ((code
+           (decompile
+            '(let* ((E (let ((a 100) (b 200) (c 700)) (environ/cons environ/null a b c)))
+                    (F (environ/remove E a)))
+               (list (environ/ref F c #f) (environ/ref F a #f) (environ/ref F b #f))))))
+      (recompile/start code))
+    '(700 #f 200)))
 
-(check-equal?
- (let ((code
-        (motile/decompile
-         (motile/compile
-          '(let* ((E (let ((a 100) (b 200) (c 700)) (environ/cons environ/null a b c)))
-                  (F (environ/remove E a)))
-             (list (environ/value F c #f) (environ/value F a #f) (environ/value F b #f)))))))
-   (motile/start (motile/recompile/unit code) BASELINE))
- '(700 #f 200)
- "Recompilation of environ/remove")
+  (test-case
+   "environ/reflect"
+   (check-eqv?
+    (let ((code
+           (decompile
+            '(let ((E (let ((a 100) (b 200) (c 700) (plus +)) (environ/cons environ/null plus a b c))))
+               (environ/reflect E (plus a b c))))))
+      (recompile/start code))
+    1000))
+  
+  (test-case
+   "environ/capture and environ/merge"
+   (check-eqv?
+    (let ((code
+           (decompile
+            '(let* ((E (let ((a 100) (b 200) (c 700)) (environ/cons environ/null a b c)))
+                    (F (environ/merge (environ/capture) E))) ; ENVIRON/TEST + a/100, b/200, and c/700.
+               (+ (environ/ref F c 19) (environ/ref F a 17) (environ/ref F b 18))))))
+      (recompile/start code))
+    1000))
 
-(check-eqv?
- (let ((code
-        (motile/decompile
-         (motile/compile
-          '(let ((E (let ((a 100) (b 200) (c 700) (plus +)) (environ/cons environ/null plus a b c))))
-             (environ/reflect E (plus a b c)))))))
-   (motile/start (motile/recompile/unit code) BASELINE))
- 1000
- "Recompilation of environ/reflect")
+  (test-case
+   "environ/reflect"
+   (check-eqv?
+    (let ((code
+           (decompile
+            '(let ((E (let ((a 100) (b 200) (c 700) (+ +)) (environ/cons environ/null + a b c))))
+               (environ/reflect E (+ a b c))))))
+      (recompile/start code))
+    1000)))
 
-(check-eqv?
- (let ((code
-        (motile/decompile
-         (motile/compile
-          '(let* ((E (let ((a 100) (b 200) (c 700)) (environ/cons environ/null a b c)))
-                  (F (environ/merge (environ/capture) E))) ; BASElINE + a/100, b/200, and c/700.
-             (+ (environ/value F c 19) (environ/value F a 17) (environ/value F b 18)))))))
-   (motile/start (motile/recompile/unit code) BASELINE))
- 1000
- "Recompilation of environ/capture and environ/merge")
+(define-test-suite record
+  (test-case
+   "record/new"
+   (check-equal?
+    (let ((code (decompile '(let () (record/new sample a 1 b 2 c "silly" d 'foobar)))))
+      (recompile/start code))
+    #(<record> sample #(a b c d) 1 2 "silly" foobar)))
+  
+  (test-case
+   "record/cons"
+   (check-equal?
+    (let ((code
+           (decompile
+            '(let ((r (record/new sample a 1 b 2 c "silly" d 'foobar)))
+               (record/cons r d 1 c 2 b 'foobar a "nuts")))))
+      (recompile/start code))
+    #(<record> sample #(a b c d) "nuts" foobar 2 1)))
+  
+  (test-case
+   "record/ref without failure option"
+   (check-equal?
+    (let ((code
+           (decompile
+            '(let ((r (record/new sample a 1 b 2 c "silly" d 'foobar)))
+               (list (record/ref r d) (record/ref r c) (record/ref r b) (record/ref r a))))))
+      (recompile/start code))
+    '(foobar "silly" 2 1)))
 
-(check-eqv?
- (let ((code
-        (motile/decompile
-         (motile/compile
-          '(let ((E (let ((a 100) (b 200) (c 700) (+ +)) (environ/cons environ/null + a b c))))
-             (display E) (newline) (newline)
-             (environ/reflect E (+ a b c)))))))
-   (pretty-display code)
-   (motile/start (motile/recompile/unit code) ENVIRON/TEST))
- 1000
- "Recompilation of environ/reflect")
+  (test-case
+   "record/ref with failure option"
+   (check-equal?
+    (let ((code
+           (decompile
+            '(let ((r (record/new sample a 1 b 2 c "silly" d 'foobar))
+                   (glue (lambda (x y) (string-append x y))))
+               (list (record/ref r d) (record/ref r X "no such field") (record/ref r b) (record/ref r XX (glue "U" "nix")))))))
+      (recompile/start code))
+    '(foobar "no such field" 2 "Unix")))
 
-;(let ((code
-;       (motile/decompile
-;        (motile/compile
-;         '(let ((+ +)
-;                (foo (lambda () 17))
-;                (bar (lambda () 3)))
-;           (environ/reflect (environ/cons environ/null + foo bar) (+ (foo) (bar))))))))
-;  (pretty-display code) (newline)
-;  (motile/start (motile/recompile/unit code) BASELINE))
+  (test-case
+   "record/ref with failure option"
+   (check-exn
+    exn:fail?
+    (lambda ()
+      (let ((code
+             (decompile
+              '(let ((r (record/new sample a 1 b 2 c "silly" d 'foobar)))
+                 (list (record/ref r d)
+                       (record/ref r X) ; This field reference will throw an error.
+                       (record/ref r b)
+                       (record/ref r a))))))
+        (recompile/start code))))))
+
+
 
 
 

@@ -6,7 +6,10 @@
  (only-in "../persistent/tuple.rkt" tuple? tuple/length tuple/ref)
  (only-in "../persistent/vector.rkt" vector/persist? vector/length vector/null vector/ref))
 
-(provide match/translate)
+(provide
+ match/translate
+ shape/exact
+ shape/inexact)
 
 ;; Copyright 2011 Michael M. Gorlick
 
@@ -21,7 +24,6 @@
 ;; limitations under the License.
 
 ;; Contact: mgorlick@acm.org
-
 
 ;; This is an non-hygienic macro implementation of (match ...)
 ;; inspired by jas-match.scm from http://schemecookbook.org/Cookbook/MacroExampleASimplePatternMatcher
@@ -50,13 +52,13 @@
 ;;           match/literal/translate
 ;; Whenever a translator is unsure of which layer applies it simply calls match/guarded/translate recursively.
 
-;; Returns #t if the given form is a list containing at least n > 0 elements.
-(define (shape form n)
-  (let loop ((form form) (n n))
-    (cond
-      ((zero? n) #t)
-      ((pair? form) (loop (cdr form) (sub1 n)))
-      (else #f))))
+;;; Returns #t if the given form is a list containing at least n > 0 elements.
+;(define (shape form n)
+;  (let loop ((form form) (n n))
+;    (cond
+;      ((zero? n) #t)
+;      ((pair? form) (loop (cdr form) (sub1 n)))
+;      (else #f))))
 
 ;; Simple accessors to pick a <clause> or <pattern> apart.
 (define (element/1 x)    (cadr x))
