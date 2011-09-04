@@ -48,7 +48,7 @@
  (only-in "../generate/lambda.rkt"     lambda/generate lambda/rest/generate)
  (only-in "../generate/letrec.rkt"     letrec/set/generate)
  (only-in "../generate/quasiquote.rkt" quasiquote/append/generate quasiquote/cons/generate quasiquote/tuple/generate)
- (only-in "../generate/record.rkt"     record/cons/generate record/new/generate record/ref/generate)
+ (only-in "../generate/record.rkt"     record/cons/generate record/generate record/ref/generate)
  (only-in "../persistent/environ.rkt"  environ/null)
  (only-in "../persistent/hash.rkt"     hash/eq/null hash/ref vector/hash))
 
@@ -118,9 +118,9 @@
       
       ; Special forms for records.
       
-      ; (record/new <name> <tag_1> <expression_1> <tag_2> <expression_2> ...)
-      ((record/new? e)
-       (record/new/compile e lexical))
+      ; (record <name> <tag_1> <expression_1> <tag_2> <expression_2> ...)
+      ((motile/record? e)
+       (record/compile e lexical))
       
       ; (record/cons r <tag_1> <expression_1> <tag_2> <expression_2> ...)
       ((record/cons? e)
@@ -491,10 +491,10 @@
        ,@(map map/expand (environ/reflect/expressions e))))
 
     ; (record/new <symbol> <symbol_1> e_1 ... <symbol_n> e_n)
-    ((record/new? e)
-     `(record/new
-       ,(motile/macro/expand (record/new/name e) macros)
-       ,@(map map/expand (record/new/pairs e))))
+    ((motile/record? e)
+     `(record
+       ,(motile/macro/expand (record/name e) macros)
+       ,@(map map/expand (record/pairs e))))
 
     ; (record/cons E <symbol_1> e_1 ... <symbol_n> e_n)
     ((record/cons? e)
@@ -846,27 +846,27 @@
     ; Separate the tags from the expressions.
     (let loop ((pairs pairs) (i 0))
       (unless (null? pairs)
-        (vector-set! tags        i (record/new/pairs/tag        pairs))
-        (vector-set! expressions i (record/new/pairs/expression pairs))
-        (loop (record/new/pairs/next pairs) (add1 i))))
+        (vector-set! tags        i (record/pairs/tag        pairs))
+        (vector-set! expressions i (record/pairs/expression pairs))
+        (loop (record/pairs/next pairs) (add1 i))))
     (values tags expressions)))
 
 ;;; Extract and error check the (tag_1 expression_1 tag_2 expression_2) portion of a record/new special form.
-;(define (record/new/pairs/extract e)
-;  (let* ((pairs (record/new/pairs e))
+;(define (record/pairs/extract e)
+;  (let* ((pairs (record/pairs e))
 ;         (n (length pairs)))
 ;    (when (or (zero? n) (odd? n))
 ;      (error 'record/new "incomplete set of tag/expression pairs in: ~s" e))
-;    (let-values ([(tags expressions) (record/new/pairs/unpack n pairs)])
+;    (let-values ([(tags expressions) (record/pairs/unpack n pairs)])
 ;      (when (< (vector-count symbol? tags) (vector-length tags))
 ;        (error 'record/new "missing or non-symbol tag in: ~s" e))
 ;      (values tags expressions))))
 
 ;; (record/new name tag_1 expression_1 tag_2 expression_2 ...)
-(define (record/new/compile e lexical)
+(define (record/compile e lexical)
   (shape e 4)
-  (let* ((name  (record/new/name  e))
-         (pairs (record/new/pairs e))
+  (let* ((name  (record/name  e))
+         (pairs (record/pairs e))
          (n     (length pairs)))
 
     (when (not (symbol? name))
@@ -878,7 +878,7 @@
     (let-values ([(tags expressions) (record/pairs/unpack (/ n 2) pairs)])
        (when (< (vector-count symbol? tags) (vector-length tags))
          (error 'record/new "missing or non-symbol tag in: ~s" e))     
-      (record/new/generate
+      (record/generate
        name tags
        (vector-map (lambda (x) (scheme/compile x lexical)) expressions)))))
 

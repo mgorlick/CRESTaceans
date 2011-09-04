@@ -29,6 +29,7 @@
  tuple/drop/right
  tuple/copy
  tuple/filter
+ tuple/index
  tuple/length
  tuple/list
  tuple/map
@@ -268,6 +269,15 @@
     (cond
       ((= i n) #f)
       ((f (tuple/ref t i)) #t)
+      (else (loop (add1 i) n)))))
+
+;; Returns the least index i such that f(t[i]) is #t.
+;; If no such i exists then returns #f.
+(define (tuple/index t f)
+  (let loop ((i 0) (n (tuple/length t)))
+    (cond
+      ((= i n) #f)
+      ((f (tuple/ref t i)) i)
       (else (loop (add1 i) n)))))
 
 ;; Recreate a vector v as a tuple.

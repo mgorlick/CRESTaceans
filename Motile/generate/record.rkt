@@ -14,7 +14,10 @@
 
 (require
  (only-in racket/vector vector-copy vector-map vector-memq)
- (only-in "../persistent/record.rkt" record? record/tags error/field/unknown error/unrecord)
+ (only-in "../persistent/hash.rkt" hash/eq/null hash/cons hash/contains? hash/ref vectors/hash)
+ (only-in
+  "../persistent/record.rkt"
+  record? record/keys record/raw/kind record/raw/hash error/field/unknown error/unrecord)
 
  (only-in
   "utility.rkt"
@@ -27,7 +30,7 @@
 
 (provide
  record/cons/generate
- record/new/generate
+ record/generate
  record/ref/generate)
 
 ;; The classic (map f l) in continuation-passing style (map f L k) where:
@@ -65,13 +68,13 @@
 ;; name - type name of record prototype (as a symbol)
 ;; tags - vector of field names (symbols) of record in field order
 ;; expressions - vector of Motile closures for initial field values in field order
-(define (descriptor/record/new name tags expressions)
-  (vector-immutable 'record/new name (vector-length tags) tags (vector-map (lambda (e) (motile/decompile e)) expressions)))
+(define (descriptor/record name tags expressions)
+  (vector-immutable 'record name (vector-length tags) tags (vector-map (lambda (e) (motile/decompile e)) expressions)))
 
 ;; name - type name of record prototype (as a symbol)
 ;; tags - vector of field names (symbols) of record in field order
 ;; expressions - vector of Motile closures for initial field values in field order
-(define (record/new/generate name tags expressions)
+(define (record/generate name tags expressions)
   (let ((descriptor #f))
     (lambda (k e g)
       (cond
@@ -81,23 +84,29 @@
           expressions
           (lambda (values) (k (record/build name tags values)))))
 
-         ((decompile? k e g) (bind/return! descriptor (descriptor/record/new name tags expressions)))
+         ((decompile? k e g) (bind/return! descriptor (descriptor/record name tags expressions)))
 
-        (else (error/motile/internal/call 'record/new/generate))))))
+        (else (error/motile/internal/call 'record/generate))))))
 
 ;; name - symbol denoting record type/class
 ;; tags - vector of field names (as symbols) of record
 ;; values - vector of field values for record instance
-;; Returns a record r of the form #(<record> name tags v_1 ... v_m).
+;; Returns a record r of the form #(<record> name tags values #f) where
+;;   tags is a tuple containing the tags
+;;   values is a tuple containing the values.
+;; The last element is a slot for a record signature.
 (define (record/build name tags values)
-  ;(display values) (newline)
-  (let* ((n (vector-length tags))
-         (r (make-vector (+ 3 n))))
-    (vector-set!  r 0 '<record>)
-    (vector-set!  r 1 name)
-    (vector-set!  r 2 tags)
-    (vector-copy! r 3 values)
-    r))
+  (vector '<record> name (vectors/hash hash/eq/null tags values) #f))
+
+
+;  (vector-immutable '<record> name (vector/tuple tags) (vector/tuple values) #f))
+;  (let* ((n (vector-length tags))
+;         (r (make-vector (+ 3 n))))
+;    (vector-set!  r 0 '<record>)
+;    (vector-set!  r 1 name)
+;    (vector-set!  r 2 tags)
+;    (vector-copy! r 3 values)
+;    r))
 
 (define (descriptor/record/cons record n tags expressions)
   (vector-immutable
@@ -105,25 +114,20 @@
    (motile/decompile record)
    n tags (vector-map (lambda (e) (motile/decompile e)) expressions)))
 
-
 (define (record/cons/generate record tags expressions)
   (let ((n (vector-length tags))) ; Always n > 0.
-    (cond
-      ((= n 1) (record/cons/1/generate record tags expressions))
-      ((= n 2) (record/cons/2/generate record tags expressions))
-      (else    (record/cons/N/generate record n tags expressions)))))
+    (if (= n 1)
+      (record/cons/1/generate record tags expressions)
+      (record/cons/N/generate record n tags expressions))))
                
-(define-syntax-rule (tag/1 tags) (vector-ref tags 0))
-(define-syntax-rule (tag/2 tags) (vector-ref tags 1))
-
-(define-syntax-rule (expression/1 expressions) (vector-ref expressions 0))
-(define-syntax-rule (expression/2 expressions) (vector-ref expressions 1))
-
 (define (record/check use r)
   (unless (record? r)
     (error/unrecord use r)))
 
-(define (record/cons/1/generate record tags expressions)
+(define-syntax-rule (key/1 keys)               (vector-ref keys 0))
+(define-syntax-rule (expression/1 expressions) (vector-ref expressions 0))
+
+(define (record/cons/1/generate record keys expressions)
   (let ((descriptor #f))
     (lambda (k e g)
       (cond
@@ -132,34 +136,34 @@
           (lambda (r) ; Continuation for the record evaluation.
             (record/check 'record/cons r)
             ((expression/1 expressions)
-             (lambda (v) (k (record/cons/1/update r (tag/1 tags) v))) ; Continuation for the expression evaluation.
+             (lambda (v) (k (record/cons/1/update r (key/1 keys) v))) ; Continuation for the expression evaluation.
              e g))
           e g))
 
-        ((decompile? k e g) (bind/return! descriptor (descriptor/record/cons record 1 tags expressions)))
+        ((decompile? k e g) (bind/return! descriptor (descriptor/record/cons record 1 keys expressions)))
 
         (else (error/motile/internal/call 'record/cons/1/generate))))))
 
-(define (record/cons/2/generate record tags expressions)
-  (let ((descriptor #f))
-    (lambda (k e g)
-      (cond
-        ((procedure? k)
-         (record ; Evaluate the record.
-          (lambda (r) ; Continuation for the record evaluation.
-            (record/check 'record/cons r)
-
-            ((expression/1 expressions) ; Obtain value_1 affiliated with tag_1.
-             (lambda (v1) ; Continuation for value_1.
-               ((expression/2 expressions) ; Evaluate value_2 affiliated with tag_2.
-                (lambda (v2) (k (record/cons/2/update r (tag/1 tags) v1 (tag/2 tags) v2))) ; Final continuation.
-                e g))
-             e g))
-          e g))
-
-        ((decompile? k e g) (bind/return! descriptor (descriptor/record/cons record 2 tags expressions)))
-        
-        (else (error/motile/internal/call 'record/cons/2/generate))))))
+;(define (record/cons/2/generate record tags expressions)
+;  (let ((descriptor #f))
+;    (lambda (k e g)
+;      (cond
+;        ((procedure? k)
+;         (record ; Evaluate the record.
+;          (lambda (r) ; Continuation for the record evaluation.
+;            (record/check 'record/cons r)
+;
+;            ((expression/1 expressions) ; Obtain value_1 affiliated with tag_1.
+;             (lambda (v1) ; Continuation for value_1.
+;               ((expression/2 expressions) ; Evaluate value_2 affiliated with tag_2.
+;                (lambda (v2) (k (record/cons/2/update r (tag/1 tags) v1 (tag/2 tags) v2))) ; Final continuation.
+;                e g))
+;             e g))
+;          e g))
+;
+;        ((decompile? k e g) (bind/return! descriptor (descriptor/record/cons record 2 tags expressions)))
+;        
+;        (else (error/motile/internal/call 'record/cons/2/generate))))))
             
 (define (record/cons/N/generate record n tags expressions)
   (let ((descriptor #f))
@@ -209,38 +213,36 @@
     ((= i n)
      (k (f values))))) ; Apply the final continuation to the outcome of f.
 
+(define (record/cons/1/update record key value)
+  (let ((h (record/raw/hash record)))
+    (if (hash/contains? h key)
+        (vector '<record> (record/raw/kind record) (hash/cons h key value) #f)
+        (error/field/unknown 'record/cons record key))))
 
-(define-syntax-rule (tag/index r tag) (vector-memq tag (record/tags r)))
-(define-syntax-rule (field/set! r i value) (vector-set! r (+ i 3) value))
-(define-syntax-rule (field/ref  r i)       (vector-ref  r (+ i 3)))
-
-(define (record/update! r tag value)
-  (let ((i (tag/index r tag)))
+;; v - vector of field keys.
+;; Returns first key in vector v that is not a key of h.
+;; Returns #f if all keys in vector v are present in h.
+(define (key/unknown h v)
+  (let loop ((i 0) (n (vector-length v)))
     (cond
-      (i (field/set! r i value) r)
-      (else (error/field/unknown 'record/cons r tag)))))
+      ((= i n) #f)
+      ((hash/contains? h (vector-ref v i))
+       (loop (add1 i) n))
+      (else (vector-ref v i)))))
 
-(define (record/cons/1/update r tag value)
-  ;(display (format "record/cons/1/update: ~s ~s ~s\n" r tag value))
-  (record/update! (vector-copy r) tag value))
-
-(define (record/cons/2/update r tag_1 value_1 tag_2 value_2)
-  (record/update!
-   (record/update! (vector-copy r) tag_1 value_1)
-   tag_2 value_2))
-
-(define (record/cons/N/update record n tags values)
-  (let loop ((r (vector-copy record)) (i 0))
-    (if (< i n)
-       (loop
-        (record/update! r (vector-ref tags i) (vector-ref values i))
-        (add1 i))
-       r)))
+(define (record/cons/N/update record n keys values)
+  (let* ((h (record/raw/hash record))
+         (unknown (key/unknown h keys))) ; An unknown key in h or #f iff all keys are known in h.
+    (if unknown
+        (error/field/unknown 'record/cons record unknown)
+        (vector '<record> (record/raw/kind record) (vectors/hash h keys values) #f))))
 
 (define (descriptor/record/ref record tag failure)
   (vector-immutable 'record/ref (motile/decompile record) tag (and (procedure? failure) (motile/decompile failure))))
 
-(define (record/ref/generate record tag failure)
+(define UNKNOWN (gensym 'UNKNOWN.)) ; No Motile closure can ever produce this value.
+
+(define (record/ref/generate record key failure)
   (let ((descriptor #f))
     (lambda (k e g)
       (cond
@@ -248,14 +250,14 @@
          (record
           (lambda (r)
             (record/check 'record/ref r)
-            (let ((i (tag/index r tag)))
+            (let ((value (hash/ref (record/raw/hash r) key UNKNOWN)))
               (cond
-                (i                    (k (field/ref r i)))
+                ((not (eq? value UNKNOWN)) (k value))
                 ((procedure? failure) (failure k e g))
-                (else (error/field/unknown 'record/ref r tag)))))
+                (else (error/field/unknown 'record/ref r key)))))
           e g))
 
-        ((decompile? k e g) (bind/return! descriptor (descriptor/record/ref record tag failure)))
+        ((decompile? k e g) (bind/return! descriptor (descriptor/record/ref record key failure)))
 
         (else (error/motile/internal/call 'record/ref/generate))))))
     

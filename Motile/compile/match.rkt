@@ -2,6 +2,7 @@
 
 (require
  (only-in racket/list make-list)
+ (only-in racket/vector vector-memq)
  racket/pretty
  (only-in "../persistent/tuple.rkt" tuple? tuple/length tuple/ref)
  (only-in "../persistent/vector.rkt" vector/persist? vector/length vector/null vector/ref))
@@ -139,7 +140,7 @@
             ; It is a non-trivial pattern so generate the code.
             (let ((v_i (gensym (string-append "v_" (number->string i) "."))))
               `(let ((,v_i (vector/ref ,variable ,i)))
-                 ,(match/guarded/translate
+                 ,(match/unguarded/translate
                    v_i (car patterns)
                    (match/vector/translate variable (cdr patterns) success failure (add1 i) n) ; Success continuation is patterns p_{i+1} ...
                    failure)))))))
@@ -157,10 +158,41 @@
             ; It is a non-trivial pattern so generate the code.
             (let ((t_i (gensym (string-append "v_" (number->string i) "."))))
               `(let ((,t_i (tuple/ref ,variable ,i)))
-                 ,(match/guarded/translate
+                 ,(match/unguarded/translate
                    t_i (car patterns)
                    (match/tuple/translate variable (cdr patterns) success failure (add1 i) n) ; Success continuation is patterns p_{i+1} ...
                    failure)))))))
+
+; fields should look like (<symbol_1> p_1 <symbol_2> p_2 ...).
+; When called we know that fields contains an even number of elements.
+(define (match/record/fields/ok? fields)
+  (cond
+    ((null? fields) #t)
+    ((symbol? (car fields)) (match/record/fields/ok? (element/rest fields))) ; Skip over the pattern following the field tag.
+    (else #f)))
+
+(define (match/record/translate variable patterns success failure)
+  (if (null? patterns)
+      success
+
+      (let ((tag     (car patterns))        ; Field name.
+            (pattern (element/1 patterns))) ; Actual field pattern.
+        (if (eq? pattern '_) ; The pattern is the anonymous "ignore" variable.
+            ; In this context we interpret the anonymous variable as a test for the presence/absence of the named field.
+            (let ((junk (gensym 'junk.)))
+              `(let ((,junk (cons null null)))
+                 (if (eq? (record/ref ,variable ,tag ,junk) ,junk) ; Try to access the field.
+                     ,failure                                       ; No such field in this record.
+                     ,(match/record/translate variable (element/rest patterns) success failure))))
+
+            (let ((field (gensym (string-append (symbol->string tag) "."))))
+              `(let ((,field (record/ref ,variable ,tag)))
+                 ,(match/unguarded/translate
+                   field pattern
+                   (match/record/translate variable (element/rest patterns) success failure)
+                   failure)))))))
+                 
+(define (list/nonempty? x) (and (list? x) (not (null? x))))
 
 ;; Generate the source for the compound patterns:
 ;;    (cons p_1 p_2)
@@ -170,10 +202,11 @@
 ;;    (term (head <symbol>) p_1 ...)
 ;;    (vector p_1 ...)
 ;;    (app f p_1)
+;;    (... p_1) 
 ;; where the p_i are themselves patterns.
 ;; If the given pattern is not one of the compound patterns then we assume it is a simple pattern.
 (define (match/compound/translate variable pattern success failure)  
-  (if (and (pair? pattern) (list? pattern)) ; Excludes null and improper lists.
+  (if (list/nonempty? pattern) ; Excludes null and improper lists.
       (let ((n (sub1 (length pattern))))
         (case (car pattern)
           ((cons) ; (cons p_1 p_2).
@@ -181,8 +214,8 @@
              (error 'match "malformed (cons ...) pattern ~s" pattern))
 
            (let* ((failure/thunk (gensym 'thunk/))
-                  (p_2 (match/guarded/translate `(cdr ,variable) (element/2 pattern) success `(,failure/thunk)))
-                  (p_1 (match/guarded/translate `(car ,variable) (element/1 pattern) p_2     `(,failure/thunk))))
+                  (p_2 (match/unguarded/translate `(cdr ,variable) (element/2 pattern) success `(,failure/thunk)))
+                  (p_1 (match/unguarded/translate `(car ,variable) (element/1 pattern) p_2     `(,failure/thunk))))
              `(let ([,failure/thunk (lambda () ,failure)])
                 (if (pair? ,variable) ,p_1 (,failure/thunk)))))
 
@@ -209,13 +242,26 @@
           ((tuple) ; (tuple p_1 p_2 ...)
            (if (zero? n)
                ; The empty tuple.
-              `(if (and (tuple? ,variable) (zero? (tuple/length ,variable)))
-                   ,success
-                   ,failure)
-              ; The non-empty tuple.
-              `(if (and (tuple? ,variable) (= (tuple/length ,variable) ,n))
-                   ,(match/tuple/translate variable (cdr pattern) success failure 0 n)
-                   ,failure)))
+               `(if (and (tuple? ,variable) (zero? (tuple/length ,variable)))
+                    ,success
+                    ,failure)
+               ; The non-empty tuple.
+               `(if (and (tuple? ,variable) (= (tuple/length ,variable) ,n))
+                    ,(match/tuple/translate variable (cdr pattern) success failure 0 n)
+                    ,failure)))
+
+          ((record) ; (record <kind> field_1 p_1 field_2 p_2 ...)
+           ;(display (format "compiler working on pattern: ~s\n" pattern))
+           (if (< n 2)
+               (error "malformed record pattern ~s" pattern)
+               (let ((kind (element/1 pattern))
+                     (fields (element/rest pattern)))
+                 ;(display (format "pattern fields: ~s\n" fields))
+                 (if (and (symbol? kind) (even? (length fields)) (match/record/fields/ok? fields))
+                     `(if (and (record? ,variable) (eq? (record/kind ,variable) (quote ,kind)))
+                          ,(match/record/translate variable fields success failure)
+                          ,failure)
+                     (error "malformed (record <kind> ...) pattern ~s" pattern)))))
 
           ((term)  ; (term (head <symbol>) p_1 p_2 ...)
              (if (zero? n)
@@ -228,7 +274,7 @@
 
           ((vector) ; (vector p_1 p_2 ...)
            (cond
-             ((zero? n) ; The empty vector.
+             ((zero? n) ; The empty persistent vector.
               `(if (and (vector/persist? ,variable) (eq? vector/null ,variable))
                    ,success
                    ,failure))
@@ -243,13 +289,12 @@
                ; (app expression p_1)
                (let ((value (gensym 'value.)))
                  `(let ((,value (,(element/1 pattern) ,variable)))
-                    ,(match/guarded/translate value (element/2 pattern) success failure)))
+                    ,(match/unguarded/translate value (element/2 pattern) success failure)))
 
                (error 'match "malformed (app ...) pattern ~s" pattern)))
 
           (else ; Pattern is a list but not one of (cons ...), (list ...) (list-rest ...), (vector ...) or (app ...).
-           (match/simple/translate variable pattern success failure))))
-
+           (match/unguarded/translate variable pattern success failure))))
 
       (match/simple/translate variable pattern success failure))) ; Pattern is NOT a list.
 
@@ -257,14 +302,11 @@
 ;;    (and p_1 ...)
 ;;    (or p_1 ...)
 ;;    (not p_1 ...)
-;;    (tuple p_1 ...)
 ;;    (? <predicate> p_1 ...)
 ;; where the p_i are themselves patterns.
 ;; If the given pattern is not one of the compound patterns but is a list then we assume it is a compound pattern.
 ;; If the given pattern is not a list then we assume it is a simple pattern.
 (define (match/logical/translate variable pattern success failure)
-  (define (list/nonempty? x) (and (list? x) (not (null? x))))
-
   (if (list/nonempty? pattern)
       (let ((n (sub1 (length pattern))))
         (case (car pattern)
@@ -273,21 +315,12 @@
              ((zero? n) success) ; (and).
               
              ((= n 1)  ; (and p_1).
-              (match/compound/translate variable (element/1 pattern) success failure))
+              (match/unguarded/translate variable (element/1 pattern) success failure))
 
              (else ; (and p_1 p_2 ...).
-              (match/compound/translate
-               variable
-               (element/1 pattern) ; p_1
-               
-               ; Success continuation for p_1.
-               (match/logical/translate
-                variable
-                `(and ,@(element/rest pattern)) ; (and p_2 ...).
-                success failure)
-               
-               ; Failure continuation for p_1.
-               failure))))
+              (let ((p_1 (element/1 pattern))
+                    (k/s (match/logical/translate variable `(and ,@(element/rest pattern)) success failure))) ; k/s is success continuation: (and p_2 ...).
+                (match/unguarded/translate variable p_1 k/s failure)))))
 
           ((or)
            (cond
@@ -297,32 +330,20 @@
               (match/compound/translate variable (element/1 pattern) success failure))
 
              (else ; (or p_1 p_2 ...).
-              (match/compound/translate
-               variable
-               (element/1 pattern) ; p_1
-               
-               ; Success continuation for p_1.
-               success
-               
-               ; Failure continuation for p_1.
-               (match/logical/translate
-                variable
-                `(or ,@(element/rest pattern)) ; (or p_2 ...)
-                success failure)))))
+              (let ((p_1 (element/1 pattern))
+                    (k/f (match/logical/translate variable `(or ,@(element/rest pattern)) success failure))) ; k/f is failure continuation (or p_2 ...).
+                (match/unguarded/translate variable p_1 success k/f)))))
 
           ((not)
            (cond
              ((zero? n) failure) ; (not)
               
              ((= n 1)  ; (not p_1).
-              (match/logical/translate variable (element/1 pattern) failure success))
+              (match/unguarded/translate variable (element/1 pattern) failure success))
 
-             (else ; (not p_1 p_2 ...)
-              (match/logical/translate
-               variable
-               `(and ,@(apply list (make-list n 'not) (cdr pattern)))
-               success
-               failure))))
+             (else 
+              (let ((rewrite `(and ,@(map (lambda (p) (list 'not p)) (cdr pattern))))) ; (not p_1 p_2 ...) => (and (not p_1) (not p_2) ...).
+                (match/logical/translate variable rewrite success failure)))))
 
           ((?) ; (? expression p_1 ...).
            (let ((expression (element/1 pattern))
@@ -332,17 +353,27 @@
                   ,failure)))
           
           (else ; Pattern is a list but NOT one of (and ...), (or ...), (not ...), or (? ...).
-           (match/compound/translate variable pattern success failure))))
+           (match/unguarded/translate variable pattern success failure))))
           
       ; Pattern is either (), a symbol, or a literal.
       (match/simple/translate variable pattern success failure)))
       ;(match/compound/translate variable pattern success failure)))
 
 ;; Note: I need to rewrite this to eliminate use of case-lambda.
-(define match/guarded/translate
-  (case-lambda
-    ((variable pattern success failure)       (match/logical/translate variable pattern success failure))
-    ((variable pattern guard success failure) (match/guarded/translate variable pattern `(if ,guard ,success ,failure) failure))))
+(define (match/guarded/translate variable pattern guard success failure)
+  (match/unguarded/translate variable pattern `(if ,guard ,success ,failure) failure))
+
+(define COMPOUNDS #(cons list record tuple list-rest term vector app))
+(define LOGICALS  #(and or not ?))
+
+(define (match/unguarded/translate variable pattern success failure)
+  (if (and (pair? pattern) (list? pattern))
+      (cond
+        ((vector-memq (car pattern) COMPOUNDS) (match/compound/translate variable pattern success failure))
+        ((vector-memq (car pattern) LOGICALS)  (match/logical/translate  variable pattern success failure))
+        (else (match/simple/translate variable pattern success failure)))
+
+      (match/simple/translate variable pattern success failure)))
 
 
 ;; Match has the form (match <expression> <clause> ...+) where
@@ -382,25 +413,35 @@
 (define (match/exploded/translate expression clauses)
   (let ((value (gensym 'value.)))
     (if (null? clauses) ; (match <expression>)
-        `(let ((,value ,expression)) #f)
+        (if (symbol? expression)
+            #f
+            `(let ((,value ,expression)) #f)) ; We have to evaluate the expression in case it has side-effects.
         
         (let* ((clause (car clauses))
                (pattern (match/clause/pattern clause))
-               (failure (match/exploded/translate value (cdr clauses))))
+               (failure (match/exploded/translate (if (symbol? expression) expression value) (cdr clauses))))
 
           (if (match/clause/guard? clause)
               ; clause is (<pattern> <guard> <action> ...).
               (let* ((guard   (match/clause/guard clause))
                      (actions (match/clause/guard/actions clause))
-                     (bundle  (if (singleton? actions) (car actions) `(begin ,@actions))))
-                `(let ((,value ,expression))
-                   ,(match/guarded/translate value pattern guard bundle failure)))
+                     (success `(begin ,@actions)))
+                (if (symbol? expression)
+                    (match/guarded/translate expression pattern guard success failure)
+
+                    ; Evaluate the expresson.
+                    `(let ((,value ,expression))
+                       ,(match/guarded/translate value pattern guard success failure))))
               
               ; clause is (<pattern> <action> ...).
               (let* ((actions (match/clause/actions clause))
-                     (bundle  (if (singleton? actions) (car actions) `(begin ,@actions))))
-                `(let ((,value ,expression))
-                   ,(match/guarded/translate value pattern bundle failure))))))))
+                     (success `(begin ,@actions)))
+                (if (symbol? expression)
+                    (match/unguarded/translate expression pattern success failure)
+
+                    ; Evaluate the expression.
+                    `(let ((,value ,expression))
+                       ,(match/unguarded/translate value pattern success failure)))))))))
 
 ;; Translate a (match ...) expression given by x into lowe-level source code.
 (define (match/translate x)

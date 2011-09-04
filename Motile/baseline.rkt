@@ -20,7 +20,7 @@
 (require
  racket/pretty
  (only-in "persistent/environ.rkt" environ/merge environ/null pairs/environ)
- (only-in "persistent/record.rkt" record? record/kind record/fields) 
+ (only-in "persistent/record.rkt" record? record/contains? record/kind record/keys) 
  "persistent/vector.rkt"
  "persistent/hash.rkt"
  "persistent/set.rkt"
@@ -467,9 +467,10 @@
     
     ; Records.
     ; The functions record/new, record/cons, and record/ref are implemented as special forms.
-    (define/global/1 'record? record?)
-    (define/global/1 'record/kind record/kind)
-    (define/global/1 'record/fields record/fields)
+    (define/global/1 'record?          record?)
+    (define/global/2 'record/contains? record/contains?)
+    (define/global/1 'record/kind      record/kind)
+    (define/global/1 'record/keys      record/keys)
 
     ; Binding environments
     (cons 'environ/null environ/null)

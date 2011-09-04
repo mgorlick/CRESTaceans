@@ -1668,95 +1668,118 @@
 
 ; -------------------------------------
 
+
+        
+        
+
 (define-test-suite record-tests
   (test-case
-   "record/new/1"
+   "record/1"
    (check-equal?
     ((compile/start)
      '(let ()
-        (record/new sample a 1 b 2 c "silly")))
-    #(<record> sample #(a b c) 1 2 "silly")))
+        (record sample a 1 b 2 c "silly")))
+    ;#(<record> sample #(a b c) 1 2 "silly")))
+    (vector '<record> 'sample (hash/new hash/eq/null 'a 1 'b 2 'c "silly") #f)))
   
   (test-case
-   "record/new does not confuse field names with bindings in lexical scope"
+   "record does not confuse field names with bindings in lexical scope"
    (check-equal?
     ((compile/start)
      '(let ((a 1) (b 2) (c "silly"))
-        (record/new sample a a b b c c)))
-    #(<record> sample #(a b c) 1 2 "silly")))
+        (record sample a a b b c c)))
+    ;#(<record> sample #(a b c) 1 2 "silly")))
+    (vector '<record> 'sample (hash/new hash/eq/null 'a 1 'b 2 'c "silly") #f)))
 
   (test-case
-   "record/new evaluates expressions for field values"
+   "record evaluates expressions for field values"
    (check-equal?
     ((compile/start)
      '(let ((x 1) (y 2) (z "foo"))
-        (record/new sample a (add1 x) b (* 3 y) c (string-append z "bar"))))
-    #(<record> sample #(a b c) 2 6 "foobar")))
+        (record sample a (add1 x) b (* 3 y) c (string-append z "bar"))))
+    ;#(<record> sample #(a b c) 2 6 "foobar")))
+    (vector '<record> 'sample (hash/new hash/eq/null 'a 2 'b 6 'c "foobar") #f)))
   
   (test-case
-   "record/new expression evaluation interacts with call/cc correctly"
+   "record expression evaluation interacts with call/cc correctly"
    (check-equal?
     ((compile/start)
      '(let ()
-        (record/new sample a 1 b 2 c 3 d (call/cc (lambda (k) (* 5 (k 4)))) e 5 f 6)))
-     #(<record> sample #(a b c d e f) 1 2 3 4 5 6)))
+        (record sample a 1 b 2 c 3 d (call/cc (lambda (k) (* 5 (k 4)))) e 5 f 6)))
+     ;#(<record> sample #(a b c d e f) 1 2 3 4 5 6)))
+    (vector '<record> 'sample (hash/new hash/eq/null 'a 1 'b 2 'c 3 'd 4 'e 5 'f 6) #f)))
              
   (test-case
    "record/cons is persistent after one update"
    (check-equal?
     ((compile/start)
-     '(let* ((r1 (record/new sample a 1 b 2 c "silly"))
+     '(let* ((r1 (record sample a 1 b 2 c "silly"))
              (r2 (record/cons r1 c "serious")))
         (list r1 r2)))
-    '(#(<record> sample #(a b c) 1 2 "silly")
-      #(<record> sample #(a b c) 1 2 "serious"))))
+    ;'(#(<record> sample #(a b c) 1 2 "silly")
+    ;  #(<record> sample #(a b c) 1 2 "serious"))))
+    (list
+     (vector '<record> 'sample (hash/new hash/eq/null 'a 1 'b 2 'c "silly")   #f)
+     (vector '<record> 'sample (hash/new hash/eq/null 'a 1 'b 2 'c "serious") #f))))
 
  (test-case
    "record/cons is persistent after two successive updates"
    (check-equal?
     ((compile/start)
-     '(let* ((r1 (record/new sample a 1 b 2 c "silly"))
+     '(let* ((r1 (record sample a 1 b 2 c "silly"))
              (r2 (record/cons r1 c "serious"))
              (r3 (record/cons r2 a 11)))
         (list r1 r3)))
-    '(#(<record> sample #(a b c) 1 2 "silly")
-      #(<record> sample #(a b c) 11 2 "serious"))))
-
+    ;'(#(<record> sample #(a b c) 1 2 "silly")
+    ;  #(<record> sample #(a b c) 11 2 "serious"))))
+    (list
+     (vector '<record> 'sample (hash/new hash/eq/null 'a 1  'b 2 'c "silly")   #f)
+     (vector '<record> 'sample (hash/new hash/eq/null 'a 11 'b 2 'c "serious") #f))))
+     
   (test-case
    "record/cons accepts a pair of updates"
    (check-equal?
     ((compile/start)
-      '(let* ((r1 (record/new sample a 1 b 2 c "silly"))
+      '(let* ((r1 (record sample a 1 b 2 c "silly"))
              (r2 (record/cons r1 c "serious" a 11)))
          (list r1 r2)))
-    '(#(<record> sample #(a b c) 1 2 "silly")
-      #(<record> sample #(a b c) 11 2 "serious"))))
+    ;'(#(<record> sample #(a b c) 1 2 "silly")
+    ;  #(<record> sample #(a b c) 11 2 "serious"))))
+    (list
+     (vector '<record> 'sample (hash/new hash/eq/null 'a 1  'b 2 'c "silly")   #f)
+     (vector '<record> 'sample (hash/new hash/eq/null 'a 11 'b 2 'c "serious") #f))))
 
   (test-case
    "record/cons accepts a triple of updates"
    (check-equal?
     ((compile/start)
-     '(let* ((r1 (record/new sample a 1 b 2 c "silly"))
+     '(let* ((r1 (record sample a 1 b 2 c "silly"))
              (r2 (record/cons r1 c "serious" a 11 b 99)))
         (list r1 r2)))
-    '(#(<record> sample #(a b c) 1 2 "silly")
-      #(<record> sample #(a b c) 11 99 "serious"))))
-  
+    ;'(#(<record> sample #(a b c) 1 2 "silly")
+    ;  #(<record> sample #(a b c) 11 99 "serious"))))
+    (list
+     (vector '<record> 'sample (hash/new hash/eq/null 'a 1  'b 2  'c "silly")   #f)
+     (vector '<record> 'sample (hash/new hash/eq/null 'a 11 'b 99 'c "serious") #f))))
+    
   (test-case
    "record/cons accepts a large number of updates"
    (check-equal?
     ((compile/start)
-     '(let* ((r1 (record/new sample a 1 b 2 c "silly" d #f e #f f #f))
+     '(let* ((r1 (record sample a 1 b 2 c "silly" d #f e #f f #f))
              (r2 (record/cons r1 c "serious" a 11 b 99 d 1 e 2 f 3 d 111 e 222 f 333))) ; Later fields overwrite earlier. 
         (list r1 r2)))
-    '(#(<record> sample #(a b c d e f)  1  2 "silly"   #f  #f  #f)
-      #(<record> sample #(a b c d e f) 11 99 "serious" 111 222 333))))
+    ;'(#(<record> sample #(a b c d e f)  1  2 "silly"   #f  #f  #f)
+    ;  #(<record> sample #(a b c d e f) 11 99 "serious" 111 222 333))))
+    (list
+     (vector '<record> 'sample (hash/new hash/eq/null 'a 1  'b 2  'c "silly"   'd #f  'e #f  'f #f)  #f)
+     (vector '<record> 'sample (hash/new hash/eq/null 'a 11 'b 99 'c "serious" 'd 111 'e 222 'f 333) #f))))
 
   (test-case
    "record/ref accesses all fields"
    (check-equal?
     ((compile/start)
-     '(let ((r (record/new sample a 1 b 2 c "silly")))
+     '(let ((r (record sample a 1 b 2 c "silly")))
         (list
          (record/ref r c)
          (record/ref r a)
@@ -1767,7 +1790,7 @@
    "record/ref provides a failure value"
    (check-equal?
     ((compile/start)
-     '(let ((r (record/new sample a 1 b 2 c "silly")))
+     '(let ((r (record sample a 1 b 2 c "silly")))
         (list
          (record/ref r c)
          (record/ref r foo (+ 29 (record/ref r b))) ; The failure value is 31.
@@ -1779,7 +1802,7 @@
    "record?"
    (check-equal?
     ((compile/start)
-     '(let ((r (record/new sample a 1 b 2 c "silly")))
+     '(let ((r (record sample a 1 b 2 c "silly")))
         (list (record? r) (record? 33) (record? (tuple r)))))
     '(#t #f #f))) 
   
@@ -1787,9 +1810,9 @@
    "record/kind"
    (check-equal?
     ((compile/start)
-     '(let ((r (record/new sample a 1 b 2 c "silly"))
-            (s (record/new tiny x 999))
-            (t (record/new large a 1 b 2 c "silly" d 44 e 55 f 66)))
+     '(let ((r (record sample a 1 b 2 c "silly"))
+            (s (record tiny x 999))
+            (t (record large a 1 b 2 c "silly" d 44 e 55 f 66)))
         (list (record/kind r) (record/kind s) (record/kind t))))
     '(sample tiny large)))
   
@@ -1797,11 +1820,28 @@
    "record/fields"
    (check-equal?
     ((compile/start)
-     '(let ((r (record/new sample a 1 b 2 c "silly"))
-            (s (record/new tiny x 999))
-            (t (record/new large a 1 b 2 c "silly" d 44 e 55 f 66)))
-        (list (tuple/list (record/fields r)) (tuple/list (record/fields s)) (tuple/list (record/fields t)))))
-    (list '(a b c) '(x) '(a b c d e f))))
+     '(let ((r (record sample a 1 b 2 c "silly"))
+            (s (record tiny x 999))
+            (t (record large a 1 b 2 c "silly" d 44 e 55 f 66)))
+
+        ; Helper routine.
+        ; We need this because the record keys don't necessarily appear internally
+        ; in the same order as they were given in the (record ...) constructor.
+        (define (set/equal? x y)
+          (and
+           (= (length x) (length y))
+           (let loop ((x x))
+             (cond
+               ((null? x) #t)
+               ((memq (car x) y) (loop (cdr x)))
+               (else #f)))))
+
+        ;(list (tuple/list (record/keys r)) (tuple/list (record/fields s)) (tuple/list (record/fields t)))))
+        (list (set/equal? '(a b c) (record/keys r))
+              (set/equal? '(x) (record/keys s)) 
+              (set/equal? '(a b c d e f) (record/keys t)))))
+    ;(list '(a b c) '(x) '(a b c d e f))))
+    '(#t #t #t)))
 )
 
 ; -------------------------------------

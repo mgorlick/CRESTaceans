@@ -92,13 +92,13 @@
  unquote?
  unquote-splicing?
  
- ;; (record/new name <tag> <expression> <tag> <expression> ...)
- record/new?
- record/new/name
- record/new/pairs
- record/new/pairs/tag
- record/new/pairs/expression
- record/new/pairs/next
+ ;; (record name <tag> <expression> <tag> <expression> ...)
+ motile/record? ; To avoid conflict with Racket primitive.
+ record/name
+ record/pairs
+ record/pairs/tag
+ record/pairs/expression
+ record/pairs/next
  
  ;; (record/cons r <tag_1> <expression_1> <tag_2> <expression_2> ...)
  record/cons?
@@ -256,13 +256,13 @@
 (define (unquote-splicing? e)
   (eq? 'unquote-splicing (car e)))
 
-;; (record/new name <tag> <expression> <tag> <expression> ...)
-(define (record/new? e) (eq? 'record/new (car e)))
-(define-syntax-rule (record/new/name e)  (cadr e))
-(define-syntax-rule (record/new/pairs e) (cddr e)) ; (tag_1 expression_1 ...).
-(define-syntax-rule (record/new/pairs/tag x)        (car x))
-(define-syntax-rule (record/new/pairs/expression x) (cadr x))
-(define-syntax-rule (record/new/pairs/next x)       (cddr x))
+;; (record name <tag> <expression> <tag> <expression> ...)
+(define (motile/record? e) (eq? 'record (car e)))
+(define-syntax-rule (record/name e)  (cadr e))
+(define-syntax-rule (record/pairs e) (cddr e)) ; (tag_1 expression_1 ...).
+(define-syntax-rule (record/pairs/tag x)        (car x))
+(define-syntax-rule (record/pairs/expression x) (cadr x))
+(define-syntax-rule (record/pairs/next x)       (cddr x))
 
 ;; (record/cons r <tag_1> <expression_1> <tag_2> <expression_2> ...)
 (define (record/cons? e) (eq? 'record/cons (car e)))

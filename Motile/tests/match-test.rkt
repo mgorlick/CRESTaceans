@@ -1,4 +1,4 @@
-#lang racket
+#lang racket/base
 
 ;; Tests for (match <expression> <clause> ...+).
 
@@ -7,11 +7,10 @@
  racket/function
  rackunit
  rackunit/text-ui
- racket/pretty
  (only-in "../compile/compile.rkt" motile/compile)
  "../baseline.rkt"
  (only-in "../generate/baseline.rkt" motile/call motile/decompile)
- (only-in "../persistent/tuple.rkt" tuple)
+ (only-in "../persistent/tuple.rkt"  tuple)
  (only-in "../persistent/vector.rkt" list/vector vector/cons vector/null))
 
 (define compile/start (make-parameter (lambda (e) (motile/call (motile/compile e) ENVIRON/TEST))))
@@ -178,6 +177,18 @@
           [(list 3 b 11) b]
           [_            99])))
     7))
+  
+  (test-case
+   "list with replicated variable"
+   (check-equal?
+    ((compile/start)
+     '(let ((x (list 3 7 3)))
+        (match x
+          [(list 3 7)    8]
+          ['symbolic     9]
+          [(list a b a)  a]
+          [_            99])))
+    3))        
 
   (test-case
    "List-rest/1"
@@ -361,7 +372,7 @@
     '(1 3 7)))
   
   (test-case
-   "App/1"
+   "app/1"
    (check-equal?
     ((compile/start)
      '(let ((x (vector 1 2 3)))
@@ -372,7 +383,31 @@
             (lambda (v) (apply + (vector->list v)))
             6)            99]
           [_              'bad])))
-    99)))
+    99))
+  
+  (test-case
+   "record/1"
+   (check-equal?
+    ((compile/start)
+     '(let ((x (record sample a 1 b 2 c 3)))
+        (match x
+          ['() 'nope]
+          [(vector _ _ _) 'wrong]
+          [(record sample a _ b N) N]
+          [_ 'bad])))
+    2))
+
+  (test-case
+   "record/2"
+   (check-equal?
+    ((compile/start)
+     '(let ((x (record sample a 1 b 2 c 3)))
+        (match x
+          [(record sample a (and A (? even? A))) 'even]
+          [(record sample a (and A (? odd?  A))) 'odd]
+          [_ 'bad])))
+    'odd))
+)
 
 
 (define-test-suite match/logical

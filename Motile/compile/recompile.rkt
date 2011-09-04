@@ -37,7 +37,7 @@
  (only-in "../generate/lambda.rkt"  lambda/generate lambda/rest/generate)
  (only-in "../generate/letrec.rkt"  letrec/set/generate)
  (only-in "../generate/quasiquote.rkt" quasiquote/append/generate quasiquote/cons/generate quasiquote/tuple/generate)
- (only-in "../generate/record.rkt" record/cons/generate record/new/generate record/ref/generate)
+ (only-in "../generate/record.rkt" record/cons/generate record/generate record/ref/generate)
  (only-in "../generate/utility.rkt" k/RETURN))
 
 (provide
@@ -557,28 +557,28 @@
 
 ;; Recompilation for record special forms.
 
-;; #(record/new name arity tags expressions)
+;; #(record name arity tags expressions)
 ;; name - type name of record (a symbol)
 ;; arity - n > 0 number of fields (tags) in record
 ;; tags - vector of symbols (field names)
 ;; expressions - n MAGs, one for each tag
-(define-syntax-rule (record/new/name  e)       (vector-ref e 1))
-(define-syntax-rule (record/new/arity e)       (vector-ref e 2))
-(define-syntax-rule (record/new/tags  e)       (vector-ref e 3))
-(define-syntax-rule (record/new/expressions e) (vector-ref e 4))
-(define (record/new/ok? x)
+(define-syntax-rule (record/name  e)       (vector-ref e 1))
+(define-syntax-rule (record/arity e)       (vector-ref e 2))
+(define-syntax-rule (record/tags  e)       (vector-ref e 3))
+(define-syntax-rule (record/expressions e) (vector-ref e 4))
+(define (record/ok? x)
   (if (and
        (= (vector-length x) 5)
-       (symbol? (record/new/name x))
-       (integer/positive? (record/new/arity x))
-       (vector? (record/new/tags x))
-       (vector? (record/new/expressions x))
-       (= (record/new/arity x) (vector-length (record/new/tags x)))
-       (= (record/new/arity x) (vector-length (record/new/expressions x)))
-       (vector/all? (record/new/tags x) symbol?)
-       (vector/all? (record/new/expressions x) MAG?))
+       (symbol? (record/name x))
+       (integer/positive? (record/arity x))
+       (vector? (record/tags x))
+       (vector? (record/expressions x))
+       (= (record/arity x) (vector-length (record/tags x)))
+       (= (record/arity x) (vector-length (record/expressions x)))
+       (vector/all? (record/tags x) symbol?)
+       (vector/all? (record/expressions x) MAG?))
       #t
-      (recompile/error 'recompile/record/new x)))
+      (recompile/error 'recompile/record x)))
 
 ;; #(record/cons record span fields expressions)
 ;; r - Motile closure for record instance
@@ -744,9 +744,9 @@
   (generator
    (motile/recompile (environ/ref/environ x)) (environ/ref/accessor x) (motile/recompile (environ/ref/failure x)))))
 
-(define (record/new/recompile x)
-  (record/new/ok? x)
-  (record/new/generate (record/new/name x) (record/new/tags x) (vector-map motile/recompile (record/new/expressions x))))
+(define (record/recompile x)
+  (record/ok? x)
+  (record/generate (record/name x) (record/tags x) (vector-map motile/recompile (record/expressions x))))
 
 (define (record/cons/recompile x)
   (record/cons/ok? x)
@@ -815,7 +815,7 @@
     (cons 'environ/ref     environ/ref/recompile)
 
    ; Records.
-   (cons 'record/new  record/new/recompile)
+   (cons 'record      record/recompile)
    (cons 'record/cons record/cons/recompile)
    (cons 'record/ref  record/ref/recompile)
 
