@@ -6,8 +6,10 @@
 
 (provide (matching-identifiers-out #rx"^vp8dec.*" (all-from-out "bindings/vp8/vp8.rkt"))
          vp8enc-delete
-         (except-out (all-defined-out) vp8enc-new*)
+         dispose-FrameBuffer
+         (except-out (all-defined-out) vp8enc-new* vp8enc-encode*)
          (rename-out (vp8enc-new* vp8enc-new)
+                     (vp8enc-encode* vp8enc-encode)
                      (v4l2-reader-setup video-reader-setup)
                      (v4l2-reader-is-ready video-reader-is-ready?)
                      (v4l2-reader-delete video-reader-delete)))
@@ -18,12 +20,11 @@
               (VideoParams.fpsNum params)
               (VideoParams.fpsDen params)))
 
-(define (vp8enc-encode/return-frame e frame outbuff)
+(define (vp8enc-encode* e frame outbuff)
   (define written (vp8enc-encode e (FrameBuffer.size frame)
                                  (FrameBuffer.data frame)
                                  (bytes-length outbuff)
                                  outbuff))
-  (dispose-FrameBuffer frame)
   (FrameBuffer (subbytes outbuff 0 written) written #f (FrameBuffer.ts frame)))
 
 (define (video-reader-get-params v)

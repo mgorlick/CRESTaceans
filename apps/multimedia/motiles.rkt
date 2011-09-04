@@ -259,8 +259,11 @@
           (and (video-reader-is-ready? vreader) (video-reader-get-frame vreader ts)))
         
         ; encode-frame: or FrameBuffer #f -> or FrameBuffer #f
-        (define (encode-frame frame)
-          (and frame (vp8enc-encode/return-frame e frame outbuff)))
+        (define (encode-frame fb)
+          (and fb
+               (let ([encoded-fb (vp8enc-encode e fb outbuff)])
+                 (dispose-FrameBuffer fb)
+                 encoded-fb)))
         
         ; grab/encode: -> or FrameBuffer #f
         (define (grab/encode)
@@ -320,7 +323,7 @@
                  [available (speex-encoder-encode (vector-ref enc 0) outbuff)])
         (ask/send* "POST" ,targeturl 
                    (Frame (subbytes outbuff 0 available) ts)
-                   (make-metadta type/speex))
+                   (make-metadata type/speex))
         (loop (current-inexact-milliseconds)
               (speex-encoder-encode (vector-ref enc 0) outbuff))))))
 
