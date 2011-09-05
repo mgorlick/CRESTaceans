@@ -248,28 +248,29 @@
       ;; i.e., a default-fudge of 0.5 at a camera-specified framerate of 20 fps results in a
       ;; waiting period of (1000/20) * 0.5 = 25 ms between the first and second capture attempt.
       (define fudge-step 0.01)
-      (define outbuff (make-bytes (bin* 1024 256))) ; used for encoding only, not capture.
       (define vreader (video-reader-setup ,devname ,w ,h))
       (let* ([params (video-reader-get-params vreader)]
-             [e (vp8enc-new params)]
              [framerate (bin/ (VideoParams.fpsNum params) (VideoParams.fpsDen params))])
         
         ; grab-frame: int -> or FrameBuffer #f
         (define (grab-frame ts)
           (and (video-reader-is-ready? vreader) (video-reader-get-frame vreader ts)))
         
-        ; encode-frame: or FrameBuffer #f -> or FrameBuffer #f
-        (define (encode-frame fb)
-          (and fb
-               (let ([encoded-fb (vp8enc-encode e fb outbuff)])
-                 (dispose-FrameBuffer fb)
-                 encoded-fb)))
+        (define (make-encode-full-frame-cb target)
+          (let ([e (vp8enc-new params)]
+                [outbuff (make-bytes (bin* 1024 256))])
+            ; each on-frame callback should obey the following:
+            ; if `fb' is #f then clean up any resources. the host video reader
+            ; promises that the callback will not be called again without reinitializing.
+            (lambda (fb)
+              (if fb
+                  (let ([encoded (vp8enc-encode e fb outbuff)])
+                    (and encoded
+                         (ask/send* "POST" target (FrameBuffer->Frame encoded) 
+                                    (make-metadata type/webm (cons "params" params)))))
+                  (vp8enc-delete e)))))
         
-        ; grab/encode: -> or FrameBuffer #f
-        (define (grab/encode)
-          (encode-frame (grab-frame (current-inexact-milliseconds))))
-        
-        ; one-frame!: featuring AIMD waiting for camera frames.
+        ; do-one-frame!: featuring AIMD waiting for camera frames.
         ; 1. try to read the next frame.
         ; 2a. if the frame was successfully read and encoded, send it off to the proxy curl.
         ;     then, loop with an additive decrease in waiting time till the next frame.
@@ -277,39 +278,35 @@
         ;     the waiting time til the next frame. 
         ;     this seems to give relatively constant framerate overall, with few instances of
         ;     many "misses" in a row, where a "miss" is checking the camera before it is ready.
-        (define (one-frame! loop fudge)
-          (define v (grab/encode))
-          (cond [v
-                 ; Frame received successfully. Pass it on and then wait until
-                 ; the next frame should be active (modified by a factor to account for processing time)
-                 ;(printf "HIT: fudge ~a~n" fudge)
-                 (ask/send* "POST" proxy-curl (FrameBuffer->Frame v) 
-                            (make-metadata type/webm (cons "params" params)))
+        (define (do-one-frame! k fudge on-frame-callbacks)
+          (define fb (grab-frame (current-inexact-milliseconds)))
+          (cond [fb
+                 ; FrameBuffer received successfully. Pass it on and then wait until
+                 ; the next frame should be active (modified by a factor to account for processing time)                 
+                 (set/map on-frame-callbacks (lambda (f) (f fb)))
+                 (dispose-FrameBuffer fb)
                  (sleep* (bin* fudge framerate))
                  ; decrease fudge factor for next frame a la AIMD.
-                 (loop (if (bin>= fudge fudge-step)
-                           (bin- fudge fudge-step)
-                           0))]
+                 (k (if (bin>= fudge fudge-step) (bin- fudge fudge-step) 0) on-frame-callbacks)]
                 [else
-                 ;(printf "MISS: fudge ~a~n" fudge)
                  ; increase fudge factor for next frame a la AIMD.
-                 (loop (min* default-fudge (bin* 2 (max* fudge-step fudge))))]))
+                 (k (min* default-fudge (bin* 2 (max* fudge-step fudge))) on-frame-callbacks)]))
         
-        (define (control-message-in loop fudge m)
-          (define v (car m))
-          (define r (cdr m))
-          (cond [(Quit/MV? v)
-                 (video-reader-delete vreader)
-                 (vp8enc-delete e)
-                 (respawn-self (Quit/MV.host v) (Quit/MV.port v))]
-                [else (loop fudge)]))
+        (define (do-control-message! k fudge on-frame-callbacks)
+          (let ([m (thread-receive)])
+            (define v (car m))
+            (define r (cdr m))
+            (cond [(Quit/MV? v)
+                   (video-reader-delete vreader)
+                   (set/map on-frame-callbacks (lambda (f) (f #f)))
+                   (respawn-self (Quit/MV.host v) (Quit/MV.port v))]
+                  [else (k fudge on-frame-callbacks)])))
         
-        (printf "Using ~ax~a for video size~n" (VideoParams.width params) (VideoParams.height params))
-        
-        (let loop ([fudge default-fudge])
+        (let loop ([fudge default-fudge]
+                   [on-frame-callbacks (set/cons set/equal/null (make-encode-full-frame-cb proxy-curl))])
           (if (thread-check-receive 0)
-              (control-message-in loop fudge (thread-receive))
-              (one-frame! loop fudge)))))))
+              (do-control-message! loop fudge on-frame-callbacks)
+              (do-one-frame!       loop fudge on-frame-callbacks)))))))
 
 ;; -----
 ;; AUDIO
