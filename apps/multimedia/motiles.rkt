@@ -252,23 +252,24 @@
       (let* ([params (video-reader-get-params vreader)]
              [framerate (bin/ (VideoParams.fpsNum params) (VideoParams.fpsDen params))])
         
-        ; grab-frame: int -> or FrameBuffer #f
-        (define (grab-frame ts)
-          (and (video-reader-is-ready? vreader) (video-reader-get-frame vreader ts)))
-        
-        (define (make-encode-full-frame-cb target)
+        ; each on-frame callback should obey the following:
+        ; if `fb' is #f then clean up any resources. the host video reader
+        ; promises that the callback will not be called again without reinitializing.
+        (define (make-callback f)
           (let ([e (vp8enc-new params)]
                 [outbuff (make-bytes (bin* 1024 256))])
-            ; each on-frame callback should obey the following:
-            ; if `fb' is #f then clean up any resources. the host video reader
-            ; promises that the callback will not be called again without reinitializing.
             (lambda (fb)
               (if fb
-                  (let ([encoded (vp8enc-encode e fb outbuff)])
-                    (and encoded
-                         (ask/send* "POST" target (FrameBuffer->Frame encoded) 
-                                    (make-metadata type/webm (cons "params" params)))))
+                  (f e outbuff fb)
                   (vp8enc-delete e)))))
+        
+        ; the default callback: a full-frame encoding.
+        (define (make-encode-full-frame-cb target)
+          (make-callback
+           (lambda (e outbuff fb)
+             (define encoded (vp8enc-encode e fb outbuff))
+             (and encoded (ask/send* "POST" target (FrameBuffer->Frame encoded) 
+                                     (make-metadata type/webm (cons "params" params)))))))
         
         ; do-one-frame!: featuring AIMD waiting for camera frames.
         ; 1. try to read the next frame.
@@ -279,13 +280,13 @@
         ;     this seems to give relatively constant framerate overall, with few instances of
         ;     many "misses" in a row, where a "miss" is checking the camera before it is ready.
         (define (do-one-frame! k fudge on-frame-callbacks)
-          (define fb (grab-frame (current-inexact-milliseconds)))
+          (define fb (and (video-reader-is-ready? vreader)
+                          (video-reader-get-frame vreader (current-inexact-milliseconds))))
           (cond [fb
                  ; FrameBuffer received successfully. Pass it on and then wait until
                  ; the next frame should be active (modified by a factor to account for processing time)                 
                  (set/map on-frame-callbacks (lambda (f) (f fb)))
                  (dispose-FrameBuffer fb)
-                 (sleep* (bin* fudge framerate))
                  ; decrease fudge factor for next frame a la AIMD.
                  (k (if (bin>= fudge fudge-step) (bin- fudge fudge-step) 0) on-frame-callbacks)]
                 [else
@@ -304,7 +305,7 @@
         
         (let loop ([fudge default-fudge]
                    [on-frame-callbacks (set/cons set/equal/null (make-encode-full-frame-cb proxy-curl))])
-          (if (thread-check-receive 0)
+          (if (thread-check-receive (bin* fudge framerate))
               (do-control-message! loop fudge on-frame-callbacks)
               (do-one-frame!       loop fudge on-frame-callbacks)))))))
 

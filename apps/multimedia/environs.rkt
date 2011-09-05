@@ -25,7 +25,7 @@
 (define sleep* (procedure-reduce-arity sleep 1))
 
 (define (thread-check-receive n)
-  (sync/timeout n (thread-receive-evt)))
+  (and (sync/timeout n (thread-receive-evt)) #t))
 
 (define UTIL
   (++ BASELINE
