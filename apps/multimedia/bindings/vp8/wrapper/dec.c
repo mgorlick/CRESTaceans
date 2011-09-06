@@ -118,7 +118,6 @@ int decode_and_scale (VP8Dec *dec,
    int w = img->d_w;
    int h = img->d_h;
    int dest_stride = DISPLAY_FORMAT_BPP * w;
-   assert (output_size == (size_t) DISPLAY_FORMAT_BPP * w * h);
 
     if (dec->swsctx == NULL) {
       dec->swsctx = sws_getContext (w, h, PIX_FMT_YUV420P, // src info

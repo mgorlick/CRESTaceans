@@ -21,7 +21,7 @@ int take_quarter_packed (const unsigned char *buffer,
   }
 
   const int row_modifier = qtr_row == 0 ? 0 : original_height / 2;
-  const int col_modifier = qtr_col == 0 ? 0 : original_width;
+  const int col_modifier = qtr_col == 0 ? 0 : scaled_stride;
   const unsigned char *input_cursor;
   unsigned char *output_cursor;
   int row = 0;
