@@ -10,7 +10,7 @@
 #include "misc.h"
 
 int DISPLAY_FORMAT_BPP = 3;
-float PIP_AXIS_SCALE = 0.5;
+float PIP_AXIS_PORTION = 0.5;
 float PIP_FULL_SIZE = 1.0;
 
 typedef struct VP8Dec {
@@ -162,11 +162,11 @@ int vp8dec_decode_update_minor (VP8Dec *dec, const int qtr_row, const int qtr_co
     unsigned char *input_cursor;
     unsigned char *output_cursor;
     int row = 0;
-    int row_bytes_width = dec->width * 3;
-    for (row = 0; row < dec->height * PIP_AXIS_SCALE; row++) {
+    int row_bytes_width = dec->width * DISPLAY_FORMAT_BPP;
+    for (row = 0; row < dec->height * PIP_AXIS_PORTION; row++) {
       input_cursor = tmp + row*row_bytes_width;
       output_cursor = output + row*row_bytes_width;
-      memcpy (output_cursor, input_cursor, row_bytes_width * PIP_AXIS_SCALE);
+      memcpy (output_cursor, input_cursor, row_bytes_width * PIP_AXIS_PORTION);
     }
     return 1;
   }
@@ -177,8 +177,8 @@ int vp8dec_decode_update_major (VP8Dec *dec,
 				const size_t input_size, const unsigned char *input,
 				const size_t output_size, unsigned char *output) {
   int stride = dec->width * DISPLAY_FORMAT_BPP;
-  int bytes_per_row_scaled = stride * PIP_AXIS_SCALE;
-  int rows_scaled = dec->height * PIP_AXIS_SCALE;
+  int bytes_per_row_scaled = stride * PIP_AXIS_PORTION;
+  int rows_scaled = dec->height * PIP_AXIS_PORTION;
   int row = 0;
   unsigned char tmp[output_size];
   unsigned char *src_row = output;
