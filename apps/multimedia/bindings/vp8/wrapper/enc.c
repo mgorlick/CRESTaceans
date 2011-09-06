@@ -185,12 +185,13 @@ int vp8enc_encode_quarter (VP8Enc *enc, const int qtr_row, const int qtr_col,
   // take half the rows of the original image.
   for (row = 0; row < enc->height / 2; row++) {
 
-    // move the input cursor to the beginning of the current row.
+    // move the input cursor to the beginning of the current row modified
+    // by the column point the callee wanted to start on.
     input_cursor = buffer + stride422*(row + row_modifier) + col_modifier;
 
     // take half of each column of the original image.
     for (col = 0; col < enc->width / 2; col++) {
-      // YUYV: Y0,U0,Y1,V1 = two pixels (16 bits total, 4 bits per sample)
+      // YUYV: Y0,U0,Y1,V0 = two pixels (16 bits total, 4 bits per sample)
       uint8_t Y0 = *input_cursor       & 0xF0;
       uint8_t U0 = *input_cursor       & 0x0F;
       uint8_t Y1 = *(input_cursor + 1) & 0xF0;
