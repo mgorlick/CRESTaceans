@@ -6,6 +6,8 @@
 #include <vpx/vpx_encoder.h>
 #include <vpx/vp8cx.h>
 
+#include "misc.h"
+
 int ENCODER_SPEED = VPX_DL_REALTIME;
 
 typedef struct VP8Enc {
@@ -148,44 +150,26 @@ int vp8enc_encode_quarter (VP8Enc *enc, const int qtr_row, const int qtr_col,
 			   const size_t outsize, unsigned char *out,
 			   size_t *written) {
   
-  if (qtr_row < 0 || qtr_row > 1 || qtr_col < 0 || qtr_col > 1) {
-    printf ("Error: quarter coordinates must be in range (0,0) - (1,1)\n");
-    return 0;
-  }
-
-  if (enc->width * enc->height * 2 != (int) size / 4) {
-    printf ("Error: either the encoder was not initialized for quarter-size encoding \
-or the input buffer size is wrong.\n");
-    return 0;
-  }
-
   /* all the remaining code in this procedure assumes that the VP8Enc was
    * correctly initialized for quarter-frame encoding.
    */
 
-  unsigned char tmp[enc->width * enc->height * 2]; // should be the same as size / 4
+  unsigned char tmp[enc->width * enc->height * 2];
+
   const uint8_t *src_slices[3] = { tmp, tmp + 1, tmp + 3 };
   int stride422 = enc->width * 2;
   const int src_stride[3] = { stride422, stride422, stride422 };
 
   // copy the quarter of the frame we're interested in.
-  int row_modifier = qtr_row == 0 ? 0 : enc->height;
-  int col_modifier = qtr_col == 0 ? 0 : enc->width * 2;
-  
-  int row = 0;
-  const unsigned char *input_cursor;
-  unsigned char *output_cursor;
-  
-  for (row = 0; row < enc->height; row++) {
-    input_cursor = buffer + stride422*2*(row + row_modifier) + col_modifier;
-    output_cursor = tmp + stride422*row;
-    memcpy (output_cursor, input_cursor, stride422);
+  if (take_quarter_yuyv (size, buffer,
+			 enc->width * enc->height * 2, tmp,
+			 qtr_row, qtr_col, enc->width * 2, enc->height * 2)) {
+    sws_scale (enc->swsctx, src_slices, src_stride, 0, enc->image->h,
+	       enc->image->planes, enc->image->stride);
+    return encode_image (enc, outsize, out, written);
+  } else {
+    return 0;
   }
-  
-  sws_scale (enc->swsctx, src_slices, src_stride, 0, enc->image->h,
-	     enc->image->planes, enc->image->stride);
-
-  return encode_image (enc, outsize, out, written);
 }
 
 int vp8enc_encode (VP8Enc *enc,
