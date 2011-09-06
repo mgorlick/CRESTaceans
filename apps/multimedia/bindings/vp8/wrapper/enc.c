@@ -104,20 +104,9 @@ no_init:
   return NULL;
 }
 
-void convert_yuv422_to_yuv420p (VP8Enc *enc, const unsigned char *buffer) {
-  const uint8_t *src_slices[3] = { buffer, buffer + 1, buffer + 3 };
-  int stride422 = enc->width * 2;
-  const int src_stride[3] = { stride422, stride422, stride422 };
-
-  sws_scale (enc->swsctx, src_slices, src_stride, 0, enc->image->h,
-	     enc->image->planes, enc->image->stride );
-
-}
-
-int vp8enc_encode (VP8Enc *enc,
-                   const size_t size, const unsigned char *buffer,
-                   const size_t outsize, unsigned char *out,
-                   size_t *written) {
+int encode_image (VP8Enc *enc,
+		  const size_t outsize, unsigned char *out,
+		  size_t *written) {
 
   const vpx_codec_cx_pkt_t *pkt;
   vpx_codec_err_t status;
@@ -125,8 +114,6 @@ int vp8enc_encode (VP8Enc *enc,
   vpx_fixed_buf_t fbuff = { out, outsize };
   vpx_enc_frame_flags_t flags = 0;
   int need_extra_copy = 0;
-  
-  convert_yuv422_to_yuv420p (enc, buffer);
    
   status = vpx_codec_encode (enc->codec, enc->image, enc->n_frames++, 
 			     1, flags, ENCODER_SPEED);
@@ -154,4 +141,98 @@ int vp8enc_encode (VP8Enc *enc,
 no_frame:
   printf ("Couldn't encode buffer: %s\n", vpx_codec_err_to_string (status));
   return 0;
+}
+
+int vp8enc_encode_quarter (VP8Enc *enc, const int qtr_row, const int qtr_col,
+			   const size_t size, const unsigned char *buffer,
+			   const size_t outsize, unsigned char *out,
+			   size_t *written) {
+  
+  if (qtr_row < 0 || qtr_row > 1 || qtr_col < 0 || qtr_col > 1) {
+    printf ("Error: quarter coordinates must be in range (0,0) - (1,1)\n");
+    return 0;
+  }
+
+  unsigned char tmp[size];
+  const uint8_t *src_slices[3] = { tmp, tmp + 1, tmp + 3 };
+  int stride422 = enc->width * 2;
+  const int src_stride[3] = { stride422, stride422, stride422 };
+
+  // only used for iterating during the YUYV scaling.
+  int col = 0, row = 0, row_modifier, col_modifier;
+
+  switch (qtr_row) {
+    case 0:
+      row_modifier = 0;
+      break;
+    default:
+      row_modifier = enc->height / 2;
+      break;
+  }
+  
+  switch (qtr_col) {
+  case 0:
+    col_modifier = 0;
+    break;
+  default:
+    col_modifier = enc->width;
+    break;
+  }
+  
+  const unsigned char *input_cursor;
+  unsigned char *output_cursor = tmp;
+
+  // take half the rows of the original image.
+  for (row = 0; row < enc->height / 2; row++) {
+
+    // move the input cursor to the beginning of the current row.
+    input_cursor = buffer + stride422*(row + row_modifier) + col_modifier;
+
+    // take half of each column of the original image.
+    for (col = 0; col < enc->width / 2; col++) {
+      // YUYV: Y0,U0,Y1,V1 = two pixels (16 bits total, 4 bits per sample)
+      uint8_t Y0 = *input_cursor       & 0xF0;
+      uint8_t U0 = *input_cursor       & 0x0F;
+      uint8_t Y1 = *(input_cursor + 1) & 0xF0;
+      uint8_t V0 = *(input_cursor + 1) & 0x0F;
+      // first copy the (Y0,U0) byte and (Y1,V0) byte to the beginning and
+      // the end of the four-byte stretch, since they don't need to be modified.
+      *output_cursor       = *input_cursor;
+      *(output_cursor + 3) = *(input_cursor + 1);
+      // calculate the missing two bytes.
+      *(output_cursor + 1) = Y0 | V0;
+      *(output_cursor + 2) = Y1 | U0;
+      // now copy the two new pixels to the row below.
+      memcpy (output_cursor + stride422, output_cursor, 4);
+      // move the input cursor to the next 2-pixel group.
+      input_cursor += 2;   
+      // position the output cursor so it can place 4 more pixels.
+      output_cursor += 4;
+    }
+    // skip a row if the output cursor is at the end of a row,
+    // since rows are filled in two-at-a-time.
+    if ((output_cursor - (unsigned char *)tmp) % (enc->width * 2) == 0) {
+      output_cursor += stride422;
+    }
+  }
+
+  sws_scale (enc->swsctx, src_slices, src_stride, 0, enc->image->h,
+	     enc->image->planes, enc->image->stride);
+
+  return encode_image (enc, outsize, out, written);
+}
+
+int vp8enc_encode (VP8Enc *enc,
+                   const size_t size, const unsigned char *buffer,
+                   const size_t outsize, unsigned char *out,
+                   size_t *written) {
+
+  const uint8_t *src_slices[3] = { buffer, buffer + 1, buffer + 3 };
+  int stride422 = enc->width * 2;
+  const int src_stride[3] = { stride422, stride422, stride422 };
+  
+  sws_scale (enc->swsctx, src_slices, src_stride, 0, enc->image->h,
+	     enc->image->planes, enc->image->stride);
+
+  return encode_image (enc, outsize, out, written);
 }

@@ -268,6 +268,7 @@
           (make-callback
            (lambda (e outbuff fb)
              (define encoded (vp8enc-encode e fb outbuff))
+               ;(vp8enc-encode-quarter e fb outbuff 'bottom 'right))
              (and encoded (ask/send* "POST" target (FrameBuffer->Frame encoded) 
                                      (make-metadata type/webm (cons "params" params)))))))
         

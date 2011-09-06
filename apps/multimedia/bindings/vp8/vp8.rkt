@@ -28,6 +28,12 @@
                             (written : (_ptr o _size_t))
                             -> (r : _bool)
                             -> (and r written)))
+(defvp8 vp8enc-encode-quarter (_fun _vp8enc-pointer _int _int
+                                    _size_t _bytes
+                                    _size_t _bytes
+                                    (written : (_ptr o _size_t))
+                                    -> (r : _bool)
+                                    -> (and r written)))
 
 (define-cpointer-type _vp8dec-pointer)
 (defvp8 vp8dec-new (_fun -> _vp8dec-pointer))
