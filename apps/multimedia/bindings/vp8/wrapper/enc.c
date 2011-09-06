@@ -153,70 +153,35 @@ int vp8enc_encode_quarter (VP8Enc *enc, const int qtr_row, const int qtr_col,
     return 0;
   }
 
-  unsigned char tmp[size];
+  if (enc->width * enc->height * 2 != (int) size / 4) {
+    printf ("Error: either the encoder was not initialized for quarter-size encoding \
+or the input buffer size is wrong.\n");
+    return 0;
+  }
+
+  /* all the remaining code in this procedure assumes that the VP8Enc was
+   * correctly initialized for quarter-frame encoding.
+   */
+
+  unsigned char tmp[enc->width * enc->height * 2]; // should be the same as size / 4
   const uint8_t *src_slices[3] = { tmp, tmp + 1, tmp + 3 };
   int stride422 = enc->width * 2;
   const int src_stride[3] = { stride422, stride422, stride422 };
 
-  // only used for iterating during the YUYV scaling.
-  int col = 0, row = 0, row_modifier, col_modifier;
-
-  switch (qtr_row) {
-    case 0:
-      row_modifier = 0;
-      break;
-    default:
-      row_modifier = enc->height / 2;
-      break;
-  }
+  // copy the quarter of the frame we're interested in.
+  int row_modifier = qtr_row == 0 ? 0 : enc->height;
+  int col_modifier = qtr_col == 0 ? 0 : enc->width * 2;
   
-  switch (qtr_col) {
-  case 0:
-    col_modifier = 0;
-    break;
-  default:
-    col_modifier = enc->width;
-    break;
-  }
-  
+  int row = 0;
   const unsigned char *input_cursor;
-  unsigned char *output_cursor = tmp;
-
-  // take half the rows of the original image.
-  for (row = 0; row < enc->height / 2; row++) {
-
-    // move the input cursor to the beginning of the current row modified
-    // by the column point the callee wanted to start on.
-    input_cursor = buffer + stride422*(row + row_modifier) + col_modifier;
-
-    // take half of each column of the original image.
-    for (col = 0; col < enc->width / 2; col++) {
-      // YUYV: Y0,U0,Y1,V0 = two pixels (16 bits total, 4 bits per sample)
-      uint8_t Y0 = *input_cursor       & 0xF0;
-      uint8_t U0 = *input_cursor       & 0x0F;
-      uint8_t Y1 = *(input_cursor + 1) & 0xF0;
-      uint8_t V0 = *(input_cursor + 1) & 0x0F;
-      // first copy the (Y0,U0) byte and (Y1,V0) byte to the beginning and
-      // the end of the four-byte stretch, since they don't need to be modified.
-      *output_cursor       = *input_cursor;
-      *(output_cursor + 3) = *(input_cursor + 1);
-      // calculate the missing two bytes.
-      *(output_cursor + 1) = Y0 | V0;
-      *(output_cursor + 2) = Y1 | U0;
-      // now copy the two new pixels to the row below.
-      memcpy (output_cursor + stride422, output_cursor, 4);
-      // move the input cursor to the next 2-pixel group.
-      input_cursor += 2;   
-      // position the output cursor so it can place 4 more pixels.
-      output_cursor += 4;
-    }
-    // skip a row if the output cursor is at the end of a row,
-    // since rows are filled in two-at-a-time.
-    if ((output_cursor - (unsigned char *)tmp) % (enc->width * 2) == 0) {
-      output_cursor += stride422;
-    }
+  unsigned char *output_cursor;
+  
+  for (row = 0; row < enc->height; row++) {
+    input_cursor = buffer + stride422*2*(row + row_modifier) + col_modifier;
+    output_cursor = tmp + stride422*row;
+    memcpy (output_cursor, input_cursor, stride422);
   }
-
+  
   sws_scale (enc->swsctx, src_slices, src_stride, 0, enc->image->h,
 	     enc->image->planes, enc->image->stride);
 
@@ -227,6 +192,12 @@ int vp8enc_encode (VP8Enc *enc,
                    const size_t size, const unsigned char *buffer,
                    const size_t outsize, unsigned char *out,
                    size_t *written) {
+
+  if (enc->width * enc->height * 2 != (int) size) {
+    printf ("Error: VP8Enc was not set up for full-size encoding \
+or input buffer size is wrong.\n");
+    return 0;
+  }
 
   const uint8_t *src_slices[3] = { buffer, buffer + 1, buffer + 3 };
   int stride422 = enc->width * 2;

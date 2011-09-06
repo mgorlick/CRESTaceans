@@ -255,8 +255,11 @@
         ; each on-frame callback should obey the following:
         ; if `fb' is #f then clean up any resources. the host video reader
         ; promises that the callback will not be called again without reinitializing.
-        (define (make-callback f)
-          (let ([e (vp8enc-new params)]
+        (define (make-callback type f)
+          (define ctor (if (equal? type 'full)
+                           vp8enc-new
+                           vp8enc-quartersize-new))
+          (let ([e (ctor params)]
                 [outbuff (make-bytes (bin* 1024 256))])
             (lambda (fb)
               (if fb
@@ -265,12 +268,23 @@
         
         ; the default callback: a full-frame encoding.
         (define (make-encode-full-frame-cb target)
-          (make-callback
-           (lambda (e outbuff fb)
-             (define encoded (vp8enc-encode e fb outbuff))
-               ;(vp8enc-encode-quarter e fb outbuff 'bottom 'right))
-             (and encoded (ask/send* "POST" target (FrameBuffer->Frame encoded) 
-                                     (make-metadata type/webm (cons "params" params)))))))
+          (make-callback 'full
+                         (lambda (e outbuff fb)
+                           (define encoded (vp8enc-encode e fb outbuff))
+                           (and encoded (ask/send* "POST" target (FrameBuffer->Frame encoded) 
+                                                   (make-metadata type/webm (cons "params" params)))))))
+        
+        
+        ; additional callbacks can be created to make quarter-frame tiles.
+        (define (make-encode-quarter-frame-cb target row col)
+          (define halved-params
+            (VideoParams!width (VideoParams!height params (/ (VideoParams.height params) 2))
+                               (/ (VideoParams.width params) 2)))
+          (make-callback 'quarter
+                         (lambda (e outbuff fb)
+                           (define encoded (vp8enc-encode-quarter e fb outbuff row col))
+                           (and encoded (ask/send* "POST" target (FrameBuffer->Frame encoded) 
+                                                   (make-metadata type/webm (cons "params" halved-params)))))))
         
         ; do-one-frame!: featuring AIMD waiting for camera frames.
         ; 1. try to read the next frame.
@@ -305,7 +319,8 @@
                   [else (k fudge on-frame-callbacks)])))
         
         (let loop ([fudge default-fudge]
-                   [on-frame-callbacks (set/cons set/equal/null (make-encode-full-frame-cb proxy-curl))])
+                   [on-frame-callbacks (set/cons set/equal/null 
+                                                 (make-encode-full-frame-cb proxy-curl))])
           (if (thread-check-receive (bin* fudge framerate))
               (do-control-message! loop fudge on-frame-callbacks)
               (do-one-frame!       loop fudge on-frame-callbacks)))))))

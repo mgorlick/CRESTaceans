@@ -6,6 +6,7 @@
 
 (provide (matching-identifiers-out #rx"^vp8dec.*" (all-from-out "bindings/vp8/vp8.rkt"))
          vp8enc-delete
+         vp8enc-quartersize-new
          dispose-FrameBuffer
          (except-out (all-defined-out) vp8enc-new* vp8enc-encode* vp8enc-encode-quarter*)
          (rename-out (vp8enc-new* vp8enc-new)
@@ -18,6 +19,12 @@
 (define (vp8enc-new* params)
   (vp8enc-new (VideoParams.width params)
               (VideoParams.height params)
+              (VideoParams.fpsNum params)
+              (VideoParams.fpsDen params)))
+
+(define (vp8enc-quartersize-new params)
+  (vp8enc-new (/ (VideoParams.width params) 2)
+              (/ (VideoParams.height params) 2)
               (VideoParams.fpsNum params)
               (VideoParams.fpsDen params)))
 
