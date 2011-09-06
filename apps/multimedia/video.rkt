@@ -36,13 +36,7 @@
   (FrameBuffer (subbytes outbuff 0 written) written #f (FrameBuffer.ts frame)))
 
 (define (vp8enc-encode-quarter* e frame outbuff row col)
-  (define-values (x y)
-    (match* (row col)
-      [('top 'left) (values 0 0)]
-      [('top 'right) (values 0 1)]
-      [('bottom 'left) (values 1 0)]
-      [('bottom 'right) (values 1 1)]))
-  (define written (vp8enc-encode-quarter e x y
+  (define written (vp8enc-encode-quarter e row col
                                          (FrameBuffer.size frame)
                                          (FrameBuffer.data frame)
                                          (bytes-length outbuff)

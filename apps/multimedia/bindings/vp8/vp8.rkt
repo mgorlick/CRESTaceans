@@ -18,6 +18,17 @@
 (define-syntax-rule (defvp8* typ obj ...)
   (begin (defvp8 obj typ) ...))
 
+(define _quarter-row-enum
+  (_enum
+   '(top = 0
+         bottom = 1)
+   _int))
+(define _quarter-col-enum
+  (_enum
+   '(left = 0
+          right = 1)
+   _int))
+
 (define-cpointer-type _vp8enc-pointer)
 
 (defvp8 vp8enc-new (_fun (_int = (processor-count)) _int _int _int _int -> _vp8enc-pointer))
@@ -28,7 +39,7 @@
                             (written : (_ptr o _size_t))
                             -> (r : _bool)
                             -> (and r written)))
-(defvp8 vp8enc-encode-quarter (_fun _vp8enc-pointer _int _int
+(defvp8 vp8enc-encode-quarter (_fun _vp8enc-pointer _quarter-row-enum _quarter-col-enum
                                     _size_t _bytes
                                     _size_t _bytes
                                     (written : (_ptr o _size_t))
@@ -41,6 +52,9 @@
 (defvp8 vp8dec-decode-copy (_fun _vp8dec-pointer _size_t _bytes _size_t _bytes -> _bool))
 (defvp8 vp8dec-decode-update-minor (_fun _vp8dec-pointer _size_t _bytes _size_t _bytes -> _bool))
 (defvp8 vp8dec-decode-update-major (_fun _vp8dec-pointer _size_t _bytes _size_t _bytes -> _bool))
+(defvp8 vp8dec-decode-quarter (_fun _vp8dec-pointer _quarter-row-enum _quarter-col-enum
+                                    _size_t _bytes _size_t _bytes
+                                    -> _bool))
 
 ;; video capture
 

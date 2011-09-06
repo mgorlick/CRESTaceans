@@ -7,8 +7,11 @@
 #include <vpx/vpx_decoder.h>
 #include <vpx/vp8dx.h>
 
-int BPP = 3;
-float SCALE = 0.25;
+#include "misc.h"
+
+int DISPLAY_FORMAT_BPP = 3;
+float PICTURE_IN_PICTURE_SCALE = 0.25;
+float PICTURE_IN_PICTURE_FULL_SIZE = 1.0;
 
 typedef struct VP8Dec {
   vpx_codec_ctx_t *codec;
@@ -87,7 +90,8 @@ no_init:
 
 }
 
-int conditional_init (VP8Dec *dec, const size_t input_size, const unsigned char *input) {
+int conditional_init (VP8Dec *dec, 
+		      const size_t input_size, const unsigned char *input) {
   if (0 == dec->is_init) {
     vp8dec_init (dec, input_size, input);
     if (0 == dec->is_init)
@@ -96,7 +100,8 @@ int conditional_init (VP8Dec *dec, const size_t input_size, const unsigned char 
   return 1;
 }
 
-int decode_and_scale (VP8Dec *dec, const size_t input_size, const unsigned char *input,
+int decode_and_scale (VP8Dec *dec, 
+		      const size_t input_size, const unsigned char *input,
 		      const size_t output_size, unsigned char *output,
 		      float scale_factor) {
   vpx_image_t *img;
@@ -112,8 +117,8 @@ int decode_and_scale (VP8Dec *dec, const size_t input_size, const unsigned char 
 
    int w = img->d_w;
    int h = img->d_h;
-   int dest_stride = BPP * w;
-   assert (output_size == (size_t) BPP * w * h);
+   int dest_stride = DISPLAY_FORMAT_BPP * w;
+   assert (output_size == (size_t) DISPLAY_FORMAT_BPP * w * h);
 
     if (dec->swsctx == NULL) {
       dec->swsctx = sws_getContext (w, h, PIX_FMT_YUV420P, // src info
@@ -136,29 +141,48 @@ no_video:
   return 0;  
 }
 
-int vp8dec_decode_copy (VP8Dec *dec, const size_t input_size, const unsigned char *input,
+int vp8dec_decode_copy (VP8Dec *dec, 
+			const size_t input_size, const unsigned char *input,
 			const size_t output_size, unsigned char *output) {
   // this might fail if we tune into a stream in between keyframes.
   // in this case we'll just wait until we get one to move past this if block.
   if ((conditional_init (dec, input_size, input))) {
-    return decode_and_scale (dec, input_size, input, output_size, output, 1.0);
+    return decode_and_scale (dec, input_size, input, output_size, output,
+			     PICTURE_IN_PICTURE_FULL_SIZE);
   }
   return 0;
 }
 
-int vp8dec_decode_update_minor (VP8Dec *dec, const size_t input_size, const unsigned char *input,
-			      const size_t output_size, unsigned char *output) {
-  if (conditional_init (dec, input_size, input)) {
-    return decode_and_scale (dec, input_size, input, output_size, output, SCALE);
+int vp8dec_decode_quarter (VP8Dec *dec, const int qtr_row, const int qtr_col,
+			   const size_t input_size, const unsigned char *input,
+			   const size_t output_size, unsigned char *output) {
+  int tmp_size = output_size * 4;
+  unsigned char tmp[tmp_size];
+ 
+  if (vp8dec_decode_copy (dec, input_size, input, tmp_size, tmp)) {
+    return take_quarter_rgb (tmp_size, tmp, output_size, output,
+			     qtr_row, qtr_col, dec->width, dec->height);
+  } else {
+    return 0;
   }
-  return 0;
 }
 
-int vp8dec_decode_update_major (VP8Dec *dec, const size_t input_size, const unsigned char *input,
+int vp8dec_decode_update_minor (VP8Dec *dec, 
+				const size_t input_size, const unsigned char *input,
 				const size_t output_size, unsigned char *output) {
-  int stride = dec->width * BPP;
-  int bytes_per_row_scaled = stride * SCALE;
-  int rows_scaled = dec->height * SCALE;
+  if (conditional_init (dec, input_size, input)) {
+    return decode_and_scale (dec, input_size, input, 
+			     output_size, output, PICTURE_IN_PICTURE_SCALE);
+  }
+  return 0;
+}
+
+int vp8dec_decode_update_major (VP8Dec *dec,
+				const size_t input_size, const unsigned char *input,
+				const size_t output_size, unsigned char *output) {
+  int stride = dec->width * DISPLAY_FORMAT_BPP;
+  int bytes_per_row_scaled = stride * PICTURE_IN_PICTURE_SCALE;
+  int rows_scaled = dec->height * PICTURE_IN_PICTURE_SCALE;
   int row = 0;
   unsigned char tmp[output_size];
   unsigned char *src_row = output;
