@@ -31,8 +31,11 @@
 (define gui-message-mv Quit/MV)
 (define gui-message-cp-child CP-child)
 (define gui-message-pip-on PIPOn)
+(define (gui-message-start-tile u)
+  (InitiateBehavior 'tile u))
 (define gui-message-closed-window Quit)
 (define gui-message-closed-feed RemoveCURL)
+
 
 (define BYTES-PER-PIXEL 3)
 
@@ -271,6 +274,13 @@
              [label "PIP"]
              [callback (λ (btn ctrlevt)
                          (send this pip-activation-evt evt-cb (video-playback-name v)))]))
+      
+      (define tile
+        (new button%
+             [parent vertp]
+             [label "Tile"]
+             [callback (λ (btn ctrlevt)
+                         (evt-cb (gui-message-start-tile (video-playback-name v))))]))
       
       (sleep 0)
       (send cnvs enable #t)

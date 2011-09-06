@@ -6,41 +6,51 @@
 (define (big-bang encoder-location video-device video-w video-h decoder-location)
   (motile/compile
    `(lambda ()
-      (displayln "Big bang on")
       ; spawn the proxy
       (ask/send* "SPAWN" ,encoder-location (make-pubsubproxy) (make-metadata is/proxy))
-      (displayln "Proxy spawned")
       (let ([proxy-curl (car (thread-receive))])
         ; spawn the encoder with the proxy as reply addr
-        (displayln "Spawning encoder")
         (ask/send* "SPAWN" ,encoder-location
-                   (make-encoder ,video-device ,video-w ,video-h)
+                   (make-video-reader/encoder ,video-device ,video-w ,video-h)
                    (make-metadata produces/webm) proxy-curl)
         ; spawn the decoder with the proxy as reply addr
-        (displayln "Spawning decoder")
-        (ask/send* "SPAWN" ,decoder-location (make-single-decoder) (make-metadata accepts/webm) proxy-curl)))))
+        (ask/send* "SPAWN" ,decoder-location (make-single-decoder)
+                   (make-metadata accepts/webm) proxy-curl)))))
 
 (define pubsubproxy
   (motile/compile
-   `(lambda (rpy)
+   `(lambda ()
       (displayln "Proxy on")
       (let loop ([curls set/equal/null]
-                 [m (thread-receive)])
-        (define v (car m))
-        (define r (cdr m))
-        (cond [(AddCURL? v)
-               (loop (set/cons curls (AddCURL.curl v)) (thread-receive))]
-              
-              [(RemoveCURL? v)
-               (ask/send* "POST" (RemoveCURL.curl v) (Quit) (:message/ask/metadata r))
-               (loop (set/remove curls (RemoveCURL.curl v)) (thread-receive))]
-              
-              [(Frame? v)
-               (set/map curls (lambda (crl) (ask/send* "POST" crl v (:message/ask/metadata r))))
-               (loop curls (thread-receive))]
-              
-              [else (printf "proxy else: ~a~n" v)
-                    (loop curls (thread-receive))])))))
+                 [last-sender-seen #f])
+        (let ([m (thread-receive)])
+          (define v (car m))
+          (define r (cdr m))
+          (cond 
+            [(AddCURL? v)
+             (loop (set/cons curls (AddCURL.curl v)) 
+                   last-sender-seen)]
+            
+            [(RemoveCURL? v)
+             (ask/send* "POST" (RemoveCURL.curl v) (Quit) (:message/ask/metadata r))
+             (loop (set/remove curls (RemoveCURL.curl v)) 
+                   last-sender-seen)]
+            
+            [(Frame? v)
+             (set/map curls (lambda (crl) (ask/send* "POST" crl v (:message/ask/metadata r))))
+             (loop curls 
+                   (:message/ask/reply r))]
+            
+            [(AddBehaviors? v)
+             (when last-sender-seen
+               (ask/send* "POST" last-sender-seen v))
+             (loop curls
+                   last-sender-seen)]
+            
+            [else 
+             (printf "proxy else: ~a~n" v)
+             (loop curls
+                   last-sender-seen)]))))))
 
 ;; -----
 ;; VIDEO
@@ -64,52 +74,58 @@
                  [decoders set/equal/null])
         (define v (car m))
         (define r (cdr m))
-        (cond [(AddCURL? v)
-               (displayln "GUI is adding a video")
-               (ask/send* "POST" (:message/ask/reply r) (add-new (AddCURL.curl v)))
-               (loop (thread-receive) (set/cons decoders (AddCURL.curl v)))]
-              
-              [(RemoveCURL? v)
-               (printf "Feed of ~s was closed~n" (RemoveCURL.curl v))
-               (ask/send* "DELETE" (RemoveCURL.curl v) (Quit))
-               (loop (thread-receive) 
-                     (set/remove decoders (RemoveCURL.curl v)))]
-              
-              [(PIPOn? v)
-               (let ([the-pip ((make-pip-decoder) (list (PIPOn.major v) (PIPOn.minor v)))])
-                 (displayln the-pip)
-                 (ask/send* "SPAWN" (get-root-curl) the-pip
-                            (make-metadata accepts/webm)
-                            (get-root-curl)))
-               (loop (thread-receive) decoders)]
-              
-              [(CP? v)
-               (displayln "GUI is copying")
-               (respawn-self (CP.host v) (CP.port v))
-               (set/map decoders (lambda (decoder) 
-                                   (ask/send* "POST" decoder v)))
-               (loop (thread-receive) decoders)]
-              
-              [(CP-child? v)
-               (displayln "GUI is copying a decoder")
-               (ask/send* "POST" (CP-child.curl v) (CP (CP-child.host v)
-                                                       (CP-child.port v)))
-               (loop (thread-receive) decoders)]
-              
-              [(Quit/MV? v)
-               (displayln "GUI is moving")
-               (respawn-self (Quit/MV.host v) (Quit/MV.port v))
-               (set/map decoders (lambda (decoder)
-                                   (ask/send* "DELETE" decoder v)))]
-              
-              [(Quit? v)
-               (displayln "GUI is quitting")
-               (set/map decoders (lambda (decoder)
-                                   (ask/send* "DELETE" decoder v)))]
-              
-              [else
-               (printf "Not a valid request to GUI: ~a~n" v)
-               (loop (thread-receive) decoders)])))))
+        (cond 
+          [(AddCURL? v)
+           (displayln "GUI is adding a video")
+           (ask/send* "POST" (:message/ask/reply r) (add-new (AddCURL.curl v)))
+           (loop (thread-receive) (set/cons decoders (AddCURL.curl v)))]
+          
+          [(RemoveCURL? v)
+           (printf "Feed of ~s was closed~n" (RemoveCURL.curl v))
+           (ask/send* "DELETE" (RemoveCURL.curl v) (Quit))
+           (loop (thread-receive) 
+                 (set/remove decoders (RemoveCURL.curl v)))]
+          
+          [(PIPOn? v)
+           (let ([the-pip ((make-pip-decoder) (list (PIPOn.major v) (PIPOn.minor v)))])
+             (displayln the-pip)
+             (ask/send* "SPAWN" (get-root-curl) the-pip
+                        (make-metadata accepts/webm)
+                        (get-root-curl)))
+           (loop (thread-receive) decoders)]
+          
+          [(CP? v)
+           (displayln "GUI is copying")
+           (respawn-self (CP.host v) (CP.port v))
+           (set/map decoders (lambda (decoder) 
+                               (ask/send* "POST" decoder v)))
+           (loop (thread-receive) decoders)]
+          
+          [(CP-child? v)
+           (displayln "GUI is copying a decoder")
+           (ask/send* "POST" (CP-child.curl v) (CP (CP-child.host v)
+                                                   (CP-child.port v)))
+           (loop (thread-receive) decoders)]
+          
+          [(InitiateBehavior? v)
+           (printf "Processing a new behavior: ~a~n" (InitiateBehavior.type v))
+           (ask/send* "POST" (InitiateBehavior.ref v) v)
+           (loop (thread-receive) decoders)]
+          
+          [(Quit/MV? v)
+           (displayln "GUI is moving")
+           (respawn-self (Quit/MV.host v) (Quit/MV.port v))
+           (set/map decoders (lambda (decoder)
+                               (ask/send* "DELETE" decoder v)))]
+          
+          [(Quit? v)
+           (displayln "GUI is quitting")
+           (set/map decoders (lambda (decoder)
+                               (ask/send* "DELETE" decoder v)))]
+          
+          [else
+           (printf "Not a valid request to GUI: ~a~n" v)
+           (loop (thread-receive) decoders)])))))
 
 (define video-decoder/pip
   (motile/compile
@@ -144,61 +160,92 @@
             (let loop ([frames hash/equal/null] [m (thread-receive)])
               (define v (car m))
               (define r (cdr m))
-              (cond [(Frame? v)
-                     (let ([replyaddr (:message/ask/reply r)]
-                           [w/h (get-w/h m)])
-                       (when (equal? replyaddr majorpc)
-                         (update (if (hash/contains? frames minorpc)
-                                     vp8dec-decode-update-major
-                                     vp8dec-decode-copy)
-                                 decoder/major w/h (Frame.data v)))
-                       (when (equal? replyaddr minorpc)
-                         (update vp8dec-decode-update-minor decoder/minor w/h (Frame.data v)))
-                       (loop 
-                        ;; throw the new frame away if it's not one of the streams we're interested in
-                        ;; at the current time, or merge it with the old set of frames if we are.
-                        (cond [(or (equal? replyaddr majorpc) (equal? replyaddr minorpc))
-                               (hash/cons frames replyaddr v)]
-                              [else
-                               frames])
-                        (thread-receive)))]
-                    
-                    [(GetParent? v)
-                     (ask/send* "POST" (:message/ask/reply r) (cons majorpc minorpc))
-                     (loop frames (thread-receive))]
-                    
-                    [(CP? v)
-                     (respawn-self (CP.host v) (CP.port v))
-                     (loop frames (thread-receive))]
-                    
-                    [(Quit/MV? v)
-                     (displayln "PIP Decoder is moving")
-                     (ask/send* "POST" majorpc (RemoveCURL (current-curl)))
-                     (ask/send* "POST" minorpc (RemoveCURL (current-curl)))
-                     (vp8dec-delete decoder/major)
-                     (vp8dec-delete decoder/minor)
-                     (respawn-self (Quit/MV.host v) (Quit/MV.port v))]
-                    
-                    [(Quit? v)
-                     (displayln "PIP Decoder is quitting")
-                     (ask/send* "POST" majorpc (RemoveCURL (current-curl)))
-                     (ask/send* "POST" minorpc (RemoveCURL (current-curl)))
-                     (vp8dec-delete decoder/major)
-                     (vp8dec-delete decoder/minor)]
-                    
-                    [else
-                     (printf "not a valid request to PIP decoder: ~a~n" v)
-                     (loop frames (thread-receive))]))))))))
+              (cond 
+                [(Frame? v)
+                 (let ([replyaddr (:message/ask/reply r)]
+                       [w/h (get-w/h m)])
+                   (when (equal? replyaddr majorpc)
+                     (update (if (hash/contains? frames minorpc)
+                                 vp8dec-decode-update-major
+                                 vp8dec-decode-copy)
+                             decoder/major w/h (Frame.data v)))
+                   (when (equal? replyaddr minorpc)
+                     (update vp8dec-decode-update-minor decoder/minor w/h (Frame.data v)))
+                   (loop 
+                    ;; throw the new frame away if it's not in the streams we're interested in
+                    ;; at the current time, or merge it with the old set of frames if we are.
+                    (cond [(or (equal? replyaddr majorpc) (equal? replyaddr minorpc))
+                           (hash/cons frames replyaddr v)]
+                          [else
+                           frames])
+                    (thread-receive)))]
+                
+                [(GetParent? v)
+                 (ask/send* "POST" (:message/ask/reply r) (cons majorpc minorpc))
+                 (loop frames (thread-receive))]
+                
+                [(CP? v)
+                 (respawn-self (CP.host v) (CP.port v))
+                 (loop frames (thread-receive))]
+                
+                [(Quit/MV? v)
+                 (displayln "PIP Decoder is moving")
+                 (ask/send* "POST" majorpc (RemoveCURL (current-curl)))
+                 (ask/send* "POST" minorpc (RemoveCURL (current-curl)))
+                 (vp8dec-delete decoder/major)
+                 (vp8dec-delete decoder/minor)
+                 (respawn-self (Quit/MV.host v) (Quit/MV.port v))]
+                
+                [(Quit? v)
+                 (displayln "PIP Decoder is quitting")
+                 (ask/send* "POST" majorpc (RemoveCURL (current-curl)))
+                 (ask/send* "POST" minorpc (RemoveCURL (current-curl)))
+                 (vp8dec-delete decoder/major)
+                 (vp8dec-delete decoder/minor)]
+                
+                [else
+                 (printf "not a valid request to PIP decoder: ~a~n" v)
+                 (loop frames (thread-receive))]))))))))
+
+(define (tile-bang encoder-proxy-curl new-proxies-location new-decoders-location)
+  (motile/compile
+   `(lambda ()
+      (define (make-a-proxy)
+        (ask/send* "SPAWN" ,new-proxies-location (make-pubsubproxy) 
+                   (make-metadata is/proxy))
+        (car (thread-receive)))
+      (define (make-a-decoder rpy)
+        (ask/send* "SPAWN" ,new-decoders-location (make-single-decoder) (make-metadata accepts/webm) rpy))
+      (define (make-behavior target row col)
+        (lambda (params callback-ctor)
+          (let ([h (halve (VideoParams.height params))]
+                [w (halve (VideoParams.width params))])
+            (define meta-to-use
+              (make-metadata type/webm 
+                             (cons "params" (VideoParams!width (VideoParams!height params h) w))))
+            (callback-ctor 'quarter
+                           (lambda (e outbuff fb)
+                             (define encoded (vp8enc-encode-quarter e fb outbuff row col))
+                             (and encoded (ask/send* "POST" target (FrameBuffer->Frame encoded) 
+                                                     meta-to-use)))))))
+      (let* ([proxy-curls (list (make-a-proxy)
+                                (make-a-proxy)
+                                (make-a-proxy)
+                                (make-a-proxy))]
+             [b1 (make-behavior (first proxy-curls) 'top 'left)]
+             [b2 (make-behavior (second proxy-curls) 'top 'right)]
+             [b3 (make-behavior (third proxy-curls) 'bottom 'left)]
+             [b4 (make-behavior (fourth proxy-curls) 'bottom 'right)])
+        (map make-a-decoder proxy-curls)
+        (ask/send* "POST" ,encoder-proxy-curl (AddBehaviors (list b1 b2 b3 b4)))))))
 
 (define video-decoder/single
   (motile/compile
    '(lambda (reply-curl)
-      
       (define (get-w/h frame)
         (let* ([metadata (:message/ask/metadata (cdr frame))]
                [params (cdr (assoc "params" metadata))])
           (cons (VideoParams.width params) (VideoParams.height params))))
-      
       ;; 1. look up the current GUI, ask for a new display function
       (ask/send* "POST" (get-current-gui-curl) (AddCURL (current-curl)))
       (let ([playback-function (car (thread-receive))]
@@ -224,6 +271,11 @@
                 [(CP? v)
                  (displayln "Decoder is copying proxy CURL")
                  (respawn-self (Quit/MV.host v) (Quit/MV.port v))
+                 (loop (thread-receive))]
+                
+                [(and (InitiateBehavior? v)
+                      (eq? 'tile (InitiateBehavior.type v)))
+                 (ask/send* "SPAWN" (get-root-curl) (make-tile-bang reply-curl reply-curl (get-root-curl)))
                  (loop (thread-receive))]
                 
                 [(Quit/MV? v)
@@ -259,6 +311,7 @@
           (define ctor (if (equal? type 'full)
                            vp8enc-new
                            vp8enc-quartersize-new))
+          (displayln "Making a new behavior")
           (let ([e (ctor params)]
                 [outbuff (make-bytes (bin* 1024 256))])
             (lambda (fb)
@@ -268,23 +321,14 @@
         
         ; the default callback: a full-frame encoding.
         (define (make-encode-full-frame-cb target)
+          (define meta-to-use
+            (make-metadata type/webm
+                           (cons "params" params)))
           (make-callback 'full
                          (lambda (e outbuff fb)
                            (define encoded (vp8enc-encode e fb outbuff))
                            (and encoded (ask/send* "POST" target (FrameBuffer->Frame encoded) 
-                                                   (make-metadata type/webm (cons "params" params)))))))
-        
-        
-        ; additional callbacks can be created to make quarter-frame tiles.
-        (define (make-encode-quarter-frame-cb target row col)
-          (define halved-params
-            (VideoParams!width (VideoParams!height params (/ (VideoParams.height params) 2))
-                               (/ (VideoParams.width params) 2)))
-          (make-callback 'quarter
-                         (lambda (e outbuff fb)
-                           (define encoded (vp8enc-encode-quarter e fb outbuff row col))
-                           (and encoded (ask/send* "POST" target (FrameBuffer->Frame encoded) 
-                                                   (make-metadata type/webm (cons "params" halved-params)))))))
+                                                   meta-to-use)))))
         
         ; do-one-frame!: featuring AIMD waiting for camera frames.
         ; 1. try to read the next frame.
@@ -312,7 +356,12 @@
           (let ([m (thread-receive)])
             (define v (car m))
             (define r (cdr m))
-            (cond [(Quit/MV? v)
+            (cond [(AddBehaviors? v)
+                   (k fudge (foldl (lambda (behavior-ctor cbs)
+                                     (set/cons cbs (behavior-ctor params make-callback)))
+                                   on-frame-callbacks
+                                   (AddBehaviors.new-behaviors v)))]
+                  [(Quit/MV? v)
                    (video-reader-delete vreader)
                    (set/map on-frame-callbacks (lambda (f) (f #f)))
                    (respawn-self (Quit/MV.host v) (Quit/MV.port v))]
