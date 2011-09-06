@@ -10,8 +10,8 @@
 #include "misc.h"
 
 int DISPLAY_FORMAT_BPP = 3;
-float PICTURE_IN_PICTURE_SCALE = 0.25;
-float PICTURE_IN_PICTURE_FULL_SIZE = 1.0;
+float PIP_AXIS_SCALE = 0.5;
+float PIP_FULL_SIZE = 1.0;
 
 typedef struct VP8Dec {
   vpx_codec_ctx_t *codec;
@@ -147,31 +147,28 @@ int vp8dec_decode_copy (VP8Dec *dec,
   // in this case we'll just wait until we get one to move past this if block.
   if ((conditional_init (dec, input_size, input))) {
     return decode_and_scale (dec, input_size, input, output_size, output,
-			     PICTURE_IN_PICTURE_FULL_SIZE);
+			     PIP_FULL_SIZE);
   }
   return 0;
 }
 
-int vp8dec_decode_quarter (VP8Dec *dec, const int qtr_row, const int qtr_col,
-			   const size_t input_size, const unsigned char *input,
-			   const size_t output_size, unsigned char *output) {
-  int tmp_size = output_size * 4;
-  unsigned char tmp[tmp_size];
- 
-  if (vp8dec_decode_copy (dec, input_size, input, tmp_size, tmp)) {
-    return take_quarter_rgb (tmp_size, tmp, output_size, output,
-			     qtr_row, qtr_col, dec->width, dec->height);
-  } else {
-    return 0;
-  }
-}
-
-int vp8dec_decode_update_minor (VP8Dec *dec, 
+int vp8dec_decode_update_minor (VP8Dec *dec, const int qtr_row, const int qtr_col,
 				const size_t input_size, const unsigned char *input,
 				const size_t output_size, unsigned char *output) {
-  if (conditional_init (dec, input_size, input)) {
-    return decode_and_scale (dec, input_size, input, 
-			     output_size, output, PICTURE_IN_PICTURE_SCALE);
+
+  unsigned char tmp[output_size];
+    
+  if (vp8dec_decode_copy (dec, input_size, input, output_size, tmp)) {
+    unsigned char *input_cursor;
+    unsigned char *output_cursor;
+    int row = 0;
+    int row_bytes_width = dec->width * 3;
+    for (row = 0; row < dec->height * PIP_AXIS_SCALE; row++) {
+      input_cursor = tmp + row*row_bytes_width;
+      output_cursor = output + row*row_bytes_width;
+      memcpy (output_cursor, input_cursor, row_bytes_width * PIP_AXIS_SCALE);
+    }
+    return 1;
   }
   return 0;
 }
@@ -180,8 +177,8 @@ int vp8dec_decode_update_major (VP8Dec *dec,
 				const size_t input_size, const unsigned char *input,
 				const size_t output_size, unsigned char *output) {
   int stride = dec->width * DISPLAY_FORMAT_BPP;
-  int bytes_per_row_scaled = stride * PICTURE_IN_PICTURE_SCALE;
-  int rows_scaled = dec->height * PICTURE_IN_PICTURE_SCALE;
+  int bytes_per_row_scaled = stride * PIP_AXIS_SCALE;
+  int rows_scaled = dec->height * PIP_AXIS_SCALE;
   int row = 0;
   unsigned char tmp[output_size];
   unsigned char *src_row = output;

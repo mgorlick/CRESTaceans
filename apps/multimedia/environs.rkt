@@ -77,7 +77,6 @@
 (define set-current-gui-curl! (procedure-reduce-arity current-gui-curl 1))
 
 ; mirror our Motile programs into the binding environment
-(define make-tile-bang tile-bang)
 (define (make-pubsubproxy)
   pubsubproxy)
 (define (make-single-decoder)
@@ -104,8 +103,7 @@
                       make-single-decoder
                       make-pip-decoder
                       make-video-reader/encoder
-                      make-pubsubproxy
-                      make-tile-bang)
+                      make-pubsubproxy)
       `((accepts/webm . ,accepts/webm)
         (produces/webm . ,produces/webm)
         (type/webm . ,type/webm)

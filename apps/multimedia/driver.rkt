@@ -203,7 +203,7 @@
   
   (cond [(argsassoc "--video")
          (define device (argsassoc "--video" #:default "/dev/video0"))
-         (define bang! (big-bang remoteroot device 800 600 root-curl))
+         (define bang! (big-bang remoteroot device 640 480 root-curl))
          
          (handle-spawn (make-curl (uuid)) command-center-gui (make-metadata is/gui) root-curl)
          (handle-spawn (make-curl (uuid)) bang! (make-metadata) root-curl)])

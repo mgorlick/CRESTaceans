@@ -275,13 +275,6 @@
              [callback (λ (btn ctrlevt)
                          (send this pip-activation-evt evt-cb (video-playback-name v)))]))
       
-      (define tile
-        (new button%
-             [parent vertp]
-             [label "Tile"]
-             [callback (λ (btn ctrlevt)
-                         (evt-cb (gui-message-start-tile (video-playback-name v))))]))
-      
       (sleep 0)
       (send cnvs enable #t)
       (send cnvs promote-self))))

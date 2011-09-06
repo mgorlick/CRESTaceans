@@ -164,13 +164,19 @@
                 [(Frame? v)
                  (let ([replyaddr (:message/ask/reply r)]
                        [w/h (get-w/h m)])
+                   ;; if the stream is the major stream, either update, preserving the minor stream 
+                   ;; already on the buffer, or draw the first image
                    (when (equal? replyaddr majorpc)
                      (update (if (hash/contains? frames minorpc)
                                  vp8dec-decode-update-major
                                  vp8dec-decode-copy)
                              decoder/major w/h (Frame.data v)))
+                   ;; if the stream is the minor stream just draw it over the current minor stream
+                   ;; picture (if there is one)
                    (when (equal? replyaddr minorpc)
-                     (update vp8dec-decode-update-minor decoder/minor w/h (Frame.data v)))
+                     (update (lambda (d inplen input outplen output)
+                               (vp8dec-decode-update-minor d 'top 'left inplen input outplen output))
+                             decoder/minor w/h (Frame.data v)))
                    (loop 
                     ;; throw the new frame away if it's not in the streams we're interested in
                     ;; at the current time, or merge it with the old set of frames if we are.
@@ -187,6 +193,11 @@
                 [(CP? v)
                  (respawn-self (CP.host v) (CP.port v))
                  (loop frames (thread-receive))]
+                
+                [(and (InitiateBehavior? v)
+                      (eq? 'move-left (InitiateBehavior.type v)))
+                 ; do something sensible
+                 (loop (thread-receive))]
                 
                 [(Quit/MV? v)
                  (displayln "PIP Decoder is moving")
@@ -206,38 +217,6 @@
                 [else
                  (printf "not a valid request to PIP decoder: ~a~n" v)
                  (loop frames (thread-receive))]))))))))
-
-(define (tile-bang encoder-proxy-curl new-proxies-location new-decoders-location)
-  (motile/compile
-   `(lambda ()
-      (define (make-a-proxy)
-        (ask/send* "SPAWN" ,new-proxies-location (make-pubsubproxy) 
-                   (make-metadata is/proxy))
-        (car (thread-receive)))
-      (define (make-a-decoder rpy)
-        (ask/send* "SPAWN" ,new-decoders-location (make-single-decoder) (make-metadata accepts/webm) rpy))
-      (define (make-behavior target row col)
-        (lambda (params callback-ctor)
-          (let ([h (halve (VideoParams.height params))]
-                [w (halve (VideoParams.width params))])
-            (define meta-to-use
-              (make-metadata type/webm 
-                             (cons "params" (VideoParams!width (VideoParams!height params h) w))))
-            (callback-ctor 'quarter
-                           (lambda (e outbuff fb)
-                             (define encoded (vp8enc-encode-quarter e fb outbuff row col))
-                             (and encoded (ask/send* "POST" target (FrameBuffer->Frame encoded) 
-                                                     meta-to-use)))))))
-      (let* ([proxy-curls (list (make-a-proxy)
-                                (make-a-proxy)
-                                (make-a-proxy)
-                                (make-a-proxy))]
-             [b1 (make-behavior (first proxy-curls) 'top 'left)]
-             [b2 (make-behavior (second proxy-curls) 'top 'right)]
-             [b3 (make-behavior (third proxy-curls) 'bottom 'left)]
-             [b4 (make-behavior (fourth proxy-curls) 'bottom 'right)])
-        (map make-a-decoder proxy-curls)
-        (ask/send* "POST" ,encoder-proxy-curl (AddBehaviors (list b1 b2 b3 b4)))))))
 
 (define video-decoder/single
   (motile/compile
@@ -271,11 +250,6 @@
                 [(CP? v)
                  (displayln "Decoder is copying proxy CURL")
                  (respawn-self (Quit/MV.host v) (Quit/MV.port v))
-                 (loop (thread-receive))]
-                
-                [(and (InitiateBehavior? v)
-                      (eq? 'tile (InitiateBehavior.type v)))
-                 (ask/send* "SPAWN" (get-root-curl) (make-tile-bang reply-curl reply-curl (get-root-curl)))
                  (loop (thread-receive))]
                 
                 [(Quit/MV? v)
