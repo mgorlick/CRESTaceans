@@ -197,16 +197,26 @@
           (ask/send* "DELETE" to-respawn `(Quit/MV ,(symbol->string h) ,p))])
        (loop))))
   
-  (define remoteroot
-    (remote-curl-root #f (argsassoc "--rhost" #:no-val *LOCALHOST*)
-                      (argsassoc "--rport" #:no-val 1235 #:call string->number)))
+  (define video-location
+    (if (not (argsassoc "--no-video"))
+        (remote-curl-root #f 
+                          (argsassoc "--vhost" #:no-val *LOCALHOST*)
+                          (argsassoc "--vport" #:no-val 1235 #:call string->number))
+        #f))
+  (define gui-location
+    (remote-curl-root #f 
+                      (argsassoc "--ghost" #:no-val *LOCALHOST*)
+                      (argsassoc "--gport" #:no-val *LOCALPORT* #:call string->number)))
   
   (cond [(argsassoc "--video")
          (define device (argsassoc "--video" #:default "/dev/video0"))
-         (define bang! (big-bang remoteroot device 640 480 root-curl))
+         (define bang! (big-bang video-location device 640 480 gui-location))
          
-         (handle-spawn (make-curl (uuid)) command-center-gui (make-metadata is/gui) root-curl)
-         (handle-spawn (make-curl (uuid)) bang! (make-metadata) root-curl)])
+         ;(handle-spawn (make-curl (uuid)) command-center-gui (make-metadata is/gui) root-curl)
+         (unless (argsassoc "--no-gui-spawn")
+           (ask/send* "SPAWN" gui-location command-center-gui (make-metadata is/gui) root-curl))
+         (unless (argsassoc "--no-video-spawn")
+           (ask/send* "SPAWN" gui-location bang! (make-metadata) root-curl))])
   
   (no-return))
 
