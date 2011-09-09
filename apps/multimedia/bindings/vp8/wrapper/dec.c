@@ -152,9 +152,9 @@ int vp8dec_decode_copy (VP8Dec *dec,
   return 0;
 }
 
-int vp8dec_decode_update_minor (VP8Dec *dec, const int qtr_row, const int qtr_col,
-				const size_t input_size, const unsigned char *input,
-				const size_t output_size, unsigned char *output) {
+int vp8dec_decode_update_minor_tile (VP8Dec *dec, const int qtr_row, const int qtr_col,
+				     const size_t input_size, const unsigned char *input,
+				     const size_t output_size, unsigned char *output) {
 
   unsigned char tmp[output_size];
     
@@ -169,6 +169,16 @@ int vp8dec_decode_update_minor (VP8Dec *dec, const int qtr_row, const int qtr_co
       memcpy (output_cursor, input_cursor, row_bytes_width * PIP_AXIS_PORTION);
     }
     return 1;
+  }
+  return 0;
+}
+
+int vp8dec_decode_update_minor (VP8Dec *dec,
+				const size_t input_size, const unsigned char *input,
+				const size_t output_size, unsigned char *output) {
+  if (conditional_init (dec, input_size, input)) {
+    return decode_and_scale (dec, input_size, input,
+			     output_size, output, PIP_AXIS_PORTION);
   }
   return 0;
 }

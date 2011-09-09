@@ -175,7 +175,7 @@
                    ;; picture (if there is one)
                    (when (equal? replyaddr minorpc)
                      (update (lambda (d inplen input outplen output)
-                               (vp8dec-decode-update-minor d 'top 'left inplen input outplen output))
+                               (vp8dec-decode-update-minor d inplen input outplen output))
                              decoder/minor w/h (Frame.data v)))
                    (loop 
                     ;; throw the new frame away if it's not in the streams we're interested in
