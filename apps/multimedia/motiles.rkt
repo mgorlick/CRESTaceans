@@ -47,6 +47,12 @@
              (loop curls
                    last-sender-seen)]
             
+            [(Quit/MV? v)
+             (when last-sender-seen
+               (ask/send* "POST" last-sender-seen v))
+             (loop curls
+                   last-sender-seen)]
+            
             [else 
              (printf "proxy else: ~a~n" v)
              (loop curls
@@ -104,6 +110,10 @@
            (respawn-self (CP.host v) (CP.port v))
            (set/map decoders (lambda (decoder) 
                                (ask/send* "POST" decoder v)))
+           (loop (thread-receive) decoders)]
+          
+          [(FwdBackward? v)
+           (ask/send* "POST" (FwdBackward.ref v) v)
            (loop (thread-receive) decoders)]
           
           [(CP-child? v)
@@ -254,6 +264,10 @@
                 
                 [(GetParent? v)
                  (ask/send* "POST" (:message/ask/reply r) reply-curl)
+                 (loop (thread-receive))]
+                
+                [(FwdBackward? v)
+                 (ask/send* "POST" reply-curl (FwdBackward.msg v))
                  (loop (thread-receive))]
                 
                 [(CP? v)

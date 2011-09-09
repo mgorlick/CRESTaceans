@@ -293,6 +293,15 @@
              [callback (λ (btn ctrlevt)
                          (evt-cb (InitiateBehavior 'toggle-major/minor (video-playback-name v))))]))
       
+      (define encmove
+        [new button%
+             [parent vertp]
+             [label "Enc Move"]
+             [callback (λ (btn ctrlevt)
+                         (evt-cb (FwdBackward (Quit/MV (send host-field get-value)
+                                                       (string->number (send port-field get-value)))
+                                              (video-playback-name v))))]])
+      
       (sleep 0)
       (send cnvs enable #t)
       (send cnvs promote-self))))

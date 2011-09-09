@@ -16,6 +16,7 @@
 (define-motile-struct PIPOn [major minor])
 (define-motile-struct InitiateBehavior [type ref])
 (define-motile-struct AddBehaviors [new-behaviors])
+(define-motile-struct FwdBackward [msg ref])
 
 (define (dispose-FrameBuffer f)
   ((FrameBuffer.disposal f)))
