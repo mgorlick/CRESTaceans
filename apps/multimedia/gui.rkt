@@ -253,50 +253,50 @@
                           (string->number (send port-field get-value)))))
       
       (define unsub
-        (new button%
+        (new ctrl-button%
              [parent vertp]
-             [label "Unsub"]
+             [label "Unsub Stream"]
              [callback do-unsub]))
       
       (define cpy
-        (new button%
+        (new ctrl-button%
              [parent vertp]
-             [label "Share"]
+             [label "Share Stream"]
              [callback do-cpy]))
       
       (define mv
-        (new button%
+        (new ctrl-button%
              [parent vertp]
-             [label "Move"]
+             [label "Move Stream"]
              [callback (λ (btn ctrlevt)
                          (do-cpy cpy ctrlevt)
                          (do-unsub unsub ctrlevt))]))
       
       (define pip
-        (new button%
+        (new ctrl-button%
              [parent vertp]
-             [label "PIP"]
+             [label "Create PIP"]
              [callback (λ (btn ctrlevt)
                          (send this pip-activation-evt evt-cb (video-playback-name v)))]))
       
       (define split
-        (new button%
+        (new ctrl-button%
              [parent vertp]
-             [label "Split"]
+             [label "Split PIP"]
              [callback (λ (btn ctrlevt)
                          (evt-cb (InitiateBehavior 'split (video-playback-name v))))]))
       
       (define toggle
-        (new button%
+        (new ctrl-button%
              [parent vertp]
-             [label "Swap"]
+             [label "Swap PIP"]
              [callback (λ (btn ctrlevt)
                          (evt-cb (InitiateBehavior 'toggle-major/minor (video-playback-name v))))]))
       
       (define encmove
-        [new button%
+        [new ctrl-button%
              [parent vertp]
-             [label "Enc Move"]
+             [label "Move Encoder"]
              [callback (λ (btn ctrlevt)
                          (evt-cb (FwdBackward (Quit/MV (send host-field get-value)
                                                        (string->number (send port-field get-value)))
@@ -305,6 +305,10 @@
       (sleep 0)
       (send cnvs enable #t)
       (send cnvs promote-self))))
+
+(define ctrl-button%
+  (class button%
+    (super-new [font small-control-font])))
 
 ; -------------------------
 
