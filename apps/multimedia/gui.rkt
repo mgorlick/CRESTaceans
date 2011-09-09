@@ -293,7 +293,7 @@
     (define buffer (video-playback-buffer myvideo))
     
     (define refresher
-      (new timer% [notify-callback (λ () (refresh))] [interval 33] [just-once? #f]))
+      (new timer% [notify-callback (λ () (refresh))] [interval 50] [just-once? #f]))
     
     (define/public (close)
       (set! myvideo #f)

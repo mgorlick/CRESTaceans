@@ -62,7 +62,7 @@ int vp8dec_init (VP8Dec *dec, const size_t size,
   if (!si.is_kf) goto not_kf;
   if (status != VPX_CODEC_OK) goto no_stream_info;
 
-  cfg.threads = 8;
+  cfg.threads = 4;
   cfg.h = si.h;
   cfg.w = si.w;
 
