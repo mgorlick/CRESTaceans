@@ -10,11 +10,15 @@
 
 (struct video-gui-client (gui actor-thread))
 
-(define (client/new-video-gui w h)
+(define top-width 900)
+(define top-height 600)
+
+(define (client/new-video-gui)
   (define the-actor-thread (current-thread))
   (parameterize ([current-eventspace (make-eventspace)])
-    (video-gui-client (new-video-gui w h (λ (m)
-                                           (thread-send the-actor-thread (cons m #f))))
+    (video-gui-client (new-video-gui top-width top-height
+                                     (λ (m)
+                                       (thread-send the-actor-thread (cons m #f))))
                       the-actor-thread)))
 
 (define (client/video-gui-add-video! client w h name)
@@ -25,17 +29,6 @@
                                       (thread-send (video-gui-client-actor-thread client) (cons m #f)))))))
 
 ;;;;;;;; ---------------------------
-
-; glue: events -> actor-understood messages
-(define gui-message-cp CP)
-(define gui-message-mv Quit/MV)
-(define gui-message-cp-child CP-child)
-(define gui-message-pip-on PIPOn)
-(define (gui-message-start-tile u)
-  (InitiateBehavior 'tile u))
-(define gui-message-closed-window Quit)
-(define gui-message-closed-feed RemoveCURL)
-
 
 (define BYTES-PER-PIXEL 3)
 
@@ -62,13 +55,15 @@
 ; ---------------------------------
 
 
-(define (new-video-gui width height cb)
+(define (new-video-gui overall-width overall-height cb)
   (define frame (new closeable-frame% 
                      [label ""]
                      [stretchable-width #f]
                      [stretchable-height #f]
+                     [min-width overall-width]
+                     [min-height overall-height]
                      [style '(no-resize-border)]
-                     [callback (λ () (cb (gui-message-closed-window)))]))
+                     [callback (λ () (cb (Quit)))]))
   (define the-window (new vertical-panel%
                           [parent frame]))
   
@@ -91,15 +86,15 @@
   (define port (new text-field%
                     [label "Port"]
                     [parent button-panel]
-                    [init-value "1235"]
+                    [init-value "5000"]
                     [min-width 50]
                     [stretchable-width #f]))
   (define cp-button (new button%
                          [parent button-panel]
                          [label "Share this session"]
                          [callback (λ (btn ctrlevt)
-                                     (cb (gui-message-cp (send host get-value) 
-                                                         (string->number (send port get-value)))))]))
+                                     (cb (CP (send host get-value) 
+                                             (string->number (send port get-value)))))]))
   (define mv-button (new button%
                          [parent button-panel]
                          [label "Move this session"]
@@ -108,16 +103,15 @@
                                           (send frame get-children))
                                      (send frame show #f)
                                      (send frame enable #f)
-                                     (cb (gui-message-mv (send host get-value) 
-                                                         (string->number (send port get-value))))
+                                     (cb (Quit/MV (send host get-value) 
+                                                  (string->number (send port get-value))))
                                      (send frame on-close))]))
   
   (define top-panel (new video-top-panel%
                          [parent the-window]
                          [addressbar address-bar]
                          [alignment '(left top)]
-                         [min-width width]
-                         [min-height height]
+                         [min-width (- overall-width 200)]
                          [stretchable-width #t]
                          [stretchable-height #t]))
   (define small-panel (new small-video-panel%
@@ -201,7 +195,7 @@
       (cond [(not pip-major-curl) (set! pip-major-curl curl)]
             [(not pip-minor-curl) (set! pip-minor-curl curl)])
       (when (and pip-major-curl pip-minor-curl)
-        (evt-cb (gui-message-pip-on pip-major-curl pip-minor-curl))
+        (evt-cb (PIPOn pip-major-curl pip-minor-curl))
         (set! pip-major-curl #f)
         (set! pip-minor-curl #f)))
     
@@ -222,7 +216,7 @@
       (define vertp (new vertical-panel% [parent horizp] [alignment '(left top)]))
       
       (define (do-unsub btn ctrlevt)
-        (evt-cb (gui-message-closed-feed (video-playback-name v)))
+        (evt-cb (RemoveCURL (video-playback-name v)))
         (send cnvs show #f)
         (send cnvs enable #f)
         (send unsub show #f)
@@ -244,9 +238,9 @@
                 [else (send (car (send (car children) get-children)) promote-self)])))
       
       (define (do-cpy btn ctrlevt)
-        (evt-cb (gui-message-cp-child (video-playback-name v)
-                                      (send host-field get-value)
-                                      (string->number (send port-field get-value)))))
+        (evt-cb (CP-child (video-playback-name v)
+                          (send host-field get-value)
+                          (string->number (send port-field get-value)))))
       
       (define unsub
         (new button%

@@ -59,7 +59,7 @@
 (define command-center-gui
   (motile/compile
    `(lambda (reply-curl)
-      (define g (new-video-gui 320 240))
+      (define g (new-video-gui))
       
       (define (add-new curl)
         (let ([playback-canvas (box #f)]
