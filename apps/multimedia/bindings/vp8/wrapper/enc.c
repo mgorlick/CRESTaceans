@@ -6,6 +6,8 @@
 #include <vpx/vpx_encoder.h>
 #include <vpx/vp8cx.h>
 
+#include "misc.h"
+
 int ENCODER_SPEED = VPX_DL_REALTIME;
 
 typedef struct VP8Enc {
@@ -104,20 +106,9 @@ no_init:
   return NULL;
 }
 
-void convert_yuv422_to_yuv420p (VP8Enc *enc, const unsigned char *buffer) {
-  const uint8_t *src_slices[3] = { buffer, buffer + 1, buffer + 3 };
-  int stride422 = enc->width * 2;
-  const int src_stride[3] = { stride422, stride422, stride422 };
-
-  sws_scale (enc->swsctx, src_slices, src_stride, 0, enc->image->h,
-	     enc->image->planes, enc->image->stride );
-
-}
-
-int vp8enc_encode (VP8Enc *enc,
-                   const size_t size, const unsigned char *buffer,
-                   const size_t outsize, unsigned char *out,
-                   size_t *written) {
+int encode_image (VP8Enc *enc,
+		  const size_t outsize, unsigned char *out,
+		  size_t *written) {
 
   const vpx_codec_cx_pkt_t *pkt;
   vpx_codec_err_t status;
@@ -125,8 +116,6 @@ int vp8enc_encode (VP8Enc *enc,
   vpx_fixed_buf_t fbuff = { out, outsize };
   vpx_enc_frame_flags_t flags = 0;
   int need_extra_copy = 0;
-  
-  convert_yuv422_to_yuv420p (enc, buffer);
    
   status = vpx_codec_encode (enc->codec, enc->image, enc->n_frames++, 
 			     1, flags, ENCODER_SPEED);
@@ -154,4 +143,52 @@ int vp8enc_encode (VP8Enc *enc,
 no_frame:
   printf ("Couldn't encode buffer: %s\n", vpx_codec_err_to_string (status));
   return 0;
+}
+
+int vp8enc_encode_quarter (VP8Enc *enc, const int qtr_row, const int qtr_col,
+			   const size_t size, const unsigned char *buffer,
+			   const size_t outsize, unsigned char *out,
+			   size_t *written) {
+  
+  /* all the remaining code in this procedure assumes that the VP8Enc was
+   * correctly initialized for quarter-frame encoding.
+   */
+
+  unsigned char tmp[enc->width * enc->height * 2];
+
+  const uint8_t *src_slices[3] = { tmp, tmp + 1, tmp + 3 };
+  int stride422 = enc->width * 2;
+  const int src_stride[3] = { stride422, stride422, stride422 };
+
+  // copy the quarter of the frame we're interested in.
+  if (take_quarter_yuyv (size, buffer,
+			 enc->width * enc->height * 2, tmp,
+			 qtr_row, qtr_col, enc->width * 2, enc->height * 2)) {
+    sws_scale (enc->swsctx, src_slices, src_stride, 0, enc->image->h,
+	       enc->image->planes, enc->image->stride);
+    return encode_image (enc, outsize, out, written);
+  } else {
+    return 0;
+  }
+}
+
+int vp8enc_encode (VP8Enc *enc,
+                   const size_t size, const unsigned char *buffer,
+                   const size_t outsize, unsigned char *out,
+                   size_t *written) {
+
+  if (enc->width * enc->height * 2 != (int) size) {
+    printf ("Error: VP8Enc was not set up for full-size encoding \
+or input buffer size is wrong.\n");
+    return 0;
+  }
+
+  const uint8_t *src_slices[3] = { buffer, buffer + 1, buffer + 3 };
+  int stride422 = enc->width * 2;
+  const int src_stride[3] = { stride422, stride422, stride422 };
+  
+  sws_scale (enc->swsctx, src_slices, src_stride, 0, enc->image->h,
+	     enc->image->planes, enc->image->stride);
+
+  return encode_image (enc, outsize, out, written);
 }

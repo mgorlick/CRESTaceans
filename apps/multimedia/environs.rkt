@@ -9,6 +9,7 @@
          "../../peer/src/api/api.rkt"
          racket/require
          racket/function
+         racket/list
          (for-syntax racket/base))
 (provide (all-defined-out))
 
@@ -23,14 +24,15 @@
 (define max* (procedure-reduce-arity max 2))
 (define bin>= (procedure-reduce-arity >= 2))
 (define sleep* (procedure-reduce-arity sleep 1))
+(define (halve x) (/ x 2))
 
 (define (thread-check-receive n)
-  (sync/timeout n (thread-receive-evt)))
+  (and (sync/timeout n (thread-receive-evt)) #t))
 
 (define UTIL
   (++ BASELINE
       (require-spec->global-defines (except-in "../../peer/src/api/message.rkt" ask tell uri))
-      (global-defines bin* bin- bin+ bin/ bin>= min* sleep* max*
+      (global-defines bin* bin- bin+ bin/ bin>= min* sleep* max* halve
                       display displayln void printf vector-ref
                       thread-receive thread-check-receive message/uri->string 
                       current-inexact-milliseconds exact->inexact)
@@ -75,24 +77,32 @@
 (define set-current-gui-curl! (procedure-reduce-arity current-gui-curl 1))
 
 ; mirror our Motile programs into the binding environment
-
+(define (make-pubsubproxy)
+  pubsubproxy)
 (define (make-single-decoder)
   video-decoder/single)
 (define (make-pip-decoder)
   (motile/call video-decoder/pip BASELINE))
-(define (make-encoder name w h)
-  (video-reader/encoder name w h))
-(define (make-pubsubproxy)
-  pubsubproxy)
+(define make-video-reader/encoder video-reader/encoder)
 
 (define MULTIMEDIA-BASE
   (++ UTIL
+      (global-defines first
+                      second
+                      third
+                      fourth
+                      fifth
+                      sixth
+                      seventh
+                      eighth
+                      ninth
+                      tenth)
       (require-spec->global-defines "message-types.rkt")
       (global-defines make-metadata
                       sleep*
                       make-single-decoder
                       make-pip-decoder
-                      make-encoder
+                      make-video-reader/encoder
                       make-pubsubproxy)
       `((accepts/webm . ,accepts/webm)
         (produces/webm . ,produces/webm)

@@ -22,7 +22,7 @@
      (let loop ()
        (define v (thread-receive))
        (match v
-         [(ask "SPAWN" (? (is? root-curl) u) body metadata reply echo)
+         [(ask "SPAWN" _ body metadata reply echo)
           (define curl (make-curl (uuid)))
           (handle-spawn curl body metadata reply)
           (ask/send request-thread "POST" reply curl
@@ -93,7 +93,7 @@
              (cdr (assoc "spawnargs" metadata))]
             [(contains-any? metadata 
                             accepts/webm produces/webm accepts/speex produces/speex
-                            is/gui is/proxy)
+                            is/gui)
              (displayln "Spawner: selecting reply call convention")
              (list reply)]
             [else
@@ -105,7 +105,7 @@
                                       (with-handlers ([exn:fail? (λ (e) (printf "Spawn died [~a]: ~a~n"
                                                                                 metadata e))])
                                         (start-program body benv args))
-                                      (printf "Spawn quitting [~a]" metadata)
+                                      (printf "Spawn quitting cleanly [~a]~n" metadata)
                                       (clean-up-spawn curl))))
     (hash-set! curls=>motiles curl body)
     (hash-set! curls=>metadata curl metadata)
@@ -174,11 +174,11 @@
   (define AUDIO-ENCODE* 
     (++ AUDIO-ENCODE    (global-defines current-curl ask/send* respawn-self)))
   (define VIDEO-DECODE* 
-    (++ VIDEO-DECODE    (global-defines current-curl ask/send* respawn-self)))
+    (++ VIDEO-DECODE    (global-defines current-curl ask/send* respawn-self get-root-curl)))
   (define GUI* 
     (++ GUI             (global-defines current-curl ask/send* respawn-self get-root-curl)))
   (define AUDIO-DECODE* 
-    (++ AUDIO-DECODE    (global-defines current-curl ask/send* respawn-self)))
+    (++ AUDIO-DECODE    (global-defines current-curl ask/send* respawn-self get-root-curl)))
   
   ;; ---------
   ;; Finally, spawn any initial actors if the command-line arguments request them
@@ -197,16 +197,26 @@
           (ask/send* "DELETE" to-respawn `(Quit/MV ,(symbol->string h) ,p))])
        (loop))))
   
-  (define remoteroot
-    (remote-curl-root #f (argsassoc "--rhost" #:no-val *LOCALHOST*)
-                      (argsassoc "--rport" #:no-val 1235 #:call string->number)))
+  (define video-location
+    (if (not (argsassoc "--no-video"))
+        (remote-curl-root #f 
+                          (argsassoc "--vhost" #:no-val *LOCALHOST*)
+                          (argsassoc "--vport" #:no-val 1235 #:call string->number))
+        #f))
+  (define gui-location
+    (remote-curl-root #f 
+                      (argsassoc "--ghost" #:no-val *LOCALHOST*)
+                      (argsassoc "--gport" #:no-val *LOCALPORT* #:call string->number)))
   
   (cond [(argsassoc "--video")
          (define device (argsassoc "--video" #:default "/dev/video0"))
-         (define bang! (big-bang remoteroot device 320 240 root-curl))
+         (define bang! (big-bang video-location device 640 480 gui-location))
          
-         (handle-spawn (make-curl (uuid)) command-center-gui (make-metadata is/gui) root-curl)
-         (handle-spawn (make-curl (uuid)) bang! (make-metadata) root-curl)])
+         ;(handle-spawn (make-curl (uuid)) command-center-gui (make-metadata is/gui) root-curl)
+         (unless (argsassoc "--no-gui-spawn")
+           (ask/send* "SPAWN" gui-location command-center-gui (make-metadata is/gui) root-curl))
+         (unless (argsassoc "--no-video-spawn")
+           (ask/send* "SPAWN" gui-location bang! (make-metadata) root-curl))])
   
   (no-return))
 

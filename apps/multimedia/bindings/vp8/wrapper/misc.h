@@ -1,23 +1,12 @@
-#include <errno.h>
+inline void log_err (char *msg);
 
-inline void log_err (char *msg) {
-  int i = errno;
-  printf ("error (%s): ", msg);
-    switch (i) {
-      case EINVAL:
-        printf ("EINVAL");
-        break;
-      case EAGAIN:
-        printf ("EAGAIN");
-        break;
-      case ENOMEM:
-        printf ("ENOMEM");
-        break;
-      case EIO:
-        printf ("EIO");
-        break;
-      default:
-        printf ("unknown error %d", i);
-    }
-    printf ("\n");
-}
+int take_quarter_rgb (const size_t size, const unsigned char *buffer,
+		      const size_t outsize, unsigned char *out,
+		      const int qtr_row, const int qtr_col,
+		      const int original_width,
+		      const int original_height);
+int take_quarter_yuyv (const size_t size, const unsigned char *buffer,
+		       const size_t outsize, unsigned char *out,
+		       const int qtr_row, const int qtr_col,
+		       const int original_width,
+		       const int original_height);

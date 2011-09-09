@@ -14,6 +14,8 @@
 (define-motile-struct FrameBuffer [data size disposal ts])
 (define-motile-struct VideoParams [width height fpsNum fpsDen])
 (define-motile-struct PIPOn [major minor])
+(define-motile-struct InitiateBehavior [type ref])
+(define-motile-struct AddBehaviors [new-behaviors])
 
 (define (dispose-FrameBuffer f)
   ((FrameBuffer.disposal f)))

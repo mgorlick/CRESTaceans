@@ -8,7 +8,7 @@ all: vp8 vid
 vid: v4l2.o
 	cc -shared -o $(VIDWRAPPER) $(LIBDEPS) $^
 
-vp8: enc.o dec.o /usr/lib/libvpx.a
+vp8: misc.o enc.o dec.o /usr/lib/libvpx.a
 	cc -shared -o $(VP8WRAPPER) $(LIBDEPS) $^
 
 %.o: %.c
