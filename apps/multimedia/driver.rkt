@@ -210,7 +210,7 @@
   
   (cond [(argsassoc "--video")
          (define device (argsassoc "--video" #:default "/dev/video0"))
-         (define bang! (big-bang video-location device 800 600 gui-location))
+         (define bang! (big-bang video-location device 640 480 gui-location))
          
          ;(handle-spawn (make-curl (uuid)) command-center-gui (make-metadata is/gui) root-curl)
          (unless (argsassoc "--no-gui-spawn")
