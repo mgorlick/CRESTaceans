@@ -96,6 +96,18 @@ int v4l2_reader_open (v4l2_reader *v, char *devicename, unsigned int w, unsigned
   memset (&format, 0x00, sizeof format);
   format.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   ioctl (v->fd, VIDIOC_G_FMT, &format);
+
+  // cap the fps at 20 (for demo purposes).
+  v4l2_streamparm stream;
+  memset (&stream, 0, sizeof stream);
+  stream.type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
+  if (0 > ioctl (v->fd, VIDIOC_G_PARM, &stream)) {
+    log_err ("setting framerate");
+  } else {
+    stream.parm.capture.timeperframe.numerator = 1;
+    stream.parm.capture.timeperframe.denominator = 20;
+    ioctl (v->fd, VIDIOC_S_PARM, &stream);
+  }
   
   return 1;
 }
