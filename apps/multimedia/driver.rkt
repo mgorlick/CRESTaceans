@@ -200,17 +200,17 @@
   (define video-location
     (if (not (argsassoc "--no-video"))
         (remote-curl-root #f 
-                          (argsassoc "--vhost" #:no-val *LOCALHOST*)
+                          (argsassoc "--vhost" #:no-val *LISTENING-ON*)
                           (argsassoc "--vport" #:no-val 1235 #:call string->number))
         #f))
   (define gui-location
     (remote-curl-root #f 
-                      (argsassoc "--ghost" #:no-val *LOCALHOST*)
+                      (argsassoc "--ghost" #:no-val *LISTENING-ON*)
                       (argsassoc "--gport" #:no-val *LOCALPORT* #:call string->number)))
   
   (cond [(argsassoc "--video")
          (define device (argsassoc "--video" #:default "/dev/video0"))
-         (define bang! (big-bang video-location device 640 480 gui-location))
+         (define bang! (big-bang video-location device 800 600 gui-location))
          
          ;(handle-spawn (make-curl (uuid)) command-center-gui (make-metadata is/gui) root-curl)
          (unless (argsassoc "--no-gui-spawn")
