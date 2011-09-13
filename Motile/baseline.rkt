@@ -361,7 +361,7 @@
     (define/global/1 'symbol->string symbol->string)
     (define/global/1 'symbol/string  symbol->string)
     (define/global/1 'string->symbol string->symbol)
-    (define/global/1 'string/symbol  symbol->string)
+    (define/global/1 'string/symbol  string->symbol)
     ;(define/global/1 'gensym         gensym) ; Uninterned symbols will not be deserialized as uninterned.
     
     ; Persistent functional vectors.
