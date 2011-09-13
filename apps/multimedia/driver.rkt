@@ -200,12 +200,12 @@
   (define video-location
     (if (not (argsassoc "--no-video"))
         (remote-curl-root #f 
-                          (argsassoc "--vhost" #:no-val *LOCALHOST*)
+                          (argsassoc "--vhost" #:no-val *LISTENING-ON*)
                           (argsassoc "--vport" #:no-val 1235 #:call string->number))
         #f))
   (define gui-location
     (remote-curl-root #f 
-                      (argsassoc "--ghost" #:no-val *LOCALHOST*)
+                      (argsassoc "--ghost" #:no-val *LISTENING-ON*)
                       (argsassoc "--gport" #:no-val *LOCALPORT* #:call string->number)))
   
   (cond [(argsassoc "--video")

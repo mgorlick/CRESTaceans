@@ -6,7 +6,8 @@
          (planet "rgl.rkt" ("stephanh" "RacketGL.plt" 1 2)))
 
 (provide (rename-out [client/new-video-gui new-video-gui]
-                     [client/video-gui-add-video! video-gui-add-video!]))
+                     [client/video-gui-add-video! video-gui-add-video!])
+         video-gui-clear-buffer!)
 
 (struct video-gui-client (gui actor-thread))
 
@@ -51,6 +52,9 @@
   (define small-panel (video-gui-small-video-panel g))
   (send small-panel add-video-canvas nv address-bar evt-cb)
   nv)
+
+(define (video-gui-clear-buffer! b)
+  (bytes-fill! b 0))
 
 ; ---------------------------------
 
@@ -225,6 +229,12 @@
         (send cpy enable #f)
         (send mv show #f)
         (send mv enable #f)
+        (send pip show #f)
+        (send pip enable #f)
+        (send split show #f)        
+        (send split enable #f)
+        (send toggle show #f)
+        (send toggle enable #f)
         (send horizp delete-child cnvs)
         (send vertp delete-child unsub)
         (send vertp delete-child cpy)
@@ -243,35 +253,62 @@
                           (string->number (send port-field get-value)))))
       
       (define unsub
-        (new button%
+        (new ctrl-button%
              [parent vertp]
-             [label "Unsubscribe"]
+             [label "Unsub Stream"]
              [callback do-unsub]))
       
       (define cpy
-        (new button%
+        (new ctrl-button%
              [parent vertp]
-             [label "Share"]
+             [label "Share Stream"]
              [callback do-cpy]))
       
       (define mv
-        (new button%
+        (new ctrl-button%
              [parent vertp]
-             [label "Move"]
+             [label "Move Stream"]
              [callback (λ (btn ctrlevt)
                          (do-cpy cpy ctrlevt)
                          (do-unsub unsub ctrlevt))]))
       
       (define pip
-        (new button%
+        (new ctrl-button%
              [parent vertp]
-             [label "PIP"]
+             [label "Create PIP"]
              [callback (λ (btn ctrlevt)
                          (send this pip-activation-evt evt-cb (video-playback-name v)))]))
+      
+      (define split
+        (new ctrl-button%
+             [parent vertp]
+             [label "Split PIP"]
+             [callback (λ (btn ctrlevt)
+                         (evt-cb (InitiateBehavior 'split (video-playback-name v))))]))
+      
+      (define toggle
+        (new ctrl-button%
+             [parent vertp]
+             [label "Swap PIP"]
+             [callback (λ (btn ctrlevt)
+                         (evt-cb (InitiateBehavior 'toggle-major/minor (video-playback-name v))))]))
+      
+      (define encmove
+        [new ctrl-button%
+             [parent vertp]
+             [label "Move Encoder"]
+             [callback (λ (btn ctrlevt)
+                         (evt-cb (FwdBackward (Quit/MV (send host-field get-value)
+                                                       (string->number (send port-field get-value)))
+                                              (video-playback-name v))))]])
       
       (sleep 0)
       (send cnvs enable #t)
       (send cnvs promote-self))))
+
+(define ctrl-button%
+  (class button%
+    (super-new [font small-control-font])))
 
 ; -------------------------
 
@@ -293,7 +330,7 @@
     (define buffer (video-playback-buffer myvideo))
     
     (define refresher
-      (new timer% [notify-callback (λ () (refresh))] [interval 33] [just-once? #f]))
+      (new timer% [notify-callback (λ () (refresh))] [interval 50] [just-once? #f]))
     
     (define/public (close)
       (set! myvideo #f)
