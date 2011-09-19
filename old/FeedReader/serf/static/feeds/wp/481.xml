@@ -1,0 +1,66 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[Karzai Takes On His Rivals]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=26574e4913530b636d4a5bad2cab0a37]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/16/AR2009081601001.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/16/AR2009081601001.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sun Aug 16 14:44 EDT 2009]]></pubDate>
+			<description><![CDATA[Afghanistan leader defends his tenure during presidential debate ahead of Thursday's vote.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=26574e4913530b636d4a5bad2cab0a37&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=26574e4913530b636d4a5bad2cab0a37&p=1"/></a>
+]]></description>
+			<author><![CDATA[Joshua Partlow]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Yang Outduels Tiger for Title]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=2c414c39adc77d4e5c190538955d8891]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/16/AR2009081600408.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/16/AR2009081600408.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sun Aug 16 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[South Korea's Y.E. Yang finishes three strokes ahead of Tiger Woods to capture his first major.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=2c414c39adc77d4e5c190538955d8891&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=2c414c39adc77d4e5c190538955d8891&p=1"/></a>
+]]></description>
+			<author><![CDATA[Sally Jenkins]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Coal-Fired Plants Under Scrutiny]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=b1481df9217ba215f1f91a67d5c31bc9]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/16/AR2009081601806.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/16/AR2009081601806.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sun Aug 16 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Advocates urge emissions curbs on aging plants that are largely exempt from pollution controls. <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=b1481df9217ba215f1f91a67d5c31bc9&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=b1481df9217ba215f1f91a67d5c31bc9&p=1"/></a>
+]]></description>
+			<author><![CDATA[Kari Lydersen]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Clinging to the Good Life]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=d93726c0e490cbda275422211c1299f4]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/story/2009/08/15/ST2009081503017.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/story/2009/08/15/ST2009081503017.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sun Aug 16 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Even Americans residing in the nation's most affluent areas are feeling pinch of recession.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=d93726c0e490cbda275422211c1299f4&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=d93726c0e490cbda275422211c1299f4&p=1"/></a>
+]]></description>
+			<author><![CDATA[Anne Hull]]></author>
+		</item>
+	</channel>
+</rss>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Thu, 30 Jul 2009 14:13:52 GMT</pubDate>
+    <lastBuildDate>Thu, 30 Jul 2009 14:29:34 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>Wall Street set to rise in early trade</title>
+      <link>http://traxfer.ft.com/cms/s/0/67e42262-7d04-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>US equity index futures were higher, indicating a positive open for Wall Street, as investors were soothed by stronger global stocks, however a slew of  mixed earnings results could spark volatility.</description>
+      <pubDate>Thu, 30 Jul 2009 13:09:19 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/67e42262-7d04-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>ExxonMobil quarterly profits fall 66%</title>
+      <link>http://traxfer.ft.com/cms/s/0/4d4da980-7d06-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>ExxonMobil, the largest US oil company, said its second quarter profits fell by 66 per cent as the global downturn sapped demand for fuel and dragged down energy prices</description>
+      <pubDate>Thu, 30 Jul 2009 12:56:57 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/4d4da980-7d06-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>New US jobless claims rise to 584,000</title>
+      <link>http://traxfer.ft.com/cms/s/0/22905bc4-7d11-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The number of US workers claiming unemployment benefits rose last week, but remain below levels seen during the worst of the recession, raising optimism that the labour market could slowly be starting to heal.</description>
+      <pubDate>Thu, 30 Jul 2009 14:13:52 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/22905bc4-7d11-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>US regulator criticises Obama bank plan</title>
+      <link>http://traxfer.ft.com/cms/s/0/55fb2b66-7c66-11de-a7bf-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The Obama administration’s plan to give US states more power to protect consumers from unfair banking practices would make it more difficult and costly for large lenders to operate across the country, a financial regulator has warned</description>
+      <pubDate>Wed, 29 Jul 2009 22:30:30 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/55fb2b66-7c66-11de-a7bf-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Sony profits beat expectations</title>
+      <link>http://traxfer.ft.com/cms/s/0/6cf84c60-7cd7-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Sony announced a smaller than expected first quarter net loss of Y37.1bn because of stockmarket gains in its financial subsidiary and cost cuts that reduced losses in its core electronics business</description>
+      <pubDate>Thu, 30 Jul 2009 07:48:07 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/6cf84c60-7cd7-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Microsoft and Yahoo seal deal</title>
+      <link>http://traxfer.ft.com/cms/s/0/9487c65e-7c6c-11de-a7bf-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Yahoo ran into a fresh wave of doubts in the financial and technology worlds as it bowed out of the race to compete with Google</description>
+      <pubDate>Wed, 29 Jul 2009 20:56:33 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/9487c65e-7c6c-11de-a7bf-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>NYSE Euronext swings to loss</title>
+      <link>http://traxfer.ft.com/cms/s/0/95a68588-7ce5-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The transatlantic exchange swung into a second quarter loss after absorbing a whopping $355m one-time charge, but seen ‘accretive’ by year-end</description>
+      <pubDate>Thu, 30 Jul 2009 09:20:27 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/95a68588-7ce5-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>UK regulator summons oil market players</title>
+      <link>http://traxfer.ft.com/cms/s/0/6989f736-7cfa-11de-9f29-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The UK regulator has called a special meeting of oil market participants to review regulation of the commodity market following last year’s record  rise in crude prices</description>
+      <pubDate>Thu, 30 Jul 2009 11:53:30 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/6989f736-7cfa-11de-9f29-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Trustee sues Madoff’s wife for $45m</title>
+      <link>http://traxfer.ft.com/cms/s/0/cf05f588-7c82-11de-a7bf-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Ruth Madoff was sued for $44.8m on Wednesday and accused of living a “life of splendour” by the trustee seeking to recover money for the victims of her husband, the disgraced former broker Bernard Madoff</description>
+      <pubDate>Wed, 29 Jul 2009 22:30:05 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/cf05f588-7c82-11de-a7bf-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Short View: Shanghai surprise</title>
+      <link>http://traxfer.ft.com/cms/s/0/64f4756c-7c63-11de-a7bf-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>A sell-off in Chinese shares may be more than a technical correction, writes John Authers</description>
+      <pubDate>Wed, 29 Jul 2009 17:33:41 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/64f4756c-7c63-11de-a7bf-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

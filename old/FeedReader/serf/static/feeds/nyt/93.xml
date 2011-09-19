@@ -1,0 +1,211 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Fri, 31 Jul 2009 21:13:43 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>House Votes for $2 Billion Fund to Extend &#x2018;Clunker&#x2019; Plan</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7431e9f36120185ba69ad956dffbcb4b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/business/01clunkers.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/business/01clunkers.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/31/us/clunkers.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A car was displayed in a dumpster at a dealer in Springfield, Vt., as a promotion for the rebate program, which was said to have exhausted its funds within a week.</media:description>
+			<media:credit>Vyto Starinskas/Associated Press</media:credit>
+			<description>The House on Friday voted, 316 to 109, to provide emergency funds for the car-rebate program after the original funding was quickly snapped up.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7431e9f36120185ba69ad956dffbcb4b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7431e9f36120185ba69ad956dffbcb4b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MATTHEW L. WALD</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 19:29:59 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Rebates</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Fuel Efficiency</category>
+		</item>
+		<item>
+			<title>The Lede: Dealers Race to Get Clunkers Crushed</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a991b64c9c4673798a93d67114044950</link>
+			<pheedo:origLink>http://thelede.blogs.nytimes.com/2009/07/31/dealers-race-to-get-their-clunkers-crushed/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://thelede.blogs.nytimes.com/2009/07/31/dealers-race-to-get-their-clunkers-crushed/index.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/31/books/31clun.ms.75.jpg" medium="image" height="75" width="75"/>
+			<media:description/>
+			<media:credit/>
+			<description>Afraid that the federal money will run out again quickly, car dealers are rushing to get the trade-ins to salvage yards so they can apply for reimbursement.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a991b64c9c4673798a93d67114044950&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a991b64c9c4673798a93d67114044950&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By KATHARINE Q. SEELYE</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 19:18:25 GMT</pubDate>
+		</item>
+		<item>
+			<title>U.S. Economy Shrank Less Than Expected in Quarter</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fabefa1da0072e81554600f833ecc1f2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/business/economy/01econ.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/business/economy/01econ.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/01/business/economy/01gdp75.jpg" medium="image" height="75" width="75"/>
+			<media:description>An employee on duty at the Baldor Electric Co. factory in St. Louis in June. The government reading on U.S. gross domestic product released Friday was better than economists expected.</media:description>
+			<media:credit>Jeff Roberson/Associated Press</media:credit>
+			<description>The economy contracted at an annual rate of one percent from April through June, the government reported on Friday, stoking hopes that the recession was nearly over.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fabefa1da0072e81554600f833ecc1f2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fabefa1da0072e81554600f833ecc1f2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CATHERINE RAMPELL and JACK HEALY</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 18:25:04 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Conditions and Trends</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Recession and Depression</category>
+		</item>
+		<item>
+			<title>Dodd Has Prostate Cancer, but It Was Caught Early</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=546fee0c16bf0afbf969ea10a3eea2e9</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/nyregion/01dodd.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/nyregion/01dodd.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/31/us/politics/31dodd2_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Christopher Dodd and his wife Jackie Clegg Dodd spoke at a news conference in Hartford, Conn., on Friday. </media:description>
+			<media:credit>Jessica Hill/Associated Press</media:credit>
+			<description>Senator Christopher J. Dodd said on Friday that he will have surgery during the Senate recess in August.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=546fee0c16bf0afbf969ea10a3eea2e9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=546fee0c16bf0afbf969ea10a3eea2e9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By RAYMOND HERNANDEZ and LIZ ROBBINS</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 21:13:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Senate</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Dodd, Christopher J</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Connecticut</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Cancer</category>
+		</item>
+		<item>
+			<title>House Approves Limits on Executive Pay</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9ae3612af8e98d9b7606aed968844c94</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/business/01pay.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/business/01pay.html</guid>
+			<description>A response to outrage over bonuses, the bill would give regulators new powers and shareholders symbolic votes.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9ae3612af8e98d9b7606aed968844c94&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9ae3612af8e98d9b7606aed968844c94&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ANDREA FULLER</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 19:50:39 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Executive Compensation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">House of Representatives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bonuses</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Subprime Mortgage Crisis</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Banks and Banking</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Law and Legislation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Frank, Barney</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Wall Street (NYC)</category>
+		</item>
+		<item>
+			<title>House Panel Reaches Deal on Health-Care Bill</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=34015bc042a0fde130de49305c85fb70</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/health/policy/01health.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/health/policy/01health.html</guid>
+			<description>The legislation could clear a pivotal House committee later in the day after an agreement among Democrats.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=34015bc042a0fde130de49305c85fb70&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=34015bc042a0fde130de49305c85fb70&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT PEAR and DAVID M.HERSZENHORN</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 17:33:04 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Waxman, Henry A</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">House of Representatives</category>
+		</item>
+		<item>
+			<title>The Saturday Profile: No Apologies From the Boss of a No-Frills Airline</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ebcc391e248a9ee9029c454f6c1c7fcb</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/world/europe/01oleary.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/world/europe/01oleary.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/31/business/oleary.757575.jpg" medium="image" height="75" width="75"/>
+			<media:description>Michael O&#x2019;Leary, Ryanair&#x2019;s chief executive, posing for photographers in Rome in 2008. &#x201C;Will we put you in a hotel room if your flight was canceled?&#x201D; Mr. O&#x2019;Leary asked rhetorically in an interview. &#x201C;No! Go away.&#x201D;</media:description>
+			<media:credit>Andreas Solaro/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>Michael O&#x2019;Leary believes that short-haul airline passengers will endure almost any indignity, as long as the tickets are cheap and the planes are on time.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ebcc391e248a9ee9029c454f6c1c7fcb&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ebcc391e248a9ee9029c454f6c1c7fcb&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SARAH LYALL</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 21:07:12 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">O'Leary, Michael</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Ryanair Holdings Plc|RYAAY|NASDAQ</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Airlines and Airplanes</category>
+		</item>
+		<item>
+			<title>Bombs in Baghdad Kill at Least 29</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=78a58296afd2e3ee79007120ef30c325</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/world/middleeast/01iraq.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/world/middleeast/01iraq.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/31/world/31iraq.ms.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>The site of a car bomb explosion near a Shiite mosque in Baghdad on Friday.</media:description>
+			<media:credit>Hadi Mizban/Associated Press</media:credit>
+			<description>The attacks on five Shiite mosques seem to have been intended to raise sectarian tensions, Iraqi officials said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=78a58296afd2e3ee79007120ef30c325&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=78a58296afd2e3ee79007120ef30c325&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM DAGHER</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 20:52:45 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Shiite Muslims</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Mosques</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bombs and Explosives</category>
+		</item>
+		<item>
+			<title>In New York, It&#x2019;s the Summer That Isn&#x2019;t</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=47661208bd9bce739f399bbea659034a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/nyregion/01hot.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/nyregion/01hot.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/31/nyregion/heat.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Another rainy day at Orchard Beach in the Bronx. Attendance at city beaches through July 28 was down 30 percent, from 7.3 million to 5.1 million. </media:description>
+			<media:credit>Suzanne DeChillo/The New York Times</media:credit>
+			<description>With not a single 90-degree day in June or July, New York is in the midst of what could turn out to be the coolest summer on record.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=47661208bd9bce739f399bbea659034a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=47661208bd9bce739f399bbea659034a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM ROBERTS</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 20:54:30 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Manhattan (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Weather</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Temperature</category>
+		</item>
+		<item>
+			<title>Settlement Reached in UBS Tax Case</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e7b5c5900c9ea43a8ac604447aa32aee</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/01/business/01ubs.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/01/business/01ubs.html</guid>
+			<description>Switzerland and the U.S. reached a deal on a tax-evasion case that sought to force UBS to turn over clients&#x2019; names.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e7b5c5900c9ea43a8ac604447aa32aee&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e7b5c5900c9ea43a8ac604447aa32aee&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LYNNLEY BROWNING</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 20:24:28 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Tax Evasion</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">UBS AG|UBS|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Justice Department</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Switzerland</category>
+		</item>
+		<item>
+			<title>Iran President Says There&#x2019;s No Rift</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=170e43eefcecf339c6f9f7dc9de65709</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/07/31/world/AP-ML-Iran-Election.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/07/31/world/AP-ML-Iran-Election.html</guid>
+			<description>President Mahmoud Ahmadinejad lashed out at critics within his own hard-line camp on Friday, denying any rift with Iran&#x2019;s supreme leader.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=170e43eefcecf339c6f9f7dc9de65709&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=170e43eefcecf339c6f9f7dc9de65709&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Fri, 31 Jul 2009 19:50:46 GMT</pubDate>
+		</item>
+	</channel>
+</rss>

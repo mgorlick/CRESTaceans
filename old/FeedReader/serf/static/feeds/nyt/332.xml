@@ -1,0 +1,275 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Mon, 10 Aug 2009 20:09:10 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Obama Says Immigration Changes Must Wait Till 2010</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1d47e4cd06cd6d603393b2215a5f4605</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/americas/11prexy.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/americas/11prexy.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/us/10prexy-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>President Obama with President Felipe Calder&#xF3;n of Mexico, center, and Stephen Harper, Canada's prime minister, at their summit meeting in Guadalajara on Monday.</media:description>
+			<media:credit>Jewel Samad/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>Speaking at a summit, President Obama said that efforts to change immigration rules would come after other priorities, including health care.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1d47e4cd06cd6d603393b2215a5f4605&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1d47e4cd06cd6d603393b2215a5f4605&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By GINGER THOMPSON and MARC LACEY</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 20:02:59 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Mexico</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Drug Abuse and Traffic</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Calderon, Felipe</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Defense and Military Forces</category>
+		</item>
+		<item>
+			<title>47 Are Killed in Bombings in Iraq</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ce040fd230b392833751dc08031253eb</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/middleeast/11iraq.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/middleeast/11iraq.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/world/10iraq2-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A pair of truck bombs exploded simultaneously on Monday in the Shiite village of Khazna, about 10 miles east of Mosul, Iraq.</media:description>
+			<media:credit>Nawras Al-ta'ei/European Pressphoto Agency</media:credit>
+			<description>In the most devastating attack, a pair of flatbed trucks packed with bombs exploded simultaneously in a village near Mosul.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ce040fd230b392833751dc08031253eb&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ce040fd230b392833751dc08031253eb&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM DAGHER</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 19:44:05 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+		</item>
+		<item>
+			<title>Westchester Agrees to Add Housing in Desegregation Pact</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=873d8aad07792955325f2e1b514910df</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/nyregion/11settle.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/nyregion/11settle.html</guid>
+			<description>An agreement will compel New York&#x2019;s Westchester County to create affordable housing in overwhelmingly white communities and market it to nonwhites.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=873d8aad07792955325f2e1b514910df&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=873d8aad07792955325f2e1b514910df&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM ROBERTS</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 17:56:15 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Westchester County (NY)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Affordable Housing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Segregation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Suits and Litigation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Minorities</category>
+		</item>
+		<item>
+			<title>Death Toll Rises as Typhoons Soak Asia</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=92b4c3dc8df6e337b671097f56253995</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/asia/11china.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/asia/11china.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/world/10china-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>An elderly man was carried after being rescued by military helicopter from a rural village in southern Taiwan buried in a mudslide.</media:description>
+			<media:credit>Associated Press</media:credit>
+			<description>A rural village in Taiwan was buried in a mudslide after a storm dropped as much as 83 inches of rain in some areas.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=92b4c3dc8df6e337b671097f56253995&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=92b4c3dc8df6e337b671097f56253995&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL WINES</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 19:55:44 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Typhoon Morakot (2009)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Hurricanes and Tropical Storms</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Typhoons</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Taiwan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Japan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Philippines</category>
+		</item>
+		<item>
+			<title>The Doctor's World: Seeking Lessons in Swine Flu Fight</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d641f28ef84deb0e305a71f3d22e9aad</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/health/11docs.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/health/11docs.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/11/science/11docs.751.jpg" medium="image" height="75" width="75"/>
+			<media:description>
+				<em class="bold">UNCERTAINTY </em>A couple with flu symptoms waited last month for medical attention in an isolated section of the Roosevelt Hospital in Guatemala City.</media:description>
+			<media:credit>Alexander Martinez/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>An influenza pandemic reveals weaknesses in the world&#x2019;s ability to respond to the sudden emergence of a widespread illness.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d641f28ef84deb0e305a71f3d22e9aad&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d641f28ef84deb0e305a71f3d22e9aad&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LAWRENCE K. ALTMAN</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 19:39:04 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Swine Influenza</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Epidemics</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">World Health Organization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+		</item>
+		<item>
+			<title>China Backs Off Accusations Against Mining Giant</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=4b914092a4faf7259f30a6a2cad06839</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/asia/11riotinto.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/asia/11riotinto.html</guid>
+			<description>An article accusing Rio Tinto of engaging in commercial espionage has been removed from a Chinese Web site.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=4b914092a4faf7259f30a6a2cad06839&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=4b914092a4faf7259f30a6a2cad06839&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID BARBOZA</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 17:11:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Rio Tinto PLC|RTP|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Espionage</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Mines and Mining</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Propaganda</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jiang Ruqin</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">baomi.org</category>
+		</item>
+		<item>
+			<title>Clinton Presses Congo on Illicit Minerals</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e0209c5a9770aadf0523ef8ec750839f</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/africa/11diplo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/africa/11diplo.html</guid>
+			<description>In Congo, Secretary of State Hillary Rodham Clinton said she wanted to press for an end to the conflict there.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e0209c5a9770aadf0523ef8ec750839f&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e0209c5a9770aadf0523ef8ec750839f&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JEFFREY GETTLEMAN</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 19:17:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Congo (Formerly Zaire)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Hillary Rodham</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Africa</category>
+		</item>
+		<item>
+			<title>City Room: Mayor Open to Changing Flight Rules</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3d9f1bcdafbefe0a5a38fbcb4e7a01f5</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/08/10/mayor-is-open-to-changing-flight-rules-over-hudson/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/08/10/mayor-is-open-to-changing-flight-rules-over-hudson/index.html</guid>
+			<description>The airspace between the Hudson River's surface and 1,100 feet is a through highway of sorts, and laregely unregulated. Saturday's fatal aircraft collision occurred there.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3d9f1bcdafbefe0a5a38fbcb4e7a01f5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3d9f1bcdafbefe0a5a38fbcb4e7a01f5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SEWELL CHAN</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 20:03:22 GMT</pubDate>
+		</item>
+		<item>
+			<title>Cost of Decoding a Genome Is Lowered</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9c413382a43d077f8ab87d25e0ad773b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/science/11gene.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/science/11gene.html</guid>
+			<description>A Stanford engineer used a new technology he invented to decode his own genome for less than $50,000.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9c413382a43d077f8ab87d25e0ad773b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9c413382a43d077f8ab87d25e0ad773b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NICHOLAS WADE</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 20:05:48 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Genetics and Heredity</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">DNA (Deoxyribonucleic Acid)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Biotechnology</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Science and Technology</category>
+		</item>
+		<item>
+			<title>Pakistan Says Al Qaeda Seeks to Expand</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ca044e2eafd3df6e1d84dcca44225927</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/asia/11pstan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/asia/11pstan.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/world/10pstan.inline.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Hakimullah Mehsud, left, in 2008, posing for news media members. The Taliban commander reportedly has been killed.</media:description>
+			<media:credit>A Majeed/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>Amid contested claims over a reported falling out among factions struggling for control of the Pakistani Taliban, two bombs exploded in the restive northwest of the country.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ca044e2eafd3df6e1d84dcca44225927&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ca044e2eafd3df6e1d84dcca44225927&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SABRINA TAVERNISE and PIR ZUBAIR SHAH</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 15:39:31 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Pakistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Civil War and Guerrilla Warfare</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Mehsud, Baitullah</category>
+		</item>
+		<item>
+			<title>ArtsBeat: Michael Jackson Film to Be Released in October</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1c7bb3b11ad61ad4f66d58ff7b5af6e7</link>
+			<pheedo:origLink>http://artsbeat.blogs.nytimes.com/2009/08/10/michael-jackson-film-to-be-released-in-october/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://artsbeat.blogs.nytimes.com/2009/08/10/michael-jackson-film-to-be-released-in-october/index.html</guid>
+			<description>Hours after a judge in Los Angeles approved a deal for a movie using footage of Michael Jackson's concert rehearsals, Sony announced that the film, "This Is It," would be released on Oct. 30 in theaters around the world.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1c7bb3b11ad61ad4f66d58ff7b5af6e7&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1c7bb3b11ad61ad4f66d58ff7b5af6e7&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By BEN SISARIO</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 20:08:38 GMT</pubDate>
+		</item>
+		<item>
+			<title>Economix: The Mancession</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6b2a3890904ef26c6e0c5abd86cc8c5f</link>
+			<pheedo:origLink>http://economix.blogs.nytimes.com/2009/08/10/the-mancession/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://economix.blogs.nytimes.com/2009/08/10/the-mancession/index.html</guid>
+			<description>Keeping track of the ways in which the recession has disproportionately hurt men -- and has helped women become a near-majority of the American labor force.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6b2a3890904ef26c6e0c5abd86cc8c5f&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6b2a3890904ef26c6e0c5abd86cc8c5f&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CATHERINE RAMPELL</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 20:08:37 GMT</pubDate>
+		</item>
+		<item>
+			<title>The Lede: Blagojevich vs. Elvis &#x2014; You Be the Judge</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=df167b509df0029fc2538e7915389c33</link>
+			<pheedo:origLink>http://thelede.blogs.nytimes.com/2009/08/10/blagojevich-v-elvis-you-be-the-judge/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://thelede.blogs.nytimes.com/2009/08/10/blagojevich-v-elvis-you-be-the-judge/index.html</guid>
+			<description>Rod Blagojevich, looking to make an honest buck, has apparently joined the ranks of professional Elvis impersonators. But how does he stack up to the original?&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=df167b509df0029fc2538e7915389c33&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=df167b509df0029fc2538e7915389c33&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT MACKEY</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 19:33:23 GMT</pubDate>
+		</item>
+		<item>
+			<title>Well: A Day in the Life of a Family Doctor</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1bfd62c10f6ef30ecc09e36a57832fe9</link>
+			<pheedo:origLink>http://well.blogs.nytimes.com/2009/08/10/a-day-in-the-life-of-a-family-doctor/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://well.blogs.nytimes.com/2009/08/10/a-day-in-the-life-of-a-family-doctor/index.html</guid>
+			<description>What do family doctors do all day? One busy family physician decided to make a list.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1bfd62c10f6ef30ecc09e36a57832fe9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1bfd62c10f6ef30ecc09e36a57832fe9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By TARA PARKER-POPE</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 19:13:16 GMT</pubDate>
+		</item>
+		<item>
+			<title>ArtsBeat: Twitter Opera and a Bat With Strings</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b6b6a91b1f1ede52ddb6cb6486f08a54</link>
+			<pheedo:origLink>http://artsbeat.blogs.nytimes.com/2009/08/10/the-twitter-opera-and-a-baseball-bat-with-strings/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://artsbeat.blogs.nytimes.com/2009/08/10/the-twitter-opera-and-a-baseball-bat-with-strings/index.html</guid>
+			<description>The Royal Opera House will produce a new work, called "The Twitter Opera," in which the libretto will be composed of short messages sent on the popular social network. Also: a violinist for the National Symphony Orchestra performs the national anthem using an electric violin made from a regulation bat.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b6b6a91b1f1ede52ddb6cb6486f08a54&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b6b6a91b1f1ede52ddb6cb6486f08a54&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVE ITZKOFF</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 19:35:39 GMT</pubDate>
+		</item>
+		<item>
+			<title>City Room: At Last, 90 Degrees in Central Park</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=4b8a1d4bddf86a466a9dee4d582c0490</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/08/10/at-last-90-degrees-in-central-park/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/08/10/at-last-90-degrees-in-central-park/index.html</guid>
+			<description>The temperature in New York City's Central Park finally reached 90 degrees for the first time this summer, at 2:04 p.m. on Monday.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=4b8a1d4bddf86a466a9dee4d582c0490&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=4b8a1d4bddf86a466a9dee4d582c0490&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SEWELL CHAN</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 20:08:38 GMT</pubDate>
+		</item>
+	</channel>
+</rss>

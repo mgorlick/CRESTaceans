@@ -1,0 +1,268 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Mon, 03 Aug 2009 04:09:28 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Two Sides Take Health Care Debate Outside Washington</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=91d458f89f21c777ccd0642265cd8c17</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/health/policy/03healthcare.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/health/policy/03healthcare.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/02/us/03health_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>President Obama speaking on health care reform in Bristol, Va., on Wednesday. Mr. Obama will be traveling to Elkhart, Ind., partly to sell health care to the public.</media:description>
+			<media:credit>Stephen Crowley/The New York Times</media:credit>
+			<description>Democrats are planning an offensive against the insurance industry, while Republicans are organizing efforts against legislation to overhaul health care.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=91d458f89f21c777ccd0642265cd8c17&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=91d458f89f21c777ccd0642265cd8c17&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SHERYL GAY STOLBERG and DAVID M. HERSZENHORN</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 04:08:34 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Democratic Party</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Republican Party</category>
+		</item>
+		<item>
+			<title>Pakistan Valley Tries to Heal, and Fears Dark Battles Ahead</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1232481cf1ffc4db63121fd34df20171</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/world/asia/03swat.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/world/asia/03swat.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/world/03swat.751.jpg" medium="image" height="75" width="75"/>
+			<media:description>A dead body that was left on the ground in Mingora, Pakistan,is believed to be awarning from the military to the Taliban.</media:description>
+			<media:credit>Michael Kamber for The New York Times</media:credit>
+			<description>Since residents returned to the Swat Valley after the army fought the Taliban, there are signs that a new insidious conflict may be afoot and that it could take months to play out.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1232481cf1ffc4db63121fd34df20171&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1232481cf1ffc4db63121fd34df20171&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JANE PERLEZ and PIR ZUBAIR SHAH</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 03:38:40 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Swat (Pakistan)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Defense and Military Forces</category>
+		</item>
+		<item>
+			<title>Venezuela Still Aids Colombia Rebels, New Material Shows</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=df29b5bc8706e5a3f42ce0fec4330506</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/world/americas/03venez.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/world/americas/03venez.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/02/world/03venez_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>New evidence points to collaborations between members of the Venezuelan government and the Revolutionary Armed Forces of Colombia, or FARC. A Colombian soldier inspected the area after an aerial bombardment against the FARC in July.</media:description>
+			<media:credit>Leonardo Munoz/European Pressphoto Agency</media:credit>
+			<description>Despite denials by President Hugo Ch&#xE1;vez, Venezuelan officials have continued to help Colombia&#x2019;s largest rebel group, according to new evidence.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=df29b5bc8706e5a3f42ce0fec4330506&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=df29b5bc8706e5a3f42ce0fec4330506&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SIMON ROMERO</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 03:40:31 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Venezuela</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Revolutionary Armed Forces of Colombia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Chavez, Hugo</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Espionage</category>
+		</item>
+		<item>
+			<title>Forty Years' War: Lack of Study Volunteers May Hobble Cancer Fight</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=476e4ffe14aac00e85e264663ce0e3d2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/health/research/03trials.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/health/research/03trials.html</guid>
+			<description>In the war on cancer, a major hurdle involves finding cancer patients willing to participate in clinical trials, and doctors willing to enroll them.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=476e4ffe14aac00e85e264663ce0e3d2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=476e4ffe14aac00e85e264663ce0e3d2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By GINA KOLATA</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 03:50:42 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Cancer</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Research</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Doctors</category>
+		</item>
+		<item>
+			<title>In Counting the Crowds, It&#x2019;s All About the Visuals</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=26c8bbf0a61255c233a1946dfe3a1884</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/nyregion/03beach.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/nyregion/03beach.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/nyregion/03beach.751.jpg" medium="image" height="75" width="75"/>
+			<media:description>An early arrival at Orchard Beach in the Bronx staked out his territory on Saturday. Estimates put the crowd at 59,000 by 5 p.m.</media:description>
+			<media:credit>Suzanne DeChillo/The New York Times</media:credit>
+			<description>On New York City beaches, parks workers rely on a highly unscientific method for tracking attendance. But this summer, that hasn&#x2019;t been much of a problem.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=26c8bbf0a61255c233a1946dfe3a1884&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=26c8bbf0a61255c233a1946dfe3a1884&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PATRICK McGEEHAN</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 02:01:06 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Coney Island (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Weather</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Beaches</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Population</category>
+		</item>
+		<item>
+			<title>Abroad: At Louvre, Many Stop to Snap but Few Stay to Focus</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9979e4a5531f11c46433f2b430e37ac3</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/arts/design/03abroad.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/arts/design/03abroad.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/arts/03abroad.751.jpg" medium="image" height="75" width="75"/>
+			<media:description>Visitors at the Louvre: some engage directly with the art while others take pictures of pictures.</media:description>
+			<media:credit>Valerio Mezzanotti for The New York Times</media:credit>
+			<description>Watching people look at art is hardly a scientific experiment, but it rekindles a question: What exactly are we looking for when we roam around museums?&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9979e4a5531f11c46433f2b430e37ac3&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9979e4a5531f11c46433f2b430e37ac3&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL KIMMELMAN</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 03:26:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Art</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Museums</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Louvre</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Paris (France)</category>
+		</item>
+		<item>
+			<title>The Media Equation: 10 Years Ago, an Omen No One Saw</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c672146c98bf75a672090283ceca15ea</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/business/media/03carr.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/business/media/03carr.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/business/carr_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Michael Eisner, former chief of Walt Disney, and the editor Tina Brown.</media:description>
+			<media:credit>Stan Honda/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>When Talk magazine was introduced at a decadent party, no one knew what the Internet would do to the business.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c672146c98bf75a672090283ceca15ea&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c672146c98bf75a672090283ceca15ea&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID CARR</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 03:37:06 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">News and News Media</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Brown, Tina</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Magazines</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Newspapers</category>
+		</item>
+		<item>
+			<title>At World Series of Baseball Trivia, No Casual Fans</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7f1daff27ae7a8489871fc52e1068968</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/sports/baseball/03trivia.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/sports/baseball/03trivia.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/sports/trivia75.jpg" medium="image" height="75" width="75"/>
+			<media:description>From left, Steve Krevisky, Alain Usereau, Eric Weiss and Robert Rafal after winning the SABR team baseball trivia contest Saturday in Washington.</media:description>
+			<media:credit>Jamie Rose for The New York Times</media:credit>
+			<description>For players in the Society for American Baseball Research trivia contest, the obscure is common knowledge.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7f1daff27ae7a8489871fc52e1068968&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7f1daff27ae7a8489871fc52e1068968&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ALAN SCHWARZ</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 04:09:26 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Baseball</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Society for American Baseball Research</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Statistics</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Awards, Decorations and Honors</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Contests and Prizes</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Caragliano, Michael</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Brandon, Scott</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Blumkin, Al</category>
+		</item>
+		<item>
+			<title>U.S. Pilot&#x2019;s Remains Found in Iraq After 18 Years</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=4b9ccbef7e36132177e420b227ba0458</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/world/middleeast/03speicher.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/world/middleeast/03speicher.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/02/world/middleeast/speicher-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Captain Michael Scott Speicher</media:description>
+			<media:credit>U.S. Navy, via Associated Press</media:credit>
+			<description>Capt. Michael Scott Speicher, a fighter pilot, was shot down in the opening hours of the first Gulf War in 1991.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=4b9ccbef7e36132177e420b227ba0458&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=4b9ccbef7e36132177e420b227ba0458&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THOM SHANKER</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 03:29:38 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Speicher, Michael Scott</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Persian Gulf War</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">United States Marine Corps</category>
+		</item>
+		<item>
+			<title>Diplomatic Memo: U.S. to Push Peace in Middle East Media Campaign</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3a23ac23445fe2c020a955cc9a2e7f1d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/world/middleeast/03diplo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/world/middleeast/03diplo.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/world/03diplo75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Prime Minister Benjamin Netanyahu of Israel met with George J. Mitchell, left, the Obama administration&#x2019;s special envoy to the Middle East, for several hours last Tuesday in Jerusalem.</media:description>
+			<media:credit>Pool photo by Dan Balilty</media:credit>
+			<description>Impatience is growing in the Middle East over President Obama&#x2019;s push for peace between Israelis and Palestinians.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3a23ac23445fe2c020a955cc9a2e7f1d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3a23ac23445fe2c020a955cc9a2e7f1d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARK LANDLER</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 03:54:44 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Palestinians</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Israel</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Mitchell, George J</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Middle East</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Palestinian Authority</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+		</item>
+		<item>
+			<title>On Governor&#x2019;s Race, Cuomo Stance Is Wait and See</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f2795c99738cc44bbf496fbed5a6e256</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/nyregion/03cuomo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/nyregion/03cuomo.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/nyregion/03cuomo_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>New York State&#x2019;s attorney general, Andrew M. Cuomo, is said to be highly interested in replacing Gov. David A. Paterson.</media:description>
+			<media:credit>Nathaniel Brooks for The New York Times</media:credit>
+			<description>Andrew M. Cuomo says he is focused on being New York&#x2019;s attorney general. But associates say he is waiting for Gov. David A. Paterson to bow out.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f2795c99738cc44bbf496fbed5a6e256&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f2795c99738cc44bbf496fbed5a6e256&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NICHOLAS CONFESSORE</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 03:54:43 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Cuomo, Andrew M</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Paterson, David A</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">State Legislatures</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Elections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Democratic Party</category>
+		</item>
+		<item>
+			<title>U.S. Weighs Detainee Court at a Midwest Prison</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9573e8e9c62c45e3b937706a99afac90</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/02/us/AP-US-Guantanamo-Detainees.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/02/us/AP-US-Guantanamo-Detainees.html</guid>
+			<description>The Obama administration is considering an option to create a courtroom-within-a-prison complex to house suspected terrorists, combining military and civilian detention facilities at a single maximum-security prison.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9573e8e9c62c45e3b937706a99afac90&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9573e8e9c62c45e3b937706a99afac90&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 02:27:19 GMT</pubDate>
+		</item>
+		<item>
+			<title>Episcopal Church Picks Gay Priests for Promotion</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=0be453025d80666b7b851d8d7357f407</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/03/us/03bishop.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/03/us/03bishop.html</guid>
+			<description>Tensions are likely to increase in the Episcopal Church following the decision of two dioceses to nominate two openly gay priests as assistant bishops.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=0be453025d80666b7b851d8d7357f407&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=0be453025d80666b7b851d8d7357f407&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE NEW YORK TIMES</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 03:30:17 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Episcopal Church</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Homosexuality</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Anglican Churches</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Robinson, V Gene</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Los Angeles (Calif)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Glasspool, Mary D.</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Kirkley, John L.</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Perry, Bonnie</category>
+		</item>
+	</channel>
+</rss>

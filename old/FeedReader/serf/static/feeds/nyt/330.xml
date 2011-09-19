@@ -1,0 +1,292 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Mon, 10 Aug 2009 18:08:52 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>47 Are Killed in Bombings in Baghdad and Northern Iraq</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ce040fd230b392833751dc08031253eb</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/middleeast/11iraq.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/middleeast/11iraq.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/world/10iraq2-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A pair of truck bombs exploded simultaneously on Monday in the Shiite village of Khazna, about 10 miles east of Mosul, Iraq.</media:description>
+			<media:credit>Nawras Al-ta'ei/European Pressphoto Agency</media:credit>
+			<description>In the most devastating attack, a pair of flatbed trucks packed with bombs exploded simultaneously in a village near Mosul.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ce040fd230b392833751dc08031253eb&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ce040fd230b392833751dc08031253eb&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM DAGHER</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 17:08:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+		</item>
+		<item>
+			<title>Westchester Agrees to Add Housing in Desegregation Pact</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=873d8aad07792955325f2e1b514910df</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/nyregion/11settle.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/nyregion/11settle.html</guid>
+			<description>An agreement will compel New York&#x2019;s Westchester County to create affordable housing in overwhelmingly white communities and market it to nonwhites.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=873d8aad07792955325f2e1b514910df&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=873d8aad07792955325f2e1b514910df&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM ROBERTS</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 17:56:15 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Westchester County (NY)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Affordable Housing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Segregation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Suits and Litigation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Minorities</category>
+		</item>
+		<item>
+			<title>A Primer on the Details of Health Care Reform</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9594fbeeaac25dfc39ddf0ad48a98978</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/health/policy/10facts.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/health/policy/10facts.html</guid>
+			<description>It can be difficult to sort fact from fiction in the raucous debate over health care reform. Here is a guide to the main issues.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9594fbeeaac25dfc39ddf0ad48a98978&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9594fbeeaac25dfc39ddf0ad48a98978&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT PEAR and DAVID M. HERSZENHORN</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 18:06:55 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Federal Budget (US)</category>
+		</item>
+		<item>
+			<title>Death Toll Rises as Typhoons Soak Asia</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=92b4c3dc8df6e337b671097f56253995</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/asia/11china.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/asia/11china.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/world/10china-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>An elderly man was carried after being rescued by military helicopter from a rural village in southern Taiwan buried in a mudslide.</media:description>
+			<media:credit>Associated Press</media:credit>
+			<description>A rural village in Taiwan was buried in a mudslide after a storm dropped as much as 83 inches of rain in some areas.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=92b4c3dc8df6e337b671097f56253995&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=92b4c3dc8df6e337b671097f56253995&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL WINES</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 17:43:18 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Typhoon Morakot (2009)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Hurricanes and Tropical Storms</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Typhoons</category>
+		</item>
+		<item>
+			<title>Obama Defends Mexico&#x2019;s Crackdown on Drug Criminals</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1d47e4cd06cd6d603393b2215a5f4605</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/americas/11prexy.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/americas/11prexy.html</guid>
+			<description>The president brushed aside suggestions that some American financial assistance ought to be withheld because of human rights abuses by the Mexican army.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1d47e4cd06cd6d603393b2215a5f4605&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1d47e4cd06cd6d603393b2215a5f4605&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By GINGER THOMPSON and MARC LACEY</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 18:08:47 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Mexico</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Drug Abuse and Traffic</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Calderon, Felipe</category>
+		</item>
+		<item>
+			<title>China Backs Off Accusations Against Mining Giant</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=4b914092a4faf7259f30a6a2cad06839</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/asia/11riotinto.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/asia/11riotinto.html</guid>
+			<description>An article accusing Rio Tinto of engaging in commercial espionage has been removed from a Chinese Web site.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=4b914092a4faf7259f30a6a2cad06839&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=4b914092a4faf7259f30a6a2cad06839&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID BARBOZA</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 17:11:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Rio Tinto PLC|RTP|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Espionage</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Mines and Mining</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Propaganda</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jiang Ruqin</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">baomi.org</category>
+		</item>
+		<item>
+			<title>Clinton Presses Congo on Sexual Violence</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e0209c5a9770aadf0523ef8ec750839f</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/africa/11diplo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/africa/11diplo.html</guid>
+			<description>In Congo, Secretary of State Hillary Rodham Clinton said she wanted to press for an end to the conflict there.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e0209c5a9770aadf0523ef8ec750839f&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e0209c5a9770aadf0523ef8ec750839f&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JEFFREY GETTLEMAN</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 16:42:22 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Congo (Formerly Zaire)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Hillary Rodham</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Africa</category>
+		</item>
+		<item>
+			<title>G.M. Sees eBay as a Way to Reach New Buyers</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=0d2ca4f76584c9da594a7074b743a6f2</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/business/11auto.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/business/11auto.html</guid>
+			<description>Vehicles will not be auctioned to the highest bidder but rather listed at a price equal to G.M.&#x2019;s supplier price.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=0d2ca4f76584c9da594a7074b743a6f2&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=0d2ca4f76584c9da594a7074b743a6f2&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NICK BUNKLEY</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 18:02:57 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">eBay Inc|EBAY|NASDAQ</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">General Motors</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Auctions</category>
+		</item>
+		<item>
+			<title>Rapes Are Alleged in Iranian Prison</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=8062ba450854092e7bbbfb5fa9b2eb66</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/middleeast/11iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/middleeast/11iran.html</guid>
+			<description>As dispute swirls around a notorious prison used to incarcerate political opponents, a leading reformist candidate said some inmates had been raped.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=8062ba450854092e7bbbfb5fa9b2eb66&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=8062ba450854092e7bbbfb5fa9b2eb66&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ALAN COWELL</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 17:46:26 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Political Prisoners</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Sex Crimes</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prisons and Prisoners</category>
+		</item>
+		<item>
+			<title>Judge Approves Michael Jackson Film</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=28a350e3d78c5dc57eb73170917899c8</link>
+			<pheedo:origLink>http://www.nytimes.com/aponline/2009/08/10/arts/AP-US-Jackson-Movie.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/aponline/2009/08/10/arts/AP-US-Jackson-Movie.html</guid>
+			<description>LOS ANGELES (AP) -- Audiences will get to see the King of Pop perform one more time after a judge approved a major movie deal.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=28a350e3d78c5dc57eb73170917899c8&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=28a350e3d78c5dc57eb73170917899c8&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE ASSOCIATED PRESS</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 17:08:48 GMT</pubDate>
+		</item>
+		<item>
+			<title>City Room: Man Charged in Hurling of Dog</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=8ce28f9b7e4547c13b3d10312b8fec4b</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/08/10/man-is-charged-after-throwing-dog-off-building/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/08/10/man-is-charged-after-throwing-dog-off-building/index.html</guid>
+			<description>Fabian Henderson, 19, who is accused of trowing his pit bull off the roof of his Red Hook building, was indicted on animal cruelty charges that could put him in prison for up to two years.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=8ce28f9b7e4547c13b3d10312b8fec4b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=8ce28f9b7e4547c13b3d10312b8fec4b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By A. G. SULZBERGER</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 17:13:15 GMT</pubDate>
+		</item>
+		<item>
+			<title>Effort to Rein In Wall Street Pay Hits New Hurdle</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=aa511bccce4e8ba9109766f21e93a260</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/business/10pay.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/business/10pay.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/business/Pay_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>The White House pay czar, Kenneth Feinberg, is scrutinizing pay at seven companies that got multiple bailouts.</media:description>
+			<media:credit>Charles Dharapak/Associated Press</media:credit>
+			<description>Guaranteed bonuses at big banks have made a comeback, despite the public outcry over the use of taxpayer money.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=aa511bccce4e8ba9109766f21e93a260&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=aa511bccce4e8ba9109766f21e93a260&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ERIC DASH</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 15:36:52 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bonuses</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Executive Compensation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Subprime Mortgage Crisis</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Banks and Banking</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Emergency Economic Stabilization Act (2008)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Wall Street (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Feinberg, Kenneth R</category>
+		</item>
+		<item>
+			<title>Pakistan Says Al Qaeda Seeks to Expand</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ca044e2eafd3df6e1d84dcca44225927</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/asia/11pstan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/asia/11pstan.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/world/10pstan.inline.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Hakimullah Mehsud, left, in 2008, posing for news media members. The Taliban commander reportedly has been killed.</media:description>
+			<media:credit>A Majeed/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>Amid contested claims over a reported falling out among factions struggling for control of the Pakistani Taliban, two bombs exploded in the restive northwest of the country.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ca044e2eafd3df6e1d84dcca44225927&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ca044e2eafd3df6e1d84dcca44225927&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SABRINA TAVERNISE and PIR ZUBAIR SHAH</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 15:39:31 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Pakistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Civil War and Guerrilla Warfare</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Mehsud, Baitullah</category>
+		</item>
+		<item>
+			<title>The Lede: Blagojevich vs. Elvis, You Be the Judge</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=df167b509df0029fc2538e7915389c33</link>
+			<pheedo:origLink>http://thelede.blogs.nytimes.com/2009/08/10/blagojevich-v-elvis-you-be-the-judge/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://thelede.blogs.nytimes.com/2009/08/10/blagojevich-v-elvis-you-be-the-judge/index.html</guid>
+			<description>Rod Blagojevich, looking to make an honest buck, has apparently joined the ranks of professional Elvis impersonators. But how does he stack up to the original?&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=df167b509df0029fc2538e7915389c33&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=df167b509df0029fc2538e7915389c33&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT MACKEY</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 18:08:19 GMT</pubDate>
+		</item>
+		<item>
+			<title>The Choice: Off to Law School, at 19</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=0edd9b64e1c07b9ae0588a12895e98f6</link>
+			<pheedo:origLink>http://thechoice.blogs.nytimes.com/2009/08/10/teenlaw/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://thechoice.blogs.nytimes.com/2009/08/10/teenlaw/index.html</guid>
+			<description>Having raced through her academic career like a VHS tape on fast-forward, a California teenager prepares for law school.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=0edd9b64e1c07b9ae0588a12895e98f6&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=0edd9b64e1c07b9ae0588a12895e98f6&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACQUES STEINBERG</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 18:08:19 GMT</pubDate>
+		</item>
+		<item>
+			<title>City Room: Homeless, Faced With a Hard Choice</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=152380d1f3817d6fe63f7c056a0e4c24</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/08/10/homelessness-mans-best-friend-and-a-hard-choice/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/08/10/homelessness-mans-best-friend-and-a-hard-choice/index.html</guid>
+			<description>Moving into a shelter is hard enough, but what happens when it doesn&#x2019;t allow pets?&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=152380d1f3817d6fe63f7c056a0e4c24&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=152380d1f3817d6fe63f7c056a0e4c24&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By EMILY S. RUEB</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 18:08:18 GMT</pubDate>
+		</item>
+		<item>
+			<title>Motherlode: A Doll That Breast-Feeds</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=adc03a38b549edf2c3fb7b28da8ec73b</link>
+			<pheedo:origLink>http://parenting.blogs.nytimes.com/2009/08/10/a-doll-that-breast-feeds/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://parenting.blogs.nytimes.com/2009/08/10/a-doll-that-breast-feeds/index.html</guid>
+			<description>Is a doll that breast feeds a way to bring children closer to Mom while she's nursing, or just another gimmick designed to shock - and sell?.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=adc03a38b549edf2c3fb7b28da8ec73b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=adc03a38b549edf2c3fb7b28da8ec73b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LISA BELKIN</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 17:03:23 GMT</pubDate>
+		</item>
+	</channel>
+</rss>

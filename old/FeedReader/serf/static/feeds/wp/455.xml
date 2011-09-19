@@ -1,0 +1,80 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[At Town Hall, Obama Criticizes 'Scare Tactics' ]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=b2c496a31f690664da318914372ecb6b]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081502264.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081502264.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 15 18:50 EDT 2009]]></pubDate>
+			<description><![CDATA[At Colo. meeting, the president tries to deflect the charge that legislation before Congress would put government in charge of the health-care system.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=b2c496a31f690664da318914372ecb6b&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=b2c496a31f690664da318914372ecb6b&p=1"/></a>
+]]></description>
+			<author><![CDATA[Associated Press]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Suicide Blast Kills 7 in Kabul]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=e5ad9fd1d82948d551c9d4f89450ec3b]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500572.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500572.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 15 18:03 EDT 2009]]></pubDate>
+			<description><![CDATA[Explosion outside U.S., NATO headquarters comes days before Afghanistan's presidential vote. 
+
+<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=e5ad9fd1d82948d551c9d4f89450ec3b&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=e5ad9fd1d82948d551c9d4f89450ec3b&p=1"/></a>
+]]></description>
+			<author><![CDATA[Joshua Partlow]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Webb Meets Burmese Leader ]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=5c14e6b142ce4d41bb49368b6a34a50f]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500612.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500612.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 15 17:39 EDT 2009]]></pubDate>
+			<description><![CDATA[In rare meeting, Va. senator secures the release of American who entered democracy leader's home.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=5c14e6b142ce4d41bb49368b6a34a50f&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=5c14e6b142ce4d41bb49368b6a34a50f&p=1"/></a>
+]]></description>
+			<author><![CDATA[Colum Lynch]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Kenneth H. Bacon Dies at 64]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=fe8d73b13c150bf50140dc4ff643d896]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081501336.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081501336.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 15 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Bacon was top Pentagon spokesman during the Clinton era and a prominent refugee advocate.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=fe8d73b13c150bf50140dc4ff643d896&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=fe8d73b13c150bf50140dc4ff643d896&p=1"/></a>
+]]></description>
+			<author><![CDATA[Matt Schudel]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Testing Limits of Free Speech]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=9f27d9833eaaf4b006acdbdab0b9f57d]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500869.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/15/AR2009081500869.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Sat Aug 15 12:00 EDT 2009]]></pubDate>
+			<description><![CDATA[Federal case against blogger exemplifies fine line between fiery political speech and criminality.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=9f27d9833eaaf4b006acdbdab0b9f57d&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=9f27d9833eaaf4b006acdbdab0b9f57d&p=1"/></a>
+]]></description>
+			<author><![CDATA[Peter Slevin]]></author>
+		</item>
+	</channel>
+</rss>

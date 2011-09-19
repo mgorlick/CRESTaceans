@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Thu, 13 Aug 2009 20:24:07 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[Chris Mortensen]]></dc:creator>
+<title><![CDATA[Michael Vick signs two-year deal with Philadelphia Eagles ]]></title>
+<description><![CDATA[Michael Vick has signed a two-year deal with the Eagles.]]></description>
+<pubDate>Thu, 13 Aug 2009 20:14:25 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4397938&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4397938&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Bob Harig]]></dc:creator>
+<title><![CDATA[Tiger Woods commands par-5s, leads PGA Championship by 1]]></title>
+<description><![CDATA[Tiger Woods took a one-stroke lead into the clubhouse at the PGA Championship on Thursday, taking advantage of the long par 5s at Hazeltine National.]]></description>
+<pubDate>Thu, 13 Aug 2009 19:10:02 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/pgachampionship09/news/story?id=4397006&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/pgachampionship09/news/story?id=4397006&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Donte' Stallworth of Cleveland Browns suspended without pay for 2009 season]]></title>
+<description><![CDATA[Donte' Stallworth has been suspended without pay for the 2009 season, the NFL said Thursday.]]></description>
+<pubDate>Thu, 13 Aug 2009 18:31:29 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4396130&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4396130&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[James Ramsey, Louisville president: Rick Pitino remains 'our guy']]></title>
+<description><![CDATA[University of Louisville president James Ramsey says it's time to move on after Rick Pitino's public apology for sex with a woman outside his marriage.]]></description>
+<pubDate>Thu, 13 Aug 2009 18:34:52 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncb/news/story?id=4397014&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncb/news/story?id=4397014&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Lee leads Phils to 1st Wrigley sweep in 25 years]]></title>
+<description><![CDATA[Cliff Lee won his third straight start since joining the Philadelphia Phillies, and the NL East leaders beat the slumping Chicago Cubs 6-1 Thursday for their first sweep at Wrigley Field in 25 years.]]></description>
+<pubDate>Thu, 13 Aug 2009 19:46:07 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/recap?gameId=290813116&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/recap?gameId=290813116&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Bronson Arroyo of Cincinnati Reds flouting MLB, union guidance on supplements]]></title>
+<description><![CDATA[Reds pitcher Bronson Arroyo, who last month admitted to using a now-banned supplement earlier in his career, says he uses a number of over-the-counter supplements not on Major League Baseball's approved list, according to a published report.]]></description>
+<pubDate>Thu, 13 Aug 2009 11:23:39 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4396083&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4396083&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Terrell Owens expects to practice with the Buffalo Bills next week]]></title>
+<description><![CDATA[Receiver Terrell Owens expects to return to practice next week, meaning he'll likely miss the Buffalo Bills home preseason game against Chicago this weekend because of a sprained toe.]]></description>
+<pubDate>Thu, 13 Aug 2009 18:37:56 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4397862&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4397862&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Verlander, Tigers blank Red Sox, avoid sweep]]></title>
+<description><![CDATA[Justin Verlander allowed four hits in eight innings and Ryan Raburn homered for Detroit to lead the Tigers to a 2-0 victory over the Red Sox and avert a four-game sweep.]]></description>
+<pubDate>Thu, 13 Aug 2009 18:07:42 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/recap?gameId=290813102&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/recap?gameId=290813102&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Fan charged for throwing beer at Philadelphia Phillies' Shane Victorino at Chicago Cubs' game]]></title>
+<description><![CDATA[Chicago police charged a 21-year-old man with two misdemeanor counts Thursday in connection with a beer-throwing incident that showered Philadelphia Phillies center fielder Shane Victorino.]]></description>
+<pubDate>Thu, 13 Aug 2009 20:04:53 PDT</pubDate>
+<guid>http://sports.espn.go.com/chicago/news/story?id=4396672&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/chicago/news/story?id=4396672&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Baltimore police: Michael Phelps uninjured after two-car accident]]></title>
+<description><![CDATA[Baltimore police say Olympic gold medal swimmer Michael Phelps has been in a two-car collision but not injured.]]></description>
+<pubDate>Thu, 13 Aug 2009 20:17:10 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/swimming/news/story?id=4398254&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/swimming/news/story?id=4398254&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[New Mexico State Aggies requesting help from fans to provide some snacks]]></title>
+<description><![CDATA[In a twist on Little League moms lining up after-game treats, New Mexico State's budget-conscious football staff distributed an e-mail this week asking fans to donate after-practice or late-night snacks for hungry players. ]]></description>
+<pubDate>Thu, 13 Aug 2009 14:11:16 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4397481&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4397481&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Joe Schad]]></dc:creator>
+<title><![CDATA[Baron Batch, of Texas Tech Red Raiders, out 3-6 weeks]]></title>
+<description><![CDATA[Texas Tech starting running back Baron Batch is expected to miss 3-to-6 weeks after sustaining an arm injury in practice, two people familiar with the injury said Thursday.]]></description>
+<pubDate>Thu, 13 Aug 2009 11:54:47 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4396480&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4396480&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Flavia Pennetta knocks Venus Williams out of Cincinnati Open]]></title>
+<description><![CDATA[The Williams sisters have rarely had a day as miserable as this one.]]></description>
+<pubDate>Thu, 13 Aug 2009 18:43:59 PDT</pubDate>
+<guid>http://sports.espn.go.com/sports/tennis/news/story?id=4396974&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/sports/tennis/news/story?id=4396974&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Andy Kessler, skateboarding pioneer, dies at 48]]></title>
+<description><![CDATA[Andy Kessler, a skateboarding pioneer and designer of New York City skate parks, has died. He was 48. ]]></description>
+<pubDate>Thu, 13 Aug 2009 11:20:34 PDT</pubDate>
+<guid>http://sports.espn.go.com/espn/news/story?id=4396284&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/espn/news/story?id=4396284&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[IOC recommends golf, rugby for 2016 Games]]></title>
+<description><![CDATA[International Olympic leaders are recommending golf and rugby for inclusion in the 2016 Summer Games.]]></description>
+<pubDate>Thu, 13 Aug 2009 10:27:42 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/news/story?id=4396021&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/news/story?id=4396021&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

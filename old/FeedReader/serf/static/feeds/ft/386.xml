@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Thu, 13 Aug 2009 00:22:03 GMT</pubDate>
+    <lastBuildDate>Thu, 13 Aug 2009 02:29:25 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>Fed holds steady on emergency measures</title>
+      <link>http://traxfer.ft.com/cms/s/0/7d734a80-8750-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>US Federal Reserve policymakers ended their two-day meeting on by keeping interest rates steady as expected, but extending the Fed’s $300bn programme to buy Treasury bonds until October</description>
+      <pubDate>Thu, 13 Aug 2009 00:22:03 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/7d734a80-8750-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Citi hires external help to probe management</title>
+      <link>http://traxfer.ft.com/cms/s/0/a8e71670-8777-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>US regulators have forced Citigroup to hire external consultants to consider whether its management is up to the job of leading the troubled bank out of the financial crisis</description>
+      <pubDate>Wed, 12 Aug 2009 23:06:11 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/a8e71670-8777-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>John Paulson bets on BofA with 2% stake</title>
+      <link>http://traxfer.ft.com/cms/s/0/16f6c102-8795-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>John Paulson, the hedge fund manager who made billions of dollars by betting against subprime mortgages and shorting bank stocks during the past two years, has bought close to 2 per cent of Bank of America in what appears to be a strong endorsement of a bellwether financial institution</description>
+      <pubDate>Wed, 12 Aug 2009 23:26:47 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/16f6c102-8795-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>UBS and US strike tax evasion deal</title>
+      <link>http://traxfer.ft.com/cms/s/0/513bcb70-8748-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Lawyers for UBS and the US government said they had reached a deal to settle the long and bitter battle over access to US client names</description>
+      <pubDate>Wed, 12 Aug 2009 22:39:00 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/513bcb70-8748-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Pequot and chairman face possible SEC charges</title>
+      <link>http://traxfer.ft.com/cms/s/0/d2034fd2-8782-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The SEC has warned Pequot Capital it is considering filing securities fraud charges against the hedge fund based on 2001 trading in Microsoft stock, Pequot has told investors</description>
+      <pubDate>Wed, 12 Aug 2009 21:08:05 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/d2034fd2-8782-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Greenberg to contribute to settling AIG lawsuits</title>
+      <link>http://traxfer.ft.com/cms/s/0/641e8db6-879a-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Hank Greenberg and other former AIG executives agreed to pay $115m to settle shareholder lawsuits over the insurer’s accounts, according to people familiar with the situation</description>
+      <pubDate>Thu, 13 Aug 2009 00:14:56 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/641e8db6-879a-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>India plans green overhaul with own EPA</title>
+      <link>http://traxfer.ft.com/cms/s/0/0260f4c6-8770-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Environmental agency modelled on that of US would implement and monitor standards, says environment minister</description>
+      <pubDate>Wed, 12 Aug 2009 21:16:17 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/0260f4c6-8770-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>European publishers target Google</title>
+      <link>http://traxfer.ft.com/cms/s/0/54f4008a-877e-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Google is facing growing opposition in Europe to its landmark US legal settlement with book publishers and authors, raising a fresh challenge to an agreement that could help determine the future structure of the digital books business</description>
+      <pubDate>Wed, 12 Aug 2009 20:32:05 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/54f4008a-877e-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Bank says UK is set for slow recovery</title>
+      <link>http://traxfer.ft.com/cms/s/0/b2ae5862-8722-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>The Bank of England delivered a more robust forecast for the economy into 2010, even as it warned the recovery was likely to be ‘slow and protracted‘</description>
+      <pubDate>Wed, 12 Aug 2009 21:18:54 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/b2ae5862-8722-11de-9280-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Blunders sustained Madoff fraud</title>
+      <link>http://traxfer.ft.com/cms/s/0/043d580a-878b-11de-9280-00144feabdc0.html?o=%2Fhome%2Fus</link>
+      <description>Neither the SEC inspection unit nor auditors challenged the false information provided by Bernard Madoff for years</description>
+      <pubDate>Wed, 12 Aug 2009 22:32:17 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/043d580a-878b-11de-9280-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

@@ -1,0 +1,252 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Thu, 30 Jul 2009 23:19:23 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Big Banks Paid Billions in Bonuses Amid Wall St. Crisis</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=50686ee4aa95196fd0c5b2b1a6ddcf79</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/business/31pay.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/business/31pay.html</guid>
+			<description>Amid dwindling profits and government bailouts, Wall Street&#x2019;s million dollar club had nearly 5,000 members in 2008, New York&#x2019;s attorney general reported.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=50686ee4aa95196fd0c5b2b1a6ddcf79&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=50686ee4aa95196fd0c5b2b1a6ddcf79&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ERIC DASH</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 22:12:29 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bonuses</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Executive Compensation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Cuomo, Andrew M</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Banks and Banking</category>
+		</item>
+		<item>
+			<title>Judge Orders Release of Young Detainee at Guant&#xE1;namo</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=8becfac96a0da1cfe046eb601ff815da</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/us/31gitmo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/us/31gitmo.html</guid>
+			<description>It was not clear that the federal judge&#x2019;s order would mean freedom for one of the youngest detainees at Guant&#xE1;namo Bay.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=8becfac96a0da1cfe046eb601ff815da&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=8becfac96a0da1cfe046eb601ff815da&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By WILLIAM GLABERSON</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 23:18:42 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jawad, Mohammed</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Guantanamo Bay Naval Base (Cuba)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Detainees</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Habeas Corpus</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+		</item>
+		<item>
+			<title>U.S. Adviser&#x2019;s Blunt Memo on Iraq: Time &#x2018;to Go Home&#x2019;</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e60850e9a14a2bb3c4c7afe74951be29</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/world/middleeast/31adviser.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/world/middleeast/31adviser.html</guid>
+			<description>A senior American military adviser says that the Iraqi forces suffer from deeply entrenched deficiencies, but that extending the stay of U.S. forces won&#x2019;t help.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e60850e9a14a2bb3c4c7afe74951be29&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e60850e9a14a2bb3c4c7afe74951be29&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL R. GORDON</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 22:57:29 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Military Personnel</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Defense Department</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Odierno, Raymond T</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Maliki, Nuri Kamal al-</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Reese, Timothy R</category>
+		</item>
+		<item>
+			<title>Hoboken&#x2019;s Mayor Agrees to Step Down</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=07fbff61256d68c26c8b2865be1b4280</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/nyregion/31hoboken.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/nyregion/31hoboken.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/30/nyregion/31hoboken_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Mayor Peter J. Cammarano III of Hoboken, center, left federal court in Newark last Thursday after his arrest.</media:description>
+			<media:credit>Mel Evans/Associated Press</media:credit>
+			<description>New Jersey&#x2019;s governor had been pushing Peter J. Cammarano III to resign since the mayor was arrested on extortion charges last week.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=07fbff61256d68c26c8b2865be1b4280&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=07fbff61256d68c26c8b2865be1b4280&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID M. HALBFINGER</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 22:39:35 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Frauds and Swindling</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Hoboken (NJ)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Cammarano, Peter J III</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Federal Bureau of Investigation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Ethics</category>
+		</item>
+		<item>
+			<title>The Caucus: What a Beer Says About Race and Politics</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d1572042078c084eb7f3f703b7b88be1</link>
+			<pheedo:origLink>http://thecaucus.blogs.nytimes.com/2009/07/30/what-a-white-house-beer-says-about-race-and-politics/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://thecaucus.blogs.nytimes.com/2009/07/30/what-a-white-house-beer-says-about-race-and-politics/index.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/30/us/31prexy_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>From left, Harvard professor Henry Louis Gates, Vice President Joseph R. Biden Jr., Cambridge Sgt. James Crowley and President Obama. </media:description>
+			<media:credit>Stephen Crowley/The New York Times</media:credit>
+			<description>The White House meeting of the president, the scholar and the police officer is about more than drinks.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d1572042078c084eb7f3f703b7b88be1&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d1572042078c084eb7f3f703b7b88be1&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PETER BAKER, HELENE COOPER, and JEFF ZELENY</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 23:18:16 GMT</pubDate>
+		</item>
+		<item>
+			<title>Clashes as Iranians Gather to Mourn</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1dab7082aa43de57871fb928c093d5cf</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/world/middleeast/31iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/world/middleeast/31iran.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/30/world/31iran3_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Zahra Rahnavard, the wife of the opposition leader Mir Hussein Moussavi, at a memorial in Tehran that turned into an opposition rally. </media:description>
+			<media:credit>Farhad Rajabali/news.gooya.com</media:credit>
+			<description>Iranian police dispersed thousands of opposition supporters in Tehran on Thursday as they massed to commemorate those killed in unrest, witnesses said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1dab7082aa43de57871fb928c093d5cf&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1dab7082aa43de57871fb928c093d5cf&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT F. WORTH and NAZILA FATHI</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 23:08:34 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Agha-Soltan, Neda</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Demonstrations and Riots</category>
+		</item>
+		<item>
+			<title>The Making of an Iran Policy</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a868d4b39bce1f22c5eecd0eab36ecba</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/02/magazine/02Iran-t.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/02/magazine/02Iran-t.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/02/magazine/02iran-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>
+				<em class="bold">THE JPEG REVOLUTION</em>Images of the June uprisings in Iran, captured by amateur photographers. The protests unsettled not only the hard-liners in Tehran but also the Obama administration, which has to make policy for a situation that changes as frequently as a Twitter feed.</media:description>
+			<media:credit/>
+			<description>Inside the Obama administration&#x2019;s struggle with its biggest diplomatic challenge.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a868d4b39bce1f22c5eecd0eab36ecba&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a868d4b39bce1f22c5eecd0eab36ecba&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>BY ROGER COHEN</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 19:25:50 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+		</item>
+		<item>
+			<title>Ortiz and Ramirez Said to Be on &#x2019;03 Doping List</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=47a6075cccffcd2d56551441fd2a7058</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/sports/baseball/31doping.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/sports/baseball/31doping.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/31/sports/31doping.2.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>David Ortiz, left, and Manny Ramirez propelled the Boston Red Sox to two World Series titles. Both tested positive for performance-enhancing drugs in 2003.</media:description>
+			<media:credit>Adam Hunger/Reuters</media:credit>
+			<description>Manny Ramirez and David Ortiz were among the baseball players who tested positive, lawyers said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=47a6075cccffcd2d56551441fd2a7058&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=47a6075cccffcd2d56551441fd2a7058&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL S. SCHMIDT</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 22:41:10 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ramirez, Manny</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Steroids</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ortiz, David</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Doping (Sports)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Boston Red Sox</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Baseball</category>
+		</item>
+		<item>
+			<title>Rove Says His Role in Prosecutor Firings Was Small</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=eb83f28e5fe7eaf7dc8293fceed5b213</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/us/politics/31rove.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/us/politics/31rove.html</guid>
+			<description>In an interview, Karl Rove said he played a peripheral role in the dismissal of nine federal prosecutors in 2006.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=eb83f28e5fe7eaf7dc8293fceed5b213&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=eb83f28e5fe7eaf7dc8293fceed5b213&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID JOHNSTON</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 20:46:57 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Rove, Karl</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Attorneys</category>
+		</item>
+		<item>
+			<title>Jackson&#x2019;s Mother Gains Custody of Children</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=1662dea791f3cf8dba595a9f9807c407</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/us/31jackson.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/us/31jackson.html</guid>
+			<description>Katherine Jackson, the mother of Michael Jackson, will be the legal guardian of the late singer&#x2019;s two oldest children, while their biological mother will have visitation rights.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=1662dea791f3cf8dba595a9f9807c407&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=1662dea791f3cf8dba595a9f9807c407&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SOLOMON MOORE</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 22:25:30 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jackson, Michael</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Child Custody and Support</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jackson, Katherine</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Rowe, Debbie</category>
+		</item>
+		<item>
+			<title>House Approves Revamping of Food-Safety Laws</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=544ef868a0491b5bbcf7da0bf8789ef0</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/us/politics/31fda.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/us/politics/31fda.html</guid>
+			<description>The House passed legislation to require more frequent inspections of food-processing plants and to give the government the authority to order the recall of tainted foods.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=544ef868a0491b5bbcf7da0bf8789ef0&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=544ef868a0491b5bbcf7da0bf8789ef0&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By WILLIAM NEUMAN</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 23:12:15 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Food Contamination and Poisoning</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Consumer Protection</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">House of Representatives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Recalls and Bans of Products</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Food and Drug Administration</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Food</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+		</item>
+		<item>
+			<title>Nigerian Sect Leader Reported Dead After Capture</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ebfc077b9caaea597c472cd57fb2f7fa</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/world/africa/31nigeria.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/world/africa/31nigeria.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/30/world/30nigeria-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A building belonging to a militant Islamic group burned after being attacked by Nigerian soldiers on Thursday in Maiduguri. </media:description>
+			<media:credit>Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>The leader of a fundamentalist Islamic sect was captured and killed after he fled a climactic gun battle with the Nigerian military, news reports said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ebfc077b9caaea597c472cd57fb2f7fa&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ebfc077b9caaea597c472cd57fb2f7fa&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ADAM NOSSITER and ALAN COWELL</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 21:34:20 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Boko Haram</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Nigeria</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Fringe Groups and Movements</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Civil War and Guerrilla Warfare</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Islam</category>
+		</item>
+		<item>
+			<title>Democrats Struggle to Keep Health Bill on Track</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=440604f9b28da772780d856310bba785</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/31/us/politics/31health.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/31/us/politics/31health.html</guid>
+			<description>As the House Energy and Commerce Committee resumed work on a bill, top Republicans stepped up their criticism.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=440604f9b28da772780d856310bba785&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=440604f9b28da772780d856310bba785&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID M. HERSZENHORN and ROBERT PEAR</dc:creator>
+			<pubDate>Thu, 30 Jul 2009 21:25:19 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">House of Representatives</category>
+		</item>
+	</channel>
+</rss>

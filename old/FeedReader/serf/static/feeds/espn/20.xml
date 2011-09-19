@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Tue, 28 Jul 2009 13:27:07 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[Sal Paolantonio]]></dc:creator>
+<title><![CDATA[Plaxico Burress will testify before grand jury, his attorney says]]></title>
+<description><![CDATA[Former Giants wide receiver Plaxico Burress, who shot himself in the thigh at a nightclub last year, will testify before a Manhattan grand jury on Wednesday, Burress' attorney, Benjamin Brafman, told ESPN.]]></description>
+<pubDate>Tue, 28 Jul 2009 12:41:37 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4361553&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4361553&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Tony Dungy believes Michael Vick focused on putting life back together]]></title>
+<description><![CDATA[ Tony Dungy says he believes Michael Vick is focused on putting his life back together.]]></description>
+<pubDate>Tue, 28 Jul 2009 11:03:13 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4361284&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4361284&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[NFLPA executive director DeMaurice Smith: Roger Goodell's disciplinary authority will be subject of talks]]></title>
+<description><![CDATA[The NFL players' union wants to talk about commissioner Roger Goodell's power to discipline players when talks on a new collective bargaining agreement begin, union chief executive DeMaurice Smith said.]]></description>
+<pubDate>Tue, 28 Jul 2009 09:46:45 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4360661&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4360661&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Michael Phelps loses in 200m freestyle final as Germany's Paul Biedermann sets world record]]></title>
+<description><![CDATA[Germany's Paul Biedermann has handed Michael Phelps his first major individual loss in four years, setting a world record in the 200-meter freestyle at the world championships.]]></description>
+<pubDate>Tue, 28 Jul 2009 13:21:55 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/swimming/news/story?id=4360589&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/swimming/news/story?id=4360589&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Bob Harig]]></dc:creator>
+<title><![CDATA[Phil Mickelson to return to PGA Tour at WGC-Bridgestone Invitational]]></title>
+<description><![CDATA[Phil Mickelson will return to the PGA Tour next week at the WGC-Bridgestone Invitational after taking time off to be with his family while his wife, Amy, and mother, Mary, battle breast cancer.]]></description>
+<pubDate>Tue, 28 Jul 2009 13:05:03 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/news/story?id=4361861&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/news/story?id=4361861&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Emeka Okafor traded by Charlotte Bobcats for Tyson Chandler of the New Orleans Hornets]]></title>
+<description><![CDATA[The New Orleans Hornets have officially found a taker for Tyson Chandler in the Charlotte Bobcats. Emeka Okafor was dealt to the Hornets on Tuesday for Chandler in a deal involving 26-year-old centers.]]></description>
+<pubDate>Tue, 28 Jul 2009 12:46:12 PDT</pubDate>
+<guid>http://sports.espn.go.com/nba/news/story?id=4361334&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nba/news/story?id=4361334&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Brett Myers of Philadelphia Phillies working toward return to bullpen this season]]></title>
+<description><![CDATA[Brett Myers, eyeing a sooner-than-expected recovery from hip surgery, might return to the Phillies as a reliever rather than as a starter.]]></description>
+<pubDate>Tue, 28 Jul 2009 10:02:12 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4360856&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4360856&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Tony Kanaan says hands not burned, plans to race at Kentucky Speedway]]></title>
+<description><![CDATA[Tony Kanaan does not have burns on his hands from a cockpit fuel fire in last weekend's Rexall Edmonton Grand Prix and plans to race Sunday at Kentucky Speedway, The Indianapolis Star reported.]]></description>
+<pubDate>Tue, 28 Jul 2009 08:16:26 PDT</pubDate>
+<guid>http://sports.espn.go.com/rpm/racing/indycar/news/story?id=4361125&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/rpm/racing/indycar/news/story?id=4361125&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Alberto Contador: My relationship with Lance Armstrong is 'zero']]></title>
+<description><![CDATA[Alberto Contador and Lance Armstrong are sniping again after a fragile truce during the Tour de France.]]></description>
+<pubDate>Tue, 28 Jul 2009 06:10:53 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/cycling/news/story?id=4360655&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/cycling/news/story?id=4360655&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Sources: Pete Rose's status the same, despite report]]></title>
+<description><![CDATA[Pete Rose's status with baseball remains the same, despite a report that Bud Selig is "seriously considering" reinstatement of the hits king.]]></description>
+<pubDate>Mon, 27 Jul 2009 16:54:36 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4358260&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4358260&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

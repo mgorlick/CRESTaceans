@@ -1,0 +1,294 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Fri, 07 Aug 2009 07:47:40 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>With Jobs Data Due, Experts See Some Lift From Stimulus</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=bf3c32e02e4926eb45fb6301906f5b29</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/business/economy/07stimulus.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/business/economy/07stimulus.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/07/business/07stimulus_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Christina D. Romer, head of the White House Council of Economic Advisers, in Washington.</media:description>
+			<media:credit>Alex Wong/Getty Images</media:credit>
+			<description>Even as another grim report about job losses is expected Friday, economists say that the stimulus package has helped blunt the downturn in limited but discernible ways.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=bf3c32e02e4926eb45fb6301906f5b29&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=bf3c32e02e4926eb45fb6301906f5b29&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By EDMUND L. ANDREWS</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 07:27:42 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Conditions and Trends</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Economy</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Stimulus Act (2008)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Unemployment</category>
+		</item>
+		<item>
+			<title>Sotomayor Faces Heavy Workload of Complex Cases</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d66edd36dabf939b370131bcc2e766a1</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/us/politics/07scotus.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/us/politics/07scotus.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/07/us/scotus_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Judge Sonia Sotomayor was greeted in her West Village neighborhood on Thursday after the Senate confirmed her nomination.</media:description>
+			<media:credit>Robert Stolarik for The New York Times</media:credit>
+			<description>Just over a month from now, Justice Sonia Sotomayor will take on one of the most demanding jobs in the land.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d66edd36dabf939b370131bcc2e766a1&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d66edd36dabf939b370131bcc2e766a1&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ADAM LIPTAK</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 06:55:53 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Sotomayor, Sonia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Supreme Court</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Decisions and Verdicts</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Law and Legislation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Appointments and Executive Changes</category>
+		</item>
+		<item>
+			<title>Senate Adds Cash to &#x2018;Clunkers&#x2019; Plan</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=c33f1650b3ae1f20de0166e781b75eb1</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/business/07clunker.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/business/07clunker.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/07/business/07clunker.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A crane lifts a vehicle onto a junk heap in Medford, N.Y. Many scrapped vehicles are from the &#x201C;cash for clunkers&#x201D; program.</media:description>
+			<media:credit>Mark Lennihan/Associated Press</media:credit>
+			<description>The Senate voted to extend the &#x201C;cash for clunkers&#x201D; program, adding another $2 billion to the program.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=c33f1650b3ae1f20de0166e781b75eb1&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=c33f1650b3ae1f20de0166e781b75eb1&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MATTHEW L. WALD</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 05:56:30 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Car Allowance Rebate System</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Law and Legislation</category>
+		</item>
+		<item>
+			<title>Pakistani and U.S. Officials Seek to Confirm Death of Taliban Leader</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=242b321c9cf9b05fe9a9df1877bef85f</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/08/world/asia/08pstan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/08/world/asia/08pstan.html</guid>
+			<description>American officials said they were growing increasingly confident that Baitullah Mehsud, the Taliban leader who has been blamed for a wave of violence across Pakistan, was dead.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=242b321c9cf9b05fe9a9df1877bef85f&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=242b321c9cf9b05fe9a9df1877bef85f&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PIR ZUBAIR SHAH and SABRINA TAVERNISE</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 07:09:07 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Mehsud, Baitullah</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Pakistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+		</item>
+		<item>
+			<title>A Fringe That Isn&#x2019;t Downtown, but Up in the Hills</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9727731010349662a862d090efbb6169</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/theater/07fringe.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/theater/07fringe.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/07/arts/07fringe_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Members of the Xylopholks &#x2014; from left, Jonathan Singer, Bridget Kearney and Michael Calabrese &#x2014; in a performance at the Berkshire Fringe.</media:description>
+			<media:credit>Terry Wise</media:credit>
+			<description>No other fringe theater festival is quite like the five-year-old Berkshire Fringe, in western Massachusetts.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9727731010349662a862d090efbb6169&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9727731010349662a862d090efbb6169&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PATRICK HEALY</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 03:41:54 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Theater</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Berkshires (Mass)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Berkshire Fringe</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Festivals</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Bard College</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Katzoff, Sara</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Wise, Peter</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Olson, Timothy Ryan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Great Barrington (Mass)</category>
+		</item>
+		<item>
+			<title>Another Hurdle for the Jobless: Credit Inquiries</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7798387ddd34e79aaa2da8f2d9f8a608</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/business/07credit.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/business/07credit.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/07/business/07credit_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Kevin Palmer, 49, of Santa Ana, Calif., lost a job offer after a credit check revealed a bankruptcy.</media:description>
+			<media:credit>J. Emilio Flores for The New York Times</media:credit>
+			<description>Some states have passed laws requiring prospective employers to show credit checks have relevance to the nature of the job.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7798387ddd34e79aaa2da8f2d9f8a608&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7798387ddd34e79aaa2da8f2d9f8a608&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JONATHAN D. GLATER</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 06:25:31 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Credit Scores</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Hiring and Promotion</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Labor</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Equal Employment Opportunity Commission</category>
+		</item>
+		<item>
+			<title>Iraqis Freed by U.S. Face Few Jobs and Little Hope</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=912e2014c88e99827601619176968f5e</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/world/middleeast/07detainees.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/world/middleeast/07detainees.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/07/world/07detain_75a.jpg" medium="image" height="75" width="75"/>
+			<media:description>About 90,000 Iraqis have been freed from Camp Cropper, above, and other American detention centers in the past six years.</media:description>
+			<media:credit>Moises Saman for The New York Times</media:credit>
+			<description>A grim welcome awaits many of Iraq&#x2019;s ex-detainees, who often are suspected of spying for the U.S. or recruited by insurgents.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=912e2014c88e99827601619176968f5e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=912e2014c88e99827601619176968f5e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CAMPBELL ROBERTSON</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 07:07:06 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Detainees</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+		</item>
+		<item>
+			<title>White House Struggles to Gauge Afghan Success</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=eb8c694d08992c6721daa1ac2bdbf04d</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/world/asia/07policy.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/world/asia/07policy.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/06/world/asia/07policy2_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>U.S. soldiers from the 5th. Striker Brigades walk trough a sand storm next to their base on the outskirts of Spin Boldak, about 63 miles southeast of Kandahar, Afghanistan, on Thursday.</media:description>
+			<media:credit>Emilio Morenatti/Associated Press</media:credit>
+			<description>The Obama administration has asked for more time to define benchmarks, but Democrats on Capitol Hill are growing impatient.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=eb8c694d08992c6721daa1ac2bdbf04d&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=eb8c694d08992c6721daa1ac2bdbf04d&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID E. SANGER, ERIC SCHMITT and THOM SHANKER</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 06:35:26 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Defense Department</category>
+		</item>
+		<item>
+			<title>High-Risk Drug Is in Spotlight in Wake of High-Profile Death</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3fa3702f8200018848f2a1371acc7e49</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/us/07propofol.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/us/07propofol.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/07/us/propofol_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Propofol is the focus of inquiries into Michael Jackson&#x2019;s death.</media:description>
+			<media:credit>Fred Prouser/Reuters</media:credit>
+			<description>The death of Michael Jackson has brought a new spotlight to the anesthetic propofol, which experts say is being widely abused.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3fa3702f8200018848f2a1371acc7e49&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3fa3702f8200018848f2a1371acc7e49&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PAM BELLUCK</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 06:37:30 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Drugs (Pharmaceuticals)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jackson, Michael</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_keyword">Addiction</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Doctors</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Anesthesia and Anesthetics</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Death and Dying</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Drug Enforcement Administration</category>
+		</item>
+		<item>
+			<title>Journalists Entered N. Korea, Sister Says</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=2244d99b2d6a17bb0c1adfd0390a7b76</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/world/asia/07korea.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/world/asia/07korea.html</guid>
+			<description>One of the two journalists held captive for months in North Korea conceded to relatives that she had &#x201C;very briefly&#x201D; crossed into the country, her sister said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=2244d99b2d6a17bb0c1adfd0390a7b76&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=2244d99b2d6a17bb0c1adfd0390a7b76&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ANAHAD O&#x2019;CONNOR</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 07:24:48 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ling, Laura</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Lee, Euna</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">News and News Media</category>
+		</item>
+		<item>
+			<title>Online Attack Silences Twitter for Much of Day</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=dc724e32c64841010daaf5769f078986</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/technology/internet/07twitter.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/technology/internet/07twitter.html</guid>
+			<description>One expert said the attack may have started in Georgia or Russia, both engaged in a propaganda conflict online.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=dc724e32c64841010daaf5769f078986&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=dc724e32c64841010daaf5769f078986&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JENNA WORTHAM</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 05:59:37 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computer Security</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Social Networking (Internet)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Twitter</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Blogs and Blogging (Internet)</category>
+		</item>
+		<item>
+			<title>Husband Defends Wife in Wrong-Way Crash</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=eee980eb540a90e463b886182612b24b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/nyregion/07crash.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/nyregion/07crash.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/07/nyregion/07crashA-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Daniel Schuler, whose wife, Diane, crashed, killing her and seven others, when she was driving the wrong way on the Taconic State Parkway.</media:description>
+			<media:credit>J. Paul Burnett/The New York Times</media:credit>
+			<description>The husband of the drunken driver who killed herself and seven others on the Taconic State Parkway insisted that his wife did not have a drinking problem.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=eee980eb540a90e463b886182612b24b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=eee980eb540a90e463b886182612b24b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By LISA W. FODERARO</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 06:40:44 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Schuler, Diane</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Accidents and Safety</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York State</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Drunken and Reckless Driving</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Schuler, Daniel</category>
+		</item>
+		<item>
+			<title>N.Y. Senate Renews Mayor&#x2019;s Power to Run Schools</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=21f25125adf744621dcba242c45f3115</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/07/nyregion/07control.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/07/nyregion/07control.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/07/nyregion/07control_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>In the State Senate gallery, schoolchildren listened to the debate over mayoral control of schools on Thursday. The legislation was approved by a vote of 47 to 8.</media:description>
+			<media:credit>Nathaniel Brooks for The New York Times</media:credit>
+			<description>The legislation would largely leave the mayor&#x2019;s power intact, with some procedural changes and more oversight.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=21f25125adf744621dcba242c45f3115&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=21f25125adf744621dcba242c45f3115&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JENNIFER MEDINA</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 06:27:28 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Board of Education (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Bloomberg, Michael R</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Education and Schools</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Law and Legislation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+		</item>
+		<item>
+			<title>The Caucus: Unions Join Fray in Health Overhaul</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d8ffd0bc2468661d793cd41f589357bc</link>
+			<pheedo:origLink>http://thecaucus.blogs.nytimes.com/2009/08/06/unions-joining-the-fray-in-health-care-overhaul/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://thecaucus.blogs.nytimes.com/2009/08/06/unions-joining-the-fray-in-health-care-overhaul/index.html</guid>
+			<description>The nation&#x2019;s biggest labor unions are deploying their members to the raucous town hall debates on health care.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d8ffd0bc2468661d793cd41f589357bc&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d8ffd0bc2468661d793cd41f589357bc&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By KATHARINE Q. SEELYE</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 03:48:28 GMT</pubDate>
+		</item>
+		<item>
+			<title>The Lede: The Lede: Protesters Press On in Iran</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=10c17c3f8e30a56e9afa3b661bdde4d5</link>
+			<pheedo:origLink>http://thelede.blogs.nytimes.com/2009/08/07/protesters-press-on-in-iran/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://thelede.blogs.nytimes.com/2009/08/07/protesters-press-on-in-iran/index.html</guid>
+			<description>Although Iranian bloggers, like their counterparts in the rest of the world, were unable to use Twitter or Facebook for most of the day, as the social-networking sites fought off cyber attacks, there was evidence online that protests continued on Thursday.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=10c17c3f8e30a56e9afa3b661bdde4d5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=10c17c3f8e30a56e9afa3b661bdde4d5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT MACKEY</dc:creator>
+			<pubDate>Fri, 07 Aug 2009 06:57:43 GMT</pubDate>
+		</item>
+	</channel>
+</rss>

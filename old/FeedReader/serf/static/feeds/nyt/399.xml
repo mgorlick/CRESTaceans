@@ -1,0 +1,220 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Thu, 13 Aug 2009 15:16:51 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Despite &#x2018;Cash for Clunkers,&#x2019; Retail Sales Decline in July</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d9dd91b736aad0d890ee8fdaafbf07ca</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/business/14econ.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/business/14econ.html</guid>
+			<description>The decline of 0.1 percent in July was a much worse performance than the 0.7 percent gain that economists had expected.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d9dd91b736aad0d890ee8fdaafbf07ca&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d9dd91b736aad0d890ee8fdaafbf07ca&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 15:14:20 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Car Allowance Rebate System</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Sales</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Shopping and Retail</category>
+		</item>
+		<item>
+			<title>Ford Moves to Increase Production</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d71be82c81c58145413392c81a04b974</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/business/14ford.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/business/14ford.html</guid>
+			<description>The automaker will produce 10,000 more cars in the third quarter and 140,000 more in the fourth.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d71be82c81c58145413392c81a04b974&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d71be82c81c58145413392c81a04b974&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By BILL VLASIC</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 14:57:22 GMT</pubDate>
+		</item>
+		<item>
+			<title>Obama Is Taking an Active Role in Talks on Health Care Plan</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=2bb3094938df8e54c1bc138e61cd9e42</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/health/policy/13health.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/health/policy/13health.html</guid>
+			<description>President Obama has presented himself as aloof from the fray, but behind the scenes, the White House has made deals potentially at odds with his rhetoric.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=2bb3094938df8e54c1bc138e61cd9e42&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=2bb3094938df8e54c1bc138e61cd9e42&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID D. KIRKPATRICK</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 15:02:04 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Senate Committee on Finance</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Baucus, Max</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Grassley, Charles E</category>
+		</item>
+		<item>
+			<title>23 Filipino Soldiers Killed in Clashes</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a56a14c10b98bb2570f72bb18ce51f1e</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/world/asia/14phils.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/world/asia/14phils.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/world/13phils-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Wounded soldiers were treated in a military hospital in Zamboanga on Thursday after a battle with Abu Sayyaf rebels on Basilan island in the southern Philippines.</media:description>
+			<media:credit>Charlie Saceda/Reuters</media:credit>
+			<description>Twenty-three soldiers and at least 20 suspected terrorists have been killed as troops stormed camps of the Islamist separatist group Abu Sayyaf.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a56a14c10b98bb2570f72bb18ce51f1e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a56a14c10b98bb2570f72bb18ce51f1e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CARLOS H. CONDE</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 13:30:46 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Abu Sayyaf</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Philippines</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Terrorism</category>
+		</item>
+		<item>
+			<title>China Scraps Rule Mandating Censoring Software</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=4d4bf682b99a2df144ee3293752c12fb</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/world/asia/14censor.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/world/asia/14censor.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/01/world/13censor-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Acer computers on display in Beijing. Acer is among the manufacturers that include Green Dam software on computers sold in China.</media:description>
+			<media:credit>Du Bin for The New York Times</media:credit>
+			<description>Chinese officials retreated after complaints from Chinese internet users and foreign computer manufacturers.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=4d4bf682b99a2df144ee3293752c12fb&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=4d4bf682b99a2df144ee3293752c12fb&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL WINES</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 15:13:05 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Censorship</category>
+		</item>
+		<item>
+			<title>Interrogation Inc.: A Window Into C.I.A.&#x2019;s Embrace of Secret Jails</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ba73c655d87b5a5c8b19ca496a29cf47</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/world/13foggo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/world/13foggo.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/world/13foggo.inline.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Kyle D. Foggo, who helped build jails for the C.I.A. in the campaign against terrorism, after his arraignment in San Diego in 2007.</media:description>
+			<media:credit>Denis Poroy/Associated Press</media:credit>
+			<description>One of the Bush administration&#x2019;s most extraordinary counterterrorism programs had a fairly mundane start.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ba73c655d87b5a5c8b19ca496a29cf47&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ba73c655d87b5a5c8b19ca496a29cf47&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID JOHNSTON and MARK MAZZETTI</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 11:42:39 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Central Intelligence Agency</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Detainees</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Foggo, Kyle Dustin</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Interrogations</category>
+		</item>
+		<item>
+			<title>Golf and Rugby Get Boost for 2016 Olympics</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=99f418666fa2dea304a58c18f45313db</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/sports/14olympics.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/sports/14olympics.html</guid>
+			<description>After the vote on Thursday by an International Olympic Committee panel, a final decision will be made in October.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=99f418666fa2dea304a58c18f45313db&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=99f418666fa2dea304a58c18f45313db&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARK McDONALD</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 14:35:35 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Olympic Games (2016)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Olympic Games</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Golf</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">International Olympic Committee</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Rogge, Jacques</category>
+		</item>
+		<item>
+			<title>South Korean Worker Freed by North</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a82e0379a813eb3df787030844beaef3</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/world/asia/14korea.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/world/asia/14korea.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/world/13korea-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Yoo Seong-jin, a technician for Hyundai, arrived from North Korea at the customs office in Paju, South Korea,  on Thursday. </media:description>
+			<media:credit>Chung Sung-Jun/Getty Images</media:credit>
+			<description>The release of the worker, who had been held on charges of denouncing North Korea&#x2019;s political system, seemed to indicate a desire to ease relations.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a82e0379a813eb3df787030844beaef3&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a82e0379a813eb3df787030844beaef3&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CHOE SANG-HUN</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 15:06:13 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">South Korea</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prisons and Prisoners</category>
+		</item>
+		<item>
+			<title>News Analysis: Huge Bonus Hangs Over Pay Review</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=4325c79011395b308b70e6cf20dc1034</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/business/13pay.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/business/13pay.html</guid>
+			<description>Citibank may claim that an executive set to receive $100 million is exempt from federal review, executives said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=4325c79011395b308b70e6cf20dc1034&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=4325c79011395b308b70e6cf20dc1034&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By STEPHEN LABATON and ERIC DASH</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 11:26:44 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Executive Compensation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bonuses</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Regulation and Deregulation of Industry</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Hall, Andrew J</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Citigroup Inc|C|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Law and Legislation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Feinberg, Kenneth R</category>
+		</item>
+		<item>
+			<title>Biggest Union Is Said to Back Bloomberg Rival</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b4e3f4a7b6a4200ad3d8d1e028392a5a</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/nyregion/13union.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/nyregion/13union.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/nyregion/13unionA-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Mayor Michael R. Bloomberg in 2005 with Lillian Roberts, executive director of District Council 37.</media:description>
+			<media:credit>Michelle V. Agins/The New York Times</media:credit>
+			<description>District Council 37, which endorsed the mayor in 2005, has chosen William C. Thompson Jr., two people said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b4e3f4a7b6a4200ad3d8d1e028392a5a&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b4e3f4a7b6a4200ad3d8d1e028392a5a&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL BARBARO</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 05:33:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Endorsements</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">District Council 37</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Thompson, William C Jr</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Bloomberg, Michael R</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Elections</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Mayors</category>
+		</item>
+		<item>
+			<title>Independent Filmmakers Distribute on Their Own</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e4e4a03da0a73e4db0649bdad62d9517</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/13/business/media/13independent.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/13/business/media/13independent.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/business/13independent01-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Steve Ludlow in &#x201C;Anvil! The Story of Anvil.&#x201D; Its director, Sacha Gervasi, took out a second mortgage to pay for the documentary.</media:description>
+			<media:credit>Brent J. Craig/VH1 and Abramorama</media:credit>
+			<description>Instead of waiting to be discovered, aspiring filmmakers are paying for their own marketing and distribution.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e4e4a03da0a73e4db0649bdad62d9517&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e4e4a03da0a73e4db0649bdad62d9517&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL CIEPLY</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 11:24:22 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Movies</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Budgets and Budgeting</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Advertising and Marketing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Gervasi, Sacha</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_ttl">Anvil! The Story of Anvil (Movie)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_ttl">Age of Stupid, The (Movie)</category>
+		</item>
+	</channel>
+</rss>

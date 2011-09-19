@@ -1,0 +1,249 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Wed, 29 Jul 2009 12:17:44 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Microsoft and Yahoo Reach Deal on Search Partnership</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fbcc3821cd3f75850dd93a8bc8d9a1b0</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/technology/companies/30soft.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/technology/companies/30soft.html</guid>
+			<description>Microsoft and Yahoo announced on Wednesday that they had agreed to collaborate on Internet search and advertising, in a bid to challenge Google.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fbcc3821cd3f75850dd93a8bc8d9a1b0&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fbcc3821cd3f75850dd93a8bc8d9a1b0&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By THE NEW YORK TIMES.</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 12:10:40 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Microsoft Corp|MSFT|NASDAQ</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Yahoo Inc|YHOO|NASDAQ</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Search Engines</category>
+		</item>
+		<item>
+			<title>Recovery Signs in Housing Market Stir Some Hope</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f6a7c678ea459c34ee0e24c2ca6abb79</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/business/economy/29housing.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/business/economy/29housing.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/29/business/29housing01-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>On Monday, a sign that the housing market was still struggling in Las Vegas.</media:description>
+			<media:credit>Isaac Brekken for The New York Times</media:credit>
+			<description>After a plunge lasting three years, houses have become cheap enough to lure buyers, raising hopes that the housing market has finally hit bottom.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f6a7c678ea459c34ee0e24c2ca6abb79&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f6a7c678ea459c34ee0e24c2ca6abb79&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID STREITFELD</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 10:59:31 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Housing and Real Estate</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prices (Fares, Fees and Rates)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Standard &amp; Poor's Case-Shiller Home Price Index</category>
+		</item>
+		<item>
+			<title>How Firms Wooed a U.S. Agency With Billions to Invest</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=3f2dc34b31ea280ccb2bac74892d8900</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/business/29pensions.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/business/29pensions.html</guid>
+			<description>Charles E. F. Millard, head of the Pension Benefit Guaranty Corporation, is under investigation for inappropriate contacts with Wall Street firms seeking to obtain lucrative contracts.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=3f2dc34b31ea280ccb2bac74892d8900&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=3f2dc34b31ea280ccb2bac74892d8900&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ERIC LIPTON</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 11:22:10 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Inspectors General</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Pensions and Retirement Plans</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Millard, Charles E F Jr</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">BlackRock Inc|BLK|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Pension Benefit Guaranty Corp</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Ethics</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Goldman Sachs Group|GS|NYSE</category>
+		</item>
+		<item>
+			<title>Obama Faces Court Test Over Detainee</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=dd08a865d6b53919bb397d5fcf2c6e1b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/us/29gitmo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/us/29gitmo.html</guid>
+			<description>The case of a young detainee captured in Afghanistan has turned into a showdown between the courts and the executive branch over power to release prisoners.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=dd08a865d6b53919bb397d5fcf2c6e1b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=dd08a865d6b53919bb397d5fcf2c6e1b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By WILLIAM GLABERSON</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 10:20:40 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jawad, Mohammed</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Guantanamo Bay Naval Base (Cuba)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Detainees</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Habeas Corpus</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Courts</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Obama, Barack</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+		</item>
+		<item>
+			<title>City Aids Homeless With One-Way Tickets Home</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b5d219a037532fc499545d575cdf7cbc</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/nyregion/29oneway.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/nyregion/29oneway.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/29/nyregion/29oneway_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Justin Little and Eugenia Martin, with Inez, returned to North Carolina after only a few days when relatives paid their back rent.</media:description>
+			<media:credit>Michelle V. Agins/The New York Times</media:credit>
+			<description>The Bloomberg administration is saving money on shelters by buying families tickets to a place where they have relatives.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b5d219a037532fc499545d575cdf7cbc&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b5d219a037532fc499545d575cdf7cbc&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JULIE BOSMAN</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 12:00:39 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Homeless Persons</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Department of Homeless Services</category>
+		</item>
+		<item>
+			<title>Arrests in Terror Case Bewilder Associates</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=256a30911609e35007c8e013b2ac7d22</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/us/29terror.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/us/29terror.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/29/us/29terror_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Left to right, Daniel Patrick Boyd, Hysen Sherifi, Mohammad Omar Aly Hassan and Ziyad Yaghi have been charged with supporting violent jihad.</media:description>
+			<media:credit>Wake County City/County Bureau of Investigation, via Reuters</media:credit>
+			<description>Agents kept track of Daniel Patrick Boyd as he stockpiled weapons and trained accomplices, then moved in when their activities intensified.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=256a30911609e35007c8e013b2ac7d22&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=256a30911609e35007c8e013b2ac7d22&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CAMPBELL ROBERTSON</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 10:58:29 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Federal Bureau of Investigation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Terrorism</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">North Carolina</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Boyd, Daniel Patrick</category>
+		</item>
+		<item>
+			<title>Economic Scene: Health Care Reform and the Unpopular T-Word</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=77dee2a576b7ceb2b09a6c30156f3f7f</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/business/economy/29leonhardt.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/business/economy/29leonhardt.html</guid>
+			<description>Taxing health care may be the surest way to slow its growth, but members of Congress are not so eager.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=77dee2a576b7ceb2b09a6c30156f3f7f&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=77dee2a576b7ceb2b09a6c30156f3f7f&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID LEONHARDT</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 10:56:08 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Taxation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">United States Politics and Government</category>
+		</item>
+		<item>
+			<title>Big Losses at Two European Automakers</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=013a9988520a309568c196e179aa44e5</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/business/global/30daimler.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/business/global/30daimler.html</guid>
+			<description>Daimler&#x2019;s second-quarter loss of 1.1 billion euros was in line with estimates, and PSA Peugeot Citro&#xEB;n posted a net loss of 962 million euros for the first half.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=013a9988520a309568c196e179aa44e5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=013a9988520a309568c196e179aa44e5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By DAVID JOLLY</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 12:10:22 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Daimler AG|DAI|NYSE</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">PSA Peugeot Citroen</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Company Reports</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+		</item>
+		<item>
+			<title>Reports of Prison Abuse and Deaths Anger Iranians</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=81ccb88a433aa68482e05f3dd066c499</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/world/middleeast/30iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/world/middleeast/30iran.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/29/world/29iran.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A man was detained by an officer during riots in Tehran on June 14. Officials say about 150 of those jailed remain in prison.</media:description>
+			<media:credit>Associated Press</media:credit>
+			<description>Stories of abuse, relayed by relatives and on Web sites, in Iran&#x2019;s post-election crackdown have provoked outrage, including among prominent conservatives.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=81ccb88a433aa68482e05f3dd066c499&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=81ccb88a433aa68482e05f3dd066c499&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT F. WORTH</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 11:35:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prisons and Prisoners</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Political Prisoners</category>
+		</item>
+		<item>
+			<title>Gates Offers Iraqi Kurds Aid in Resolving Disputes</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9a50345914fa58b31e5b7ea84ac88d9c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/world/middleeast/30military.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/world/middleeast/30military.html</guid>
+			<description>ERBIL, Iraq &#x2014; In an attempt to preserve Iraq&#x2019;s fragile new unity, Defense Secretary Robert M. Gates offered American assistance to Kurdish leaders here Wednesday morning to try to resolve their intensifying disputes with the central government in Baghdad, a top aide to Mr. Gates said.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9a50345914fa58b31e5b7ea84ac88d9c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9a50345914fa58b31e5b7ea84ac88d9c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ELISABETH BUMILLER</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 11:38:26 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Kurds</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Gates, Robert M</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Erbil (Iraq)</category>
+		</item>
+		<item>
+			<title>Ireland to Accept Two Guant&#xE1;namo Detainees</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9540450c94760c144bc4e735a38395a0</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/30/world/europe/30gitmo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/30/world/europe/30gitmo.html</guid>
+			<description>Ireland became one of the few European nations willing to accept prisoners from the facility for resettlement.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9540450c94760c144bc4e735a38395a0&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9540450c94760c144bc4e735a38395a0&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ALAN COWELL</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 12:15:34 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Guantanamo Bay Naval Base (Cuba)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Detainees</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Ireland</category>
+		</item>
+		<item>
+			<title>Has Wikipedia Created a Rorschach Cheat Sheet?</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ad2036772e7c6606b3310e1799fa275b</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/technology/internet/29inkblot.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/technology/internet/29inkblot.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/29/business/29inkblot01-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Psychologists say Wikipedia&#x2019;s entry jeopardizes the Rorschach test&#x2019;s usefulness.</media:description>
+			<media:credit>Orlando/Three Lions/Getty Images</media:credit>
+			<description>Psychologists and Wikipedia users are at loggerheads over whether images used for Hermann Rorschach&#x2019;s inkblot test should be available online.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ad2036772e7c6606b3310e1799fa275b&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ad2036772e7c6606b3310e1799fa275b&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NOAM COHEN</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 07:05:56 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_keyword">Rorschach test</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Psychology and Psychologists</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Tests and Testing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Wikipedia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Rorschach, Hermann</category>
+		</item>
+		<item>
+			<title>Focus on Jackson Doctor Leads to Raids</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=cc73df9a5dc534e127b90e4a4b893a1c</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/07/29/us/29jackson.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/07/29/us/29jackson.html</guid>
+			<description>A month after Michael Jackson&#x2019;s sudden death, the focus in the investigation has remained on his physician.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=cc73df9a5dc534e127b90e4a4b893a1c&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=cc73df9a5dc534e127b90e4a4b893a1c&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By STEVE FRIESS and SOLOMON MOORE</dc:creator>
+			<pubDate>Wed, 29 Jul 2009 11:15:28 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jackson, Michael</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Murray, Conrad</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Music</category>
+		</item>
+	</channel>
+</rss>

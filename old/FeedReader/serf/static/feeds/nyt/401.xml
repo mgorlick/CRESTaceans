@@ -1,0 +1,206 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Thu, 13 Aug 2009 17:22:00 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Despite &#x2018;Cash for Clunkers,&#x2019; Retail Sales Decline in July</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d9dd91b736aad0d890ee8fdaafbf07ca</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/business/14econ.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/business/14econ.html</guid>
+			<description>The decline of 0.1 percent in July was a much worse performance than the 0.7 percent gain that economists had expected.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d9dd91b736aad0d890ee8fdaafbf07ca&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d9dd91b736aad0d890ee8fdaafbf07ca&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 16:53:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Car Allowance Rebate System</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Sales</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Shopping and Retail</category>
+		</item>
+		<item>
+			<title>Ford Moves to Increase Production</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d71be82c81c58145413392c81a04b974</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/business/14ford.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/business/14ford.html</guid>
+			<description>The automaker will produce 10,000 more cars in the third quarter and 140,000 more in the fourth.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d71be82c81c58145413392c81a04b974&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d71be82c81c58145413392c81a04b974&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By BILL VLASIC</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 17:13:19 GMT</pubDate>
+		</item>
+		<item>
+			<title>City Room: No Charges for Officer Who Shot Another Officer</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=87df3e49d25699ad7d428970d7c58841</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/08/13/no-charges-in-shooting-of-officer/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/08/13/no-charges-in-shooting-of-officer/index.html</guid>
+			<description>A grand jury has voted not to indict a New York City police officer who fatally shot an off-duty officer.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=87df3e49d25699ad7d428970d7c58841&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=87df3e49d25699ad7d428970d7c58841&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By AL BAKER and JOHN ELIGON</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 17:18:25 GMT</pubDate>
+		</item>
+		<item>
+			<title>On 11th Try, Man Convicted in &#x2019;91 Killing Gets Hearing</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=79c880ead854674603760b52a6b6d173</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/nyregion/14retrial.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/nyregion/14retrial.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/nyregion/13retrial2-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Fernando Bermudez was convicted of fatally shooting Raymond Blount outside a club in Greenwich Village. Above, the crime scene at the corner of University Place and 13th Street in August 1991. </media:description>
+			<media:credit>New York City Police Department</media:credit>
+			<description>Despite recanted testimony, judges rejected all previous attempts to have a Greenwich Village murder case re-examined.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=79c880ead854674603760b52a6b6d173&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=79c880ead854674603760b52a6b6d173&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PAUL von ZIELBAUER</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 17:19:28 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Decisions and Verdicts</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Greenwich Village (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Murders and Attempted Murders</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Police Department (NYC)</category>
+		</item>
+		<item>
+			<title>Les Paul, Guitar Innovator, Dies at 94</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=2b8a83e6cf34bfd3c41538776b1993c9</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/arts/music/14paul.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/arts/music/14paul.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/obituaries/13lespaul-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Les Paul at the Iridium Jazz Club in 2004.</media:description>
+			<media:credit>G. Paul Burnett/The New York Times</media:credit>
+			<description>Mr. Paul was a virtuoso guitarist and inventor whose solid-body electric guitar and recording studio innovations changed the course of 20th-century music.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=2b8a83e6cf34bfd3c41538776b1993c9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=2b8a83e6cf34bfd3c41538776b1993c9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JON PARELES</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 17:03:22 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Paul, Les</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Music</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Guitars</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Deaths (Obituaries)</category>
+		</item>
+		<item>
+			<title>Golf and Rugby Get Boost for 2016 Olympics</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=99f418666fa2dea304a58c18f45313db</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/sports/14olympics.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/sports/14olympics.html</guid>
+			<description>After the vote on Thursday by an International Olympic Committee panel, a final decision will be made in October.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=99f418666fa2dea304a58c18f45313db&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=99f418666fa2dea304a58c18f45313db&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MARK McDONALD</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 14:35:35 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Olympic Games (2016)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Olympic Games</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Golf</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">International Olympic Committee</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Rogge, Jacques</category>
+		</item>
+		<item>
+			<title>China Scales Back Plans for Software Filter</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=4d4bf682b99a2df144ee3293752c12fb</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/world/asia/14censor.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/world/asia/14censor.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/07/01/world/13censor-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Acer computers on display in Beijing. Acer is among the manufacturers that include Green Dam software on computers sold in China.</media:description>
+			<media:credit>Du Bin for The New York Times</media:credit>
+			<description>Chinese officials retreated after complaints from Chinese Internet users and foreign computer manufacturers.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=4d4bf682b99a2df144ee3293752c12fb&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=4d4bf682b99a2df144ee3293752c12fb&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL WINES</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 16:10:29 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Censorship</category>
+		</item>
+		<item>
+			<title>P.G.A. Championship: Woods and Harrington Get Early Start</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6df60363ea02962bb5c0ebefe3a5a898</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/sports/golf/14golf.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/sports/golf/14golf.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/sports/golf/pga.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Padraig Harrington and Tiger Woods, who have developed a healthy rivalry on the Tour, played together during the first round of the P.G.A. Championship. </media:description>
+			<media:credit>Sam Greenwood/Getty Images</media:credit>
+			<description>Tiger Woods and Padraig Harrington, the defending champion, were among the big names who teed off early on Thursday.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6df60363ea02962bb5c0ebefe3a5a898&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6df60363ea02962bb5c0ebefe3a5a898&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PAT BORZI</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 16:44:59 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Golf</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">PGA Championship</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">PGA Tour Inc</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Woods, Tiger</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Harrington, Padraig</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Beem, Rich</category>
+		</item>
+		<item>
+			<title>Europe Extends Myanmar Sanctions</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=92393fd79dd1d0ef7da0fb83934a6e27</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/world/asia/14myanmar.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/world/asia/14myanmar.html</guid>
+			<description>The sanctions against members of the judiciary, the media and other enterprises was the first concrete response to Daw Aung San Suu Kyi&#x2019;s conviction.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=92393fd79dd1d0ef7da0fb83934a6e27&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=92393fd79dd1d0ef7da0fb83934a6e27&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SETH MYDANS and SHARON OTTERMAN</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 17:16:48 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Aung San Suu Kyi, Daw</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Myanmar</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">European Union</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Embargoes and Economic Sanctions</category>
+		</item>
+		<item>
+			<title>Clinton Backs Liberia&#x2019;s President</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=66aaaa458d359550220d30cc91417768</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/world/africa/14diplo.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/world/africa/14diplo.html</guid>
+			<description>Hillary Rodham Clinton voiced strong support on Thursday for Ellen Johnson-Sirleaf, who has recently come under scrutiny for her role in the country&#x2019;s conflict-ridden past.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=66aaaa458d359550220d30cc91417768&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=66aaaa458d359550220d30cc91417768&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JEFFREY GETTLEMAN</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 17:02:32 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Liberia</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Clinton, Hillary Rodham</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Johnson-Sirleaf, Ellen</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States International Relations</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Truth and Reconciliation Commission</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Taylor, Charles G</category>
+		</item>
+		<item>
+			<title>23 Filipino Soldiers Killed in Clashes</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=a56a14c10b98bb2570f72bb18ce51f1e</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/14/world/asia/14phils.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/14/world/asia/14phils.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/13/world/13phils-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Wounded soldiers were treated in a military hospital in Zamboanga on Thursday after a battle with Abu Sayyaf rebels on Basilan island in the southern Philippines.</media:description>
+			<media:credit>Charlie Saceda/Reuters</media:credit>
+			<description>Twenty-three soldiers and at least 20 suspected terrorists have been killed as troops stormed camps of the Islamist separatist group Abu Sayyaf.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=a56a14c10b98bb2570f72bb18ce51f1e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=a56a14c10b98bb2570f72bb18ce51f1e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By CARLOS H. CONDE</dc:creator>
+			<pubDate>Thu, 13 Aug 2009 13:30:46 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Abu Sayyaf</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Philippines</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Terrorism</category>
+		</item>
+	</channel>
+</rss>

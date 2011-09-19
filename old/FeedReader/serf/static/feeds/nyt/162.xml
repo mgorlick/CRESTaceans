@@ -1,0 +1,165 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Mon, 03 Aug 2009 18:19:52 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>Ford Sales Rise in July, Helped by Rebates for &#x2018;Clunkers&#x2019;</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b5cf461e42b5846cf070c39acd7108ea</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/business/04auto.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/business/04auto.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/04/business/04auto75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A used vehicle on a Ford dealership lot advertises the government's "Cash for clunkers" program in Encinitas, California.</media:description>
+			<media:credit>Mike Blake/Reuters</media:credit>
+			<description>It is the first year-over-year increase for any of the six largest carmakers since last August. Other carmakers are scheduled to report sales later on Monday.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b5cf461e42b5846cf070c39acd7108ea&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b5cf461e42b5846cf070c39acd7108ea&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NICK BUNKLEY</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 18:19:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Automobiles</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Sales</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Car Allowance Rebate System</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Ford Motor Co|F|NYSE</category>
+		</item>
+		<item>
+			<title>Google Chief Resigns as Apple Director</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=e0066370a7746edf0fca8b3d224ffd10</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/technology/companies/04apple.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/technology/companies/04apple.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/business/schmidt.753.jpg" medium="image" height="75" width="75"/>
+			<media:description>Eric Schmidt, chief executive of Google, had been on Apple&#x2019;s board since August 2006.</media:description>
+			<media:credit>Matthew Staver/Bloomberg News</media:credit>
+			<description>Eric E. Schmidt&#x2019;s resignation comes as the search giant begins to compete more directly with its longtime ally Apple.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=e0066370a7746edf0fca8b3d224ffd10&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=e0066370a7746edf0fca8b3d224ffd10&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 16:33:22 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Google Inc|GOOG|NASDAQ</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Schmidt, Eric E</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Apple Inc|AAPL|NASDAQ</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Suspensions, Dismissals and Resignations</category>
+		</item>
+		<item>
+			<title>DealBook: Bank of America Settles S.E.C. Suit Over Merrill Deal</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=7789b2bdbb8079cb1d36ff68932df942</link>
+			<pheedo:origLink>http://dealbook.blogs.nytimes.com/2009/08/03/sec-sues-bank-of-america-over-merrill-deal/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://dealbook.blogs.nytimes.com/2009/08/03/sec-sues-bank-of-america-over-merrill-deal/index.html</guid>
+			<description>The bank settled charges of making false statements to investors for $33 million without admitting or denying the allegations.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=7789b2bdbb8079cb1d36ff68932df942&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=7789b2bdbb8079cb1d36ff68932df942&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ZACHERY KOUWE</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 18:18:21 GMT</pubDate>
+		</item>
+		<item>
+			<title>Markets Rise on Signs of Economic Growth</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=41ce6eced66ca4c36a1a61df7f54edf9</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/business/04markets.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/business/04markets.html</guid>
+			<description>Reports on manufacturing and housing sent the S. &amp; P. index past 1,000 for the first time since early November.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=41ce6eced66ca4c36a1a61df7f54edf9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=41ce6eced66ca4c36a1a61df7f54edf9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK HEALY</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 18:17:17 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Stocks and Bonds</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Economic Conditions and Trends</category>
+		</item>
+		<item>
+			<title>Kurds Identify 3 Hikers Held in Iran</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=f93b40a1ec45273497dbd2fdce32dee3</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/world/middleeast/04hikers.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/world/middleeast/04hikers.html</guid>
+			<description>The Kurdish authorities named the three Americans, all believed to be in their 20s, as Shane Michael Bauer, of Emeryville, Calif., Joshua Felix Fattal, of Cottage Grove, Ore., and Sarah Emily Shourd.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=f93b40a1ec45273497dbd2fdce32dee3&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=f93b40a1ec45273497dbd2fdce32dee3&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM DAGHER and SHARON OTTERMAN</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 18:18:22 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Hiking</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Political Prisoners</category>
+		</item>
+		<item>
+			<title>Controlling Interests: Scores on Standardized School Tests Are Up, but Criticism Continues</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=bc9ab3038b66f89efb6cd7b3ff48dbd4</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/nyregion/04scores.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/nyregion/04scores.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/nyregion/scores.75.33.jpg" medium="image" height="75" width="75"/>
+			<media:description>At Public School 398 in Brownsville, Brooklyn, 77 percent of students passed the math tests this year and 60 percent passed English, up from 56 and 43 percent last year.</media:description>
+			<media:credit>Ruby Washington/The New York Times</media:credit>
+			<description>Michael R. Bloomberg uses the results to defend the mayor&#x2019;s control over the city&#x2019;s schools. Still, questions persist about how much the scores mean about real learning.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=bc9ab3038b66f89efb6cd7b3ff48dbd4&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=bc9ab3038b66f89efb6cd7b3ff48dbd4&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ELISSA GOOTMAN and ROBERT GEBELOFF</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 17:54:58 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Grading of Students</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Education Department (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Bloomberg, Michael R</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Tests and Testing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Education and Schools</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+		</item>
+		<item>
+			<title>City Room: Plaxico Burress Is Indicted on Weapons Charges</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=cf293f1415c4e28b65800677eaabba77</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/08/03/burress-is-indicted-on-weapons-charge/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/08/03/burress-is-indicted-on-weapons-charge/index.html</guid>
+			<description>A grand jury indicted the former Giants&#x2019; receiver, but decided not to indict his former teammate Antonio Pierce.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=cf293f1415c4e28b65800677eaabba77&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=cf293f1415c4e28b65800677eaabba77&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JOHN ELIGON and JOSEPH BERGER</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 18:18:21 GMT</pubDate>
+		</item>
+		<item>
+			<title>Ahmadinejad&#x2019;s Opponents Snub Election Ceremony</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=6c098abf18414815c97ae353b545ad35</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/04/world/middleeast/04iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/04/world/middleeast/04iran.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/03/world/middleeast/iran.7575.jpg" medium="image" height="75" width="75"/>
+			<media:description>Iran's supreme leader, Ayatollah Ali Khamenei, presented a decree to President Mahmoud Ahmadinejad during an official ceremony in Tehran on Monday, as he confirmed Mr. Ahmadinejad's re-election.</media:description>
+			<media:credit>Agence France Presse</media:credit>
+			<description>Several opponents of President Mahmoud Ahmadinejad avoided a ceremony recognizing his re-election in Iran.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=6c098abf18414815c97ae353b545ad35&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=6c098abf18414815c97ae353b545ad35&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT F. WORTH and NAZILA FATHI</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 17:35:49 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Political Prisoners</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ahmadinejad, Mahmoud</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Khamenei, Ali</category>
+		</item>
+		<item>
+			<title>City Room: Bloomberg Calls for Free Crosstown Buses</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ffd87f7ab11c5895c3d95f60e60a4631</link>
+			<pheedo:origLink>http://cityroom.blogs.nytimes.com/2009/08/03/bloomberg-calls-for-free-crosstown-buses/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://cityroom.blogs.nytimes.com/2009/08/03/bloomberg-calls-for-free-crosstown-buses/index.html</guid>
+			<description>Unveiling transit proposals, Mayor Michael R. Bloomberg seemed to be trying to assert more influence on the M.T.A.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ffd87f7ab11c5895c3d95f60e60a4631&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ffd87f7ab11c5895c3d95f60e60a4631&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SEWELL CHAN and MICHAEL BARBARO</dc:creator>
+			<pubDate>Mon, 03 Aug 2009 18:18:19 GMT</pubDate>
+		</item>
+	</channel>
+</rss>

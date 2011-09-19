@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:ft-index="http://www.ft.com/rss-full-text-indexing" xmlns:ft="http://www.ft.com/FTRSSExtensions" version="2.0">
+  <channel>
+    <title>Financial Times - US homepage</title>
+    <link>http://www.ft.com/home/us</link>
+    <description>Financial Times - US homepage</description>
+    <language>en</language>
+    <rating>(PICS-1.1 "http://www.classify.org/safesurf/" L gen true for "http://www.ft.com/" r (SS~~000 1))</rating>
+    <copyright>© Copyright The Financial Times Ltd 2009. "FT" and "Financial Times" are trademarks of the Financial Times. See http://www.ft.com/servicestools/help/terms#legal1 for the terms and conditions of reuse.</copyright>
+    <pubDate>Tue, 11 Aug 2009 13:07:40 GMT</pubDate>
+    <lastBuildDate>Tue, 11 Aug 2009 13:29:27 GMT</lastBuildDate>
+    <webMaster>client.support@ft.com (Client Support)</webMaster>
+    <ttl>15</ttl>
+    <category>Newspapers</category>
+    <atom:link rel="self" href="http://www.ft.com/rss/home/us" type="application/xml" />
+    <ft:rsslink>http://www.ft.com/rss/home/us</ft:rsslink>
+    <image>
+      <title>Financial Times - US homepage</title>
+      <url>http://im.media.ft.com/m/img/rss/RSS_Default_Image.gif</url>
+      <link>http://www.ft.com/home/us</link>
+    </image>
+    <item>
+      <title>New York Fed in hiring spree</title>
+      <link>http://traxfer.ft.com/cms/s/0/0e7071d0-85ca-11de-98de-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The Federal Reserve Bank of New York is aggressively hiring traders as it seeks to manage its burgeoning securities holdings, making the central bank one of Wall Street’s most active recruiters of financial talent</description>
+      <pubDate>Mon, 10 Aug 2009 22:30:36 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/0e7071d0-85ca-11de-98de-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>China’s economy cools as lending slows</title>
+      <link>http://traxfer.ft.com/cms/s/0/06871ef4-8630-11de-98de-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>China’s surging economy slowed slightly in July as state-controlled banks heeded Beijing’s instructions to rein in excessive lending, with the volume of new lending dropping 77 per cent from a month earlier</description>
+      <pubDate>Tue, 11 Aug 2009 11:23:32 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/06871ef4-8630-11de-98de-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Wall Street awaits Fed prognosis</title>
+      <link>http://traxfer.ft.com/cms/s/0/6a24d9a0-85eb-11de-98de-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>US stocks looked set to continue to trade within a narrow range on Tuesday morning as investors waited for further signs on the economic recovery from the Federal Reserve.</description>
+      <pubDate>Tue, 11 Aug 2009 13:07:40 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/6a24d9a0-85eb-11de-98de-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>DPJ chief hits at ‘US-led’ globalism</title>
+      <link>http://traxfer.ft.com/cms/s/0/e041b3e6-85d8-11de-98de-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Yukio Hatoyama, leader of Japan's opposition Democratic party who is strongly placed favourite to be its next to become prime minister, has vowed to shield his nation's people and industries  from globalisation</description>
+      <pubDate>Mon, 10 Aug 2009 18:39:25 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/e041b3e6-85d8-11de-98de-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Tata secures private funding for Jaguar</title>
+      <link>http://traxfer.ft.com/cms/s/0/ff95291a-8657-11de-9e8e-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>The Indian owner of Jaguar Land Rover has dropped its demands for a large bailout by the British government after obtaining private sector funding for the  struggling carmaker</description>
+      <pubDate>Tue, 11 Aug 2009 10:54:56 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/ff95291a-8657-11de-9e8e-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Ex-Soviet officer escapes US extradition</title>
+      <link>http://traxfer.ft.com/cms/s/0/441aa16c-8655-11de-9e8e-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Viktor Bout, the former Soviet intelligence officer suspected of arms trafficking on four continents, has won the first stage of his battle to avoid extradition from Thailand to the US on charges of offering to supply weapons to Colombian rebels</description>
+      <pubDate>Tue, 11 Aug 2009 09:52:10 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/441aa16c-8655-11de-9e8e-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Eunice Kennedy Shriver dies at 88</title>
+      <link>http://traxfer.ft.com/cms/s/0/a883f7cc-8667-11de-9e8e-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>Eunice Kennedy Shriver, who founded the Special Olympics and is a member of one of the most prominent American political families of the 20th century, died at the age of 88</description>
+      <pubDate>Tue, 11 Aug 2009 11:47:41 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/a883f7cc-8667-11de-9e8e-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>InterContinental launches fresh cost-cutting measures</title>
+      <link>http://traxfer.ft.com/cms/s/0/d5b5e1ac-8648-11de-9e8e-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>InterContinental Hotels Group vowed to ramp up cost-cutting as it announced a 38% drop in first-half profits, underlining the continuing gloom in the hotel industry</description>
+      <pubDate>Tue, 11 Aug 2009 08:47:58 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/d5b5e1ac-8648-11de-9e8e-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>US judge rejects BofA settlement with SEC</title>
+      <link>http://traxfer.ft.com/cms/s/0/a9b1e546-8603-11de-98de-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>A judge refused to accept a proposed settlement between regulators and Bank of America over allegations of misleading investors in a proxy statement and pushed the Securities and Exchange Commission at a hearing to identify who at BofA was responsible for the alleged mis-statements</description>
+      <pubDate>Mon, 10 Aug 2009 23:44:07 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/a9b1e546-8603-11de-98de-00144feabdc0.html</guid>
+    </item>
+    <item>
+      <title>Suu Kyi sentenced to further 18 months</title>
+      <link>http://traxfer.ft.com/cms/s/0/115087ba-8641-11de-9e8e-00144feabdc0.html?o=%2Fcms%2Fb0ed86f4-4e94-11de-8d4c-00144feabdc0.html</link>
+      <description>A court in Burma has sentenced Aung San Suu Kyi, the opposition leader and Nobel Laureate to a further 18 months under house arrest for breaching the terms of her previous incarceration when an American tourist swam across the lake that backs on to her villa and stayed the night</description>
+      <pubDate>Tue, 11 Aug 2009 07:09:11 GMT</pubDate>
+      <guid isPermaLink="false">http://www.ft.com/cms/s/0/115087ba-8641-11de-9e8e-00144feabdc0.html</guid>
+    </item>
+  </channel>
+</rss>
+

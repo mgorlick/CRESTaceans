@@ -1,0 +1,78 @@
+<?xml version="1.0" ?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" version="2.0">
+	<channel>
+		<title>washingtonpost.com - Today's Highlights</title>
+		<link>http://www.washingtonpost.com/?nav=rss_email/components</link>
+		<description></description>
+		<language>en-us</language>
+		<ttl>15</ttl>
+		<image>
+			<title>washingtonpost.com</title>
+			<width>140</width>
+			<height>20</height>
+			<link>http://www.washingtonpost.com?nav=rss</link>
+			<url>http://media3.washingtonpost.com/wp-srv/hp/image/wp_web.gif</url>
+		</image>
+		<item>
+			<title><![CDATA[Sotomayor Wins Senate Approval for High Court]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=22fe0a577f7e9bd76487cd66bd8e2e30]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/06/AR2009080601706.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/06/AR2009080601706.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Thu Aug 6 16:02 EDT 2009]]></pubDate>
+			<description><![CDATA[In 68 to 31 vote, Sonia Sotomayor becomes 111th Supreme Court justice, third woman and first Hispanic; all 31 votes against her came from GOP.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=22fe0a577f7e9bd76487cd66bd8e2e30&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=22fe0a577f7e9bd76487cd66bd8e2e30&p=1"/></a>
+]]></description>
+			<author><![CDATA[Paul Kane and Amy Goldstein]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Dems Wrestle Over Public Option]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=8230b3d66ee94205e3e972fa01e5e167]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/06/AR2009080601574.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/06/AR2009080601574.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Thu Aug 6 10:52 EDT 2009]]></pubDate>
+			<description><![CDATA[If one believes government-run insurance is good, should reformers stake everything on inclusion? <br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=8230b3d66ee94205e3e972fa01e5e167&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=8230b3d66ee94205e3e972fa01e5e167&p=1"/></a>
+]]></description>
+			<author><![CDATA[Alec MacGillis]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Three of 'Norfolk 4' Pardoned]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=31970a181def3f73d99a9652029469bd]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/06/AR2009080602065.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/06/AR2009080602065.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Thu Aug 6 16:09 EDT 2009]]></pubDate>
+			<description><![CDATA[Former sailors serving life sentences for a 1997 rape, murder are set to be released from prison.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=31970a181def3f73d99a9652029469bd&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=31970a181def3f73d99a9652029469bd&p=1"/></a>
+]]></description>
+			<author><![CDATA[Anita Kumar and Tom Jackman]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Ex-AIG CEO Settles SEC Charges]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=95be91855d03e13f4162cb1363ea8059]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/06/AR2009080601799.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/06/AR2009080601799.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Thu Aug 6 14:53 EDT 2009]]></pubDate>
+			<description><![CDATA[Maurice Greenberg to pay $15M fine for charges tied to accounting scandal that led to '05 ouster.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=95be91855d03e13f4162cb1363ea8059&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=95be91855d03e13f4162cb1363ea8059&p=1"/></a>
+]]></description>
+			<author><![CDATA[Associated Press ]]></author>
+		</item>
+		<item>
+			<title><![CDATA[Twitter's Back, But Service Slow]]></title>
+			<link><![CDATA[http://feeds.washingtonpost.com/click.phdo?i=8905da69826ffd263440f555700b4093]]></link>
+			<pheedo:origLink>http://www.washingtonpost.com/wp-dyn/content/article/2009/08/06/AR2009080602341.html?nav=rss_email/components</pheedo:origLink>
+			<guid isPermaLink="false"><![CDATA[http://www.washingtonpost.com/wp-dyn/content/article/2009/08/06/AR2009080602341.html?nav=rss_email/components]]></guid>
+			<pubDate><![CDATA[Thu Aug 6 15:32 EDT 2009]]></pubDate>
+			<description><![CDATA[Targeting popular social networking sites, hackers silenced Twitter for about two hours this morning.<br clear="both" style="clear: both;"/>
+<br clear="both" style="clear: both;"/>
+<a href="http://ads.pheedo.com/click.phdo?s=8905da69826ffd263440f555700b4093&p=1"><img alt="" style="border: 0;" border="0" src="http://ads.pheedo.com/img.phdo?s=8905da69826ffd263440f555700b4093&p=1"/></a>
+]]></description>
+			<author><![CDATA[Cecilia Kang and Brian Krebs]]></author>
+		</item>
+	</channel>
+</rss>

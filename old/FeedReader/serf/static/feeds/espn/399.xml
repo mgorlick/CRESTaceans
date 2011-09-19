@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="http://sports.espn.go.com/rss/friendlyRSSDemo.xsl" type="text/xsl" media="screen"?>
+<rss version="2.0" 	xmlns:dc="http://purl.org/dc/elements/1.1/"	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"	xmlns:admin="http://webns.net/mvcb/"	xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"	xmlns:atom="http://purl.org/atom/ns#"	xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<channel>
+	<title>ESPN.com</title>
+	<link>http://espn.go.com/</link>	<description>Latest news from ESPN.com</description>
+	<language>en-us</language>
+   <atom:link rel="self" href="http://sports.espn.go.com/espn/rss/news?null" />
+	<lastBuildDate>Thu, 13 Aug 2009 08:28:48 PDT</lastBuildDate>
+	<docs>http://backend.userland.com/rss</docs>
+	<managingEditor>webmaster@espn.go.com</managingEditor>
+ <image> 
+     <url>http://a.espncdn.com/i/tvlistings/tv_espn_original.gif</url>
+	<title>ESPN logo</title>
+	<link>http://espn.go.com</link>
+	<width>84</width>
+	<height>34</height>
+ </image> 
+ <ttl>30</ttl> 
+	<dc:rights>Copyright 2009</dc:rights>
+	<admin:generatorAgent rdf:resource="http://espn.go.com/rss/?v=0.9beta"/>
+	<admin:errorReportsTo rdf:resource="mailto:customer.service@espn.go.com"/>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<sy:updateBase>2000-01-01T12:00+00:00</sy:updateBase>
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Donte' Stallworth suspended without pay for 2009 season]]></title>
+<description><![CDATA[Donte' Stallworth has been suspended without pay for the 2009 season, the NFL said Thursday.]]></description>
+<pubDate>Thu, 13 Aug 2009 08:17:40 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4396130&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4396130&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Rick Pitino apologizes for indiscretion, vows to stay]]></title>
+<description><![CDATA[Louisville coach Rick Pitino apologized for what he called "an indiscretion" and said he will continue to coach the Cardinals.]]></description>
+<pubDate>Thu, 13 Aug 2009 07:23:31 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncb/news/story?id=4395181&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncb/news/story?id=4395181&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Bronson Arroyo of Cincinnati Reds flouting MLB, union guidance on supplements]]></title>
+<description><![CDATA[Reds pitcher Bronson Arroyo, who last month admitted to using a now-banned supplement earlier in his career, says he uses a number of over-the-counter supplements not on Major League Baseball's approved list, according to a published report.]]></description>
+<pubDate>Thu, 13 Aug 2009 07:56:39 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/news/story?id=4396083&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/news/story?id=4396083&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Paul Casey pulls out of PGA Championship with rib injury]]></title>
+<description><![CDATA[Paul Casey of England, the world's No. 3 player, has withdrawn from the PGA Championship because of a rib injury.]]></description>
+<pubDate>Thu, 13 Aug 2009 06:55:01 PDT</pubDate>
+<guid>http://sports.espn.go.com/golf/pgachampionship09/news/story?id=4395927&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/golf/pgachampionship09/news/story?id=4395927&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Pedro earns win for Phillies in return to majors ]]></title>
+<description><![CDATA[Pedro Martinez returned to the majors with a win, pitching five innings and leading the Philadelphia Phillies over the Chicago Cubs 12-5 Wednesday night.]]></description>
+<pubDate>Wed, 12 Aug 2009 23:56:11 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/recap?gameId=290812116&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/recap?gameId=290812116&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[External]]></dc:creator>
+<title><![CDATA[Mexico stops U.S. in Cup qualifier ]]></title>
+<description><![CDATA[ ]]></description>
+<pubDate>Wed, 12 Aug 2009 18:55:55 PDT</pubDate>
+<guid>http://soccernet.espn.go.com/report?id=262901&amp;cc=5901&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://soccernet.espn.go.com/report?id=262901&amp;cc=5901&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[IOC recommends golf, rugby for 2016 Games]]></title>
+<description><![CDATA[International Olympic leaders are recommending golf and rugby for inclusion in the 2016 Summer Games.]]></description>
+<pubDate>Thu, 13 Aug 2009 08:11:09 PDT</pubDate>
+<guid>http://sports.espn.go.com/oly/news/story?id=4396021&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/oly/news/story?id=4396021&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Ted Miller and Shelley Smith]]></dc:creator>
+<title><![CDATA[Injured USC Trojans quarterback Aaron Corp out one to two weeks]]></title>
+<description><![CDATA[USC quarterback Aaron Corp has a small crack in his bruised left knee and will be out about two weeks.]]></description>
+<pubDate>Thu, 13 Aug 2009 07:30:42 PDT</pubDate>
+<guid>http://sports.espn.go.com/ncf/news/story?id=4394882&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/ncf/news/story?id=4394882&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Andy Kessler, skateboarding pioneer, dies at 48]]></title>
+<description><![CDATA[Andy Kessler, a skateboarding pioneer and designer of New York City skate parks, has died. He was 48. ]]></description>
+<pubDate>Thu, 13 Aug 2009 08:25:27 PDT</pubDate>
+<guid>http://sports.espn.go.com/espn/news/story?id=4396284&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/espn/news/story?id=4396284&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services]]></dc:creator>
+<title><![CDATA[Michael Vick might have limited options, Tony Dungy says ]]></title>
+<description><![CDATA[Tony Dungy believes Michael Vick will find a new home this week. Where, exactly, he's still not sure. ]]></description>
+<pubDate>Thu, 13 Aug 2009 06:27:50 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/news/story?id=4394427&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/news/story?id=4394427&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Cano's RBI single lifts Yanks past Jays in 11]]></title>
+<description><![CDATA[Robinson Cano hit a game-ending RBI single in the 11th inning and the Yankees capped a successful homestand with a 4-3 victory over the Blue Jays.]]></description>
+<pubDate>Wed, 12 Aug 2009 19:01:59 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/recap?gameId=290812110&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/recap?gameId=290812110&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Indianapolis Colts Pro Bowl safety Bethea breaks hand in practice]]></title>
+<description><![CDATA[Colts safety Antoine Bethea has cracked a bone in his right hand, leaving him on the sideline for both of Indianapolis' practices Wednesday.]]></description>
+<pubDate>Wed, 12 Aug 2009 18:33:59 PDT</pubDate>
+<guid>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4395278&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/nfl/trainingcamp09/news/story?id=4395278&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Rafael Nadal returns to singles action, advances at Rogers Cup when David Ferrer retires]]></title>
+<description><![CDATA[Rafael Nadal won his first match since May when David Ferrer retired with an apparent knee injury in the first set of their match at the Rogers Cup.]]></description>
+<pubDate>Wed, 12 Aug 2009 19:50:50 PDT</pubDate>
+<guid>http://sports.espn.go.com/sports/tennis/news/story?id=4394185&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/sports/tennis/news/story?id=4394185&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[ESPN.com news services ]]></dc:creator>
+<title><![CDATA[High school basketball phenom/dropout signs to play in Israeli Premier League]]></title>
+<description><![CDATA[Jeremy Tyler, the 18-year-old basketball player who is skipping his senior year at San Diego High, has signed a one-year deal with Maccabi Haifa of the Israeli Premier League. ]]></description>
+<pubDate>Wed, 12 Aug 2009 21:59:58 PDT</pubDate>
+<guid>http://sports.espn.go.com/highschool/rise/basketball/boys/news/story?id=4395258&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/highschool/rise/basketball/boys/news/story?id=4395258&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+<item>
+<dc:creator><![CDATA[Associated Press]]></dc:creator>
+<title><![CDATA[Giants dodge sweep on Uribe walk-off in 10th]]></title>
+<description><![CDATA[Giants 1, Dodgers 0(5)]]></description>
+<pubDate>Wed, 12 Aug 2009 20:26:27 PDT</pubDate>
+<guid>http://sports.espn.go.com/mlb/recap?gameId=290812126&amp;campaign=rss&amp;source=ESPNHeadlines</guid>
+<link>http://sports.espn.go.com/mlb/recap?gameId=290812126&amp;campaign=rss&amp;source=ESPNHeadlines</link>
+</item>
+
+</channel></rss>

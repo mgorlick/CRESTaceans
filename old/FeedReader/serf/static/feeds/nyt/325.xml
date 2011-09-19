@@ -1,0 +1,331 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="/css/rss20.xsl" type="text/xsl"?>
+<rss xmlns:pheedo="http://www.pheedo.com/namespace/pheedo" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:nyt="http://www.nytimes.com/namespaces/rss/2.0" version="2.0">
+	<channel>
+		<title>NYT &gt; Home Page</title>
+		<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		<atom:link rel="self" type="application/rss+xml" href="http://www.nytimes.com/services/xml/rss/nyt/HomePage.xml"/>
+		<description/>
+		<language>en-us</language>
+		<copyright>Copyright 2009
+ The New York Times Company</copyright>
+		<lastBuildDate>Mon, 10 Aug 2009 13:18:09 GMT
+</lastBuildDate>
+		<image>
+			<title>NYT &gt; Home Page</title>
+			<url>http://graphics.nytimes.com/images/section/NytSectionHeader.gif</url>
+			<link>http://www.nytimes.com/pages/index.html?partner=rss</link>
+		</image>
+		<item>
+			<title>U.S. to Hunt Down Afghan Drug Lords Tied to Taliban</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=38705372613d4faf3a81df21eb1475c1</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/world/asia/10afghan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/world/asia/10afghan.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/world/10afghan.span.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>United States Marines raided a bazaar in Afghanistan&#x2019;s southern Helmand Province last month to search for drugs and weapons.</media:description>
+			<media:credit>Eros Hoagland for The New York Times</media:credit>
+			<description>U.S. commanders say the addition of drug traffickers to a &#x201C;kill or capture&#x201D; list is legal and a key part of a plan to disrupt the flow of drug money to the Taliban.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=38705372613d4faf3a81df21eb1475c1&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=38705372613d4faf3a81df21eb1475c1&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JAMES RISEN</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 12:54:52 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Drug Abuse and Traffic</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Afghanistan War (2001- )</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Defense and Military Forces</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Afghanistan</category>
+		</item>
+		<item>
+			<title>Airspace Above Hudson a Highway With Few Signs</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=d707757c5568547a91191a3e452c6e42</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/nyregion/10collide.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/nyregion/10collide.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/nyregion/10collision.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A piece of helicopter wreckage being lifted Sunday onto a barge in the Hudson River off Hoboken, N.J., one day after nine people died in a midair collision between the copter and a light plane.</media:description>
+			<media:credit>Carl Erwich/Getty Images</media:credit>
+			<description>Calls for more government control of the congested skies above the Hudson River were reignited after a small airplane collided with a sightseeing helicopter.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=d707757c5568547a91191a3e452c6e42&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=d707757c5568547a91191a3e452c6e42&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By AL BAKER and MICHAEL M. GRYNBAUM</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 12:42:06 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Airlines and Airplanes</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Accidents and Safety</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Helicopters</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Hudson River</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">New York City</category>
+		</item>
+		<item>
+			<title>Effort to Rein In Pay on Wall Street Hits New Hurdle</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=aa511bccce4e8ba9109766f21e93a260</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/business/10pay.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/business/10pay.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/business/Pay_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>The White House pay czar, Kenneth Feinberg, is scrutinizing pay at seven companies that got multiple bailouts.</media:description>
+			<media:credit>Charles Dharapak/Associated Press</media:credit>
+			<description>The resurgence of bonus guarantees underscores how difficult it is to control Wall Street pay, despite the public outcry over the use of taxpayer money.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=aa511bccce4e8ba9109766f21e93a260&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=aa511bccce4e8ba9109766f21e93a260&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ERIC DASH</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 10:56:43 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bonuses</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Executive Compensation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Subprime Mortgage Crisis</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Banks and Banking</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Emergency Economic Stabilization Act (2008)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Wall Street (NYC)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Feinberg, Kenneth R</category>
+		</item>
+		<item>
+			<title>Mentally Ill Offenders Strain Juvenile System</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=76c6d7233ee10d2cfb13591542e75c56</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/us/10juvenile.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/us/10juvenile.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/us/10juv.751.jpg" medium="image" height="75" width="75"/>
+			<media:description>An inmate at the Ohio River Valley Juvenile Correctional Facility. Two-thirds of the nation&#x2019;s juvenile inmates have at least one mental illness, according to surveys.</media:description>
+			<media:credit>Kirk Irwin for The New York Times</media:credit>
+			<description>Cash-starved states are increasingly relying on the prison system to handle young offenders with mental illnesses, who often need therapy more than punishment.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=76c6d7233ee10d2cfb13591542e75c56&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=76c6d7233ee10d2cfb13591542e75c56&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SOLOMON MOORE</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 11:29:59 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Mental Health and Disorders</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Juvenile Delinquency</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prisons and Prisoners</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Psychology and Psychologists</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Children and Youth</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Medicine and Health</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">States (US)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Budgets and Budgeting</category>
+		</item>
+		<item>
+			<title>Bombings in Iraq Kill Dozens</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ce040fd230b392833751dc08031253eb</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/middleeast/11iraq.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/middleeast/11iraq.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/world/10iraq2-75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A pair of truck bombs exploded simultaneously on Monday in the Shiite village of Khazna, about 10 miles east of Mosul, Iraq.</media:description>
+			<media:credit>Nawras Al-ta'ei/European Pressphoto Agency</media:credit>
+			<description>At least 43 people were killed and hundreds more were wounded as a series of bomb attacks struck Baghdad and a village near the northern city of Mosul.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ce040fd230b392833751dc08031253eb&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ce040fd230b392833751dc08031253eb&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROD NORDLAND and SAM DAGHER</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 12:53:21 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iraq</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Iraq War (2003- )</category>
+		</item>
+		<item>
+			<title>In Desegregation Pact, Westchester Agrees to Add Affordable Housing</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=873d8aad07792955325f2e1b514910df</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/nyregion/11settle.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/nyregion/11settle.html</guid>
+			<description>An agreement will compel Westchester County to create affordable housing in overwhelmingly white communities and market it to non-whites.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=873d8aad07792955325f2e1b514910df&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=873d8aad07792955325f2e1b514910df&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SAM ROBERTS</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 13:11:20 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Westchester County (NY)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Affordable Housing</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Segregation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Suits and Litigation</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Minorities</category>
+		</item>
+		<item>
+			<title>A Primer on the Details of Health Care Reform</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9594fbeeaac25dfc39ddf0ad48a98978</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/health/policy/10facts.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/health/policy/10facts.html</guid>
+			<description>It can be difficult to sort fact from fiction in the raucous debate over health care reform. Here is a guide to the main issues.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9594fbeeaac25dfc39ddf0ad48a98978&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9594fbeeaac25dfc39ddf0ad48a98978&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ROBERT PEAR and DAVID M. HERSZENHORN</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 12:11:55 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Health Insurance and Managed Care</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Reform and Reorganization</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">United States Politics and Government</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Federal Budget (US)</category>
+		</item>
+		<item>
+			<title>ArtsBeat: Theater Discounts Without Standing in Line</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=82f33f651b363dda5177c7eb2c6f887e</link>
+			<pheedo:origLink>http://artsbeat.blogs.nytimes.com/2009/08/10/cheap-seats-theater-discounts-without-standing-in-line/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://artsbeat.blogs.nytimes.com/2009/08/10/cheap-seats-theater-discounts-without-standing-in-line/index.html</guid>
+			<description>A look at how to get discounted or cheap theater seats without standing in line at TKTS.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=82f33f651b363dda5177c7eb2c6f887e&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=82f33f651b363dda5177c7eb2c6f887e&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ERIK PIEPENBURG</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 13:16:21 GMT</pubDate>
+		</item>
+		<item>
+			<title>Bits: Paid Tweets</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=50a5aa0035466483e8ae7be55069630f</link>
+			<pheedo:origLink>http://bits.blogs.nytimes.com/2009/08/10/tweeting-for-dollars/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://bits.blogs.nytimes.com/2009/08/10/tweeting-for-dollars/index.html</guid>
+			<description>Izea, an advertising network, has begun paying Twitter users for sending sponsored tweets to their followers.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=50a5aa0035466483e8ae7be55069630f&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=50a5aa0035466483e8ae7be55069630f&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By PRADNYA JOSHI</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 13:17:45 GMT</pubDate>
+		</item>
+		<item>
+			<title>Economix: Citizenship of the Uninsured</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=b615aabb070b61e6d11ae392a88d78ac</link>
+			<pheedo:origLink>http://economix.blogs.nytimes.com/2009/08/10/the-citizenship-of-the-uninsured/index.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://economix.blogs.nytimes.com/2009/08/10/the-citizenship-of-the-uninsured/index.html</guid>
+			<description>About one-fifth of those who lack medical insurance in the United States are not American citizens, and it remains to be seen how they will fare in health-care reform, an economist writes.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=b615aabb070b61e6d11ae392a88d78ac&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=b615aabb070b61e6d11ae392a88d78ac&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By NANCY FOLBRE</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 11:03:07 GMT</pubDate>
+		</item>
+		<item>
+			<title>Breakfast Can Wait. The Day&#x2019;s First Stop Is Online.</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=8fcbd3db66fc624a81823fa8aa2216c5</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/technology/10morning.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/technology/10morning.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/business/morning_75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Liz Steyer after breakfast with three of her four children, ages 5 to 16. Laptops and cellphones are banned during meals.</media:description>
+			<media:credit>Jim Wilson/The New York Times</media:credit>
+			<description>Technology has shaken up morning routines &#x2014; people are increasingly waking up and lunging for their laptops.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=8fcbd3db66fc624a81823fa8aa2216c5&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=8fcbd3db66fc624a81823fa8aa2216c5&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By BRAD STONE</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 07:26:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Computers and the Internet</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Wireless Communications</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Text Messaging</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Electronic Mail</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Cellular Telephones</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Facebook.com</category>
+		</item>
+		<item>
+			<title>Detainees Were Raped in Iran Prison, Says Reformist</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=8062ba450854092e7bbbfb5fa9b2eb66</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/middleeast/11iran.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/middleeast/11iran.html</guid>
+			<description>As dispute swirls around events at a notorious prison used to incarcerate political opponents, a leading reformist candidate in the vote said some inmates had been raped.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=8062ba450854092e7bbbfb5fa9b2eb66&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=8062ba450854092e7bbbfb5fa9b2eb66&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ALAN COWELL</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 12:35:23 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Iran</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Political Prisoners</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Sex Crimes</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prisons and Prisoners</category>
+		</item>
+		<item>
+			<title>Arrest in China Rattles Backers of Legal Rights</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=5720084e2ffb4bcd74c2504eccae0d88</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/world/asia/10rights.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/world/asia/10rights.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/world/asia/10rights.span.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>In mid-July, Xu Zhiyong, center, a legal scholar, met with lawyers at a restaurant in Beijing. Later that month, he was detained.</media:description>
+			<media:credit>Greg Baker/Associated Press</media:credit>
+			<description>China&#x2019;s legal rights movement, already reeling from a crackdown on lawyers, has been shaken by the detention of Xu Zhiyong, a respected rights defender.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=5720084e2ffb4bcd74c2504eccae0d88&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=5720084e2ffb4bcd74c2504eccae0d88&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By ANDREW JACOBS</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 12:27:20 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Freedom and Human Rights</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Zhiyong, Xu</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Politics and Government</category>
+		</item>
+		<item>
+			<title>Yankees 5, Red Sox 2: Trailing, the Yankees Go Homer-Homer-Sweep</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=fcb44b84ed72167eae1d161dd260b2cf</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/sports/baseball/10yankees.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/sports/baseball/10yankees.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/09/sports/yankees75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Mark Teixeira hit a home run in the 8th inning that helped the Yankees ensure a sweep of the Boston Red Sox.</media:description>
+			<media:credit>Barton Silverman/The New York Times</media:credit>
+			<description>Johnny Damon and Mark Teixeira had back-to-back homers in the eighth inning to help the Yankees stun the Red Sox and sweep the four-game series.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=fcb44b84ed72167eae1d161dd260b2cf&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=fcb44b84ed72167eae1d161dd260b2cf&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By JACK CURRY</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 12:16:39 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Baseball</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">New York Yankees</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Boston Red Sox</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Damon, Johnny</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Teixeira, Mark</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Pettitte, Andy</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Lester, Jon</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Rodriguez, Alex</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Ortiz, David</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Varitek, Jason</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Jeter, Derek</category>
+		</item>
+		<item>
+			<title>Typhoon Pummels China and Taiwan</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=92b4c3dc8df6e337b671097f56253995</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/asia/11china.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/asia/11china.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/world/10china.span.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>A swelling river crept closer to sandbags in a flooded village near Wenzhou, a city of 1.4 million, where officials said the storm had leveled more than 300 homes.</media:description>
+			<media:credit>Associated Press</media:credit>
+			<description>Rain deluged China&#x2019;s east coast on Monday, hours after Typhoon Morakot slammed into the region south of Shanghai, forcing one million people to flee.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=92b4c3dc8df6e337b671097f56253995&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=92b4c3dc8df6e337b671097f56253995&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By MICHAEL WINES</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 12:40:31 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">China</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Typhoon Morakot (2009)</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Hurricanes and Tropical Storms</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Typhoons</category>
+		</item>
+		<item>
+			<title>Pakistan Says Al Qaeda Is Seeking to Expand Influence</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=ca044e2eafd3df6e1d84dcca44225927</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/11/world/asia/11pstan.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/11/world/asia/11pstan.html</guid>
+			<media:content url="http://graphics8.nytimes.com/images/2009/08/10/world/10pstan.inline.75.jpg" medium="image" height="75" width="75"/>
+			<media:description>Hakimullah Mehsud, left, in 2008, posing for news media members. The Taliban commander reportedly has been killed.</media:description>
+			<media:credit>A Majeed/Agence France-Presse &#x2014; Getty Images</media:credit>
+			<description>Amid contested claims over a reported falling out among factions struggling for control of the Pakistani Taliban, two bombs exploded in the restive northwest of the country.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=ca044e2eafd3df6e1d84dcca44225927&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=ca044e2eafd3df6e1d84dcca44225927&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SABRINA TAVERNISE and PIR ZUBAIR SHAH</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 12:57:18 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">Pakistan</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_org_all">Taliban</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Civil War and Guerrilla Warfare</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Bombs and Explosives</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_per">Mehsud, Baitullah</category>
+		</item>
+		<item>
+			<title>Hundreds Hurt in 11-Hour California Prison Riot</title>
+			<link>http://feeds.nytimes.com/click.phdo?i=9f80cec99332ab49ae1bd971428513c9</link>
+			<pheedo:origLink>http://www.nytimes.com/2009/08/10/us/10prison.html?partner=rss&amp;amp;emc=rss</pheedo:origLink>
+			<guid isPermaLink="false">http://www.nytimes.com/2009/08/10/us/10prison.html</guid>
+			<description>Near Los Angeles, rioting inmates smashed and burned one of the nation&#x2019;s largest prisons on Saturday night and Sunday morning, with black and Latino gangs in hand-to-hand combat.&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;br clear=&quot;both&quot; style=&quot;clear: both;&quot;/&gt;
+&lt;a href=&quot;http://ads.pheedo.com/click.phdo?s=9f80cec99332ab49ae1bd971428513c9&amp;p=1&quot;&gt;&lt;img alt=&quot;&quot; style=&quot;border: 0;&quot; border=&quot;0&quot; src=&quot;http://ads.pheedo.com/img.phdo?s=9f80cec99332ab49ae1bd971428513c9&amp;p=1&quot;/&gt;&lt;/a&gt;
+</description>
+			<dc:creator>By SOLOMON MOORE</dc:creator>
+			<pubDate>Mon, 10 Aug 2009 08:28:43 GMT</pubDate>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Prisons and Prisoners</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Race</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/nyt_geo">California</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Demonstrations and Riots</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/des">Gangs</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Blacks</category>
+			<category domain="http://www.nytimes.com/namespaces/keywords/mdes">Hispanic-Americans</category>
+		</item>
+	</channel>
+</rss>
