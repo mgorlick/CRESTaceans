@@ -196,11 +196,21 @@
     (define/global/1 'inexact?   inexact?)
     (define/global/1 'procedure? procedure?)
     
+    ; More precise type tests for numbers.
+    (define/global/1 'integer/exact?          exact-integer?)
+    (define/global/1 'natural/exact?          exact-nonnegative-integer?)
+    (define/global/1 'integer/positive/exact? exact-positive-integer?)
+    (define/global/1 'real/inexact?           inexact-real?)
+    
     ; Type transformers for numbers.
-    (define/global/1 'exact->inexact exact->inexact)
-    (define/global/1 'inexact->exact inexact->exact)
-    (define/global/1 'number->string number->string)
-    (define/global/1 'string->number string->number)
+    (define/global/1 'exact->inexact exact->inexact) ; Deprecated.
+    (define/global/1 'exact/inexact  exact->inexact)
+    (define/global/1 'inexact->exact inexact->exact) ; Deprecated.
+    (define/global/1 'inexact/exact  inexact->exact)
+    (define/global/1 'number->string number->string) ; Deprecated.
+    (define/global/1 'number/string  number->string)
+    (define/global/1 'string->number string->number) ; Deprecated.
+    (define/global/1 'string/number  string->number)    
     
     ; Equivalence predicates.
     (define/global/2 'eqv?    eqv?)
@@ -317,8 +327,10 @@
     (define/global/1 'char-numeric?    char-numeric?)
     (define/global/1 'char-whitespace? char-whitespace?)
     (define/global/1 'char-lower-case? char-lower-case?)
-    (define/global/1 'char->integer    char->integer)
-    (define/global/1 'integer->char    integer->char)
+    (define/global/1 'char->integer    char->integer) ; Deprecated.
+    (define/global/1 'char/integer     char->integer)
+    (define/global/1 'integer->char    integer->char) ; Deprecated
+    (define/global/1 'integer/char     integer->char)
     (define/global/1 'char-upcase      char-upcase)
     (define/global/1 'char-downcase    char-downcase)
     
@@ -370,7 +382,6 @@
     (define/combinator/2 'vector/build      vector/build)
     (define/combinator/3 'vector/fold/left  vector/fold/left)
     (define/combinator/3 'vector/fold/right vector/fold/right)
-    (define/global/1     'vector/persist?   vector/persist?)
     (define/global/1     'vector/length     vector/length)
     (define/global/1     'vector/list       vector/list)
     (cons                'vector/null       vector/null)  ; Pre-defined constant.
