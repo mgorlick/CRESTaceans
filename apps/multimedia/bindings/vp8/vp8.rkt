@@ -29,6 +29,8 @@
           right = 1)
    _int))
 
+;; encoding
+
 (define-cpointer-type _vp8enc-pointer)
 
 (defvp8 vp8enc-new (_fun (_int = (processor-count)) _int _int _int _int -> _vp8enc-pointer))
@@ -46,15 +48,47 @@
                                     -> (r : _bool)
                                     -> (and r written)))
 
+;; decoding
+
 (define-cpointer-type _vp8dec-pointer)
+
 (defvp8 vp8dec-new (_fun -> _vp8dec-pointer))
 (defvp8 vp8dec-delete (_fun _vp8dec-pointer -> _void))
-(defvp8 vp8dec-decode-copy (_fun _vp8dec-pointer _size_t _bytes _size_t _bytes -> _bool))
-(defvp8 vp8dec-decode-update-minor (_fun _vp8dec-pointer
-                                         _size_t _bytes _size_t _bytes -> _bool))
-(defvp8 vp8dec-decode-update-minor-tile (_fun _vp8dec-pointer _quarter-row-enum _quarter-col-enum
-                                              _size_t _bytes _size_t _bytes -> _bool))
-(defvp8 vp8dec-decode-update-major (_fun _vp8dec-pointer _size_t _bytes _size_t _bytes -> _bool))
+
+(defvp8 vp8dec-decode-copy (_fun (decoder compressed-frame width height) ::
+                                 (decoder : _vp8dec-pointer)
+                                 (input-size : _size_t = (bytes-length compressed-frame))
+                                 (compressed-frame : _bytes)
+                                 (output-size : _size_t = (* 3 width height))
+                                 (output-frame : _bytes = (make-bytes output-size))
+                                 -> (succeeded? : _bool)
+                                 -> (if succeeded?
+                                        output-frame
+                                        #f)))
+
+; vp8dec-pointer? bytes? exact-nonnegative-integer? exact-nonnegative-integer? bytes? -> (or/c bytes? #f))
+(defvp8 vp8dec-decode-update-minor (_fun (decoder compressed-frame old-output-frame) ::
+                                         (decoder : _vp8dec-pointer)
+                                         (input-size : _size_t = (bytes-length compressed-frame))
+                                         (compressed-frame : _bytes)
+                                         (output-size : _size_t = (bytes-length old-output-frame))
+                                         (output-frame : _bytes = (bytes-copy old-output-frame))
+                                         -> (succeeded? : _bool)
+                                         -> (if succeeded?
+                                                output-frame
+                                                #f)))
+
+; vp8dec-pointer? bytes? exact-nonnegative-integer? exact-nonnegative-integer? bytes? -> (or/c bytes? #f))
+(defvp8 vp8dec-decode-update-major (_fun (decoder compressed-frame old-output-frame) ::
+                                         (decoder : _vp8dec-pointer)
+                                         (input-size : _size_t = (bytes-length compressed-frame))
+                                         (compressed-frame : _bytes)
+                                         (output-size : _size_t = (bytes-length old-output-frame))
+                                         (output-frame : _bytes = (bytes-copy old-output-frame))
+                                         -> (succeeded? : _bool)
+                                         -> (if succeeded?
+                                                output-frame
+                                                #f)))
 
 ;; video capture
 

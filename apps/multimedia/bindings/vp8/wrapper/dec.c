@@ -137,7 +137,7 @@ no_decode:
   return 0;
 no_video:
   printf ("no video available: could not initialize libswscale\n");
-  return 0;  
+  return 0;
 }
 
 int vp8dec_decode_copy (VP8Dec *dec, 

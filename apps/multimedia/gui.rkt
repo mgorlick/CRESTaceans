@@ -7,7 +7,8 @@
 
 (provide (rename-out [client/new-video-gui new-video-gui]
                      [client/video-gui-add-video! video-gui-add-video!])
-         video-gui-clear-buffer!)
+         video-gui-clear-buffer!
+         video-gui-update-buffer!)
 
 (struct video-gui-client (gui actor-thread))
 
@@ -55,6 +56,9 @@
 
 (define (video-gui-clear-buffer! b)
   (bytes-fill! b 0))
+
+(define (video-gui-update-buffer! b frame)
+  (bytes-copy! b 0 frame))
 
 ; ---------------------------------
 

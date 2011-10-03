@@ -7,6 +7,7 @@
          "bindings/speex/speex.rkt"
          "../../peer/src/api/message.rkt"
          "../../peer/src/api/api.rkt"
+         "../../Motile/persistent/environ.rkt"
          racket/require
          racket/function
          racket/list

@@ -69,13 +69,19 @@
       
       (define (add-new curl)
         (let ([playback-canvas (box #f)]
-              [av! video-gui-add-video!]
-              [clear-buffer! video-gui-clear-buffer!])
-          (lambda (w h copyfunction)
-            (cond [(and w h copyfunction)
-                   (unless (unbox playback-canvas) 
-                     (box! playback-canvas (av! g w h curl)))
-                   (copyfunction (bytes-length (unbox playback-canvas)) (unbox playback-canvas))]
+              [add-video! video-gui-add-video!]
+              [clear-buffer! video-gui-clear-buffer!]
+              [update-buffer! video-gui-update-buffer!])
+          ;; WART: lifting capabilities out of the lambda means that 
+          ;; if this lambda ever gets serialized the serializer will reject it.
+          ;; a real implementation would make sure that the requesting actor
+          ;; is on the same unit of locality [i.e., protection from serialization] (island, clan etc.) 
+          ;; as this actor.
+          (lambda (w h frame)
+            (cond [(and w h frame)
+                   (unless (unbox playback-canvas)
+                     (box! playback-canvas (add-video! g w h curl)))
+                   (update-buffer! (unbox playback-canvas) frame)]
                   [else
                    (displayln "Resetting buffer")
                    (clear-buffer! (unbox playback-canvas))]))))
@@ -255,11 +261,12 @@
           (define v (car m))
           (define r (cdr m))
           (cond [(Frame? v)
-                 (let ([w/h (get-w/h m)]
-                       [data (Frame.data v)])
-                   (playback-function (car w/h) (cdr w/h)
-                                      (lambda (sz canvas)
-                                        (vp8dec-decode-copy d (bytes-length data) data sz canvas))))
+                 (let* ([w/h (get-w/h m)]
+                        [this-frame-w (car w/h)]
+                        [this-frame-d (cdr w/h)]
+                        [decoded-frame (vp8dec-decode-copy d (Frame.data v) this-frame-w this-frame-d)])
+                   (when decoded-frame
+                     (playback-function this-frame-w this-frame-d decoded-frame)))
                  (loop (thread-receive))]
                 
                 [(GetParent? v)
