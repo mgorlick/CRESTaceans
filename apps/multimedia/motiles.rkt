@@ -171,77 +171,110 @@
           ;; let the proxies know we're online...
           (ask/send* "POST" majorpc (AddCURL (current-curl)))
           (ask/send* "POST" minorpc (AddCURL (current-curl)))
-          (let ()
-            (define (update updater decoder w/h data)
-              (playback-function (car w/h) (cdr w/h)
-                                 (lambda (sz canvas) 
-                                   (updater decoder (bytes-length data) data sz canvas))))
-            (let loop ([decoder/major (vp8dec-new)]
-                       [decoder/minor (vp8dec-new)]
-                       [curl/major    majorpc]
-                       [curl/minor    minorpc]
-                       [m             (thread-receive)])
-              (define v (car m))
-              (define r (cdr m))
-              (cond 
-                [(Frame? v)
-                 (let ([replyaddr (:message/ask/reply r)]
-                       [w/h (get-w/h m)])
-                   ;; if the stream is the major stream, update, preserving the minor stream 
-                   ;; already on the buffer,
-                   (when (equal? replyaddr curl/major)
-                     (update vp8dec-decode-update-major decoder/major w/h (Frame.data v)))
-                   ;; if the stream is the minor stream just draw it over the current minor stream
-                   ;; picture (if there is one)
-                   (when (equal? replyaddr curl/minor)
-                     (update vp8dec-decode-update-minor decoder/minor w/h (Frame.data v))))
+          (let loop ([decoder/major (vp8dec-new)]
+                     [decoder/minor (vp8dec-new)]                     
+                     [last-decoded-frame #f]
+                     [curl/major majorpc]
+                     [curl/minor minorpc]
+                     [m (thread-receive)])
+            (define v (car m))
+            (define r (cdr m))
+            (cond 
+              [(Frame? v)
+               (let* ([replyaddr (:message/ask/reply r)]
+                      [w/h (get-w/h m)]
+                      ;; these two steps are really a fold but Motile doesn't have arbitrary-arity folds
+                      ;; so they're just expressed this way for now.
+                      [frame-after-major-check
+                       (cond [(and (not last-decoded-frame)
+                                   (equal? replyaddr curl/major))
+                              ;; no prior frame. decode a new one and save it but only if 
+                              ;; this frame is a header-carrying major frame.
+                              ;; OK to try to decode (might not work this time if 
+                              ;; this isn't a header-carrying frame)
+                              (let* ([this-frame-w (car w/h)]
+                                     [this-frame-d (cdr w/h)]
+                                     [decoded-frame (vp8dec-decode-copy decoder/major 
+                                                                        (Frame.data v)
+                                                                        this-frame-w this-frame-d)])
+                                (when decoded-frame
+                                  (playback-function this-frame-w this-frame-d decoded-frame))
+                                decoded-frame)]
+                             ;; have prior frame and stream is major. update over prior frame
+                             [(and last-decoded-frame
+                                   (equal? replyaddr curl/major))
+                              (let ([decoded-frame (vp8dec-decode-update-major decoder/major 
+                                                                               (Frame.data v)
+                                                                               last-decoded-frame)])
+                                (when decoded-frame
+                                  (playback-function (car w/h) (cdr w/h) decoded-frame))
+                                decoded-frame)]
+                             ;; frame is minor stream only, or some other stream. ignore
+                             [else last-decoded-frame])]
+                      [frame-after-minor-check
+                       (cond [(and frame-after-major-check
+                                   (equal? replyaddr curl/minor))
+                              ;; have prior frame and stream is minor. update over prior frame.
+                              (let ([decoded-frame (vp8dec-decode-update-minor decoder/minor 
+                                                                               (Frame.data v)
+                                                                               frame-after-major-check)])
+                                (when decoded-frame
+                                  (playback-function (car w/h) (cdr w/h) decoded-frame))
+                                decoded-frame)]                              
+                             ;; frame is major stream only, or some other stream. ignore
+                             [else frame-after-major-check])])
                  
-                 (loop decoder/major decoder/minor curl/major curl/minor (thread-receive))]
-                
-                [(and (InitiateBehavior? v)
-                      (eq? 'toggle-major/minor (InitiateBehavior.type v)))
-                 (printf "Processing a new behavior: ~a~n" (InitiateBehavior.type v))
-                 (playback-function #f #f #f)
-                 (vp8dec-delete decoder/major)
-                 (vp8dec-delete decoder/minor)
-                 (loop (vp8dec-new) (vp8dec-new)
-                       curl/minor curl/major (thread-receive))]
-                
-                [(and (InitiateBehavior? v)
-                      (eq? 'split (InitiateBehavior.type v)))
-                 (printf "Processing a new behavior: ~a~n" (InitiateBehavior.type v))
-                 (ask/send* "SPAWN" (get-root-curl) (make-single-decoder)
-                            (make-metadata accepts/webm) curl/major)
-                 (ask/send* "SPAWN" (get-root-curl) (make-single-decoder)
-                            (make-metadata accepts/webm) curl/minor)
-                 (loop decoder/major decoder/minor curl/major curl/minor (thread-receive))]
-                
-                [(GetParent? v)
-                 (ask/send* "POST" (:message/ask/reply r) (cons curl/major curl/minor))
-                 (loop decoder/major decoder/minor curl/major curl/minor (thread-receive))]
-                
-                [(CP? v)
-                 (respawn-self (CP.host v) (CP.port v))
-                 (loop decoder/major decoder/minor curl/major curl/minor (thread-receive))]
-                
-                [(Quit/MV? v)
-                 (displayln "PIP Decoder is moving")
-                 (ask/send* "POST" curl/major (RemoveCURL (current-curl)))
-                 (ask/send* "POST" curl/minor (RemoveCURL (current-curl)))
-                 (vp8dec-delete decoder/major)
-                 (vp8dec-delete decoder/minor)
-                 (respawn-self (Quit/MV.host v) (Quit/MV.port v))]
-                
-                [(Quit? v)
-                 (displayln "PIP Decoder is quitting")
-                 (ask/send* "POST" curl/major (RemoveCURL (current-curl)))
-                 (ask/send* "POST" curl/minor (RemoveCURL (current-curl)))
-                 (vp8dec-delete decoder/major)
-                 (vp8dec-delete decoder/minor)]
-                
-                [else
-                 (printf "not a valid request to PIP decoder: ~a~n" v)
-                 (loop decoder/major decoder/minor curl/major curl/minor (thread-receive))]))))))))
+                 (loop decoder/major decoder/minor frame-after-minor-check
+                       curl/major curl/minor (thread-receive)))]
+              
+              [(and (InitiateBehavior? v)
+                    (eq? 'toggle-major/minor (InitiateBehavior.type v)))
+               (displayln "Swapping")
+               (playback-function #f #f #f)
+               (vp8dec-delete decoder/major)
+               (vp8dec-delete decoder/minor)
+               (loop (vp8dec-new) (vp8dec-new) #f
+                     curl/minor curl/major (thread-receive))]
+              
+              [(and (InitiateBehavior? v)
+                    (eq? 'split (InitiateBehavior.type v)))
+               (displayln "Splitting")
+               (ask/send* "SPAWN" (get-root-curl) (make-single-decoder)
+                          (make-metadata accepts/webm) curl/major)
+               (ask/send* "SPAWN" (get-root-curl) (make-single-decoder)
+                          (make-metadata accepts/webm) curl/minor)
+               (loop decoder/major decoder/minor last-decoded-frame
+                     curl/major curl/minor (thread-receive))]
+              
+              [(GetParent? v)
+               (ask/send* "POST" (:message/ask/reply r) (cons curl/major curl/minor))
+               (loop decoder/major decoder/minor last-decoded-frame
+                     curl/major curl/minor (thread-receive))]
+              
+              [(CP? v)
+               (respawn-self (CP.host v) (CP.port v))
+               (loop decoder/major decoder/minor last-decoded-frame 
+                     curl/major curl/minor (thread-receive))]
+              
+              [(Quit/MV? v)
+               (displayln "PIP Decoder is moving")
+               (ask/send* "POST" curl/major (RemoveCURL (current-curl)))
+               (ask/send* "POST" curl/minor (RemoveCURL (current-curl)))
+               (vp8dec-delete decoder/major)
+               (vp8dec-delete decoder/minor)
+               (respawn-self (Quit/MV.host v) (Quit/MV.port v))]
+              
+              [(Quit? v)
+               (displayln "PIP Decoder is quitting")
+               (ask/send* "POST" curl/major (RemoveCURL (current-curl)))
+               (ask/send* "POST" curl/minor (RemoveCURL (current-curl)))
+               (vp8dec-delete decoder/major)
+               (vp8dec-delete decoder/minor)]
+              
+              [else
+               (printf "not a valid request to PIP decoder: ~a~n" v)
+               (loop decoder/major decoder/minor last-decoded-frame
+                     curl/major curl/minor (thread-receive))])))))))
 
 (define video-decoder/single
   (motile/compile
