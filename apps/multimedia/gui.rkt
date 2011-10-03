@@ -60,6 +60,7 @@
 
 
 (define (new-video-gui overall-width overall-height cb)
+  
   (define frame (new closeable-frame% 
                      [label ""]
                      [stretchable-width #f]
@@ -68,6 +69,7 @@
                      [min-height overall-height]
                      [style '(no-resize-border)]
                      [callback (λ () (cb (Quit)))]))
+  
   (define the-window (new vertical-panel%
                           [parent frame]))
   
@@ -80,36 +82,44 @@
                            [font (make-object font% 12 'swiss)]))
   
   (define button-panel (new horizontal-panel%
-                            [parent the-window]))
-  (define host (new text-field%
-                    [label "Hostname"]
-                    [init-value "127.0.0.1"]
-                    [min-width 200]
-                    [stretchable-width #f]
-                    [parent button-panel]))
-  (define port (new text-field%
-                    [label "Port"]
-                    [parent button-panel]
-                    [init-value "5000"]
-                    [min-width 50]
-                    [stretchable-width #f]))
+                            [parent the-window]
+                            [alignment '(center top)]))
+  
+  (define host-address-button (new text-field%
+                                   [label "Hostname"]
+                                   [init-value "128.195.59.203"]
+                                   [min-width 200]
+                                   [stretchable-width #f]
+                                   [parent button-panel]))
+  
+  (define port-address-button (new text-field%
+                                   [label "Port"]
+                                   [parent button-panel]
+                                   [init-value "5000"]
+                                   [min-width 50]
+                                   [stretchable-width #f]))
+  
   (define cp-button (new button%
                          [parent button-panel]
                          [label "Share this session"]
                          [callback (λ (btn ctrlevt)
-                                     (cb (CP (send host get-value) 
-                                             (string->number (send port get-value)))))]))
+                                     (cb (CP (send host-address-button get-value) 
+                                             (string->number (send port-address-button get-value)))))]))
+  
   (define mv-button (new button%
                          [parent button-panel]
                          [label "Move this session"]
                          [callback (λ (btn ctrlevt)
-                                     (map (λ (child) (send frame delete-child child))
+                                     (map (λ (child)
+                                            (printf "Deleting child ~a~n" child)
+                                            (send frame delete-child child))
                                           (send frame get-children))
                                      (send frame show #f)
                                      (send frame enable #f)
-                                     (cb (Quit/MV (send host get-value) 
-                                                  (string->number (send port get-value))))
+                                     (cb (Quit/MV (send host-address-button get-value) 
+                                                  (string->number (send port-address-button get-value))))
                                      (send frame on-close))]))
+  
   
   (define top-panel (new video-top-panel%
                          [parent the-window]
@@ -118,16 +128,18 @@
                          [min-width (- overall-width 200)]
                          [stretchable-width #t]
                          [stretchable-height #t]))
+  
   (define small-panel (new small-video-panel%
                            [parent top-panel]
                            [main-panel top-panel]
-                           [hostfield host]
-                           [portfield port]
+                           [hostfield host-address-button]
+                           [portfield port-address-button]
                            [alignment '(left top)]
                            [style '(auto-vscroll)]
                            [min-width 200]
                            [vert-margin 10]
                            [horiz-margin 10]))
+  
   (send frame show #t)
   (video-gui frame top-panel address-bar small-panel))
 
@@ -140,32 +152,30 @@
     (define/augment (on-close)
       (on-close-callback))))
 
+(define ctrl-button%
+  (class button%
+    (super-new [font small-control-font])))
+
+; ---------------------------
+
 (define video-top-panel%
   (class horizontal-panel% [init addressbar]
     (super-new)
     
     (inherit add-child delete-child get-parent)
     (define current-canvas #f)
+    (define current-canvas-sema (make-semaphore 1))
     (define address-bar addressbar)
     
     (define (clear-current-canvas)
-      ;; fixme: the old child can be deleted from screen,
-      ;; but it's never actually garbage collected.
       (when current-canvas
         (delete-child current-canvas)
         (send current-canvas show #f)
-        (send current-canvas enable #f)        
-        (send current-canvas close)
+        (send current-canvas enable #f) 
+        (send current-canvas stop)
         (set! current-canvas #f)))
     
-    (define/public (showing? v)
-      (and current-canvas (send current-canvas same-video? v)))
-    
-    (define/public (no-videos)
-      (clear-current-canvas)
-      (set! current-canvas #f))
-    
-    (define/public (swap-focused-video v)
+    (define (replace-current-canvas v)
       (clear-current-canvas)
       (send (get-parent) min-width (video-playback-w v))
       (send (get-parent) min-height (video-playback-h v))
@@ -180,8 +190,20 @@
              [min-height (video-playback-h v)]
              [enabled #f]))
       (set! current-canvas cnvs)
-      (sleep 0)
-      (send current-canvas enable #t))))
+      (send current-canvas enable #t))
+    
+    (define/public (showing? v)
+      (call-with-semaphore 
+       current-canvas-sema
+       (λ ()
+         (and current-canvas 
+              (send current-canvas same-video? v)))))
+    
+    (define/public (no-videos)
+      (call-with-semaphore current-canvas-sema clear-current-canvas))
+    
+    (define/public (swap-focused-video v)
+      (call-with-semaphore current-canvas-sema (λ () (replace-current-canvas v))))))
 
 ; small-video-panel: holds small-video-canvas%es as they are created.
 (define small-video-panel%
@@ -205,8 +227,13 @@
     
     (define/public (add-video-canvas v abr evt-cb)
       
-      (define horizp (new horizontal-panel% [parent this] [alignment '(left top)]))
+      ;; holds the new SMALL video canvas.
+      (define horizp 
+        (new horizontal-panel% 
+             [parent this]
+             [alignment '(left top)]))
       
+      ;; the new SMALL video canvas.
       (define cnvs
         (new small-video-canvas%
              [parent horizp]
@@ -217,35 +244,33 @@
              [min-height (round (/ (video-playback-h v) 8))]
              [enabled #f]))
       
-      (define vertp (new vertical-panel% [parent horizp] [alignment '(left top)]))
+      ;; all control buttons go in this container.
+      (define vertp 
+        (new vertical-panel% 
+             [parent horizp] 
+             [alignment '(left top)]))
       
       (define (do-unsub btn ctrlevt)
         (evt-cb (RemoveCURL (video-playback-name v)))
-        (send cnvs show #f)
-        (send cnvs enable #f)
-        (send unsub show #f)
-        (send unsub enable #f)
-        (send cpy show #f)
-        (send cpy enable #f)
-        (send mv show #f)
-        (send mv enable #f)
-        (send pip show #f)
-        (send pip enable #f)
-        (send split show #f)        
-        (send split enable #f)
-        (send toggle show #f)
-        (send toggle enable #f)
+        
+        (send cnvs stop)
         (send horizp delete-child cnvs)
         (send vertp delete-child unsub)
         (send vertp delete-child cpy)
         (send vertp delete-child mv)
         (send horizp delete-child vertp)
         (send this delete-child horizp)
+        
         (let ([children (send this get-children)])
-          (cond [(null? children) 
-                 (send abr set-label "")
-                 (send top-panel no-videos)]
-                [else (send (car (send (car children) get-children)) promote-self)])))
+          (cond
+            ;; if there aren't any small canvases available notify the full-size panel as such
+            [(null? children) 
+             (send abr set-label "")
+             (send top-panel no-videos)]
+            ;; signal one of the remaining small canvases to promote itself
+            [else 
+             (define all-small-canvases (send (car children) get-children))
+             (send (car all-small-canvases) promote-self)])))
       
       (define (do-cpy btn ctrlevt)
         (evt-cb (CP-child (video-playback-name v)
@@ -302,20 +327,19 @@
                                                        (string->number (send port-field get-value)))
                                               (video-playback-name v))))]])
       
-      (sleep 0)
       (send cnvs enable #t)
       (send cnvs promote-self))))
 
-(define ctrl-button%
-  (class button%
-    (super-new [font small-control-font])))
-
 ; -------------------------
+
+(define stoppable<%> 
+  (interface () 
+    stop))
 
 ; video-canvas% requires a video-playback struct provided as argument
 ; and implements an on-paint function to paint that video's current buffer with opengl
 (define video-canvas%
-  (class canvas%
+  (class* canvas% (stoppable<%>)
     [init cv]
     (super-new [style '(gl no-autoclear)]
                [stretchable-width #f]
@@ -330,17 +354,18 @@
     (define buffer (video-playback-buffer myvideo))
     
     (define refresher
-      (new timer% [notify-callback (λ () (refresh))] [interval 50] [just-once? #f]))
+      (new timer% 
+           [notify-callback (λ () (refresh))] 
+           [interval 50] 
+           [just-once? #f]))
     
-    (define/public (close)
+    (define/public (stop)
       (set! myvideo #f)
-      (set! w #f)
-      (set! h #f)
       (set! buffer #f)
-      (set! refresher #f))
+      (send refresher stop))
     
     (define/public (same-video? v)
-      (equal? myvideo v))
+      (eq? myvideo v))
     
     (define/override (on-paint)
       (with-gl-context
@@ -348,14 +373,13 @@
          (glRasterPos2d -1 1)
          (glPixelZoom 1.0 -1.0)
          (glDrawPixels w h GL_RGB GL_UNSIGNED_BYTE buffer)))
-      (swap-gl-buffers)
-      (unless (is-enabled?)
-        (send refresher stop)))
+      (swap-gl-buffers))
     (resume-flush)))
 
 ; small-video-canvas%: used for the preview panes at the bottom of the screen.
 (define small-video-canvas%
-  (class canvas% [init cv addressbar toppanel]
+  (class* canvas% (stoppable<%>)
+    [init cv addressbar toppanel]
     (super-new [style '(gl)]
                [stretchable-width #f]
                [stretchable-height #f])
@@ -370,7 +394,10 @@
     (define actual-h (video-playback-h cv))
     
     (define refresher
-      (new timer% [notify-callback (λ () (refresh))] [interval 100] [just-once? #f]))
+      (new timer% 
+           [notify-callback (λ () (refresh))]
+           [interval 100] 
+           [just-once? #f]))
     
     (define/override (on-paint)
       (with-gl-context
@@ -378,9 +405,12 @@
          (glRasterPos2d -1 1)
          (glPixelZoom 0.125 -0.125)
          (glDrawPixels actual-w actual-h GL_RGB GL_UNSIGNED_BYTE buffer)))
-      (swap-gl-buffers)
-      (unless (is-enabled?)
-        (send refresher stop)))
+      (swap-gl-buffers))
+    
+    (define/public (stop)
+      (set! myvideo #f)
+      (set! buffer #f)
+      (send refresher stop))
     
     (define/override (on-event e)
       (when (and (send e button-down?)
