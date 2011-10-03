@@ -62,31 +62,42 @@
 ;; VIDEO
 ;; -----
 
+(define gui-endpoint
+  (motile/compile
+   '(lambda (rpy buffer-maker!)      
+      (define buffer& (box #f))
+      (ask/send* "POST" rpy (current-curl))
+      (let loop ([m (thread-receive)])
+        (define v (car m))
+        (define r (cdr m))
+        (cond [(and (not (unbox buffer&)) (Frame? v))
+               (box! buffer& (buffer-maker! 
+                              (VideoParams.width (cdr (assoc "params" (:message/ask/metadata r))))
+                              (VideoParams.height (cdr (assoc "params" (:message/ask/metadata r))))))
+               (loop m)]
+              [(and (unbox buffer&) (Frame? v))
+               (video-gui-update-buffer! (unbox buffer&) (Frame.data v))
+               (loop (thread-receive))]
+              [else
+               (loop (thread-receive))])))))
+
 (define command-center-gui
   (motile/compile
-   `(lambda (reply-curl)
+   '(lambda (reply-curl)
       (define g (new-video-gui))
       
-      (define (add-new curl)
-        (let ([playback-canvas (box #f)]
-              [add-video! video-gui-add-video!]
-              [clear-buffer! video-gui-clear-buffer!]
-              [update-buffer! video-gui-update-buffer!])
-          ;; WART: lifting capabilities out of the lambda means that 
-          ;; if this lambda ever gets serialized the serializer will reject it.
-          ;; a real implementation would make sure that the requesting actor
-          ;; is on the same unit of locality [i.e., protection from serialization] (island, clan etc.) 
-          ;; as this actor.
-          (lambda (w h frame)
-            (cond [(and w h frame)
-                   (unless (unbox playback-canvas)
-                     (box! playback-canvas (add-video! g w h curl)))
-                   (update-buffer! (unbox playback-canvas) frame)]
-                  [else
-                   (displayln "Resetting buffer")
-                   (clear-buffer! (unbox playback-canvas))]))))
+      (define (spawn-gui-endpoint curl)
+        (ask/send* "SPAWN" (get-root-curl) (make-gui-endpoint)
+                   (make-metadata 
+                    is/endpoint
+                    (cons "spawnargs" (list curl
+                                            (let ([add-video! video-gui-add-video!])
+                                              (lambda (w h)
+                                                (add-video! g w h curl))))))
+                   curl))
       
       (set-current-gui-curl! (current-curl))
+      
       (let loop ([m (thread-receive)]
                  [decoders set/equal/null])
         (define v (car m))
@@ -94,7 +105,7 @@
         (cond 
           [(AddCURL? v)
            (displayln "GUI is adding a video")
-           (ask/send* "POST" (:message/ask/reply r) (add-new (AddCURL.curl v)))
+           (spawn-gui-endpoint (AddCURL.curl v))
            (loop (thread-receive) (set/cons decoders (AddCURL.curl v)))]
           
           [(RemoveCURL? v)
@@ -124,8 +135,7 @@
           
           [(CP-child? v)
            (displayln "GUI is copying a decoder")
-           (ask/send* "POST" (CP-child.curl v) (CP (CP-child.host v)
-                                                   (CP-child.port v)))
+           (ask/send* "POST" (CP-child.curl v) (CP (CP-child.host v) (CP-child.port v)))
            (loop (thread-receive) decoders)]
           
           [(InitiateBehavior? v)
@@ -165,7 +175,7 @@
       (let ([proxy-curls (map retrieve-proxy-from decoder-curls)])
         (displayln proxy-curls)
         (lambda ()
-          (define playback-function (retrieve-playback-function))
+          (define gui-endpoint (retrieve-playback-function))
           (define majorpc (car proxy-curls))
           (define minorpc (cadr proxy-curls))
           ;; let the proxies know we're online...
@@ -193,36 +203,31 @@
                               ;; OK to try to decode (might not work this time if 
                               ;; this isn't a header-carrying frame)
                               (let* ([this-frame-w (car w/h)]
-                                     [this-frame-d (cdr w/h)]
-                                     [decoded-frame (vp8dec-decode-copy decoder/major 
-                                                                        (Frame.data v)
-                                                                        this-frame-w this-frame-d)])
-                                (when decoded-frame
-                                  (playback-function this-frame-w this-frame-d decoded-frame))
-                                decoded-frame)]
+                                     [this-frame-d (cdr w/h)])
+                                (vp8dec-decode-copy decoder/major 
+                                                    (Frame.data v)
+                                                    this-frame-w this-frame-d))]
                              ;; have prior frame and stream is major. update over prior frame
                              [(and last-decoded-frame
                                    (equal? replyaddr curl/major))
-                              (let ([decoded-frame (vp8dec-decode-update-major decoder/major 
-                                                                               (Frame.data v)
-                                                                               last-decoded-frame)])
-                                (when decoded-frame
-                                  (playback-function (car w/h) (cdr w/h) decoded-frame))
-                                decoded-frame)]
+                              (vp8dec-decode-update-major decoder/major 
+                                                          (Frame.data v)
+                                                          last-decoded-frame)]
                              ;; frame is minor stream only, or some other stream. ignore
                              [else last-decoded-frame])]
                       [frame-after-minor-check
                        (cond [(and frame-after-major-check
                                    (equal? replyaddr curl/minor))
                               ;; have prior frame and stream is minor. update over prior frame.
-                              (let ([decoded-frame (vp8dec-decode-update-minor decoder/minor 
-                                                                               (Frame.data v)
-                                                                               frame-after-major-check)])
-                                (when decoded-frame
-                                  (playback-function (car w/h) (cdr w/h) decoded-frame))
-                                decoded-frame)]                              
-                             ;; frame is major stream only, or some other stream. ignore
-                             [else frame-after-major-check])])
+                              (vp8dec-decode-update-minor decoder/minor 
+                                                          (Frame.data v)
+                                                          frame-after-major-check)])]                    
+                      ;; frame is major stream only, or some other stream. ignore
+                      [else frame-after-major-check])
+                 
+                 (when frame-after-minor-check
+                   (ask/send* "POST" gui-endpoint
+                              (Frame!data v frame-after-minor-check) (:message/ask/metadata r)))
                  
                  (loop decoder/major decoder/minor frame-after-minor-check
                        curl/major curl/minor (thread-receive)))]
@@ -230,7 +235,6 @@
               [(and (InitiateBehavior? v)
                     (eq? 'toggle-major/minor (InitiateBehavior.type v)))
                (displayln "Swapping")
-               (playback-function #f #f #f)
                (vp8dec-delete decoder/major)
                (vp8dec-delete decoder/minor)
                (loop (vp8dec-new) (vp8dec-new) #f
@@ -285,7 +289,7 @@
           (cons (VideoParams.width params) (VideoParams.height params))))
       ;; 1. look up the current GUI, ask for a new display function
       (ask/send* "POST" (get-current-gui-curl) (AddCURL (current-curl)))
-      (let ([playback-function (car (thread-receive))]
+      (let ([gui-endpoint<~> (car (thread-receive))]
             [d (vp8dec-new)])
         ;; 2. now that the decoder has a playback function it may decode frames, so ask for them.
         (ask/send* "POST" reply-curl (AddCURL (current-curl)))
@@ -299,7 +303,8 @@
                         [this-frame-d (cdr w/h)]
                         [decoded-frame (vp8dec-decode-copy d (Frame.data v) this-frame-w this-frame-d)])
                    (when decoded-frame
-                     (playback-function this-frame-w this-frame-d decoded-frame)))
+                     (ask/send* "POST" gui-endpoint<~>
+                                (Frame!data v decoded-frame) (:message/ask/metadata r))))
                  (loop (thread-receive))]
                 
                 [(GetParent? v)
@@ -348,7 +353,6 @@
           (define ctor (if (equal? type 'full)
                            vp8enc-new
                            vp8enc-quartersize-new))
-          (displayln "Making a new behavior")
           (let ([e (ctor params)]
                 [outbuff (make-bytes (bin* 1024 256))])
             (lambda (fb)

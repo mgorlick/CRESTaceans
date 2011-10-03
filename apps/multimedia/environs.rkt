@@ -53,6 +53,7 @@
 (define type/speex '("content-type" . "audio/speex"))
 
 (define is/gui '("is" . "gui"))
+(define is/endpoint '("is" . "endpoint"))
 (define is/proxy '("is" . "proxy"))
 
 (define (make-metadata . x)
@@ -85,6 +86,8 @@
 (define (make-pip-decoder)
   (motile/call video-decoder/pip BASELINE))
 (define make-video-reader/encoder video-reader/encoder)
+(define (make-gui-endpoint)
+  gui-endpoint)
 
 (define MULTIMEDIA-BASE
   (++ UTIL
@@ -104,6 +107,7 @@
                       make-single-decoder
                       make-pip-decoder
                       make-video-reader/encoder
+                      make-gui-endpoint
                       make-pubsubproxy)
       `((accepts/webm . ,accepts/webm)
         (produces/webm . ,produces/webm)
@@ -112,7 +116,8 @@
         (produces/speex . ,produces/speex)
         (type/speex . ,type/speex)
         (is/gui . ,is/gui)
-        (is/proxy . ,is/proxy))))
+        (is/proxy . ,is/proxy)
+        (is/endpoint . ,is/endpoint))))
 
 (define VIDEO-ENCODE
   (++ MULTIMEDIA-BASE
@@ -128,6 +133,12 @@
   (++ MULTIMEDIA-BASE 
       (global-defines get-current-gui-curl set-current-gui-curl!)
       (require-spec->global-defines "gui.rkt")))
+
+(define GUI-ENDPOINT
+  (++ MULTIMEDIA-BASE
+      (require-spec->global-defines (only-in "gui.rkt"
+                                             video-gui-clear-buffer! 
+                                             video-gui-update-buffer!))))
 
 (define AUDIO-ENCODE
   (++ MULTIMEDIA-BASE (global-defines new-speex-encoder speex-encoder-encode delete-speex-encoder)))

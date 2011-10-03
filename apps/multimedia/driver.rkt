@@ -28,6 +28,12 @@
           (ask/send request-thread "POST" reply curl
                     #:metadata (make-metadata `(is . curl)
                                               `(in-response-to . ,echo)))]
+         [(cons _ (ask "SPAWN" _ body metadata reply echo))
+          (define curl (make-curl (uuid)))
+          (handle-spawn curl body metadata reply)
+          (ask/send request-thread "POST" reply curl
+                    #:metadata (make-metadata `(is . curl)
+                                              `(in-response-to . ,echo)))]
          
          [(ask _ (? (is? root-curl) u) _ _ _ _)
           'foo]
@@ -43,9 +49,10 @@
        (loop))))
   
   ;; set up the listening server.
+  (define CHIEFTAIN (handler))
   (define k (generate-key/defaults))
   (define this-scurl (generate-scurl/defaults *LISTENING-ON* *LOCALPORT* #:key k))
-  (define request-thread (run-tcp-peer *LISTENING-ON* *LOCALPORT* this-scurl (handler)))
+  (define request-thread (run-tcp-peer *LISTENING-ON* *LOCALPORT* this-scurl CHIEFTAIN))
   
   ; functions to use for manufacturing new CURLs naming actors on THIS ISLAND.
   ; root-curl identifies the chieftain.
@@ -60,6 +67,11 @@
   (define curls=>metadata (make-hash)) ; save metadata for retransmission
   (define curls=>replycurls (make-hash)) ; save corresponding reply curls for retransmission
   
+  (hash-set! curls=>threads root-curl CHIEFTAIN)
+  (hash-set! curls=>motiles root-curl #f)
+  (hash-set! curls=>metadata root-curl #f)
+  (hash-set! curls=>replycurls root-curl #f)
+  
   ; a stored actor thread reference is valid for receiving messages if it's running.
   (define (valid-actor? u)
     (define t (hash-ref curls=>threads u #f))
@@ -73,6 +85,7 @@
       [(contains-any? metadata produces/webm) VIDEO-ENCODE*]
       [(contains-any? metadata produces/speex) AUDIO-ENCODE*]
       [(contains-any? metadata is/gui) GUI*]
+      [(contains-any? metadata is/endpoint) GUI-ENDPOINT*]
       [else MULTIMEDIA-BASE*]))
   
   ; clean-up-spawn: when a spawn dies remove its entries from the registry
@@ -177,6 +190,8 @@
     (++ VIDEO-DECODE    (global-defines current-curl ask/send* respawn-self get-root-curl)))
   (define GUI* 
     (++ GUI             (global-defines current-curl ask/send* respawn-self get-root-curl)))
+  (define GUI-ENDPOINT*
+    (++ GUI-ENDPOINT    (global-defines current-curl ask/send* respawn-self)))
   (define AUDIO-DECODE* 
     (++ AUDIO-DECODE    (global-defines current-curl ask/send* respawn-self get-root-curl)))
   
