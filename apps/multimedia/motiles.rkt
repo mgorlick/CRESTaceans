@@ -3,18 +3,25 @@
 (require "../../Motile/compile/compile.rkt")
 (provide (all-defined-out))
 
-(define (big-bang encoder-location video-device video-w video-h decoder-location)
+;; notes on syntactic conventions to follow:
+;; quux@ - a curl named quux
+;; frobnicatorλ - the compiled source of a lambda `frobnicator' used as a motile actor
+;; foo& - a box named foo
+;; clax^ - a collection of metadata (i.e. produced with `make-metadata') named clax
+;; these aren't uniform yet as i have not refactored the entire module - please be patient :-)
+
+(define (big-bang encoder-location@ video-device video-w video-h decoder-location@)
   (motile/compile
    `(lambda ()
       ; spawn the proxy
-      (ask/send* "SPAWN" ,encoder-location (make-pubsubproxy) (make-metadata is/proxy))
+      (ask/send* "SPAWN" ,encoder-location@ (make-pubsubproxy) (make-metadata is/proxy))
       (let ([proxy-curl (car (thread-receive))])
         ; spawn the encoder with the proxy as reply addr
-        (ask/send* "SPAWN" ,encoder-location
+        (ask/send* "SPAWN" ,encoder-location@
                    (make-video-reader/encoder ,video-device ,video-w ,video-h)
                    (make-metadata produces/webm) proxy-curl)
         ; spawn the decoder with the proxy as reply addr
-        (ask/send* "SPAWN" ,decoder-location (make-single-decoder)
+        (ask/send* "SPAWN" ,decoder-location@ (make-single-decoder)
                    (make-metadata accepts/webm) proxy-curl)))))
 
 (define pubsubproxy
@@ -64,40 +71,59 @@
 
 (define gui-endpoint
   (motile/compile
-   '(lambda (rpy buffer-maker!)      
-      (define buffer& (box #f))
-      (ask/send* "POST" rpy (current-curl))
-      (let loop ([m (thread-receive)])
-        (define v (car m))
-        (define r (cdr m))
-        (cond [(and (not (unbox buffer&)) (Frame? v))
-               (let ([params (cdr (assoc "params" (:message/ask/metadata r)))])
-                 (box! buffer& (buffer-maker! (VideoParams.width params) (VideoParams.height params)))
-                 (loop m))]
-              [(and (unbox buffer&) (Frame? v))
-               (video-gui-update-buffer! (unbox buffer&) (Frame.data v))
-               (loop (thread-receive))]
-              [else
-               (loop (thread-receive))])))))
+   '(lambda (rpy@ buffer-maker!)
+      (display "In gui-endpoint")
+      (ask/send* "POST" rpy@ (AddCURL (current-curl)))
+      (let ([buffer& (box #f)])
+        (let loop ([m (thread-receive)])
+          (define v (car m))
+          (define r (cdr m))
+          (cond [(and (not (unbox buffer&)) (Frame? v))
+                 (let ([params (cdr (assoc "params" (:message/ask/metadata r)))])
+                   (box! buffer& (buffer-maker! (VideoParams.width params) (VideoParams.height params)))
+                   (loop m))]
+                [(and (unbox buffer&) (Frame? v))
+                 (video-gui-update-buffer! (unbox buffer&) (Frame.data v))
+                 (loop (thread-receive))]
+                [else
+                 (loop (thread-receive))]))))))
+
+;; a linker-bang takes a new sink to spawn, makes a pub sub proxy and starts up that
+;; sink, concurrently sending the proxy's curl back to the existing source
+(define linker-bang
+  (motile/compile
+   '(lambda (sink-island-root@ sinkλ sink^ source@)
+      (displayln "Spawning pubsub")
+      (ask/send* "SPAWN" sink-island-root@ (make-pubsubproxy) (make-metadata is/proxy))
+      (let ([proxy-curl (car (thread-receive))])
+        (displayln "Spawning sink and notifying source")
+        (ask/send* "SPAWN" sink-island-root@ (lambda () (sinkλ proxy-curl)) sink^ proxy-curl)
+        (ask/send* "POST" source@ proxy-curl)))))
 
 (define command-center-gui
   (motile/compile
    '(lambda (reply-curl)
+      
       (define g (new-video-gui))
       
-      (define (spawn-gui-endpoint curl)
-        (ask/send* "SPAWN" (get-root-curl) (make-gui-endpoint)
-                   (make-metadata 
-                    is/endpoint
-                    `("spawnargs" . ,(list curl
-                                           (let ([add-video! video-gui-add-video!])
-                                             ;; !!! NO SERIALIZATION WARNING !!!
-                                             ;; (we lifted `g' and `add-video!' out of the lambda)
-                                             ;; a grown-up implementation would check that this
-                                             ;; curl `curl' is a local curl.
-                                             (lambda (w h)
-                                               (add-video! g w h curl))))))
-                   curl))
+      (define (spawn-gui-endpoint requester@)
+        ;; !!! NO SERIALIZATION WARNING !!!
+        ;; (we lifted `g' and `add-video!' out of the lambda)
+        ;; a grown-up implementation would check that this
+        ;; curl `requester@' is a local curl.
+        (let* ([add-video! video-gui-add-video!]
+               [endpointλ (unwrap (make-gui-endpoint))]
+               [endpoint*λ (lambda (rpy)
+                             (endpointλ rpy 
+                                        (lambda (w h)
+                                          (add-video! g w h requester@))))]
+               [root-here@ (get-root-curl)]
+               [linker!λ (unwrap (make-linker-bang))])
+          (ask/send* "SPAWN" (get-root-curl)
+                     (lambda ()
+                       ;; launch the linker to start up our wrapped endpoint
+                       (linker!λ root-here@ endpoint*λ (make-metadata is/endpoint) requester@))
+                     (make-metadata))))
       
       (set-current-gui-curl! (current-curl))
       
@@ -118,7 +144,7 @@
                  (set/remove decoders (RemoveCURL.curl v)))]
           
           [(PIPOn? v)
-           (let ([the-pip ((make-pip-decoder) (list (PIPOn.major v) (PIPOn.minor v)))])
+           (let ([the-pip ((unwrap (make-pip-decoder)) (list (PIPOn.major v) (PIPOn.minor v)))])
              (displayln "Making PIP")
              (ask/send* "SPAWN" (get-root-curl) the-pip
                         (make-metadata accepts/webm)

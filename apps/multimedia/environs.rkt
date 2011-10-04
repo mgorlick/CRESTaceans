@@ -80,14 +80,18 @@
 
 ; mirror our Motile programs into the binding environment
 (define (make-pubsubproxy)
-  pubsubproxy)
+  (unwrap pubsubproxy))
 (define (make-single-decoder)
   video-decoder/single)
 (define (make-pip-decoder)
-  (motile/call video-decoder/pip BASELINE))
+  video-decoder/pip)
 (define make-video-reader/encoder video-reader/encoder)
 (define (make-gui-endpoint)
   gui-endpoint)
+(define (make-linker-bang)
+  linker-bang)
+(define (unwrap actor)
+  (motile/call actor BASELINE))
 
 (define MULTIMEDIA-BASE
   (++ UTIL
@@ -104,11 +108,13 @@
       (require-spec->global-defines "message-types.rkt")
       (global-defines make-metadata
                       sleep*
+                      unwrap
                       make-single-decoder
                       make-pip-decoder
                       make-video-reader/encoder
                       make-gui-endpoint
-                      make-pubsubproxy)
+                      make-pubsubproxy
+                      make-linker-bang)
       `((accepts/webm . ,accepts/webm)
         (produces/webm . ,produces/webm)
         (type/webm . ,type/webm)
