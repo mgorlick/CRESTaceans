@@ -10,8 +10,7 @@
              [crypto-box-beforenm-wrap crypto-box-beforenm]
              [crypto-box-afternm-wrap crypto-box-afternm]
              [crypto-box-open-afternm-wrap crypto-box-open-afternm])
- (all-defined-out))
-
+ crypto-box-NONCEBYTES)
 
 (define-syntax-rule (defnacl+ binding obj typ)
   (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) lib typ)))
@@ -79,5 +78,5 @@
         (n : _bytes) (k : _bytes)
         -> (r : _int)
         -> (values
-            (make-sized-byte-string (ptr-add message crypto-box-ZEROBYTES) (- cipher-length crypto-box-ZEROBYTES))
+            (subbytes message crypto-box-ZEROBYTES)
             r)))
