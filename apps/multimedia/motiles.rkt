@@ -24,6 +24,10 @@
         (ask/send* "SPAWN" ,decoder-location@ (make-single-decoder)
                    (make-metadata accepts/webm) proxy-curl)))))
 
+;; pubsubproxy is a 1-to-N router with control signals forwarded backwards to the owner.
+;; this implementation doesn't encode ownership (the "1" in "1-to-N") except by convention.
+;; whoever sent some forward message is the one that will receive a control signal directed to it
+;; (see implementation for exact forward message types and backwards control signals) 
 (define pubsubproxy
   (motile/compile
    `(lambda ()
@@ -33,46 +37,40 @@
         (let ([m (thread-receive)])
           (define v (car m))
           (define r (cdr m))
-          (cond 
-            [(AddCURL? v)
-             (loop (set/cons curls (AddCURL.curl v)) 
-                   last-sender-seen)]
-            
-            [(RemoveCURL? v)
-             (ask/send* "POST" (RemoveCURL.curl v) (Quit) (:message/ask/metadata r))
-             (loop (set/remove curls (RemoveCURL.curl v)) 
-                   last-sender-seen)]
-            
+          (cond
+            ;; the types that the router knows to send forward.
             [(Frame? v)
              (set/map curls (lambda (crl) (ask/send* "POST" crl v (:message/ask/metadata r))))
-             (loop curls 
-                   (:message/ask/reply r))]
-            
+             (loop curls (:message/ask/reply r))]
+            ;; the control messages coming from the forward direction,
+            ;; directed at the router.
+            [(AddCURL? v)
+             (loop (set/cons curls (AddCURL.curl v)) last-sender-seen)]
+            [(RemoveCURL? v)
+             (ask/send* "POST" (RemoveCURL.curl v) (Quit) (:message/ask/metadata r))
+             (loop (set/remove curls (RemoveCURL.curl v)) last-sender-seen)]
+            ;; the messages that the router is hardwired to send backward to the sender using it.
             [(AddBehaviors? v)
              (when last-sender-seen
                (ask/send* "POST" last-sender-seen v))
-             (loop curls
-                   last-sender-seen)]
-            
+             (loop curls last-sender-seen)]
             [(Quit/MV? v)
              (when last-sender-seen
                (ask/send* "POST" last-sender-seen v))
-             (loop curls
-                   last-sender-seen)]
-            
+             (loop curls last-sender-seen)]
             [else 
              (printf "proxy else: ~a~n" v)
-             (loop curls
-                   last-sender-seen)]))))))
+             (loop curls last-sender-seen)]))))))
 
 ;; -----
 ;; VIDEO
 ;; -----
 
-(define gui-endpoint
+;; a canvas endpoint is an actor that is responsible for video display and ONLY video display.
+;; each decoding pipeline is allocated one or more gui endpoints.
+(define canvas-endpoint
   (motile/compile
    '(lambda (rpy@ buffer-maker!)
-      (display "In gui-endpoint")
       (ask/send* "POST" rpy@ (AddCURL (current-curl)))
       (let ([buffer& (box #f)])
         (let loop ([m (thread-receive)])
@@ -103,88 +101,88 @@
 (define command-center-gui
   (motile/compile
    '(lambda (reply-curl)
-      
-      (define g (new-video-gui))
-      
-      (define (spawn-gui-endpoint requester@)
-        ;; !!! NO SERIALIZATION WARNING !!!
-        ;; (we lifted `g' and `add-video!' out of the lambda)
-        ;; a grown-up implementation would check that this
-        ;; curl `requester@' is a local curl.
-        (let* ([add-video! video-gui-add-video!]
-               [endpointλ (unwrap (make-gui-endpoint))]
-               [endpoint*λ (lambda (rpy)
-                             (endpointλ rpy 
-                                        (lambda (w h)
-                                          (add-video! g w h requester@))))]
-               [root-here@ (get-root-curl)]
-               [linker!λ (unwrap (make-linker-bang))])
-          (ask/send* "SPAWN" (get-root-curl)
-                     (lambda ()
-                       ;; launch the linker to start up our wrapped endpoint
-                       (linker!λ root-here@ endpoint*λ (make-metadata is/endpoint) requester@))
-                     (make-metadata))))
-      
       (set-current-gui-curl! (current-curl))
-      
-      (let loop ([m (thread-receive)]
-                 [decoders set/equal/null])
-        (define v (car m))
-        (define r (cdr m))
-        (cond 
-          [(AddCURL? v)
-           (displayln "GUI is adding a video")
-           (spawn-gui-endpoint (AddCURL.curl v))
-           (loop (thread-receive) (set/cons decoders (AddCURL.curl v)))]
-          
-          [(RemoveCURL? v)
-           (printf "Feed of ~s was closed~n" (RemoveCURL.curl v))
-           (ask/send* "DELETE" (RemoveCURL.curl v) (Quit))
-           (loop (thread-receive) 
-                 (set/remove decoders (RemoveCURL.curl v)))]
-          
-          [(PIPOn? v)
-           (let ([the-pip ((unwrap (make-pip-decoder)) (list (PIPOn.major v) (PIPOn.minor v)))])
-             (displayln "Making PIP")
-             (ask/send* "SPAWN" (get-root-curl) the-pip
-                        (make-metadata accepts/webm)
-                        (get-root-curl)))
-           (loop (thread-receive) decoders)]
-          
-          [(CP? v)
-           (displayln "GUI is copying")
-           (respawn-self (CP.host v) (CP.port v))
-           (set/map decoders (lambda (decoder) 
-                               (ask/send* "POST" decoder v)))
-           (loop (thread-receive) decoders)]
-          
-          [(FwdBackward? v)
-           (ask/send* "POST" (FwdBackward.ref v) v)
-           (loop (thread-receive) decoders)]
-          
-          [(CP-child? v)
-           (displayln "GUI is copying a decoder")
-           (ask/send* "POST" (CP-child.curl v) (CP (CP-child.host v) (CP-child.port v)))
-           (loop (thread-receive) decoders)]
-          
-          [(InitiateBehavior? v)
-           (ask/send* "POST" (InitiateBehavior.ref v) v)
-           (loop (thread-receive) decoders)]
-          
-          [(Quit/MV? v)
-           (displayln "GUI is moving")
-           (respawn-self (Quit/MV.host v) (Quit/MV.port v))
-           (set/map decoders (lambda (decoder)
-                               (ask/send* "DELETE" decoder v)))]
-          
-          [(Quit? v)
-           (displayln "GUI is quitting")
-           (set/map decoders (lambda (decoder)
-                               (ask/send* "DELETE" decoder v)))]
-          
-          [else
-           (printf "Not a valid request to GUI: ~a~n" v)
-           (loop (thread-receive) decoders)])))))
+      (let ()
+        (define g (new-video-gui))
+        
+        (define (spawn-gui-endpoint requester@)
+          ;; !!! NO SERIALIZATION WARNING !!!
+          ;; (we lifted `g' and `add-video!' out of the lambda)
+          ;; a grown-up implementation would check that this
+          ;; curl `requester@' is a local curl.
+          (let* ([add-video! video-gui-add-video!]
+                 [endpointλ (unwrap (make-canvas-endpoint))]
+                 [endpoint*λ (lambda (rpy)
+                               (endpointλ rpy 
+                                          (lambda (w h)
+                                            (add-video! g w h requester@))))]
+                 [root-here@ (get-root-curl)]
+                 [linker!λ (unwrap (make-linker-bang))])
+            (ask/send* "SPAWN" (get-root-curl)
+                       (lambda ()
+                         ;; launch the linker to start up our wrapped endpoint
+                         (linker!λ root-here@ endpoint*λ (make-metadata is/endpoint) requester@))
+                       (make-metadata))))      
+        (let loop ([m (thread-receive)]
+                   [decoders set/equal/null])
+          (define v (car m))
+          (define r (cdr m))
+          (cond 
+            [(AddCURL? v)
+             (displayln "GUI is adding a video")
+             (spawn-gui-endpoint (AddCURL.curl v))
+             (loop (thread-receive) (set/cons decoders (AddCURL.curl v)))]
+            
+            [(RemoveCURL? v)
+             (printf "Feed of ~s was closed~n" (RemoveCURL.curl v))
+             (ask/send* "DELETE" (RemoveCURL.curl v) (Quit))
+             (loop (thread-receive) 
+                   (set/remove decoders (RemoveCURL.curl v)))]
+            
+            [(PIPOn? v)
+             (let ([the-pip ((unwrap (make-pip-decoder)) (list (PIPOn.major v) (PIPOn.minor v)))])
+               (displayln "Making PIP")
+               (ask/send* "SPAWN" (get-root-curl) the-pip
+                          (make-metadata accepts/webm)
+                          (get-root-curl)))
+             (loop (thread-receive) decoders)]
+            
+            [(CP? v)
+             (displayln "GUI is copying")
+             (respawn-self (CP.host v) (CP.port v))
+             (set/map decoders (lambda (decoder) 
+                                 (ask/send* "POST" decoder v)))
+             (loop (thread-receive) decoders)]
+            
+            [(FwdBackward? v)
+             (ask/send* "POST" (FwdBackward.ref v) v)
+             (loop (thread-receive) decoders)]
+            
+            [(CP-child? v)
+             (displayln "GUI is copying a decoder")
+             (ask/send* "POST" (CP-child.curl v) (CP (CP-child.host v) (CP-child.port v)))
+             (loop (thread-receive) decoders)]
+            
+            [(InitiateBehavior? v)
+             (ask/send* "POST" (InitiateBehavior.ref v) v)
+             (loop (thread-receive) decoders)]
+            
+            [(Quit/MV? v)
+             (displayln "GUI is moving")
+             (respawn-self (Quit/MV.host v) (Quit/MV.port v))
+             (set/map decoders (lambda (decoder)
+                                 (ask/send* "DELETE" decoder v)))
+             (set-current-gui-curl! #f)]
+            
+            [(Quit? v)
+             (displayln "GUI is quitting")
+             (set/map decoders (lambda (decoder)
+                                 (ask/send* "DELETE" decoder v)))
+             (set-current-gui-curl! #f)]
+            
+            [else
+             (printf "Not a valid request to GUI: ~a~n" v)
+             (loop (thread-receive) decoders)]))))))
 
 (define video-decoder/pip
   (motile/compile
