@@ -34,10 +34,8 @@
 (define linker-bang
   (motile/compile
    '(lambda (sink-island-root@ sinkλ sink^ source@)
-      (displayln "Spawning pubsub")
       (ask/send* "SPAWN" sink-island-root@ (make-pubsubproxy) (make-metadata is/proxy))
       (let ([proxy-curl (car (thread-receive))])
-        (displayln "Spawning sink and notifying source")
         (ask/send* "SPAWN" sink-island-root@ (lambda () (sinkλ proxy-curl)) sink^ proxy-curl)
         (ask/send* "POST" source@ proxy-curl)))))
 
@@ -48,7 +46,6 @@
 (define pubsubproxy
   (motile/compile
    `(lambda ()
-      (displayln "Proxy on")
       (let loop ([curls set/equal/null]
                  [last-sender-seen@ #f])
         (let ([m (thread-receive)])
@@ -101,6 +98,7 @@
                  (video-gui-update-buffer! (unbox buffer&) (Frame.data v))
                  (loop (thread-receive))]
                 [else
+                 (printf "Endpoint: unknown message ~a~n" v)
                  (loop (thread-receive))]))))))
 
 (define command-center-gui
@@ -216,12 +214,12 @@
             (define r (cdr m))
             (cond 
               [(Frame? v)
-               (let* ([replyaddr@ (:message/ask/reply r)]
-                      ;; these two steps are really a fold but Motile doesn't have arbitrary-arity folds
-                      ;; so they're just expressed this way for now.
-                      [frame-after-major-check
-                       (cond 
-                         [(and (not last-decoded-frame) (equal? replyaddr@ majorprox@))
+               (let ([replyaddr@ (:message/ask/reply r)])
+                 ;; these two steps are really a fold but Motile doesn't have arbitrary-arity folds
+                 ;; so they're just expressed this way for now.
+                 (define frame-after-major-check
+                   (cond [(and (not last-decoded-frame) 
+                               (equal? replyaddr@ majorprox@))
                           ;; no prior frame. decode a new one and save it but only if 
                           ;; this frame is a header-carrying major frame.
                           ;; OK to try to decode (might not work this time if 
@@ -229,32 +227,29 @@
                           (let* ([w/h (get-w/h m)]
                                  [this-frame-w (car w/h)]
                                  [this-frame-d (cdr w/h)])
-                            (vp8dec-decode-copy decoder/major 
-                                                (Frame.data v) 
-                                                this-frame-w this-frame-d))]
+                            (vp8dec-decode-copy decoder/major (Frame.data v) this-frame-w this-frame-d))]
                          ;; have prior frame and stream is major. update over prior frame
                          [(and last-decoded-frame (equal? replyaddr@ majorprox@))
-                          (vp8dec-decode-update-major decoder/major 
-                                                      (Frame.data v)
-                                                      last-decoded-frame)]
+                          (vp8dec-decode-update-major decoder/major (Frame.data v) last-decoded-frame)]
                          ;; frame is minor stream only, or some other stream. ignore
-                         [else last-decoded-frame])]
-                      [frame-after-minor-check
-                       (cond 
-                         [(and frame-after-major-check (equal? replyaddr@ minorprox@))
-                          ;; have prior frame and stream is minor. update over prior frame.
-                          (vp8dec-decode-update-minor decoder/minor 
-                                                      (Frame.data v)
-                                                      frame-after-major-check)])]                    
-                      ;; frame is major stream only, or some other stream. ignore
-                      [else frame-after-major-check])
-                 ;; if there is a frame to send out, send it down the pipeline
-                 (when frame-after-minor-check
-                   (ask/send* "POST" next-pipeline-element@
-                              (Frame!data v frame-after-minor-check) (:message/ask/metadata r)))
-                 ;; finished with this frame.
-                 (loop decoder/major decoder/minor frame-after-minor-check
-                       majorprox@ minorprox@ (thread-receive)))]
+                         [else
+                          last-decoded-frame]))
+                 (let ([frame-after-minor-check
+                        (cond [(and frame-after-major-check 
+                                    (equal? replyaddr@ minorprox@))
+                               ;; have prior frame and stream is minor. update over prior frame.
+                               (vp8dec-decode-update-minor decoder/minor (Frame.data v)
+                                                           frame-after-major-check)]               
+                              ;; frame is major stream only, or some other stream. ignore
+                              [else
+                               frame-after-major-check])])
+                   ;; if there is a frame to send out, send it down the pipeline
+                   (when frame-after-minor-check
+                     (ask/send* "POST" next-pipeline-element@
+                                (Frame!data v frame-after-minor-check) (:message/ask/metadata r)))
+                   ;; finished with this frame.
+                   (loop decoder/major decoder/minor frame-after-minor-check
+                         majorprox@ minorprox@ (thread-receive))))]
               ;; following are control messages passed from a controller backwards along the pipeline
               ;; to this decoder.
               [(and (InitiateBehavior? v) (eq? 'toggle-major/minor (InitiateBehavior.type v)))
