@@ -15,14 +15,14 @@
    `(lambda ()
       ; spawn the proxy
       (ask/send* "SPAWN" ,encoder-location@ (make-pubsubproxy) (make-metadata is/proxy))
-      (let ([proxy-curl (car (thread-receive))])
+      (let ([proxy@ (car (thread-receive))])
         ; spawn the encoder with the proxy as reply addr
         (ask/send* "SPAWN" ,encoder-location@
                    (make-video-reader/encoder ,video-device ,video-w ,video-h)
-                   (make-metadata produces/webm) proxy-curl)
+                   (make-metadata produces/webm) proxy@)
         ; spawn the decoder with the proxy as reply addr
         (ask/send* "SPAWN" ,decoder-location@ (make-single-decoder)
-                   (make-metadata accepts/webm) proxy-curl)))))
+                   (make-metadata accepts/webm) proxy@)))))
 
 ;; pubsubproxy is a 1-to-N router with control signals forwarded backwards to the owner.
 ;; this implementation doesn't encode ownership (the "1" in "1-to-N") except by convention.
@@ -33,34 +33,34 @@
    `(lambda ()
       (displayln "Proxy on")
       (let loop ([curls set/equal/null]
-                 [last-sender-seen #f])
+                 [last-sender-seen@ #f])
         (let ([m (thread-receive)])
           (define v (car m))
           (define r (cdr m))
           (cond
             ;; the types that the router knows to send forward.
             [(Frame? v)
-             (set/map curls (lambda (crl) (ask/send* "POST" crl v (:message/ask/metadata r))))
+             (set/map curls (lambda (crl@) (ask/send* "POST" crl@ v (:message/ask/metadata r))))
              (loop curls (:message/ask/reply r))]
             ;; the control messages coming from the forward direction,
             ;; directed at the router.
             [(AddCURL? v)
-             (loop (set/cons curls (AddCURL.curl v)) last-sender-seen)]
+             (loop (set/cons curls (AddCURL.curl v)) last-sender-seen@)]
             [(RemoveCURL? v)
              (ask/send* "POST" (RemoveCURL.curl v) (Quit) (:message/ask/metadata r))
-             (loop (set/remove curls (RemoveCURL.curl v)) last-sender-seen)]
+             (loop (set/remove curls (RemoveCURL.curl v)) last-sender-seen@)]
             ;; the messages that the router is hardwired to send backward to the sender using it.
             [(AddBehaviors? v)
-             (when last-sender-seen
-               (ask/send* "POST" last-sender-seen v))
-             (loop curls last-sender-seen)]
+             (when last-sender-seen@
+               (ask/send* "POST" last-sender-seen@ v))
+             (loop curls last-sender-seen@)]
             [(Quit/MV? v)
-             (when last-sender-seen
-               (ask/send* "POST" last-sender-seen v))
-             (loop curls last-sender-seen)]
+             (when last-sender-seen@
+               (ask/send* "POST" last-sender-seen@ v))
+             (loop curls last-sender-seen@)]
             [else 
              (printf "proxy else: ~a~n" v)
-             (loop curls last-sender-seen)]))))))
+             (loop curls last-sender-seen@)]))))))
 
 ;; -----
 ;; VIDEO
@@ -100,7 +100,7 @@
 
 (define command-center-gui
   (motile/compile
-   '(lambda (reply-curl)
+   '(lambda (reply-curl@)
       (set-current-gui-curl! (current-curl))
       (let ()
         (define g (new-video-gui))
@@ -140,9 +140,9 @@
                    (set/remove decoders (RemoveCURL.curl v)))]
             
             [(PIPOn? v)
-             (let ([the-pip ((unwrap (make-pip-decoder)) (list (PIPOn.major v) (PIPOn.minor v)))])
+             (let ([the-pipλ ((unwrap (make-pip-decoder)) (list (PIPOn.major v) (PIPOn.minor v)))])
                (displayln "Making PIP")
-               (ask/send* "SPAWN" (get-root-curl) the-pip
+               (ask/send* "SPAWN" (get-root-curl) the-pipλ
                           (make-metadata accepts/webm)
                           (get-root-curl)))
              (loop (thread-receive) decoders)]
@@ -171,14 +171,12 @@
              (displayln "GUI is moving")
              (respawn-self (Quit/MV.host v) (Quit/MV.port v))
              (set/map decoders (lambda (decoder)
-                                 (ask/send* "DELETE" decoder v)))
-             (set-current-gui-curl! #f)]
+                                 (ask/send* "DELETE" decoder v)))]
             
             [(Quit? v)
              (displayln "GUI is quitting")
              (set/map decoders (lambda (decoder)
-                                 (ask/send* "DELETE" decoder v)))
-             (set-current-gui-curl! #f)]
+                                 (ask/send* "DELETE" decoder v)))]
             
             [else
              (printf "Not a valid request to GUI: ~a~n" v)
@@ -194,8 +192,8 @@
         (car (thread-receive)))
       ;; given the curl of a decoder ask for its proxy's curl.
       ;; curl -> curl
-      (define (retrieve-proxy-from dcurl)
-        (ask/send* "POST" dcurl (GetParent))
+      (define (retrieve-proxy-from dcurl@)
+        (ask/send* "POST" dcurl@ (GetParent))
         (car (thread-receive)))
       ;; get the width/height of a message with a VideoParams as a metadata field (name `params')
       (define (get-w/h m)
@@ -205,28 +203,28 @@
       ;; here's all the decoders we will use for the picture composition.
       (let ([proxy-curls (map retrieve-proxy-from decoder-curls)])
         (lambda ()
-          (define gui-endpoint (retrieve-sink))
-          (define majorpc (car proxy-curls))
-          (define minorpc (cadr proxy-curls))
+          (define gui-endpoint@ (retrieve-sink))
+          (define majorprox@ (car proxy-curls))
+          (define minorprox@ (cadr proxy-curls))
           ;; let the proxies know we're online...
-          (ask/send* "POST" majorpc (AddCURL (current-curl)))
-          (ask/send* "POST" minorpc (AddCURL (current-curl)))
-          (let loop ([decoder/major (vp8dec-new)] ; vp8dec-pointer
-                     [decoder/minor (vp8dec-new)] ; vp8dec-pointer            
-                     [last-decoded-frame #f] ; or bytes #f
-                     [curl/major majorpc] ; curl
-                     [curl/minor minorpc] ; curl
-                     [m (thread-receive)]) ; a message
+          (ask/send* "POST" majorprox@ (AddCURL (current-curl)))
+          (ask/send* "POST" minorprox@ (AddCURL (current-curl)))
+          (let loop ([decoder/major (vp8dec-new)]
+                     [decoder/minor (vp8dec-new)]
+                     [last-decoded-frame #f]
+                     [majorprox@ majorprox@]
+                     [minorprox@ minorprox@]
+                     [m (thread-receive)])
             (define v (car m))
             (define r (cdr m))
             (cond 
               [(Frame? v)
-               (let* ([replyaddr (:message/ask/reply r)]
+               (let* ([replyaddr@ (:message/ask/reply r)]
                       ;; these two steps are really a fold but Motile doesn't have arbitrary-arity folds
                       ;; so they're just expressed this way for now.
                       [frame-after-major-check
                        (cond [(and (not last-decoded-frame)
-                                   (equal? replyaddr curl/major))
+                                   (equal? replyaddr@ majorprox@))
                               ;; no prior frame. decode a new one and save it but only if 
                               ;; this frame is a header-carrying major frame.
                               ;; OK to try to decode (might not work this time if 
@@ -239,15 +237,14 @@
                                                     this-frame-w this-frame-d))]
                              ;; have prior frame and stream is major. update over prior frame
                              [(and last-decoded-frame
-                                   (equal? replyaddr curl/major))
+                                   (equal? replyaddr@ majorprox@))
                               (vp8dec-decode-update-major decoder/major 
                                                           (Frame.data v)
                                                           last-decoded-frame)]
                              ;; frame is minor stream only, or some other stream. ignore
                              [else last-decoded-frame])]
                       [frame-after-minor-check
-                       (cond [(and frame-after-major-check
-                                   (equal? replyaddr curl/minor))
+                       (cond [(and frame-after-major-check (equal? replyaddr@ minorprox@))
                               ;; have prior frame and stream is minor. update over prior frame.
                               (vp8dec-decode-update-minor decoder/minor 
                                                           (Frame.data v)
@@ -256,11 +253,11 @@
                       [else frame-after-major-check])
                  
                  (when frame-after-minor-check
-                   (ask/send* "POST" gui-endpoint
+                   (ask/send* "POST" gui-endpoint@
                               (Frame!data v frame-after-minor-check) (:message/ask/metadata r)))
                  
                  (loop decoder/major decoder/minor frame-after-minor-check
-                       curl/major curl/minor (thread-receive)))]
+                       majorprox@ minorprox@ (thread-receive)))]
               
               [(and (InitiateBehavior? v)
                     (eq? 'toggle-major/minor (InitiateBehavior.type v)))
@@ -268,61 +265,61 @@
                (vp8dec-delete decoder/major)
                (vp8dec-delete decoder/minor)
                (loop (vp8dec-new) (vp8dec-new) #f
-                     curl/minor curl/major (thread-receive))]
+                     minorprox@ majorprox@ (thread-receive))]
               
               [(and (InitiateBehavior? v)
                     (eq? 'split (InitiateBehavior.type v)))
                (displayln "Splitting")
                (ask/send* "SPAWN" (get-root-curl) (make-single-decoder)
-                          (make-metadata accepts/webm) curl/major)
+                          (make-metadata accepts/webm) majorprox@)
                (ask/send* "SPAWN" (get-root-curl) (make-single-decoder)
-                          (make-metadata accepts/webm) curl/minor)
+                          (make-metadata accepts/webm) minorprox@)
                (loop decoder/major decoder/minor last-decoded-frame
-                     curl/major curl/minor (thread-receive))]
+                     majorprox@ minorprox@ (thread-receive))]
               
               [(GetParent? v)
-               (ask/send* "POST" (:message/ask/reply r) (cons curl/major curl/minor))
+               (ask/send* "POST" (:message/ask/reply r) (cons majorprox@ minorprox@))
                (loop decoder/major decoder/minor last-decoded-frame
-                     curl/major curl/minor (thread-receive))]
+                     majorprox@ minorprox@ (thread-receive))]
               
               [(CP? v)
                (respawn-self (CP.host v) (CP.port v))
                (loop decoder/major decoder/minor last-decoded-frame 
-                     curl/major curl/minor (thread-receive))]
+                     majorprox@ minorprox@ (thread-receive))]
               
               [(Quit/MV? v)
                (displayln "PIP Decoder is moving")
-               (ask/send* "POST" curl/major (RemoveCURL (current-curl)))
-               (ask/send* "POST" curl/minor (RemoveCURL (current-curl)))
+               (ask/send* "POST" majorprox@ (RemoveCURL (current-curl)))
+               (ask/send* "POST" minorprox@ (RemoveCURL (current-curl)))
                (vp8dec-delete decoder/major)
                (vp8dec-delete decoder/minor)
                (respawn-self (Quit/MV.host v) (Quit/MV.port v))]
               
               [(Quit? v)
                (displayln "PIP Decoder is quitting")
-               (ask/send* "POST" curl/major (RemoveCURL (current-curl)))
-               (ask/send* "POST" curl/minor (RemoveCURL (current-curl)))
+               (ask/send* "POST" majorprox@ (RemoveCURL (current-curl)))
+               (ask/send* "POST" minorprox@ (RemoveCURL (current-curl)))
                (vp8dec-delete decoder/major)
                (vp8dec-delete decoder/minor)]
               
               [else
                (printf "not a valid request to PIP decoder: ~a~n" v)
                (loop decoder/major decoder/minor last-decoded-frame
-                     curl/major curl/minor (thread-receive))])))))))
+                     majorprox@ minorprox@ (thread-receive))])))))))
 
 (define video-decoder/single
   (motile/compile
-   '(lambda (reply-curl)
+   '(lambda (reply@)
       (define (get-w/h frame)
         (let* ([metadata (:message/ask/metadata (cdr frame))]
                [params (cdr (assoc "params" metadata))])
           (cons (VideoParams.width params) (VideoParams.height params))))
       ;; 1. look up the current GUI, ask for a new display function
       (ask/send* "POST" (get-current-gui-curl) (AddCURL (current-curl)))
-      (let ([gui-endpoint<~> (car (thread-receive))]
+      (let ([gui-endpoint@ (car (thread-receive))]
             [d (vp8dec-new)])
         ;; 2. now that the decoder has a playback function it may decode frames, so ask for them.
-        (ask/send* "POST" reply-curl (AddCURL (current-curl)))
+        (ask/send* "POST" reply@ (AddCURL (current-curl)))
         ;; 3. start decoding loop
         (let loop ([m (thread-receive)])
           (define v (car m))
@@ -333,16 +330,16 @@
                         [this-frame-d (cdr w/h)]
                         [decoded-frame (vp8dec-decode-copy d (Frame.data v) this-frame-w this-frame-d)])
                    (when decoded-frame
-                     (ask/send* "POST" gui-endpoint<~>
+                     (ask/send* "POST" gui-endpoint@
                                 (Frame!data v decoded-frame) (:message/ask/metadata r))))
                  (loop (thread-receive))]
                 
                 [(GetParent? v)
-                 (ask/send* "POST" (:message/ask/reply r) reply-curl)
+                 (ask/send* "POST" (:message/ask/reply r) reply@)
                  (loop (thread-receive))]
                 
                 [(FwdBackward? v)
-                 (ask/send* "POST" reply-curl (FwdBackward.msg v))
+                 (ask/send* "POST" reply@ (FwdBackward.msg v))
                  (loop (thread-receive))]
                 
                 [(CP? v)
@@ -352,13 +349,13 @@
                 
                 [(Quit/MV? v)
                  (displayln "Decoder is quitting")
-                 (ask/send* "POST" reply-curl (RemoveCURL (current-curl)))
+                 (ask/send* "POST" reply@ (RemoveCURL (current-curl)))
                  (vp8dec-delete d)
                  (respawn-self (Quit/MV.host v) (Quit/MV.port v))]
                 
                 [(Quit? v)
                  (displayln "Decoder is quitting")
-                 (ask/send* "POST" reply-curl (RemoveCURL (current-curl)))
+                 (ask/send* "POST" reply@ (RemoveCURL (current-curl)))
                  (vp8dec-delete d)]
                 
                 [else
@@ -367,7 +364,7 @@
 
 (define (video-reader/encoder devname w h)
   (motile/compile
-   `(lambda (proxy-curl)
+   `(lambda (rpy@)
       (define default-fudge 0.5) ; used as a FACTOR of the overall framerate.
       ;; i.e., a default-fudge of 0.5 at a camera-specified framerate of 20 fps results in a
       ;; waiting period of (1000/20) * 0.5 = 25 ms between the first and second capture attempt.
@@ -391,15 +388,13 @@
                   (vp8enc-delete e)))))
         
         ; the default callback: a full-frame encoding.
-        (define (make-encode-full-frame-cb target)
-          (define meta-to-use
-            (make-metadata type/webm
-                           (cons "params" params)))
+        (define (make-encode-full-frame-cb target@)
+          (define meta-to-use^ (make-metadata type/webm (cons "params" params)))
           (make-callback 'full
                          (lambda (e outbuff fb)
                            (define encoded (vp8enc-encode e fb outbuff))
-                           (and encoded (ask/send* "POST" target (FrameBuffer->Frame encoded) 
-                                                   meta-to-use)))))
+                           (and encoded (ask/send* "POST" target@ 
+                                                   (FrameBuffer->Frame encoded) meta-to-use^)))))
         
         ; do-one-frame!: featuring AIMD waiting for camera frames.
         ; 1. try to read the next frame.
@@ -440,7 +435,7 @@
         
         (let loop ([fudge default-fudge]
                    [on-frame-callbacks (set/cons set/equal/null 
-                                                 (make-encode-full-frame-cb proxy-curl))])
+                                                 (make-encode-full-frame-cb rpy@))])
           (if (thread-check-receive (bin* fudge framerate))
               (do-control-message! loop fudge on-frame-callbacks)
               (do-one-frame!       loop fudge on-frame-callbacks)))))))
