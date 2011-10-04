@@ -71,10 +71,9 @@
         (define v (car m))
         (define r (cdr m))
         (cond [(and (not (unbox buffer&)) (Frame? v))
-               (box! buffer& (buffer-maker! 
-                              (VideoParams.width (cdr (assoc "params" (:message/ask/metadata r))))
-                              (VideoParams.height (cdr (assoc "params" (:message/ask/metadata r))))))
-               (loop m)]
+               (let ([params (cdr (assoc "params" (:message/ask/metadata r)))])
+                 (box! buffer& (buffer-maker! (VideoParams.width params) (VideoParams.height params)))
+                 (loop m))]
               [(and (unbox buffer&) (Frame? v))
                (video-gui-update-buffer! (unbox buffer&) (Frame.data v))
                (loop (thread-receive))]
@@ -90,10 +89,14 @@
         (ask/send* "SPAWN" (get-root-curl) (make-gui-endpoint)
                    (make-metadata 
                     is/endpoint
-                    (cons "spawnargs" (list curl
-                                            (let ([add-video! video-gui-add-video!])
-                                              (lambda (w h)
-                                                (add-video! g w h curl))))))
+                    `("spawnargs" . ,(list curl
+                                           (let ([add-video! video-gui-add-video!])
+                                             ;; !!! NO SERIALIZATION WARNING !!!
+                                             ;; (we lifted `g' and `add-video!' out of the lambda)
+                                             ;; a grown-up implementation would check that this
+                                             ;; curl `curl' is a local curl.
+                                             (lambda (w h)
+                                               (add-video! g w h curl))))))
                    curl))
       
       (set-current-gui-curl! (current-curl))
@@ -160,39 +163,41 @@
 (define video-decoder/pip
   (motile/compile
    '(lambda (decoder-curls)
-      (define (retrieve-playback-function)
+      ;; do the decoder half of the decoder/GUI discovery protocol.
+      ;; -> curl
+      (define (retrieve-sink)
         (ask/send* "POST" (get-current-gui-curl) (AddCURL (current-curl)))
         (car (thread-receive)))
+      ;; given the curl of a decoder ask for its proxy's curl.
+      ;; curl -> curl
       (define (retrieve-proxy-from dcurl)
         (ask/send* "POST" dcurl (GetParent))
         (car (thread-receive)))
+      ;; get the width/height of a message with a VideoParams as a metadata field (name `params')
       (define (get-w/h m)
         (let* ([metadata (:message/ask/metadata (cdr m))]
                [params (cdr (assoc "params" metadata))])
           (cons (VideoParams.width params) (VideoParams.height params))))
-      (displayln "Generating PIP lambda")
-      (displayln "Proxies:")
+      ;; here's all the decoders we will use for the picture composition.
       (let ([proxy-curls (map retrieve-proxy-from decoder-curls)])
-        (displayln proxy-curls)
         (lambda ()
-          (define gui-endpoint (retrieve-playback-function))
+          (define gui-endpoint (retrieve-sink))
           (define majorpc (car proxy-curls))
           (define minorpc (cadr proxy-curls))
           ;; let the proxies know we're online...
           (ask/send* "POST" majorpc (AddCURL (current-curl)))
           (ask/send* "POST" minorpc (AddCURL (current-curl)))
-          (let loop ([decoder/major (vp8dec-new)]
-                     [decoder/minor (vp8dec-new)]                     
-                     [last-decoded-frame #f]
-                     [curl/major majorpc]
-                     [curl/minor minorpc]
-                     [m (thread-receive)])
+          (let loop ([decoder/major (vp8dec-new)] ; vp8dec-pointer
+                     [decoder/minor (vp8dec-new)] ; vp8dec-pointer            
+                     [last-decoded-frame #f] ; or bytes #f
+                     [curl/major majorpc] ; curl
+                     [curl/minor minorpc] ; curl
+                     [m (thread-receive)]) ; a message
             (define v (car m))
             (define r (cdr m))
             (cond 
               [(Frame? v)
                (let* ([replyaddr (:message/ask/reply r)]
-                      [w/h (get-w/h m)]
                       ;; these two steps are really a fold but Motile doesn't have arbitrary-arity folds
                       ;; so they're just expressed this way for now.
                       [frame-after-major-check
@@ -202,7 +207,8 @@
                               ;; this frame is a header-carrying major frame.
                               ;; OK to try to decode (might not work this time if 
                               ;; this isn't a header-carrying frame)
-                              (let* ([this-frame-w (car w/h)]
+                              (let* ([w/h (get-w/h m)]
+                                     [this-frame-w (car w/h)]
                                      [this-frame-d (cdr w/h)])
                                 (vp8dec-decode-copy decoder/major 
                                                     (Frame.data v)

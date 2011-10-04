@@ -400,7 +400,7 @@
     (define refresher
       (new timer% 
            [notify-callback (λ () (refresh))]
-           [interval 100] 
+           [interval 250] 
            [just-once? #f]))
     
     (define/override (on-paint)
