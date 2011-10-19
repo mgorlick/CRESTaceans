@@ -30,10 +30,6 @@
 
 @defproc[(integer? [v any/c]) boolean?]{Returns @racket[#t] if @racket[v] is an integer number, @racket[#f] otherwise.}
 
-@defproc[(exact? [z any/c]) number?]{Returns @racket[#t] if @racket[z] is an exact number, @racket[#f] otherwise.}
-
-@defproc[(inexact? [z any/c]) number?]{Returns @racket[#t] if @racket[z] is an inexact number, @racket[#f] otherwise.}
-
 @defproc[(zero? [z number?]) boolean?]{ Returns @racket[(= 0 z)].}
 
 @defproc[(positive? [x real?]) boolean?]{ Returns @racket[(> x 0)].}
@@ -43,6 +39,18 @@
 @defproc[(even? [n integer?]) boolean?]{ Returns @racket[(zero? (modulo n 2))].}
 
 @defproc[(odd? [n integer?]) boolean?]{ Returns @racket[(not (even? n))].}
+
+@defproc[(exact? [z any/c]) number?]{Returns @racket[#t] if @racket[z] is an exact number, @racket[#f] otherwise.}
+
+@defproc[(inexact? [z any/c]) number?]{Returns @racket[#t] if @racket[z] is an inexact number, @racket[#f] otherwise.}
+
+@defproc[(integer/exact? [v any/c]) boolean?]{Returns @racket[(and (integer? v) (exact? v))].}
+                                                      
+@defproc[(natural/exact? [v any/c]) boolean?]{Returns @racket[(and (integer/exact? v) (not (negative? v)))].}
+                                                      
+@defproc[(integer/positive/exact? [v any/c]) boolean?]{Returns @racket[(and (integer/exact? v) (positive? v))].}
+                                                               
+@defproc[(real/inexact? [v any/c]) boolean?]{Returns @racket[(and (real? v) (inexact? v))].}
 
 @defproc[(procedure? [v any/c]) boolean?]{Returns @racket[#t] if @racket[v] is a procedure, @racket[#f] otherwise.}
 
