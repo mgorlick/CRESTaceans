@@ -10,19 +10,19 @@ Welcome to the CREST infrastructure documentation.
  
 @table-of-contents[]
 
-@include-section["source/type-testing.scrbl"]
-@include-section["source/type-transformations.scrbl"]
-@include-section["source/equivalence-predicates.scrbl"]
-@include-section["source/list-manipulation.scrbl"]
-@include-section["source/logical-negation.scrbl"]
-@include-section["source/arithmetic-operations.scrbl"]
-@include-section["source/numeric-comparisons.scrbl"]
-@include-section["source/trigonometric-functions.scrbl"]
-@include-section["source/characters.scrbl"]
-@include-section["source/strings.scrbl"]
-@include-section["source/byte-strings.scrbl"]
-@include-section["source/persistent-vectors.scrbl"]
-
+@include-section["scribblings/type-testing.scrbl"]
+@include-section["scribblings/type-transformations.scrbl"]
+@include-section["scribblings/equivalence-predicates.scrbl"]
+@include-section["scribblings/list-manipulation.scrbl"]
+@include-section["scribblings/logical-negation.scrbl"]
+@include-section["scribblings/arithmetic-operations.scrbl"]
+@include-section["scribblings/numeric-comparisons.scrbl"]
+@include-section["scribblings/trigonometric-functions.scrbl"]
+@include-section["scribblings/characters.scrbl"]
+@include-section["scribblings/strings.scrbl"]
+@include-section["scribblings/byte-strings.scrbl"]
+@include-section["scribblings/persistent-vectors.scrbl"]
+@include-section["scribblings/persistent-hash-tables.scrbl"]
 
 
 @;{index-section[]}

@@ -3,7 +3,7 @@
  
 @title[#:tag "persistent-vectors"]{Persistent functional vectors}
 
-@defidform[vector/null]{Produces an new persistent vector for which @racket[(vector/length _vec)] is equal to @racket[0], therefore and empty vector.}
+@defidform[vector/null]{Produces a new persistent vector for which @racket[(vector/length _vec)] is equal to @racket[0], therefore and empty vector.}
 
 @defproc[(vector/null? [v any/c]) boolean?]{Returns @racket[#t] if @racket[v] is equal to @racket[vector/null], @racket[#f] otherwise.}
 
@@ -12,17 +12,17 @@
                                                @racket[#f] otherwise.}
 
 
-@defproc[(vector/build [n exact-nonnegative-integer?] 
-                       [proc (exact-nonnegative-integer? . -> . any/c)])
+@defproc[(vector/build [n natural/exact?] 
+                       [proc (natural/exact? . -> . any/c)])
          vector/persist?]{Creates a persistent vector of @racket[n] elements by applying @racket[proc] to the integers from @racket[0] to 
                           @racket[(sub1 n)] in order. If @racket[_vec] is the resulting immutable vector, then @racket[(vector/ref _vec _i)] is the value
                           produced by @racket[(proc _i)].}
                          
                          
-@defproc[(vector/length [vec vector/persist?]) exact-nonnegative-integer?]{Returns the length of @racket[vec] (i.e., the number of slots in the vector).}
+@defproc[(vector/length [vec vector/persist?]) natural/exact?]{Returns the length of @racket[vec] (i.e., the number of slots in the vector).}
    
 
-@defproc[(vector/ref [vec vector/persist?] [pos exact-nonnegative-integer?]) any/c]{Returns the element in slot @racket[pos] of @racket[vec]. The first
+@defproc[(vector/ref [vec vector/persist?] [pos natural/exact?]) any/c]{Returns the element in slot @racket[pos] of @racket[vec]. The first
                                                                             slot is position @racket[0], and the last slot is one less than
                                                                             @racket[(vector/length vec)].}
 
@@ -61,20 +61,20 @@ Returns a fresh persisntent vector with the elements of @racket[vec] for which @
 @defproc[(vector/cons [vec vector/persist?] [v any/c]) vector/persist?]{Appends @racket[v] at the end of vector @racket[vec].}
                                                                                 
 @defproc[(vector/subvector [vec vector/persist?] 
-                           [from exact-nonnegative-integer?]) vector/persist?]{Returns a new persistent vector with the subset of @racket[vec]'s 
+                           [from natural/exact?]) vector/persist?]{Returns a new persistent vector with the subset of @racket[vec]'s 
                                                                                elements starting from index @racket[from] up to the last index of
                                                                                @racket[vec].}
  
 
 @defproc[(vector/subvector [vec vector/persist?] 
-                           [from exact-nonnegative-integer?]
-                           [end exact-nonnegative-integer?]) vector/persist?]{Returns a new persistent vector with the subset of @racket[vec]'s elements
+                           [from natural/exact?]
+                           [end natural/exact?]) vector/persist?]{Returns a new persistent vector with the subset of @racket[vec]'s elements
                                                                               starting from index @racket[from] up to index of @racket[end] of vector 
                                                                               @racket[vec].} 
                                                                                             
 @defproc[(vector/cdr [vec vector/persist?]) vector/persist?]{Removes the tail (last) element of persistent vector @racket[vec].} 
 
 @defproc[(vector/update [vec vector/persist?] 
-                        [i exact-nonnegative-integer?] 
+                        [i natural/exact?] 
                         [v any/c]) vector/persist?]{Sets the value at index @racket[i] of vector @racket[vec] to @racket[v].}
           
