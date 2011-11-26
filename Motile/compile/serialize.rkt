@@ -17,7 +17,15 @@
 ;; closures, continuations, and binding environments.
 ;; Many of the comments are paraphrases of the Racket Reference, Section 12.11, "Serialization."
 
+;; Note: This code will be substantially rewritten in the future (post 2011-11) to remove the
+;; serialization code devoted to the Racket-specific implementation of hash tables and to fully
+;; convert the serialized representation from the use of lists to using vectors (for the sake
+;; of memory efficiency and reducing garbage collection overhead).
+
 (require
+ data/heap
+ (only-in file/sha1 sha1-bytes) ; Temporary until we get NaCl fully integrated.
+ 
  (only-in "../generate/baseline.rkt" motile/decompile)
  (only-in "recompile.rkt" motile/recompile motile/recompile/active?)
 
@@ -45,16 +53,89 @@
   set/root
   set/construct)
  
- (only-in "../persistent/vector.rkt" vector/persist?))
+ (only-in "../persistent/vector.rkt" vector/persist?)
+ 
+ (only-in "../actor/actor.rkt" actor?)
+ (only-in "../actor/jumpstart.rkt" actor/dead?)
+  
+ (only-in
+  "../actor/locative.rkt"
+  locative?
+  locative/actor
+  locative/expired? locative/unexpired?
+  locative/expires
+  locative/id
+  locative/revoked
+  locative/sends/positive?)
+ 
+ (only-in
+  "../actor/curl.rkt"
+  curl? curl/ok?
+  curl/export
+  curl/id
+  curl/id!
+  curl/island
+  curl/pretty curl/signing curl/signing!)
+
+ (only-in
+  "../actor/island.rkt"
+  this/island
+  island/address/equal?)
+)
  
 (provide 
- ;; Checks whether a value is serializable:
+ ; Checks whether a value is serializable:
  motile/serializable?
- 
- ;; The two main routines:
+ ; The two main routines:
  motile/serialize motile/deserialize
+ ; Equality test for serializations.
+ motile/serialized/equal?
  
- motile/serialized/equal?)
+ export/statistics)
+
+(define (ahead duration) (+ (current-inexact-milliseconds) duration))
+
+(define EXPORTS/SEMAPHORE (make-semaphore 1))
+(define EXPORTS (make-hasheq)) ; Map of locative ids to locatives for those locatives referenced by serialized (exported) CURLs.
+(define EXPIRATIONS (make-heap (lambda (x y) (<= (locative/expires x) (locative/expires y))))) ; Priority queue ordered by locative expiration time.
+(define REAPINGS 0) ; Total number of reapings to date.
+
+(define (export/statistics)
+  (vector-immutable
+   (hash-count EXPORTS)
+   (heap-count EXPIRATIONS)
+   REAPINGS))
+
+(define (thunk/reaper exports expirations)
+  ; Return the first locative due to expire or #f if the priority queue is empty.
+  (define (candidate expirations)
+    (and (positive? (heap-count expirations)) (heap-min expirations)))
+
+  (lambda ()
+    (let loop ((timeout 10) ; Seconds
+               (receive (thread-receive-evt)))
+      (let ((e (sync/timeout timeout receive)))
+        (if e
+            ; Got a message.
+            (let enroll ((x (thread-receive)))
+              (cond 
+                ((and x (locative? x) (< (locative/expires x) +inf.0)) ; Don't bother with locatives whose lifespan is infinite.
+                 (heap-add! expirations x)      ; Add locative x to the expirations heap.
+                 (enroll (thread-try-receive))) ; Look for another locative to enroll in the expirations heap.
+                (else (loop timeout receive)))) ; No more messages.
+            
+            ; Timeout. Reap as many expired locatives as possible.
+            (let reap ((x (candidate expirations))) ; The locative x with the earliest expiration (if any).
+              ; When the earliest locative has actually expired expunge it from the map of all exported (serialized) locatives.
+              (when (and x (locative/expired? x))
+                (heap-remove-min! expirations) ; Remove locative x from the priority heap.
+                (hash-remove! exports (locative/id x)) ; Expunge x from the set of locatives referenced by serialized CURLs.
+                (set! REAPINGS (add1 REAPINGS)) ; Total number of locatives reaped to date.
+                (reap (candidate expirations))) ; Try the next expiration.
+              (loop timeout receive)))))))
+
+;; Start the reaper thread in the background.
+(define REAPER (thread (thunk/reaper EXPORTS EXPIRATIONS)))
 
 ;; A serialized representation of a value v is a list
 ;; (<version> <structure-count> <structure-types> <n> <graph> <fixups> <final>) where:
@@ -105,6 +186,7 @@
 
 (define (motile/serializable? v)
   (or 
+   ; Primitive values.
    (boolean? v)
    (null? v)
    (number? v)
@@ -112,13 +194,21 @@
    (symbol? v)
    (string? v)
    (bytes? v)
+
+   ; Basic persistent functional data structures.
    (vector/persist? v) ; Persistent functional vector.
    (hash/persist? v)   ; Persistent functional hash table.
    (set/persist? v)    ; Persistent functional set.
-   (vector? v)         ; Covers Motile tuples as well since all tuples are vectors.
+
+   ; Capability URLs (CURLs).
+   (curl? v)
+
+   ; Fundamental structured values.
+   (vector? v) ; Covers Motile tuples as well since all tuples are vectors.
    (pair? v)
-   (hash? v)
+   (hash? v)   ; To be removed at some later date.
    (box? v)
+
    (void? v)
    (procedure? v)))
 
@@ -165,13 +255,15 @@
         [share/candidates (make-hasheq)]  ;; Candidates for cycles
         [cycle/stack null])               ;; Candidates for cycles but for finding mutables.
     (let loop ([v v])
-      ;(display v) (newline) ; Debugging.
       (cond
         [(or (boolean? v)
              (number? v)
              (char? v)
              (symbol? v)
              (null? v)
+             ; Since the locative inside a CURL is never itself serialized it can be ignored for
+             ; the purposes of sharing.
+             (locative? v)
              (void? v))
          (void)]
 
@@ -215,6 +307,9 @@
            ; tag in element 0, identical to that for persistent hash tables.
            [(set/persist? v) (loop (set/root v))]
            
+           ; !!!!! FIX THIS !!!!!
+           ;[(curl? v) (for/each/vector 
+
             ; Accounts for tuples as well since all tuples are just vectors with a type tag in element 0.
            [(vector? v)
             ;(for-each loop (vector->list v))]
@@ -242,6 +337,37 @@
          (hash-remove! cycle/candidates v)
          (set! cycle/stack (cdr cycle/stack))]))))
 
+;; A temporary stub for CURL signing.
+;; It uses the wrong SHA function and does not sign with the private key of the island.
+;; This will all be fixed when we get the NaCL library fully integrated and begin using public keys
+;; as globally unique island identifiers.
+;; For now returns the SHA-1 hash of the byte string giving the motile/serialize representation of the CURL c.
+;; c - a local CURL in export format, that is, (curl/id c) is NOT a locative but either a symbol (locative UUID)
+;;     or a vector of symbols.
+(define (curl/SHA/sign! c)
+  (let ((out (open-output-bytes)))
+    ; Paranoia.
+    (curl/signing! c #f)
+    ; Set the Motile type tag to something the serializer doesn't recognize as a special case
+    ; otherwise the serializer will go into an infinite recursive loop.
+    (vector-set! c 0 '<curl-for-signing>)
+    ; Obtain the serialization as a byte string.
+    (write (motile/serialize c) out)
+    ; Generate a SHA hash of the the serialization and sign the real CURL
+    (curl/signing! c (sha1-bytes (open-input-bytes (get-output-bytes out))))
+    ; Patch the curl back up again.
+    (vector-set! c 0 '<curl>)))
+
+;; c - a deserialized, well-formed CURL with a byte string signature
+;; Return #t if the CURL signature is valid and #f otherwise.
+;; This routine is a temporary stub for the validation that uses the island private key.
+;; Note that if c is validated then it is effectively resigned.
+(define (curl/signing/validate c)
+  (let ((signature (curl/signing c))) ; Save the CURL signature.
+    (curl/signing! c #f)
+    (curl/SHA/sign! c) ; Sign the CURL again.
+    (bytes=? signature (curl/signing c)))) ; Compare our signing with the signature of the deserialized CURL.
+    
 ;; Generate the serialization description (known as a "serial") for the given object v.
 ;; v: an object for which we require a "serial"
 ;; share: a hash table of shared objects (objects refered to by two or more objects)
@@ -304,6 +430,37 @@
           ((set/eqv? v) 'eqv)
           (else         'equal))
         (serial (set/root v) #t))]
+
+      [(curl? v)
+       ;(log-info (format "motile/serialize: saw curl: ~a\n\n" (curl/pretty v)))
+       (cons
+        'C
+        (map
+         (lambda (e) (serial e #t)) ; Serialize each element of the CURL in turn.
+         (vector->list
+          (if (locative? (curl/id v))
+              ; v must be a intra-island CURL so build a signed version for serialization.
+              ; It isn't clear if we should concern ourselves here with the possibility that the locative is exhausted,
+              ; has been revoked, or has expired.
+              (let ((locative (curl/id v)))
+                (if (and
+                     (not (locative/revoked locative))
+                     (locative/sends/positive? locative)
+                     (locative/unexpired? locative)
+                     (not (actor/dead? (locative/actor locative))))
+
+                    (let* ((x (curl/export v))) ; In this case x is guaranteed to be a copy of v.
+                      (curl/SHA/sign! x)
+                      (unless (hash-ref EXPORTS (locative/id locative) #f)
+                        (hash-set! EXPORTS (locative/id locative) locative)
+                        (thread-send REAPER locative))
+                      x)
+
+                    (error 'motile/serialize (format "curl: ~a locative is expired, exhausted, revoked, or dead" (curl/pretty v)))))
+
+              ; v must be an inter-island CURL and hence signed by the issuing island.
+              ; Should we think about validating the signing ourselves before serializing it?
+              v))))]
 
       [(vector? v)
        ; "serial" for immutable vector x is (v s_0 ... s_N)  where s_i is the serial of element i of x.
@@ -487,6 +644,33 @@
                    ((equal) (values equal? equal-hash-code)))])
             (set/construct equality hasher (loop (caddr v))))]
 
+         [(C) ; CURL.
+          ;(log-info (format "deserialize-one: saw CURL ~s\n\n" v))
+          (let ((c (list->vector (map loop (cdr v)))))
+            ;(log-info (format "post-map CURL is ~s\n\n" c))
+            (if (curl/ok? c #t) ; #t => check for presence of signature (but not verification).
+                (if (island/address/equal? (this/island) (curl/island c))
+                    ; CURL c claims to have originated on this island. Validate its signature.
+                    (if (curl/signing/validate c)
+                        ; Yes, CURL c originated here. Replace its curl/id with the correct locative.
+                        (let* ((id (vector-ref (curl/id c) 0)) ; curl/id = #(<locative id> <actor id> <clan id>).
+                               (locative (hash-ref EXPORTS id #f))) ; Find the intra-island locative in the EXPORTS map.
+                          (cond
+                            (locative (curl/id! c locative))
+                            (else
+                             (curl/id! c #f)        ; #f replaces the original (but expired) locative.
+                             (curl/signing! c #f))) ; Smash the signing since the signature is no longer valid.
+                          c)
+
+                        ; CURL c is a forgery.
+                        (raise-type-error 'motile/deserialize "forged curl" c))
+
+                    ; CURL c originated on another island and is well-formed.
+                    c)
+
+                ; CURL c is ill-formed. Reject it.
+                (raise-type-error 'motile/deserialize "curl" c)))]
+
          [(b) (box-immutable (loop (cdr v)))]               ; (b . x). Immutable box #&(x).
 
          [(b!) (box (loop (cdr v)))]                        ; (b! . x). Mutable box #&(x).
@@ -518,7 +702,7 @@
 ;              (hash-set! procedures code descriptor))
             code)]
 
-         [else (error 'serialize "ill-formed serialization")])])))
+         [else (raise-type-error 'motile/deserialize "<unknown serialized object>" (car v))])])))
 
 (define (deserial-shell v fixup n)
   (cond
@@ -648,4 +832,7 @@
     (let ([v1 (deserialize-with-map version1 l1)]
           [v2 (deserialize-with-map version2 l2)])
       (equal? v1 v2))))
+
+
+
 
