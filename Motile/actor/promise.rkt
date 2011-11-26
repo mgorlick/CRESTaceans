@@ -273,3 +273,58 @@
            (c (cdr x)))
       (actor/jumpstart a1 (lambda () (log-info (format "a1: ~a\n\n" (promise/wait p  1.5 "darn")))))
       (actor/jumpstart a2 (lambda () (log-info (format "a2: ~a\n\n" (promise/wait p  1.5 "rats"))))))))
+
+;; Two actors try to keep the promise but the second one is too late.
+(define (test/promise/5)
+  (let*-values ([(a1 l/a1)     (actor/new ROOT 'a1)]
+                [(a2 l/a2)     (actor/new ROOT 'a2)]
+                [(a3 l/a3)     (actor/new ROOT 'a3)])
+    (let* ((x (promise/new 3.0))
+           (p (car x))
+           (c (cdr x)))
+      ; Actor a1 resolves the promise before actor a2 and so its curl/send should return #t.
+      (actor/jumpstart
+       a1
+       (lambda ()
+         (sleep 0.5)
+         (log-info (format "a1: curl/send: ~a\n\n" (curl/send c "a1 resolved the promise")))))
+
+      ; Actor a2 is too late and so its curl/send should return #f.
+      (actor/jumpstart
+       a2
+       (lambda ()
+         (sleep 0.75)
+         (log-info (format "a2: curl/send: ~a\n\n" (curl/send c "a2 resolved the promise")))))
+
+
+      ; Actor a1 should get the message from a1 as the resolution of promise p.
+      (actor/jumpstart
+       a3
+       (lambda () (log-info (format "a3: ~a\n\n" (promise/wait p  1.5 "rats"))))))))
+
+;; Two actors race to keep the promise.
+(define (test/promise/6)
+  (let*-values ([(a1 l/a1)     (actor/new ROOT 'a1)]
+                [(a2 l/a2)     (actor/new ROOT 'a2)]
+                [(a3 l/a3)     (actor/new ROOT 'a3)])
+    (let* ((x (promise/new 3.0))
+           (p (car x))
+           (c (cdr x)))
+      ; Actors a1 and a2 race to resolve the promise.
+      (actor/jumpstart
+       a1
+       (lambda ()
+         (sleep 0.5)
+         (log-info (format "a1: curl/send: ~a\n\n" (curl/send c "a1 resolved the promise")))))
+
+      (actor/jumpstart
+       a2
+       (lambda ()
+         (sleep 0.5)
+         (log-info (format "a2: curl/send: ~a\n\n" (curl/send c "a2 resolved the promise")))))
+
+
+      ; Actor a1 will get a message from either a1 or a2.
+      (actor/jumpstart
+       a3
+       (lambda () (log-info (format "a3: ~a\n\n" (promise/wait p  1.5 "rats"))))))))
