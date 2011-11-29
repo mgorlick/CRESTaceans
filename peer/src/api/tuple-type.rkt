@@ -4,6 +4,7 @@
          racket/match
          racket/function
          "../../../Motile/persistent/tuple.rkt")
+(provide (all-defined-out))
 
 (define-for-syntax (string->stx k s)
   (datum->syntax k (string->symbol s)))

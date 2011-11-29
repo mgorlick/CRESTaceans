@@ -1,19 +1,23 @@
 #lang racket/base
 
-(require "message-types.rkt"
-         "gui.rkt"
+(require "gui.rkt"
          "video.rkt"
-         "motiles.rkt"
-         "bindings/speex/speex.rkt"
-         "../../peer/src/api/message.rkt"
-         "../../peer/src/api/api.rkt"
+         "message-types.rkt"
          "../../Motile/persistent/environ.rkt"
+         "../../Motile/baseline.rkt"
+         "../../Motile/compile/compile.rkt"
+         "../../Motile/generate/baseline.rkt"
          racket/require
          racket/function
          racket/list
          (for-syntax racket/base))
+
 (provide (all-defined-out))
 
+
+;; extra stuff to put in baseline. this should eventually be moved to Motile/baseline.rkt
+(define-syntax-rule (global-value-defines id ...)
+  `((id . ,id) ...))
 (define bin- (procedure-reduce-arity - 2))
 (define bin+ (procedure-reduce-arity + 2))
 (define bin* (procedure-reduce-arity * 2))
@@ -23,16 +27,11 @@
 (define bin>= (procedure-reduce-arity >= 2))
 (define sleep* (procedure-reduce-arity sleep 1))
 (define (halve x) (/ x 2))
-
 (define (thread-check-receive n)
   (and (sync/timeout n (thread-receive-evt)) #t))
 
-;; extra stuff to put in baseline. this should eventually be moved to Motile/baseline.rkt
-(define-syntax-rule (global-value-defines id ...)
-  `((id . ,id) ...))
 (define UTIL
   (++ BASELINE
-      (require-spec->global-defines (except-in "../../peer/src/api/message.rkt" ask tell uri))
       (global-defines bin* bin- bin+ bin/ bin>= min* sleep* max* halve
                       display displayln void printf vector-ref
                       thread-receive thread-check-receive
@@ -66,31 +65,13 @@
 (define accepts/webm '("accepts" . "video/webm"))
 (define produces/webm '("produces" . "video/webm"))
 (define type/webm '("content-type" . "video/webm"))
-(define accepts/speex '("accepts" . "audio/speex"))
-(define produces/speex '("produces" . "audio/speex"))
-(define type/speex '("content-type" . "audio/speex"))
 (define is/gui '("is" . "gui"))
 (define is/endpoint '("is" . "endpoint"))
 (define is/proxy '("is" . "proxy"))
+(define make-metadata list)
 
-(define (make-metadata . x)
-  x)
-
-; mirror our Motile programs into the binding environment. they need to be unwrapped in certain cases
-(define (make-pubsubproxy)
-  (unwrap pubsubproxy))
-(define (make-single-decoder)
-  video-decoder/single)
-(define (make-pip-decoder)
-  video-decoder/pip)
-(define make-video-reader/encoder video-reader/encoder)
-(define (make-canvas-endpoint)
-  canvas-endpoint)
-(define (make-linker-bang)
-  linker-bang)
-(define (unwrap actor)
-  (motile/call actor BASELINE))
-
+(define (unwrap thunk)
+  (motile/call thunk BASELINE))
 ;; binding environments used.
 (define MULTIMEDIA-BASE
   (++ UTIL
@@ -98,15 +79,8 @@
       (require-spec->global-defines "message-types.rkt")
       (global-defines make-metadata
                       sleep*
-                      unwrap
-                      make-single-decoder
-                      make-pip-decoder
-                      make-video-reader/encoder
-                      make-canvas-endpoint
-                      make-pubsubproxy
-                      make-linker-bang)
+                      unwrap)
       (global-value-defines accepts/webm produces/webm type/webm
-                            accepts/speex produces/speex type/speex
                             is/gui is/proxy is/endpoint)))
 (define VIDEO-ENCODE
   (++ MULTIMEDIA-BASE
@@ -125,7 +99,3 @@
       (require-spec->global-defines (only-in "gui.rkt"
                                              video-gui-clear-buffer! 
                                              video-gui-update-buffer!))))
-(define AUDIO-ENCODE
-  (++ MULTIMEDIA-BASE (global-defines new-speex-encoder speex-encoder-encode delete-speex-encoder)))
-(define AUDIO-DECODE
-  (++ MULTIMEDIA-BASE (global-defines new-speex-decoder speex-decoder-decode delete-speex-decoder)))

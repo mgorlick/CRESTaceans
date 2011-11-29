@@ -28,6 +28,7 @@
  locative/actor
  locative/expires
  locative/id
+ locative/id!
  locative/revoked 
 
  locative/cons/authority?

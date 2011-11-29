@@ -9,13 +9,9 @@
          ffi/unsafe/atomic
          "../../../Motile/compile/serialize.rkt"
          "compression.rkt"
-         "encryption.rkt"
-         "scurls.rkt")
+         "encryption.rkt")
 
-(provide generate-scurl/defaults
-         generate-key/defaults
-         (all-from-out "scurls.rkt")
-         (except-out (all-defined-out)
+(provide (except-out (all-defined-out)
                      output-next
                      input-next
                      done/signalled
@@ -57,8 +53,8 @@
 ;; run-tcp-peer: returns a thread handle used to communicate with the networking layer.
 ;; encapsulates worker threads for connection I/O, connection startup and keying and teardown, etc.
 ;; (thread-send (run-tcp-peer ...) (request ...)) results in a new message being sent.
-(define/contract (run-tcp-peer lhostname lport this-scurl reply-thread #:encrypt? [encrypt? #t])
-  ([hostname/c portname/c private-scurl? thread?] [#:encrypt? boolean?] . ->* . thread?)
+(define/contract (run-tcp-peer lhostname lport reply-thread #:encrypt? [encrypt? #t])
+  ([hostname/c portname/c thread?] [#:encrypt? boolean?] . ->* . thread?)
   
   (define listener (tcp-listen lport 64 #f lhostname))
   
@@ -171,12 +167,7 @@
     (define-values (i o) (tcp-connect host port))
     (file-stream-buffer-mode o 'none)
     (define-values (la _ ra rp) (tcp-addresses i #t))
-    
-    #|;; first do the SCURL authentication protocol.
-    (define the-remote-scurl (do-client-auth (request-host req) (request-port req)
-    (request-key req) this-scurl i o))
-    (cond [(scurl? the-remote-scurl)|#
-    
+        
     (write (vector la lport encrypt?) o)
     (define-values (ra* rp* remote-encrypt?) (vector->values (read i)))
     (cond [#t ; placeholder for scurl client side auth protocol check.
@@ -191,13 +182,12 @@
                            "not connected: failed the SCURL client-side auth protocol")]))
   
   ; run-accept-loop: sit on a tcp listener forever, accepting new connections.
-  (define/contract (run-accept-loop listener finish-connect this-scurl)
-    (tcp-listener? connect-responder/c private-scurl? . -> . any/c)
+  (define/contract (run-accept-loop listener finish-connect)
+    (tcp-listener? connect-responder/c . -> . any/c)
     (with-handlers ([exn? (λ (e) (printf "~a~n" (exn-message e)) #f)])
       (define-values (i o) (tcp-accept listener))
       (file-stream-buffer-mode o 'none)
       ;; first do the SCURL authentication protocol.
-      ;(define-values (ra rp) (do-server-auth this-scurl revoke? i o))
       (write (vector lhostname lport encrypt?) o)
       (define-values (ra rp remote-encrypt?) (vector->values (read i)))
       (cond [(and ra rp)
@@ -209,10 +199,10 @@
                   (tcp-abandon-port i)
                   (raise/ccm exn:fail:network:scurl
                              "not connected: failed the SCURL server-side auth protocol")]))
-    (run-accept-loop listener finish-connect this-scurl))
+    (run-accept-loop listener finish-connect))
   
   ;; one thread to manage all tcp-accepts.  
-  (define accepter (thread (λ () (run-accept-loop listener start-threads/store! this-scurl))))
+  (define accepter (thread (λ () (run-accept-loop listener start-threads/store!))))
   ;; one thread to monitor the outgoing messages and redirect them
   (define sendmaster (thread (λ () (stream-for-each send/maybe-connect (mbox->stream)))))
   
