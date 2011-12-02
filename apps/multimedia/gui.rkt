@@ -2,7 +2,9 @@
 
 (require racket/class
          racket/gui/base
-         "message-types.rkt"
+         racket/contract
+         "message-types.rkt"         
+         "../../Motile/actor/curl.rkt"
          (planet "rgl.rkt" ("stephanh" "RacketGL.plt" 1 2)))
 
 (provide (rename-out [client/new-video-gui new-video-gui]
@@ -23,7 +25,9 @@
                                        (thread-send the-actor-thread (cons m #f))))
                       the-actor-thread)))
 
-(define (client/video-gui-add-video! client w h name)
+(define/contract (client/video-gui-add-video! client w h name)
+  (video-gui-client? number? number? curl? . -> . bytes?)
+  (displayln "making a video")
   (video-playback-buffer
    (parameterize ([current-eventspace (make-eventspace)])
      (video-gui-add-video! (video-gui-client-gui client)
@@ -183,7 +187,7 @@
       (clear-current-canvas)
       (send (get-parent) min-width (video-playback-w v))
       (send (get-parent) min-height (video-playback-h v))
-      (send address-bar set-label (format "~a" (video-playback-name v)))
+      (send address-bar set-label (format "~a" (curl/pretty (video-playback-name v))))
       (define cnvs
         (new video-canvas% 
              [parent this]

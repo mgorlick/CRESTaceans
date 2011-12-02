@@ -43,6 +43,9 @@
  ; Start an actor.
  actor/jumpstart
  
+ ; parameter(s) that need to be exported to dynamically glue them to binding environments.
+ this/locative
+ 
  ; Tests for chieftains and the root actor.
  actor/chieftain?
  actor/root?

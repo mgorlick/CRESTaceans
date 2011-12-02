@@ -1,7 +1,12 @@
 #lang racket/base
 
-(require "../../Motile/struct.rkt")
+(require "../../Motile/struct.rkt"         
+         "../../peer/src/api/tuple-type.rkt"
+)
 (provide (all-defined-out))
+
+(define-tuple-type (spawn) body metadata reply)
+(define-tuple-type (remote) body metadata reply)
 
 (define-motile-struct AddCURL [curl])
 (define-motile-struct RemoveCURL [curl])
