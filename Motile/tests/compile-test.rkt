@@ -715,25 +715,28 @@
                                                 (let ()
                                                   (define-macro (ten+1) '(+ 10 2))
                                                   (+ (eleven) (eleven)))))))
-  (test-case "Macros containing local functions"
-             (check-equal? 21
-                           ((compile/start) '(let ()
-                                             (define-macro (<let> bindings . body)
-                                               ; Local function inside macro definition body.
-                                               (define (unzip bindings variables values)
-                                                 (if (null? bindings)
-                                                     (cons variables values)
-                                                     (let ((binding (car bindings)))
-                                                       (unzip (cdr bindings)
-                                                              (cons (car binding) variables)
-                                                              (cons (cadr binding) values)))))
-                                               
-                                               (let* ((unzipping (unzip bindings null null))
-                                                      (variables (car unzipping))
-                                                      (values    (cdr unzipping)))
-                                                 `((lambda ,variables ,@body) ,@values)))
-                                             
-                                             (<let> ((a 3) (b 7)) (* a b)))))))
+  (test-case
+   "Macros containing local functions"
+   (check-equal?
+    21
+    ((compile/start)
+     '(let ()
+        (define-macro (<let> bindings . body)
+          ; Local function inside macro definition body.
+          (define (unzip bindings variables values)
+            (if (null? bindings)
+                (cons variables values)
+                (let ((binding (car bindings)))
+                  (unzip (cdr bindings)
+                         (cons (car binding) variables)
+                         (cons (cadr binding) values)))))
+          
+          (let* ((unzipping (unzip bindings null null))
+                 (variables (car unzipping))
+                 (values    (cdr unzipping)))
+            `((lambda ,variables ,@body) ,@values)))
+        
+        (<let> ((a 3) (b 7)) (* a b)))))))
 
 ; ------------------------
 

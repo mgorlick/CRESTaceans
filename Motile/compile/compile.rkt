@@ -22,7 +22,7 @@
  (only-in "utility.rkt" vector/all?)
  (only-in "match.rkt" match/translate)
  
- (only-in "../generate/baseline.rkt"    motile/call)
+ (only-in "../generate/baseline.rkt"    motile/call motile/call/3) ; Needed for compile-time evaluation of non-hygienic macros.
  (only-in "../generate/closure.rkt"     closure/generate closure/rest/generate)
  (only-in "../generate/combination.rkt" combination/generate)
  (only-in "../generate/constant.rkt"    constant/generate)
@@ -50,7 +50,8 @@
  (only-in "../generate/quasiquote.rkt" quasiquote/append/generate quasiquote/cons/generate quasiquote/tuple/generate)
  (only-in "../generate/record.rkt"     record/cons/generate record/generate record/ref/generate)
  (only-in "../persistent/environ.rkt"  environ/null)
- (only-in "../persistent/hash.rkt"     hash/eq/null hash/ref vector/hash))
+ (only-in "../persistent/hash.rkt"     hash/eq/null hash/ref vector/hash)
+ (only-in "../baseline.rkt" BASELINE)) ; Reequired for compile-time application of non-hygienic macros as Motile lambdas.
 
 (provide
  motile/compile)
@@ -162,7 +163,11 @@
        (combination/compile e lexical)))))
 
 (define (macro/expand e lexical)
-  (apply (lexical/macro/fetch lexical (car e)) (lambda (x) x) (cdr e)))
+;  (apply
+;   (lexical/macro/fetch lexical (car e))
+;   (lambda (x) x) 
+;   (cdr e)))
+  (motile/call/3 (lexical/macro/fetch lexical (car e)) BASELINE (cdr e)))
 
 ;; (define-macro (<name> <formals>) <body>).
 ;; Compile macro definition e and make it available in the current lexical scope.
@@ -179,8 +184,8 @@
     ; analogue of including local function definitions within the body of a lambda expression.
     ; On the other hand, local function definitions within the body of a define-macro have exactly the intended
     ; effect, the functions are local to the define-macro and are invoked at macro expansion time.
-    (let ((procedure (scheme/compile `(lambda ,formals ,@body) #f)))
-      (motile/call procedure environ/null))))  ; Evaluate the procedure at its point of definition.
+    (let ((procedure (scheme/compile `(lambda ,formals ,@body) #f))) ; The macro as a lambda definition.
+      (motile/call procedure environ/null)))) ; Evaluate the lambda at its point of definition.
       
 (define (let/compile e lexical)
   (shape e 3)
@@ -409,7 +414,9 @@
 
     ((quote? e) e)
     
-    ((hash/ref macros (car e) #f)
+    ((definition/macro? e) e); (define-macro (name <formals>) <body>).
+   
+     ((hash/ref macros (car e) #f)
      =>
      ; Macro expand expression e using an e-specifc macro and then recursively macro expand
      ; that result all over again.
@@ -418,7 +425,7 @@
     ((lambda? e)
      ; Run the macro expander over every expression in the lambda body.
      `(lambda ,(lambda/parameters e) ,@(map map/expand (lambda/body e))))
-
+ 
     ((if? e)
      `(if
        ,(motile/macro/expand (if/test e) macros)
@@ -1149,67 +1156,3 @@
 ;; Closure B is a variable argument closure accepting either one or two arguments. We discuss each of these cases:
 ;;   (k)
 ;;   Here the argument k is the continuation at the point of application of f.
-
-
-;(define (test/closure)
-;  (define (test/closure/1)
-;    (let ((code
-;           (motile/compile
-;            '(let ((f (lambda (n) (lambda () n))))
-;               (let ((f100 (f 100))
-;                     (f200 (f 200))
-;                     (f300 (f 300)))
-;                 (list (f100) (f200) (f300)))))))
-;      (pretty-display (motile/start code BASELINE))))
-;
-;  (define (test/closure/2)
-;    (let* ((code
-;           (motile/compile
-;            '(let ((f (lambda (n) (lambda () n))))
-;               (let ((f100 (f 100))
-;                     (f200 (f 200))
-;                     (f300 (f 300)))
-;                 (vector  f100 f200 f300)))))
-;           (closures (motile/start code ENVIRON/TEST)))
-;      (pretty-display (motile/decompile (vector-ref closures 0)))
-;      (newline)
-;      (pretty-display (motile/decompile (vector-ref closures 1)))
-;      (newline)
-;      (pretty-display (motile/decompile (vector-ref closures 1)))))
-;  
-;  (test/closure/1)
-;  (test/closure/2))
-;
-;(define (test/map/1)
-;  (let ((code
-;         (motile/compile
-;          '(let ((f (lambda (n) (+ n 3))))
-;             (map f '(5 10 15 20 25))))))
-;    (motile/start code BASELINE)))
-;
-;(define (test/map/2)
-;  (let ((code
-;         (motile/compile
-;          '(let ((f (lambda (n) (+ n 3))))
-;             (map f '(5 10 15 20 25))))))
-;    (pretty-display (motile/decompile code))))
-;
-;(define (test/for-each)
-;  (let ((code
-;         (motile/compile
-;          '(let ((f (lambda (n)
-;                      (display (+ n 3)) (newline))))
-;             (for-each f '(5 10 15 20 25))))))
-;    (motile/start code ENVIRON/TEST)))
-;
-; (define (test/apply)
-;  (let ((code
-;         (motile/compile
-;          '(apply + 5 10 15 20 25))))
-;    (motile/start code BASELINE)))
-; 
-; (define (test/sort)
-;   (let ((code
-;          (motile/compile
-;           '(sort '(25 20 5 15 10) <))))
-;     (motile/start code BASELINE)))
