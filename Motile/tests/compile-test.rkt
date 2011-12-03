@@ -2108,7 +2108,7 @@
   (run-tests apply-exprs)
   (run-tests sort-tests)
   (run-tests quasiquote-exprs)
-  ;(run-tests macro-exprs)
+  (run-tests macro-exprs)
   (run-tests for-each-exprs)
   (run-tests map-exprs)
   (run-tests box-tests)
