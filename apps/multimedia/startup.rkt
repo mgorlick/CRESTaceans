@@ -53,11 +53,11 @@
                              (string->bytes/utf-8 *LISTENING-ON*) *LOCALPORT*)])
   (define (metadata->benv metadata)
     (cond
-      [(contains-any? metadata accepts/webm) (displayln "****spawn: using decode") VIDEO-DECODE]
-      [(contains-any? metadata produces/webm) (displayln "***spawn: using encode") VIDEO-ENCODE]
-      [(contains-any? metadata is/gui) (displayln "***spawn: using gui") GUI]
-      [(contains-any? metadata is/endpoint) (displayln "***spawn: using endpoint") GUI-ENDPOINT]
-      [else (displayln "***spawn: using base") MULTIMEDIA-BASE]))
+      [(contains-any? metadata accepts/webm) VIDEO-DECODE]
+      [(contains-any? metadata produces/webm) VIDEO-ENCODE]
+      [(contains-any? metadata is/gui) GUI]
+      [(contains-any? metadata is/endpoint) GUI-ENDPOINT]
+      [else MULTIMEDIA-BASE]))
   
   ;; sneaky: derive a new locative from the root locative (a "public locative"),
   ;; then serialize a CURL made from it (a "public curl").
@@ -79,10 +79,8 @@
        (define-values (actor actor/loc) 
          (actor/new ROOT (gensym (or (metadata-ref metadata 'nick)
                                      'nonamegiven))))
-       (displayln "Got a spawn")
        (actor/jumpstart actor (λ ()
-                                (displayln "Inside jumpstart thunk")
-                                (motile/call (unwrap body)
+                                (motile/call body
                                              (++ (metadata->benv metadata)
                                                  (global-value-defines PUBLIC/CURL)
                                                  (global-defines this/locative)))))]

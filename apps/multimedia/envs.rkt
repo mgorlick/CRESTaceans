@@ -46,8 +46,6 @@
       [() (call-with-semaphore readlock (λ () 
                                           c))]
       [(f) (call-with-semaphore writelock (λ ()
-                                            (displayln "GUI CURL changed:")
-                                            (displayln (curl/pretty f))
                                             (set! c f)
                                             (semaphore-post readlock)))])))
 

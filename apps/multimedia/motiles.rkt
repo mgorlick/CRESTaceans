@@ -17,17 +17,14 @@
 ; then spawns the encoder and decoder.
 (define (big-bang encoder-site-public-curl@ video-device video-w video-h decoder-site-public-curl@)
   (motile/compile
-   `(lambda ()
+   `(let ()
       ;(define me$ (this/locative))
       (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME 1 #t #t) null #f))
-      (displayln "Big bang: started up")
       ; spawn the proxy
       (curl/send ,encoder-site-public-curl@ (spawn/new (pubsubproxy me@)
                                                        (make-metadata is/proxy '(nick . pubsub))
                                                        #f))
-      (displayln "Big bang: sent spawn for pub sub proxy")
       (let ([proxy@ (:remote/body (delivered/contents-sent (mailbox-get-message)))])
-        (displayln "Big bang: launching encoder and decoder")
         ; spawn the encoder with the proxy as initialization address
         (curl/send ,encoder-site-public-curl@ (spawn/new (video-reader/encoder
                                                           ,video-device ,video-w ,video-h proxy@)
@@ -44,12 +41,11 @@
 ;; (see implementation for exact forward message types and backwards control signals) 
 (define (pubsubproxy on-birth-notify@)
   (motile/compile
-   `(lambda ()
+   `(let ()
       ;(define me$ (this/locative))
       ;; create a serializable curl for both the publisher and the subscriber
       ;; to use.
       (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME +inf.0 #t #t) null #f))
-      (displayln "Pubsubproxy: started up")
       ;; notify whoever I'm supposed to that I'm online now.
       (curl/send ,on-birth-notify@ (remote/new me@ '() #f))
       (let loop ([curls set/equal/null]
@@ -91,18 +87,17 @@
   (motile/compile
    '(lambda (sink-site-public-curl@ sinkλ sink^ source@)
       (define me@ (curl/new/any (this/locative) null #f))
-      (displayln "Linker: on")
       ;; spawn a proxy to sit between the ESTABLISHED source and the NEW sink.
-      #|(curl/send ,sink-site-public-curl@ (spawn/new (pubsubproxy me@)
+      (curl/send sink-site-public-curl@ (spawn/new (pubsubproxy me@)
                                                     (make-metadata is/proxy '(nick . pubsub))
                                                     #f))
       ;; get proxy curl back.
-      (let ([proxy@ (:remote/body (delivered/contents-sent (mailbox-get-message)))])|#
-      (displayln "Linker: linking")
-      ;; link ESTABLISHED source and NEW sink to proxy.
-      (curl/send source@ (remote/new me@ '() me@))
-      (displayln "Linker: morphing")
-      ( sinkλ source@))))
+      (let ([proxy@ (:remote/body (delivered/contents-sent (mailbox-get-message)))])
+        ;; link ESTABLISHED source and NEW sink to proxy.
+        (curl/send source@ (remote/new proxy@ '() me@))
+        (curl/send sink-site-public-curl@ (spawn/new (lambda () (sinkλ proxy@))
+                                                     (make-metadata is/endpoint '(nick . canvas))
+                                                     me@))))))
 
 ;; a canvas endpoint is an actor that is responsible for video display and ONLY video display.
 ;; each decoding pipeline is allocated one or more gui endpoints.
@@ -112,28 +107,23 @@
       ;; curl used for receiving feed data should be pretty much unrestricted.
       ;; no need for serializability: publisher should be on-island anyway.
       ;; send the curl backwards along the pipeline to subscribe self to decoded feed.
-      (displayln "Canvas on...")
       (let ([me/subscription@ (curl/new/any (this/locative) null #f)])
-        (displayln "CURL generated")
-        ;(curl/send on-birth-notify@ (remote/new (AddCURL me/subscription@) (make-metadata) #f))  
-        (displayln "CURL sent")
+        (curl/send on-birth-notify@ (remote/new (AddCURL me/subscription@) (make-metadata) #f))  
         (let* ([message1 (mailbox-get-message)]
                [pms (hash/ref (:remote/metadata (delivered/contents-sent message1)) 'params #f)])
           (let ([buffer# (buffer-maker! (VideoParams.width pms) (VideoParams.height pms))])
-            (displayln "Starting loop")
             (let loop ([m message1])
               (define body (:remote/body (delivered/contents-sent m)))
-              (displayln "After loop")
               (cond [(and buffer# (Frame? body))
                      (video-gui-update-buffer! buffer# (Frame.data body))
-                     (loop (mailbox-get-message) buffer#)]
+                     (loop (mailbox-get-message))]
                     [else
                      (printf "Endpoint: unknown message ~a~n" body)
-                     (loop (mailbox-get-message) buffer#)]))))))))
+                     (loop (mailbox-get-message))]))))))))
 
 (define (gui-controller)
   (motile/compile
-   '(lambda ()
+   '(let ()
       ; curl used to allow decoders to look up this address upon their arrival on island.
       (define me/lookup@ (curl/new/any (this/locative) null #f))
       
@@ -147,15 +137,12 @@
                [buffer-maker! (lambda (w h)
                                 (av! g w h requester@))]
                [cnvs (canvas-endpoint)]
-               [cve (lambda (rpy@) (cnvs rpy@ buffer-maker!))]
+               [cve (lambda (rpy@) ((cnvs) rpy@ buffer-maker!))]
                [linker (linker-bang)])
           ;; launch the linker to start up our wrapped endpoint
           (curl/send PUBLIC/CURL (spawn/new (lambda () 
-                                              (displayln "Unwrapping") 
-                                              (lambda ()
-                                                (displayln "In the spawn")
-                                                (linker PUBLIC/CURL cve (make-metadata) requester@)))
-                                            (make-metadata is/endpoint '(nick . canvas)) #f))))
+                                              ((linker) PUBLIC/CURL cve (make-metadata) requester@))
+                                            (make-metadata '(nick . linker)) #f))))
       
       (set-current-gui-curl! me/lookup@)
       
@@ -201,14 +188,13 @@
 
 (define (video-reader/encoder devname w h where-to-publish@)
   (motile/compile
-   `(lambda ()
+   `(let ()
       (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME +inf.0 #t #t) null #f))
       (define default-fudge 0.5) ; used as a FACTOR of the overall framerate.
       ;; i.e., a default-fudge of 0.5 at a camera-specified framerate of 20 fps results in a
       ;; waiting period of (1000/20) * 0.5 = 25 ms between the first and second capture attempt.
       (define fudge-step 0.01)
       (define vreader (video-reader-setup ,devname ,w ,h))
-      (printf "Encoder: starting with ~a as sub point~n" (curl/pretty ,where-to-publish@))
       (let* ([params (video-reader-get-params vreader)]
              [framerate (bin/ (VideoParams.fpsNum params) (VideoParams.fpsDen params))])
         ; each on-frame callback should obey the following:
@@ -279,7 +265,7 @@
 
 (define (video-decoder/single where-to-subscribe@)
   (motile/compile
-   `(lambda ()
+   `(let ()
       (define me/sub@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME +inf.0 #t #t) null #f))
       (define me/ctrl@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME 1000 #t #t) null #f))
       (define d (vp8dec-new))

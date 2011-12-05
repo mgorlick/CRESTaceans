@@ -27,7 +27,6 @@
 
 (define/contract (client/video-gui-add-video! client w h name)
   (video-gui-client? number? number? curl? . -> . bytes?)
-  (displayln "making a video")
   (video-playback-buffer
    (parameterize ([current-eventspace (make-eventspace)])
      (video-gui-add-video! (video-gui-client-gui client)
