@@ -593,7 +593,17 @@
 
   (test-case
    "A let with multiple successively dependent defines"
-   )
+   (check-equal?  
+    ((compile/start)
+     '(let () ; Mutually recursive functions.
+        (define (even? n) (if (= n 0) #t (odd?  (- n 1))))
+        (define (odd? n)  (if (= n 0) #f (even? (- n 1))))
+        (define (factorial n) (if (= n 1) 1 (* n (factorial (sub1 n)))))
+        (define a (add1 (factorial 4)))
+        (define b (+ a 13))
+        (list (even? 12) (even? 3) (odd? a) (odd? 8) (factorial 5) b)))
+
+    '(#t #f #t #f 120 38))) ; Expected.
   
   )
 

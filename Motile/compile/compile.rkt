@@ -341,6 +341,7 @@
           (cond
             ((not (pair? e))
              ; End of body.
+
              (letrec/defines* variables values body lexical))
 
             ((macro? e lexical)
@@ -375,19 +376,26 @@
     (if (null? variables)
         (sequence/compile body lexical) ; The body is free of definitions.
 
-        ; As the body is prefixed by (define ...) forms rewrite it as a (letrec ...)
+        ; As the body is prefixed by (define ...) forms rewrite it as a (letrec* ...)
         ; and shove it through the compiler again.
+        ; Note: Since the variables and the expressions were pushed from first to last as they were collected
+        ; they now appear in reverse textual order.
+        ; As the defines will be compiled into a letrec* we must restore their textual order.
         (scheme/compile
-         (defines/letrec/rewrite variables expressions body)
+         (defines/letrec/rewrite (reverse variables) (reverse expressions) body)
          lexical)))
   
   (letrec/defines null null body lexical)) ; Start the sweep for (define ...) forms.
 
 ;; Rewrite the body of a lambda containing one or more (define ...) special forms
 ;; as a (letrec ...) and shove it back through the compiler.
+;; variables - the define variables as they appeared in textual order
+;; expressions - the define expressions as they appeared in textual order
+;; body - the expressons following the defines
 (define (defines/letrec/rewrite variables expressions body)
   (let ((bindings (map list variables expressions))) ; Poor man's zip.
     ;`(letrec ,bindings ,@body)))
+    (pretty-display `(letrec* ,bindings ,@body))
     `(letrec* ,bindings ,@body))) ; Using letrec* per the draft R7RS, Section 5.2.2 "Internal Definitions".
 
 ;; Internal macro expansion for all special forms.
