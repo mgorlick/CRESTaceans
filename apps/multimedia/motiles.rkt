@@ -50,7 +50,6 @@
               (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
               ;; notify whoever I'm supposed to that I'm online now.
               (curl/send ,on-birth-notify@ (remote/new me@ '() #f))
-              (printf "pubsub: ~s~n" me@)
               (printf "~s~n" (this/island))
               (let loop ([curls set/equal/null]
                          [last-sender-seen@ #f])
@@ -321,7 +320,6 @@
                            (loop)]
                           [(CopyActor? body)
                            (displayln "Copying decoding actor")
-                           (printf "~s~n" ,where-to-subscribe@)
                            (curl/send (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
                                       (spawn/new f (make-metadata accepts/webm '(nick . decoder)) #f))
                            (displayln "Sent spawn")

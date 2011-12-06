@@ -103,8 +103,9 @@
          (define-values (actor actor/loc)
            (actor/new ROOT (gensym (or (metadata-ref metadata 'nick)
                                        'nonamegiven))))
+         (printf "This/island inside root loop, before jumpstart: ~s~n" (this/island))
          (actor/jumpstart actor (λ ()
-                                  (displayln (this/island))
+                                  (printf "This/island inside jumpstart thunk: ~s~n" (this/island))
                                   (motile/call body
                                                (++ (metadata->benv metadata)
                                                    (global-value-defines PUBLIC/CURL)
@@ -116,6 +117,7 @@
          (locative/send loc amsg)])
       (my-root-loop))
     ;;; start the root chieftain up.
+    (printf "Starting up on ~s~n" (this/island))
     (actor/jumpstart ROOT my-root-loop)
     
     ;(define (big-bang encoder-site-public-curl@ video-device video-w video-h decoder-site-public-curl@)
