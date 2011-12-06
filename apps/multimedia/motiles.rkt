@@ -50,6 +50,8 @@
               (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
               ;; notify whoever I'm supposed to that I'm online now.
               (curl/send ,on-birth-notify@ (remote/new me@ '() #f))
+              (printf "pubsub: ~s~n" me@)
+              (printf "~s~n" (this/island))
               (let loop ([curls set/equal/null]
                          [last-sender-seen@ #f])
                 (let ([m (delivered/contents-sent (mailbox-get-message))])
@@ -170,7 +172,7 @@
                   ; (loop (mailbox-get-message) decoders)]
                   ;; copy all children then copy self.
                   [(CopyActor? body)
-                   (curl/send (curl/forge-index (:CopyActor/host v) (:CopyActor/port v))
+                   (curl/send (curl/get-public (:CopyActor/host v) (:CopyActor/port v))
                               (spawn/new f (make-metadata is/gui '(nick . gui-controller)) #f))
                    (set/map decoders (lambda (decoder@)
                                        (curl/send decoder@ (delivered/contents-sent m))))
@@ -191,7 +193,7 @@
                    (loop (mailbox-get-message) decoders)] 
                   ;; move decoders, then move self.
                   [(Quit/MV? body)
-                   (curl/send (curl/forge-index (:Quit/MV/host body) (:Quit/MV/port body))
+                   (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
                               (spawn/new f (make-metadata is/gui '(nick . gui-controller)) #f))
                    (set/map decoders (lambda (decoder@) (curl/send decoder@ (delivered/contents-sent m))))]
                   ;; pass on to decoders.
@@ -267,7 +269,7 @@
                            (video-reader-delete vreader)
                            ;; clean up all the resources associated with a behavior (f #f)
                            (set/map on-frame-callbacks (lambda (f) (f #f)))
-                           (curl/send (curl/forge-index (:Quit/MV/host body) (:Quit/MV/port body))
+                           (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
                                       (spawn/new f (make-metadata accepts/webm '(nick . decoder)) #f))]
                           [else 
                            ;; unknown message
@@ -288,6 +290,7 @@
               (define me/sub@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
               (define me/ctrl@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
               (define d (vp8dec-new))
+              ;(printf "~s~n" (this/island))
               ;; 1. look up the current GUI, ask for a new display function
               (curl/send (get-current-gui-curl) (remote/new (AddCURL/new me/ctrl@) (make-metadata) #f))
               (let ([gui-endpoint@ (:remote/body (delivered/contents-sent (mailbox-get-message)))])
@@ -317,16 +320,18 @@
                            (curl/send ,where-to-subscribe@ (:FwdBackward/msg body))
                            (loop)]
                           [(CopyActor? body)
-                           (displayln "Copying actor")
-                           (curl/send (curl/forge-index (:CopyActor/host body) (:CopyActor/port body))
+                           (displayln "Copying decoding actor")
+                           (printf "~s~n" ,where-to-subscribe@)
+                           (curl/send (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
                                       (spawn/new f (make-metadata accepts/webm '(nick . decoder)) #f))
                            (displayln "Sent spawn")
                            (loop)]
                           [(Quit/MV? body)
-                           (curl/send ,where-to-subscribe@ (remote/new (RemoveCURL/new me/ctrl@) (make-metadata) #f))
+                           (curl/send ,where-to-subscribe@
+                                      (remote/new (RemoveCURL/new me/ctrl@) (make-metadata) #f))
                            
                            (vp8dec-delete d)
-                           (curl/send (curl/forge-index (:Quit/MV/host body) (:Quit/MV/port body))
+                           (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
                                       (spawn/new f (make-metadata accepts/webm '(nick . decoder)) #f))]
                           [(Quit? body)
                            (curl/send ,where-to-subscribe@ (remote/new (RemoveCURL/new me/ctrl@) (make-metadata) #f))

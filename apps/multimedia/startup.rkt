@@ -4,6 +4,7 @@
 (require "motiles.rkt"
          "envs.rkt"
          "message-types.rkt"
+         "config.rkt"
          "../../peer/src/net/tcp-peer.rkt"         
          "../../Motile/persistent/hash.rkt"
          "../../Motile/baseline.rkt"
@@ -16,11 +17,14 @@
          "../../Motile/actor/jumpstart.rkt"
          "../../Motile/actor/island.rkt"
          "../../Motile/actor/locative.rkt"
+         "../../Motile/actor/logger.rkt"
+         
          racket/function
          racket/list
          racket/vector
          racket/match
-         racket/contract)
+         racket/contract
+         racket/dict)
 
 ; argsassoc: string [call: string -> any] [no-val: any] [default: any] -> any
 ; separates the provided command line arguments of the form:
@@ -45,18 +49,6 @@
            (eq? (cdr k.v) 
                 (hash/ref meta (car k.v) void)))
          vs))
-
-(define/contract (curl/forge-index host port)
-  ((or/c string? bytes?) exact-nonnegative-integer? . -> . curl?)
-  (parameterize ([this/island (island/address/new #"abcdefghijklmnopqrstuvwxyz" 
-                                                  (if (string? host) (string->bytes/utf-8 host) host)
-                                                  port)])
-    (let-values ([(root root-loc) (actor/root/new)])
-      (let ([pub-there (locative/cons/any root-loc A-LONG-TIME A-LONG-TIME #t #t)])
-        (locative/id! pub-there 'public)
-        (let ([idx@ (curl/new/any pub-there '() #f)])
-          (displayln (curl/export idx@))
-          (curl/export idx@))))))
 
 ;; host and port to listen on. use to start the comm layer below, designating root to receive incoming.
 (define *LISTENING-ON* (argsassoc "--host" #:no-val *LOCALHOST*))
@@ -91,6 +83,18 @@
     (define PUBLIC/CURL (motile/deserialize (motile/serialize (curl/new/any PUBLIC/LOCATIVE '() #f)) #f))
     ;; end sneakiness.
     
+    (define/contract (curl/get-public host port)
+      ((or/c string? bytes?) exact-nonnegative-integer? . -> . curl?)
+      (cond [(and (= port *LOCALPORT*)
+                  (or (and (string? host) (string=? host *LISTENING-ON*))
+                      (and (bytes? host) (bytes=? host (string->bytes/utf-8 *LISTENING-ON*)))))
+             PUBLIC/CURL]
+            [else
+             (motile/deserialize (dict-ref PUBLICS (cons (if (string? host) 
+                                                             (string->bytes/utf-8 host)
+                                                             host)
+                                                         port) #f) #f)]))
+    
     (define (my-root-loop)
       (define amsg (thread-receive))
       (match amsg
@@ -100,10 +104,14 @@
            (actor/new ROOT (gensym (or (metadata-ref metadata 'nick)
                                        'nonamegiven))))
          (actor/jumpstart actor (λ ()
+                                  (displayln (this/island))
                                   (motile/call body
                                                (++ (metadata->benv metadata)
                                                    (global-value-defines PUBLIC/CURL)
-                                                   (global-defines this/locative curl/forge-index)))))]
+                                                   (global-defines this/locative
+                                                                   this/island
+                                                                   curl/get-public
+                                                                   motile/serialize)))))]
         [(cons loc (match:remote body metadata reply))
          (locative/send loc amsg)])
       (my-root-loop))
@@ -119,6 +127,5 @@
     (unless (argsassoc "--no-video")
       (curl/send PUBLIC/CURL (spawn/new the-bang (make-metadata '(nick . big-bang)) #f)))
     
-    (displayln EXPORTS)
     (semaphore-wait (make-semaphore))
     PUBLIC/CURL))
