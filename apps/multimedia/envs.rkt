@@ -86,7 +86,7 @@
                       bitwise-and bitwise-ior bitwise-xor bitwise-not
                       bitwise-bit-set? bitwise-bit-field arithmetic-shift integer-length)
       (require-spec->global-defines racket/list)
-      (require-spec->global-defines (except-in "message-types.rkt" spawn remote))
+      (require-spec->global-defines (matching-identifiers-in #rx"^(?!(match:)).*$" "message-types.rkt"))
       (global-defines make-metadata
                       metadata-ref
                       A-LONG-TIME
@@ -122,7 +122,8 @@
 (define VIDEO-ENCODE
   (++ MULTIMEDIA-BASE
       (require-spec->global-defines (matching-identifiers-in #rx"^video-reader.*" "video.rkt"))
-      (require-spec->global-defines (matching-identifiers-in #rx"^vp8enc.*" "video.rkt"))))
+      (require-spec->global-defines (matching-identifiers-in #rx"^vp8enc.*" "video.rkt"))
+      (global-defines dispose-FrameBuffer FrameBuffer->Frame)))
 (define VIDEO-DECODE
   (++ MULTIMEDIA-BASE
       (require-spec->global-defines (matching-identifiers-in #rx"^vp8dec.*" "video.rkt"))

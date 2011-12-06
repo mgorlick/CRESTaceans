@@ -3,11 +3,12 @@
 (require racket/tcp
          racket/contract
          racket/async-channel
-         racket/provide
          racket/stream
          racket/unit
          ffi/unsafe/atomic
          "../../../Motile/compile/serialize.rkt"
+         "../../../Motile/actor/curl.rkt"
+         "../../../Motile/actor/island.rkt"
          "compression.rkt"
          "encryption.rkt")
 
@@ -21,7 +22,6 @@
                      writable->bytes
                      mbox->stream))
 
-(struct request (host port key message))
 (struct exn:fail:network:scurl exn:fail:network ())
 
 (define msg/c list?) ; the contract representing post-serialization messages
@@ -95,8 +95,10 @@
   ;; -------------------------------------
   
   (define/contract (send/maybe-connect req)
-    (request? . -> . void)
-    (define remote-id (cons (request-host req) (request-port req)))
+    ((cons/c curl? any/c) . -> . void)
+    (define the-address (curl/island (car req)))
+    (define remote-id (cons (bytes->string/utf-8 (island/address/dns the-address))
+                            (island/address/port the-address)))
     (cond [(hash-has-key? connects-o remote-id)
            ;; there's a connection active - forward the message to it and return.
            (thread-send (hash-ref connects-o remote-id) (->serialized req) #f)]
@@ -115,6 +117,10 @@
   ;; inside `send/maybe-connect') to store itself as the output thread, and
   ;; a new thread as the input thread for a connection
   (define (run-connector remote-id req)
+    
+    (define the-address (curl/island (car req)))
+    (define dns (bytes->string/utf-8 (island/address/dns the-address)))
+    (define port (island/address/port the-address))
     
     (define/contract (setup-connection! i o ra rp encrypter decrypter control-channel)
       connect-responder/c
@@ -141,7 +147,8 @@
                (printf "Connect attempts exceeded. Dropping all messages to ~a~n" remote-id)
                (hash-remove! connects-o remote-id)]
               [else
-               (connect lport (request-host req) (request-port req) setup-connection!)])))
+               (displayln "Trying a connect")
+               (connect lport dns port setup-connection!)])))
     (thread (λ () (try-connect-n-times (num-connect-tries) (secs-between-connect-attempts)))))
   
   ;; -------------------------------------
@@ -167,7 +174,7 @@
     (define-values (i o) (tcp-connect host port))
     (file-stream-buffer-mode o 'none)
     (define-values (la _ ra rp) (tcp-addresses i #t))
-        
+    
     (write (vector la lport encrypt?) o)
     (define-values (ra* rp* remote-encrypt?) (vector->values (read i)))
     (cond [#t ; placeholder for scurl client side auth protocol check.
@@ -175,7 +182,7 @@
            (define-values (encrypter decrypter) (do-key-exchange/make-encrypter/decrypter remote-encrypt? i o))
            ;; finally, ready to run normal input and output threads,
            ;; which handle their own encryption/decryption.
-           (finish-connect i o ra rp encrypter decrypter (make-async-channel))]
+           (finish-connect i o ra* rp* encrypter decrypter (make-async-channel))]
           [else (tcp-abandon-port o)
                 (tcp-abandon-port i)
                 (raise/ccm exn:fail:network:scurl 
@@ -266,7 +273,7 @@
     (loop)))
 
 (define (->serialized req)
-  (motile/serialize (request-message req)))
+  (motile/serialize req))
 
 ;; given an outgoing message m, encrypt and compress m and then write it to the output port o.
 (define/contract (output-next o m encrypt)

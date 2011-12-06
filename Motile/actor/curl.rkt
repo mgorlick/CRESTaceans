@@ -274,6 +274,7 @@
 
 (define inter-island-router (box #f))
 (define (curl/send/inter c message)
+  (displayln "Sending off island")
   (thread-send (unbox inter-island-router) (cons c message)))
 
 ;; Transmit a generic message m to the actor denoted by CURL c.
@@ -292,15 +293,15 @@
 
   (let ((x (curl/id c)))
     (cond
-      ((symbol? x)           (curl/send/inter c m))         ; An off-island CURL that contains a locative id.
+      ((symbol? x)           (displayln "Sending off") (curl/send/inter c m))         ; An off-island CURL that contains a locative id.
       ((locative? x)         (locative/send x (cons c m)))  ; All on-island CURLs carry a locative in the id slot.
-      ((curl/id/extended? x) (curl/send/inter c m))         ; An off-island CURL that contains an extended locative id.
+      ((curl/id/extended? x) (displayln "Sending off") (curl/send/inter c m))         ; An off-island CURL that contains an extended locative id.
       ; The curl/id is #f. This occurs if CURL c was:
       ;   * Issued by this island, exported to another island, and then used as the target for a message transmission
       ;     back to this island, AND
       ;   * The locative referenced by CURL c has expired in the meantime
       ; Life is a bitch.
-      (else #f))))
+      (else (displayln "Failing silently") #f))))
 
 ;(require (only-in "island.rkt" island/address/new this/island))
 ;(define (tests)

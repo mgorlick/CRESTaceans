@@ -650,7 +650,9 @@
           (let ((c (list->vector (map loop (cdr v)))))
             ;(log-info (format "post-map CURL is ~s\n\n" c))
             (if (curl/ok? c #t) ; #t => check for presence of signature (but not verification).
-                (if (island/address/equal? (this/island) (curl/island c))
+                (begin
+                  (displayln (curl/island c))
+                  (if (island/address/equal? (this/island) (curl/island c))
                     ; CURL c claims to have originated on this island. Validate its signature.
                     (if (curl/signing/validate c)
                         ; Yes, CURL c originated here. Replace its curl/id with the correct locative.
@@ -667,7 +669,7 @@
                         (raise-type-error 'motile/deserialize "forged curl" c))
 
                     ; CURL c originated on another island and is well-formed.
-                    c)
+                    (begin (displayln "Didnt st art here") c)))
 
                 ; CURL c is ill-formed. Reject it.
                 (raise-type-error 'motile/deserialize "curl" c)))]
