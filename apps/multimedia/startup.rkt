@@ -54,9 +54,12 @@
 (define *LISTENING-ON* (argsassoc "--host" #:no-val *LOCALHOST*))
 (define *LOCALPORT* (argsassoc "--port" #:no-val 5000 #:call string->number))
 
-(this/island (island/address/new 
-              #"abcdefghijklmnopqrstuvwxyz" 
-              (string->bytes/utf-8 *LISTENING-ON*) *LOCALPORT*))
+(define ADDRESS-HERE (island/address/new 
+                      #"abcdefghijklmnopqrstuvwxyz" 
+                      (string->bytes/utf-8 *LISTENING-ON*) *LOCALPORT*))
+
+(this/island ADDRESS-HERE)
+(printf "Island starting: ~s~n" (this/island))
 
 (define COMM-thd (run-tcp-peer *LISTENING-ON* *LOCALPORT* (actor/thread ROOT) #:encrypt? #f))
 (set-box! inter-island-router COMM-thd)
@@ -117,7 +120,9 @@
   (my-root-loop))
 ;;; start the root chieftain up.
 (printf "Starting up on ~s~n" (this/island))
-(actor/jumpstart ROOT my-root-loop)
+(actor/jumpstart ROOT (λ ()                               
+                        (this/island ADDRESS-HERE)
+                        (my-root-loop)))
 
 ;(define (big-bang encoder-site-public-curl@ video-device video-w video-h decoder-site-public-curl@)
 (define the-bang (big-bang PUBLIC/CURL "/dev/video0" 640 480 PUBLIC/CURL))
