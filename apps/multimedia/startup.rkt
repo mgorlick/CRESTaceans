@@ -24,13 +24,13 @@
 
 ; argsassoc: string [call: string -> any] [no-val: any] [default: any] -> any
 ; separates the provided command line arguments of the form:
-;             --key1=val1 --key2=val2 --key3
+;             key1=val1 key2=val2 key3
 ; if the provided key name is present and has a value, returns `call' applied to that value.
 ; if the provided key name is present but has no value, returns `default'.
 ; if the provided key name is not present, returns `no-val'.
 (define CLargs (map (curry regexp-split #rx"=") (vector->list (current-command-line-arguments))))
 (define (argsassoc key 
-                   #:call [call (λ (x) x)] 
+                   #:call [call values] 
                    #:no-val [no-val #f] 
                    #:default [default #t])
   (let ([entry (assoc key CLargs)])
@@ -41,8 +41,10 @@
         no-val)))
 
 (define (contains-any? meta . vs)
-  (andmap (lambda (k/v)
-            (and (eq? (cdr k/v) (hash/ref meta (car k/v) #f)))) vs))
+  (ormap (λ (k.v) 
+           (eq? (cdr k.v) 
+                (hash/ref meta (car k.v) void)))
+         vs))
 
 (define/contract (curl/forge-index host port)
   ((or/c string? bytes?) exact-nonnegative-integer? . -> . curl?)
@@ -52,7 +54,9 @@
     (let-values ([(root root-loc) (actor/root/new)])
       (let ([pub-there (locative/cons/any root-loc A-LONG-TIME A-LONG-TIME #t #t)])
         (locative/id! pub-there 'public)
-        (curl/export (curl/new/any pub-there '() #f))))))
+        (let ([idx@ (curl/new/any pub-there '() #f)])
+          (displayln (curl/export idx@))
+          (curl/export idx@))))))
 
 ;; host and port to listen on. use to start the comm layer below, designating root to receive incoming.
 (define *LISTENING-ON* (argsassoc "--host" #:no-val *LOCALHOST*))
@@ -115,5 +119,6 @@
     (unless (argsassoc "--no-video")
       (curl/send PUBLIC/CURL (spawn/new the-bang (make-metadata '(nick . big-bang)) #f)))
     
-    ;(semaphore-wait (make-semaphore))
+    (displayln EXPORTS)
+    (semaphore-wait (make-semaphore))
     PUBLIC/CURL))
