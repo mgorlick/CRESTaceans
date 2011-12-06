@@ -18,7 +18,6 @@
          "../../Motile/actor/island.rkt"
          "../../Motile/actor/locative.rkt"
          "../../Motile/actor/logger.rkt"
-         
          racket/function
          racket/list
          racket/vector
@@ -72,6 +71,9 @@
     [(contains-any? metadata is/endpoint) GUI-ENDPOINT]
     [else MULTIMEDIA-BASE]))
 
+; make root actor
+(define-values (ROOT ROOT/LOCATIVE) (actor/root/new))
+
 ;; sneaky: derive a new locative from the root locative (a "public locative"),
 ;; then serialize a CURL made from it (a "public curl").
 ;; why? so that others can forge up a similar CURL and use it to bootstrap their way
@@ -100,14 +102,12 @@
 (define (my-root-loop)
   (define amsg (thread-receive))
   (match amsg
-    [(cons (? (curry equal? PUBLIC/CURL) loc)
+    [(cons (? (curry equal? PUBLIC/CURL) pcurl)
            (match:spawn body metadata reply))
      (define-values (actor actor/loc)
        (actor/new ROOT (gensym (or (metadata-ref metadata 'nick)
                                    'nonamegiven))))
-     (printf "This/island inside root loop, before jumpstart: ~s~n" (this/island))
      (actor/jumpstart actor (λ ()
-                              (printf "This/island inside jumpstart thunk: ~s~n" (this/island))
                               (motile/call body
                                            (++ (metadata->benv metadata)
                                                (global-value-defines PUBLIC/CURL)
@@ -115,14 +115,15 @@
                                                                this/island
                                                                curl/get-public
                                                                motile/serialize)))))]
+    [(cons pcurl (match:spawn body metadata reply))
+     (printf "got a spawn, but curl differed~n")
+     (printf "~s ~n --vs-- ~n~s~n" pcurl PUBLIC/CURL)]
     [(cons loc (match:remote body metadata reply))
      (locative/send loc amsg)])
   (my-root-loop))
+
 ;;; start the root chieftain up.
-(printf "Starting up on ~s~n" (this/island))
-(actor/jumpstart ROOT (λ ()                               
-                        (this/island ADDRESS-HERE)
-                        (my-root-loop)))
+(actor/jumpstart ROOT my-root-loop)
 
 ;(define (big-bang encoder-site-public-curl@ video-device video-w video-h decoder-site-public-curl@)
 (define the-bang (big-bang PUBLIC/CURL "/dev/video0" 640 480 PUBLIC/CURL))
