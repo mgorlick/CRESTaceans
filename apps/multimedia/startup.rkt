@@ -41,10 +41,15 @@
             default)
         no-val)))
 
-(define (contains-any? meta . vs)
+(define (meta-has-any? meta . vs)
   (ormap (λ (k.v)
-           (equal? (cdr k.v) 
-                   (hash/ref meta (car k.v) void)))
+           (if (equal? (cdr k.v) (hash/ref meta (car k.v) #f))
+               (begin
+                 (printf "~s == ~s~n" (cdr k.v) (hash/ref meta (car k.v) 'nothere))
+                 #t)
+               (begin
+                 (printf "~s != ~s~n" (cdr k.v) (hash/ref meta (car k.v) 'nothere))
+                 #f)))
          vs))
 
 ;; host and port to listen on. use to start the comm layer below, designating root to receive incoming.
@@ -66,16 +71,11 @@
 
 (define (metadata->benv metadata)
   (cond
-    [(contains-any? metadata accepts/webm) 
-     (displayln "Assigning VIDEO-DECODE") 
-     VIDEO-DECODE]
-    [(contains-any? metadata produces/webm) VIDEO-ENCODE]
-    [(contains-any? metadata is/gui) GUI]
-    [(contains-any? metadata is/endpoint) GUI-ENDPOINT]
-    [else 
-     (printf "metadata didn't help in deciding what to assign: ~s~n" metadata) 
-     (displayln (hash/pairs metadata))
-     VIDEO-DECODE]))
+    [(meta-has-any? metadata accepts/webm) VIDEO-DECODE]
+    [(meta-has-any? metadata produces/webm) VIDEO-ENCODE]
+    [(meta-has-any? metadata is/gui) GUI]
+    [(meta-has-any? metadata is/endpoint) GUI-ENDPOINT]
+    [else MULTIMEDIA-BASE]))
 
 (define/contract (curl/get-public host port)
   ((or/c string? bytes?) exact-nonnegative-integer? . -> . curl?)
@@ -114,12 +114,12 @@
                                                               this/island
                                                               curl/get-public
                                                               motile/serialize)))))]
-    [(cons pcurl (match:spawn body metadata reply))
-     (printf "got a spawn, but curl differed~n")
-     (printf "~s ~n --vs-- ~n~s~n" pcurl PUBLIC/CURL)]
     [(cons c@ (match:remote body metadata reply))
-     (printf "Routing a message from another island~n")
-     (curl/send c@ amsg)])
+     ;; send count deprecation happens here.
+     (with-handlers ([exn? (λ (e) (displayln e))])
+       (curl/send c@ (cdr amsg)))]
+    [else
+     (displayln "Root: discarding a message")])
   (my-root-loop))
 
 ;;; start the root chieftain up.

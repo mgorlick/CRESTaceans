@@ -55,12 +55,12 @@
 (define set-current-gui-curl! (procedure-reduce-arity current-gui-curl 1))
 
 ;; std metadata types used to determine call convention and binding environment allocation
-(define accepts/webm '(accepts . video/webm))
-(define produces/webm '(produces . video/webm))
-(define type/webm '(content-type . video/webm))
-(define is/gui '(is . gui))
-(define is/endpoint '(is . endpoint))
-(define is/proxy '(is . proxy))
+(define accepts/webm '("accepts" . "video/webm"))
+(define produces/webm '("produces" . "video/webm"))
+(define type/webm '("content-type" . "video/webm"))
+(define is/gui '("is" . "gui"))
+(define is/endpoint '("is" . "endpoint"))
+(define is/proxy '("is" . "proxy"))
 (define (make-metadata . vals)
   (pairs/hash hash/equal/null vals))
 (define (metadata-ref m k)

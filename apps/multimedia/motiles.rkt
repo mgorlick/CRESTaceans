@@ -175,7 +175,7 @@
                   ; (loop (mailbox-get-message) decoders)]
                   ;; copy all children then copy self.
                   [(CopyActor? body)
-                   (curl/send (curl/get-public (:CopyActor/host v) (:CopyActor/port v))
+                   (curl/send (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
                               (spawn/new f (make-metadata is/gui '(nick . gui-controller)) #f))
                    (set/map decoders (lambda (decoder@)
                                        (curl/send decoder@ (delivered/contents-sent m))))
@@ -203,7 +203,7 @@
                   [(Quit? body)
                    (set/map decoders (lambda (decoder@) (curl/send decoder@ (delivered/contents-sent m))))]
                   [else
-                   (printf "Not a valid request to GUI: ~a~n" v)
+                   (printf "Not a valid request to GUI: ~a~n" body)
                    (loop (mailbox-get-message) decoders)])))])
       (f))))
 
