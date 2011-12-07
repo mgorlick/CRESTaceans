@@ -50,35 +50,37 @@
               (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
               ;; notify whoever I'm supposed to that I'm online now.
               (curl/send ,on-birth-notify@ (remote/new me@ '() #f))
-              (printf "~s~n" (this/island))
               (let loop ([curls set/equal/null]
                          [last-sender-seen@ #f])
                 (let ([m (delivered/contents-sent (mailbox-get-message))])
-                  (define body (:remote/body m))
-                  (define rpyto@ (:remote/reply m))
-                  (cond
-                    ;; the types that the router knows to send forward.
-                    [(Frame? body)
-                     (set/map curls (lambda (subber@) 
-                                      (curl/send subber@ (!:remote/reply m #f))))
-                     (loop curls rpyto@)]
-                    ;; the control messages coming from the forward direction,
-                    ;; directed at the router.
-                    [(AddCURL? body)
-                     (loop (set/cons curls (:AddCURL/curl body)) last-sender-seen@)]
-                    [(RemoveCURL? body)
-                     ;(ask/send* "POST" (:RemoveCURL/curl body) (Quit) (:message/ask/metadata r))
-                     (loop (set/remove curls (:RemoveCURL/curl body)) last-sender-seen@)]
-                    ;; the messages that the router is hardwired to send backward to the sender using it.
-                    [(AddBehaviors? body)
-                     (when last-sender-seen@ (curl/send last-sender-seen@ m))
-                     (loop curls last-sender-seen@)]
-                    ; I don't think this is ever used right now.
-                    ; [(Quit/MV? body)
-                    ; (when last-sender-seen@ (curl/send last-sender-seen@ m))]
-                    [else 
-                     (printf "proxy else: ~a~n" body)
-                     (loop curls last-sender-seen@)]))))])
+                  (cond [(remote? m)
+                         (let ([body (:remote/body m)]
+                               [rpyto@ (:remote/reply m)])
+                           (cond
+                             ;; the types that the router knows to send forward.
+                             [(Frame? body)
+                              (set/map curls (lambda (subber@)
+                                               (curl/send subber@ (!:remote/reply m #f))))
+                              (loop curls rpyto@)]
+                             ;; the control messages coming from the forward direction,
+                             ;; directed at the router.
+                             [(AddCURL? body)
+                              (displayln "New subscription")
+                              (loop (set/cons curls (:AddCURL/curl body)) last-sender-seen@)]
+                             [(RemoveCURL? body)
+                              (loop (set/remove curls (:RemoveCURL/curl body)) last-sender-seen@)]
+                             ;; the messages that the router is hardwired to send backward to the sender using it.
+                             [(AddBehaviors? body)
+                              (when last-sender-seen@ (curl/send last-sender-seen@ m))
+                              (loop curls last-sender-seen@)]
+                             [(Quit/MV? body)
+                              (when last-sender-seen@ (curl/send last-sender-seen@ m))
+                              (loop curls last-sender-seen@)]
+                             [else 
+                              (printf "proxy else: ~a~n" body)
+                              (loop curls last-sender-seen@)]))]
+                        [else (printf "A non-remote: ~a~n" m)
+                              (loop curls last-sender-seen@)]))))])
       (f))))
 
 ;; -----
@@ -92,7 +94,7 @@
    '(lambda (sink-site-public-curl@ sinkλ sink^ source@)
       (define me@ (curl/new/any (this/locative) null #f))
       ;; spawn a proxy to sit between the ESTABLISHED source and the NEW sink.
-      (curl/send sink-site-public-curl@ (spawn/new (pubsubproxy me@)
+      #|(curl/send sink-site-public-curl@ (spawn/new (pubsubproxy me@)
                                                    (make-metadata is/proxy '(nick . pubsub))
                                                    #f))
       ;; get proxy curl back.
@@ -101,7 +103,9 @@
         (curl/send source@ (remote/new proxy@ '() me@))
         (curl/send sink-site-public-curl@ (spawn/new (lambda () (sinkλ proxy@))
                                                      (make-metadata is/endpoint '(nick . canvas))
-                                                     me@))))))
+                                                     me@))))))|#
+      (curl/send source@ (remote/new me@ '() me@))
+      (sinkλ source@))))
 
 ;; a canvas endpoint is an actor that is responsible for video display and ONLY video display.
 ;; each decoding pipeline is allocated one or more gui endpoints.
@@ -148,7 +152,7 @@
                   ;; launch the linker to start up our wrapped endpoint
                   (curl/send PUBLIC/CURL (spawn/new (lambda () 
                                                       ((linker) PUBLIC/CURL cve (make-metadata) requester@))
-                                                    (make-metadata '(nick . linker)) #f))))
+                                                    (make-metadata  is/endpoint '(nick . canvas)) #f))))
               
               (set-current-gui-curl! me/lookup@)
               
@@ -184,11 +188,11 @@
                    (loop (mailbox-get-message) decoders)]
                   ;; just pass backwards.
                   [(InitiateBehavior? body)
-                   (curl/send (InitiateBehavior.ref body) (delivered/contents-sent m))
+                   (curl/send (:InitiateBehavior/ref body) (delivered/contents-sent m))
                    (loop (mailbox-get-message) decoders)]
                   ;; probably something sent back beyond the decoder.
                   [(FwdBackward? body)
-                   (curl/send (FwdBackward.ref body) (delivered/contents-sent m))
+                   (curl/send (:FwdBackward/ref body) (delivered/contents-sent m))
                    (loop (mailbox-get-message) decoders)] 
                   ;; move decoders, then move self.
                   [(Quit/MV? body)
@@ -227,7 +231,7 @@
                         (vp8enc-delete e))))
                 ; the default callback: a full-frame encoding.
                 (define (make-encode-full-frame-cb target@)
-                  (define webm+params^ (make-metadata type/webm `(params . ,params)))
+                  (define webm+params^ (make-metadata type/webm (cons 'params params)))
                   (define (compress-full-frame e outbuff# fb)
                     (define encoded# (vp8enc-encode e fb outbuff#))
                     (when encoded#
@@ -269,7 +273,7 @@
                            ;; clean up all the resources associated with a behavior (f #f)
                            (set/map on-frame-callbacks (lambda (f) (f #f)))
                            (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
-                                      (spawn/new f (make-metadata accepts/webm '(nick . decoder)) #f))]
+                                      (spawn/new f (make-metadata produces/webm '(nick . encoder)) #f))]
                           [else 
                            ;; unknown message
                            (k fudge on-frame-callbacks)])))
@@ -289,10 +293,11 @@
               (define me/sub@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
               (define me/ctrl@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
               (define d (vp8dec-new))
-              ;(printf "~s~n" (this/island))
+              (displayln "Decoder on")
               ;; 1. look up the current GUI, ask for a new display function
               (curl/send (get-current-gui-curl) (remote/new (AddCURL/new me/ctrl@) (make-metadata) #f))
               (let ([gui-endpoint@ (:remote/body (delivered/contents-sent (mailbox-get-message)))])
+                (displayln "Decoder subscribing")
                 ;; 2. now that the decoder has a playback function it may decode frames, so ask for them.
                 (curl/send ,where-to-subscribe@ (remote/new (AddCURL/new me/sub@) (make-metadata) #f))
                 ;; 3. start decoding loop
@@ -316,13 +321,12 @@
                            (loop)]
                           ;;!!! FIXME !!!: this is doing connector work when it is a component.
                           [(FwdBackward? body)
-                           (curl/send ,where-to-subscribe@ (:FwdBackward/msg body))
+                           (curl/send ,where-to-subscribe@ 
+                                      (!:remote/body (delivered/contents-sent m) (:FwdBackward/msg body)))
                            (loop)]
                           [(CopyActor? body)
-                           (displayln "Copying decoding actor")
                            (curl/send (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
                                       (spawn/new f (make-metadata accepts/webm '(nick . decoder)) #f))
-                           (displayln "Sent spawn")
                            (loop)]
                           [(Quit/MV? body)
                            (curl/send ,where-to-subscribe@
@@ -335,6 +339,7 @@
                            (curl/send ,where-to-subscribe@ (remote/new (RemoveCURL/new me/ctrl@) (make-metadata) #f))
                            (vp8dec-delete d)]
                           [else
-                           (printf "not a valid request to decoder: ~a~n" body)
+                           (displayln "Decoder throwing away a message")
+                           #;(printf "not a valid request to decoder: ~a~n" body)
                            (loop)])))))])
       (f))))

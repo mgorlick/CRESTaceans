@@ -62,7 +62,7 @@
 (define is/endpoint '(is . endpoint))
 (define is/proxy '(is . proxy))
 (define (make-metadata . vals)
-  (pairs/hash hash/eq/null vals))
+  (pairs/hash hash/equal/null vals))
 (define (metadata-ref m k)
   (hash/ref m k #f))
 
