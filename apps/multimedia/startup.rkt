@@ -13,14 +13,12 @@
          "../../Motile/generate/baseline.rkt"
          "../../Motile/actor/actor.rkt"
          "../../Motile/actor/curl.rkt"
-         "../../Motile/actor/root.rkt"
          "../../Motile/actor/jumpstart.rkt"
          "../../Motile/actor/island.rkt"
          "../../Motile/actor/locative.rkt"
          "../../Motile/actor/logger.rkt"
          racket/function
          racket/list
-         racket/vector
          racket/match
          racket/contract
          racket/dict)
@@ -60,6 +58,9 @@
 (this/island ADDRESS-HERE)
 (printf "Island starting: ~s~n" (this/island))
 
+; make root actor
+(define-values (ROOT ROOT/LOCATIVE) (actor/root/new))
+; deliver incoming messages to ROOT
 (define COMM-thd (run-tcp-peer *LISTENING-ON* *LOCALPORT* (actor/thread ROOT) #:encrypt? #f))
 (set-box! inter-island-router COMM-thd)
 
@@ -71,33 +72,26 @@
     [(contains-any? metadata is/endpoint) GUI-ENDPOINT]
     [else MULTIMEDIA-BASE]))
 
-; make root actor
-(define-values (ROOT ROOT/LOCATIVE) (actor/root/new))
+(define/contract (curl/get-public host port)
+  ((or/c string? bytes?) exact-nonnegative-integer? . -> . curl?)
+  (motile/deserialize (dict-ref PUBLICS (cons (if (string? host) 
+                                                  (string->bytes/utf-8 host)
+                                                  host)
+                                              port) #f) #f))
 
 ;; sneaky: derive a new locative from the root locative (a "public locative"),
-;; then serialize a CURL made from it (a "public curl").
-;; why? so that others can forge up a similar CURL and use it to bootstrap their way
-;; to messaging this island for the first time.
+;; then serialize some curl derived from it in order to stick the public locative
+;; into the exports table
 (define PUBLIC/LOCATIVE 
   (locative/cons/any ROOT/LOCATIVE
                      A-LONG-TIME
                      A-LONG-TIME
                      #t #t))
 (locative/id! PUBLIC/LOCATIVE 'public)
-(define PUBLIC/CURL (motile/deserialize (motile/serialize (curl/new/any PUBLIC/LOCATIVE '() #f)) #f))
+(motile/serialize (curl/new/any PUBLIC/LOCATIVE '() #f))
 ;; end sneakiness.
 
-(define/contract (curl/get-public host port)
-  ((or/c string? bytes?) exact-nonnegative-integer? . -> . curl?)
-  (cond [(and (= port *LOCALPORT*)
-              (or (and (string? host) (string=? host *LISTENING-ON*))
-                  (and (bytes? host) (bytes=? host (string->bytes/utf-8 *LISTENING-ON*)))))
-         PUBLIC/CURL]
-        [else
-         (motile/deserialize (dict-ref PUBLICS (cons (if (string? host) 
-                                                         (string->bytes/utf-8 host)
-                                                         host)
-                                                     port) #f) #f)]))
+(define PUBLIC/CURL (curl/get-public *LISTENING-ON* *LOCALPORT*))
 
 (define (my-root-loop)
   (define amsg (thread-receive))
@@ -107,31 +101,30 @@
      (define-values (actor actor/loc)
        (actor/new ROOT (gensym (or (metadata-ref metadata 'nick)
                                    'nonamegiven))))
-     (actor/jumpstart actor (λ ()
-                              (motile/call body
-                                           (++ (metadata->benv metadata)
-                                               (global-value-defines PUBLIC/CURL)
-                                               (global-defines this/locative
-                                                               this/island
-                                                               curl/get-public
-                                                               motile/serialize)))))]
+     (actor/jumpstart actor 
+                      (λ ()
+                        (motile/call body (++ (metadata->benv metadata)
+                                              (global-value-defines PUBLIC/CURL)
+                                              (global-defines this/locative
+                                                              this/island
+                                                              curl/get-public
+                                                              motile/serialize)))))]
     [(cons pcurl (match:spawn body metadata reply))
      (printf "got a spawn, but curl differed~n")
      (printf "~s ~n --vs-- ~n~s~n" pcurl PUBLIC/CURL)]
     [(cons loc (match:remote body metadata reply))
+     (printf "Routing a message~n")
      (locative/send loc amsg)])
   (my-root-loop))
 
 ;;; start the root chieftain up.
 (actor/jumpstart ROOT my-root-loop)
 
-;(define (big-bang encoder-site-public-curl@ video-device video-w video-h decoder-site-public-curl@)
-(define the-bang (big-bang PUBLIC/CURL "/dev/video0" 640 480 PUBLIC/CURL))
-(define the-controller (gui-controller))
-
-(unless (argsassoc "--no-gui") 
+(unless (argsassoc "--no-gui")
+  (define the-controller (gui-controller))
   (curl/send PUBLIC/CURL (spawn/new the-controller (make-metadata is/gui '(nick . gui-controller)) #f)))
 (unless (argsassoc "--no-video")
+  (define the-bang (big-bang PUBLIC/CURL "/dev/video0" 640 480 PUBLIC/CURL))
   (curl/send PUBLIC/CURL (spawn/new the-bang (make-metadata '(nick . big-bang)) #f)))
 
 (semaphore-wait (make-semaphore))
