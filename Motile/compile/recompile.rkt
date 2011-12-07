@@ -16,7 +16,7 @@
 ;; a regenerated closure as output.
 
 (require
- (only-in racket/vector vector-argmax vector-map)
+ (only-in racket/vector vector-argmax vector-map vector-count)
  (only-in "utility.rkt" vector/all?)
  (only-in "../persistent/hash.rkt" pairs/hash hash/eq/null hash/ref)
  (only-in "../persistent/environ.rkt" environ/null)
@@ -35,7 +35,7 @@
 
  (only-in "../generate/frame.rkt"   frame/pop stack/depth global/get/generate variable/get/generate)
  (only-in "../generate/lambda.rkt"  lambda/generate lambda/rest/generate)
- (only-in "../generate/letrec.rkt"  letrec/set/generate)
+ (only-in "../generate/letrec.rkt"  letrec/set/generate letrec*/generate)
  (only-in "../generate/quasiquote.rkt" quasiquote/append/generate quasiquote/cons/generate quasiquote/tuple/generate)
  (only-in "../generate/record.rkt" record/cons/generate record/generate record/ref/generate)
  (only-in "../generate/utility.rkt" k/RETURN))
@@ -323,14 +323,14 @@
 ;;    in the sequence
 ;; Denotes a sequence of expressions that must be evaluated in sequence order, for example, the expressions appearing
 ;; in a lambda body
-(define-syntax-rule (sequence/length e)    (vector-ref e 1))
-(define-syntax-rule (sequence/elements e)  (vector-ref e 2))
+(define-syntax-rule (sequence/length e)   (vector-ref e 1))
+(define-syntax-rule (sequence/elements e) (vector-ref e 2))
 (define (sequence/elements/ok? x)
   (let ((elements (sequence/elements x)))
-  (and
-   (vector? elements)
-   (= (sequence/length x) (vector-length elements))
-   (vector/and/map elements MAG?))))
+    (and
+     (vector? elements)
+     (= (sequence/length x) (vector-length elements))
+     (vector/and/map elements MAG?))))
 
 (define (sequence/ok? e)
   (if (and
@@ -351,6 +351,32 @@
        (integer/positive? (letrec/set/span e)))
       #t
       (recompile/error 'recompile/letrec/set e)))
+
+;; #(letrec* n values body).
+(define-syntax-rule (letrec*/span e)   (vector-ref e 1))
+(define-syntax-rule (letrec*/values e) (vector-ref e 2))
+(define-syntax-rule (letrec*/body e)   (vector-ref e 3))
+
+(define (letrec*/ok? e)
+  (if (and
+       (= (vector-length e) 4)
+       (integer/positive? (letrec*/span e)) ; Number of bindings > 0.
+
+       ; Span equals number of descriptors in values vector.
+       (if (> (letrec*/span e) 1)
+           (and (vector? (letrec*/values e)) (= (vector-length (letrec*/values e)) (letrec*/span e)))
+           #t)
+
+       ; Everything in the values vector is a legitimate MAG descriptor.
+       (cond
+         ((> (letrec*/span e) 1)
+          (= (letrec*/span e) (vector-count MAG? (letrec*/values e))))
+         (else
+          (MAG? (letrec*/values e))))
+       
+       (MAG? (letrec*/body e)))
+      #t
+      (recompile/error 'recompile/letrec*)))
 
 
 ;; #(if <test> <then> <else>)
@@ -668,6 +694,16 @@
   (letrec/set/ok? x)
   (letrec/set/generate (letrec/set/span x)))
 
+(define (letrec*/recompile x)
+  (letrec*/ok? x)
+  (let ((n (letrec*/span x)))
+    (letrec*/generate
+     n
+     (if (> n 1)
+         (vector-map motile/recompile (letrec*/values x))
+         (motile/recompile (letrec*/values x)))
+     (motile/recompile (letrec*/body x)))))
+
 (define (variable/get/recompile x)
   (variable/get/ok? x)
   (variable/get/generate (variable/get/offset x)))
@@ -786,6 +822,7 @@
     
     ; Letrec.
     (cons 'letrec/set letrec/set/recompile)
+    (cons 'letrec*    letrec*/recompile)
 
     ; Variable and global references.
     (cons 'variable/get variable/get/recompile)

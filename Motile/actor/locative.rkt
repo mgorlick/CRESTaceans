@@ -276,7 +276,9 @@
             #t)
            (else #f))))
     (end-atomic) ; Release the scheduler to other threads.
-    (when ok? (thread-send (actor/thread (locative/actor x)) message))
+    (when ok?
+      ; Note: If the thread is dead then the #f prevents an exception from being generated.
+      (thread-send (actor/thread (locative/actor x)) message #f))
     ok?))
   
 ;; Returns diagnostic codes indicating why a locative/send failed for locative x.

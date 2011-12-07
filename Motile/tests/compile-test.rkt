@@ -297,6 +297,134 @@
 
 ; -------------------------
 
+(define-test-suite letrec*-exprs
+  (test-case
+   "Simple letrec* with two definitions"
+   (check-equal?
+    ((compile/start)
+     '(letrec* ((a 11) 
+                (b (+ a 13)))
+        (* a b)))
+    264))
+
+
+  (test-case
+   "Letrec* with one function definition"
+   (check-equal?
+    ((compile/start)
+     '(letrec* ((f (lambda (n) (if (= n 1) 1 (* n (f (sub1 n))))))) ; Factorial.
+               (f 5)))
+    120))
+
+  (test-case
+   "Recursive definition of two functions"
+   (check-equal? 
+    ((compile/start)
+     '(letrec* ; Mutually recursive functions.
+       ((even? (lambda (n) (if (= n 0) #t (odd? (- n 1)))))
+        (odd? (lambda (n) (if (= n 0) #f (even? (- n 1))))))
+       (list (even? 12) (even? 3) (odd? 17) (odd? 8))))
+
+    '(#t #f #t #f))) ; Expected.
+
+  (test-case
+   "Mutually recursive function definitions with multiple (> 1) closed variables per function"
+   (check-equal? 
+    ((compile/start)
+     '(letrec*
+          ((even? (lambda (n) (if (= n zero) #t (odd? (- n one)))))
+           (odd? (lambda (n) (if (= n zero) #f (even? (- n one)))))
+           (zero 0)
+           (one 1))
+        (list (even? 12) (even? 3) (odd? 17) (odd? 8))))
+
+    '(#t #f #t #f))) ; Expected.
+
+  (test-case
+   "Recursive definition of three functions"
+   (check-equal? 
+    ((compile/start)
+     '(letrec*
+       ((even? (lambda (n) (if (= n 0) #t (odd? (- n 1)))))
+        (odd? (lambda (n) (if (= n 0) #f (even? (- n 1)))))
+        (factorial (lambda (n) (if (= n 1) 1 (* n (factorial (sub1 n)))))))
+       (list (even? 12) (even? 3) (odd? 17) (odd? 8) (factorial 5))))
+
+    '(#t #f #t #f 120))) ; Expected.
+
+  (test-case
+   "Recursive definition of three functions with inline calls in later bindings"
+   (check-equal?
+    ((compile/start)
+     '(letrec*
+          ((even? (lambda (n) (if (= n 0) #t (odd? (- n 1)))))
+           (odd? (lambda (n) (if (= n 0) #f (even? (- n 1)))))
+           (factorial (lambda (n) (if (= n 1) 1 (* n (factorial (sub1 n))))))
+           (a (even? 12))
+           (b (even? 3))
+           (c (odd? 17))
+           (d (odd? 8))
+           (e (factorial 5)))
+        (list a b c d e)))
+
+    '(#t #f #t #f 120))) ; Expected.
+
+  (test-case
+   "Recursive definitions in three bindings + dependent definitions in two"
+   (check-equal?  
+    ((compile/start)
+     '(letrec* ; Mutually recursive functions.
+       ((even? (lambda (n) (if (= n 0) #t (odd? (- n 1)))))
+        (odd? (lambda (n) (if (= n 0) #f (even? (- n 1)))))
+        (factorial (lambda (n) (if (= n 1) 1 (* n (factorial (sub1 n))))))
+        (a (add1 (factorial 4)))
+        (b (+ a 13)))
+       (list (even? 12) (even? 3) (odd? a) (odd? 8) (factorial 5) b)))
+
+    '(#t #f #t #f 120 38))) ; Expected.
+
+  (test-case
+   "Self-recursive definition"
+   (check-true
+    ((compile/start)
+     '(letrec* ((foo (lambda (x) (eq? x foo))))
+        (foo foo)))))
+
+  (test-case
+   "Letrec* with define in the body"
+   (check-equal?
+    ((compile/start)
+     '(letrec* ; Mutually recursive functions.
+          ((even? (lambda (n) (if (= n 0) #t (odd? (- n 1)))))
+           (odd? (lambda (n) (if (= n 0) #f (even? (- n 1)))))
+           (factorial (lambda (n) (if (= n 1) 1 (* n (factorial (sub1 n)))))))
+        ; Definitions in the letrec* body.
+        (define a 11)
+        (define b (lambda () (+ a 13)))
+        (list (even? 12) (even? 3) (odd? a) (odd? 8) (factorial 5) (b))))
+
+    '(#t #f #t #f 120 24))) ; Expected.
+
+  (test-case 
+   "Takeuchi functions"
+   (check-equal?
+    ((compile/start) 
+     '(letrec* ((tak
+                 (lambda (x y z)
+                   (if (not (< y x))
+                       z
+                       (tak (tak (- x 1) y z)
+                            (tak (- y 1) z x)
+                            (tak (- z 1) x y))))))
+        (tak 18 12 6)))
+
+    7)) ; Expected.
+
+
+  )
+  
+; -------------------------
+
 (define-test-suite let*-exprs
   (test-case 
    "Simple let* case"
@@ -461,7 +589,23 @@
    (check-equal? -18 ((compile/start) '(letrec ((a 8) (b -1))
                                        (define (a+) (add1 a))
                                        (define (b-) (sub1 b))
-                                       (* (a+) (b-)))))))
+                                       (* (a+) (b-))))))
+
+  (test-case
+   "A let with multiple successively dependent defines"
+   (check-equal?  
+    ((compile/start)
+     '(let () ; Mutually recursive functions.
+        (define (even? n) (if (= n 0) #t (odd?  (- n 1))))
+        (define (odd? n)  (if (= n 0) #f (even? (- n 1))))
+        (define (factorial n) (if (= n 1) 1 (* n (factorial (sub1 n)))))
+        (define a (add1 (factorial 4)))
+        (define b (+ a 13))
+        (list (even? 12) (even? 3) (odd? a) (odd? 8) (factorial 5) b)))
+
+    '(#t #f #t #f 120 38))) ; Expected.
+  
+  )
 
 ; --------------------
 
@@ -715,25 +859,28 @@
                                                 (let ()
                                                   (define-macro (ten+1) '(+ 10 2))
                                                   (+ (eleven) (eleven)))))))
-  (test-case "Macros containing local functions"
-             (check-equal? 21
-                           ((compile/start) '(let ()
-                                             (define-macro (<let> bindings . body)
-                                               ; Local function inside macro definition body.
-                                               (define (unzip bindings variables values)
-                                                 (if (null? bindings)
-                                                     (cons variables values)
-                                                     (let ((binding (car bindings)))
-                                                       (unzip (cdr bindings)
-                                                              (cons (car binding) variables)
-                                                              (cons (cadr binding) values)))))
-                                               
-                                               (let* ((unzipping (unzip bindings null null))
-                                                      (variables (car unzipping))
-                                                      (values    (cdr unzipping)))
-                                                 `((lambda ,variables ,@body) ,@values)))
-                                             
-                                             (<let> ((a 3) (b 7)) (* a b)))))))
+  (test-case
+   "Macros containing local functions"
+   (check-equal?
+    21
+    ((compile/start)
+     '(let ()
+        (define-macro (<let> bindings . body)
+          ; Local function inside macro definition body.
+          (define (unzip bindings variables values)
+            (if (null? bindings)
+                (cons variables values)
+                (let ((binding (car bindings)))
+                  (unzip (cdr bindings)
+                         (cons (car binding) variables)
+                         (cons (cadr binding) values)))))
+          
+          (let* ((unzipping (unzip bindings null null))
+                 (variables (car unzipping))
+                 (values    (cdr unzipping)))
+            `((lambda ,variables ,@body) ,@values)))
+        
+        (<let> ((a 3) (b 7)) (* a b)))))))
 
 ; ------------------------
 
@@ -2105,7 +2252,7 @@
   (run-tests apply-exprs)
   (run-tests sort-tests)
   (run-tests quasiquote-exprs)
-  ;(run-tests macro-exprs)
+  (run-tests macro-exprs)
   (run-tests for-each-exprs)
   (run-tests map-exprs)
   (run-tests box-tests)

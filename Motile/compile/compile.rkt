@@ -22,7 +22,7 @@
  (only-in "utility.rkt" vector/all?)
  (only-in "match.rkt" match/translate)
  
- (only-in "../generate/baseline.rkt"    motile/call)
+ (only-in "../generate/baseline.rkt"    motile/call motile/call/3) ; Needed for compile-time evaluation of non-hygienic macros.
  (only-in "../generate/closure.rkt"     closure/generate closure/rest/generate)
  (only-in "../generate/combination.rkt" combination/generate)
  (only-in "../generate/constant.rkt"    constant/generate)
@@ -46,11 +46,12 @@
 
  (only-in "../generate/frame.rkt"      global/get/generate variable/get/generate)
  (only-in "../generate/lambda.rkt"     lambda/generate lambda/rest/generate)
- (only-in "../generate/letrec.rkt"     letrec/set/generate)
+ (only-in "../generate/letrec.rkt"     letrec/set/generate letrec*/generate)
  (only-in "../generate/quasiquote.rkt" quasiquote/append/generate quasiquote/cons/generate quasiquote/tuple/generate)
  (only-in "../generate/record.rkt"     record/cons/generate record/generate record/ref/generate)
  (only-in "../persistent/environ.rkt"  environ/null)
- (only-in "../persistent/hash.rkt"     hash/eq/null hash/ref vector/hash))
+ (only-in "../persistent/hash.rkt"     hash/eq/null hash/ref vector/hash)
+ (only-in "../baseline.rkt" BASELINE)) ; Reequired for compile-time application of non-hygienic macros as Motile lambdas.
 
 (provide
  motile/compile)
@@ -110,6 +111,9 @@
       ((lambda? e)
        (lambda/compile e lexical))
       
+      ((letrec*? e)
+       (letrec*/compile e lexical))
+      
       ((and? e)
        (and/compile e lexical))
       
@@ -162,7 +166,11 @@
        (combination/compile e lexical)))))
 
 (define (macro/expand e lexical)
-  (apply (lexical/macro/fetch lexical (car e)) (lambda (x) x) (cdr e)))
+;  (apply
+;   (lexical/macro/fetch lexical (car e))
+;   (lambda (x) x) 
+;   (cdr e)))
+  (motile/call/3 (lexical/macro/fetch lexical (car e)) BASELINE (cdr e)))
 
 ;; (define-macro (<name> <formals>) <body>).
 ;; Compile macro definition e and make it available in the current lexical scope.
@@ -179,8 +187,8 @@
     ; analogue of including local function definitions within the body of a lambda expression.
     ; On the other hand, local function definitions within the body of a define-macro have exactly the intended
     ; effect, the functions are local to the define-macro and are invoked at macro expansion time.
-    (let ((procedure (scheme/compile `(lambda ,formals ,@body) #f)))
-      (motile/call procedure environ/null))))  ; Evaluate the procedure at its point of definition.
+    (let ((procedure (scheme/compile `(lambda ,formals ,@body) #f))) ; The macro as a lambda definition.
+      (motile/call procedure environ/null)))) ; Evaluate the lambda at its point of definition.
       
 (define (let/compile e lexical)
   (shape e 3)
@@ -226,6 +234,25 @@
 
         ; (let* () <body>).
         (lambda/body/compile body lexical))))
+
+(define (letrec*/compile e lexical)
+  (shape e 3)
+  (let* ((bindings    (let/bindings e))
+         (variables   (let/bindings/variables   bindings)) ; v_1, v_2, ..., v_n.
+         (expressions (let/bindings/expressions bindings)) ; e_1, e_2, ..., e_n.
+         ; The lexical scope in which each letrec* binding expression will be evaluated.
+         (lexical+    (lexical/push/parameters lexical variables))
+         ; Code for each expression e_i in the bindings.
+         (values      (map (lambda (e) (scheme/compile e lexical+)) expressions))
+         (n (length variables))
+         ; The closure for the body of the letrec*. We wrap the body in a (let () ...) to accomodate any defines that
+         ; appear in the body of the letrec*.
+         (body (scheme/compile `(let () ,@(let/body e)) lexical+)))
+    
+    ; Finally return a Mobile closure that adheres to the conventions for serialization.
+    (letrec*/generate n (if (> n 1) (list->vector values) (car values)) body)))
+
+
 
 (define (lambda/compile e lexical)
   (shape e 3)
@@ -303,40 +330,7 @@
     (unique? bag parameters)
     bag))
          
-;; In an erudite thread on various letrec implementations and their pitfalls (noting, in particular,
-;; that the macro definition of letrec in R5RS is incorrect as it does not permit one or more (define ...)
-;; forms to appear as a prefix of the body of the letrec)
-;; [http://groups.google.com/group/comp.lang.scheme/browse_thread/thread/141d47814c79776b/306ccb44cd2ab7e5?#306ccb44cd2ab7e5]
-;; oleg@pobox.com, May 21, 2001 offers:
-;; 
-;;     Here's the definition of letrec that behaves correctly with respect to the above
-;;     test, permits defines in the letrec body, is much simpler than the
-;;     R5RS definition, permits an arbitrary order of evaluating the init expressions,
-;;     and avoids creation of many closures and O(n) temporary names:
-;;
-;;     (define-syntax letrec
-;;       (syntax-rules ()
-;;         ((_ ((var init) ...) . body)
-;;          (let ((var 'undefined) ...)
-;;            (let ((temp (list init ...)))
-;;              (begin (set! var (car temp)) (set! temp (cdr temp))) ...
-;;              (let () . body))))))
 
-;; In Mischief Letrec is implemented by the pseudo-code:
-;;
-;;    ((lambda (v_1 ... v_N)
-;;       ((lambda (t_1 ... t_N)
-;;          (setter N)
-;;          (let () . <body>))
-;;          e_1 ... e_N))
-;;     #f ... #f)
-;;
-;; where:
-;; v_i is the i'th letrec variable
-;; e_i is the defining expresssion for variable v_i
-;; (setter N) is a fragment of internal code that sets each variable v_i, i = 1, ..., N to the value of expression e_i
-;; <body> is the body of the letrec.
-;; #f is the initial junk value for each of the letrec variables v_i.
 
 (define (lambda/body/compile body lexical)
   ;(display "lambda/body/compile\n")
@@ -347,6 +341,7 @@
           (cond
             ((not (pair? e))
              ; End of body.
+
              (letrec/defines* variables values body lexical))
 
             ((macro? e lexical)
@@ -381,19 +376,27 @@
     (if (null? variables)
         (sequence/compile body lexical) ; The body is free of definitions.
 
-        ; As the body is prefixed by (define ...) forms rewrite it as a (letrec ...)
+        ; As the body is prefixed by (define ...) forms rewrite it as a (letrec* ...)
         ; and shove it through the compiler again.
+        ; Note: Since the variables and the expressions were pushed from first to last as they were collected
+        ; they now appear in reverse textual order.
+        ; As the defines will be compiled into a letrec* we must restore their textual order.
         (scheme/compile
-         (defines/letrec/rewrite variables expressions body)
+         (defines/letrec/rewrite (reverse variables) (reverse expressions) body)
          lexical)))
   
   (letrec/defines null null body lexical)) ; Start the sweep for (define ...) forms.
 
 ;; Rewrite the body of a lambda containing one or more (define ...) special forms
 ;; as a (letrec ...) and shove it back through the compiler.
+;; variables - the define variables as they appeared in textual order
+;; expressions - the define expressions as they appeared in textual order
+;; body - the expressons following the defines
 (define (defines/letrec/rewrite variables expressions body)
   (let ((bindings (map list variables expressions))) ; Poor man's zip.
-    `(letrec ,bindings ,@body)))
+    ;`(letrec ,bindings ,@body)))
+    (pretty-display `(letrec* ,bindings ,@body))
+    `(letrec* ,bindings ,@body))) ; Using letrec* per the draft R7RS, Section 5.2.2 "Internal Definitions".
 
 ;; Internal macro expansion for all special forms.
 (define (motile/macro/expand e macros)
@@ -409,7 +412,9 @@
 
     ((quote? e) e)
     
-    ((hash/ref macros (car e) #f)
+    ((definition/macro? e) e); (define-macro (name <formals>) <body>).
+   
+     ((hash/ref macros (car e) #f)
      =>
      ; Macro expand expression e using an e-specifc macro and then recursively macro expand
      ; that result all over again.
@@ -418,37 +423,12 @@
     ((lambda? e)
      ; Run the macro expander over every expression in the lambda body.
      `(lambda ,(lambda/parameters e) ,@(map map/expand (lambda/body e))))
-
+ 
     ((if? e)
      `(if
        ,(motile/macro/expand (if/test e) macros)
        ,(motile/macro/expand (if/then e) macros)
        ,(motile/macro/expand (if/else e) macros)))
-
-;    ((cond? e)
-;     (if (null? (cdr e))
-;         ; e is nothing more than (cond).
-;         e
-;         ; Macro expand each clause of the cond.
-;         `(cond
-;            ,@(map
-;               (lambda (c)
-;                 (cond
-;                   ((cond/clause/else? c) ; (else <expressions>)
-;                    `(else ,@(map map/expand (cdr c))))
-;                   
-;                   ((not (pair? (cdr c))) ; Clause c is just (<test>)
-;                    `(,(motile/macro/expand (cond/clause/test c) macros))) ; Macro-expand <test>
-;                   
-;                   ((cond/clause/=>? c) ; (<test> => <procedure>)
-;                    `(,(motile/macro/expand (cond/clause/test c) macros)
-;                      ,(motile/macro/expand (cond/clause/procedure c) macros)))
-;                   
-;                   (else ; (<test> <expressions>)
-;                    `(,(motile/macro/expand (cond/clause/test c) macros)
-;                      ,@(map map/expand (cdr c))))))
-;
-;               (cdr e)))))
 
     ((when? e)
      `(when
@@ -508,10 +488,44 @@
 
     (else (map map/expand e)))) ; Macro expand every element of s-expression e.
   
+;; In an erudite thread on various letrec implementations and their pitfalls (noting, in particular,
+;; that the macro definition of letrec in R5RS is incorrect as it does not permit one or more (define ...)
+;; forms to appear as a prefix of the body of the letrec)
+;; [http://groups.google.com/group/comp.lang.scheme/browse_thread/thread/141d47814c79776b/306ccb44cd2ab7e5?#306ccb44cd2ab7e5]
+;; oleg@pobox.com, May 21, 2001 offers:
+;; 
+;;     Here's the definition of letrec that behaves correctly with respect to the above
+;;     test, permits defines in the letrec body, is much simpler than the
+;;     R5RS definition, permits an arbitrary order of evaluating the init expressions,
+;;     and avoids creation of many closures and O(n) temporary names:
+;;
+;;     (define-syntax letrec
+;;       (syntax-rules ()
+;;         ((_ ((var init) ...) . body)
+;;          (let ((var 'undefined) ...)
+;;            (let ((temp (list init ...)))
+;;              (begin (set! var (car temp)) (set! temp (cdr temp))) ...
+;;              (let () . body))))))
+
+;; In Mischief Letrec is implemented by the pseudo-code:
+;;
+;;    ((lambda (v_1 ... v_N)
+;;       ((lambda (t_1 ... t_N)
+;;          (setter N)
+;;          (let () . <body>))
+;;          e_1 ... e_N))
+;;     #f ... #f)
+;;
+;; where:
+;; v_i is the i'th letrec variable
+;; e_i is the defining expresssion for variable v_i
+;; (setter N) is a fragment of internal code that sets each variable v_i, i = 1, ..., N to the value of expression e_i
+;; <body> is the body of the letrec.
+;; #f is the initial junk value for each of the letrec variables v_i.
+
 ;; Macro translate a (letrec ...) into canonical nested lambdas plus some inline Motile code
 ;; for setting the letrec bindings properly.
 (define (letrec/translate e)
-  ;(pretty-display e) (newline)
   (let* ((bindings    (let/bindings e))
          (variables   (let/bindings/variables   bindings))
          (expressions (let/bindings/expressions bindings))
@@ -523,9 +537,22 @@
                 (let () ,@body))
               ,@expressions))
            ,@(build-list (length variables) (lambda (i) #f))))) ; Generate a list (#f ... #f) that is (length variables) wide.
-    ;(display "letrec/translate: rewrite\n")
-    ;(pretty-display rewrite) (newline)
     rewrite))
+
+    
+;; The macro translation for letrec*, given below, is taken from:
+;; Oscar Waddell, Dipanwita Sarkar and R. Kent Dybvig,
+;; "Fixing Letrec: A Faithful Yet Efficient Implementation of Scheme’s Recursive Binding Construct," 2004.
+;;
+;; (letrec* ([x1 e1 ] ... [xn en ]) body) →
+;;    (let ([x1 undefined] ... [xn undefined])
+;;      (set! x1 e1)
+;;      ...
+;;      (set! xn en)
+;;      (let () body))
+;;
+;; Note: The macro expansion in the paper does NOT wrap the letrec* body in a let-expression.
+;; We do so here to permit defines to appear in the letrec* body.
 
 ;; Macro translate a (let ...) into a (lambda ...) application.
 (define (let/translate e)
@@ -1149,67 +1176,3 @@
 ;; Closure B is a variable argument closure accepting either one or two arguments. We discuss each of these cases:
 ;;   (k)
 ;;   Here the argument k is the continuation at the point of application of f.
-
-
-;(define (test/closure)
-;  (define (test/closure/1)
-;    (let ((code
-;           (motile/compile
-;            '(let ((f (lambda (n) (lambda () n))))
-;               (let ((f100 (f 100))
-;                     (f200 (f 200))
-;                     (f300 (f 300)))
-;                 (list (f100) (f200) (f300)))))))
-;      (pretty-display (motile/start code BASELINE))))
-;
-;  (define (test/closure/2)
-;    (let* ((code
-;           (motile/compile
-;            '(let ((f (lambda (n) (lambda () n))))
-;               (let ((f100 (f 100))
-;                     (f200 (f 200))
-;                     (f300 (f 300)))
-;                 (vector  f100 f200 f300)))))
-;           (closures (motile/start code ENVIRON/TEST)))
-;      (pretty-display (motile/decompile (vector-ref closures 0)))
-;      (newline)
-;      (pretty-display (motile/decompile (vector-ref closures 1)))
-;      (newline)
-;      (pretty-display (motile/decompile (vector-ref closures 1)))))
-;  
-;  (test/closure/1)
-;  (test/closure/2))
-;
-;(define (test/map/1)
-;  (let ((code
-;         (motile/compile
-;          '(let ((f (lambda (n) (+ n 3))))
-;             (map f '(5 10 15 20 25))))))
-;    (motile/start code BASELINE)))
-;
-;(define (test/map/2)
-;  (let ((code
-;         (motile/compile
-;          '(let ((f (lambda (n) (+ n 3))))
-;             (map f '(5 10 15 20 25))))))
-;    (pretty-display (motile/decompile code))))
-;
-;(define (test/for-each)
-;  (let ((code
-;         (motile/compile
-;          '(let ((f (lambda (n)
-;                      (display (+ n 3)) (newline))))
-;             (for-each f '(5 10 15 20 25))))))
-;    (motile/start code ENVIRON/TEST)))
-;
-; (define (test/apply)
-;  (let ((code
-;         (motile/compile
-;          '(apply + 5 10 15 20 25))))
-;    (motile/start code BASELINE)))
-; 
-; (define (test/sort)
-;   (let ((code
-;          (motile/compile
-;           '(sort '(25 20 5 15 10) <))))
-;     (motile/start code BASELINE)))
