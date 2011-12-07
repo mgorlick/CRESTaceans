@@ -19,7 +19,7 @@
   (motile/compile
    `(letrec 
         ([f (lambda ()
-              (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME 1 #t #t) null #f))
+              (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
               ; spawn the proxy
               (curl/send ,encoder-site-public-curl@ (spawn/new (pubsubproxy me@)
                                                                (make-metadata is/proxy '(nick . pubsub))
@@ -329,12 +329,15 @@
                                       (spawn/new f (make-metadata accepts/webm '(nick . decoder)) #f))
                            (loop)]
                           [(Quit/MV? body)
+                           (printf "Decoder removing self~n")
                            (curl/send ,where-to-subscribe@
                                       (remote/new (RemoveCURL/new me/ctrl@) (make-metadata) #f))
                            
                            (vp8dec-delete d)
+                           (printf "Decoder doing a move+quit~n")
                            (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
-                                      (spawn/new f (make-metadata accepts/webm '(nick . decoder)) #f))]
+                                      (spawn/new f (make-metadata accepts/webm '(nick . decoder)) #f))
+                           (printf "Decoder shutting down after move+quit~n")]
                           [(Quit? body)
                            (curl/send ,where-to-subscribe@ (remote/new (RemoveCURL/new me/ctrl@) (make-metadata) #f))
                            (vp8dec-delete d)]

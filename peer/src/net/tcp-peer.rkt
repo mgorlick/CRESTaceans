@@ -99,19 +99,20 @@
     (define the-address (curl/island (car req)))
     (define remote-id (cons (bytes->string/utf-8 (island/address/dns the-address))
                             (island/address/port the-address)))
-    (cond [(hash-has-key? connects-o remote-id)
-           ;; there's a connection active - forward the message to it and return.
-           (thread-send (hash-ref connects-o remote-id) (->serialized req) #f)]
-          [else
-           ;; launch a new thread that will LATER turn into the output thread,
-           ;; but first acts as the connecting thread.
-           ;; turn off threading here so that there's always an entry in the
-           ;; `connects-o' hash table for `try-connect-n-times' to remove, when necessary.
-           (start-atomic)
-           (define connector-t (run-connector remote-id req))
-           (thread-send connector-t (->serialized req))
-           (hash-set! connects-o remote-id connector-t)
-           (end-atomic)]))
+    (with-handlers ([exn? (λ (e) (printf "Send/maybe-connect: ~a~n" e))])
+      (cond [(hash-has-key? connects-o remote-id)
+             ;; there's a connection active - forward the message to it and return.
+             (thread-send (hash-ref connects-o remote-id) (->serialized req) #f)]
+            [else
+             ;; launch a new thread that will LATER turn into the output thread,
+             ;; but first acts as the connecting thread.
+             ;; turn off threading here so that there's always an entry in the
+             ;; `connects-o' hash table for `try-connect-n-times' to remove, when necessary.
+             (start-atomic)
+             (define connector-t (run-connector remote-id req))
+             (thread-send connector-t (->serialized req))
+             (hash-set! connects-o remote-id connector-t)
+             (end-atomic)])))
   
   ;; used for the connecting process (i.e. called only by the thread spawned
   ;; inside `send/maybe-connect') to store itself as the output thread, and

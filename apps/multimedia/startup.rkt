@@ -42,14 +42,7 @@
         no-val)))
 
 (define (meta-has-any? meta . vs)
-  (ormap (λ (k.v)
-           (if (equal? (cdr k.v) (hash/ref meta (car k.v) #f))
-               (begin
-                 (printf "~s == ~s~n" (cdr k.v) (hash/ref meta (car k.v) 'nothere))
-                 #t)
-               (begin
-                 (printf "~s != ~s~n" (cdr k.v) (hash/ref meta (car k.v) 'nothere))
-                 #f)))
+  (ormap (λ (k.v) (equal? (cdr k.v) (hash/ref meta (car k.v) #f)))
          vs))
 
 ;; host and port to listen on. use to start the comm layer below, designating root to receive incoming.
