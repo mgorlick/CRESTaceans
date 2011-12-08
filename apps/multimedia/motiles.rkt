@@ -60,12 +60,11 @@
                              ;; the types that the router knows to send forward.
                              [(Frame? body)
                               (set/map curls (lambda (subber@)
-                                               (curl/send subber@ (!:remote/reply m #f))))
+                                               (curl/send subber@ (!:remote/reply m me@))))
                               (loop curls rpyto@)]
                              ;; the control messages coming from the forward direction,
                              ;; directed at the router.
                              [(AddCURL? body)
-                              (displayln "New subscription")
                               (loop (set/cons curls (:AddCURL/curl body)) last-sender-seen@)]
                              [(RemoveCURL? body)
                               (loop (set/remove curls (:RemoveCURL/curl body)) last-sender-seen@)]
@@ -94,7 +93,7 @@
    '(lambda (sink-site-public-curl@ sinkλ sink^ source@)
       (define me@ (curl/new/any (this/locative) null #f))
       ;; spawn a proxy to sit between the ESTABLISHED source and the NEW sink.
-      #|(curl/send sink-site-public-curl@ (spawn/new (pubsubproxy me@)
+      (curl/send sink-site-public-curl@ (spawn/new (pubsubproxy me@)
                                                    (make-metadata is/proxy '(nick . pubsub))
                                                    #f))
       ;; get proxy curl back.
@@ -102,10 +101,8 @@
         ;; link ESTABLISHED source and NEW sink to proxy.
         (curl/send source@ (remote/new proxy@ '() me@))
         (curl/send sink-site-public-curl@ (spawn/new (lambda () (sinkλ proxy@))
-                                                     (make-metadata is/endpoint '(nick . canvas))
-                                                     me@))))))|#
-      (curl/send source@ (remote/new me@ '() me@))
-      (sinkλ source@))))
+                                                     sink^
+                                                     me@))))))
 
 ;; a canvas endpoint is an actor that is responsible for video display and ONLY video display.
 ;; each decoding pipeline is allocated one or more gui endpoints.
@@ -143,16 +140,20 @@
                 ;; (we lifted `g' and `add-video!' out of the lambda)
                 ;; a grown-up implementation would check that this
                 ;; curl `requester@' is a local curl.
-                (let* ([av! video-gui-add-video!]
-                       [buffer-maker! (lambda (w h)
-                                        (av! g w h requester@))]
-                       [cnvs (canvas-endpoint)]
-                       [cve (lambda (rpy@) ((cnvs) rpy@ buffer-maker!))]
-                       [linker (linker-bang)])
-                  ;; launch the linker to start up our wrapped endpoint
-                  (curl/send PUBLIC/CURL (spawn/new (lambda () 
-                                                      ((linker) PUBLIC/CURL cve (make-metadata) requester@))
-                                                    (make-metadata  is/endpoint '(nick . canvas)) #f))))
+                (and (curl/intra? requester@)
+                     (let* ([av! video-gui-add-video!]
+                            [buffer-maker! (lambda (w h)
+                                             (av! g w h requester@))]
+                            [cnvs (canvas-endpoint)]
+                            [cve (lambda (rpy@) ((cnvs) rpy@ buffer-maker!))]
+                            [linker (linker-bang)])
+                       ;; launch the linker to start up our wrapped endpoint
+                       (curl/send PUBLIC/CURL (spawn/new (lambda () 
+                                                           ((linker) PUBLIC/CURL
+                                                                     cve 
+                                                                     (make-metadata is/endpoint '(nick . canvas))
+                                                                     requester@))
+                                                         (make-metadata '(nick . linker)) #f)))))
               
               (set-current-gui-curl! me/lookup@)
               
@@ -162,18 +163,21 @@
                 (cond 
                   ;; sent from new decoders.
                   [(AddCURL? body)
-                   (spawn-gui-endpoint (:AddCURL/curl body))
+                   (unless (spawn-gui-endpoint (:AddCURL/curl body))
+                     (curl/send (:AddCURL/curl body) (error/new 'not-on-same-island (delivered/contents-sent m))))
                    (loop (mailbox-get-message) (set/cons decoders (:AddCURL/curl body)))]
                   ;; forwarded from the actual GUI.
                   [(RemoveCURL? body)
                    (curl/send (:RemoveCURL/curl body) (remote/new (Quit/new) (make-metadata) #f))
                    (loop (mailbox-get-message) (set/remove decoders (:RemoveCURL/curl body)))]
-                  ;[(PIPOn? v)
-                  ; (let ([the-pipλ ((unwrap (make-pip-decoder)) 
-                  ;                  (list (PIPOn.major v) (PIPOn.minor v)))])
-                  ;   (ask/send* "SPAWN" PUBLIC/CURL the-pipλ (make-metadata accepts/webm) PUBLIC/CURL))
-                  ; (loop (mailbox-get-message) decoders)]
-                  ;; copy all children then copy self.
+                  [(PIPOn? body)
+                   (curl/send PUBLIC/CURL
+                              (spawn/new (lambda () ((video-decoder/pip (:PIPOn/major body)
+                                                                        (:PIPOn/minor body))))
+                                         (make-metadata accepts/webm '(nick . pipdec))
+                                         #f))
+                   (loop (mailbox-get-message) decoders)]
+                  ; copy all children then copy self.
                   [(CopyActor? body)
                    (curl/send (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
                               (spawn/new f (make-metadata is/gui '(nick . gui-controller)) #f))
@@ -290,14 +294,14 @@
   (motile/compile
    `(letrec 
         ([f (lambda ()
-              (define me/sub@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
-              (define me/ctrl@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
+              (define me/sub@ (curl/new/any 
+                               (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
+              (define me/ctrl@ (curl/new/any 
+                                (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
               (define d (vp8dec-new))
-              (displayln "Decoder on")
               ;; 1. look up the current GUI, ask for a new display function
               (curl/send (get-current-gui-curl) (remote/new (AddCURL/new me/ctrl@) (make-metadata) #f))
               (let ([gui-endpoint@ (:remote/body (delivered/contents-sent (mailbox-get-message)))])
-                (displayln "Decoder subscribing")
                 ;; 2. now that the decoder has a playback function it may decode frames, so ask for them.
                 (curl/send ,where-to-subscribe@ (remote/new (AddCURL/new me/sub@) (make-metadata) #f))
                 ;; 3. start decoding loop
@@ -305,6 +309,7 @@
                   (let ([m (mailbox-get-message)])
                     (define body (:remote/body (delivered/contents-sent m)))
                     (define desc^ (:remote/metadata (delivered/contents-sent m)))
+                    (define reply@ (:remote/reply (delivered/contents-sent m)))
                     (cond [(Frame? body)
                            (let* ([params (metadata-ref desc^ 'params)]
                                   [decoded-frame (vp8dec-decode-copy d 
@@ -317,7 +322,8 @@
                            (loop)]
                           ;; following are messages send backwards across control flow path from controller.
                           [(GetParent? body)
-                           (curl/send (:remote/reply m) (remote/new ,where-to-subscribe@ (make-metadata) #f))
+                           (curl/send reply@
+                                      (remote/new ,where-to-subscribe@ (make-metadata) #f))
                            (loop)]
                           ;;!!! FIXME !!!: this is doing connector work when it is a component.
                           [(FwdBackward? body)
@@ -329,20 +335,138 @@
                                       (spawn/new f (make-metadata accepts/webm '(nick . decoder)) #f))
                            (loop)]
                           [(Quit/MV? body)
-                           (printf "Decoder removing self~n")
                            (curl/send ,where-to-subscribe@
                                       (remote/new (RemoveCURL/new me/ctrl@) (make-metadata) #f))
                            
                            (vp8dec-delete d)
-                           (printf "Decoder doing a move+quit~n")
                            (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
-                                      (spawn/new f (make-metadata accepts/webm '(nick . decoder)) #f))
-                           (printf "Decoder shutting down after move+quit~n")]
+                                      (spawn/new f (make-metadata accepts/webm '(nick . decoder)) #f))]
                           [(Quit? body)
-                           (curl/send ,where-to-subscribe@ (remote/new (RemoveCURL/new me/ctrl@) (make-metadata) #f))
+                           (curl/send ,where-to-subscribe@ 
+                                      (remote/new (RemoveCURL/new me/ctrl@) (make-metadata) #f))
                            (vp8dec-delete d)]
                           [else
                            (displayln "Decoder throwing away a message")
                            #;(printf "not a valid request to decoder: ~a~n" body)
                            (loop)])))))])
+      (f))))
+
+(define (video-decoder/pip majordec@ minordec@)
+  (motile/compile
+   `(letrec ([f (lambda ()
+                  (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t)
+                                            null #f))
+                  ;; helper functions.
+                  ;; -- sync --
+                  ;; do the decoder half of the decoder/GUI discovery protocol.
+                  ;; -> curl
+                  (define (retrieve-sink)
+                    (curl/send (get-current-gui-curl) (remote/new (AddCURL/new me@) '() #f))
+                    (:remote/body (delivered/contents-sent (mailbox-get-message))))
+                  ;; given the curl of a decoder ask for its proxy's curl.
+                  ;; curl -> curl
+                  (define (retrieve-proxy-from dcurl@)
+                    (curl/send dcurl@ (remote/new (GetParent/new) '() me@))
+                    (:remote/body (delivered/contents-sent (mailbox-get-message))))
+                  ;; -- async --
+                  ;; add the current curl to a proxy prox@'s subscription list
+                  (define (add-self-subscription prox@)
+                    (curl/send prox@ (remote/new (AddCURL/new me@) '() #f)))
+                  ;; remove the current curl from a proxy prox@'s subscription list
+                  (define (remove-self-subscription prox@)
+                    (curl/send prox@ (remote/new (RemoveCURL/new me@) '() #f)))
+                  ;; spawn single decoder: given the proxy of a feed,
+                  ;; spawn a fullscreen decoder that will subscribe to it
+                  (define (spawn-single-decoder prox@)
+                    (curl/send PUBLIC/CURL (spawn/new (lambda () ((video-decoder/single prox@)))
+                                                      (make-metadata accepts/webm '(nick . decoder))
+                                                      #f)))
+                  ;; perform three retrievals, synchronously
+                  ;; important: all three need to be done BEFORE subscribing!!
+                  (let ([next-pipeline-element@ (retrieve-sink)]
+                        [majorprox@ (retrieve-proxy-from ,majordec@)]
+                        [minorprox@ (retrieve-proxy-from ,minordec@)])
+                    ;; let the proxies know we're online...
+                    (map add-self-subscription (list majorprox@ minorprox@))
+                    (let loop ([decoder/major (vp8dec-new)] 
+                               [decoder/minor (vp8dec-new)]
+                               [last-decoded-frame #f]
+                               [majorprox@ majorprox@] 
+                               [minorprox@ minorprox@]
+                               [m (mailbox-get-message)])
+                      (define body (:remote/body (delivered/contents-sent m)))
+                      (define desc^ (:remote/metadata (delivered/contents-sent m)))
+                      (define replyaddr@ (:remote/reply (delivered/contents-sent m)))
+                      (cond 
+                        [(Frame? body)
+                         ;; these two steps are really a fold but Motile doesn't have arbitrary-arity folds
+                         ;; so they're just expressed this way for now.
+                         (let* ([frame-after-major-check
+                                 (cond [(and (not last-decoded-frame) 
+                                             (equal? replyaddr@ majorprox@))
+                                        ;; no prior frame. decode a new one and save it but only if 
+                                        ;; this frame is a header-carrying major frame.
+                                        ;; OK to try to decode (might not work this time if 
+                                        ;; this isn't a header-carrying frame)
+                                        (let* ([this-frame-w (:VideoParams/width (metadata-ref desc^ 'params))]
+                                               [this-frame-d (:VideoParams/height (metadata-ref desc^ 'params))])
+                                          (vp8dec-decode-copy decoder/major 
+                                                              (:Frame/data body) this-frame-w this-frame-d))]
+                                       ;; have prior frame and stream is major. update over prior frame
+                                       [(and last-decoded-frame (equal? replyaddr@ majorprox@))
+                                        (vp8dec-decode-update-major decoder/major 
+                                                                    (:Frame/data body) last-decoded-frame)]
+                                       ;; frame is minor stream only, or some other stream. ignore
+                                       [else last-decoded-frame])]
+                                [frame-after-minor-check
+                                 (cond [(and frame-after-major-check (equal? replyaddr@ minorprox@))
+                                        ;; have prior frame and stream is minor. update over prior frame.
+                                        (vp8dec-decode-update-minor decoder/minor (:Frame/data body)
+                                                                    frame-after-major-check)]
+                                       ;; frame is major stream only, or some other stream. ignore
+                                       [else
+                                        frame-after-major-check])])
+                           ;; if there is a frame to send out, send it down the pipeline
+                           (when frame-after-minor-check
+                             (curl/send next-pipeline-element@ 
+                                        (!:remote/body (delivered/contents-sent m)
+                                                       (!:Frame/data body frame-after-minor-check))))
+                           ;; finished with this frame.
+                           (loop decoder/major decoder/minor frame-after-minor-check
+                                 majorprox@ minorprox@ (mailbox-get-message)))]
+                        ;; following are control messages passed from a controller backwards along the pipeline
+                        ;; to this decoder.
+                        [(and (InitiateBehavior? body) (eq? 'toggle-major/minor (:InitiateBehavior/type body)))
+                         ; fixme: right now this deletes old states, makes fresh ones.
+                         ; with some tinkering they could be reused (there is a strange state issue to investigate)
+                         (map vp8dec-delete (list decoder/major decoder/minor))
+                         (loop (vp8dec-new) (vp8dec-new) #f minorprox@ majorprox@ (mailbox-get-message))]
+                        [(and (InitiateBehavior? body) (eq? 'split (:InitiateBehavior/type body)))
+                         ; to split just spawn two new fullscreen decoders.
+                         (map spawn-single-decoder (list majorprox@ minorprox@))
+                         (loop decoder/major decoder/minor last-decoded-frame
+                               majorprox@ minorprox@ (mailbox-get-message))]
+                        [(GetParent? body)
+                         ; assumes parents are proxies. PIP can send this to itself/other PIP
+                         (curl/send replyaddr@ (remote/new (cons majorprox@ minorprox@) null #f))
+                         (loop decoder/major decoder/minor last-decoded-frame 
+                               majorprox@ minorprox@ (mailbox-get-message))]
+                        [(CopyActor? body)
+                         (curl/send (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
+                                    (spawn/new f (make-metadata accepts/webm '(nick . pipdec)) #f))
+                         (loop decoder/major decoder/minor last-decoded-frame
+                               majorprox@ minorprox@ (mailbox-get-message))]
+                        [(Quit/MV? body)
+                         (map remove-self-susbscription (list majorprox@ minorprox@))
+                         (map vp8dec-delete (list decoder/major decoder/minor))
+                         (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
+                                    (spawn/new f (make-metadata accepts/webm '(nick . pipdec)) #f))]
+                        [(Quit? body)
+                         (map remove-self-subscription (list majorprox@ minorprox@))
+                         (map vp8dec-delete (list decoder/major decoder/minor))]
+                        [else
+                         (printf "not a valid request to PIP decoder: ~a~n" body)
+                         (loop decoder/major decoder/minor last-decoded-frame 
+                               majorprox@ minorprox@ (mailbox-get-message))]
+                        ))))])
       (f))))

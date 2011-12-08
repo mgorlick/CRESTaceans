@@ -96,17 +96,18 @@
   (match amsg
     [(cons (? (curry equal? PUBLIC/CURL) pcurl)
            (match:spawn body metadata reply))
+     (define nick (gensym (or (metadata-ref metadata 'nick) 'nonamegiven)))
      (define-values (actor actor/loc)
-       (actor/new ROOT (gensym (or (metadata-ref metadata 'nick)
-                                   'nonamegiven))))
+       (actor/new ROOT nick))
      (actor/jumpstart actor 
                       (λ ()
-                        (motile/call body (++ (metadata->benv metadata)
-                                              (global-value-defines PUBLIC/CURL)
-                                              (global-defines this/locative
-                                                              this/island
-                                                              curl/get-public
-                                                              motile/serialize)))))]
+                        (printf "Actor starting: ~s~n" nick)
+                        (let ([ret (motile/call body (++ (metadata->benv metadata)
+                                                         (global-value-defines nick PUBLIC/CURL)
+                                                         (global-defines this/locative
+                                                                         curl/get-public)))])
+                          (printf "Actor ending: ~s~n" nick)
+                          ret)))]
     [(cons c@ (match:remote body metadata reply))
      ;; send count deprecation happens here.
      (with-handlers ([exn? (λ (e) (displayln e))])

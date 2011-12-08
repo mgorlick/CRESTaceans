@@ -1,11 +1,11 @@
 #lang racket/base
 
-(require "../../peer/src/api/tuple-type.rkt"
-)
+(require "../../peer/src/api/tuple-type.rkt")
 (provide (all-defined-out))
 
 (define-tuple-type (spawn) [body metadata] [(reply = #f)])
 (define-tuple-type (remote) [body metadata] [(reply = #f)])
+(define-tuple-type (error) [reason in-reference-to])
 
 (define-tuple-type (AddCURL) [curl])
 (define-tuple-type (RemoveCURL) [curl])

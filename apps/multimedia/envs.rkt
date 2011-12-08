@@ -65,13 +65,12 @@
   (pairs/hash hash/equal/null vals))
 (define (metadata-ref m k)
   (hash/ref m k #f))
+(define (from name)
+  `(from . ,name))
 
 ; messages arrive to actor mailboxes in the form (locative-used . content-body)
 (define delivered/contents-sent cdr)
-(define delivered/locative-used car)
-
-(define (unwrap thunk)
-  (motile/call thunk BASELINE))
+(define delivered/curl-used car)
 
 ;; binding environments used.
 (define MULTIMEDIA-BASE
@@ -89,11 +88,12 @@
       (require-spec->global-defines (matching-identifiers-in #rx"^(?!(match:)).*$" "message-types.rkt"))
       (global-defines make-metadata
                       metadata-ref
+                      from
                       A-LONG-TIME
                       sleep*
-                      unwrap                    
                       curl?
                       curl/ok?
+                      curl/intra?
                       curl/new
                       curl/new/any
                       curl/send
@@ -105,12 +105,13 @@
                       locative/send
                       locative/pretty
                       delivered/contents-sent
-                      delivered/locative-used
+                      delivered/curl-used
                       big-bang
                       linker-bang
                       pubsubproxy
                       video-reader/encoder
                       video-decoder/single
+                      video-decoder/pip
                       canvas-endpoint
                       gui-controller)
       (global-value-defines accepts/webm 

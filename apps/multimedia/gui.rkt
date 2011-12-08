@@ -364,7 +364,7 @@
     
     (define refresher
       (new timer% 
-           [notify-callback (λ () (refresh))] 
+           [notify-callback (λ () (refresh))]
            [interval 50] 
            [just-once? #f]))
     
@@ -377,13 +377,14 @@
       (eq? myvideo v))
     
     (define/override (on-paint)
-      (with-gl-context
-       (λ ()
-         (glRasterPos2d -1 1)
-         (glPixelZoom 1.0 -1.0)
-         (glDrawPixels w h GL_RGB GL_UNSIGNED_BYTE buffer)))
-      (swap-gl-buffers))
-    (resume-flush)))
+      (with-handlers ([exn:fail? (λ _ #f)])
+        (with-gl-context
+         (λ ()
+           (glRasterPos2d -1 1)
+           (glPixelZoom 1.0 -1.0)
+           (glDrawPixels w h GL_RGB GL_UNSIGNED_BYTE buffer)))
+        (swap-gl-buffers))
+      (resume-flush))))
 
 ; small-video-canvas%: used for the preview panes at the bottom of the screen.
 (define small-video-canvas%
@@ -409,12 +410,13 @@
            [just-once? #f]))
     
     (define/override (on-paint)
-      (with-gl-context
-       (λ ()
-         (glRasterPos2d -1 1)
-         (glPixelZoom 0.125 -0.125)
-         (glDrawPixels actual-w actual-h GL_RGB GL_UNSIGNED_BYTE buffer)))
-      (swap-gl-buffers))
+      (with-handlers ([exn:fail? (λ _ #f)])
+        (with-gl-context
+         (λ ()
+           (glRasterPos2d -1 1)
+           (glPixelZoom 0.125 -0.125)
+           (glDrawPixels actual-w actual-h GL_RGB GL_UNSIGNED_BYTE buffer)))
+        (swap-gl-buffers)))
     
     (define/public (stop)
       (set! myvideo #f)
