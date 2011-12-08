@@ -123,7 +123,11 @@
   (define the-controller (gui-controller))
   (curl/send PUBLIC/CURL (spawn/new the-controller (make-metadata is/gui '(nick . gui-controller)) #f)))
 (unless (argsassoc "--no-video")
-  (define the-bang (big-bang PUBLIC/CURL "/dev/video0" 640 480 PUBLIC/CURL))
+  (define encoder-where@ (curl/get-public (argsassoc "--vhost" #:no-val *LISTENING-ON* #:default *LISTENING-ON*)
+                                          (argsassoc "--vport" #:call string->number 
+                                                     #:no-val *LOCALPORT* 
+                                                     #:default *LOCALPORT*)))
+  (define the-bang (big-bang encoder-where@ "/dev/video0" 640 480 PUBLIC/CURL))
   (curl/send PUBLIC/CURL (spawn/new the-bang (make-metadata '(nick . big-bang)) #f)))
 
 (semaphore-wait (make-semaphore))
