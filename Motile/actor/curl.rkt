@@ -21,6 +21,7 @@
 (provide
  curl?
  curl/ok?
+ curl/intra?
  curl/island
  curl/id
  curl/id!
