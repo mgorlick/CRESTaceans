@@ -299,14 +299,21 @@
 
 (define-test-suite letrec*-exprs
   (test-case
+   "Trivial letrec* with one definition"
+   (check-equal?
+    ((compile/start)
+     '(letrec* ((a 11)) (add1 a)))
+    12))
+  
+  (test-case
    "Simple letrec* with two definitions"
    (check-equal?
     ((compile/start)
      '(letrec* ((a 11) 
                 (b (+ a 13)))
         (* a b)))
-    264))
 
+    264))
 
   (test-case
    "Letrec* with one function definition"
@@ -328,7 +335,7 @@
     '(#t #f #t #f))) ; Expected.
 
   (test-case
-   "Mutually recursive function definitions with multiple (> 1) closed variables per function"
+   "Mutually recursive function definitions each using a letrec* defined constant"
    (check-equal? 
     ((compile/start)
      '(letrec*
@@ -405,6 +412,76 @@
 
     '(#t #f #t #f 120 24))) ; Expected.
 
+  (test-case
+   "Letrec* binds over closed variables"
+   (check-equal?
+    ((compile/start)
+      '(let ((x 17)
+             (y 7)
+             (z 103))
+         (letrec*
+             ((even? (lambda (n) (if (= n 0) #t (odd?  (- n 1)))))
+              (odd?  (lambda (n) (if (= n 0) #f (even? (- n 1)))))
+              (f     (lambda (n) (if (= n 1) y (* n (f (sub1 n)))))) ; A misguided factorial.
+              (a (lambda (n) (if (even? n) (+ n x) (+ n x y z))))
+              (b (lambda (n) (> n z)))
+              (c (lambda (n) (odd? (a n)))))
+           (list x y z (f 5) (a 2) (a 3) (b 22) (b 905) (c 2) (c 5)))))
+    
+    (list 17 7 103 840 19 130 #f #t #t #f))) ; Expected.
+  
+  (test-case
+   "Trivial letrec* in a lambda body"
+   (check-equal?
+    ((compile/start)
+     '((lambda (f)
+         (letrec* ((y f)) f))
+       1))
+
+    1)) ; Expected.
+
+  (test-case
+   "Letrec* inside let* body"
+   (check-equal?
+    ((compile/start)
+     '(let* ([p 3] [q 5])
+        (define (foo) (+ p 3)) ; (define ...) rewritten as (letrec* ...) by compiler.
+        (foo)))
+
+    6)) ; Expected
+  
+  (test-case
+   "Letrec* inside trivial loop body #1"
+   (check-equal?
+    ((compile/start)
+     '(let loop ([f 1])
+        (define y (add1 f)) ; (define ...) rewritten as (letrec* ...) by compiler.
+        f))
+   
+    1)) ; Expected.
+
+  (test-case
+   "Letrec* inside trivial loop body #2"
+   (check-equal?
+    ((compile/start)
+     '(let loop ([f 1] [z 2])
+        (define y (+ f z))
+        (list f z y)))
+   
+    (list 1 2 3))) ; Expected.
+
+  (test-case
+   "Letrec* inside loop body"
+   (check-equal?
+    ((compile/start)
+     '(let loop ([f 1] [z 2])
+        (define y (+ f z))
+        (if (positive? z)
+            (loop (add1 f) (sub1 z))
+            (list f z y))))
+    
+    (list 3 0 3)))
+
   (test-case 
    "Takeuchi functions"
    (check-equal?
@@ -419,8 +496,6 @@
         (tak 18 12 6)))
 
     7)) ; Expected.
-
-
   )
   
 ; -------------------------

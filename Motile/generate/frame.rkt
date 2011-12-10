@@ -22,7 +22,7 @@
 (provide
  arity/verify
  a/1 a/2 a/3 a/last
- a/1! a/2! a/3! a/4!
+ a/1! a/2! a/3! a/4! a/n!
  a/arity
  a/EMPTY
  a/flatten
@@ -74,6 +74,7 @@
 (define-syntax-rule (a/2! a v) (vector-set! a 2 v))
 (define-syntax-rule (a/3! a v) (vector-set! a 3 v))
 (define-syntax-rule (a/4! a v) (vector-set! a 4 v))
+(define-syntax-rule (a/n! a n v) (vector-set! a n v))
 
 ;; The universal empty argument frame.
 ;; It is immutable because we should always optimize it away and if we fail to do so then

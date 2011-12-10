@@ -46,7 +46,7 @@
 
  (only-in "../generate/frame.rkt"      global/get/generate variable/get/generate)
  (only-in "../generate/lambda.rkt"     lambda/generate lambda/rest/generate)
- (only-in "../generate/letrec.rkt"     letrec/set/generate letrec*/generate)
+ (only-in "../generate/letrec.rkt"     letrec/set/generate letrec*/set/generate)
  (only-in "../generate/quasiquote.rkt" quasiquote/append/generate quasiquote/cons/generate quasiquote/tuple/generate)
  (only-in "../generate/record.rkt"     record/cons/generate record/generate record/ref/generate)
  (only-in "../persistent/environ.rkt"  environ/null)
@@ -76,9 +76,9 @@
           ; Closed variable in lambda body.
           (variable/get/generate (reference/closed/offset lexical e)))
          ((eq? e 'null)
-          (constant/generate null))         ; The constant, null.
+          (constant/generate null))  ; The constant, null.
          (else
-          (global/get/generate e))))  ; Global variable.
+          (global/get/generate e)))) ; Global variable.
       
       ((procedure? e) e) ; Inline code.
       
@@ -110,9 +110,6 @@
       ; (lambda <formals> <body>).
       ((lambda? e)
        (lambda/compile e lexical))
-      
-      ((letrec*? e)
-       (letrec*/compile e lexical))
       
       ((and? e)
        (and/compile e lexical))
@@ -234,25 +231,6 @@
 
         ; (let* () <body>).
         (lambda/body/compile body lexical))))
-
-(define (letrec*/compile e lexical)
-  (shape e 3)
-  (let* ((bindings    (let/bindings e))
-         (variables   (let/bindings/variables   bindings)) ; v_1, v_2, ..., v_n.
-         (expressions (let/bindings/expressions bindings)) ; e_1, e_2, ..., e_n.
-         ; The lexical scope in which each letrec* binding expression will be evaluated.
-         (lexical+    (lexical/push/parameters lexical variables))
-         ; Code for each expression e_i in the bindings.
-         (values      (map (lambda (e) (scheme/compile e lexical+)) expressions))
-         (n (length variables))
-         ; The closure for the body of the letrec*. We wrap the body in a (let () ...) to accomodate any defines that
-         ; appear in the body of the letrec*.
-         (body (scheme/compile `(let () ,@(let/body e)) lexical+)))
-    
-    ; Finally return a Mobile closure that adheres to the conventions for serialization.
-    (letrec*/generate n (if (> n 1) (list->vector values) (car values)) body)))
-
-
 
 (define (lambda/compile e lexical)
   (shape e 3)
@@ -394,8 +372,6 @@
 ;; body - the expressons following the defines
 (define (defines/letrec/rewrite variables expressions body)
   (let ((bindings (map list variables expressions))) ; Poor man's zip.
-    ;`(letrec ,bindings ,@body)))
-    (pretty-display `(letrec* ,bindings ,@body))
     `(letrec* ,bindings ,@body))) ; Using letrec* per the draft R7RS, Section 5.2.2 "Internal Definitions".
 
 ;; Internal macro expansion for all special forms.
@@ -538,7 +514,6 @@
               ,@expressions))
            ,@(build-list (length variables) (lambda (i) #f))))) ; Generate a list (#f ... #f) that is (length variables) wide.
     rewrite))
-
     
 ;; The macro translation for letrec*, given below, is taken from:
 ;; Oscar Waddell, Dipanwita Sarkar and R. Kent Dybvig,
@@ -553,6 +528,26 @@
 ;;
 ;; Note: The macro expansion in the paper does NOT wrap the letrec* body in a let-expression.
 ;; We do so here to permit defines to appear in the letrec* body.
+
+(define (letrec*/translate e)
+  (let* ((bindings    (let/bindings e))
+         (variables   (let/bindings/variables   bindings))
+         (expressions (let/bindings/expressions bindings))
+         (body        (let/body e))
+         (n           (length variables))
+         (inline
+          ; Generate an inline setter for each of the n letrec* bindings.
+          (let loop ((i 1) (expressions expressions) (setters null))
+            (if (null? expressions)
+                (reverse setters) ; Return (setter_1 ... setter_n).
+                ; Generate setter i for the i'th letrec* binding.
+                (let ((setter (letrec*/set/generate i)))
+                  (loop (add1 i) (cdr expressions) (cons `(,setter ,(car expressions)) setters))))))
+         (rewrite
+          `((lambda ,variables
+              ,@inline (let () ,@body))
+            ,@(build-list n (lambda (_) #f)))))
+    rewrite))
 
 ;; Macro translate a (let ...) into a (lambda ...) application.
 (define (let/translate e)
@@ -752,7 +747,8 @@
     'case   case/translate
     'cond   cond/translate
     'do     do/translate
-    'letrec letrec/translate
+    'letrec  letrec/translate
+    'letrec* letrec*/translate
     'let    let/translate
     'let*   let*/translate
     'match  match/translate
@@ -1107,6 +1103,9 @@
 
       ((pair? operator) ; Operator is a complex expression though not necessarily appropriate for this position.
        (combination/generate (scheme/compile operator lexical) arguments))
+
+      ((procedure? operator) ; Operator is inline code.
+       (combination/generate operator arguments))
 
       (else ; Must be a constant.
        (error (format "Inappropriate operator ~a in combination" e))))))

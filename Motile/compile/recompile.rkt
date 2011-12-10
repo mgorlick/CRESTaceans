@@ -35,7 +35,7 @@
 
  (only-in "../generate/frame.rkt"   frame/pop stack/depth global/get/generate variable/get/generate)
  (only-in "../generate/lambda.rkt"  lambda/generate lambda/rest/generate)
- (only-in "../generate/letrec.rkt"  letrec/set/generate letrec*/generate)
+ (only-in "../generate/letrec.rkt"  letrec/set/generate letrec*/set/generate)
  (only-in "../generate/quasiquote.rkt" quasiquote/append/generate quasiquote/cons/generate quasiquote/tuple/generate)
  (only-in "../generate/record.rkt" record/cons/generate record/generate record/ref/generate)
  (only-in "../generate/utility.rkt" k/RETURN))
@@ -352,32 +352,15 @@
       #t
       (recompile/error 'recompile/letrec/set e)))
 
-;; #(letrec* n values body).
-(define-syntax-rule (letrec*/span e)   (vector-ref e 1))
-(define-syntax-rule (letrec*/values e) (vector-ref e 2))
-(define-syntax-rule (letrec*/body e)   (vector-ref e 3))
+;; #(letrec*/set n).
+(define-syntax-rule (letrec*/set/offset e) (vector-ref e 1))
 
-(define (letrec*/ok? e)
+(define (letrec*/set/ok? e)
   (if (and
-       (= (vector-length e) 4)
-       (integer/positive? (letrec*/span e)) ; Number of bindings > 0.
-
-       ; Span equals number of descriptors in values vector.
-       (if (> (letrec*/span e) 1)
-           (and (vector? (letrec*/values e)) (= (vector-length (letrec*/values e)) (letrec*/span e)))
-           #t)
-
-       ; Everything in the values vector is a legitimate MAG descriptor.
-       (cond
-         ((> (letrec*/span e) 1)
-          (= (letrec*/span e) (vector-count MAG? (letrec*/values e))))
-         (else
-          (MAG? (letrec*/values e))))
-       
-       (MAG? (letrec*/body e)))
+       (= (vector-length e) 2)
+       (integer/positive? (letrec*/set/offset e))) ; Frame index > 0.
       #t
       (recompile/error 'recompile/letrec*)))
-
 
 ;; #(if <test> <then> <else>)
 ;; <test> - MAG for test expression
@@ -694,15 +677,9 @@
   (letrec/set/ok? x)
   (letrec/set/generate (letrec/set/span x)))
 
-(define (letrec*/recompile x)
-  (letrec*/ok? x)
-  (let ((n (letrec*/span x)))
-    (letrec*/generate
-     n
-     (if (> n 1)
-         (vector-map motile/recompile (letrec*/values x))
-         (motile/recompile (letrec*/values x)))
-     (motile/recompile (letrec*/body x)))))
+(define (letrec*/set/recompile x)
+  (letrec*/set/ok? x)
+  (letrec*/set/generate (letrec*/set/offset x)))
 
 (define (variable/get/recompile x)
   (variable/get/ok? x)
@@ -821,8 +798,8 @@
     (cons 'closure/rest/outer closure/rest/outer/recompile)
     
     ; Letrec.
-    (cons 'letrec/set letrec/set/recompile)
-    (cons 'letrec*    letrec*/recompile)
+    (cons 'letrec/set  letrec/set/recompile)
+    (cons 'letrec*/set letrec*/set/recompile)
 
     ; Variable and global references.
     (cons 'variable/get variable/get/recompile)
