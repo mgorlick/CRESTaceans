@@ -163,7 +163,7 @@
 ;; Returns #t if actor a is a member of the locative/cons whitelist of locative x and #f otherwise.
 (define (locative/cons/authority? x a)
   (assert/type x locative? locative/cons/authority? "locative")
-  (assert/type a actor? locative/cons/authority? "actor")
+  (assert/type a actor?    locative/cons/authority? "actor")
   (and (vector-memq a (locative/cons/authority x)) #t))
 
 ;; Set the whitelist of actors permitted to execute a curl/new against locative x.
@@ -193,11 +193,12 @@
     (else
      (cons
       (list
-       (cons 'id (locative/id l))
-       (cons 'actor (actor/nickname (locative/actor l)))
+       (cons 'id      (locative/id l))
+       (cons 'actor   (actor/nickname (locative/actor l)))
        (cons 'expires (locative/expires l))
-       (cons 'sends (locative/sends l))
+       (cons 'sends   (locative/sends l))
        (cons 'revoked (locative/revoked l)))
+
       (locative/pretty (locative/prior l))))))
 
 ;; Returns #t if locative x has expired and #f otherwise.
@@ -213,6 +214,7 @@
     (if (< now (locative/expires x))
         (- (locative/expires x) now)
         0.0)))
+
 ;; Returns the serialized representation of locative x as a vector #(<locative id> <actor id> <actor clan id>)
 ;; where the actor id and actor clan id are taken from the actor denoted by the loative.
 ;; Used by the serializer when serializing CURLs.
