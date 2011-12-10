@@ -179,5 +179,4 @@
 ;      
 ;      ((decompile? k e g)
 ;       (vector-immutable 'letrec* n (vector-map motile/decompile values) (motile/decompile body)))
-;
 ;      (else (error/motile/internal/call 'letrec*/generate)))))
