@@ -21,6 +21,7 @@
 (provide
  curl?
  curl/ok?
+ curl/intra?
  curl/island
  curl/id
  curl/id!
@@ -34,7 +35,9 @@
  curl/new/any
  curl/send
  
- curl/pretty) ; For debugging.
+ curl/pretty
+ 
+ inter-island-router) ; For debugging.
  
 (define-syntax-rule (curl/island  x) (vector-ref x 1)) ; Island address for CURL.
 (define-syntax-rule (curl/path    x) (vector-ref x 2)) ; Path of CURL as list (possibly empty) of symbols.
@@ -270,7 +273,9 @@
    (cons 'meta    (curl/meta c))
    (cons 'signing (curl/signing c))))
 
-(define (curl/send/inter x message) #f) ; Stub for now.
+(define inter-island-router (box #f))
+(define (curl/send/inter c message)
+  (thread-send (unbox inter-island-router) (cons c message)))
 
 ;; Transmit a generic message m to the actor denoted by CURL c.
 ;; reply - an optional argument, if given, is the CURL to which a reply message is sent.

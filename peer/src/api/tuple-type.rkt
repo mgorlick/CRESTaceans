@@ -4,6 +4,7 @@
          racket/match
          racket/function
          "../../../Motile/persistent/tuple.rkt")
+(provide (all-defined-out))
 
 (define-for-syntax (string->stx k s)
   (datum->syntax k (string->symbol s)))
@@ -12,7 +13,9 @@
 
 (define-syntax (define-tuple-type stx)
   (syntax-parse stx
-                [(k (namepath ...) (~seq mandatory:id) ... [optional:id => option-default-val:expr] ...)
+                [(k (namepath ...) (mandatory:id ...))
+                 #'(k (namepath ...) (mandatory ...) ())]
+                [(k (namepath ...) (mandatory:id ...) ([optional:id => option-default-val:expr] ...))
                  ;; suppose this were invoked as (define-tuple-type '(message foo bar) baz quux):
                  (let* (; produce a list of strings like '("message foo bar")
                         [namepath-strings (map stx->string (syntax->list #'(namepath ...)))]
@@ -28,7 +31,7 @@
                    (with-syntax*
                     ([constructor          (string->stx #'k (string-append name/space/path/string "/new"))]
                      [constructor?         (string->stx #'k (string-append name/space/path/string "?"))]
-                     [expander             (string->stx #'k name/space/path/string)]
+                     [expander             (string->stx #'k (string-append "match:" name/space/path/string))]
                      [prefix               (string->stx #'k (string-upcase name/space/path/string))]
                      [mlen                 (datum->syntax #'k acclen)]
                      [(mandatory-args ...) (generate-temporaries #'(mandatory ...))]

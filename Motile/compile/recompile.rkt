@@ -16,7 +16,7 @@
 ;; a regenerated closure as output.
 
 (require
- (only-in racket/vector vector-argmax vector-map vector-count)
+ (only-in racket/vector vector-argmax vector-map)
  (only-in "utility.rkt" vector/all?)
  (only-in "../persistent/hash.rkt" pairs/hash hash/eq/null hash/ref)
  (only-in "../persistent/environ.rkt" environ/null)
@@ -323,14 +323,14 @@
 ;;    in the sequence
 ;; Denotes a sequence of expressions that must be evaluated in sequence order, for example, the expressions appearing
 ;; in a lambda body
-(define-syntax-rule (sequence/length e)   (vector-ref e 1))
-(define-syntax-rule (sequence/elements e) (vector-ref e 2))
+(define-syntax-rule (sequence/length e)    (vector-ref e 1))
+(define-syntax-rule (sequence/elements e)  (vector-ref e 2))
 (define (sequence/elements/ok? x)
   (let ((elements (sequence/elements x)))
-    (and
-     (vector? elements)
-     (= (sequence/length x) (vector-length elements))
-     (vector/and/map elements MAG?))))
+  (and
+   (vector? elements)
+   (= (sequence/length x) (vector-length elements))
+   (vector/and/map elements MAG?))))
 
 (define (sequence/ok? e)
   (if (and

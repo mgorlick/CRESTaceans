@@ -30,7 +30,7 @@
  arguments/pack
  arguments/list/pack
  arity/rest/verify
- frame/new frame/fill/new frame/pop frame/push reframe frame/load! frame/load/rest!
+ frame/new frame/pop frame/push reframe frame/load! frame/load/rest!
  reference/free global/get/generate variable/get/generate
  stack/depth
  vector/list/copy!)
@@ -109,10 +109,6 @@
 ;; Create an argument frame with slots for n argument values.
 ;; Slot 0 is always reserved for a reference to the prior frame.
 (define (frame/new n) (make-vector (add1 n)))
-
-;; Create argument frame with n argument slots, each initialized to v.
-;; Slot 0 i s always reserved for a reference to the prior frame so its initial value is irrelevant.
-(define (frame/fill/new n v) (make-vector (add1 n) v))
 
 ;; Return a duplicate of frame f.
 (define (reframe f) (vector-copy f))

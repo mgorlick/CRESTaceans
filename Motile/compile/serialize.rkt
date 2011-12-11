@@ -91,7 +91,8 @@
  ; Equality test for serializations.
  motile/serialized/equal?
  
- export/statistics)
+ export/statistics
+ EXPORTS)
 
 (define (ahead duration) (+ (current-inexact-milliseconds) duration))
 

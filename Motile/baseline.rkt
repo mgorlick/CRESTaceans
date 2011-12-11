@@ -482,6 +482,8 @@
     (define/global/2 'record/contains? record/contains?)
     (define/global/1 'record/kind      record/kind)
     (define/global/1 'record/keys      record/keys)
+    
+    (define/global/1 'displayln        displayln)
 
     ; Binding environments
     (cons 'environ/null environ/null)

@@ -13,15 +13,13 @@
 ;; limitations under the License.
 
 (require
- (only-in racket/vector vector-map)
- (only-in "utility.rkt" decompile? k/RETURN motile/decompile error/motile/internal/call)
+ (only-in "utility.rkt" decompile? error/motile/internal/call)
 
  (only-in
   "frame.rkt"
   a/1 a/2 a/3
   a/1! a/2! a/3! a/n!
   arity/verify
-  frame/fill/new
   frame/pop
   frame/push))
 
@@ -68,8 +66,7 @@
           (a/1! prior (a/1 e))    ; slot (1 . 1) := slot (0 . 1).
           (a/2! prior (a/2 e))    ; slot (1 . 2) := slot (0 . 2).
           (a/3! prior (a/3 e))))) ; slot (1 . 3) := slot (0 . 3).
-      ((decompile? k e g) descriptor/letrec/set/3)
-      (else (error/motile/internal/call 'letrec/set/3)))))
+      ((decompile? k e g) descriptor/letrec/set/3))))
 
 (define (descriptor/letrec/set/N n) (vector-immutable 'letrec/set n))
 

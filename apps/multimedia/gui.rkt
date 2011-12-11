@@ -2,7 +2,9 @@
 
 (require racket/class
          racket/gui/base
-         "message-types.rkt"
+         racket/contract
+         "message-types.rkt"         
+         "../../Motile/actor/curl.rkt"
          (planet "rgl.rkt" ("stephanh" "RacketGL.plt" 1 2)))
 
 (provide (rename-out [client/new-video-gui new-video-gui]
@@ -10,25 +12,27 @@
          video-gui-clear-buffer!
          video-gui-update-buffer!)
 
-(struct video-gui-client (gui actor-thread))
+(struct video-gui-client (gui controller@))
 
 (define top-width 900)
 (define top-height 600)
 
-(define (client/new-video-gui)
+(define (make-notify-controller-callback controller@)
+  (λ (m)
+    (curl/send controller@ (remote/new m null #f))))
+
+(define (client/new-video-gui controller@)
   (define the-actor-thread (current-thread))
   (parameterize ([current-eventspace (make-eventspace)])
-    (video-gui-client (new-video-gui top-width top-height
-                                     (λ (m)
-                                       (thread-send the-actor-thread (cons m #f))))
-                      the-actor-thread)))
+    (video-gui-client (new-video-gui top-width top-height (make-notify-controller-callback controller@))
+                      controller@)))
 
-(define (client/video-gui-add-video! client w h name)
+(define/contract (client/video-gui-add-video! client w h name)
+  (video-gui-client? number? number? curl? . -> . bytes?)
   (video-playback-buffer
    (parameterize ([current-eventspace (make-eventspace)])
      (video-gui-add-video! (video-gui-client-gui client)
-                           w h name (λ (m)
-                                      (thread-send (video-gui-client-actor-thread client) (cons m #f)))))))
+                           w h name (make-notify-controller-callback (video-gui-client-controller@ client))))))
 
 ;;;;;;;; ---------------------------
 
@@ -72,7 +76,7 @@
                      [min-width overall-width]
                      [min-height overall-height]
                      [style '(no-resize-border)]
-                     [callback (λ () (cb (Quit)))]))
+                     [callback (λ () (cb (Quit/new)))]))
   
   (define the-window (new vertical-panel%
                           [parent frame]))
@@ -91,7 +95,7 @@
   
   (define host-address-button (new text-field%
                                    [label "Hostname"]
-                                   [init-value "128.195.59.203"]
+                                   [init-value "127.0.0.1"]
                                    [min-width 200]
                                    [stretchable-width #f]
                                    [parent button-panel]))
@@ -107,8 +111,9 @@
                          [parent button-panel]
                          [label "Share this session"]
                          [callback (λ (btn ctrlevt)
-                                     (cb (CP (send host-address-button get-value) 
-                                             (string->number (send port-address-button get-value)))))]))
+                                     (cb (CopyActor/new
+                                          (send host-address-button get-value) 
+                                          (string->number (send port-address-button get-value)))))]))
   
   (define mv-button (new button%
                          [parent button-panel]
@@ -120,8 +125,8 @@
                                           (send frame get-children))
                                      (send frame show #f)
                                      (send frame enable #f)
-                                     (cb (Quit/MV (send host-address-button get-value) 
-                                                  (string->number (send port-address-button get-value))))
+                                     (cb (Quit/MV/new (send host-address-button get-value) 
+                                                      (string->number (send port-address-button get-value))))
                                      (send frame on-close))]))
   
   
@@ -183,7 +188,7 @@
       (clear-current-canvas)
       (send (get-parent) min-width (video-playback-w v))
       (send (get-parent) min-height (video-playback-h v))
-      (send address-bar set-label (format "~a" (video-playback-name v)))
+      (send address-bar set-label (format "~a" (curl/pretty (video-playback-name v))))
       (define cnvs
         (new video-canvas% 
              [parent this]
@@ -225,7 +230,7 @@
       (cond [(not pip-major-curl) (set! pip-major-curl curl)]
             [(not pip-minor-curl) (set! pip-minor-curl curl)])
       (when (and pip-major-curl pip-minor-curl)
-        (evt-cb (PIPOn pip-major-curl pip-minor-curl))
+        (evt-cb (PIPOn/new pip-major-curl pip-minor-curl))
         (set! pip-major-curl #f)
         (set! pip-minor-curl #f)))
     
@@ -255,7 +260,7 @@
              [alignment '(left top)]))
       
       (define (do-unsub btn ctrlevt)
-        (evt-cb (RemoveCURL (video-playback-name v)))
+        (evt-cb (RemoveCURL/new (video-playback-name v)))
         
         (send cnvs stop)
         (send horizp delete-child cnvs)
@@ -277,9 +282,9 @@
              (send (car all-small-canvases) promote-self)])))
       
       (define (do-cpy btn ctrlevt)
-        (evt-cb (CP-child (video-playback-name v)
-                          (send host-field get-value)
-                          (string->number (send port-field get-value)))))
+        (evt-cb (CopyChild/new (video-playback-name v)
+                               (send host-field get-value)
+                               (string->number (send port-field get-value)))))
       
       (define unsub
         (new ctrl-button%
@@ -313,23 +318,23 @@
              [parent vertp]
              [label "Split PIP"]
              [callback (λ (btn ctrlevt)
-                         (evt-cb (InitiateBehavior 'split (video-playback-name v))))]))
+                         (evt-cb (InitiateBehavior/new 'split (video-playback-name v))))]))
       
       (define toggle
         (new ctrl-button%
              [parent vertp]
              [label "Swap PIP"]
              [callback (λ (btn ctrlevt)
-                         (evt-cb (InitiateBehavior 'toggle-major/minor (video-playback-name v))))]))
+                         (evt-cb (InitiateBehavior/new 'toggle-major/minor (video-playback-name v))))]))
       
       (define encmove
         [new ctrl-button%
              [parent vertp]
              [label "Move Encoder"]
              [callback (λ (btn ctrlevt)
-                         (evt-cb (FwdBackward (Quit/MV (send host-field get-value)
-                                                       (string->number (send port-field get-value)))
-                                              (video-playback-name v))))]])
+                         (evt-cb (FwdBackward/new (Quit/MV/new (send host-field get-value)
+                                                               (string->number (send port-field get-value)))
+                                                  (video-playback-name v))))]])
       
       (send cnvs enable #t)
       (send cnvs promote-self))))
@@ -359,7 +364,7 @@
     
     (define refresher
       (new timer% 
-           [notify-callback (λ () (refresh))] 
+           [notify-callback (λ () (refresh))]
            [interval 50] 
            [just-once? #f]))
     
@@ -372,13 +377,14 @@
       (eq? myvideo v))
     
     (define/override (on-paint)
-      (with-gl-context
-       (λ ()
-         (glRasterPos2d -1 1)
-         (glPixelZoom 1.0 -1.0)
-         (glDrawPixels w h GL_RGB GL_UNSIGNED_BYTE buffer)))
-      (swap-gl-buffers))
-    (resume-flush)))
+      (with-handlers ([exn:fail? (λ _ #f)])
+        (with-gl-context
+         (λ ()
+           (glRasterPos2d -1 1)
+           (glPixelZoom 1.0 -1.0)
+           (glDrawPixels w h GL_RGB GL_UNSIGNED_BYTE buffer)))
+        (swap-gl-buffers))
+      (resume-flush))))
 
 ; small-video-canvas%: used for the preview panes at the bottom of the screen.
 (define small-video-canvas%
@@ -404,12 +410,13 @@
            [just-once? #f]))
     
     (define/override (on-paint)
-      (with-gl-context
-       (λ ()
-         (glRasterPos2d -1 1)
-         (glPixelZoom 0.125 -0.125)
-         (glDrawPixels actual-w actual-h GL_RGB GL_UNSIGNED_BYTE buffer)))
-      (swap-gl-buffers))
+      (with-handlers ([exn:fail? (λ _ #f)])
+        (with-gl-context
+         (λ ()
+           (glRasterPos2d -1 1)
+           (glPixelZoom 0.125 -0.125)
+           (glDrawPixels actual-w actual-h GL_RGB GL_UNSIGNED_BYTE buffer)))
+        (swap-gl-buffers)))
     
     (define/public (stop)
       (set! myvideo #f)

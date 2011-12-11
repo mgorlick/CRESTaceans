@@ -77,8 +77,7 @@
  ; (or <expressions>)
  or?
 
- ; For picking apart the forms: (let ...), (let* ...), (letrec ...), and (letrec* ...).
- letrec*?
+ ; For picking apart the forms: (let ...), (let* ...), and (letrec ...).
  let/bindings
  let/named/bindings
  let/named/body
@@ -232,7 +231,6 @@
 (define (call/operator e) (car e))
 (define (call/arguments e) (cdr e))
 
-(define (letrec*? e) (eq? 'letrec* (car e)))
 ;; (let <bindings> <body>) or
 ;; (let <variable> <bindings> <body>).
 ;; (letrec <bindings> <body).
