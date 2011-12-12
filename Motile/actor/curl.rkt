@@ -12,7 +12,6 @@
   locative/curl/authority?
   locative/expires
   locative/id
-  locative/export
   locative/revoked?
   locative/sends/positive?
   locative/unexpired?
