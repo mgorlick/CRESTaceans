@@ -28,6 +28,7 @@
  locative/actor
  locative/expires
  locative/id
+ locative/id!
  locative/revoked 
 
  locative/cons/authority?
@@ -36,7 +37,6 @@
  locative/curl/authority!
 
  locative/expired?
- locative/export
 
  locative/revoked?
  locative/sends/positive?
@@ -219,9 +219,10 @@
 ;; where the actor id and actor clan id are taken from the actor denoted by the loative.
 ;; Used by the serializer when serializing CURLs.
 ;; A full locative is not effectively serializable.
-(define (locative/export x)
-  (let ((a (locative/actor x)))
-    (vector (locative/id x) (actor/id a) (actor/clan/id a))))
+;;  !!! DEPRECATED !!!
+;(define (locative/export x)
+;  (let ((a (locative/actor x)))
+;    (vector (locative/id x) (actor/id a) (actor/clan/id a))))
 
 ;; Returns n = sends count > 0 for this locative or #f if sends count is exhausted.
 (define (locative/sends/positive? x)
