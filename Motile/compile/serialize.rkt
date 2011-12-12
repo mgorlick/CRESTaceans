@@ -661,7 +661,7 @@
                     (if (curl/signing/validate c)
                         ; Yes, CURL c originated here. Replace its curl/id with the correct locative.
                         (let* ((id (curl/id c)) ; curl/id = UUID or an arbitrary non-empty list   ; OLD CODE; (vector-ref (curl/id c) 0)) 
-                               (locative (hash-ref EXPORTS id #f))) ; Find the intra-island locative in the EXPORTS map.
+                               (locative (hash-ref (if (symbol? id) EXPORTS DURABLES) id #f))) ; Find the intra-island locative in the EXPORTS map.
                           (cond
                             (locative (curl/id! c locative))
                             (else
