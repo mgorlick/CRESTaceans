@@ -458,7 +458,7 @@
                       (curl/SHA/sign! x)
                       (let ((map (if (symbol? lid) EXPORTS DURABLES)))
                         (unless (hash-ref map lid #f)
-                          (hash-set map lid locative)
+                          (hash-set! map lid locative)
                           (thread-send REAPER locative)))
                       x)
 
