@@ -21,7 +21,6 @@
 (provide
  curl?
  curl/ok?
- curl/intra?
  curl/island
  curl/id
  curl/id!
@@ -35,9 +34,7 @@
  curl/new/any
  curl/send
  
- curl/pretty
- 
- inter-island-router) ; For debugging.
+ curl/pretty) ; For debugging.
  
 (define-syntax-rule (curl/island  x) (vector-ref x 1)) ; Island address for CURL.
 (define-syntax-rule (curl/path    x) (vector-ref x 2)) ; Path of CURL as list (possibly empty) of symbols.
@@ -53,7 +50,10 @@
 ;; We assume SHA-512 for signing so each CURL signature is a 64-byte bytes string.
 ;(define CURL/SIGNING/LENGTH 64)
 ;; For now we are using sha1 as a stub which produces a 20-byte bytes string.
+;; The sum of the signing length plus the pad length must be a multiple of 5
+;; (because we convert to base32 in chunks of 5 * 8 = 40 bits).
 (define CURL/SIGNING/LENGTH 20)
+(define CURL/SIGNING/PAD 0)
 
 ; x - subject of type test
 ; type? - type predicate for x
@@ -69,25 +69,19 @@
    (= (vector-length x) 8)
    (eq? (vector-ref x 0) '<curl>)))
 
-;; Returns #t if x is an "extended" curl/id and #f otherwise.
-;; An extended curl/id is a triple #(<locative id> <actor id> <actor clan id>), each element a symbol
-;; (specifically a UUID).
-(define (curl/id/extended? x)
-  (and
-   (vector? x)
-   (= (vector-length x) 3)
-   (= (vector-count symbol? x) 3)))
-
 ;; Return a version of CURL c suitable for serialization.
 (define (curl/export c)
-  (let ((x (curl/id c)))
+  (let ((id (curl/id c)))
     (cond
-      ((locative? x)
+      ((locative? id) ; c is an on-island CURL.
        (let ((d (curl/duplicate c)))
-         (curl/id! d (locative/export x))
+         (curl/id! d (locative/id id)) ; Duplicate CURL d now has either a symbol or a list as its CURL id.
          d))
-      ((symbol? x) c) ; x is the id of the locative to which CURL c refers.
-      ((curl/id/extended? x) c)
+
+      ((symbol? id) c) ; c is an off-island CURL.
+
+      ((pair? id)   c) ; c is a durable off-island CURL.
+
       (else #f))))
 
 ;; Returns #t if CURL c is signed and #f otherwise.
@@ -177,10 +171,7 @@
   (and (island/address? i) (island/address/ok? i)))
 
 (define (curl/id/ok? id)
-  (and
-   (vector? id)
-   (= (vector-length id) 3)
-   (= (vector-count symbol? id) 3)))
+  (or (symbol? id) (pair? id)))
 
 (define (curl/expires/ok? e)
   (and (number? e) (positive? e) (< e +inf.f))) ; Any positive, finite number.
@@ -203,7 +194,7 @@
   (and
    (curl/island/ok?   (curl/island c))
    (curl/path/ok?     (curl/path c))
-   (curl/id/extended? (curl/id c))
+   (curl/id/ok?       (curl/id c))
    (curl/expires/ok?  (curl/expires c))
    (curl/sends/ok?    (curl/sends c))
    (curl/meta/ok?     (curl/meta c))
@@ -217,8 +208,12 @@
 ;   (curl/meta/ok?     (curl/meta c))
 ;   (curl/signing/ok?  (curl/signing c) strict?)))
 
+;; Returns #t if c is an intra-island CURL and #f otherwise.
 (define (curl/intra? c)
   (and (curl? c) (locative? (curl/id c))))
+;; Returns #t if c is an off-island (intra-island) CURL and #f otherwise.
+(define (curl/inter? c)
+  (and (curl? c) (or (symbol? (curl/id c)) (pair? (curl/id c)))))
 
 ;; Stub for signing routine from NaCl crypto library.
 ;; The real implementation will return a new byte string s that is the signed version of the original
@@ -273,9 +268,7 @@
    (cons 'meta    (curl/meta c))
    (cons 'signing (curl/signing c))))
 
-(define inter-island-router (box #f))
-(define (curl/send/inter c message)
-  (thread-send (unbox inter-island-router) (cons c message)))
+(define (curl/send/inter x message) #f) ; Stub for now.
 
 ;; Transmit a generic message m to the actor denoted by CURL c.
 ;; reply - an optional argument, if given, is the CURL to which a reply message is sent.
@@ -293,9 +286,9 @@
 
   (let ((x (curl/id c)))
     (cond
-      ((symbol? x)           (curl/send/inter c m))         ; An off-island CURL that contains a locative id.
-      ((locative? x)         (locative/send x (cons c m)))  ; All on-island CURLs carry a locative in the id slot.
-      ((curl/id/extended? x) (curl/send/inter c m))         ; An off-island CURL that contains an extended locative id.
+      ((symbol? x)   (curl/send/inter c m))         ; An off-island CURL that contains a locative id.
+      ((locative? x) (locative/send x (cons c m)))  ; All on-island CURLs carry a locative in the id slot.
+      ((pair? x)     (curl/send/inter c m))         ; An off-island "durable" CURL.
       ; The curl/id is #f. This occurs if CURL c was:
       ;   * Issued by this island, exported to another island, and then used as the target for a message transmission
       ;     back to this island, AND

@@ -91,13 +91,12 @@
  ; Equality test for serializations.
  motile/serialized/equal?
  
- export/statistics
- EXPORTS)
+ export/statistics)
 
 (define (ahead duration) (+ (current-inexact-milliseconds) duration))
 
-(define EXPORTS/SEMAPHORE (make-semaphore 1))
 (define EXPORTS (make-hasheq)) ; Map of locative ids to locatives for those locatives referenced by serialized (exported) CURLs.
+(define DURABLES (make-hash))  ; Map of durable ids to locatives for durable CURLs.
 (define EXPIRATIONS (make-heap (lambda (x y) (<= (locative/expires x) (locative/expires y))))) ; Priority queue ordered by locative expiration time.
 (define REAPINGS 0) ; Total number of reapings to date.
 
@@ -107,13 +106,13 @@
    (heap-count EXPIRATIONS)
    REAPINGS))
 
-(define (thunk/reaper exports expirations)
+(define (thunk/reaper exports durables expirations)
   ; Return the first locative due to expire or #f if the priority queue is empty.
   (define (candidate expirations)
     (and (positive? (heap-count expirations)) (heap-min expirations)))
 
   (lambda ()
-    (let loop ((timeout 10) ; Seconds
+    (let loop ((timeout 10) ; Run the reaper every 10 seconds at a minimum.
                (receive (thread-receive-evt)))
       (let ((e (sync/timeout timeout receive)))
         (if e
@@ -129,14 +128,17 @@
             (let reap ((x (candidate expirations))) ; The locative x with the earliest expiration (if any).
               ; When the earliest locative has actually expired expunge it from the map of all exported (serialized) locatives.
               (when (and x (locative/expired? x))
-                (heap-remove-min! expirations) ; Remove locative x from the priority heap.
-                (hash-remove! exports (locative/id x)) ; Expunge x from the set of locatives referenced by serialized CURLs.
+                (heap-remove-min! expirations) ; Removee locative x from the priority heap.
+                (let ((id (locative/id x)))
+                  (and
+                   (or (symbol? id) (pair? id))
+                   (hash-remove! (if (symbol? id) exports durables) id)) ; Expunge locative x from the set of locatives referenced by serialized CURLs.
                 (set! REAPINGS (add1 REAPINGS)) ; Total number of locatives reaped to date.
-                (reap (candidate expirations))) ; Try the next expiration.
+                (reap (candidate expirations)))) ; Try the next expiration.
               (loop timeout receive)))))))
 
 ;; Start the reaper thread in the background.
-(define REAPER (thread (thunk/reaper EXPORTS EXPIRATIONS)))
+(define REAPER (thread (thunk/reaper EXPORTS DURABLES EXPIRATIONS)))
 
 ;; A serialized representation of a value v is a list
 ;; (<version> <structure-count> <structure-types> <n> <graph> <fixups> <final>) where:
@@ -443,18 +445,21 @@
               ; v must be a intra-island CURL so build a signed version for serialization.
               ; It isn't clear if we should concern ourselves here with the possibility that the locative is exhausted,
               ; has been revoked, or has expired.
-              (let ((locative (curl/id v)))
+              (let* ((locative (curl/id v))
+                     (lid      (locative/id locative))) ; Locative ID.
                 (if (and
                      (not (locative/revoked locative))
                      (locative/sends/positive? locative)
                      (locative/unexpired? locative)
+                     (or (symbol? lid) (pair? lid))
                      (not (actor/dead? (locative/actor locative))))
 
                     (let* ((x (curl/export v))) ; In this case x is guaranteed to be a copy of v.
                       (curl/SHA/sign! x)
-                      (unless (hash-ref EXPORTS (locative/id locative) #f)
-                        (hash-set! EXPORTS (locative/id locative) locative)
-                        (thread-send REAPER locative))
+                      (let ((map (if (symbol? lid) EXPORTS DURABLES)))
+                        (unless (hash-ref map lid #f)
+                          (hash-set map lid locative)
+                          (thread-send REAPER locative)))
                       x)
 
                     (error 'motile/serialize (format "curl: ~a locative is expired, exhausted, revoked, or dead" (curl/pretty v)))))
