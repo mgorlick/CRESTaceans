@@ -102,6 +102,7 @@
 
 (define (export/statistics)
   (vector-immutable
+   (hash-count DURABLES)
    (hash-count EXPORTS)
    (heap-count EXPIRATIONS)
    REAPINGS))
