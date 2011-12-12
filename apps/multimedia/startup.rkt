@@ -85,12 +85,10 @@
                      A-LONG-TIME
                      #t #t))
 (locative/id! PUBLIC/LOCATIVE '(public))
-(motile/serialize (curl/new/any PUBLIC/LOCATIVE '() #f))
+(define ______ (motile/serialize (curl/new/any PUBLIC/LOCATIVE '() #f)))
 ;; end sneakiness.
 
 (define PUBLIC/CURL (curl/get-public *LISTENING-ON* *LOCALPORT*))
-
-(displayln PUBLIC/CURL)
 
 (define (my-root-loop)
   (define amsg (thread-receive))
@@ -122,11 +120,9 @@
 
 (unless (argsassoc "--no-gui")
   (define the-controller (gui-controller))
-  (displayln "Sending 1")
   (curl/send PUBLIC/CURL (spawn/new the-controller (make-metadata is/gui '(nick . gui-controller)) #f)))
 (unless (argsassoc "--no-video")
   (define the-bang (big-bang PUBLIC/CURL "/dev/video0" 640 480 PUBLIC/CURL))
-  (displayln "Sending 2")
   (curl/send PUBLIC/CURL (spawn/new the-bang (make-metadata '(nick . big-bang)) #f)))
 
 (semaphore-wait (make-semaphore))
