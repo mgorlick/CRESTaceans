@@ -60,15 +60,14 @@
 (define-values (ROOT ROOT/LOCATIVE) (actor/root/new))
 ; deliver incoming messages to ROOT
 (define COMM-thd (run-tcp-peer *LISTENING-ON* *LOCALPORT* (actor/thread ROOT) #:encrypt? #f))
-(set-box! inter-island-router COMM-thd)
+(set-inter-island-router! COMM-thd)
 
 (define (metadata->benv metadata)
-  (cond
-    [(meta-has-any? metadata accepts/webm) VIDEO-DECODE]
-    [(meta-has-any? metadata produces/webm) VIDEO-ENCODE]
-    [(meta-has-any? metadata is/gui) GUI]
-    [(meta-has-any? metadata is/endpoint) GUI-ENDPOINT]
-    [else MULTIMEDIA-BASE]))
+  (cond [(meta-has-any? metadata accepts/webm) VIDEO-DECODE]
+        [(meta-has-any? metadata produces/webm) VIDEO-ENCODE]
+        [(meta-has-any? metadata is/gui) GUI]
+        [(meta-has-any? metadata is/endpoint) GUI-ENDPOINT]
+        [else MULTIMEDIA-BASE]))
 
 (define/contract (curl/get-public host port)
   ((or/c string? bytes?) exact-nonnegative-integer? . -> . curl?)
@@ -85,11 +84,13 @@
                      A-LONG-TIME
                      A-LONG-TIME
                      #t #t))
-(locative/id! PUBLIC/LOCATIVE 'public)
-(define ____ (motile/serialize (curl/new/any PUBLIC/LOCATIVE '() #f)))
+(locative/id! PUBLIC/LOCATIVE '(public))
+(motile/serialize (curl/new/any PUBLIC/LOCATIVE '() #f))
 ;; end sneakiness.
 
 (define PUBLIC/CURL (curl/get-public *LISTENING-ON* *LOCALPORT*))
+
+(displayln PUBLIC/CURL)
 
 (define (my-root-loop)
   (define amsg (thread-receive))
@@ -121,9 +122,11 @@
 
 (unless (argsassoc "--no-gui")
   (define the-controller (gui-controller))
+  (displayln "Sending 1")
   (curl/send PUBLIC/CURL (spawn/new the-controller (make-metadata is/gui '(nick . gui-controller)) #f)))
 (unless (argsassoc "--no-video")
   (define the-bang (big-bang PUBLIC/CURL "/dev/video0" 640 480 PUBLIC/CURL))
+  (displayln "Sending 2")
   (curl/send PUBLIC/CURL (spawn/new the-bang (make-metadata '(nick . big-bang)) #f)))
 
 (semaphore-wait (make-semaphore))
