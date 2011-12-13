@@ -314,6 +314,28 @@
         (* a b)))
 
     264))
+  
+  (test-case
+   "Translation of empty let with defines into letrec*"
+   (check-equal?
+    ((compile/start)
+      '(let ()
+         (define x 1)
+         (define y (+ x 7)) ; Note that y depends on x.
+         (+ x y)))
+    
+    9)) ; Expected.
+  
+    (test-case
+   "Translation of empty let* with defines into letrec*"
+   (check-equal?
+    ((compile/start)
+      '(let* ()
+         (define x 1)
+         (define y (+ x 7)) ; Note that y depends on x.
+         (+ x y)))
+    
+    9)) ; Expected.
 
   (test-case
    "Letrec* with one function definition"
