@@ -34,7 +34,7 @@
  curl/new/any
  curl/send
  
- inter-island-router
+ set-inter-island-router!
  
  curl/pretty) ; For debugging.
  
@@ -270,9 +270,11 @@
    (cons 'meta    (curl/meta c))
    (cons 'signing (curl/signing c))))
 
-(define inter-island-router (make-parameter #f))
+(define inter-island-router (box #f))
+(define (set-inter-island-router! thd)
+  (set-box! inter-island-router thd))
 (define (curl/send/inter c message)
-  (thread-send (inter-island-router) (cons c message))) ; Stub for now.
+  (thread-send (unbox inter-island-router) (cons c message))) ; Stub for now.
 
 ;; Transmit a generic message m to the actor denoted by CURL c.
 ;; reply - an optional argument, if given, is the CURL to which a reply message is sent.
