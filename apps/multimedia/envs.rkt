@@ -72,6 +72,9 @@
 (define delivered/contents-sent cdr)
 (define delivered/curl-used car)
 
+(define (eval-definition e)
+  (motile/call e BASELINE))
+
 ;; binding environments used.
 (define MULTIMEDIA-BASE
   (++ BASELINE
@@ -107,13 +110,13 @@
                       delivered/contents-sent
                       delivered/curl-used
                       big-bang
-                      linker-bang
                       pubsubproxy
                       video-reader/encoder
                       video-decoder/single
                       video-decoder/pip
-                      canvas-endpoint
                       gui-controller)
+      `((canvas-endpoint . ,(eval-definition canvas-endpoint))
+        (linker-bang . ,(eval-definition linker-bang)))
       (global-value-defines accepts/webm 
                             produces/webm 
                             type/webm

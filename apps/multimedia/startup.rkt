@@ -96,7 +96,7 @@
     [(cons (? (curry equal? PUBLIC/CURL) pcurl)
            (match:spawn body metadata reply))
      (define nick (gensym (or (metadata-ref metadata 'nick) 'nonamegiven)))
-     (define-values (actor actor/loc)
+     (define-values (actor actor/loc) 
        (actor/new ROOT nick))
      (actor/jumpstart actor 
                       (λ ()
