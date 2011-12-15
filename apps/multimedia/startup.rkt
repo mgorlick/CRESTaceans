@@ -60,15 +60,14 @@
 (define-values (ROOT ROOT/LOCATIVE) (actor/root/new))
 ; deliver incoming messages to ROOT
 (define COMM-thd (run-tcp-peer *LISTENING-ON* *LOCALPORT* (actor/thread ROOT) #:encrypt? #f))
-(set-box! inter-island-router COMM-thd)
+(set-inter-island-router! COMM-thd)
 
 (define (metadata->benv metadata)
-  (cond
-    [(meta-has-any? metadata accepts/webm) VIDEO-DECODE]
-    [(meta-has-any? metadata produces/webm) VIDEO-ENCODE]
-    [(meta-has-any? metadata is/gui) GUI]
-    [(meta-has-any? metadata is/endpoint) GUI-ENDPOINT]
-    [else MULTIMEDIA-BASE]))
+  (cond [(meta-has-any? metadata accepts/webm) VIDEO-DECODE]
+        [(meta-has-any? metadata produces/webm) VIDEO-ENCODE]
+        [(meta-has-any? metadata is/gui) GUI]
+        [(meta-has-any? metadata is/endpoint) GUI-ENDPOINT]
+        [else MULTIMEDIA-BASE]))
 
 (define/contract (curl/get-public host port)
   ((or/c string? bytes?) exact-nonnegative-integer? . -> . curl?)
@@ -85,8 +84,8 @@
                      A-LONG-TIME
                      A-LONG-TIME
                      #t #t))
-(locative/id! PUBLIC/LOCATIVE 'public)
-(define ____ (motile/serialize (curl/new/any PUBLIC/LOCATIVE '() #f)))
+(locative/id! PUBLIC/LOCATIVE '(public))
+(define ______ (motile/serialize (curl/new/any PUBLIC/LOCATIVE '() #f)))
 ;; end sneakiness.
 
 (define PUBLIC/CURL (curl/get-public *LISTENING-ON* *LOCALPORT*))
@@ -97,7 +96,7 @@
     [(cons (? (curry equal? PUBLIC/CURL) pcurl)
            (match:spawn body metadata reply))
      (define nick (gensym (or (metadata-ref metadata 'nick) 'nonamegiven)))
-     (define-values (actor actor/loc)
+     (define-values (actor actor/loc) 
        (actor/new ROOT nick))
      (actor/jumpstart actor 
                       (λ ()
