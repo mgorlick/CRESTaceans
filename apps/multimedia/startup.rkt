@@ -45,23 +45,6 @@
   (ormap (λ (k.v) (equal? (cdr k.v) (hash/ref meta (car k.v) #f)))
          vs))
 
-;; host and port to listen on. use to start the comm layer below, designating root to receive incoming.
-(define *LISTENING-ON* (argsassoc "--host" #:no-val *LOCALHOST*))
-(define *LOCALPORT* (argsassoc "--port" #:no-val 5000 #:call string->number))
-
-(define ADDRESS-HERE (island/address/new 
-                      #"abcdefghijklmnopqrstuvwxyz" 
-                      (string->bytes/utf-8 *LISTENING-ON*) *LOCALPORT*))
-
-(this/island ADDRESS-HERE)
-(printf "Island starting: ~s~n" (this/island))
-
-; make root actor
-(define-values (ROOT ROOT/LOCATIVE) (actor/root/new))
-; deliver incoming messages to ROOT
-(define COMM-thd (run-tcp-peer *LISTENING-ON* *LOCALPORT* (actor/thread ROOT) #:encrypt? #f))
-(set-inter-island-router! COMM-thd)
-
 (define (metadata->benv metadata)
   (cond [(meta-has-any? metadata accepts/webm) VIDEO-DECODE]
         [(meta-has-any? metadata produces/webm) VIDEO-ENCODE]
@@ -76,19 +59,35 @@
                                                   host)
                                               port) #f) #f))
 
-;; sneaky: derive a new locative from the root locative (a "public locative"),
-;; then serialize some curl derived from it in order to stick the public locative
-;; into the exports table
-(define PUBLIC/LOCATIVE 
-  (locative/cons/any ROOT/LOCATIVE
-                     A-LONG-TIME
-                     A-LONG-TIME
-                     #t #t))
-(locative/id! PUBLIC/LOCATIVE '(public))
-(define ______ (motile/serialize (curl/new/any PUBLIC/LOCATIVE '() #f)))
-;; end sneakiness.
+(define (make-root/get-public/register-public)
+  (define-values (root root-locative) (actor/root/new))
+  (define public-locative (locative/cons/any root-locative A-LONG-TIME A-LONG-TIME #t #t))
+  (locative/id! public-locative '(public))
+  (motile/serialize (curl/new/any public-locative null #f))
+  (values root root-locative 
+          public-locative 
+          (curl/get-public (island/address/dns (this/island)) (island/address/port (this/island)))))
 
-(define PUBLIC/CURL (curl/get-public *LISTENING-ON* *LOCALPORT*))
+;(for/list ([i (in-range 5000 5020)])
+;  (this/island (island/address/new #"abcdefghijklmnopqrstuvwxyz" #"128.195.59.184" i))
+;  (define-values (root rootl publicl) (make-root/get-public/register-public))
+;  `((,(island/address/dns (this/island)) . ,i) . (,(motile/serialize (curl/new/any publicl null #f)))))
+
+;; host and port to listen on. use to start the comm layer below, designating root to receive incoming.
+(define *LISTENING-ON* (argsassoc "--host" #:no-val *LOCALHOST*))
+(define *LOCALPORT* (argsassoc "--port" #:no-val 5000 #:call string->number))
+
+(define ADDRESS-HERE (island/address/new 
+                      #"abcdefghijklmnopqrstuvwxyz" 
+                      (string->bytes/utf-8 *LISTENING-ON*) *LOCALPORT*))
+
+(this/island ADDRESS-HERE)
+(printf "Island starting: ~s~n" (this/island))
+; make root actor
+(define-values (ROOT ROOT/LOCATIVE PUBLIC/LOCATIVE PUBLIC/CURL) (make-root/get-public/register-public))
+; deliver incoming messages to ROOT
+(define COMM-thd (run-tcp-peer *LISTENING-ON* *LOCALPORT* (actor/thread ROOT) #:encrypt? #f))
+(set-inter-island-router! COMM-thd)
 
 (define (my-root-loop)
   (define amsg (thread-receive))

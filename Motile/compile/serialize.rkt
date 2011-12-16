@@ -652,9 +652,9 @@
             (set/construct equality hasher (loop (caddr v))))]
 
          [(C) ; CURL.
-          (log-info (format "deserialize-one: saw CURL ~a\n\n" v))
+          ;(log-info (format "deserialize-one: saw CURL ~a\n\n" v))
           (let ((c (list->vector (map loop (cdr v)))))
-            (log-info (format "post-map CURL is ~a\n\n" c))
+            ;(log-info (format "post-map CURL is ~a\n\n" c))
             (if (curl/ok? c #t) ; #t => check for presence of signature (but not verification).
                 (if (island/address/equal? (this/island) (curl/island c))
                     ; CURL c claims to have originated on this island. Validate its signature.
