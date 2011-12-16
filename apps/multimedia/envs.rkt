@@ -61,12 +61,18 @@
 (define is/gui '("is" . "gui"))
 (define is/endpoint '("is" . "endpoint"))
 (define is/proxy '("is" . "proxy"))
+
 (define (make-metadata . vals)
   (pairs/hash hash/equal/null vals))
 (define (metadata-ref m k)
   (hash/ref m k #f))
-(define (from name)
-  `(from . ,name))
+(define-syntax-rule (metadata-entry key val)
+  `(,(symbol->string 'key) . ,val))
+(define-syntax-rule (define-metadata-entry-maker n)
+  (define (n v)
+    (metadata-entry n v)))
+(define-metadata-entry-maker nick)
+(define-metadata-entry-maker from)
 
 ; messages arrive to actor mailboxes in the form (locative-used . content-body)
 (define delivered/contents-sent cdr)
@@ -91,6 +97,7 @@
       (require-spec->global-defines (matching-identifiers-in #rx"^(?!(match:)).*$" "message-types.rkt"))
       (global-defines make-metadata
                       metadata-ref
+                      nick
                       from
                       A-LONG-TIME
                       sleep*

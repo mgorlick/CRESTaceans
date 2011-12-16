@@ -21,17 +21,17 @@
               (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
               ; spawn the proxy
               (curl/send ,encoder-site-public-curl@ (spawn/new (pubsubproxy me@)
-                                                               (make-metadata is/proxy '(nick . pubsub))
+                                                               (make-metadata is/proxy (nick 'pubsub))
                                                                #f))
               (let ([proxy@ (:remote/body (delivered/contents-sent (mailbox-get-message)))])
                 ; spawn the encoder with the proxy as initialization address
                 (curl/send ,encoder-site-public-curl@ (spawn/new (video-reader/encoder
                                                                   ,video-device ,video-w ,video-h proxy@)
-                                                                 (make-metadata produces/webm '(nick . encoder))
+                                                                 (make-metadata produces/webm (nick 'encoder))
                                                                  #f))
                 ; spawn the decoder with the proxy as initialization address
                 (curl/send ,decoder-site-public-curl@ (spawn/new (video-decoder/single proxy@)
-                                                                 (make-metadata accepts/webm '(nick . decoder)) 
+                                                                 (make-metadata accepts/webm (nick 'decoder)) 
                                                                  #f))))])
       (f))))
 
@@ -93,7 +93,7 @@
       (define me@ (curl/new/any (this/locative) null #f))
       ;; spawn a proxy to sit between the ESTABLISHED source and the NEW sink.
       (curl/send sink-site-public-curl@ (spawn/new (pubsubproxy me@)
-                                                   (make-metadata is/proxy '(nick . pubsub))
+                                                   (make-metadata is/proxy (nick 'pubsub))
                                                    #f))
       ;; get proxy curl back.
       (let ([proxy@ (:remote/body (delivered/contents-sent (mailbox-get-message)))])
@@ -148,9 +148,9 @@
                                 (spawn/new (lambda () 
                                              (linker-bang PUBLIC/CURL
                                                           the-canvas-fun
-                                                          (make-metadata is/endpoint '(nick . canvas))
+                                                          (make-metadata is/endpoint (nick 'canvas))
                                                           requester@))
-                                           (make-metadata '(nick . linker)) #f))))
+                                           (make-metadata (nick 'linker)) #f))))
               
               (set-current-gui-curl! me/lookup@)
               
@@ -168,16 +168,15 @@
                    (curl/send (:RemoveCURL/curl body) (remote/new (Quit/new) (make-metadata) #f))
                    (loop (set/remove decoders (:RemoveCURL/curl body)))]
                   [(PIPOn? body)
-                   (curl/send PUBLIC/CURL
-                              (spawn/new (lambda () ((video-decoder/pip (:PIPOn/major body)
+                   (curl/send PUBLIC/CURL                              (spawn/new (lambda () ((video-decoder/pip (:PIPOn/major body)
                                                                         (:PIPOn/minor body))))
-                                         (make-metadata accepts/webm '(nick . pipdec))
+                                         (make-metadata accepts/webm (nick 'pipdec))
                                          #f))
                    (loop decoders)]
                   ; copy all children then copy self.
                   [(CopyActor? body)
                    (curl/send (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
-                              (spawn/new f (make-metadata is/gui '(nick . gui-controller)) #f))
+                              (spawn/new f (make-metadata is/gui (nick 'gui-controller)) #f))
                    (set/map decoders (lambda (decoder@)
                                        (curl/send decoder@ (delivered/contents-sent m))))
                    (loop decoders)]
@@ -198,7 +197,7 @@
                   ;; move decoders, then move self.
                   [(Quit/MV? body)
                    (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
-                              (spawn/new f (make-metadata is/gui '(nick . gui-controller)) #f))
+                              (spawn/new f (make-metadata is/gui (nick 'gui-controller)) #f))
                    (set/map decoders (lambda (decoder@) (curl/send decoder@ (delivered/contents-sent m))))]
                   ;; pass on to decoders.
                   [(Quit? body)
@@ -273,7 +272,7 @@
                        ;; clean up all the resources associated with a behavior (f #f)
                        (set/map on-frame-callbacks (lambda (f) (f #f)))
                        (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
-                                  (spawn/new f (make-metadata produces/webm '(nick . encoder)) #f))]
+                                  (spawn/new f (make-metadata produces/webm (nick 'encoder)) #f))]
                       [else 
                        ;; unknown message
                        (k fudge on-frame-callbacks)]))
@@ -328,7 +327,7 @@
                          (loop)]
                         [(CopyActor? body)
                          (curl/send (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
-                                    (spawn/new f (make-metadata accepts/webm '(nick . decoder)) #f))
+                                    (spawn/new f (make-metadata accepts/webm (nick 'decoder)) #f))
                          (loop)]
                         [(Quit/MV? body)
                          (curl/send ,where-to-subscribe@
@@ -336,7 +335,7 @@
                          
                          (vp8dec-delete d)
                          (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
-                                    (spawn/new f (make-metadata accepts/webm '(nick . decoder)) #f))]
+                                    (spawn/new f (make-metadata accepts/webm (nick 'decoder)) #f))]
                         [(Quit? body)
                          (curl/send ,where-to-subscribe@ 
                                     (remote/new (RemoveCURL/new me/ctrl@) (make-metadata) #f))
@@ -375,7 +374,7 @@
                   ;; spawn a fullscreen decoder that will subscribe to it
                   (define (spawn-single-decoder prox@)
                     (curl/send PUBLIC/CURL (spawn/new (lambda () ((video-decoder/single prox@)))
-                                                      (make-metadata accepts/webm '(nick . decoder))
+                                                      (make-metadata accepts/webm (nick 'decoder))
                                                       #f)))
                   ;; perform three retrievals, synchronously
                   ;; important: all three need to be done BEFORE subscribing!!
@@ -451,14 +450,14 @@
                              majorprox@ minorprox@ (mailbox-get-message))]
                       [(CopyActor? body)
                        (curl/send (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
-                                  (spawn/new f (make-metadata accepts/webm '(nick . pipdec)) #f))
+                                  (spawn/new f (make-metadata accepts/webm (nick 'pipdec)) #f))
                        (loop decoder/major decoder/minor last-decoded-frame
                              majorprox@ minorprox@ (mailbox-get-message))]
                       [(Quit/MV? body)
                        (map remove-self-susbscription (list majorprox@ minorprox@))
                        (map vp8dec-delete (list decoder/major decoder/minor))
                        (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
-                                  (spawn/new f (make-metadata accepts/webm '(nick . pipdec)) #f))]
+                                  (spawn/new f (make-metadata accepts/webm (nick 'pipdec)) #f))]
                       [(Quit? body)
                        (map remove-self-subscription (list majorprox@ minorprox@))
                        (map vp8dec-delete (list decoder/major decoder/minor))]

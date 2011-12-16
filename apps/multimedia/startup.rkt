@@ -94,17 +94,17 @@
   (match amsg
     [(cons (? (curry equal? PUBLIC/CURL) pcurl)
            (match:spawn body metadata reply))
-     (define nick (gensym (or (metadata-ref metadata 'nick) 'nonamegiven)))
+     (define the-nickname  (gensym (or (metadata-ref metadata "nick") 'nonamegiven)))
      (define-values (actor actor/loc) 
-       (actor/new ROOT nick))
+       (actor/new ROOT the-nickname))
      (actor/jumpstart actor 
                       (λ ()
-                        (printf "Actor starting: ~s~n" nick)
+                        (printf "Actor starting: ~s~n" the-nickname)
                         (let ([ret (motile/call body (++ (metadata->benv metadata)
-                                                         (global-value-defines nick PUBLIC/CURL)
+                                                         (global-value-defines the-nickname PUBLIC/CURL)
                                                          (global-defines this/locative
                                                                          curl/get-public)))])
-                          (printf "Actor ending: ~s~n" nick)
+                          (printf "Actor ending: ~s~n" the-nickname)
                           ret)))]
     [(cons c@ (match:remote body metadata reply))
      ;; send count deprecation happens here.
@@ -119,13 +119,13 @@
 
 (unless (argsassoc "--no-gui")
   (define the-controller (gui-controller))
-  (curl/send PUBLIC/CURL (spawn/new the-controller (make-metadata is/gui '(nick . gui-controller)) #f)))
+  (curl/send PUBLIC/CURL (spawn/new the-controller (make-metadata is/gui (nick 'gui-controller)) #f)))
 (unless (argsassoc "--no-video")
   (define encoder-where@ (curl/get-public (argsassoc "--vhost" #:no-val *LISTENING-ON* #:default *LISTENING-ON*)
                                           (argsassoc "--vport" #:call string->number 
                                                      #:no-val *LOCALPORT* 
                                                      #:default *LOCALPORT*)))
   (define the-bang (big-bang encoder-where@ "/dev/video0" 640 480 PUBLIC/CURL))
-  (curl/send PUBLIC/CURL (spawn/new the-bang (make-metadata '(nick . big-bang)) #f)))
+  (curl/send PUBLIC/CURL (spawn/new the-bang (make-metadata (nick 'big-bang)) #f)))
 
 (semaphore-wait (make-semaphore))
