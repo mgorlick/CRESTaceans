@@ -8,11 +8,20 @@
   actor/chieftain/new)
 
   (only-in "locative.rkt" locative/cons/any)
-  (only-in "root.rkt" ROOT)
+  ;(only-in "root.rkt" ROOT) ; Obsolete.
   
-  "logger.rkt"
+  ;"logger.rkt" ; Needed for debugging.
 
  (only-in "curl.rkt" curl? curl/new/any curl/send curl/path curl/sends curl/pretty))
+
+(provide
+ PROMISSARY
+ promise?
+ promise/kept?
+ promise/ruined?
+ promise/call
+ promise/new
+ promise/wait)
 
 (define-syntax-rule (assert precondition where message)
   (when (not precondition)
@@ -71,8 +80,6 @@
           #f   ; #t iff promise has been ruined (unresolved prior to deadline)
           #f)) ; Value when resolved.
 
-
-
 ;; Returns the thunk to be executed by the nanny actor assigned to promise p.
 (define (nanny/thunk p)
   (lambda ()
@@ -87,17 +94,17 @@
           (when (not (promise/kept? p))
             (promise/ruin! p)))))
 
-;; Returns the pair (p . r) where p is the promise and r is the resolver of p.
+;; Returns the pair (p . c) where p is the promise and c is the CURL to which the resolution of p should be sent.
 ;; lifespan - the maximum lifespan (in real seconds) of the promise
 ;; Note: By adding additional arguments for delegation predicates senders/intra and senders/inter we can
-;; control the distribution and exercise of the CURL and hence the resolver.
+;; control the distribution and exercise of the CURL.
 (define (promise/new lifespan)
   (assert/type lifespan
                (lambda (n) 
                  (and (number? n) (positive? n) (< n +inf.f)))
                promise/new "positive real")
 
-  (let-values ([(nanny nanny/locative) (actor/new PROMISSARY (gensym 'nanny))])
+  (let-values ([(nanny nanny/locative) (actor/new (PROMISSARY) (gensym 'nanny))])
     (let* ((x (locative/cons/any
                nanny/locative 
                (+ (current-inexact-milliseconds) (* 1000 lifespan))
@@ -135,14 +142,17 @@
        v))
     (else failure))) ; We lost patience.
 
-;; Given a local promise p construct a remote promise derived from p for another island.
-;(define (promise/remote/new island clan actor p)
-;  (and
-;   (promise? p)
-;   (vector '<promise/remote> island clan (promise/id p))))
+;; Return the value of applying function f to the outcome of promise p.
+;; patience - patience for resolution of promise in real seconds
+;; failure - failure value to be substituted if promise is not kept in "patience" seconds
+(define (promise/call p f patience failure)
+  (f (promise/wait p patience failure)))
 
-(define-values (PROMISSARY LOCATIVE/PROMISSARY) (actor/chieftain/new ROOT 'promissary))
+;; When the island is booted this parameter is set to the clan chieftain of the "promissary",
+;; the clan home for all nanny actors affiliated with promises.
+(define PROMISSARY (make-parameter #f))
 
+;(define-values (PROMISSARY LOCATIVE/PROMISSARY) (actor/chieftain/new ROOT 'promissary))
 
 ;; The promissary is a unique clan responsible for the resolution of promises on the island.
 ;; When a promise/resolver pair (p . r) is created the promise id, p.id and the resolver r are
@@ -213,118 +223,119 @@
 ;
 ;  
 
-;; Actors a1 and a2 will both see the promise resolved.
-(define (test/promise/1)
-  (let*-values ([(a1 l/a1)     (actor/new ROOT 'a1)]
-                [(a2 l/a2)     (actor/new ROOT 'a2)]
-                [(a3 l/a3)     (actor/new ROOT 'a3)])
-    (let* ((x (promise/new 10.0))
-           (p (car x))
-           (c (cdr x)))
-      (actor/jumpstart a1 (lambda () (log-info (format "a1: ~a\n\n" (promise/wait p 2.0 "darn")))))
-      (actor/jumpstart a2 (lambda () (log-info (format "a2: ~a\n\n" (promise/wait p 2.0 "rats")))))
-      (actor/jumpstart
-       a3
-       (lambda ()
-         (sleep 1.5)
-         (log-info "a3: resolving promise\n\n")
-         (curl/send c "FOOBAR"))))))
-
-;; Actor a1 will see the promise resolved but actor a2 will timeout before that.
-(define (test/promise/2)
-  (let*-values ([(a1 l/a1)     (actor/new ROOT 'a1)]
-                [(a2 l/a2)     (actor/new ROOT 'a2)]
-                [(a3 l/a3)     (actor/new ROOT 'a3)])
-    (let* ((x (promise/new 10.0))
-           (p (car x))
-           (c (cdr x)))
-      (actor/jumpstart a1 (lambda () (log-info (format "a1: ~a\n\n" (promise/wait p 2.0 "darn")))))
-      (actor/jumpstart a2 (lambda () (log-info (format "a2: ~a\n\n" (promise/wait p 0.5 "rats")))))
-      (actor/jumpstart
-       a3
-       (lambda ()
-         (sleep 1.5)
-         (log-info "a3: resolving promise\n\n")
-         (curl/send c "FOOBAR"))))))
-
-;; Actors a1 and a2 will both timeout before the promise is resolved.
-(define (test/promise/3)
-  (let*-values ([(a1 l/a1)     (actor/new ROOT 'a1)]
-                [(a2 l/a2)     (actor/new ROOT 'a2)]
-                [(a3 l/a3)     (actor/new ROOT 'a3)])
-    (let* ((x (promise/new 3.0))
-           (p (car x))
-           (c (cdr x)))
-      (actor/jumpstart a1 (lambda () (log-info (format "a1: ~a\n\n" (promise/wait p  0.75 "darn")))))
-      (actor/jumpstart a2 (lambda () (log-info (format "a2: ~a\n\n" (promise/wait p  0.5 "rats")))))
-      (actor/jumpstart
-       a3
-       (lambda ()
-         (sleep 1.5)
-         (log-info "a3: resolving promise\n\n")
-         (curl/send c "FOOBAR"))))))
-
-;; The promise will be ruined before actors a1 and a2 loose patience.
-(define (test/promise/4)
-  (let*-values ([(a1 l/a1)     (actor/new ROOT 'a1)]
-                [(a2 l/a2)     (actor/new ROOT 'a2)])
-    (let* ((x (promise/new 2.0))
-           (p (car x))
-           (c (cdr x)))
-      (actor/jumpstart a1 (lambda () (log-info (format "a1: ~a\n\n" (promise/wait p  1.5 "darn")))))
-      (actor/jumpstart a2 (lambda () (log-info (format "a2: ~a\n\n" (promise/wait p  1.5 "rats"))))))))
-
-;; Two actors try to keep the promise but the second one is too late.
-(define (test/promise/5)
-  (let*-values ([(a1 l/a1)     (actor/new ROOT 'a1)]
-                [(a2 l/a2)     (actor/new ROOT 'a2)]
-                [(a3 l/a3)     (actor/new ROOT 'a3)])
-    (let* ((x (promise/new 3.0))
-           (p (car x))
-           (c (cdr x)))
-      ; Actor a1 resolves the promise before actor a2 and so its curl/send should return #t.
-      (actor/jumpstart
-       a1
-       (lambda ()
-         (sleep 0.5)
-         (log-info (format "a1: curl/send: ~a\n\n" (curl/send c "a1 resolved the promise")))))
-
-      ; Actor a2 is too late and so its curl/send should return #f.
-      (actor/jumpstart
-       a2
-       (lambda ()
-         (sleep 0.75)
-         (log-info (format "a2: curl/send: ~a\n\n" (curl/send c "a2 resolved the promise")))))
-
-
-      ; Actor a1 should get the message from a1 as the resolution of promise p.
-      (actor/jumpstart
-       a3
-       (lambda () (log-info (format "a3: ~a\n\n" (promise/wait p  1.5 "rats"))))))))
-
-;; Two actors race to keep the promise.
-(define (test/promise/6)
-  (let*-values ([(a1 l/a1)     (actor/new ROOT 'a1)]
-                [(a2 l/a2)     (actor/new ROOT 'a2)]
-                [(a3 l/a3)     (actor/new ROOT 'a3)])
-    (let* ((x (promise/new 3.0))
-           (p (car x))
-           (c (cdr x)))
-      ; Actors a1 and a2 race to resolve the promise.
-      (actor/jumpstart
-       a1
-       (lambda ()
-         (sleep 0.5)
-         (log-info (format "a1: curl/send: ~a\n\n" (curl/send c "a1 resolved the promise")))))
-
-      (actor/jumpstart
-       a2
-       (lambda ()
-         (sleep 0.5)
-         (log-info (format "a2: curl/send: ~a\n\n" (curl/send c "a2 resolved the promise")))))
-
-
-      ; Actor a1 will get a message from either a1 or a2.
-      (actor/jumpstart
-       a3
-       (lambda () (log-info (format "a3: ~a\n\n" (promise/wait p  1.5 "rats"))))))))
+;;; Test cases used during development.
+;;; Actors a1 and a2 will both see the promise resolved.
+;(define (test/promise/1)
+;  (let*-values ([(a1 l/a1)     (actor/new ROOT 'a1)]
+;                [(a2 l/a2)     (actor/new ROOT 'a2)]
+;                [(a3 l/a3)     (actor/new ROOT 'a3)])
+;    (let* ((x (promise/new 10.0))
+;           (p (car x))
+;           (c (cdr x)))
+;      (actor/jumpstart a1 (lambda () (log-info (format "a1: ~a\n\n" (promise/wait p 2.0 "darn")))))
+;      (actor/jumpstart a2 (lambda () (log-info (format "a2: ~a\n\n" (promise/wait p 2.0 "rats")))))
+;      (actor/jumpstart
+;       a3
+;       (lambda ()
+;         (sleep 1.5)
+;         (log-info "a3: resolving promise\n\n")
+;         (curl/send c "FOOBAR"))))))
+;
+;;; Actor a1 will see the promise resolved but actor a2 will timeout before that.
+;(define (test/promise/2)
+;  (let*-values ([(a1 l/a1)     (actor/new ROOT 'a1)]
+;                [(a2 l/a2)     (actor/new ROOT 'a2)]
+;                [(a3 l/a3)     (actor/new ROOT 'a3)])
+;    (let* ((x (promise/new 10.0))
+;           (p (car x))
+;           (c (cdr x)))
+;      (actor/jumpstart a1 (lambda () (log-info (format "a1: ~a\n\n" (promise/wait p 2.0 "darn")))))
+;      (actor/jumpstart a2 (lambda () (log-info (format "a2: ~a\n\n" (promise/wait p 0.5 "rats")))))
+;      (actor/jumpstart
+;       a3
+;       (lambda ()
+;         (sleep 1.5)
+;         (log-info "a3: resolving promise\n\n")
+;         (curl/send c "FOOBAR"))))))
+;
+;;; Actors a1 and a2 will both timeout before the promise is resolved.
+;(define (test/promise/3)
+;  (let*-values ([(a1 l/a1)     (actor/new ROOT 'a1)]
+;                [(a2 l/a2)     (actor/new ROOT 'a2)]
+;                [(a3 l/a3)     (actor/new ROOT 'a3)])
+;    (let* ((x (promise/new 3.0))
+;           (p (car x))
+;           (c (cdr x)))
+;      (actor/jumpstart a1 (lambda () (log-info (format "a1: ~a\n\n" (promise/wait p  0.75 "darn")))))
+;      (actor/jumpstart a2 (lambda () (log-info (format "a2: ~a\n\n" (promise/wait p  0.5 "rats")))))
+;      (actor/jumpstart
+;       a3
+;       (lambda ()
+;         (sleep 1.5)
+;         (log-info "a3: resolving promise\n\n")
+;         (curl/send c "FOOBAR"))))))
+;
+;;; The promise will be ruined before actors a1 and a2 loose patience.
+;(define (test/promise/4)
+;  (let*-values ([(a1 l/a1)     (actor/new ROOT 'a1)]
+;                [(a2 l/a2)     (actor/new ROOT 'a2)])
+;    (let* ((x (promise/new 2.0))
+;           (p (car x))
+;           (c (cdr x)))
+;      (actor/jumpstart a1 (lambda () (log-info (format "a1: ~a\n\n" (promise/wait p  1.5 "darn")))))
+;      (actor/jumpstart a2 (lambda () (log-info (format "a2: ~a\n\n" (promise/wait p  1.5 "rats"))))))))
+;
+;;; Two actors try to keep the promise but the second one is too late.
+;(define (test/promise/5)
+;  (let*-values ([(a1 l/a1)     (actor/new ROOT 'a1)]
+;                [(a2 l/a2)     (actor/new ROOT 'a2)]
+;                [(a3 l/a3)     (actor/new ROOT 'a3)])
+;    (let* ((x (promise/new 3.0))
+;           (p (car x))
+;           (c (cdr x)))
+;      ; Actor a1 resolves the promise before actor a2 and so its curl/send should return #t.
+;      (actor/jumpstart
+;       a1
+;       (lambda ()
+;         (sleep 0.5)
+;         (log-info (format "a1: curl/send: ~a\n\n" (curl/send c "a1 resolved the promise")))))
+;
+;      ; Actor a2 is too late and so its curl/send should return #f.
+;      (actor/jumpstart
+;       a2
+;       (lambda ()
+;         (sleep 0.75)
+;         (log-info (format "a2: curl/send: ~a\n\n" (curl/send c "a2 resolved the promise")))))
+;
+;
+;      ; Actor a1 should get the message from a1 as the resolution of promise p.
+;      (actor/jumpstart
+;       a3
+;       (lambda () (log-info (format "a3: ~a\n\n" (promise/wait p  1.5 "rats"))))))))
+;
+;;; Two actors race to keep the promise.
+;(define (test/promise/6)
+;  (let*-values ([(a1 l/a1)     (actor/new ROOT 'a1)]
+;                [(a2 l/a2)     (actor/new ROOT 'a2)]
+;                [(a3 l/a3)     (actor/new ROOT 'a3)])
+;    (let* ((x (promise/new 3.0))
+;           (p (car x))
+;           (c (cdr x)))
+;      ; Actors a1 and a2 race to resolve the promise.
+;      (actor/jumpstart
+;       a1
+;       (lambda ()
+;         (sleep 0.5)
+;         (log-info (format "a1: curl/send: ~a\n\n" (curl/send c "a1 resolved the promise")))))
+;
+;      (actor/jumpstart
+;       a2
+;       (lambda ()
+;         (sleep 0.5)
+;         (log-info (format "a2: curl/send: ~a\n\n" (curl/send c "a2 resolved the promise")))))
+;
+;
+;      ; Actor a1 will get a message from either a1 or a2.
+;      (actor/jumpstart
+;       a3
+;       (lambda () (log-info (format "a3: ~a\n\n" (promise/wait p  1.5 "rats"))))))))
