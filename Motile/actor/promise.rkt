@@ -6,13 +6,15 @@
   actor/jumpstart
   actor/new
   actor/chieftain/new)
+ 
+ "delivery.rkt"
 
   (only-in "locative.rkt" locative/cons/any)
   ;(only-in "root.rkt" ROOT) ; Obsolete.
   
   ;"logger.rkt" ; Needed for debugging.
 
- (only-in "curl.rkt" curl? curl/new/any curl/send curl/path curl/sends curl/pretty))
+ (only-in "curl.rkt" curl? curl/new/any curl/path curl/sends curl/pretty))
 
 (provide
  PROMISSARY
@@ -21,7 +23,9 @@
  promise/ruined?
  promise/call
  promise/new
- promise/wait)
+ promise/wait
+ promise/result
+ promise/to-fulfill)
 
 (define-syntax-rule (assert precondition where message)
   (when (not precondition)
@@ -86,8 +90,8 @@
       (if (sync/timeout (promise/lifespan p) (thread-receive-evt))
           ; Be paranoid and (weakly) confirm the structure of the CURL.
           (let ((m (thread-receive)))
-            (if (and (pair? m) (curl? (car m)))
-              (promise/keep! p (cdr m)) ; The promise is complete.
+            (if (and (vector? m) (curl? (delivery/curl-used m)))
+              (promise/keep! p (delivery/contents-sent m)) ; The promise is complete.
               (promise/ruin! p)))       ; Something is wrong.
           
           ; Deadline was tripped.
@@ -103,7 +107,6 @@
                (lambda (n) 
                  (and (number? n) (positive? n) (< n +inf.f)))
                promise/new "positive real")
-
   (let-values ([(nanny nanny/locative) (actor/new (PROMISSARY) (gensym 'nanny))])
     (let* ((x (locative/cons/any
                nanny/locative 
@@ -119,6 +122,8 @@
       ;(log-info (format "promise/new: ~a\n\n" (curl/pretty c)))
       ;(cons p resolver))))
       (cons p c))))
+(define promise/result car)
+(define promise/to-fulfill cdr)
 
 ;; Wait on promise p.
 ;; patience - a postive number giving the span of time (in real seconds) that the calling thread (actor) is willing to wait

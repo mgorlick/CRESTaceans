@@ -8,6 +8,7 @@
          ffi/unsafe/atomic
          "../../../Motile/compile/serialize.rkt"
          "../../../Motile/actor/curl.rkt"
+                  "../../../Motile/actor/delivery.rkt"
          "../../../Motile/actor/island.rkt"
          "compression.rkt"
          "encryption.rkt")
@@ -95,8 +96,8 @@
   ;; -------------------------------------
   
   (define/contract (send/maybe-connect req)
-    ((cons/c curl? any/c) . -> . void)
-    (define the-address (curl/island (car req)))
+    (delivery? . -> . void)
+    (define the-address (curl/island (delivery/curl-used req)))
     (define remote-id (cons (bytes->string/utf-8 (island/address/dns the-address))
                             (island/address/port the-address)))
     (with-handlers ([exn? (λ (e) (printf "Send/maybe-connect: ~a~n" e))])
@@ -119,7 +120,7 @@
   ;; a new thread as the input thread for a connection
   (define (run-connector remote-id req)
     
-    (define the-address (curl/island (car req)))
+    (define the-address (curl/island (delivery/curl-used req)))
     (define dns (bytes->string/utf-8 (island/address/dns the-address)))
     (define port (island/address/port the-address))
     

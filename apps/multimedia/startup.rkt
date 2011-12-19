@@ -7,12 +7,12 @@
          "config.rkt"
          "../../peer/src/net/tcp-peer.rkt"         
          "../../Motile/persistent/hash.rkt"
-         "../../Motile/baseline.rkt"
-         "../../Motile/compile/compile.rkt"
          "../../Motile/compile/serialize.rkt"
          "../../Motile/generate/baseline.rkt"
          "../../Motile/actor/actor.rkt"
          "../../Motile/actor/curl.rkt"
+         "../../Motile/actor/send.rkt"
+         "../../Motile/actor/promise.rkt"
          "../../Motile/actor/jumpstart.rkt"
          "../../Motile/actor/island.rkt"
          "../../Motile/actor/locative.rkt"
@@ -22,6 +22,8 @@
          racket/match
          racket/contract
          racket/dict)
+
+(provide (all-defined-out))
 
 ; argsassoc: string [call: string -> any] [no-val: any] [default: any] -> any
 ; separates the provided command line arguments of the form:
@@ -92,8 +94,8 @@
 (define (my-root-loop)
   (define amsg (thread-receive))
   (match amsg
-    [(cons (? (curry equal? PUBLIC/CURL) pcurl)
-           (match:spawn body metadata reply))
+    [(vector (? (curry equal? PUBLIC/CURL) pcurl)
+             (match:spawn body metadata reply))
      (define the-nickname  (gensym (or (metadata-ref metadata "nick") 'nonamegiven)))
      (define-values (actor actor/loc) 
        (actor/new ROOT the-nickname))
@@ -106,26 +108,35 @@
                                                                          curl/get-public)))])
                           (printf "Actor ending: ~s~n" the-nickname)
                           ret)))]
-    [(cons c@ (match:remote body metadata reply))
+    [(vector (? curl? c@)
+             (match:remote body metadata reply))
      ;; send count deprecation happens here.
      (with-handlers ([exn? (λ (e) (displayln e))])
-       (curl/send c@ (cdr amsg)))]
+       (curl/send c@ (vector-ref amsg 1)))]
     [else
-     (displayln "Root: discarding a message")])
+     (displayln "Root: discarding a message:")
+     (displayln amsg)])
   (my-root-loop))
 
 ;;; start the root chieftain up.
-(actor/jumpstart ROOT my-root-loop)
+(actor/jumpstart ROOT (λ ()
+                        (PROMISSARY ROOT)
+                        (my-root-loop)))
 
 (unless (argsassoc "--no-gui")
   (define the-controller (gui-controller))
   (curl/send PUBLIC/CURL (spawn/new the-controller (make-metadata is/gui (nick 'gui-controller)) #f)))
 (unless (argsassoc "--no-video")
+  (define device (argsassoc "--device" #:default "/dev/video0" #:no-val "/dev/video0"))
+  (define w (argsassoc "--w" #:default 640 #:no-val 640 #:call (compose round string->number)))
+  (define h (argsassoc "--h" #:default 480 #:no-val 480 #:call (compose round string->number)))
   (define encoder-where@ (curl/get-public (argsassoc "--vhost" #:no-val *LISTENING-ON* #:default *LISTENING-ON*)
                                           (argsassoc "--vport" #:call string->number 
                                                      #:no-val *LOCALPORT* 
                                                      #:default *LOCALPORT*)))
-  (define the-bang (big-bang encoder-where@ "/dev/video0" 640 480 PUBLIC/CURL))
+  (define the-bang (big-bang encoder-where@ device w h
+                             PUBLIC/CURL
+                             PUBLIC/CURL))
   (curl/send PUBLIC/CURL (spawn/new the-bang (make-metadata (nick 'big-bang)) #f)))
 
 (semaphore-wait (make-semaphore))

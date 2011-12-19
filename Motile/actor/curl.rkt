@@ -5,7 +5,7 @@
  (only-in "../persistent/hash.rkt" hash/eq? hash/persist?)
  (only-in "island.rkt" island/address? island/address/ok? this/island)
  (only-in "actor.rkt" this/actor)
-
+ 
  (only-in
   "locative.rkt"
   locative?
@@ -32,12 +32,9 @@
  curl/export
  curl/new
  curl/new/any
- curl/send
- 
- set-inter-island-router!
  
  curl/pretty) ; For debugging.
- 
+
 (define-syntax-rule (curl/island  x) (vector-ref x 1)) ; Island address for CURL.
 (define-syntax-rule (curl/path    x) (vector-ref x 2)) ; Path of CURL as list (possibly empty) of symbols.
 (define-syntax-rule (curl/id      x) (vector-ref x 3)) ; Either the id of locative this CURL represents or the locative itself.
@@ -79,11 +76,11 @@
        (let ((d (curl/duplicate c)))
          (curl/id! d (locative/id id)) ; Duplicate CURL d now has either a symbol or a list as its CURL id.
          d))
-
+      
       ((symbol? id) c) ; c is an off-island CURL.
-
+      
       ((pair? id)   c) ; c is a durable off-island CURL.
-
+      
       (else #f))))
 
 ;; Returns #t if CURL c is signed and #f otherwise.
@@ -99,7 +96,7 @@
 
 (define (finite-positive? n)
   (and (number? n) (positive? n) (< n +inf.f)))
-         
+
 ;; Returns an unsigned CURL derived from locative x.
 ;; The CURL is immutable with the exception of the signing field which is set if and when the CURL is exported.
 ;; If the CURL returns from another island then the internal version of the CURL will be reconstructed with
@@ -250,7 +247,7 @@
 ;    (curl/signing! x #f)
 ;    ;(write (motile/serialize x) out)
 ;    (sha1-bytes (open-input-bytes (get-output-bytes out)))))
-  
+
 ;; Stub for now.
 ;; Returns #t if we can verify the signing of CURL c and #f otherwise.
 ;(define (curl/signing/ok? c key/public)
@@ -269,38 +266,6 @@
    (cons 'sends   (curl/sends c))
    (cons 'meta    (curl/meta c))
    (cons 'signing (curl/signing c))))
-
-(define inter-island-router (box #f))
-(define (set-inter-island-router! thd)
-  (set-box! inter-island-router thd))
-(define (curl/send/inter c message)
-  (thread-send (unbox inter-island-router) (cons c message))) ; Stub for now.
-
-;; Transmit a generic message m to the actor denoted by CURL c.
-;; reply - an optional argument, if given, is the CURL to which a reply message is sent.
-(define (! c m . reply)
-  (curl/send c (vector 'memora c m (if (null? reply) #f (car reply)))))
-
-;; Using CURL c as a destination address send an arbitrary message m to the actor denoted by c.
-;; If the sender desires a reply then the CURL metadata should contain an item reply/x where
-;; reply is the symbol reply and x is the CURL to which the reply should be directed.
-;; If CURL c is local then curl/send returns #t on successful delivery and #f otherwise.
-;; If CURL c is an off-island reference 
-(define (curl/send c m)
-  (when (not (curl? c))
-    (raise-type-error 'curl/send "<curl>" c))
-
-  (let ((x (curl/id c)))
-    (cond
-      ((symbol? x)   (curl/send/inter c m))         ; An off-island CURL that contains a locative id.
-      ((locative? x) (locative/send x (cons c m)))  ; All on-island CURLs carry a locative in the id slot.
-      ((pair? x)     (curl/send/inter c m))         ; An off-island "durable" CURL.
-      ; The curl/id is #f. This occurs if CURL c was:
-      ;   * Issued by this island, exported to another island, and then used as the target for a message transmission
-      ;     back to this island, AND
-      ;   * The locative referenced by CURL c has expired in the meantime
-      ; Life is a bitch.
-      (else #f))))
 
 ;(require (only-in "island.rkt" island/address/new this/island))
 ;(define (tests)

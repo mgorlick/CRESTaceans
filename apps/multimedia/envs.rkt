@@ -11,6 +11,9 @@
          "../../Motile/generate/baseline.rkt"
          "../../Motile/actor/curl.rkt"
          "../../Motile/actor/locative.rkt"
+         "../../Motile/actor/promise.rkt"
+         "../../Motile/actor/delivery.rkt"
+         "../../Motile/actor/send.rkt"
          racket/require
          racket/function
          racket/list
@@ -74,10 +77,6 @@
 (define-metadata-entry-maker nick)
 (define-metadata-entry-maker from)
 
-; messages arrive to actor mailboxes in the form (locative-used . content-body)
-(define delivered/contents-sent cdr)
-(define delivered/curl-used car)
-
 (define (eval-definition e)
   (motile/call e BASELINE))
 
@@ -107,6 +106,7 @@
                       curl/new
                       curl/new/any
                       curl/send
+                      curl/send/promise
                       curl/pretty
                       locative?
                       locative/revoked?
@@ -114,8 +114,14 @@
                       locative/cons/any
                       locative/send
                       locative/pretty
-                      delivered/contents-sent
-                      delivered/curl-used
+                      promise?
+                      promise/kept?
+                      promise/ruined?
+                      promise/wait
+                      delivery?
+                      delivery/contents-sent
+                      delivery/curl-used
+                      delivery/promise-fulfillment
                       big-bang
                       pubsubproxy
                       video-reader/encoder

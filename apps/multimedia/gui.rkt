@@ -5,6 +5,7 @@
          racket/contract
          "message-types.rkt"         
          "../../Motile/actor/curl.rkt"
+         "../../Motile/actor/send.rkt"
          (planet "rgl.rkt" ("stephanh" "RacketGL.plt" 1 2)))
 
 (provide (rename-out [client/new-video-gui new-video-gui]
