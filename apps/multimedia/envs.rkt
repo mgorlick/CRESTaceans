@@ -79,6 +79,11 @@
 
 (define (eval-definition e)
   (motile/call e BASELINE))
+(define-syntax global-motile-point-of-definition-evals
+  (syntax-rules ()
+    [(k id ...)
+     `((id . ,(eval-definition id))
+       ...)]))
 
 ;; binding environments used.
 (define MULTIMEDIA-BASE
@@ -126,16 +131,17 @@
                       pubsubproxy
                       video-reader/encoder
                       video-decoder/single
-                      video-decoder/pip
                       gui-controller)
-      `((canvas-endpoint . ,(eval-definition canvas-endpoint))
-        (linker-bang . ,(eval-definition linker-bang)))
+      (global-motile-point-of-definition-evals canvas-endpoint 
+                                               linker-bang
+                                               make-video-decoder/pip)
       (global-value-defines accepts/webm 
                             produces/webm 
                             type/webm
                             is/gui 
                             is/proxy 
                             is/endpoint)))
+
 (define VIDEO-ENCODE
   (++ MULTIMEDIA-BASE
       (require-spec->global-defines (matching-identifiers-in #rx"^video-reader.*" "video.rkt"))
