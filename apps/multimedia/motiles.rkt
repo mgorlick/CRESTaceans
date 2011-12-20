@@ -324,7 +324,7 @@
                          (loop)]
                         ;; following are messages send backwards across control flow path from controller.
                         [(GetParent? body)
-                         (curl/send reply@
+                         (curl/send (delivery/promise-fulfillment m)
                                     (remote/new ,where-to-subscribe@ (make-metadata) #f))
                          (loop)]
                         ;;!!! FIXME !!!: this is doing connector work when it is a component.
@@ -355,16 +355,19 @@
 
 (define make-video-decoder/pip
   (motile/compile
-   '(letrec* ([retrieve-sink
-               (lambda (me@)
+   '(letrec ([unpack-promise
+               (lambda (p)
                  (:remote/body
-                  (promise/wait
-                   (curl/send/promise (get-current-gui-curl) (remote/new (AddCURL/new me@) '() #f) 1000)
-                   1000 #f)))]
+                  (promise/wait p 1000 #f)))]
+              [retrieve-sink
+               (lambda (me@)
+                 (unpack-promise 
+                  (curl/send/promise (get-current-gui-curl) (remote/new (AddCURL/new me@) '() #f) 1000)))]
               [retrieve-proxy-from
-               (lambda (dcurl@ me@)
-                 (curl/send dcurl@ (remote/new (GetParent/new) '() me@))
-                 (:remote/body (delivery/contents-sent (mailbox-get-message))))]
+               (lambda (dcurl@)
+                 (unpack-promise
+                  (curl/send/promise dcurl@ (remote/new (GetParent/new) null #f)
+                                     1000)))]
               [add-self-subscription
                (lambda (prox@ me@)
                  (curl/send prox@ (remote/new (AddCURL/new me@) '() #f)))]
@@ -378,17 +381,17 @@
                                                    #f)))]
               [MAKER 
                (lambda (majordec@ minordec@)
+                 (define majorprox@ (retrieve-proxy-from majordec@))
+                 (define minorprox@ (retrieve-proxy-from minordec@))
+                 (lambda () (decoder-instance majorprox@ minorprox@)))]
+              [decoder-instance
+               (lambda (majorprox@ minorprox@)
                  (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t)
                                            null #f))
                  (define next-pipeline-element@ (retrieve-sink me@))
-                 (define majorprox@ (retrieve-proxy-from majordec@ me@))
-                 (define minorprox@ (retrieve-proxy-from minordec@ me@))
-                 (lambda () (decoder-instance majorprox@ minorprox@ next-pipeline-element@ me@)))]
-              [decoder-instance
-               (lambda (majorprox@ minorprox@ next-pipeline-element@ me@)
                  (add-self-subscription majorprox@ me@)
                  (add-self-subscription minorprox@ me@)
-                 (let loop ([decoder/major (vp8dec-new)] 
+                 (let loop ([decoder/major (vp8dec-new)]
                             [decoder/minor (vp8dec-new)]
                             [last-decoded-frame #f]
                             [majorprox@ majorprox@] 
@@ -450,19 +453,24 @@
                             majorprox@ minorprox@ (mailbox-get-message))]
                      [(GetParent? body)
                       ; assumes parents are proxies. PIP can send this to itself/other PIP
-                      (curl/send replyaddr@ (remote/new (cons majorprox@ minorprox@) null #f))
+                      (curl/send (delivery/promise-fulfillment m)
+                                 (remote/new (cons majorprox@ minorprox@) null #f))
                       (loop decoder/major decoder/minor last-decoded-frame 
                             majorprox@ minorprox@ (mailbox-get-message))]
                      [(CopyActor? body)
                       (curl/send (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
-                                 (spawn/new f (make-metadata accepts/webm (nick 'pipdec)) #f))
+                                 (spawn/new 
+                                  (lambda () (decoder-instance majorprox@ minorprox@))
+                                  (make-metadata accepts/webm (nick 'pipdec)) #f))
                       (loop decoder/major decoder/minor last-decoded-frame
                             majorprox@ minorprox@ (mailbox-get-message))]
                      [(Quit/MV? body)
                       (map remove-self-subscription (list majorprox@ minorprox@))
                       (map vp8dec-delete (list decoder/major decoder/minor))
                       (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
-                                 (spawn/new f (make-metadata accepts/webm (nick 'pipdec)) #f))]
+                                 (spawn/new 
+                                  (lambda () (decoder-instance majorprox@ minorprox@))
+                                  (make-metadata accepts/webm (nick 'pipdec)) #f))]
                      [(Quit? body)
                       (map remove-self-subscription (list majorprox@ minorprox@))
                       (map vp8dec-delete (list decoder/major decoder/minor))]
