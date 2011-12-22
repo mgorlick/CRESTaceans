@@ -17,7 +17,8 @@
          racket/require
          racket/function
          racket/list
-         (for-syntax racket/base))
+         (for-syntax racket/base)
+         (planet "uuid-v4.rkt" ("zitterbewegung" "uuid-v4.plt" 2 0)))
 
 (provide (all-defined-out))
 
@@ -105,6 +106,7 @@
                       from
                       A-LONG-TIME
                       sleep*
+                      make-uuid
                       curl?
                       curl/ok?
                       curl/intra?
@@ -113,6 +115,7 @@
                       curl/send
                       curl/send/promise
                       curl/pretty
+                      curl/get-meta
                       locative?
                       locative/revoked?
                       locative/cons

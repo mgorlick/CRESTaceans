@@ -65,6 +65,7 @@
  ; Hash table combinators.
  hash/fold
  hash/map
+ hash/for-each
  hash/filter
  hash/partition
  
@@ -274,6 +275,12 @@
      equality?
      hasher
      (pairs/fold map trie/empty (hash/root h)))))
+
+;; Apply function f to each key/value pair in h and discard all results.
+(define (hash/for-each h f)
+  (cond [(hash/empty? h) (void)]
+        [else (f (hash/car h))
+              (hash/for-each (hash/cdr h) f)]))
 
 ;; Return a hash table containing only those key/value pairs in h for which (p pair) is true.
 (define (hash/filter h p)

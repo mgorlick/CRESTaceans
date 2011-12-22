@@ -12,6 +12,7 @@
          "../../Motile/actor/actor.rkt"
          "../../Motile/actor/curl.rkt"
          "../../Motile/actor/send.rkt"
+         "../../Motile/actor/delivery.rkt"
          "../../Motile/actor/promise.rkt"
          "../../Motile/actor/jumpstart.rkt"
          "../../Motile/actor/island.rkt"
@@ -86,7 +87,7 @@
 (this/island ADDRESS-HERE)
 (printf "Island starting: ~s~n" (this/island))
 ; make root actor
-(define-values (ROOT ROOT/LOCATIVE PUBLIC/LOCATIVE PUBLIC/CURL) (make-root/get-public/register-public))
+(define-values (ROOT ROOT-LOCATIVE PUBLIC-LOCATIVE PUBLIC-CURL) (make-root/get-public/register-public))
 ; deliver incoming messages to ROOT
 (define COMM-thd (run-tcp-peer *LISTENING-ON* *LOCALPORT* (actor/thread ROOT) #:encrypt? #f))
 (set-inter-island-router! COMM-thd)
@@ -94,8 +95,8 @@
 (define (my-root-loop)
   (define amsg (thread-receive))
   (match amsg
-    [(vector (? (curry equal? PUBLIC/CURL) pcurl)
-             (match:spawn body metadata reply))
+    ;; spawn format, to be solely directed at the public curl.
+    [(vector (? (curry equal? PUBLIC-CURL) pcurl) (match:spawn body metadata reply))
      (define the-nickname  (gensym (or (metadata-ref metadata "nick") 'nonamegiven)))
      (define-values (actor actor/loc) 
        (actor/new ROOT the-nickname))
@@ -103,16 +104,15 @@
                       (λ ()
                         (printf "Actor starting: ~s~n" the-nickname)
                         (let ([ret (motile/call body (++ (metadata->benv metadata)
-                                                         (global-value-defines the-nickname PUBLIC/CURL)
+                                                         (global-value-defines the-nickname PUBLIC-CURL)
                                                          (global-defines this/locative
                                                                          curl/get-public)))])
                           (printf "Actor ending: ~s~n" the-nickname)
                           ret)))]
-    [(vector (? curl? c@)
-             (match:remote body metadata reply))
-     ;; send count deprecation happens here.
+    [(? delivery? m)
+     ; send count deprecation happens here.
      (with-handlers ([exn? (λ (e) (displayln e))])
-       (curl/send c@ (vector-ref amsg 1)))]
+       (curl/forward m))]
     [else
      (displayln "Root: discarding a message:")
      (displayln amsg)])
@@ -125,7 +125,7 @@
 
 (unless (argsassoc "--no-gui")
   (define the-controller (gui-controller))
-  (curl/send PUBLIC/CURL (spawn/new the-controller (make-metadata is/gui (nick 'gui-controller)) #f)))
+  (curl/send PUBLIC-CURL (spawn/new the-controller (make-metadata is/gui (nick 'gui-controller)) #f)))
 (unless (argsassoc "--no-video")
   (define device (argsassoc "--device" #:default "/dev/video0" #:no-val "/dev/video0"))
   (define w (argsassoc "--w" #:default 640 #:no-val 640 #:call (compose round string->number)))
@@ -135,8 +135,8 @@
                                                      #:no-val *LOCALPORT* 
                                                      #:default *LOCALPORT*)))
   (define the-bang (big-bang encoder-where@ device w h
-                             PUBLIC/CURL
-                             PUBLIC/CURL))
-  (curl/send PUBLIC/CURL (spawn/new the-bang (make-metadata (nick 'big-bang)) #f)))
+                             PUBLIC-CURL
+                             PUBLIC-CURL))
+  (curl/send PUBLIC-CURL (spawn/new the-bang (make-metadata (nick 'big-bang)) #f)))
 
 (semaphore-wait (make-semaphore))

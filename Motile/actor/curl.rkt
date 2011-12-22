@@ -28,6 +28,7 @@
  curl/sends
  curl/signing
  curl/signing!
+ curl/get-meta
  
  curl/export
  curl/new
@@ -45,6 +46,9 @@
 
 (define-syntax-rule (curl/id! x y)      (vector-set! x 3 y))
 (define-syntax-rule (curl/signing! x y) (vector-set! x 7 y))
+
+(define (curl/get-meta x)
+  (curl/meta x))
 
 ;; We assume SHA-512 for signing so each CURL signature is a 64-byte bytes string.
 ;(define CURL/SIGNING/LENGTH 64)

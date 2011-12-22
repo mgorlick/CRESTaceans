@@ -8,6 +8,7 @@
 (provide 
  curl/send
  curl/send/promise
+ curl/forward
  set-inter-island-router!)
 
 ; x - subject of type test
@@ -56,6 +57,14 @@
       [(locative? x)  (locative/send x (vector c m (promise/to-fulfill p)))
                       (promise/result p)]
       [else #f])))
+
+;; only for Chieftains to forward to Actors.
+;; do NOT expose to actors themselves!
+(define (curl/forward del)
+  (assert/type del delivery? 'curl/forward "<delivery>")
+  (assert/type (curl/id (delivery/curl-used del)) locative? 'curl/forward "<locative>")
+  (locative/send (curl/id (delivery/curl-used del))
+                 del))
 
 (define inter-island-router (box #f))
 (define (set-inter-island-router! thd) (set-box! inter-island-router thd))

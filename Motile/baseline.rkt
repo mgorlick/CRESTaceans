@@ -423,6 +423,7 @@
     ; Hash table combinators.
     (define/combinator/3 'hash/fold      hash/fold)
     (define/combinator/2 'hash/map       hash/map)
+    (define/combinator/2 'hash/for-each  hash/for-each)
     (define/combinator/2 'hash/filter    hash/filter)
     (define/combinator/2 'hash/partition hash/partition)
     

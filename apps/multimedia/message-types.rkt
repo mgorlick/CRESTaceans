@@ -8,7 +8,7 @@
 (define-tuple-type (error) [reason in-reference-to])
 
 (define-tuple-type (AddCURL) [curl])
-(define-tuple-type (RemoveCURL) [curl])
+(define-tuple-type (RemoveCURL) [] [(curl = #f)])
 (define-tuple-type (Quit) [])
 (define-tuple-type (Quit/MV) [host port])
 (define-tuple-type (GetParent) [])

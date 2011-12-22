@@ -1,5 +1,6 @@
 #lang racket/base
 
+(require "curl.rkt")
 (provide delivery
          delivery?
          delivery/curl-used
@@ -14,11 +15,16 @@
   (when (not (type? x))
     (raise-type-error 'where expectation x)))
 
+; #(curl? any [curl? if promise version])
 (define (delivery? m)
-  (and (vector? m)
-       (or (= (vector-length m) 2)
-           (= (vector-length m) 3))))
+  (and (vector? m) 
+       (> (vector-length m) 0) (curl? (vector-ref m 0)) ; slot 0 always a curl.
+       (or (= (vector-length m) 2) ; slot 1 anything.
+           (and (> (vector-length m) 2) (curl? (vector-ref m 2))) ; if slot 2 exists, always a curl.
+           )))
+
 (define delivery vector)
+
 (define (delivery/curl-used m)
   (assert/type m vector? 'delivery/curl-used "<curl>")
   (vector-ref m 0))
