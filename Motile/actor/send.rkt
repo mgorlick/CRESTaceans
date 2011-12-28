@@ -3,7 +3,8 @@
 (require "curl.rkt"
          "promise.rkt"
          "locative.rkt"
-         "delivery.rkt")
+         "delivery.rkt"
+         "../compile/serialize.rkt")
 
 (provide 
  curl/send
@@ -70,6 +71,9 @@
 (define (set-inter-island-router! thd) (set-box! inter-island-router thd))
 
 (define (curl/send/inter c m)
-  (thread-send (unbox inter-island-router) (delivery c m)))
+  (thread-send (unbox inter-island-router) (delivery->serialized (delivery c m))))
 (define (curl/send/inter/promise c m r)
-  (thread-send (unbox inter-island-router) (delivery c m r)))
+  (thread-send (unbox inter-island-router) (delivery->serialized (delivery c m r))))
+
+(define (delivery->serialized d)
+  (vector (curl/island (delivery/curl-used d)) (motile/serialize d)))
