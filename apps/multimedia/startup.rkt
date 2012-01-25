@@ -55,26 +55,38 @@
         [(meta-has-any? metadata is/endpoint) GUI-ENDPOINT]
         [else MULTIMEDIA-BASE]))
 
+(define-syntax-rule (->boolean expr)
+  (if expr
+      #t
+      #f))
+
+(define/contract (curl/known-public? host port)
+  ((or/c string? bytes?) exact-nonnegative-integer? . -> . boolean?)
+  (->boolean (dict-ref PUBLICS (cons (if (string? host) (string->bytes/utf-8 host) host) port) #f)))
+
 (define/contract (curl/get-public host port)
   ((or/c string? bytes?) exact-nonnegative-integer? . -> . curl?)
-  (motile/deserialize (dict-ref PUBLICS (cons (if (string? host) 
-                                                  (string->bytes/utf-8 host)
-                                                  host)
-                                              port) #f) #f))
+  (motile/deserialize (dict-ref PUBLICS (cons (if (string? host) (string->bytes/utf-8 host) host)
+                                              port)
+                                #f) #f))
 
 (define (make-root/get-public/register-public)
   (define-values (root root-locative) (actor/root/new))
   (define public-locative (locative/cons/any root-locative A-LONG-TIME A-LONG-TIME #t #t))
   (locative/id! public-locative '(public))
-  (motile/serialize (curl/new/any public-locative null #f))
+  (define public-curl (curl/new/any public-locative null #f))
+  (motile/serialize public-curl) ; put in exports table.
   (values root root-locative 
           public-locative 
-          (curl/get-public (island/address/dns (this/island)) (island/address/port (this/island)))))
+          (if (curl/known-public? (island/address/dns (this/island)) (island/address/port (this/island)))
+              (curl/get-public (island/address/dns (this/island)) (island/address/port (this/island)))
+              public-curl)
+          ))
 
-;(for/list ([i (in-range 5000 5020)])
-;  (this/island (island/address/new #"abcdefghijklmnopqrstuvwxyz" #"128.195.59.184" i))
-;  (define-values (root rootl publicl) (make-root/get-public/register-public))
-;  `((,(island/address/dns (this/island)) . ,i) . (,(motile/serialize (curl/new/any publicl null #f)))))
+#|(for/list ([i (in-range 5000 5020)])
+  (this/island (island/address/new #"abcdefghijklmnopqrstuvwxyz" #"128.195.59.227" i))
+  (define-values (root rootl publicl publicc) (make-root/get-public/register-public))
+ `((,(island/address/dns (this/island)) . ,i) . (,(motile/serialize (curl/new/any publicl null #f)))))|#
 
 ;; host and port to listen on. use to start the comm layer below, designating root to receive incoming.
 (define *LISTENING-ON* (argsassoc "--host" #:no-val *LOCALHOST*))
