@@ -61,9 +61,7 @@
                   [(Frame? body)
                    (let ([content/hidden-location (!:remote/reply contents me@)])
                      (hash/for-each curls 
-                                    (lambda (id.subber@)
-                                      (printf "~a~n" (curl/send (cdr id.subber@) content/hidden-location)))))
-                   (printf "----~n")
+                                    (lambda (id.subber@) (curl/send (cdr id.subber@) content/hidden-location))))
                    (loop curls (:remote/reply contents))]
                   ;; the control messages coming from the forward direction,
                   ;; directed at the router.
@@ -198,7 +196,6 @@
                    (curl/send (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
                               (spawn/new f (make-metadata is/gui (nick 'gui-controller)) #f))
                    (set/map decoders (lambda (decoder@)
-                                       (printf "Telling decoder ~s to copy~n" decoder@)
                                        (curl/send decoder@ (delivery/contents-sent m))))
                    (loop decoders)]
                   ;; only copy one child.
@@ -451,7 +448,6 @@
                      (let* ([frame-after-major-check
                              (cond [(and (curl/target=? replyaddr@ majorprox@)
                                          (not last-decoded-frame))
-                                    (printf "major~n")
                                     ;; no prior frame. decode a new one and save it but only if 
                                     ;; this frame is a header-carrying major frame.
                                     ;; OK to try to decode (might not work this time if 
@@ -463,7 +459,6 @@
                                    ;; have prior frame and stream is major. update over prior frame
                                    [(and (curl/target=? replyaddr@ majorprox@)
                                          last-decoded-frame)
-                                    (printf "major~n")
                                     (vp8dec-decode-update-major decoder/major 
                                                                 (:Frame/data body) last-decoded-frame)]
                                    ;; frame is minor stream only, or some other stream. ignore
@@ -472,13 +467,10 @@
                             [frame-after-minor-check
                              (cond [(and frame-after-major-check (curl/target=? replyaddr@ minorprox@))
                                     ;; have prior frame and stream is minor. update over prior frame.
-                                    (printf "minor~n")
                                     (vp8dec-decode-update-minor decoder/minor (:Frame/data body)
                                                                 frame-after-major-check)]
                                    ;; frame is major stream only, or some other stream. ignore
-                                   [else 
-                                    (unless (curl/target=? replyaddr@ majorprox@)
-                                      (printf "unknown flow?? ~a~n" replyaddr@))
+                                   [else
                                     frame-after-major-check])])
                        ;; if there is a frame to send out, send it down the pipeline
                        (when frame-after-minor-check
