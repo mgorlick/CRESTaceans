@@ -70,10 +70,16 @@
 (define inter-island-router (box #f))
 (define (set-inter-island-router! thd) (set-box! inter-island-router thd))
 
+;; return #t if thread send to the comm layer succeeds.
+;; does NOT guarantee that it actually left the island.
 (define (curl/send/inter c m)
-  (thread-send (unbox inter-island-router) (delivery->serialized (delivery c m))))
+  (and (thread-send (unbox inter-island-router) (delivery->serialized (delivery c m))
+                    #f)
+       #t))
 (define (curl/send/inter/promise c m r)
-  (thread-send (unbox inter-island-router) (delivery->serialized (delivery c m r))))
+  (and (thread-send (unbox inter-island-router) (delivery->serialized (delivery c m r))
+                    #f)
+       #t))
 
 (define (delivery->serialized d)
   (vector (curl/island (delivery/curl-used d)) (motile/serialize d)))
