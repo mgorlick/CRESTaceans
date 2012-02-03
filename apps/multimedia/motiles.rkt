@@ -59,11 +59,10 @@
                 (cond
                   ;; the types that the router knows to send forward.
                   [(Frame? body)
-                   (printf "~a~n" (hash/keys curls))
                    (let ([content/hidden-location (!:remote/reply contents me@)])
                      (hash/for-each curls 
                                     (lambda (id.subber@)
-                                      (printf "~a~n" (curl/send (cdr id.subber@) content/hidden-location)))))
+                                      (curl/send (cdr id.subber@) content/hidden-location))))
                    (loop curls (:remote/reply contents))]
                   ;; the control messages coming from the forward direction,
                   ;; directed at the router.
@@ -79,8 +78,6 @@
                                                                       'allowed 'remove
                                                                       'for-sub id))
                                               null #f)))
-                     (printf "add ~a ~n :::: ~a~n to ~a~n" id (:AddCURL/curl body) curls)
-                     (printf "-------------~n")
                      (loop (hash/cons curls id (:AddCURL/curl body)) last-sender-seen@))]
                   [(RemoveCURL? body)
                    (let ([meta (curl/get-meta (delivery/curl-used m))])
@@ -453,7 +450,7 @@
                      (let* ([frame-after-major-check
                              (cond [(and (equal? replyaddr@ majorprox@)
                                          (not last-decoded-frame))
-                                    ;(printf "frame is major~n")
+                                    (printf "major~n")
                                     ;; no prior frame. decode a new one and save it but only if 
                                     ;; this frame is a header-carrying major frame.
                                     ;; OK to try to decode (might not work this time if 
@@ -465,8 +462,7 @@
                                    ;; have prior frame and stream is major. update over prior frame
                                    [(and (equal? replyaddr@ majorprox@)
                                          last-decoded-frame)
-                                                                        ;(printf "frame is major~n")
-
+                                    (printf "major~n")
                                     (vp8dec-decode-update-major decoder/major 
                                                                 (:Frame/data body) last-decoded-frame)]
                                    ;; frame is minor stream only, or some other stream. ignore
@@ -475,7 +471,7 @@
                             [frame-after-minor-check
                              (cond [(and frame-after-major-check (equal? replyaddr@ minorprox@))
                                     ;; have prior frame and stream is minor. update over prior frame.
-                                    ;(printf "frame is minor~n")
+                                    (printf "minor~n")
                                     (vp8dec-decode-update-minor decoder/minor (:Frame/data body)
                                                                 frame-after-major-check)]
                                    ;; frame is major stream only, or some other stream. ignore
