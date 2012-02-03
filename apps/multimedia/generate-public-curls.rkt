@@ -54,6 +54,6 @@
 ;; put these serialized curls into config.rkt
 
 (for/list ([i (in-range 5000 5020)])
-  (this/island (island/address/new #"abcdefghijklmnopqrstuvwxyz" #"128.195.59.223" i))
+  (this/island (island/address/new #"abcdefghijklmnopqrstuvwxyz" #"128.195.59.237" i))
   (define-values (root rootl publicl publicc) (make-root/get-public/register-public))
  `((,(island/address/dns (this/island)) . ,i) . (,(motile/serialize (curl/new/any publicl null #f)))))
