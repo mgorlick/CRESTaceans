@@ -78,6 +78,8 @@
                                                                       'allowed 'remove
                                                                       'for-sub id))
                                               null #f)))
+                     (printf "add ~a ~n :::: ~a~n to ~a~n" id (:AddCURL/curl body) curls)
+                     (printf "-------------~n")
                      (loop (hash/cons curls id (:AddCURL/curl body)) last-sender-seen@))]
                   [(RemoveCURL? body)
                    (let ([meta (curl/get-meta (delivery/curl-used m))])
@@ -393,7 +395,7 @@
                                     1000)))]
              [add-self-subscription ; subscribe to an upstream contact point.
               (lambda (prox@ me@)
-                (curl/send prox@ (remote/new (AddCURL/new me@) '() #f)))]
+                (printf "~s~n" (curl/send prox@ (remote/new (AddCURL/new me@) '() #f))))]
              [remove-self-subscription ; remove subscription from an upstream contact point.
               (lambda (prox@ me@)
                 (curl/send prox@ (remote/new (RemoveCURL/new) '() #f)))]
@@ -416,7 +418,7 @@
               (lambda (me@ . proxs@)
                 (map (lambda (p@) (remove-self-subscription p@ me@)) proxs@))]
              [MAKER ; make a new PIP decoder.
-              ; why is this split from a PIP itself?
+              ; why is this split (as a function) from a PIP instance itself?
               ; because, if you simply proceeded directly
               ; from the component decoder addresses every time, 
               ; the component single decoders would have to be alive whenever
@@ -424,6 +426,8 @@
               (lambda (majordec@ minordec@)
                 (define majorprox@ (retrieve-proxy-from majordec@))
                 (define minorprox@ (retrieve-proxy-from minordec@))
+                (printf "MAJOR PROXY IS: ~a~n" majorprox@)
+                (printf "MINOR PROXY IS: ~a~n" minorprox@)
                 (lambda () (decoder-instance majorprox@ minorprox@)))]
              [decoder-instance ; business logic, as such.
               (lambda (majorprox@ minorprox@)
@@ -448,6 +452,7 @@
                      (let* ([frame-after-major-check
                              (cond [(and (equal? replyaddr@ majorprox@)
                                          (not last-decoded-frame))
+                                    ;(printf "frame is major~n")
                                     ;; no prior frame. decode a new one and save it but only if 
                                     ;; this frame is a header-carrying major frame.
                                     ;; OK to try to decode (might not work this time if 
@@ -459,6 +464,8 @@
                                    ;; have prior frame and stream is major. update over prior frame
                                    [(and (equal? replyaddr@ majorprox@)
                                          last-decoded-frame)
+                                                                        ;(printf "frame is major~n")
+
                                     (vp8dec-decode-update-major decoder/major 
                                                                 (:Frame/data body) last-decoded-frame)]
                                    ;; frame is minor stream only, or some other stream. ignore
@@ -467,6 +474,7 @@
                             [frame-after-minor-check
                              (cond [(and frame-after-major-check (equal? replyaddr@ minorprox@))
                                     ;; have prior frame and stream is minor. update over prior frame.
+                                    ;(printf "frame is minor~n")
                                     (vp8dec-decode-update-minor decoder/minor (:Frame/data body)
                                                                 frame-after-major-check)]
                                    ;; frame is major stream only, or some other stream. ignore
