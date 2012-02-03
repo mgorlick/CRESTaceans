@@ -59,10 +59,11 @@
                 (cond
                   ;; the types that the router knows to send forward.
                   [(Frame? body)
+                   (printf "~a~n" (hash/keys curls))
                    (let ([content/hidden-location (!:remote/reply contents me@)])
                      (hash/for-each curls 
                                     (lambda (id.subber@)
-                                      (curl/send (cdr id.subber@) content/hidden-location))))
+                                      (printf "~a~n" (curl/send (cdr id.subber@) content/hidden-location)))))
                    (loop curls (:remote/reply contents))]
                   ;; the control messages coming from the forward direction,
                   ;; directed at the router.
