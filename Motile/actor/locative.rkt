@@ -9,7 +9,7 @@
  (only-in "../generate/utility.rkt" k/RETURN)
  (only-in "../persistent/environ.rkt" pairs/environ)
  (only-in "../baseline.rkt" BASELINE)
-
+ 
  (only-in
   "actor.rkt"
   actor?          ; Type test.
@@ -23,21 +23,21 @@
 
 (provide
  locative?      ; Type test.
-
+ 
  ; Fields
  locative/actor
  locative/expires
  locative/id
  locative/id!
  locative/revoked 
-
+ 
  locative/cons/authority?
  locative/cons/authority!
  locative/curl/authority?
  locative/curl/authority!
-
+ 
  locative/expired?
-
+ 
  locative/revoked?
  locative/sends/positive?
  locative/unexpired?
@@ -147,6 +147,7 @@
     (definition k/RETURN #f #f))) ; Create the closure.
 
 ;; Hack to work around bug in start-atomic, end-atomic.
+;; segmentation fault when using `start-atomic/end-atomic' from ffi/unsafe/atomic.
 (define ATOMIC (make-semaphore 1))
 (define-syntax-rule (start-atomic) (semaphore-wait ATOMIC))
 (define-syntax-rule (end-atomic)   (semaphore-post ATOMIC))
@@ -170,8 +171,8 @@
 (define (locative/curl/authority! x actors)
   (assert/type x locative? locative/curl/authority! "locative")
   (assert/type x (lambda (y) (andmap actor? y)) locative/curl/authority! "list[actor]")
-    (when (not (locative/curl/authority x))
-      (vector-set! x 10 (list->vector actors))))
+  (when (not (locative/curl/authority x))
+    (vector-set! x 10 (list->vector actors))))
 
 ;; Returns #t if actor a is a member of the curl/new whitelist of locative x and #f otherwise.
 (define (locative/curl/authority? x a)
@@ -198,7 +199,7 @@
        (cons 'expires (locative/expires l))
        (cons 'sends   (locative/sends l))
        (cons 'revoked (locative/revoked l)))
-
+      
       (locative/pretty (locative/prior l))))))
 
 ;; Returns #t if locative x has expired and #f otherwise.
@@ -265,6 +266,9 @@
        (loop (locative/prior this)))
       (else #f))))
 
+(define-syntax-rule (->bool e)
+  (if e #t #f))
+
 ;; Returns #t if the given message was delivered to the actor given by locative x.
 ;; Returns #f if the locative is invalid or revoked. No message is delivered in these cases.
 (define (locative/send x message)
@@ -274,15 +278,14 @@
   (let ((ok?
          (cond
            ((locative/sendable? x)
-            (locative/sends/-- x) ; Decrement the locative use count.
+            (locative/sends/--! x) ; Decrement the locative use count.
             #t)
            (else #f))))
     (end-atomic) ; Release the scheduler to other threads.
-    (when ok?
-      ; Note: If the thread is dead then the #f prevents an exception from being generated.
-      (thread-send (actor/thread (locative/actor x)) message #f))
-    ok?))
-  
+    (and ok?
+         ; Note: If the thread is dead then the #f prevents an exception from being generated.
+         (->bool (thread-send (actor/thread (locative/actor x)) message #f)))))
+
 ;; Returns diagnostic codes indicating why a locative/send failed for locative x.
 (define (locative/send/diagnose x)
   (cond
@@ -322,8 +325,8 @@
 ;; Returns #t if actor a can use locative x as a destination address in a (send ...).
 ;; Since an arbitrary actor can restrict the set of senders we must guard against malicious or erroneous restrictions.
 (define (locative/send? x a)
-   (with-handlers ([exn:fail? (lambda (_) #f)])
-     (motile/call (locative/senders/intra x) ENVIRON/SENDERS a)))
+  (with-handlers ([exn:fail? (lambda (_) #f)])
+    (motile/call (locative/senders/intra x) ENVIRON/SENDERS a)))
 
 ;; A legal sends value is one of:
 ;;  #f
@@ -498,25 +501,25 @@
   (cond
     ((locative/revoked? x)
      #((locative/cons fail revoked) "revoked" #f))
-
+    
     ((not (locative/expires/restrict? x expires))
      #((locative/cons fail expires) "bad expires" #f))
-
+    
     ((not (locative/cons/authority? (locative/actor x)))
      #((locative/cons fail authority) "insufficient authority" #f))
-
+    
     ((not (locative/sends/positive? x))
      #((locative/cons fail exhausted) "sends exhausted" #f))
-
+    
     ((not (locative/sends/restrict? x sends))
      #((locative/cons fail budget) "insufficent sends" #f))
-
+    
     (else #f)))
 
 
 ;; Decrement the use count of the given locative x.
 ;; Returns the new value of the sends count or #f if the sends count is exhausted.
-(define (locative/sends/-- x)
+(define (locative/sends/--! x)
   (let ((n (locative/sends x)))
     (cond
       ((number? n)
@@ -528,12 +531,12 @@
             (locative/sends! x m)
             m))
          (else #f))) ; Negative integer or float? Something is wrong.
-
+      
       ((not n) ; n is #f.
        ; Locative x is living off the sends count of a superior locative.
        (let ((tail (locative/prior x)))
-         (and tail (locative/sends/-- tail))))
-
+         (and tail (locative/sends/--! tail))))
+      
       (else #f)))) ; Unknown type for n.
 
 ;; Revoke locative x.

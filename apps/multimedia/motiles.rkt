@@ -62,7 +62,8 @@
                    (let ([content/hidden-location (!:remote/reply contents me@)])
                      (hash/for-each curls 
                                     (lambda (id.subber@)
-                                      (curl/send (cdr id.subber@) content/hidden-location))))
+                                      (printf "~a~n" (curl/send (cdr id.subber@) content/hidden-location)))))
+                   (printf "----~n")
                    (loop curls (:remote/reply contents))]
                   ;; the control messages coming from the forward direction,
                   ;; directed at the router.
@@ -448,7 +449,7 @@
                      ;; these two steps are really a fold but Motile doesn't have arbitrary-arity folds
                      ;; so they're just expressed this way for now.
                      (let* ([frame-after-major-check
-                             (cond [(and (equal? replyaddr@ majorprox@)
+                             (cond [(and (curl/target=? replyaddr@ majorprox@)
                                          (not last-decoded-frame))
                                     (printf "major~n")
                                     ;; no prior frame. decode a new one and save it but only if 
@@ -460,7 +461,7 @@
                                       (vp8dec-decode-copy decoder/major 
                                                           (:Frame/data body) this-frame-w this-frame-d))]
                                    ;; have prior frame and stream is major. update over prior frame
-                                   [(and (equal? replyaddr@ majorprox@)
+                                   [(and (curl/target=? replyaddr@ majorprox@)
                                          last-decoded-frame)
                                     (printf "major~n")
                                     (vp8dec-decode-update-major decoder/major 
@@ -469,13 +470,16 @@
                                    [else last-decoded-frame])]
                             
                             [frame-after-minor-check
-                             (cond [(and frame-after-major-check (equal? replyaddr@ minorprox@))
+                             (cond [(and frame-after-major-check (curl/target=? replyaddr@ minorprox@))
                                     ;; have prior frame and stream is minor. update over prior frame.
                                     (printf "minor~n")
                                     (vp8dec-decode-update-minor decoder/minor (:Frame/data body)
                                                                 frame-after-major-check)]
                                    ;; frame is major stream only, or some other stream. ignore
-                                   [else frame-after-major-check])])
+                                   [else 
+                                    (unless (curl/target=? replyaddr@ majorprox@)
+                                      (printf "unknown flow?? ~a~n" replyaddr@))
+                                    frame-after-major-check])])
                        ;; if there is a frame to send out, send it down the pipeline
                        (when frame-after-minor-check
                          (curl/send next-pipeline-element@ 

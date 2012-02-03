@@ -24,6 +24,7 @@
  curl/island
  curl/id
  curl/id!
+ curl/target=?
  curl/path
  curl/sends
  curl/signing
@@ -49,6 +50,13 @@
 
 (define (curl/get-meta x)
   (curl/meta x))
+
+; all copies of a CURL are bound to a pointer to the same locative or,
+; in a simpler case, a list of symbols sourced from the locative.
+; hence eq? rather than equal?
+(define (curl/target=? x y) 
+  (and (eq? (curl/id x) (curl/id y))
+       (equal? (curl/island x) (curl/island y))))
 
 ;; We assume SHA-512 for signing so each CURL signature is a 64-byte bytes string.
 ;(define CURL/SIGNING/LENGTH 64)

@@ -116,6 +116,7 @@
                       curl/send/promise
                       curl/pretty
                       curl/get-meta
+                      curl/target=?
                       locative?
                       locative/revoked?
                       locative/cons
