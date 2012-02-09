@@ -67,8 +67,8 @@
 (define/contract (curl/get-public host port)
   ((or/c string? bytes?) exact-nonnegative-integer? . -> . curl?)
   (motile/deserialize (dict-ref PUBLICS (cons (if (string? host) (string->bytes/utf-8 host) host)
-                                              port)
-                                #f) #f))
+                                              port))
+                      #f))
 
 (define (make-root/get-public/register-public)
   (define-values (root root-locative) (actor/root/new))
