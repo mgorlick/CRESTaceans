@@ -179,8 +179,9 @@
                      ;; look for a CURL that allows subscription interaction.
                      (cond [(and meta 
                                  (eq? 'remove (metadata-ref meta 'allowed))
-                                 (hash/contains? registry-content (metadata-ref meta 'for-param)))
-                            (loop (hash/remove registry-content (metadata-ref meta 'for-param)) )]
+                                 (hash/contains? reg-content (metadata-ref meta 'for-param)))
+                            (printf "Removed Param from Registry: <~a>~n" (metadata-ref meta 'for-param))
+                            (loop (hash/remove reg-content (metadata-ref meta 'for-param)) )]
                            ;; disallow subscription tinkering otherwise. TODO: polite reply that not possible e.g., 410-GONE
                            [else
                             (loop reg-content )]))]
@@ -224,6 +225,13 @@
               (define my-sub/regctrl@ (unpack-promise (reg-sub reg@)))
               (define my-pub/regctrl@ (unpack-promise (reg-pub reg@)))
               
+              (define (quitProxy my-sub/regctrl@ my-pub/regctrl@)
+                (curl/send my-sub/regctrl@
+                              (remote/new (RegistryDel/new (string-append "SUBSCRIBE-CURL::" ,component-name)) (make-metadata) #f))
+                   (curl/send my-pub/regctrl@
+                              (remote/new (RegistryDel/new (string-append "PUBLISH-CURL::" ,component-name)) (make-metadata) #f))
+                )
+              
               (curl/send ,on-birth-notify@ (remote/new  (hash/new hash/eq/null
                                                                       'publishAt pub-me@
                                                                       'subscribeAt sub-me@)
@@ -247,7 +255,8 @@
                    (let ([id (make-uuid)])
                      ;; upon subscription, issue a CURL that lets the holder
                      ;; interact with that subscription.
-                    ;; (printf "Chat Proxy received subscription for: ~a~n" ,component-name)
+                     (printf "Chat Proxy received subscription \n") 
+                     
                      (when (delivery/promise-fulfillment m)
                        (curl/send (delivery/promise-fulfillment m)
                                   (remote/new (curl/new/any *me/ctrl
@@ -259,19 +268,22 @@
                      (loop (hash/cons subscriber-curls id (:AddSubscriber/curl body)) ))]
                   [(RemoveSubscriber? body)
                    (let ([meta (curl/get-meta (delivery/curl-used m))])
-                     ;; look for a CURL that allows subscription interaction.
+                     ;; look for a CURL that allows subscription interaction.                     
                      (cond [(and meta 
                                  (eq? 'remove (metadata-ref meta 'allowed))
                                  (hash/contains? subscriber-curls (metadata-ref meta 'for-sub)))
-                            (loop (hash/remove subscriber-curls (metadata-ref meta 'for-sub)) )]
+                            (let ([subscriber-curls (hash/remove subscriber-curls (metadata-ref meta 'for-sub))])
+                              (printf "Chat Proxy received unsubscription, ~a subscribers left ~n" (hash/length subscriber-curls))
+                              (if (hash/empty? subscriber-curls)                                    
+                                  (quitProxy my-sub/regctrl@ my-pub/regctrl@)
+                                  (loop subscriber-curls)
+                                  ))]
                            ;; disallow subscription tinkering otherwise.
                            [else
                             (loop subscriber-curls )]))]                 
-                  [(Quit? body)                                      
-                   (curl/send my-sub/regctrl@
-                              (remote/new (RegistryDel/new (string-append "SUBSCRIBE-CURL::" ,component-name)) (make-metadata) #f))
-                   (curl/send my-pub/regctrl@
-                              (remote/new (RegistryDel/new (string-append "PUBLISH-CURL::" ,component-name)) (make-metadata) #f))                   
+                  [(Quit? body)       
+                   (printf "Chat Proxy received quit request \n") 
+                   (quitProxy my-sub/regctrl@ my-pub/regctrl@)
                    ]
                   [else 
                    (printf "proxy else: ~a~n" body)
@@ -356,6 +368,7 @@
                    )
                    ]
                   [(Quit? body)
+                    (printf (string-append ,proxyname " ChatClientController quitting\n"))
                        (curl/send my-sub/ctrl@
                                   (remote/new (RemoveSubscriber/new) (make-metadata) #f))
                   ]
