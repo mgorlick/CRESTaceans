@@ -25,80 +25,80 @@
                                                               (make-metadata is/proxy (nick 'pubsub))
                                                               #f))
               ;(let ([endpoints (:remote/body (delivery/contents-sent (mailbox-get-message)))])
-                ;(cond [(and endpoints
-                ;            (hash/contains? endpoints 'subscribeAt)
-                ;            (hash/contains? endpoints 'publishAt))
-                      ; (curl/send ,pubsub-site-public-curl@ (spawn/new (chatclientcontroller (hash/ref endpoints 'subscribeAt startup-me@ )
-                      ;                                                                       (hash/ref endpoints 'publishAt startup-me@ ))
-                      ;                                        (make-metadata is/endpoint (nick 'chatclientcontroller))
-                      ;                                        #f))]                                             
-                ;      [else #f])
-                ;)              
+              ;(cond [(and endpoints
+              ;            (hash/contains? endpoints 'subscribeAt)
+              ;            (hash/contains? endpoints 'publishAt))
+              ; (curl/send ,pubsub-site-public-curl@ (spawn/new (chatclientcontroller (hash/ref endpoints 'subscribeAt startup-me@ )
+              ;                                                                       (hash/ref endpoints 'publishAt startup-me@ ))
+              ;                                        (make-metadata is/endpoint (nick 'chatclientcontroller))
+              ;                                        #f))]                                             
+              ;      [else #f])
+              ;)              
               )])
       (f))))
 
 (define newgroup+client-startup 
   (motile/compile
    `(lambda (pubsub-site-public-curl@ ; where to put group pubsub
-                                 proxyname ; human readable, locally unique proxyname                        
-                                 client-site-public-curl@ ; where to put the first GUI client
-                      )
-              (define startup-me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
-              ; spawn the proxy
+             proxyname ; human readable, locally unique proxyname                        
+             client-site-public-curl@ ; where to put the first GUI client
+             )
+      (define startup-me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
+      ; spawn the proxy
       (printf "Starter: Spawning new Group \n")
-              (curl/send pubsub-site-public-curl@ (spawn/new (pubsubproxy startup-me@ proxyname)
-                                                              (make-metadata is/proxy (nick 'pubsub))
-                                                              #f))
-              ; spawn the first GUI client (no need for using the registry)
-              (let ([endpoints (:remote/body (delivery/contents-sent (mailbox-get-message)))])
-                (cond [(and endpoints
-                            (hash/contains? endpoints 'subscribeAt)
-                            (hash/contains? endpoints 'publishAt))
-                       (printf "Starter: Spawning new Client \n")
-                       (curl/send client-site-public-curl@ (spawn/new (chatclientcontroller (hash/ref endpoints 'subscribeAt startup-me@ )
-                                                                                             (hash/ref endpoints 'publishAt startup-me@ )
-                                                                                             proxyname)
+      (curl/send pubsub-site-public-curl@ (spawn/new (pubsubproxy startup-me@ proxyname)
+                                                     (make-metadata is/proxy (nick 'pubsub))
+                                                     #f))
+      ; spawn the first GUI client (no need for using the registry)
+      (let ([endpoints (:remote/body (delivery/contents-sent (mailbox-get-message)))])
+        (cond [(and endpoints
+                    (hash/contains? endpoints 'subscribeAt)
+                    (hash/contains? endpoints 'publishAt))
+               (printf "Starter: Spawning new Client \n")
+               (curl/send client-site-public-curl@ (spawn/new (chatclientcontroller (hash/ref endpoints 'subscribeAt startup-me@ )
+                                                                                    (hash/ref endpoints 'publishAt startup-me@ )
+                                                                                    proxyname)
                                                               (make-metadata is/endpoint (nick 'chatclientcontroller))
                                                               #f))]                                             
-                      [else #f])
-                )              
-              )))
-      
+              [else #f])
+        )              
+      )))
+
 (define newclient-startup 
   (motile/compile
    `(lambda ( proxyname ; human readable, locally unique proxyname                        
               client-site-public-curl@ ; where to put the GUI client
-                      )
+              )
       ;(lambda ()
-              (define reg@ (get-local-registry-curl))
-              (define (reg-sub registry@)
-                (curl/send/promise registry@ 
-                                   (remote/new (RegistryGet/new (string-append "SUBSCRIBE-CURL::" proxyname)) (make-metadata) #f)
-                                   10000))
-              (define (reg-pub registry@)
-                (curl/send/promise registry@ 
-                                   (remote/new (RegistryGet/new (string-append "PUBLISH-CURL::" proxyname)) (make-metadata) #f)
-                                   10000))
-              (define (unpack-promise p); generic way to wait for a promise and look at its final-value body.
-                (define res (promise/wait p 10000 #f))
-                (:remote/body res))
-              
-              (define sub@ (unpack-promise (reg-sub reg@)))
-              (define pub@ (unpack-promise (reg-pub reg@)))
+      (define reg@ (get-local-registry-curl))
+      (define (reg-sub registry@)
+        (curl/send/promise registry@ 
+                           (remote/new (RegistryGet/new (string-append "SUBSCRIBE-CURL::" proxyname)) (make-metadata) #f)
+                           10000))
+      (define (reg-pub registry@)
+        (curl/send/promise registry@ 
+                           (remote/new (RegistryGet/new (string-append "PUBLISH-CURL::" proxyname)) (make-metadata) #f)
+                           10000))
+      (define (unpack-promise p); generic way to wait for a promise and look at its final-value body.
+        (define res (promise/wait p 10000 #f))
+        (:remote/body res))
+      
+      (define sub@ (unpack-promise (reg-sub reg@)))
+      (define pub@ (unpack-promise (reg-pub reg@)))
       (printf "Starter: Spawning only new Client \n")
       
-        (printf "New Chat controller will connect to <PUB><SUB> at: <~a:><~a>~n" pub@ sub@)
-              (when (and (curl? sub@) (curl? pub@))
-                 (curl/send client-site-public-curl@ (spawn/new (chatclientcontroller sub@ pub@ proxyname)
-                                                              (make-metadata is/endpoint (nick 'chatclientcontroller))
-                                                              #f)))
-              )))
+      (printf "New Chat controller will connect to <PUB><SUB> at: <~a:><~a>~n" pub@ sub@)
+      (when (and (curl? sub@) (curl? pub@))
+        (curl/send client-site-public-curl@ (spawn/new (chatclientcontroller sub@ pub@ proxyname)
+                                                       (make-metadata is/endpoint (nick 'chatclientcontroller))
+                                                       #f)))
+      )))
 
 (define (local-chatcontroller controller-site-public-curl@  proxyname)
   (motile/compile
    `(letrec 
         ([f (lambda ()
-               (define reg@ (get-local-registry-curl))
+              (define reg@ (get-local-registry-curl))
               (define (reg-sub registry@)
                 (curl/send/promise registry@ 
                                    (remote/new (RegistryGet/new (string-append "SUBSCRIBE-CURL::" ,proxyname)) (make-metadata) #f)
@@ -113,11 +113,11 @@
               
               (define sub@ (unpack-promise (reg-sub reg@)))
               (define pub@ (unpack-promise (reg-pub reg@)))
-             ;  (printf "New Chat controller will connect to <PUB><SUB> at: <~a:><~a>~n" pub@ sub@)
+              ;  (printf "New Chat controller will connect to <PUB><SUB> at: <~a:><~a>~n" pub@ sub@)
               (when (and (curl? sub@) (curl? pub@))
-                  (curl/send ,controller-site-public-curl@ (spawn/new (chatclientcontroller sub@ pub@ ,proxyname)
-                                                              (make-metadata is/endpoint (nick 'chatclientcontroller))
-                                                              #f)))
+                (curl/send ,controller-site-public-curl@ (spawn/new (chatclientcontroller sub@ pub@ ,proxyname)
+                                                                    (make-metadata is/endpoint (nick 'chatclientcontroller))
+                                                                    #f)))
               )])
       (f))))
 
@@ -144,14 +144,14 @@
                    (let ([param (:RegistryGet/param body)]                         
                          ;[content/hidden-location (!:remote/reply contents sub-me@)]
                          )
-                    ;  (printf "Looking for param: ~a~n" param)
+                     ;  (printf "Looking for param: ~a~n" param)
                      (if (hash/contains? reg-content param)
-                       (let ((value (hash/ref reg-content param #f)))
-                         (curl/send (delivery/promise-fulfillment m) (remote/new value (make-metadata) reg-me@)))
-                       ;; else
-                       (curl/send (delivery/promise-fulfillment m) (remote/new (404-Not-Found/new "Param not found" (delivery/contents-sent m)) (make-metadata) reg-me@))
-                     )                     
-                   )
+                         (let ((value (hash/ref reg-content param #f)))
+                           (curl/send (delivery/promise-fulfillment m) (remote/new value (make-metadata) reg-me@)))
+                         ;; else
+                         (curl/send (delivery/promise-fulfillment m) (remote/new (404-Not-Found/new "Param not found" (delivery/contents-sent m)) (make-metadata) reg-me@))
+                         )                     
+                     )
                    (loop reg-content)]                                    
                   ;; the control messages directed at the registry.
                   [(RegistryAdd? body)
@@ -161,18 +161,18 @@
                      ;; upon adding, issue a CURL that lets the holder
                      ;; interact with that parameter. TODO: handling promise on other side
                      (if (hash/contains? reg-content param)                     
-                       (curl/send (delivery/promise-fulfillment m) (remote/new (409-Conflict/new "Param already registered" (delivery/contents-sent m)) (make-metadata) reg-me@))
-                       ;; else                       
-                       (when (delivery/promise-fulfillment m) ; delivery/promise-fulfillment returns a onetime curl when the sender used curl/send/promise
-                         (printf "Added Param to Registry: <~a>~n" param)
-                         (curl/send (delivery/promise-fulfillment m)
-                                    (remote/new (curl/new/any *me/ctrl
-                                                            null
-                                                            (hash/new hash/eq/null
-                                                                      'for-param param
-                                                                      'allowed 'remove
-                                                                      ))
-                                              null #f))))                    
+                         (curl/send (delivery/promise-fulfillment m) (remote/new (409-Conflict/new "Param already registered" (delivery/contents-sent m)) (make-metadata) reg-me@))
+                         ;; else                       
+                         (when (delivery/promise-fulfillment m) ; delivery/promise-fulfillment returns a onetime curl when the sender used curl/send/promise
+                           (printf "Added Param to Registry: <~a>~n" param)
+                           (curl/send (delivery/promise-fulfillment m)
+                                      (remote/new (curl/new/any *me/ctrl
+                                                                null
+                                                                (hash/new hash/eq/null
+                                                                          'for-param param
+                                                                          'allowed 'remove
+                                                                          ))
+                                                  null #f))))                    
                      (loop (hash/cons reg-content param value) ))]
                   [(RegistryDel? body)
                    (let ([meta (curl/get-meta (delivery/curl-used m))])
@@ -205,12 +205,12 @@
               (define pub-me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
               (define sub-me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
               ;; notify whoever I'm supposed to that I'm online now. 
-                           
+              
               ; get registry              
               (define reg@ (get-local-registry-curl))
               ; store endpoints at registries and store promise returns to be able to remove endpoints from registry upon shutdown
               
-               (define (reg-sub registry@)
+              (define (reg-sub registry@)
                 (curl/send/promise registry@ 
                                    (remote/new (RegistryAdd/new (string-append "SUBSCRIBE-CURL::" ,component-name) sub-me@) (make-metadata) #f)
                                    10000))
@@ -227,14 +227,14 @@
               
               (define (quitProxy my-sub/regctrl@ my-pub/regctrl@)
                 (curl/send my-sub/regctrl@
-                              (remote/new (RegistryDel/new (string-append "SUBSCRIBE-CURL::" ,component-name)) (make-metadata) #f))
-                   (curl/send my-pub/regctrl@
-                              (remote/new (RegistryDel/new (string-append "PUBLISH-CURL::" ,component-name)) (make-metadata) #f))
+                           (remote/new (RegistryDel/new (string-append "SUBSCRIBE-CURL::" ,component-name)) (make-metadata) #f))
+                (curl/send my-pub/regctrl@
+                           (remote/new (RegistryDel/new (string-append "PUBLISH-CURL::" ,component-name)) (make-metadata) #f))
                 )
               
               (curl/send ,on-birth-notify@ (remote/new  (hash/new hash/eq/null
-                                                                      'publishAt pub-me@
-                                                                      'subscribeAt sub-me@)
+                                                                  'publishAt pub-me@
+                                                                  'subscribeAt sub-me@)
                                                         '() #f))
               (let loop ([subscriber-curls hash/equal/null]
                          )
@@ -293,7 +293,15 @@
 (define (chatclientcontroller where-to-subscribe@ where-to-publish@ proxyname)
   (motile/compile
    `(letrec 
-        ([f (lambda ()
+        ([make-newclient-startup-thunk
+          (lambda (groupname where@)
+            (lambda ()
+              (newclient-startup groupname where@)))]
+         [make-newgroup+client-startup-thunk
+          (lambda (target@ groupname where@)
+            (lambda ()
+              (newgroup+client-startup target@ groupname where@)))]
+         [f (lambda ()
               (define me/sub@ (curl/new/any 
                                (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
               (define me/ctrl@ (curl/new/any 
@@ -306,7 +314,7 @@
                 (define res (promise/wait p 10000 #f))
                 (:remote/body res))
               ; 1. reserve display.              
-              (define guiLocal (newChatGUI me/sub@ (current-thread) ,proxyname))              
+              (define guiLocal (newChatGUI me/sub@ (current-thread) ,proxyname)) ; this variable captured     
               ; 2. add subscription.              
               (define my-sub/ctrl@ (unpack-promise (add-sub ,where-to-subscribe@)))
               ; 3. start receiving loop
@@ -317,7 +325,7 @@
                 (define reply@ (:remote/reply (delivery/contents-sent m)))
                 (cond 
                   [(LocalMsg? body)
-                 ; forward to proxy                                   
+                   ; forward to proxy                                   
                    (curl/send ,where-to-publish@ (remote/new (ChatMsg/new (:LocalMsg/nickname body) (:LocalMsg/text body) (:LocalMsg/timestamp body)) (make-metadata) me/ctrl@))
                    (loop)]                      
                   [(ChatMsg? body)
@@ -326,52 +334,46 @@
                      (thread-send guiLocal body))                   
                    (loop)]                      
                   [(CreateChat? body)                                      
-                   (let ([target@ (curl/get-public (:CreateChat/host body) (:CreateChat/port body))]
-                         )           
-                    (printf "Spawning new Client and Group \n") 
+                   (let ([target@ (curl/get-public (:CreateChat/host body) (:CreateChat/port body))])           
+                     (printf "Spawning new Client and Group \n") 
                      (curl/send target@ (spawn/new 
-                                         (lambda ()
-                                           (newgroup+client-startup target@
-                                                          (:CreateChat/groupname body)
-                                                          PUBLIC-CURL))                                                    
-                                         (make-metadata is/proxy (nick 'new-group+client-deployer)) #f))                     
-                   )
+                                         (make-newgroup+client-startup-thunk target@
+                                                                             (:CreateChat/groupname body)
+                                                                             PUBLIC-CURL)
+                                         (make-metadata is/proxy (nick 'new-group+client-deployer)) #f)))
                    (loop)]
                   [(JoinChat? body)                                      
                    (let ([target@ (curl/get-public (:JoinChat/host body) (:JoinChat/port body))]
-                         )                     
+                         [l-nc (make-newclient-startup-thunk (:JoinChat/groupname body) PUBLIC-CURL)])
                      (printf "Spawning new Client \n")
-                     (printf "~s~n"  (:JoinChat/groupname body))
                      (curl/send target@ (spawn/new 
-                                         (lambda ()
-                                           (newclient-startup (:JoinChat/groupname body)
-                                                           PUBLIC-CURL))                                                    
+                                         l-nc                                       
                                          (make-metadata is/proxy (nick 'new-client-deployer)) #f))                     
-                   )
+                     )
                    (loop)]
                   [(CP-Chat? body)                                      
                    (let ([target@ (curl/get-public (:JoinChat/host body) (:JoinChat/port body))]
                          )                    
                      (printf "Spawning new Client copy \n")
                      (curl/send target@ (spawn/new f                                                 
-                                         (make-metadata is/endpoint (nick 'chatclientcontroller)) #f))                     
-                   )
+                                                   (make-metadata is/endpoint (nick 'chatclientcontroller)) #f))                     
+                     )
                    (loop)]
                   [(MV-Chat? body)                                      
                    (let ([target@ (curl/get-public (:JoinChat/host body) (:JoinChat/port body))]
                          )
                      (printf "Spawning a copy of Client and removing original \n")
                      (curl/send target@ (spawn/new f                                                 
-                                         (make-metadata is/endpoint (nick 'chatclientcontroller)) #f))                    
+                                                   (make-metadata is/endpoint (nick 'chatclientcontroller)) #f))                    
                      (curl/send my-sub/ctrl@
-                                  (remote/new (RemoveSubscriber/new) (make-metadata) #f))                                          
-                   )
+                                (remote/new (RemoveSubscriber/new) (make-metadata) #f))                                          
+                     )
                    ]
                   [(Quit? body)
-                    (printf (string-append ,proxyname " ChatClientController quitting\n"))
-                       (curl/send my-sub/ctrl@
-                                  (remote/new (RemoveSubscriber/new) (make-metadata) #f))
-                  ]
+                   (printf (string-append ,proxyname " ChatClientController quitting\n"))
+                   (curl/send my-sub/ctrl@
+                              (remote/new (RemoveSubscriber/new) (make-metadata) #f))
+                   ]
                   [else
                    (displayln "ChatClientController throwing away a message")
                    (loop)])))])
