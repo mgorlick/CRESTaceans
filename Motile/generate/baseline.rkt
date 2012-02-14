@@ -55,7 +55,7 @@
 ;; combinator - Racket implementation of the combinator
 (define (motile/combinator/2 symbol combinator)
   (let ((descriptor (descriptor/global symbol)))
-    (lambda (k a g)
+    (define (combinator/2 k a g)
       (cond
         ((procedure? k)
          (arity/verify a 2 symbol)
@@ -64,7 +64,8 @@
                 (h (lambda (x) (f k/RETURN (arguments/pack x) g))))
            (k (combinator instance h))))
         ((decompile? k a g) descriptor)
-        (else (error/motile/internal/call symbol))))))
+        (else (error/motile/internal/call symbol))))
+    combinator/2))
 
 ;; Wrapper for combinator that takes three arguments:
 ;; a data structure instance, a two-argument Motile function, and a seed value.
@@ -72,7 +73,7 @@
 ;; combinator - Racket implementation of the combinator
 (define (motile/combinator/3 symbol combinator)
   (let ((descriptor (descriptor/global symbol)))
-    (lambda (k a g)
+    (define (combinator/3 k a g)
       (cond
         ((procedure? k)
          (arity/verify a 3 symbol)
@@ -82,7 +83,8 @@
                 (h (lambda (x y) (f k/RETURN (arguments/pack x y) g))))
            (k (combinator instance h seed))))
         ((decompile? k a g) descriptor)
-        (else (error/motile/internal/call symbol))))))
+        (else (error/motile/internal/call symbol))))
+    combinator/3))
 
 ;; ----- BEGIN KYLE -----
 ;; The following functions wrap host Scheme primitives allowing those primitives to be invoked
@@ -142,57 +144,62 @@
 ;; Wrapper for zero-argument host procedures.
 (define (motile/global/0 symbol procedure)
   (let ((descriptor (descriptor/global symbol)))
-    (lambda (k a g)
+    (define (arity-0-lookup k a g)
       (cond
         ((procedure? k)
          (arity/verify a 0 symbol)
          (k (procedure)))
         ((decompile? k a g) descriptor)
-        (else (error/motile/internal/call symbol))))))
+        (else (error/motile/internal/call symbol))))
+    arity-0-lookup))
 
 ;; Wrapper for one-argument host procedures.
 (define (motile/global/1 symbol procedure)
   (let ((descriptor (descriptor/global symbol)))
-    (lambda (k a g)
+    (define (arity-1-lookup k a g)
       (cond
         ((procedure? k)
          (arity/verify a 1 symbol)
          (k (procedure (a/1 a))))
         ((decompile? k a g) descriptor)
-        (else (error/motile/internal/call symbol))))))
+        (else (error/motile/internal/call symbol))))
+    arity-1-lookup))
 
 ;; Wrapper for two-argument host procedures.
 (define (motile/global/2 symbol procedure)
   (let ((descriptor (descriptor/global symbol)))
-    (lambda (k a g)
+    (define (arity-2-lookup k a g)
       (cond
         ((procedure? k)
          (arity/verify a 2 symbol)
          (k (procedure (a/1 a) (a/2 a))))
         ((decompile? k a g) descriptor)
-        (else (error/motile/internal/call symbol))))))
+        (else (error/motile/internal/call symbol))))
+    arity-2-lookup))
 
 ;; Wrapper for three-argument host procedures.
 (define (motile/global/3 symbol procedure)
   (let ((descriptor (descriptor/global symbol)))
-    (lambda (k a g)
+    (define (arity-3-lookup k a g)
       (cond
         ((procedure? k)
          (arity/verify a 3 symbol)
          (k (procedure (a/1 a) (a/2 a) (a/3 a))))
         ((decompile? k a g) descriptor)
-        (else (error/motile/internal/call symbol))))))
+        (else (error/motile/internal/call symbol))))
+    arity-3-lookup))
 
 ;; Wrapper for host procedures that accept more than three arguments
 ;; or accept a variable number of arguments.
 (define (motile/global/N symbol procedure)
   (let ((descriptor (descriptor/global symbol)))
-    (lambda (k a g)
+    (define (arity-n-lookup k a g)
       (cond
         ((procedure? k)
          (k (apply procedure (cdr (vector->list a)))))
         ((decompile? k a g) descriptor)
-        (else (error/motile/internal/call symbol))))))
+        (else (error/motile/internal/call symbol))))
+    arity-n-lookup))
 
 ;; Convenient helper macros for building global binding environments.
 (define-syntax-rule (define/global/0 symbol procedure)

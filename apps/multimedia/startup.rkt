@@ -83,72 +83,79 @@
               public-curl)
           ))
 
-#|(for/list ([i (in-range 5000 5020)])
+(define (go!)
+  
+  #|(for/list ([i (in-range 5000 5020)])
   (this/island (island/address/new #"abcdefghijklmnopqrstuvwxyz" #"128.195.59.227" i))
   (define-values (root rootl publicl publicc) (make-root/get-public/register-public))
  `((,(island/address/dns (this/island)) . ,i) . (,(motile/serialize (curl/new/any publicl null #f)))))|#
+  
+  ;; host and port to listen on. use to start the comm layer below, designating root to receive incoming.
+  (define *LISTENING-ON* (argsassoc "--host" #:no-val *LOCALHOST*))
+  (define *LOCALPORT* (argsassoc "--port" #:no-val 5000 #:call string->number))
+  
+  (define ADDRESS-HERE (island/address/new 
+                        #"abcdefghijklmnopqrstuvwxyz" 
+                        (string->bytes/utf-8 *LISTENING-ON*) *LOCALPORT*))
+  
+  (this/island ADDRESS-HERE)
+  (printf "Island starting: ~s~n" (this/island))
+  ; make root actor
+  (define-values (ROOT ROOT-LOCATIVE PUBLIC-LOCATIVE PUBLIC-CURL) (make-root/get-public/register-public))
+  ; deliver incoming messages to ROOT
+  (define COMM-thd (run-tcp-peer *LISTENING-ON* *LOCALPORT* (actor/thread ROOT) #:encrypt? #t))
+  (set-inter-island-router! COMM-thd)
+  
+  (define (my-root-loop)
+    (define amsg (thread-receive))
+    (match amsg
+      ;; spawn format, to be solely directed at the public curl.
+      [(vector (? (curry equal? PUBLIC-CURL) pcurl) (match:spawn body metadata reply))
+       (define the-nickname (symbol->string (gensym (or (metadata-ref metadata "nick") "nonamegiven"))))
+       (define-values (actor actor/loc) 
+         (actor/new ROOT the-nickname))
+       (actor/jumpstart actor 
+                        (λ ()
+                          (printf "Actor starting: ~s~n" the-nickname)
+                          (let ([ret (motile/call body (++ (metadata->benv metadata)
+                                                           (global-value-defines the-nickname PUBLIC-CURL)
+                                                           (global-defines this/locative
+                                                                           curl/get-public)))])
+                            (printf "Actor ending: ~s~n" the-nickname)
+                            ret)))]
+      [(? delivery? m)
+       ; send count deprecation happens here.
+       (with-handlers ([exn? (λ (e) (displayln e))])
+         (curl/forward m))]
+      [else
+       (displayln "Root: discarding a message:")
+       (displayln amsg)])
+    (my-root-loop))
+  
+  ;;; start the root chieftain up.
+  (actor/jumpstart ROOT (λ ()
+                          (PROMISSARY ROOT)
+                          (my-root-loop)))
+  
+  (unless (argsassoc "--no-gui")
+    (define the-controller (gui-controller))
+    (curl/send PUBLIC-CURL (spawn/new the-controller (make-metadata is/gui (nick 'gui-controller)) #f)))
+  (unless (argsassoc "--no-video")
+    (define device (argsassoc "--device" #:default "/dev/video0" #:no-val "/dev/video0"))
+    (define w (argsassoc "--w" #:default 1280 #:no-val 720 #:call (compose round string->number)))
+    (define h (argsassoc "--h" #:default 1280 #:no-val 720 #:call (compose round string->number)))
+    (define encoder-where@ (curl/get-public (argsassoc "--vhost" #:no-val *LISTENING-ON* #:default *LISTENING-ON*)
+                                            (argsassoc "--vport" #:call string->number 
+                                                       #:no-val *LOCALPORT* 
+                                                       #:default *LOCALPORT*)))
+    (define the-bang (big-bang encoder-where@ device w h
+                               encoder-where@
+                               PUBLIC-CURL))
+    (curl/send PUBLIC-CURL (spawn/new the-bang (make-metadata (nick 'big-bang)) #f)))
+  
+  (semaphore-wait (make-semaphore)))
 
-;; host and port to listen on. use to start the comm layer below, designating root to receive incoming.
-(define *LISTENING-ON* (argsassoc "--host" #:no-val *LOCALHOST*))
-(define *LOCALPORT* (argsassoc "--port" #:no-val 5000 #:call string->number))
+(require profile profile/render-text)
+(profile-thunk go! #:threads #t  #:delay 0.0001 #:render (λ (data) (render data #:hide-self 1/1000 #:hide-subs 1/1000)))
 
-(define ADDRESS-HERE (island/address/new 
-                      #"abcdefghijklmnopqrstuvwxyz" 
-                      (string->bytes/utf-8 *LISTENING-ON*) *LOCALPORT*))
-
-(this/island ADDRESS-HERE)
-(printf "Island starting: ~s~n" (this/island))
-; make root actor
-(define-values (ROOT ROOT-LOCATIVE PUBLIC-LOCATIVE PUBLIC-CURL) (make-root/get-public/register-public))
-; deliver incoming messages to ROOT
-(define COMM-thd (run-tcp-peer *LISTENING-ON* *LOCALPORT* (actor/thread ROOT) #:encrypt? #f))
-(set-inter-island-router! COMM-thd)
-
-(define (my-root-loop)
-  (define amsg (thread-receive))
-  (match amsg
-    ;; spawn format, to be solely directed at the public curl.
-    [(vector (? (curry equal? PUBLIC-CURL) pcurl) (match:spawn body metadata reply))
-     (define the-nickname (symbol->string (gensym (or (metadata-ref metadata "nick") "nonamegiven"))))
-     (define-values (actor actor/loc) 
-       (actor/new ROOT the-nickname))
-     (actor/jumpstart actor 
-                      (λ ()
-                        (printf "Actor starting: ~s~n" the-nickname)
-                        (let ([ret (motile/call body (++ (metadata->benv metadata)
-                                                         (global-value-defines the-nickname PUBLIC-CURL)
-                                                         (global-defines this/locative
-                                                                         curl/get-public)))])
-                          (printf "Actor ending: ~s~n" the-nickname)
-                          ret)))]
-    [(? delivery? m)
-     ; send count deprecation happens here.
-     (with-handlers ([exn? (λ (e) (displayln e))])
-       (curl/forward m))]
-    [else
-     (displayln "Root: discarding a message:")
-     (displayln amsg)])
-  (my-root-loop))
-
-;;; start the root chieftain up.
-(actor/jumpstart ROOT (λ ()
-                        (PROMISSARY ROOT)
-                        (my-root-loop)))
-
-(unless (argsassoc "--no-gui")
-  (define the-controller (gui-controller))
-  (curl/send PUBLIC-CURL (spawn/new the-controller (make-metadata is/gui (nick 'gui-controller)) #f)))
-(unless (argsassoc "--no-video")
-  (define device (argsassoc "--device" #:default "/dev/video0" #:no-val "/dev/video0"))
-  (define w (argsassoc "--w" #:default 640 #:no-val 640 #:call (compose round string->number)))
-  (define h (argsassoc "--h" #:default 480 #:no-val 480 #:call (compose round string->number)))
-  (define encoder-where@ (curl/get-public (argsassoc "--vhost" #:no-val *LISTENING-ON* #:default *LISTENING-ON*)
-                                          (argsassoc "--vport" #:call string->number 
-                                                     #:no-val *LOCALPORT* 
-                                                     #:default *LOCALPORT*)))
-  (define the-bang (big-bang encoder-where@ device w h
-                             PUBLIC-CURL
-                             PUBLIC-CURL))
-  (curl/send PUBLIC-CURL (spawn/new the-bang (make-metadata (nick 'big-bang)) #f)))
-
-(semaphore-wait (make-semaphore))
+;(go!)

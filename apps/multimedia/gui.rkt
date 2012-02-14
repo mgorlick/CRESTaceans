@@ -15,8 +15,8 @@
 
 (struct video-gui-client (gui controller@))
 
-(define top-width 900)
-(define top-height 600)
+(define top-width 1680)
+(define top-height 1050)
 
 (define (make-notify-controller-callback controller@)
   (λ (m)

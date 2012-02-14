@@ -89,7 +89,7 @@
 ;; binding environments used.
 (define MULTIMEDIA-BASE
   (++ BASELINE
-      (global-defines bin* bin- bin+ bin/ bin>= min* sleep* max* halve
+      (global-defines bin* bin- bin+ bin/ bin>= min* sleep* max* halve modulo zero?
                       display displayln void printf vector-ref
                       mailbox-get-message mailbox-has-message?
                       current-inexact-milliseconds exact->inexact)

@@ -43,8 +43,12 @@
       ;   * Issued by this island, exported to another island, and then used as the target for a message transmission
       ;     back to this island, AND
       ;   * The locative referenced by CURL c has expired in the meantime
-      ; Life is a bitch.
       (else #f))))
+
+#|(define (curl/broadcast m cs)
+  (assert/type cs (λ (c) (or (list? c) (set? c))) 'curl/send "set or list of curls")
+  (cond [(set? cs) (set/map cs (curryr curl/send m))]
+        [(list? cs) (map (curryr curl/send m) cs)]))|#
 
 (define (curl/send/promise c m lifespan)
   (assert/type c curl? 'curl/send "<curl>")

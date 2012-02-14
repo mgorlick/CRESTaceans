@@ -172,11 +172,12 @@
 
 (define (global/get/generate symbol)
   (let ((descriptor #f))
-    (lambda (k e g)
+    (define (global-getter k e g)
       (cond
         ((procedure? k) (k (global/find g symbol)))
         ((decompile? k e g) (bind/return! descriptor (descriptor/global/get symbol)))
-        (else (error/motile/internal/call 'global/get/generate))))))
+        (else (error/motile/internal/call 'global/get/generate))))
+    global-getter))
 
 (define UNDEFINED (gensym 'undefined.))
 
