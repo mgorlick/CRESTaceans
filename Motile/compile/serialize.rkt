@@ -305,7 +305,9 @@
            ; contains two Racket (not Motile!) procedures, <equality> and <hash>, the key equality test and the key hash code
            ; generator respectively. We don't want the serializer to see either of those as it has no idea of what to do with them.
            ; The only element that requires deep inspection is the trie representing the contents of the persistent hash table.
-           [(hash/persist? v) (loop (hash/root v))]
+           [(hash/persist? v) (let ([h (loop (hash/root v))])
+                                (printf "~s~n======~n" h)
+                                h)]
 
            ; Persistent sets require equal care as the Mischief representation is, with the exception of the
            ; tag in element 0, identical to that for persistent hash tables.
@@ -634,6 +636,7 @@
                                                             ;     persistent vector #('<vector/persist> <count> <shift> <root> <tail>.
 
          [(H) ; (H <equality> <trie>). Persistent hash table.
+          (printf "Hash: ~s~n====~n" v)
           (let-values
               ([(equality hasher)
                  (case (cadr v)
