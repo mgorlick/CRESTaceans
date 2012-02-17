@@ -459,7 +459,7 @@
                                    ;; have prior frame and stream is major. update over prior frame
                                    [(and (curl/target=? replyaddr@ majorprox@)
                                          last-decoded-frame)
-                                    (vp8dec-decode-update-major decoder/major decoder/minor
+                                    (vp8dec-decode-update-major decoder/major 
                                                                 (:Frame/data body) last-decoded-frame)]
                                    ;; frame is minor stream only, or some other stream. ignore
                                    [else last-decoded-frame])]
@@ -467,8 +467,8 @@
                             [frame-after-minor-check
                              (cond [(and frame-after-major-check (curl/target=? replyaddr@ minorprox@))
                                     ;; have prior frame and stream is minor. update over prior frame.
-                                    (vp8dec-decode-update-minor decoder/major decoder/minor 
-                                                                (:Frame/data body) frame-after-major-check)]
+                                    (vp8dec-decode-update-minor decoder/minor (:Frame/data body)
+                                                                frame-after-major-check)]
                                    ;; frame is major stream only, or some other stream. ignore
                                    [else
                                     frame-after-major-check])])

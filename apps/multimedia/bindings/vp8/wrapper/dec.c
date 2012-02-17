@@ -90,20 +90,16 @@ no_init:
 
 }
 
-inline int is_init (VP8Dec *dec) {
-  return 1 == dec->is_init;
-}
-
-inline int conditional_init (VP8Dec *dec, 
+int conditional_init (VP8Dec *dec, 
 		      const size_t input_size, const unsigned char *input) {
-  if (!(is_init (dec))) {
+  if (0 == dec->is_init) {
     vp8dec_init (dec, input_size, input);
-    if (!is_init (dec)) { return 0; }
+    if (0 == dec->is_init)
+      return 0;
   }
   return 1;
 }
 
-/* private to implementation */
 int decode_and_scale (VP8Dec *dec, 
 		      const size_t input_size, const unsigned char *input,
 		      const size_t output_size, unsigned char *output,
@@ -111,19 +107,16 @@ int decode_and_scale (VP8Dec *dec,
   vpx_image_t *img;
   vpx_codec_err_t status;
   vpx_codec_iter_t iter = NULL;
-  uint w = 0;
-  uint h = 0;
 
     // only proceed here if we've seen at least one keyframe
   status = vpx_codec_decode (dec->codec, input, input_size, NULL, 0);
   if (status != VPX_CODEC_OK)
     goto no_decode;
 
-  /* only take first frame. vpx as a generality allows for multiple per pkt but vp8 seems to not */
-  if (NULL != (img = vpx_codec_get_frame (dec->codec, &iter))) {
+  while (NULL != (img = vpx_codec_get_frame (dec->codec, &iter))) {
 
-   w = img->d_w;
-   h = img->d_h;
+   int w = img->d_w;
+   int h = img->d_h;
    int dest_stride = DISPLAY_FORMAT_BPP * w;
 
     if (dec->swsctx == NULL) {
@@ -133,19 +126,12 @@ int decode_and_scale (VP8Dec *dec,
     }
     if (dec->swsctx == NULL) goto no_video;
     
-    if (output_size == w*h*DISPLAY_FORMAT_BPP) {
-      sws_scale (dec->swsctx, (const uint8_t * const *) img->planes, img->stride, 0, h,
-		 &output, &dest_stride);
-    } else {
-      goto bad_size;
-    }
+    sws_scale (dec->swsctx, (const uint8_t * const *) img->planes, img->stride, 0, h,
+	       &output, &dest_stride);
   }
   
   return 1;
 
- bad_size:
-  printf ("Unexpected buffer size: %d (actual) != %d (expected)\n", output_size, w*h*DISPLAY_FORMAT_BPP);
-  return 0;
 no_decode:
   printf ("Failed to decode frame: %s\n", vpx_codec_err_to_string (status));
   return 0;
@@ -154,7 +140,6 @@ no_video:
   return 0;
 }
 
-/* public. */
 int vp8dec_decode_copy (VP8Dec *dec, 
 			const size_t input_size, const unsigned char *input,
 			const size_t output_size, unsigned char *output) {
@@ -167,19 +152,49 @@ int vp8dec_decode_copy (VP8Dec *dec,
   return 0;
 }
 
-/* public. */
-int vp8dec_decode_update_major (VP8Dec *dec_major, VP8Dec *dec_minor,
+int vp8dec_decode_update_minor_tile (VP8Dec *dec, const int qtr_row, const int qtr_col,
+				     const size_t input_size, const unsigned char *input,
+				     const size_t output_size, unsigned char *output) {
+
+  unsigned char tmp[output_size];
+    
+  if (vp8dec_decode_copy (dec, input_size, input, output_size, tmp)) {
+    unsigned char *input_cursor;
+    unsigned char *output_cursor;
+    int row = 0;
+    int row_bytes_width = dec->width * DISPLAY_FORMAT_BPP;
+    for (row = 0; row < dec->height * PIP_AXIS_PORTION; row++) {
+      input_cursor = tmp + row*row_bytes_width;
+      output_cursor = output + row*row_bytes_width;
+      memcpy (output_cursor, input_cursor, row_bytes_width * PIP_AXIS_PORTION);
+    }
+    return 1;
+  }
+  return 0;
+}
+
+int vp8dec_decode_update_minor (VP8Dec *dec,
 				const size_t input_size, const unsigned char *input,
 				const size_t output_size, unsigned char *output) {
-  int stride = dec_major->width * DISPLAY_FORMAT_BPP;
+  if (conditional_init (dec, input_size, input)) {
+    return decode_and_scale (dec, input_size, input,
+			     output_size, output, PIP_AXIS_PORTION);
+  }
+  return 0;
+}
+
+int vp8dec_decode_update_major (VP8Dec *dec,
+				const size_t input_size, const unsigned char *input,
+				const size_t output_size, unsigned char *output) {
+  int stride = dec->width * DISPLAY_FORMAT_BPP;
   int bytes_per_row_scaled = stride * PIP_AXIS_PORTION;
-  int rows_scaled = dec_major->height * PIP_AXIS_PORTION;
+  int rows_scaled = dec->height * PIP_AXIS_PORTION;
   int row = 0;
   unsigned char tmp[output_size];
   unsigned char *src_row = output;
   unsigned char *dst_row = tmp;
 
-  if (vp8dec_decode_copy (dec_major, input_size, input, output_size, tmp)) {
+  if (vp8dec_decode_copy (dec, input_size, input, output_size, tmp)) {
     // copy the current minor picture (in *output) over the new decoded major
     for (row = 0; row < rows_scaled; row++) {
       memcpy (dst_row, src_row, bytes_per_row_scaled);
@@ -191,15 +206,4 @@ int vp8dec_decode_update_major (VP8Dec *dec_major, VP8Dec *dec_minor,
   } else {
     return 0;
   }
-}
-
-/* public. */
-int vp8dec_decode_update_minor (VP8Dec *dec_major, VP8Dec *dec_minor,
-				const size_t input_size, const unsigned char *input,
-				const size_t output_size, unsigned char *output) {
-  if (conditional_init (dec_minor, input_size, input)) {
-    return decode_and_scale (dec_minor, input_size, input,
-			     output_size, output, PIP_AXIS_PORTION);
-  }
-  return 0;
 }
