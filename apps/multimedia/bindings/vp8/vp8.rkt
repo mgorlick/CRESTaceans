@@ -67,8 +67,9 @@
                                         #f)))
 
 ; vp8dec-pointer? bytes? exact-nonnegative-integer? exact-nonnegative-integer? bytes? -> (or/c bytes? #f))
-(defvp8 vp8dec-decode-update-minor (_fun (decoder compressed-frame old-output-frame) ::
-                                         (decoder : _vp8dec-pointer)
+(defvp8 vp8dec-decode-update-minor (_fun (decoder-major decoder-minor compressed-frame old-output-frame) ::
+                                         (decoder-major : _vp8dec-pointer)
+                                         (decoder-minor : _vp8dec-pointer)
                                          (input-size : _size_t = (bytes-length compressed-frame))
                                          (compressed-frame : _bytes)
                                          (output-size : _size_t = (bytes-length old-output-frame))
@@ -79,8 +80,9 @@
                                                 #f)))
 
 ; vp8dec-pointer? bytes? exact-nonnegative-integer? exact-nonnegative-integer? bytes? -> (or/c bytes? #f))
-(defvp8 vp8dec-decode-update-major (_fun (decoder compressed-frame old-output-frame) ::
-                                         (decoder : _vp8dec-pointer)
+(defvp8 vp8dec-decode-update-major (_fun (decoder-major decoder-minor compressed-frame old-output-frame) ::
+                                         (decoder-major : _vp8dec-pointer)
+                                         (decoder-minor : _vp8dec-pointer)
                                          (input-size : _size_t = (bytes-length compressed-frame))
                                          (compressed-frame : _bytes)
                                          (output-size : _size_t = (bytes-length old-output-frame))
