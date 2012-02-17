@@ -1,0 +1,4 @@
+#! /bin/sh
+
+find . -name $1 -print0 | xargs -0 grep -h "locative/send" | while read one two three four five; do echo $two; done | cut -d'(' -f1 | awk '{s+=$1} END {print s}'
+

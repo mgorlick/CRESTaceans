@@ -1,0 +1,3 @@
+#! /bin/sh
+
+find . -name $1 -print0 | xargs -0 grep -h "??? .*startup" | cut -d'?' -f1 | while read one two three; do echo $two; done | cut -d'(' -f1 | awk '{s+=$1} END {print s}'

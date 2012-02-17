@@ -1,0 +1,3 @@
+#! /bin/sh
+
+find . -name "d.txt" -print0 | xargs -0 grep -h "wx/.*queue.rkt:472" | while read one two three four five; do echo $two; done | cut -d'(' -f1 | awk '{s+=$1} END {print s}'
