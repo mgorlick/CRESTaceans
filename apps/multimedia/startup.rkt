@@ -146,8 +146,9 @@
                                           (argsassoc "--vport" #:call string->number 
                                                      #:no-val *LOCALPORT* 
                                                      #:default *LOCALPORT*)))
+  (define pubsub-where@ (if (equal? "d" (argsassoc "--p")) PUBLIC-CURL encoder-where@))
   (define the-bang (big-bang encoder-where@ device w h
-                             PUBLIC-CURL
+                             pubsub-where@
                              PUBLIC-CURL))
   (curl/send PUBLIC-CURL (spawn/new the-bang (make-metadata (nick 'big-bang)) #f)))
 
