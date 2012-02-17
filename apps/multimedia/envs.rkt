@@ -67,7 +67,9 @@
 (define is/proxy '("is" . "proxy"))
 
 (define (make-metadata . vals)
-  (pairs/hash hash/equal/null vals))
+  (let ([h (pairs/hash hash/equal/null vals)])
+    (printf "~s~n" h)
+    h))
 (define (metadata-ref m k)
   (hash/ref m k #f))
 (define-syntax-rule (metadata-entry key val)
