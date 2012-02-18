@@ -109,7 +109,6 @@
   (match amsg
     ;; spawn format, to be solely directed at the public curl.
     [(vector (? (curry equal? PUBLIC-CURL) pcurl) (match:spawn body metadata reply))
-     (hash/for-each metadata (λ (k.v) (printf "~s = ~s~n" (car k.v) (cdr k.v))))
      (define the-nickname  (gensym (or (metadata-ref metadata "nick") 'nonamegiven)))
      (define-values (actor actor/loc) 
        (actor/new ROOT the-nickname))
