@@ -110,9 +110,6 @@
     ;; spawn format, to be solely directed at the public curl.
     [(vector (? (curry equal? PUBLIC-CURL) pcurl) (match:spawn body metadata reply))
      (hash/for-each metadata (λ (k.v) (printf "~s = ~s~n" (car k.v) (cdr k.v))))
-     (hash/for-each metadata (λ (k.v) (printf "~s ---> ~s~n" (car k.v) (hash/ref metadata (car k.v) #f))))
-     (printf "~s~n" metadata)
-     (printf "=====~n")
      (define the-nickname  (gensym (or (metadata-ref metadata "nick") 'nonamegiven)))
      (define-values (actor actor/loc) 
        (actor/new ROOT the-nickname))
