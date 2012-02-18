@@ -124,7 +124,7 @@
                                            (try-connect-n-times (sub1 n) (* sleeptime 2)))])
         (cond [(zero? n) (printf "Connect attempts exceeded. Dropping all messages to ~a~n" remote-id)
                          (hash-remove! connects-o remote-id)]
-              [else (displayln "Trying a connect")
+              [else (printf "Trying a connect to ~a~n" remote-id)
                     (connect lport (car remote-id) (cdr remote-id))])))
     (thread (λ () (try-connect-n-times (num-connect-tries) (secs-between-connect-attempts)))))
   
