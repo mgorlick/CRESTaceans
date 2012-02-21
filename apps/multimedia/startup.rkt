@@ -146,7 +146,7 @@
                                           (argsassoc "--vport" #:call string->number 
                                                      #:no-val 5000 
                                                      #:default 5000)))
-  (define pubsub-where@ (if (equal? "d" (argsassoc "--p")) PUBLIC-CURL encoder-where@))
+  (define pubsub-where@ (if (equal? "dsite" (argsassoc "--psat")) PUBLIC-CURL encoder-where@))
   (define the-bang (big-bang encoder-where@ device w h
                              pubsub-where@
                              PUBLIC-CURL))
