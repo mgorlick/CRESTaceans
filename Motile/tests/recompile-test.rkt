@@ -16,7 +16,7 @@
  (only-in "../baseline.rkt" BASELINE ENVIRON/TEST))
 
 ;; Convenient helper routines.
-(define (decompile x) (motile/decompile (motile/compile x)))
+(define (decompile x)       (motile/decompile (motile/compile x)))
 (define (recompile/start x) (motile/call (motile/recompile x) ENVIRON/TEST))
 
 (define-test-suite environ
