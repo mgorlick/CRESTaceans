@@ -10,7 +10,9 @@
  "../baseline.rkt"
  "../persistent/environ.rkt"
  "../persistent/hash.rkt"
- (only-in "../generate/baseline.rkt" motile/call motile/decompile))
+ "../persistent/set.rkt"
+ (only-in "../generate/baseline.rkt" motile/call motile/decompile)
+ (only-in "../compile/serialize.rkt" motile/serialize motile/deserialize))
 
 (provide
  compile/start
@@ -1264,6 +1266,18 @@
 
 ; -----------------------------
 
+;; Helper function used in hash/vector test case below.
+(define (vector/pairs v)
+  (let loop ((pairs null)
+             (i 0)
+             (n (vector-length v)))
+    (if (< i n)
+        (loop
+         (cons (cons (vector-ref v i) (vector-ref v (add1 i))) pairs)
+         (+ i 2)
+         n)
+        pairs)))
+
 ;; A suite of tests for motile persistent hash tables.
 (define-test-suite hash-tests
   (test-case
@@ -1280,6 +1294,69 @@
             (less? (lambda (alpha beta)
                      (string<? (symbol->string (car alpha)) (symbol->string (car beta))))))
         (sort (hash/pairs h/26) less?)))
+    
+    '((a . 1) (b . 2) (c . 3) (d . 4) (e . 5) (f . 6) (g . 7) (h . 8) (i . 9) (j . 10)
+      (k . 11) (l . 12) (m . 13) (n . 14) (o . 15) (p . 16) (q . 17) (r . 18) (s . 19) (t . 20)
+      (u . 21) (v . 22) (w . 23) (x . 24) (y . 25) (z . 26))))
+
+  (test-case
+   "hash/vector"
+   (check-equal? 
+    
+    (let* ((h/26
+            ((compile/start)
+             '(begin (list/hash
+                      hash/eq/null
+                      '(a 1 b 2 c 3 d 4 e 5 f 6 g 7 h 8 i 9 j 10
+                          k 11 l 12 m 13 n 14 o 15 p 16 q 17 r 18 s 19 t 20
+                          u 21 v 22 w 23 x 24 y 25 z 26)))))
+           (less? (lambda (alpha beta)
+                    (string<? (symbol->string (car alpha)) (symbol->string (car beta)))))
+           (v (hash/vector h/26)))
+      (sort (vector/pairs v) less?))
+    
+    '((a . 1) (b . 2) (c . 3) (d . 4) (e . 5) (f . 6) (g . 7) (h . 8) (i . 9) (j . 10)
+      (k . 11) (l . 12) (m . 13) (n . 14) (o . 15) (p . 16) (q . 17) (r . 18) (s . 19) (t . 20)
+      (u . 21) (v . 22) (w . 23) (x . 24) (y . 25) (z . 26))))
+  
+  (test-case
+   "hash (de)serialize #1"
+   (check-equal?
+   
+    (let ((h ((compile/start)
+               '(begin (list/hash
+                        hash/eq/null
+                        '(a 1 b 2 c 3 d 4 e 5 f 6 g 7 h 8 i 9 j 10
+                            k 11 l 12 m 13 n 14 o 15 p 16 q 17 r 18 s 19 t 20
+                            u 21 v 22 w 23 x 24 y 25 z 26)))))
+          (less? (lambda (alpha beta)
+                    (string<? (symbol->string (car alpha)) (symbol->string (car beta))))))
+      (pretty-display (motile/serialize h))
+      (sort
+       (hash/pairs (motile/deserialize (motile/serialize h) #f))
+       less?))
+
+    '((a . 1) (b . 2) (c . 3) (d . 4) (e . 5) (f . 6) (g . 7) (h . 8) (i . 9) (j . 10)
+      (k . 11) (l . 12) (m . 13) (n . 14) (o . 15) (p . 16) (q . 17) (r . 18) (s . 19) (t . 20)
+      (u . 21) (v . 22) (w . 23) (x . 24) (y . 25) (z . 26))))
+
+  (test-case
+   "hash (de)serialize #2"
+   (check-equal?
+   
+    (let ((code ((compile/start)
+                 '(let ((h (list/hash
+                             hash/eq/null
+                             '(a 1 b 2 c 3 d 4 e 5 f 6 g 7 h 8 i 9 j 10
+                                 k 11 l 12 m 13 n 14 o 15 p 16 q 17 r 18 s 19 t 20
+                                 u 21 v 22 w 23 x 24 y 25 z 26))))
+                    (lambda () h))))
+          (less? (lambda (alpha beta)
+                    (string<? (symbol->string (car alpha)) (symbol->string (car beta))))))
+      (pretty-display (motile/serialize code))
+      (sort
+       (hash/pairs (motile/call (motile/deserialize (motile/serialize code) #f) ENVIRON/TEST))
+       less?))
     
     '((a . 1) (b . 2) (c . 3) (d . 4) (e . 5) (f . 6) (g . 7) (h . 8) (i . 9) (j . 10)
       (k . 11) (l . 12) (m . 13) (n . 14) (o . 15) (p . 16) (q . 17) (r . 18) (s . 19) (t . 20)
@@ -1784,7 +1861,54 @@
          (set/subset? (cdr both) even)
          (set/subset? even (cdr both)))))
 
-    '(#t #t #t #t #t))))
+    '(#t #t #t #t #t)))
+  
+  (test-case
+   "set/vector"
+   (check-equal?
+    (let* ((alphabet
+            ((compile/start) 
+             '(begin (list/set set/eq/null '(a b c d e f g h i j k l m n o p q r s t u v w x y z)))))
+           (v (set/vector alphabet))
+           (less? (lambda (alpha beta)
+                     (string<? (symbol->string alpha) (symbol->string beta)))))
+      (sort (vector->list v) less?))
+
+    '(a b c d e f g h i j k l m n o p q r s t u v w x y z)))
+  
+  (test-case
+   "set (de)serialize #1"
+   (check-equal?
+   
+    (let ((s ((compile/start)
+               '(begin (list/set set/eq/null '(a b c d e f g h i j k l m n o p q r s t u v w x y z)))))
+          (less? (lambda (alpha beta)
+                    (string<? (symbol->string alpha) (symbol->string beta)))))
+      (pretty-display (motile/serialize s))
+      (sort
+       (set/list (motile/deserialize (motile/serialize s) #f))
+       less?))
+
+    '(a b c d e f g h i j k l m n o p q r s t u v w x y z)))
+  
+    (test-case
+   "set (de)serialize #2"
+   (check-equal?
+   
+    (let ((code
+           ((compile/start)
+            '(let ((s (list/set set/eq/null '(a b c d e f g h i j k l m n o p q r s t u v w x y z))))
+               (lambda () s))))
+          (less? (lambda (alpha beta)
+                    (string<? (symbol->string alpha) (symbol->string beta)))))
+      (pretty-display (motile/serialize code))
+      (sort
+       (set/list (motile/call (motile/deserialize (motile/serialize code) #f) ENVIRON/TEST))
+       less?))
+
+    '(a b c d e f g h i j k l m n o p q r s t u v w x y z)))
+
+  )
 
 
 

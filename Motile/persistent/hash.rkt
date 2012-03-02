@@ -51,6 +51,7 @@
  ; Hash table deconstructors.
  hash/list
  hash/pairs
+ hash/vector
  hash/keys
  
  ; Hash table lookup.
@@ -190,8 +191,25 @@
 (define (hash/pairs h)
   (hash/fold h (lambda (pair seed) (cons pair seed)) null))
 
+;; Given the hash contents of h as k_0/v_0, ..., k_N/v_N return a flat list
+;; (k_0 v_0 ... k_N v_N).
 (define (hash/list h)
   (hash/fold h (lambda (pair seed) (cons (car pair) (cons (cdr pair) seed))) null))
+
+
+;; Given the hash contents of h as k_0/v_0, ..., k_N/v_N return
+;; #(k_0 v_0 ... k_N v_N).
+(define (hash/vector h)
+  (let* ((n (hash/length h))
+         (v (make-vector (* 2 n) #f)))
+    (hash/fold
+     h
+     (lambda (pair seed)
+       (vector-set! v seed        (car pair))
+       (vector-set! v (add1 seed) (cdr pair))
+       (+ seed 2))
+     0)
+    v))
 
 ;; Given hash table h return a successor hash table whose contents is the merge of h and the key/value pair.
 ;; If h contains key then that pair is replaced by the arguments in the successor.
@@ -408,3 +426,25 @@
 ;                     #(2097152
 ;                       #(1 #((#(<tuple> foo) . 3) (#(<tuple> bar) . 4))))))))
 ;             (#(<tuple>) . 1)))
+
+;; Helper function used in hash/vector/test below.
+(define (vector/pairs v)
+  (let loop ((pairs null)
+             (i 0)
+             (n (vector-length v)))
+    (if (< i n)
+        (loop
+         (cons (cons (vector-ref v i) (vector-ref v (add1 i))) pairs)
+         (+ i 2)
+         n)
+        pairs)))
+
+(define (hash/vector/test)
+  (let ((less? (lambda (alpha beta)
+                 (string<? (symbol->string (car alpha)) (symbol->string (car beta)))))
+        (v (hash/vector h/26)))
+    
+    (sort (vector/pairs v) less?)))
+;    '((a . 1) (b . 2) (c . 3) (d . 4) (e . 5) (f . 6) (g . 7) (h . 8) (i . 9) (j . 10)
+;      (k . 11) (l . 12) (m . 13) (n . 14) (o . 15) (p . 16) (q . 17) (r . 18) (s . 19) (t . 20)
+;      (u . 21) (v . 22) (w . 23) (x . 24) (y . 25) (z . 26))))

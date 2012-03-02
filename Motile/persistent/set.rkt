@@ -43,6 +43,8 @@
  set/difference
  set/filter
  set/partition
+ set/vector
+ vector/set
  
  ; Exported for the sake of serialize/deserialize.
  set/equality
@@ -77,9 +79,14 @@
 (define (set/eqv? s)   (eq? (set/equality s) eqv?))
 (define (set/equal? s) (eq? (set/equality s) equal?))
 
+;; Effectively a set is a persistent hash table whose key/value pairs are e_i/#t
+;; for each set member e_i.
+
+;; Given set s and a list of elements (e_0 ... e_{n-1}) return the union of
+;; s and elements e_0, ..., e_{n-1}.
 (define (list/set s elements)
-  (let ((equality? (set/equality s))
-        (hasher    (set/hash s)))
+  (let ((equality? (set/equality s)) ; Set equality test.
+        (hasher    (set/hash s)))    ; Set element hash.
     (let loop ((elements elements)
                (t (set/root s)))
       (if (null? elements)
@@ -87,9 +94,27 @@
           (let ((key (car elements)))
             (loop (cdr elements) (trie/key/with equality? hasher t key #t (hasher key) 0)))))))
 
+;; Given set s and vector v of set elements #(e_0 ... e_{n-1}) return the union of
+;; s and elements e_0, ..., e_{n-1}.
+(define (vector/set s v)
+  (let ((equality? (set/equality s))
+        (hasher    (set/hash s))
+        (n         (vector-length v)))
+    (let loop ((i 0)
+               (t (set/root s)))
+      (if (< i n)
+          (let ((key (vector-ref v i)))
+            (loop (add1 i) (trie/key/with equality? hasher t key #t (hasher key) 0)))
+          (set/construct equality? hasher t)))))
+
+
 (define (set/new s . rest)
   (list/set s rest))
 
+;; Fold function function f over set s with the given initial seed value.
+;; f takes two arguments, an element of set s and the current seed, and returns
+;; the new seed value.
+;; The value of the fold is the final seed value.
 (define (set/fold s f seed)
   (pairs/fold (lambda (pair seed) (f (car pair) seed)) seed (set/root s)))
 
@@ -100,7 +125,24 @@
   (eq? (set/root s) trie/empty))
 
 (define (set/list s)
-  (pairs/fold (lambda (pair seed) (cons (car pair) seed)) null (set/root s)))
+  (set/fold
+   s
+   (lambda (x seed) (cons x seed))
+   null))
+  ;(pairs/fold (lambda (pair seed) (cons (car pair) seed)) null (set/root s)))
+
+;; Convert set s to a Racket vector with one set element per slot.
+(define (set/vector s)
+  (let* ((n (set/length s))
+         (v (make-vector n #f)))
+    (set/fold
+     s
+     (lambda (element seed)
+       (vector-set! v seed element)
+       (add1 seed))
+     0)
+
+    v))
 
 (define (set/cons s element)
   (let* ((equality? (set/equality s))
