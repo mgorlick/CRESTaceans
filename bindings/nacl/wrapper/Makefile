@@ -7,21 +7,21 @@ ifeq ($(UNAME), Darwin)
 else ifeq ($(UNAME), Linux)
 	SO = libnacl.so
 	CFLAGS = -fPIC -c -g -O3 -Wall -Wextra -Werror
-	SOCOMMAND = -fPIC -O3 -shared -o $(SO)
+	SOCOMMAND = -fPIC -O3 -g -shared -o $(SO)
 endif
 
 all: so
 
-so: cpucycles.o randombytes.o box.o libnacl.a
+so: box.o sign.o hash.o cpucycles.o randombytes.o libnacl.a
 	$(CC) $(SOCOMMAND) $^
 
-box.o: box.c
+%.o: %.c
 	$(CC) $(CFLAGS) -o $@ $<
 
 install:
 	cp $(SO) $(RACKET_LIBS)
 
 clean:
-	rm -rf box.o $(SO)
+	rm -rf box.o sign.o hash.o $(SO)
 
 .PHONY: all so clean install
