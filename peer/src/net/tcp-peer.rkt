@@ -9,6 +9,7 @@
          "../../../Motile/compile/serialize.rkt"
          "../../../Motile/actor/curl.rkt"
          "../../../Motile/actor/island.rkt"
+         
          "compression.rkt"
          "encryption.rkt")
 
@@ -35,6 +36,11 @@
 
 (define num-connect-tries (make-parameter 8))
 (define secs-between-connect-attempts (make-parameter 1))
+
+;; choice of encryption.
+(define-values/invoke-unit nacl-encryption@
+  (import)
+  (export encryption-unit^))
 
 ; note on the use of async channels in this module:
 ; for each pair of input and output threads spawned (i.e., those two threads monitoring
@@ -133,10 +139,6 @@
   ;; encryption stuff.
   (define/contract (do-key-exchange/make-encrypter/decrypter remote-encrypt-wanted? i o)
     (boolean? input-port? output-port? . -> . (values encrypter/c decrypter/c))
-    ;; choice of encryption.
-    (define-values/invoke-unit (if (and encrypt? remote-encrypt-wanted?) nacl-encryption@ no-encryption@)
-      (import)
-      (export encryption-unit^))
     ;; then do Diffie-Hellman key exchange.
     (define-values (my-PK set-PK) (make-pk/encrypter/decrypter))
     (define their-PK (do-DH-exchange my-PK i o))

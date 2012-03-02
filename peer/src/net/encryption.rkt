@@ -57,38 +57,39 @@
 ;; a Unit that provides NaCl-based encryption.
 (define-runtime-path path/to/nacl/lib
   "../../../bindings/nacl/libnacl/libnacl.rkt")
-(define-runtime-path path/to/nacl/crypto-box-helper
-  "../../../bindings/nacl/libnacl/crypto-box.rkt")
 (define-unit nacl-encryption@
   (import)
   (export encryption-unit^)
   
-  (define crypto-box-keypair
-    (dynamic-require path/to/nacl/lib 'crypto-box-keypair))
-  (define encrypt-with-secret
-    (dynamic-require path/to/nacl/crypto-box-helper 'encrypt-with-secret))
-  (define decrypt-with-secret
-    (dynamic-require path/to/nacl/crypto-box-helper 'decrypt-with-secret))
-  (define compute-secret
-    (dynamic-require path/to/nacl/crypto-box-helper 'compute-secret))
+  (define nacl:crypto-box-beforenm
+    (dynamic-require path/to/nacl/lib 'nacl:crypto-box-beforenm))
+  (define nacl:crypto-box-keypair
+    (dynamic-require path/to/nacl/lib 'nacl:crypto-box-keypair))
+  (define nacl:crypto-box-afternm
+    (dynamic-require path/to/nacl/lib 'nacl:crypto-box-afternm))
+  (define nacl:crypto-box-open-afternm
+    (dynamic-require path/to/nacl/lib 'nacl:crypto-box-open-afternm))
   
   (define (make-pk/encrypter/decrypter)
-    (define-values (my-pk my-sk _) (crypto-box-keypair))
+    (define-values (my-pk my-sk) (nacl:crypto-box-keypair))
     
-    (define/contract (compute-secret* their-pk)
+    (define/contract (compute-secret their-pk)
       (public-key/c . -> . (values encrypter/c decrypter/c))
-      (define/contract secret bytes? (compute-secret their-pk my-sk))
+      (define/contract secret bytes? (nacl:crypto-box-beforenm their-pk my-sk))
       
       (define/contract (encrypt message)
         encrypter/c
-        (encrypt-with-secret message secret)) 
+        (nacl:crypto-box-afternm message secret)) 
       
       (define/contract (decrypt cipher nonce)
         decrypter/c
-        (decrypt-with-secret cipher nonce secret))
+        (nacl:crypto-box-open-afternm cipher nonce secret))
+      ;; from the secret computer return an encryption function 
+      ;; and a decryption function for this secret.
       (values encrypt decrypt))
     
-    (values my-pk compute-secret*)))
+    ;; initially return pk and a secret computer.
+    (values my-pk compute-secret)))
 
 #|(define-values/invoke-unit/infer no-encryption@)
 ;(define-values/invoke-unit/infer nacl-encryption@)

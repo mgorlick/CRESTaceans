@@ -3,18 +3,15 @@
 (require ffi/unsafe)
 (define lib (ffi-lib "libnacl"))
 
-(provide
- (rename-out [crypto-box-keypair-wrap crypto-box-keypair]
-             [crypto-box-wrap crypto-box]
-             [crypto-box-open-wrap crypto-box-open]
-             [crypto-box-beforenm-wrap crypto-box-beforenm]
-             [crypto-box-afternm-wrap crypto-box-afternm]
-             [crypto-box-open-afternm-wrap crypto-box-open-afternm])
- (rename-out [crypto-hash-wrap crypto-hash])
- (rename-out [crypto-sign-wrap crypto-sign]
-             [crypto-sign-open-wrap crypto-sign-open]
-             [crypto-sign-keypair-wrap crypto-sign-keypair])
- make-nonce)
+(provide (prefix-out nacl: (rename-out [crypto-box-keypair-wrap crypto-box-keypair]
+                                       [crypto-box-beforenm-wrap crypto-box-beforenm]
+                                       [crypto-box-afternm-wrap crypto-box-afternm]
+                                       [crypto-box-open-afternm-wrap crypto-box-open-afternm]
+                                       [crypto-sign-keypair-wrap crypto-sign-keypair]
+                                       [crypto-sign-wrap crypto-sign]
+                                       [crypto-hash-wrap crypto-hash])))
+
+;;; Bindings to C NaCl wrapper
 
 (define-syntax-rule (defnacl+ binding obj typ)
   (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) lib typ)))
@@ -24,27 +21,24 @@
   (begin (defnacl obj typ) ...))
 
 ; constant grabbers
+(define-syntax-rule (define-constants-via-grabbers (constant-name grabber-name) ...)
+  (begin (defnacl* (_fun -> _int) grabber-name ...)
+         (define constant-name (grabber-name))
+         ...))
 
-(defnacl* (_fun -> _int)
-  crypto-box-get-publickeybytes
-  crypto-box-get-secretkeybytes
-  crypto-box-get-noncebytes
-  crypto-box-get-beforenmbytes
-  crypto-box-get-zerobytes
-  crypto-box-get-boxzerobytes
-  crypto-sign-get-publickeybytes
-  crypto-sign-get-secretkeybytes
-  crypto-sign-get-bytes
-  crypto-hash-get-bytes)
+(define-constants-via-grabbers 
+  [crypto-box-PUBLICKEYBYTES crypto-box-get-publickeybytes]
+  [crypto-box-SECRETKEYBYTES crypto-box-get-secretkeybytes]
+  [crypto-box-NONCEBYTES crypto-box-get-noncebytes]
+  [crypto-box-BEFORENMBYTES crypto-box-get-beforenmbytes]
+  [crypto-box-ZEROBYTES crypto-box-get-zerobytes]
+  [crypto-box-BOXZEROBYTES crypto-box-get-boxzerobytes]
+  [crypto-sign-PUBLICKEYBYTES crypto-sign-get-publickeybytes]
+  [crypto-sign-SECRETKEYBYTES crypto-sign-get-secretkeybytes]
+  [crypto-sign-BYTES crypto-sign-get-bytes]
+  [crypto-hash-BYTES crypto-hash-get-bytes])
 
 ;;; AUTHENTICATED ENCRYPTION
-
-(define crypto-box-PUBLICKEYBYTES (crypto-box-get-publickeybytes))
-(define crypto-box-SECRETKEYBYTES (crypto-box-get-secretkeybytes))
-(define crypto-box-NONCEBYTES (crypto-box-get-noncebytes))
-(define crypto-box-BEFORENMBYTES (crypto-box-get-beforenmbytes))
-(define crypto-box-ZEROBYTES (crypto-box-get-zerobytes))
-(define crypto-box-BOXZEROBYTES (crypto-box-get-boxzerobytes))
 
 ;Function to generate a random byte sequence of length n. Use to generate nonces.
 (define (make-nonce)
@@ -56,55 +50,70 @@
 (define zeroes (make-bytes crypto-box-ZEROBYTES))
 (define boxzeroes (make-bytes crypto-box-BOXZEROBYTES))
 
-(defnacl crypto-box-keypair-wrap (_fun (pk : (_bytes o crypto-box-PUBLICKEYBYTES))
-                                       (sk : (_bytes o crypto-box-SECRETKEYBYTES))
-                                       -> (r : _int) -> (values pk sk r)))
+(defnacl crypto-box-keypair-wrap 
+  (_fun (pk : (_bytes o crypto-box-PUBLICKEYBYTES))
+        (sk : (_bytes o crypto-box-SECRETKEYBYTES))
+        -> (r : _int) 
+        -> (if (zero? r)
+               (values pk sk)
+               (error "Unable to generate a key pair"))))
 
-(defnacl crypto-box-wrap (_fun (m n pk sk) ::
-                               (ciphertext : (_bytes o message-length))
-                               (message : _bytes = (bytes-append zeroes m))
-                               (message-length : _ullong = (bytes-length message))
-                               (n : _bytes) (pk : _bytes) (sk : _bytes)
-                               -> (r : _int) -> (values (subbytes ciphertext crypto-box-BOXZEROBYTES) r)))
+(defnacl crypto-box-wrap 
+  (_fun (m n pk sk) ::
+        (ciphertext : (_bytes o message-length))
+        (message : _bytes = (bytes-append zeroes m))
+        (message-length : _ullong = (bytes-length message))
+        (n : _bytes) (pk : _bytes) (sk : _bytes)
+        -> (r : _int)
+        -> (if (zero? r)
+               (subbytes ciphertext crypto-box-BOXZEROBYTES)
+               (error "Unable to box message"))))
 
-(defnacl crypto-box-open-wrap (_fun (c n pk sk) :: 
-                                    (message : (_bytes o cipher-length))
-                                    (ciphertext : _bytes = (bytes-append boxzeroes c))
-                                    (cipher-length : _ullong = (bytes-length ciphertext))
-                                    (n : _bytes) (pk : _bytes) (sk : _bytes)
-                                    -> (r : _int) -> (values (subbytes message crypto-box-ZEROBYTES) r)))
+(defnacl crypto-box-open-wrap 
+  (_fun (c n pk sk) :: 
+        (message : (_bytes o cipher-length))
+        (ciphertext : _bytes = (bytes-append boxzeroes c))
+        (cipher-length : _ullong = (bytes-length ciphertext))
+        (n : _bytes) (pk : _bytes) (sk : _bytes)
+        -> (r : _int)
+        -> (if (= -1 r)
+               (error "Ciphertext verification failed. Message contents: " (bytes->string/latin-1 message))
+               (subbytes message crypto-box-ZEROBYTES))))
 
 (defnacl crypto-box-beforenm-wrap
-  (_fun (k : (_bytes o crypto-box-BEFORENMBYTES))
+  (_fun (secret : (_bytes o crypto-box-BEFORENMBYTES))
         (pk : _bytes) (sk : _bytes)
         -> (r : _int)
-        -> (values k r)))
+        -> (if (eq? 0 r)
+               secret
+               (error "Error in computing shared secret"))))
 
 (defnacl crypto-box-afternm-wrap 
-  (_fun (m n k) ::
+  (_fun (msg shared-secret) ::
         (ciphertext : (_bytes o message-length))
-        (message : _bytes = (bytes-append zeroes m)) 
+        (message : _bytes = (bytes-append zeroes msg)) 
         (message-length : _ullong = (bytes-length message))
-        (n : _bytes) (k : _bytes)
+        (nonce : _bytes = (make-nonce))
+        (shared-secret : _bytes)
         -> (r : _int)
-        -> (values ciphertext r)))
+        -> (if (zero? r)
+               (values ciphertext nonce)
+               (error "Error in boxing message"))))
 
 (defnacl crypto-box-open-afternm-wrap
-  (_fun (c n k) ::
+  (_fun (ciphertext nonce shared-secret) ::
         (message : (_bytes o cipher-length))
-        (ciphertext : _bytes = c)
+        (ciphertext : _bytes)
         (cipher-length : _ullong = (bytes-length ciphertext))
-        (n : _bytes) (k : _bytes)
+        (nonce : _bytes)
+        (shared-secret : _bytes)
         -> (r : _int)
-        -> (values
-            (subbytes message crypto-box-ZEROBYTES)
-            r)))
+        -> (if (eq? 0 r)
+               (subbytes message crypto-box-ZEROBYTES)
+               (error "Ciphertext verification failed. Message contents: " 
+                      (bytes->string/latin-1 message)))))
 
 ;;; SIGNATURES
-
-(define crypto-sign-PUBLICKEYBYTES (crypto-sign-get-publickeybytes))
-(define crypto-sign-SECRETKEYBYTES (crypto-sign-get-secretkeybytes))
-(define crypto-sign-BYTES (crypto-sign-get-bytes))
 
 (defnacl crypto-sign-keypair-wrap
   (_fun (pk : (_bytes o crypto-sign-PUBLICKEYBYTES))
@@ -140,11 +149,7 @@ pk
 sk
 (crypto-sign-open-wrap pk (crypto-sign-wrap sk #"Hello world"))|#
 
-;;; 
-
 ;;; HASH
-
-(define crypto-hash-BYTES (crypto-hash-get-bytes))
 
 (defnacl crypto-hash-wrap
   (_fun (message) ::
