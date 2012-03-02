@@ -37,9 +37,14 @@
   hash/eqv?
   hash/length
   hash/equality
+  hash/eq/null
+  hash/eqv/null
+  hash/equal/null
   hash/hash
   hash/root
-  hash/construct)
+  ;hash/construct
+  hash/vector
+  vector/hash)
  
  (only-in
   "../persistent/set.rkt"
@@ -49,9 +54,14 @@
   set/eqv?
   set/length
   set/equality
+  set/eq/null
+  set/eqv/null
+  set/equal/null
   set/hash
   set/root
-  set/construct)
+  ;set/construct
+  set/vector
+  vector/set)
  
  (only-in "../persistent/vector.rkt" vector/persist?)
  
@@ -420,7 +430,8 @@
           ((hash/eq?  v) 'eq)
           ((hash/eqv? v) 'eqv)
           (else          'equal))
-        (serial (hash/root v) #t))]
+        ;(serial (hash/root v) #t))]
+        (serial (hash/vector v) #t))]
 
       [(set/persist? v)
        ; A persistent set v has the form #('<set/persist> <equality> <hash> <root>) where:
@@ -433,7 +444,8 @@
           ((set/eq?  v) 'eq)
           ((set/eqv? v) 'eqv)
           (else         'equal))
-        (serial (set/root v) #t))]
+        ;(serial (set/root v) #t))]
+        (serial (set/vector v) #t))]
 
       [(curl? v)
        ;(log-info (format "motile/serialize: saw curl: ~a\n\n" (curl/pretty v)))
@@ -633,23 +645,41 @@
          [(V) (list->vector (map loop (cdr v)))]            ; (V '<vector/persist> <count> <shift> <r> <t>) =>
                                                             ;     persistent vector #('<vector/persist> <count> <shift> <root> <tail>.
 
-         [(H) ; (H <equality> <trie>). Persistent hash table.
-          (let-values
-              ([(equality hasher)
-                 (case (cadr v)
-                   ((eq)    (values eq?    eq-hash-code))
-                   ((eqv)   (values eqv?   eqv-hash-code))
-                   ((equal) (values equal? equal-hash-code)))])
-            (hash/construct equality hasher (loop (caddr v))))]
+;         [(H) ; (H <equality> <trie>). Persistent hash table.
+;          (let-values
+;              ([(equality hasher)
+;                 (case (cadr v)
+;                   ((eq)    (values eq?    eq-hash-code))
+;                   ((eqv)   (values eqv?   eqv-hash-code))
+;                   ((equal) (values equal? equal-hash-code)))])
+;            (hash/construct equality hasher (loop (caddr v))))]
+         [(H) ; (H <equality> <key/value vector>)
+          (let ((contents (caddr v))
+                (equality (cadr v)))
+            (vector/hash
+             (case equality
+               ((eq)    hash/eq/null)
+               ((eqv)   hash/eqv/null)
+               ((equal) hash/equal/null))
+             (loop contents)))]
 
          [(S) ; (S <equality> <trie>). Persistent set.
-          (let-values
-              ([(equality hasher)
-                 (case (cadr v)
-                   ((eq)    (values eq?    eq-hash-code))
-                   ((eqv)   (values eqv?   eqv-hash-code))
-                   ((equal) (values equal? equal-hash-code)))])
-            (set/construct equality hasher (loop (caddr v))))]
+;          (let-values
+;              ([(equality hasher)
+;                 (case (cadr v)
+;                   ((eq)    (values eq?    eq-hash-code))
+;                   ((eqv)   (values eqv?   eqv-hash-code))
+;                   ((equal) (values equal? equal-hash-code)))])
+;            (set/construct equality hasher (loop (caddr v))))]
+          ; (S <equality> <elements vector>)
+          (let ((contents (caddr v))
+                (equality (cadr v)))
+            (vector/set
+             (case equality
+               ((eq)    set/eq/null)
+               ((eqv)   set/eqv/null)
+               ((equal) set/equal/null))
+             (loop contents)))]
 
          [(C) ; CURL.
           ;(log-info (format "deserialize-one: saw CURL ~a\n\n" v))
