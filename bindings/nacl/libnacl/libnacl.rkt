@@ -118,7 +118,8 @@
 (defnacl crypto-sign-keypair-wrap
   (_fun (pk : (_bytes o crypto-sign-PUBLICKEYBYTES))
         (sk : (_bytes o crypto-sign-SECRETKEYBYTES))
-        -> (r : _int) -> (if (zero? r) (values pk sk) (error "failed to allocate signing key pair"))))
+        -> (r : _int)
+        -> (if (zero? r) (values pk sk) (error "failed to allocate signing key pair"))))
 
 (defnacl crypto-sign-wrap
   (_fun (sk message) ::
