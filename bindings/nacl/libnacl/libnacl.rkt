@@ -3,13 +3,15 @@
 (require ffi/unsafe)
 (define lib (ffi-lib "libnacl"))
 
-(provide (prefix-out nacl: (rename-out [crypto-box-keypair-wrap crypto-box-keypair]
-                                       [crypto-box-beforenm-wrap crypto-box-beforenm]
-                                       [crypto-box-afternm-wrap crypto-box-afternm]
-                                       [crypto-box-open-afternm-wrap crypto-box-open-afternm]
-                                       [crypto-sign-keypair-wrap crypto-sign-keypair]
-                                       [crypto-sign-wrap crypto-sign]
-                                       [crypto-hash-wrap crypto-hash])))
+(provide 
+ (prefix-out nacl: 
+             (rename-out [crypto-box-keypair-wrap crypto-box-keypair]
+                         [crypto-box-beforenm-wrap crypto-box-beforenm]
+                         [crypto-box-afternm-wrap crypto-box-afternm]
+                         [crypto-box-open-afternm-wrap crypto-box-open-afternm]
+                         [crypto-sign-keypair-wrap crypto-sign-keypair]
+                         [crypto-sign-wrap crypto-sign]
+                         [crypto-hash-wrap crypto-hash])))
 
 ;;; Bindings to C NaCl wrapper
 
@@ -21,12 +23,12 @@
   (begin (defnacl obj typ) ...))
 
 ; constant grabbers
-(define-syntax-rule (define-constants-via-grabbers (constant-name grabber-name) ...)
+(define-syntax-rule (define-constants-via-grabbers/provide (constant-name grabber-name) ...)
   (begin (defnacl* (_fun -> _int) grabber-name ...)
-         (define constant-name (grabber-name))
-         ...))
+         (define constant-name (grabber-name)) ...
+         (provide (prefix-out nacl: constant-name)) ...))
 
-(define-constants-via-grabbers 
+(define-constants-via-grabbers/provide
   [crypto-box-PUBLICKEYBYTES crypto-box-get-publickeybytes]
   [crypto-box-SECRETKEYBYTES crypto-box-get-secretkeybytes]
   [crypto-box-NONCEBYTES crypto-box-get-noncebytes]
