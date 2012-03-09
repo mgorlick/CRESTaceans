@@ -18,6 +18,7 @@
  pairs/environ)
 
 (require
+ (only-in racket/list empty?)
  racket/pretty
  (only-in "persistent/environ.rkt" environ/merge environ/null pairs/environ)
  (only-in "persistent/record.rkt" record? record/contains? record/kind record/keys) 
@@ -221,6 +222,7 @@
     (define/global/1 'length length)
     (define/global/N 'append append)
     (define/global/1 'reverse reverse)
+    (define/global/1 'empty? empty?)
     
     ; List construction and deconstruction.
     (define/global/2 'cons     cons)
