@@ -76,20 +76,27 @@
          ; (2) Evaluate the failure/code to obtain a failure value F.
          ; (3) Lookup the symbol in environ E.
          (environ
-          (lambda (E)
-            (failure (lambda (F) (k (environ/ref/symbol E symbol F))) e g))
+          (lambda (E) ; Continuation for evaluation of environ.
+            (failure 
+             (lambda (F) (k (environ/ref/symbol E symbol F))) ; Continuation for evaluation of failure value.
+             e g))
           e g))
         ((decompile? k e g) (bind/return! descriptor (descriptor/environ/ref environ symbol failure)))
         (else (error/motile/internal/call 'environ/ref/symbol/generate))))))
 
+;; enviorn - closure whose evaluation returns an environ
+;; path - literal list of symbols (NOT quoted since environ/ref is a special form)
+;; failure - closure whose evaluation returns a failure value
 (define (environ/ref/path/generate environ path failure)
   (let ((descriptor #f))
     (lambda (k e g)
       (cond
         ((procedure? k)
          (environ
-          (lambda (E)
-            (failure (lambda (F) (k (environ/ref/path E path F))) e g))
+          (lambda (E) ; Continuation for evaluation of environ.
+            (failure
+             (lambda (F) (k (environ/ref/path E path F))) ; Continuation for evaluation of failure value.
+             e g))
           e g))
         ((decompile? k e g) (bind/return! descriptor (descriptor/environ/ref environ path failure)))
         (else (error/motile/internal/call 'environ/ref/path/generate))))))
