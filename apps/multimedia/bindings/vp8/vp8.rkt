@@ -50,6 +50,8 @@
 
 ;; decoding
 
+(define OUTPUT-FORMAT-BPP 4)
+
 (define-cpointer-type _vp8dec-pointer)
 
 (defvp8 vp8dec-new (_fun -> _vp8dec-pointer))
@@ -59,7 +61,7 @@
                                  (decoder : _vp8dec-pointer)
                                  (input-size : _size_t = (bytes-length compressed-frame))
                                  (compressed-frame : _bytes)
-                                 (output-size : _size_t = (* 3 width height))
+                                 (output-size : _size_t = (* OUTPUT-FORMAT-BPP width height))
                                  (output-frame : _bytes = (make-bytes output-size))
                                  -> (succeeded? : _bool)
                                  -> (if succeeded?

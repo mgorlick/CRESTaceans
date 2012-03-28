@@ -37,7 +37,7 @@
 
 ;;;;;;;; ---------------------------
 
-(define BYTES-PER-PIXEL 3)
+(define BYTES-PER-PIXEL 4)
 
 ; video-playback: used to track the metadata and state of an individual in-play, displayed video.
 (struct video-playback (buffer name w h)) ; bytes? string? integer? integer?
@@ -383,7 +383,7 @@
          (λ ()
            (glRasterPos2d -1 1)
            (glPixelZoom 1.0 -1.0)
-           (glDrawPixels w h GL_RGB GL_UNSIGNED_BYTE buffer)))
+           (glDrawPixels w h GL_BGRA GL_UNSIGNED_BYTE buffer)))
         (swap-gl-buffers))
       (resume-flush))))
 
@@ -416,7 +416,7 @@
          (λ ()
            (glRasterPos2d -1 1)
            (glPixelZoom 0.125 -0.125)
-           (glDrawPixels actual-w actual-h GL_RGB GL_UNSIGNED_BYTE buffer)))
+           (glDrawPixels actual-w actual-h GL_BGRA GL_UNSIGNED_BYTE buffer)))
         (swap-gl-buffers)))
     
     (define/public (stop)

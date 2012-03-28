@@ -9,7 +9,7 @@
 
 #include "misc.h"
 
-int DISPLAY_FORMAT_BPP = 3;
+int DISPLAY_FORMAT_BPP = 4;
 float PIP_AXIS_PORTION = 0.5;
 float PIP_FULL_SIZE = 1.0;
 
@@ -128,7 +128,7 @@ int decode_and_scale (VP8Dec *dec,
 
     if (dec->swsctx == NULL) {
       dec->swsctx = sws_getContext (w, h, PIX_FMT_YUV420P, // src info
-				    scale_factor * w, scale_factor * h, PIX_FMT_RGB24, // dest info
+				    scale_factor * w, scale_factor * h, PIX_FMT_RGB32, // dest info
 				    1, NULL, NULL, NULL); // what flags to use? who knows!
     }
     if (dec->swsctx == NULL) goto no_video;
