@@ -2,6 +2,13 @@ VP8WRAPPER = libracket-vp8-wrapper.so
 VIDWRAPPER = libracket-v4l2-wrapper.so
 CFLAGS = -fPIC -c -g -O3 -Wall -Wextra
 LIBDEPS = $$(pkg-config --cflags --libs libswscale)
+ifeq ($(strip $(OS)),Linux)
+	VP8WRAPPER = libracket-vp8-wrapper.so
+	VIDWRAPPER = libracket-v4l2-wrapper.so
+else
+	VP8WRAPPER = libracket-vp8-wrapper.dylib
+endif
+
 
 all: vp8 vid
 
@@ -21,5 +28,6 @@ install:
 clean:
 	rm -rf *.o
 	rm -rf *.so*
+	rm -rf *.dylib
 
 .PHONY: all so clean install

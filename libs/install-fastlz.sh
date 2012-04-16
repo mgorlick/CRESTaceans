@@ -3,8 +3,8 @@
 svn checkout http://fastlz.googlecode.com/svn/trunk/ fastlz
 cd fastlz
 if [ "$(uname)" = "Darwin" ]; then
-	cc -m32 -c -fPIC -O3 -fomit-frame-pointer -o fastlz.o fastlz.c
-	cc -m32 -dynamiclib -o fastlz.dylib -dylib fastlz.o
+	cc -m64 -c -fPIC -O3 -fomit-frame-pointer -o fastlz.o fastlz.c
+	cc -m64 -dynamiclib -o fastlz.dylib -dylib fastlz.o
 	mv fastlz.dylib $RACKET_LIBS
 	echo "Installed fastlz.dylib in" $RACKET_LIBS
 else

@@ -1,9 +1,14 @@
 #lang racket
 
+;; compile-time condition checking. analogous to #ifdef.
+
+
+
+;; video available on all platforms.
+
 (require racket/provide
          "message-types.rkt"
          "bindings/vp8/vp8.rkt")
-
 (provide (matching-identifiers-out #rx"^vp8dec.*" (all-from-out "bindings/vp8/vp8.rkt"))
          vp8enc-delete
          vp8enc-quartersize-new
@@ -12,10 +17,7 @@
          (except-out (all-defined-out) vp8enc-new* vp8enc-encode* vp8enc-encode-quarter*)
          (rename-out (vp8enc-new* vp8enc-new)
                      (vp8enc-encode* vp8enc-encode)
-                     (vp8enc-encode-quarter* vp8enc-encode-quarter)
-                     (v4l2-reader-setup video-reader-setup)
-                     (v4l2-reader-is-ready video-reader-is-ready?)
-                     (v4l2-reader-delete video-reader-delete)))
+                     (vp8enc-encode-quarter* vp8enc-encode-quarter)))
 
 (define (vp8enc-new* params)
   (vp8enc-new (:VideoParams/width params)
@@ -44,14 +46,6 @@
                                          outbuff))
   (FrameBuffer/new (subbytes outbuff 0 written) written #f (:FrameBuffer/ts frame)))
 
-(define (video-reader-get-params v)
-  (define-values (w h num den buffct) (v4l2-reader-get-params v))
-  (VideoParams/new w h num den))
-
-(define (video-reader-get-frame v ts)
-  (define-values (data framenum size index) (v4l2-reader-get-frame v))
-  (FrameBuffer/new data size (λ () (v4l2-reader-enqueue-buffer v index)) ts))
-
 (define (dispose-FrameBuffer f)
   ((:FrameBuffer/disposal f)))
 
@@ -60,3 +54,75 @@
                  (:FrameBuffer/data v)
                  (subbytes (:FrameBuffer/data v) 0 (:FrameBuffer/size v)))
              (:FrameBuffer/ts v)))
+
+
+;;; Linux-specific for now: uses Video4Linux2
+
+(define-syntax (when/compile stx)
+  (syntax-case stx ()
+    [(_ condition yes ...)
+     (let ([result (eval #'condition (make-base-namespace))])
+       (if result
+           #'(begin yes ...)
+           #'(void)))]))
+
+(require "bindings/ctypes.rkt"
+         ffi/unsafe)
+(when/compile (equal? 'unix (system-type 'os))
+              (define v4l2lib (ffi-lib "libracket-v4l2-wrapper"))
+              (define-syntax-rule (defv4l2+ binding obj typ)
+                (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) v4l2lib typ)))
+              (define-syntax-rule (defv4l2 obj typ)
+                (defv4l2+ obj obj typ))
+              (define-syntax-rule (defv4l2* typ obj ...)
+                (begin (defv4l2 obj typ) ...))
+              
+              (define-cpointer-type _v4l2-reader-pointer)
+              
+              (defv4l2 v4l2-reader-setup (_fun _string _uint _uint -> _v4l2-reader-pointer))
+              
+              (defv4l2 v4l2-reader-delete (_fun _v4l2-reader-pointer -> _void))
+              
+              (defv4l2 v4l2-reader-get-params
+                (_fun _v4l2-reader-pointer
+                      (frame-width : (_ptr o _uint))
+                      (frame-height : (_ptr o _uint))
+                      (fps-num : (_ptr o _uint))
+                      (fps-denom : (_ptr o _uint))
+                      (buffer-ct : (_ptr o _uint))
+                      -> _void
+                      -> (values frame-width frame-height fps-num fps-denom buffer-ct)))
+              
+              (defv4l2 v4l2-reader-is-ready
+                (_fun _v4l2-reader-pointer -> _bool))
+              
+              ;; get a valid pointer to the memory mapped bytestring with its size
+              ;; and index number tracked. mmapped buffer is not requeued until
+              ;; v4l2-reader-enqueue-buffer is called with the index number returned 
+              ;; by v4l2-reader-get-frame-data
+              (defv4l2 v4l2-reader-get-frame 
+                (_fun _v4l2-reader-pointer
+                      (size : (_ptr o _int))
+                      (framenum : (_ptr o _int))
+                      (index : (_ptr o _int))
+                      -> (r : _pointer)
+                      -> (values (cast r _pointer (_bytes o size)) framenum size index)))
+              
+              ;; requeue the buffer into the memory mapping queue once the downstream
+              ;; consumers are done with its data
+              (defv4l2 v4l2-reader-enqueue-buffer
+                (_fun _v4l2-reader-pointer _int -> _bool))
+              
+              (define (video-reader-get-params v)
+                (define-values (w h num den buffct) (v4l2-reader-get-params v))
+                (VideoParams/new w h num den))
+              
+              (define (video-reader-get-frame v ts)
+                (define-values (data framenum size index) (v4l2-reader-get-frame v))
+                (FrameBuffer/new data size (λ () (v4l2-reader-enqueue-buffer v index)) ts))
+              
+              (provide video-reader-get-frame
+                       video-reader-get-params
+                       (rename-out (v4l2-reader-setup video-reader-setup)
+                                   (v4l2-reader-is-ready video-reader-is-ready?)
+                                   (v4l2-reader-delete video-reader-delete))))

@@ -111,8 +111,8 @@ int decode_and_scale (VP8Dec *dec,
   vpx_image_t *img;
   vpx_codec_err_t status;
   vpx_codec_iter_t iter = NULL;
-  uint w = 0;
-  uint h = 0;
+  unsigned int w = 0;
+  unsigned int h = 0;
 
     // only proceed here if we've seen at least one keyframe
   status = vpx_codec_decode (dec->codec, input, input_size, NULL, 0);
