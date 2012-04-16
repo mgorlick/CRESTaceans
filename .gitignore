@@ -4,6 +4,7 @@ compiled/
 .goutputstream*
 *.o
 *.so*
+*.dylib
 *.lo
 *.la
 .libs
@@ -12,3 +13,4 @@ so_locations
 a.out
 .#*
 \#*
+.DS_Store
