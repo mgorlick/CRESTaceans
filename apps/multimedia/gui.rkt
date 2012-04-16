@@ -355,13 +355,14 @@
                [stretchable-width #f]
                [stretchable-height #f])
     (inherit suspend-flush resume-flush)
-    (suspend-flush)
+    ;(suspend-flush)
     (inherit refresh is-enabled? with-gl-context swap-gl-buffers)
     
     (define myvideo cv)
     (define w (video-playback-w myvideo))
     (define h (video-playback-h myvideo))
     (define buffer (video-playback-buffer myvideo))
+    (refresh)
     
     (define refresher
       (new timer% 
@@ -384,8 +385,9 @@
            (glRasterPos2d -1 1)
            (glPixelZoom 1.0 -1.0)
            (glDrawPixels w h GL_BGRA GL_UNSIGNED_BYTE buffer)))
-        (swap-gl-buffers))
-      (resume-flush))))
+        (swap-gl-buffers)))
+    
+    #;(resume-flush)))
 
 ; small-video-canvas%: used for the preview panes at the bottom of the screen.
 (define small-video-canvas%
@@ -395,7 +397,7 @@
                [stretchable-width #f]
                [stretchable-height #f])
     (inherit suspend-flush resume-flush)
-    (suspend-flush)
+    ;(suspend-flush)
     (inherit refresh is-enabled? with-gl-context swap-gl-buffers)
     
     (define top-panel toppanel)
@@ -403,6 +405,7 @@
     (define buffer (video-playback-buffer myvideo))
     (define actual-w (video-playback-w cv))
     (define actual-h (video-playback-h cv))
+    (refresh)
     
     (define refresher
       (new timer% 
@@ -432,4 +435,4 @@
     (define/public (promote-self)
       (send top-panel swap-focused-video myvideo))
     
-    (resume-flush)))
+    #;(resume-flush)))
