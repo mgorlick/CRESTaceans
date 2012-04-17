@@ -1,29 +1,31 @@
-VP8WRAPPER = libracket-vp8-wrapper.so
-VIDWRAPPER = libracket-v4l2-wrapper.so
-CFLAGS = -fPIC -c -g -O3 -Wall -Wextra
-LIBDEPS = $$(pkg-config --cflags --libs libswscale)
-ifeq ($(strip $(OS)),Linux)
+UNAME := $(shell uname)
+CFLAGS = -fPIC -c -g -O3 -Wall -Wextra $$(pkg-config --cflags libswscale vpx)
+LIBDEPS = $$(pkg-config --libs libswscale vpx)
+ifeq ($(UNAME),Linux)
 	VP8WRAPPER = libracket-vp8-wrapper.so
 	VIDWRAPPER = libracket-v4l2-wrapper.so
-else
+	TARGETS = vp8 vid
+	ALL_SO = $(VP8WRAPPER) $(VIDWRAPPER)
+endif
+ifeq ($(UNAME),Darwin)
 	VP8WRAPPER = libracket-vp8-wrapper.dylib
+	TARGETS = vp8
+	ALL_SO = $(VP8WRAPPER)
 endif
 
-
-all: vp8 vid
+all: $(TARGETS)
 
 vid: v4l2.o
-	cc -shared -o $(VIDWRAPPER) $(LIBDEPS) $^
+	cc -shared -o $(VIDWRAPPER) $^
 
-vp8: misc.o enc.o dec.o /usr/lib/libvpx.a
-	cc -shared -o $(VP8WRAPPER) $(LIBDEPS) $^
+vp8: misc.o enc.o dec.o
+	cc -shared -o $(VP8WRAPPER) $^ $(LIBDEPS)
 
 %.o: %.c
 	cc $(CFLAGS) -o $@ $<
 
 install:
-	cp $(VP8WRAPPER) $(RACKET_LIBS)
-	cp $(VIDWRAPPER) $(RACKET_LIBS)
+	cp $(ALL_SO) $(RACKET_LIBS)
 
 clean:
 	rm -rf *.o
