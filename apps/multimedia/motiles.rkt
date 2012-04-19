@@ -77,6 +77,9 @@
                                                                       'allowed 'remove
                                                                       'for-sub id))
                                               null #f)))
+                     (printf "Adding ~a ~n => ~a~n" id (:AddCURL/curl body))
+                     (displayln "to")
+                     (printf "~a~n" curls)
                      (loop (hash/cons curls id (:AddCURL/curl body)) last-sender-seen@))]
                   [(RemoveCURL? body)
                    (let ([meta (curl/get-meta (delivery/curl-used m))])
