@@ -425,8 +425,6 @@
               (lambda (majordec@ minordec@)
                 (define majorprox@ (retrieve-proxy-from majordec@))
                 (define minorprox@ (retrieve-proxy-from minordec@))
-                (printf "MAJOR PROXY IS: ~a~n" majorprox@)
-                (printf "MINOR PROXY IS: ~a~n" minorprox@)
                 (lambda () (decoder-instance majorprox@ minorprox@)))]
              [decoder-instance ; business logic, as such.
               (lambda (majorprox@ minorprox@)
@@ -434,7 +432,8 @@
                                           null #f))
                 (define next-pipeline-element@ (retrieve-sink me@))
                 (add-self-subscription majorprox@ me@)
-                (add-self-subscription minorprox@ me@)
+                (unless (curl/target=? majorprox@ minorprox@)
+                  (add-self-subscription minorprox@ me@))
                 (let loop ([decoder/major (vp8dec-new)]
                            [decoder/minor (vp8dec-new)]
                            [last-decoded-frame #f]
