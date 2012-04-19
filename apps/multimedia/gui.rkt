@@ -3,6 +3,7 @@
 (require racket/class
          racket/gui/base
          racket/contract
+         ffi/vector
          "message-types.rkt"         
          "../../Motile/actor/curl.rkt"
          "../../Motile/actor/send.rkt"
@@ -40,7 +41,7 @@
 (define BYTES-PER-PIXEL 4)
 
 ; video-playback: used to track the metadata and state of an individual in-play, displayed video.
-(struct video-playback (buffer name w h)) ; bytes? string? integer? integer?
+(struct video-playback (buffer name w h)) ; bytes? curl integer? integer?
 
 (define (video-playback-buffersize v)
   (bytes-length (video-playback-buffer v)))
@@ -121,7 +122,6 @@
                          [label "Move this session"]
                          [callback (λ (btn ctrlevt)
                                      (map (λ (child)
-                                            (printf "Deleting child ~a~n" child)
                                             (send frame delete-child child))
                                           (send frame get-children))
                                      (send frame show #f)
@@ -312,7 +312,7 @@
              [parent vertp]
              [label "Create PIP"]
              [callback (λ (btn ctrlevt)
-                         (send this pip-activation-evt evt-cb (video-playback-name v)))]))
+                         (pip-activation-evt evt-cb (video-playback-name v)))]))
       
       (define split
         (new ctrl-button%
@@ -354,21 +354,16 @@
     (super-new [style '(gl no-autoclear)]
                [stretchable-width #f]
                [stretchable-height #f])
-    (inherit suspend-flush resume-flush)
-    ;(suspend-flush)
-    (inherit refresh is-enabled? with-gl-context swap-gl-buffers)
+    (inherit suspend-flush resume-flush
+             refresh is-enabled? with-gl-context swap-gl-buffers)
+    
+    (suspend-flush)
     
     (define myvideo cv)
     (define w (video-playback-w myvideo))
     (define h (video-playback-h myvideo))
     (define buffer (video-playback-buffer myvideo))
     (refresh)
-    
-    (define refresher
-      (new timer% 
-           [notify-callback (λ () (refresh))]
-           [interval 50] 
-           [just-once? #f]))
     
     (define/public (stop)
       (set! myvideo #f)
@@ -378,16 +373,41 @@
     (define/public (same-video? v)
       (eq? myvideo v))
     
-    (define/override (on-paint)
-      (with-handlers ([exn:fail? (λ _ #f)])
+    (define is-init? #f)
+    (define update! (make-updater w h buffer))
+    
+    (define/private (gl-init)
+      (with-handlers ([exn:fail? (λ (e) (displayln e) e)])
         (with-gl-context
          (λ ()
-           (glRasterPos2d -1 1)
-           (glPixelZoom 1.0 -1.0)
-           (glDrawPixels w h GL_BGRA GL_UNSIGNED_BYTE buffer)))
-        (swap-gl-buffers)))
+           (glEnable GL_TEXTURE_2D)
+           (glPixelStorei GL_UNPACK_ALIGNMENT 1)
+           (glTexParameteri GL_TEXTURE_2D GL_TEXTURE_WRAP_S GL_REPEAT)
+           (glTexParameteri GL_TEXTURE_2D GL_TEXTURE_WRAP_T GL_REPEAT)
+           (glTexParameteri GL_TEXTURE_2D GL_TEXTURE_MAG_FILTER GL_LINEAR)
+           (glTexParameteri GL_TEXTURE_2D GL_TEXTURE_MIN_FILTER GL_LINEAR)
+           (glTexImage2D GL_TEXTURE_2D ; target
+                         0 GL_RGB
+                         w h
+                         0 ; border
+                         GL_BGRA GL_UNSIGNED_BYTE buffer)))
+        (update!)
+        (set! is-init? #t)))
     
-    #;(resume-flush)))
+    (define/override (on-paint)
+      (when is-init?
+        (with-handlers ([exn:fail? (λ (e) (displayln e))])
+          (with-gl-context update!)
+          (swap-gl-buffers))))
+    
+    (gl-init)
+    (resume-flush)
+    
+    (define refresher
+      (new timer% 
+           [notify-callback (λ () (refresh))]
+           [interval 50] 
+           [just-once? #f]))))
 
 ; small-video-canvas%: used for the preview panes at the bottom of the screen.
 (define small-video-canvas%
@@ -396,9 +416,10 @@
     (super-new [style '(gl)]
                [stretchable-width #f]
                [stretchable-height #f])
-    (inherit suspend-flush resume-flush)
-    ;(suspend-flush)
-    (inherit refresh is-enabled? with-gl-context swap-gl-buffers)
+    (inherit suspend-flush resume-flush
+             refresh is-enabled? with-gl-context swap-gl-buffers)
+    
+    (suspend-flush)
     
     (define top-panel toppanel)
     (define myvideo cv)
@@ -407,20 +428,32 @@
     (define actual-h (video-playback-h cv))
     (refresh)
     
-    (define refresher
-      (new timer% 
-           [notify-callback (λ () (refresh))]
-           [interval 250] 
-           [just-once? #f]))
+    (define is-init? #f)
+    (define update! (make-updater actual-w actual-h buffer))
     
-    (define/override (on-paint)
-      (with-handlers ([exn:fail? (λ _ #f)])
+    (define/private (gl-init)
+      (with-handlers ([exn:fail? (λ (e) (displayln e) e)])
         (with-gl-context
          (λ ()
-           (glRasterPos2d -1 1)
-           (glPixelZoom 0.125 -0.125)
-           (glDrawPixels actual-w actual-h GL_BGRA GL_UNSIGNED_BYTE buffer)))
-        (swap-gl-buffers)))
+           (glEnable GL_TEXTURE_2D)
+           (glPixelStorei GL_UNPACK_ALIGNMENT 1)
+           (glTexParameteri GL_TEXTURE_2D GL_TEXTURE_WRAP_S GL_REPEAT)
+           (glTexParameteri GL_TEXTURE_2D GL_TEXTURE_WRAP_T GL_REPEAT)
+           (glTexParameteri GL_TEXTURE_2D GL_TEXTURE_MAG_FILTER GL_LINEAR)
+           (glTexParameteri GL_TEXTURE_2D GL_TEXTURE_MIN_FILTER GL_LINEAR)
+           (glTexImage2D GL_TEXTURE_2D ; target
+                         0 GL_RGB
+                         actual-w actual-h
+                         0 ; border
+                         GL_BGRA GL_UNSIGNED_BYTE buffer)))
+        (update!)
+        (set! is-init? #t)))
+    
+    (define/override (on-paint)
+      (when is-init?
+        (with-handlers ([exn:fail? (λ (e) (displayln e))])
+          (with-gl-context update!)
+          (swap-gl-buffers))))
     
     (define/public (stop)
       (set! myvideo #f)
@@ -428,11 +461,48 @@
       (send refresher stop))
     
     (define/override (on-event e)
-      (when (and (send e button-down?)
-                 (not (send top-panel showing? myvideo)))
-        (send this promote-self)))
+      (when (and (send e button-down?) 
+                 (not (send top-panel showing? myvideo))) ; is the video not already showing?
+        (promote-self))) ; if not showing, show it
     
     (define/public (promote-self)
       (send top-panel swap-focused-video myvideo))
     
-    #;(resume-flush)))
+    (gl-init)
+    (resume-flush)
+    
+    (define refresher
+      (new timer% 
+           [notify-callback (λ () (refresh))]
+           [interval 50] 
+           [just-once? #f]))))
+
+;;; -------------
+;;; OpenGL stuff.
+;;; -------------
+;; scale, do some ops then reverse the scaling on the way out.
+(define-syntax-rule (with-gl-scaling x y z e ...)
+  (dynamic-wind (λ () (glScalef x y z))
+                (λ () e ...)
+                (λ () (glScalef (1 . / . x) (1 . / . y) (1 . / . z)))))
+
+; run glBegin, do some GL operations then clean up on the way out.
+(define-syntax-rule (with-gl-begin mode gl-op ...)
+  (dynamic-wind (λ () (glBegin mode))
+                (λ () gl-op ...)
+                glEnd))
+
+(define (make-updater w h buffer)
+  (λ ()
+    (glTexSubImage2D GL_TEXTURE_2D ; target
+                     0 0 0 ; level x-offset y-offset
+                     w h
+                     GL_BGRA GL_UNSIGNED_BYTE buffer)
+    (with-gl-scaling 
+     -1.0 1.0 1.0
+     (with-gl-begin 
+      GL_QUADS
+      (glTexCoord2i 0 0) (glVertex3i 1 1 0)
+      (glTexCoord2i 0 1) (glVertex3i 1 -1 0)
+      (glTexCoord2i 1 1) (glVertex3i -1 -1 0)
+      (glTexCoord2i 1 0) (glVertex3i -1 1 0)))))
