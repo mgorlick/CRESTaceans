@@ -474,7 +474,7 @@
     (define refresher
       (new timer% 
            [notify-callback (λ () (refresh))]
-           [interval 50] 
+           [interval 250] 
            [just-once? #f]))))
 
 ;;; -------------
