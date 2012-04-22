@@ -4,7 +4,8 @@
          racket/gui/base
          racket/contract
          ffi/vector
-         "message-types.rkt"         
+         "message-types.rkt"
+         "config.rkt"
          "../../Motile/actor/curl.rkt"
          "../../Motile/actor/send.rkt"
          (planet "rgl.rkt" ("stephanh" "RacketGL.plt" 1 2)))
@@ -14,10 +15,29 @@
          video-gui-clear-buffer!
          video-gui-update-buffer!)
 
+; hash table: string (dns name) => list of string (port)
+(define dns=>ports
+  (let* ([known-island-addresses (hash-keys PUBLICS)]
+         [dns=>ports/unsorted
+          (foldl (λ (dns port dns=>ports)
+                   (hash-update dns=>ports dns 
+                                (λ (existing-ports) 
+                                  (cons port existing-ports))
+                                (list port)))
+                 (hash)
+                 (map car known-island-addresses)
+                 (map cdr known-island-addresses))])
+    (for/hash ([(dns ports/unsorted) dns=>ports/unsorted])
+      (values (bytes->string/utf-8 dns) (map number->string (sort ports/unsorted <))))))
+
+;;; -------
+
 (struct video-gui-client (gui controller@))
 
-(define top-width 900)
-(define top-height 600)
+(define top-width 700)
+(define top-height 900)
+
+(define FONT (make-object font% 12 'swiss))
 
 (define (make-notify-controller-callback controller@)
   (λ (m)
@@ -86,67 +106,70 @@
   (define address-bar (new message%
                            [parent the-window]
                            [label ""]
-                           [min-width 80]
-                           [min-height 10]
+                           ;[min-width 80]
+                           ;[min-height 10]
                            [auto-resize #t]
-                           [font (make-object font% 12 'swiss)]))
+                           [font FONT]))
+  
   
   (define button-panel (new horizontal-panel%
                             [parent the-window]
-                            [alignment '(center top)]))
+                            [alignment '(center top)]))  
   
-  (define host-address-button (new text-field%
-                                   [label "Hostname"]
-                                   [init-value "127.0.0.1"]
-                                   [min-width 200]
-                                   [stretchable-width #f]
-                                   [parent button-panel]))
+  (define dns-choice (new choice% 
+                          [parent button-panel]
+                          [label #f]
+                          [choices (hash-keys dns=>ports)]
+                          [font FONT]
+                          [callback (λ (c e)
+                                      (send port-choice clear)
+                                      (map (λ (port) (send port-choice append port)) 
+                                           (hash-ref dns=>ports (send c get-string-selection))))]))
   
-  (define port-address-button (new text-field%
-                                   [label "Port"]
-                                   [parent button-panel]
-                                   [init-value "5000"]
-                                   [min-width 50]
-                                   [stretchable-width #f]))
+  (define port-choice (new choice%
+                           [parent button-panel]
+                           [label #f]
+                           [choices (hash-ref dns=>ports (send dns-choice get-string-selection))]
+                           [font FONT]))
   
   (define cp-button (new button%
                          [parent button-panel]
                          [label "Share this session"]
+                         [font FONT]
                          [callback (λ (btn ctrlevt)
                                      (cb (CopyActor/new
-                                          (send host-address-button get-value) 
-                                          (string->number (send port-address-button get-value)))))]))
+                                          (send dns-choice get-string-selection) 
+                                          (string->number (send port-choice get-string-selection)))))]))
   
   (define mv-button (new button%
                          [parent button-panel]
                          [label "Move this session"]
+                         [font FONT]
                          [callback (λ (btn ctrlevt)
                                      (map (λ (child)
                                             (send frame delete-child child))
                                           (send frame get-children))
                                      (send frame show #f)
                                      (send frame enable #f)
-                                     (cb (Quit/MV/new (send host-address-button get-value) 
-                                                      (string->number (send port-address-button get-value))))
+                                     (cb (Quit/MV/new (send dns-choice get-string-selection) 
+                                                      (string->number (send port-choice get-string-selection))))
                                      (send frame on-close))]))
-  
   
   (define top-panel (new video-top-panel%
                          [parent the-window]
                          [addressbar address-bar]
                          [alignment '(left top)]
-                         [min-width (- overall-width 200)]
                          [stretchable-width #t]
                          [stretchable-height #t]))
   
   (define small-panel (new small-video-panel%
                            [parent top-panel]
                            [main-panel top-panel]
-                           [hostfield host-address-button]
-                           [portfield port-address-button]
+                           [hostfield dns-choice]
+                           [portfield port-choice]
                            [alignment '(left top)]
-                           [style '(auto-vscroll)]
-                           [min-width 200]
+                           [style '(auto-vscroll auto-hscroll)]
+                           ;[min-height 200]
                            [vert-margin 10]
                            [horiz-margin 10]))
   
@@ -169,7 +192,7 @@
 ; ---------------------------
 
 (define video-top-panel%
-  (class horizontal-panel% [init addressbar]
+  (class vertical-panel% [init addressbar]
     (super-new)
     
     (inherit add-child delete-child get-parent)
@@ -217,7 +240,7 @@
 
 ; small-video-panel: holds small-video-canvas%es as they are created.
 (define small-video-panel%
-  (class vertical-panel% [init main-panel hostfield portfield]
+  (class horizontal-panel% [init main-panel hostfield portfield]
     (super-new)
     (inherit get-parent)
     (define top-panel main-panel)
@@ -238,39 +261,41 @@
     (define/public (add-video-canvas v abr evt-cb)
       
       ;; holds the new SMALL video canvas.
-      (define horizp 
-        (new horizontal-panel% 
+      (define canvas-container 
+        (new vertical-panel% 
              [parent this]
              [alignment '(left top)]))
+      
+      (define new-canvas-width (round (/ (video-playback-w v) 4)))
+      (define new-canvas-height (round (/ (video-playback-h v) 4)))
       
       ;; the new SMALL video canvas.
       (define cnvs
         (new small-video-canvas%
-             [parent horizp]
+             [parent canvas-container]
              [cv v]
              [toppanel top-panel]
              [addressbar abr]
-             [min-width (round (/ (video-playback-w v) 8))]
-             [min-height (round (/ (video-playback-h v) 8))]
+             [min-width new-canvas-width]
+             [min-height new-canvas-height]
              [enabled #f]))
       
       ;; all control buttons go in this container.
-      (define vertp 
-        (new vertical-panel% 
-             [parent horizp] 
+      (define control-container 
+        (new horizontal-panel% 
+             [parent canvas-container] 
              [alignment '(left top)]))
       
-      (define (do-unsub btn ctrlevt)
+      (define (do-unsub)
         (evt-cb (RemoveCURL/new (video-playback-name v)))
         
         (send cnvs stop)
-        (send horizp delete-child cnvs)
-        (send vertp delete-child unsub)
-        (send vertp delete-child cpy)
-        (send vertp delete-child mv)
-        (send horizp delete-child vertp)
-        (send this delete-child horizp)
-        
+        ;(send canvas-container delete-child cnvs)
+        ;(send vertp delete-child unsub)
+        ;(send vertp delete-child cpy)
+        ;(send vertp delete-child mv)
+        (send canvas-container delete-child control-container)
+        (send this delete-child canvas-container)
         (let ([children (send this get-children)])
           (cond
             ;; if there aren't any small canvases available notify the full-size panel as such
@@ -282,60 +307,49 @@
              (define all-small-canvases (send (car children) get-children))
              (send (car all-small-canvases) promote-self)])))
       
-      (define (do-cpy btn ctrlevt)
+      (define (do-cpy)
         (evt-cb (CopyChild/new (video-playback-name v)
-                               (send host-field get-value)
-                               (string->number (send port-field get-value)))))
+                               (send host-field get-string-selection)
+                               (string->number (send port-field get-string-selection)))))
       
-      (define unsub
-        (new ctrl-button%
-             [parent vertp]
-             [label "Unsub Stream"]
-             [callback do-unsub]))
+      (define (do-flow-source-move)
+        (evt-cb (FwdBackward/new (Quit/MV/new (send host-field get-string-selection)
+                                              (string->number (send port-field get-string-selection)))
+                                 (video-playback-name v))))
       
-      (define cpy
-        (new ctrl-button%
-             [parent vertp]
-             [label "Share Stream"]
-             [callback do-cpy]))
+      (define flow-control-choices
+        (new choice%
+             [parent control-container]
+             [label #f]
+             [choices '("Remove flow"
+                        "Share flow sink"
+                        "Move flow sink"
+                        "Move flow src"
+                        "Create PIP"
+                        "Split PIP"
+                        "Swap PIP")]
+             [min-width (inexact->exact (round (* 0.90 new-canvas-width)))]
+             [stretchable-width #f]
+             [font FONT]))
       
-      (define mv
-        (new ctrl-button%
-             [parent vertp]
-             [label "Move Stream"]
-             [callback (λ (btn ctrlevt)
-                         (do-cpy cpy ctrlevt)
-                         (do-unsub unsub ctrlevt))]))
-      
-      (define pip
-        (new ctrl-button%
-             [parent vertp]
-             [label "Create PIP"]
-             [callback (λ (btn ctrlevt)
-                         (pip-activation-evt evt-cb (video-playback-name v)))]))
-      
-      (define split
-        (new ctrl-button%
-             [parent vertp]
-             [label "Split PIP"]
-             [callback (λ (btn ctrlevt)
-                         (evt-cb (InitiateBehavior/new 'split (video-playback-name v))))]))
-      
-      (define toggle
-        (new ctrl-button%
-             [parent vertp]
-             [label "Swap PIP"]
-             [callback (λ (btn ctrlevt)
-                         (evt-cb (InitiateBehavior/new 'toggle-major/minor (video-playback-name v))))]))
-      
-      (define encmove
-        [new ctrl-button%
-             [parent vertp]
-             [label "Move Encoder"]
-             [callback (λ (btn ctrlevt)
-                         (evt-cb (FwdBackward/new (Quit/MV/new (send host-field get-value)
-                                                               (string->number (send port-field get-value)))
-                                                  (video-playback-name v))))]])
+      (define do-it-button
+        [new button%
+             [label "Do it!"]
+             [font FONT]
+             [parent control-container]
+             [min-width (inexact->exact (round (* 0.10 new-canvas-width)))]
+             [stretchable-width #f]
+             [callback (λ (c e)
+                         (let ([the-choice (send flow-control-choices get-string-selection)])
+                           (case the-choice
+                             [("Remove flow") (do-unsub)]
+                             [("Share flow sink") (do-cpy)]
+                             [("Move flow sink") (do-cpy) (do-unsub)]
+                             [("Move flow src") (do-flow-source-move)]
+                             [("Create PIP") (pip-activation-evt evt-cb (video-playback-name v))]
+                             [("Split PIP") (evt-cb (InitiateBehavior/new 'split (video-playback-name v)))]
+                             [("Swap PIP") (evt-cb (InitiateBehavior/new 'toggle-major/minor (video-playback-name v)))]
+                             [else #f])))]])
       
       (send cnvs enable #t)
       (send cnvs promote-self))))
