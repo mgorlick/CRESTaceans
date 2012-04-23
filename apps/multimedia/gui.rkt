@@ -34,8 +34,8 @@
 
 (struct video-gui-client (gui controller@))
 
-(define top-width 700)
-(define top-height 900)
+(define top-width 750)
+(define top-height 750)
 
 (define FONT (make-object font% 12 'swiss))
 
@@ -77,7 +77,7 @@
   (define nv (make-video-playback w h name))
   (define address-bar (video-gui-address-bar g))
   (define small-panel (video-gui-small-video-panel g))
-  (send small-panel add-video-canvas nv address-bar evt-cb)
+  (send small-panel add-video-canvas nv address-bar)
   nv)
 
 (define (video-gui-clear-buffer! b)
@@ -93,28 +93,44 @@
   
   (define frame (new closeable-frame% 
                      [label ""]
-                     [stretchable-width #f]
-                     [stretchable-height #f]
                      [min-width overall-width]
                      [min-height overall-height]
                      [style '(no-resize-border)]
                      [callback (λ () (cb (Quit/new)))]))
   
-  (define the-window (new vertical-panel%
-                          [parent frame]))
+  (define the-window (new vertical-panel% [parent frame]))
   
   (define address-bar (new message%
-                           [parent the-window]
-                           [label ""]
-                           ;[min-width 80]
-                           ;[min-height 10]
-                           [auto-resize #t]
-                           [font FONT]))
-  
+                             [parent the-window]
+                             [label "No flow"]
+                             [min-width overall-width]
+                             [min-height 12]
+                             [auto-resize #f]
+                             [font FONT]))
   
   (define button-panel (new horizontal-panel%
                             [parent the-window]
-                            [alignment '(center top)]))  
+                            [alignment '(center top)]
+                            [stretchable-width #f]
+                            [stretchable-height #f]))
+  
+  (new message% [parent button-panel] [label "Action:"] [vert-margin 10] [font FONT])
+  
+  (define flow-control-choice
+    (new choice%
+         [parent button-panel]
+         [label #f]
+         [choices '("Share flow sink"
+                    "Move flow src"
+                    "Remove flow"
+                    "Create PIP"
+                    "Split PIP"
+                    "Swap PIP"
+                    "Share this session"
+                    "Move this session")]
+         [font FONT]))
+  
+  (new message% [parent button-panel] [label "Island at:"] [vert-margin 10] [font FONT])
   
   (define dns-choice (new choice% 
                           [parent button-panel]
@@ -132,36 +148,20 @@
                            [choices (hash-ref dns=>ports (send dns-choice get-string-selection))]
                            [font FONT]))
   
-  
-  
-  (define flow-control-choices
-    (new choice%
-         [parent button-panel]
-         [label #f]
-         [choices '("Remove flow"
-                    "Share flow sink"
-                    "Move flow src"
-                    "Create PIP"
-                    "Split PIP"
-                    "Swap PIP"
-                    "Share this session"
-                    "Move this session")]
-         [font FONT]))
-  
   (define do-it-button
     [new button%
          [label "Do it!"]
          [font FONT]
          [parent button-panel]
          [callback (λ (c e)
-                     (let ([the-choice (send flow-control-choices get-string-selection)])
+                     (let ([the-choice (send flow-control-choice get-string-selection)])
                        (case the-choice
-                         [("Remove flow") (do-unsub)]
                          [("Share flow sink") (do-cpy)]
                          [("Move flow src") (do-flow-source-move)]
                          [("Create PIP") (pip-activation-evt (get-current-flow-curl))]
                          [("Split PIP") (cb (InitiateBehavior/new 'split (get-current-flow-curl)))]
                          [("Swap PIP") (cb (InitiateBehavior/new 'toggle-major/minor (get-current-flow-curl)))]
+                         [("Remove flow") (do-unsub)]
                          [("Share this session") 
                           (cb (CopyActor/new (current-selected-host) (string->number (current-selected-port))))]
                          [("Move this session")
@@ -175,7 +175,7 @@
                          )))]])
   
   (define (get-current-flow-curl)
-    (send top-panel get-current-canvas-curl))
+    (send big-video-panel get-current-canvas-curl))
   
   (define (current-selected-host)
     (send dns-choice get-string-selection))
@@ -191,19 +191,8 @@
   
   (define (do-unsub)
     (cb (RemoveCURL/new (get-current-flow-curl)))
-    #|(send cnvs stop)
-    (send canvas-container delete-child control-container)
-    (send this delete-child canvas-container)
-    (let ([children (send this get-children)])
-      (cond
-        ;; if there aren't any small canvases available notify the full-size panel as such
-        [(null? children) 
-         (send address-bar set-label "")
-         (send top-panel no-videos)]
-        ;; signal one of the remaining small canvases to promote itself
-        [else 
-         (define all-small-canvases (send (car children) get-children))
-         (send (car all-small-canvases) promote-self)]))|#)
+    (send address-bar set-label "No flow")
+    (send big-video-panel tell-unsubbed small-video-panel))
   
   (define pip-major-curl #f)
   (define pip-minor-curl #f)
@@ -216,26 +205,31 @@
       (set! pip-major-curl #f)
       (set! pip-minor-curl #f)))
   
-  (define top-panel (new video-top-panel%
-                         [parent the-window]
-                         [addressbar address-bar]
-                         [alignment '(left top)]
-                         [stretchable-width #t]
-                         [stretchable-height #t]))
+  (define top-panel (new vertical-panel% [parent the-window]))
   
-  (define small-panel (new small-video-panel%
-                           [parent top-panel]
-                           [main-panel top-panel]
-                           [hostfield dns-choice]
-                           [portfield port-choice]
-                           [alignment '(left top)]
-                           [style '(auto-vscroll auto-hscroll)]
-                           ;[min-height 200]
-                           [vert-margin 10]
-                           [horiz-margin 10]))
+  (define big-video-panel (new video-top-panel%
+                               [parent top-panel]
+                               [addressbar address-bar]
+                               [alignment '(left top)]
+                               [stretchable-width #f]
+                               [stretchable-height #f]
+                               [border 10]
+                               [enabled #f]))
+  
+  (define small-video-panel (new small-video-panel%
+                                 [parent top-panel]
+                                 [bvp big-video-panel]
+                                 [alignment '(left top)]
+                                 [style '(auto-vscroll auto-hscroll)]
+                                 [spacing 10]
+                                 [border 10]
+                                 [enabled #f]))
+  
+  (send small-video-panel enable #t)
+  (send big-video-panel enable #t)
   
   (send frame show #t)
-  (video-gui frame top-panel address-bar small-panel))
+  (video-gui frame big-video-panel address-bar small-video-panel))
 
 ; ---------------------------
 
@@ -259,6 +253,7 @@
     (inherit add-child delete-child get-parent)
     (define current-canvas #f)
     (define current-canvas-sema (make-semaphore 1))
+    (define current-video #f)
     (define address-bar addressbar)
     
     (define (clear-current-canvas)
@@ -269,12 +264,17 @@
         (send current-canvas stop)
         (set! current-canvas #f)))
     
+    (define/public (tell-unsubbed target)
+      (send target unsubbed current-video))
+    
     (define (replace-current-canvas v)
       (clear-current-canvas)
+      (set! current-video v)
+      (send address-bar set-label (format "~a" (curl/pretty (video-playback-name v))))
       (send (get-parent) min-width (video-playback-w v))
       (send (get-parent) min-height (video-playback-h v))
-      (send address-bar set-label (format "~a" (curl/pretty (video-playback-name v))))
-      (set! current-canvas 
+      
+      (set! current-canvas
             (new video-canvas% 
                  [parent this]
                  [cv v]
@@ -292,11 +292,7 @@
                                   (send current-canvas get-curl)))))
     
     (define/public (showing? v)
-      (call-with-semaphore 
-       current-canvas-sema
-       (λ ()
-         (and current-canvas 
-              (send current-canvas same-video? v)))))
+      (eq? current-video v))
     
     (define/public (no-videos)
       (call-with-semaphore current-canvas-sema clear-current-canvas))
@@ -306,30 +302,32 @@
 
 ; small-video-panel: holds small-video-canvas%es as they are created.
 (define small-video-panel%
-  (class horizontal-panel% [init main-panel hostfield portfield]
+  (class horizontal-panel% [init bvp]
     (super-new)
-    (inherit get-parent)
-    (define top-panel main-panel)
-    (define host-field hostfield)
-    (define port-field portfield)
+    (inherit get-parent get-children)
+    (define big-video-panel bvp)
     
-    (define/public (add-video-canvas v abr evt-cb)
-      
-      ;; holds the new SMALL video canvas.
-      (define canvas-container 
-        (new vertical-panel% 
-             [parent this]
-             [alignment '(left top)]))
-      
+    (define/public (unsubbed v)
+      (for/or ([small-canvas (get-children)])
+        (cond [(send small-canvas same-video? v)
+               (send small-canvas stop)
+               (send this delete-child small-canvas)
+               (if (null? (get-children))
+                   (send big-video-panel no-videos)
+                   (send (car (get-children)) promote-self))
+               #t]
+              [else #f])))
+    
+    (define/public (add-video-canvas v abr)
       (define new-canvas-width (round (/ (video-playback-w v) 4)))
       (define new-canvas-height (round (/ (video-playback-h v) 4)))
       
       ;; the new SMALL video canvas.
       (define cnvs
         (new small-video-canvas%
-             [parent canvas-container]
+             [parent this]
              [cv v]
-             [toppanel top-panel]
+             [toppanel big-video-panel]
              [addressbar abr]
              [min-width new-canvas-width]
              [min-height new-canvas-height]
@@ -428,6 +426,9 @@
     (define actual-w (video-playback-w cv))
     (define actual-h (video-playback-h cv))
     (refresh)
+    
+    (define/public (same-video? v)
+      (eq? myvideo v))
     
     (define is-init? #f)
     (define update! (make-updater actual-w actual-h buffer))

@@ -144,8 +144,8 @@
   (define h (argsassoc "--h" #:default 480 #:no-val 480 #:call (compose round string->number)))
   (define encoder-where@ (curl/get-public (argsassoc "--vhost" #:no-val *LISTENING-ON* #:default *LISTENING-ON*)
                                           (argsassoc "--vport" #:call string->number 
-                                                     #:no-val 5000 
-                                                     #:default 5000)))
+                                                     #:no-val *LOCALPORT*
+                                                     #:default *LOCALPORT*)))
   (define pubsub-where@ (if (equal? "dsite" (argsassoc "--psat")) PUBLIC-CURL encoder-where@))
   (define the-bang (big-bang encoder-where@ device w h
                              pubsub-where@
