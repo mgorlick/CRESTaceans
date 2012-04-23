@@ -119,7 +119,7 @@
   (define dns-choice (new choice% 
                           [parent button-panel]
                           [label #f]
-                          [choices (hash-keys dns=>ports)]
+                          [choices (sort (hash-keys dns=>ports) string<=?)]
                           [font FONT]
                           [callback (λ (c e)
                                       (send port-choice clear)
@@ -132,28 +132,89 @@
                            [choices (hash-ref dns=>ports (send dns-choice get-string-selection))]
                            [font FONT]))
   
-  (define cp-button (new button%
-                         [parent button-panel]
-                         [label "Share this session"]
-                         [font FONT]
-                         [callback (λ (btn ctrlevt)
-                                     (cb (CopyActor/new
-                                          (send dns-choice get-string-selection) 
-                                          (string->number (send port-choice get-string-selection)))))]))
   
-  (define mv-button (new button%
-                         [parent button-panel]
-                         [label "Move this session"]
-                         [font FONT]
-                         [callback (λ (btn ctrlevt)
-                                     (map (λ (child)
-                                            (send frame delete-child child))
-                                          (send frame get-children))
-                                     (send frame show #f)
-                                     (send frame enable #f)
-                                     (cb (Quit/MV/new (send dns-choice get-string-selection) 
-                                                      (string->number (send port-choice get-string-selection))))
-                                     (send frame on-close))]))
+  
+  (define flow-control-choices
+    (new choice%
+         [parent button-panel]
+         [label #f]
+         [choices '("Remove flow"
+                    "Share flow sink"
+                    "Move flow src"
+                    "Create PIP"
+                    "Split PIP"
+                    "Swap PIP"
+                    "Share this session"
+                    "Move this session")]
+         [font FONT]))
+  
+  (define do-it-button
+    [new button%
+         [label "Do it!"]
+         [font FONT]
+         [parent button-panel]
+         [callback (λ (c e)
+                     (let ([the-choice (send flow-control-choices get-string-selection)])
+                       (case the-choice
+                         [("Remove flow") (do-unsub)]
+                         [("Share flow sink") (do-cpy)]
+                         [("Move flow src") (do-flow-source-move)]
+                         [("Create PIP") (pip-activation-evt (get-current-flow-curl))]
+                         [("Split PIP") (cb (InitiateBehavior/new 'split (get-current-flow-curl)))]
+                         [("Swap PIP") (cb (InitiateBehavior/new 'toggle-major/minor (get-current-flow-curl)))]
+                         [("Share this session") 
+                          (cb (CopyActor/new (current-selected-host) (string->number (current-selected-port))))]
+                         [("Move this session")
+                          (map (λ (child)
+                                 (send frame delete-child child))
+                               (send frame get-children))
+                          (send frame show #f)
+                          (send frame enable #f)
+                          (cb (Quit/MV/new (current-selected-host) (string->number (current-selected-port))))
+                          (send frame on-close)]
+                         )))]])
+  
+  (define (get-current-flow-curl)
+    (send top-panel get-current-canvas-curl))
+  
+  (define (current-selected-host)
+    (send dns-choice get-string-selection))
+  (define (current-selected-port)
+    (send port-choice get-string-selection))
+  
+  (define (do-cpy)
+    (cb (CopyChild/new (get-current-flow-curl) (current-selected-host) (string->number (current-selected-port)))))
+  
+  (define (do-flow-source-move)
+    (cb (FwdBackward/new (Quit/MV/new (current-selected-host) (string->number (current-selected-port)))
+                         (get-current-flow-curl))))
+  
+  (define (do-unsub)
+    (cb (RemoveCURL/new (get-current-flow-curl)))
+    #|(send cnvs stop)
+    (send canvas-container delete-child control-container)
+    (send this delete-child canvas-container)
+    (let ([children (send this get-children)])
+      (cond
+        ;; if there aren't any small canvases available notify the full-size panel as such
+        [(null? children) 
+         (send address-bar set-label "")
+         (send top-panel no-videos)]
+        ;; signal one of the remaining small canvases to promote itself
+        [else 
+         (define all-small-canvases (send (car children) get-children))
+         (send (car all-small-canvases) promote-self)]))|#)
+  
+  (define pip-major-curl #f)
+  (define pip-minor-curl #f)
+  
+  (define (pip-activation-evt curl)
+    (cond [(not pip-major-curl) (set! pip-major-curl curl)]
+          [(not pip-minor-curl) (set! pip-minor-curl curl)])
+    (when (and pip-major-curl pip-minor-curl)
+      (cb (PIPOn/new pip-major-curl pip-minor-curl))
+      (set! pip-major-curl #f)
+      (set! pip-minor-curl #f)))
   
   (define top-panel (new video-top-panel%
                          [parent the-window]
@@ -213,17 +274,22 @@
       (send (get-parent) min-width (video-playback-w v))
       (send (get-parent) min-height (video-playback-h v))
       (send address-bar set-label (format "~a" (curl/pretty (video-playback-name v))))
-      (define cnvs
-        (new video-canvas% 
-             [parent this]
-             [cv v]
-             [vert-margin 10]
-             [horiz-margin 10]
-             [min-width (video-playback-w v)]
-             [min-height (video-playback-h v)]
-             [enabled #f]))
-      (set! current-canvas cnvs)
+      (set! current-canvas 
+            (new video-canvas% 
+                 [parent this]
+                 [cv v]
+                 [vert-margin 10]
+                 [horiz-margin 10]
+                 [min-width (video-playback-w v)]
+                 [min-height (video-playback-h v)]
+                 [enabled #f]))
       (send current-canvas enable #t))
+    
+    (define/public (get-current-canvas-curl)
+      (call-with-semaphore current-canvas-sema
+                           (λ ()
+                             (and current-canvas
+                                  (send current-canvas get-curl)))))
     
     (define/public (showing? v)
       (call-with-semaphore 
@@ -247,17 +313,6 @@
     (define host-field hostfield)
     (define port-field portfield)
     
-    (define pip-major-curl #f)
-    (define pip-minor-curl #f)
-    
-    (define/public (pip-activation-evt evt-cb curl)
-      (cond [(not pip-major-curl) (set! pip-major-curl curl)]
-            [(not pip-minor-curl) (set! pip-minor-curl curl)])
-      (when (and pip-major-curl pip-minor-curl)
-        (evt-cb (PIPOn/new pip-major-curl pip-minor-curl))
-        (set! pip-major-curl #f)
-        (set! pip-minor-curl #f)))
-    
     (define/public (add-video-canvas v abr evt-cb)
       
       ;; holds the new SMALL video canvas.
@@ -279,77 +334,6 @@
              [min-width new-canvas-width]
              [min-height new-canvas-height]
              [enabled #f]))
-      
-      ;; all control buttons go in this container.
-      (define control-container 
-        (new horizontal-panel% 
-             [parent canvas-container] 
-             [alignment '(left top)]))
-      
-      (define (do-unsub)
-        (evt-cb (RemoveCURL/new (video-playback-name v)))
-        
-        (send cnvs stop)
-        ;(send canvas-container delete-child cnvs)
-        ;(send vertp delete-child unsub)
-        ;(send vertp delete-child cpy)
-        ;(send vertp delete-child mv)
-        (send canvas-container delete-child control-container)
-        (send this delete-child canvas-container)
-        (let ([children (send this get-children)])
-          (cond
-            ;; if there aren't any small canvases available notify the full-size panel as such
-            [(null? children) 
-             (send abr set-label "")
-             (send top-panel no-videos)]
-            ;; signal one of the remaining small canvases to promote itself
-            [else 
-             (define all-small-canvases (send (car children) get-children))
-             (send (car all-small-canvases) promote-self)])))
-      
-      (define (do-cpy)
-        (evt-cb (CopyChild/new (video-playback-name v)
-                               (send host-field get-string-selection)
-                               (string->number (send port-field get-string-selection)))))
-      
-      (define (do-flow-source-move)
-        (evt-cb (FwdBackward/new (Quit/MV/new (send host-field get-string-selection)
-                                              (string->number (send port-field get-string-selection)))
-                                 (video-playback-name v))))
-      
-      (define flow-control-choices
-        (new choice%
-             [parent control-container]
-             [label #f]
-             [choices '("Remove flow"
-                        "Share flow sink"
-                        "Move flow sink"
-                        "Move flow src"
-                        "Create PIP"
-                        "Split PIP"
-                        "Swap PIP")]
-             [min-width (inexact->exact (round (* 0.90 new-canvas-width)))]
-             [stretchable-width #f]
-             [font FONT]))
-      
-      (define do-it-button
-        [new button%
-             [label "Do it!"]
-             [font FONT]
-             [parent control-container]
-             [min-width (inexact->exact (round (* 0.10 new-canvas-width)))]
-             [stretchable-width #f]
-             [callback (λ (c e)
-                         (let ([the-choice (send flow-control-choices get-string-selection)])
-                           (case the-choice
-                             [("Remove flow") (do-unsub)]
-                             [("Share flow sink") (do-cpy)]
-                             [("Move flow sink") (do-cpy) (do-unsub)]
-                             [("Move flow src") (do-flow-source-move)]
-                             [("Create PIP") (pip-activation-evt evt-cb (video-playback-name v))]
-                             [("Split PIP") (evt-cb (InitiateBehavior/new 'split (video-playback-name v)))]
-                             [("Swap PIP") (evt-cb (InitiateBehavior/new 'toggle-major/minor (video-playback-name v)))]
-                             [else #f])))]])
       
       (send cnvs enable #t)
       (send cnvs promote-self))))
@@ -378,6 +362,9 @@
     (define h (video-playback-h myvideo))
     (define buffer (video-playback-buffer myvideo))
     (refresh)
+    
+    (define/public (get-curl)
+      (video-playback-name myvideo))
     
     (define/public (stop)
       (set! myvideo #f)
