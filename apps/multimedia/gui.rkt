@@ -2,13 +2,14 @@
 
 (require racket/class
          racket/gui/base
+         racket/function
          racket/contract
          ffi/vector
          "message-types.rkt"
          "config.rkt"
          "../../Motile/actor/curl.rkt"
          "../../Motile/actor/send.rkt"
-         (planet "rgl.rkt" ("stephanh" "RacketGL.plt" 1 2)))
+         (planet "rgl.rkt" ("stephanh" "RacketGL.plt")))
 
 (provide (rename-out [client/new-video-gui new-video-gui]
                      [client/video-gui-add-video! video-gui-add-video!])
@@ -20,10 +21,7 @@
   (let* ([known-island-addresses (hash-keys PUBLICS)]
          [dns=>ports/unsorted
           (foldl (λ (dns port dns=>ports)
-                   (hash-update dns=>ports dns 
-                                (λ (existing-ports) 
-                                  (cons port existing-ports))
-                                (list port)))
+                   (hash-update dns=>ports dns (curry cons port) (list port)))
                  (hash)
                  (map car known-island-addresses)
                  (map cdr known-island-addresses))])
@@ -101,37 +99,64 @@
   (define the-window (new vertical-panel% [parent frame]))
   
   (define address-bar (new message%
-                             [parent the-window]
-                             [label "No flow"]
-                             [min-width overall-width]
-                             [min-height 12]
-                             [auto-resize #f]
-                             [font FONT]))
+                           [parent the-window]
+                           [label "No flow"]
+                           [min-width overall-width]
+                           [min-height 12]
+                           [auto-resize #f]
+                           [font FONT]))
+  
+  ;; menu for operating on whatever flow is currently selected.
+  
+  (define menu-bar (new menu-bar% [parent frame]))
+  
+  (define flow-menu (new menu% [parent menu-bar] [label "Flow..."]))
+  (define unsubscribe (new menu-item% 
+                           [parent flow-menu] [label "Unsubscribe"] [callback (λ _ (do-unsub))]))
+  (define share-sink (new menu-item%
+                          [parent flow-menu] [label "Share sink"] [callback (λ _ (do-cpy))]))
+  (define move-src (new menu-item%
+                        [parent flow-menu] [label "Move source"] [callback (λ _ (do-flow-source-move))]))
+  
+  (define compose-menu (new menu% [parent menu-bar] [label "Compose..."]))
+  (define set-major-pip (new menu-item%
+                             [parent compose-menu] [label "Set PIP major flow"] 
+                             [callback (λ _ 
+                                         (send set-major-pip enable #f)
+                                         (when (do-pip-major-selection!)
+                                           (send set-major-pip enable #t)
+                                           (send set-minor-pip enable #t)
+                                           (reset-pip-selections!)))]))
+  (define set-minor-pip (new menu-item%
+                             [parent compose-menu] [label "Set PIP minor flow"] 
+                             [callback (λ _ 
+                                         (send set-major-pip enable #f)
+                                         (when (do-pip-minor-selection!)
+                                           (send set-major-pip enable #t)
+                                           (send set-minor-pip enable #t)
+                                           (reset-pip-selections!)))]))
+  (define swap-pip-order (new menu-item%
+                              [parent compose-menu] [label "Swap PIP ordering"]
+                              [callback (λ _(cb (InitiateBehavior/new 'split (get-current-flow-curl))))]))
+  (define split-pip-into-components (new menu-item%
+                                         [parent compose-menu] [label "Split PIP into component flows"]
+                                         [callback (λ _ (cb (InitiateBehavior/new 'toggle-major/minor (get-current-flow-curl))))]))
+                                          
+  (define session-menu (new menu% [parent menu-bar] [label "Session..."]))
+  (define share-session (new menu-item%
+                             [parent session-menu] [label "Share"] [callback (λ _ (do-share-session))]))
+  (define move-session (new menu-item%
+                            [parent session-menu] [label "Move"] [callback (λ _ (do-move-session))]))
+  
+  ;; context for menu operations: dns/port combinations naming islands to send computations to.
   
   (define button-panel (new horizontal-panel%
                             [parent the-window]
                             [alignment '(center top)]
+                            [spacing 10]
                             [stretchable-width #f]
-                            [stretchable-height #f]))
-  
-  (new message% [parent button-panel] [label "Action:"] [vert-margin 10] [font FONT])
-  
-  (define flow-control-choice
-    (new choice%
-         [parent button-panel]
-         [label #f]
-         [choices '("Share flow sink"
-                    "Move flow src"
-                    "Remove flow"
-                    "Create PIP"
-                    "Split PIP"
-                    "Swap PIP"
-                    "Share this session"
-                    "Move this session")]
-         [font FONT]))
-  
+                            [stretchable-height #f]))    
   (new message% [parent button-panel] [label "Island at:"] [vert-margin 10] [font FONT])
-  
   (define dns-choice (new choice% 
                           [parent button-panel]
                           [label #f]
@@ -139,44 +164,18 @@
                           [font FONT]
                           [callback (λ (c e)
                                       (send port-choice clear)
-                                      (map (λ (port) (send port-choice append port)) 
-                                           (hash-ref dns=>ports (send c get-string-selection))))]))
-  
+                                      (map (λ (port) (send port-choice append port))
+                                           (hash-ref dns=>ports (send dns-choice get-string-selection) '())))]))
   (define port-choice (new choice%
                            [parent button-panel]
                            [label #f]
-                           [choices (hash-ref dns=>ports (send dns-choice get-string-selection))]
+                           [choices (hash-ref dns=>ports (send dns-choice get-string-selection) '())]
                            [font FONT]))
   
-  (define do-it-button
-    [new button%
-         [label "Do it!"]
-         [font FONT]
-         [parent button-panel]
-         [callback (λ (c e)
-                     (let ([the-choice (send flow-control-choice get-string-selection)])
-                       (case the-choice
-                         [("Share flow sink") (do-cpy)]
-                         [("Move flow src") (do-flow-source-move)]
-                         [("Create PIP") (pip-activation-evt (get-current-flow-curl))]
-                         [("Split PIP") (cb (InitiateBehavior/new 'split (get-current-flow-curl)))]
-                         [("Swap PIP") (cb (InitiateBehavior/new 'toggle-major/minor (get-current-flow-curl)))]
-                         [("Remove flow") (do-unsub)]
-                         [("Share this session") 
-                          (cb (CopyActor/new (current-selected-host) (string->number (current-selected-port))))]
-                         [("Move this session")
-                          (map (λ (child)
-                                 (send frame delete-child child))
-                               (send frame get-children))
-                          (send frame show #f)
-                          (send frame enable #f)
-                          (cb (Quit/MV/new (current-selected-host) (string->number (current-selected-port))))
-                          (send frame on-close)]
-                         )))]])
+  ;; trigger operations on the currently selected flow.
   
   (define (get-current-flow-curl)
     (send big-video-panel get-current-canvas-curl))
-  
   (define (current-selected-host)
     (send dns-choice get-string-selection))
   (define (current-selected-port)
@@ -197,13 +196,35 @@
   (define pip-major-curl #f)
   (define pip-minor-curl #f)
   
-  (define (pip-activation-evt curl)
-    (cond [(not pip-major-curl) (set! pip-major-curl curl)]
-          [(not pip-minor-curl) (set! pip-minor-curl curl)])
-    (when (and pip-major-curl pip-minor-curl)
-      (cb (PIPOn/new pip-major-curl pip-minor-curl))
-      (set! pip-major-curl #f)
-      (set! pip-minor-curl #f)))
+  (define (reset-pip-selections!)
+    (set! pip-major-curl #f)
+    (set! pip-minor-curl #f))
+  
+  (define (do-pip-major-selection!)
+    (unless pip-major-curl (set! pip-major-curl (get-current-flow-curl)))
+    (maybe-launch-pip!))
+  (define (do-pip-minor-selection!)
+    (unless pip-minor-curl (set! pip-minor-curl (get-current-flow-curl)))
+    (maybe-launch-pip!))
+  (define(maybe-launch-pip!)
+    (and (and pip-major-curl pip-minor-curl)
+         (cb (PIPOn/new pip-major-curl pip-minor-curl))
+         (reset-pip-selections!)
+         #t))
+  
+  (define (do-share-session)
+    (cb (CopyActor/new (current-selected-host) (string->number (current-selected-port)))))
+  
+  (define (do-move-session)
+    (map (λ (child)
+           (send frame delete-child child))
+         (send frame get-children))
+    (send frame show #f)
+    (send frame enable #f)
+    (cb (Quit/MV/new (current-selected-host) (string->number (current-selected-port))))
+    (send frame on-close))
+  
+  ;; panels for holding actual video output.
   
   (define top-panel (new vertical-panel% [parent the-window]))
   
@@ -225,9 +246,9 @@
                                  [border 10]
                                  [enabled #f]))
   
+  ; initialize the last few uninitialized elements.
   (send small-video-panel enable #t)
   (send big-video-panel enable #t)
-  
   (send frame show #t)
   (video-gui frame big-video-panel address-bar small-video-panel))
 
@@ -239,10 +260,6 @@
     (define on-close-callback callback)
     (define/augment (on-close)
       (on-close-callback))))
-
-(define ctrl-button%
-  (class button%
-    (super-new [font small-control-font])))
 
 ; ---------------------------
 
@@ -395,18 +412,18 @@
     
     (define/override (on-paint)
       (when is-init?
-        (with-handlers ([exn:fail? (λ (e) (displayln e))])
+        (with-handlers ([exn:fail? displayln])
           (with-gl-context update!)
           (swap-gl-buffers))))
     
     (gl-init)
-    (resume-flush)
     
     (define refresher
       (new timer% 
            [notify-callback (λ () (refresh))]
            [interval 50] 
-           [just-once? #f]))))
+           [just-once? #f]))
+    (resume-flush)))
 
 ; small-video-canvas%: used for the preview panes at the bottom of the screen.
 (define small-video-canvas%
@@ -453,7 +470,7 @@
     
     (define/override (on-paint)
       (when is-init?
-        (with-handlers ([exn:fail? (λ (e) (displayln e))])
+        (with-handlers ([exn:fail? displayln])
           (with-gl-context update!)
           (swap-gl-buffers))))
     
@@ -471,13 +488,13 @@
       (send top-panel swap-focused-video myvideo))
     
     (gl-init)
-    (resume-flush)
     
     (define refresher
       (new timer% 
            [notify-callback (λ () (refresh))]
            [interval 250] 
-           [just-once? #f]))))
+           [just-once? #f]))
+    (resume-flush)))
 
 ;;; -------------
 ;;; OpenGL stuff.
