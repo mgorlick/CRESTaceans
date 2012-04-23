@@ -122,26 +122,30 @@
   (define set-major-pip (new menu-item%
                              [parent compose-menu] [label "Set PIP major flow"] 
                              [callback (λ _ 
-                                         (send set-major-pip enable #f)
-                                         (when (do-pip-major-selection!)
-                                           (send set-major-pip enable #t)
-                                           (send set-minor-pip enable #t)
-                                           (reset-pip-selections!)))]))
+                                         (do-pip-major-selection!)
+                                         (when (pip-ready-to-go?) (send launch-pip enable #t)))]))
   (define set-minor-pip (new menu-item%
                              [parent compose-menu] [label "Set PIP minor flow"] 
                              [callback (λ _ 
-                                         (send set-major-pip enable #f)
-                                         (when (do-pip-minor-selection!)
-                                           (send set-major-pip enable #t)
-                                           (send set-minor-pip enable #t)
-                                           (reset-pip-selections!)))]))
+                                         (do-pip-minor-selection!)
+                                         (when (pip-ready-to-go?) (send launch-pip enable #t)))]))
+  (define launch-pip 
+    (let ([item (new menu-item%
+                     [parent compose-menu] [label "Launch PIP"]
+                     [callback (λ _
+                                 (maybe-launch-pip!)
+                                 (send set-major-pip enable #t)
+                                 (send set-minor-pip enable #t)
+                                 (reset-pip-selections!))])])
+      (send item enable #f)
+      item))
   (define swap-pip-order (new menu-item%
                               [parent compose-menu] [label "Swap PIP ordering"]
                               [callback (λ _(cb (InitiateBehavior/new 'split (get-current-flow-curl))))]))
   (define split-pip-into-components (new menu-item%
                                          [parent compose-menu] [label "Split PIP into component flows"]
                                          [callback (λ _ (cb (InitiateBehavior/new 'toggle-major/minor (get-current-flow-curl))))]))
-                                          
+  
   (define session-menu (new menu% [parent menu-bar] [label "Session..."]))
   (define share-session (new menu-item%
                              [parent session-menu] [label "Share"] [callback (λ _ (do-share-session))]))
@@ -155,7 +159,7 @@
                             [alignment '(center top)]
                             [spacing 10]
                             [stretchable-width #f]
-                            [stretchable-height #f]))    
+                            [stretchable-height #f]))
   (new message% [parent button-panel] [label "Island at:"] [vert-margin 10] [font FONT])
   (define dns-choice (new choice% 
                           [parent button-panel]
@@ -196,17 +200,16 @@
   (define pip-major-curl #f)
   (define pip-minor-curl #f)
   
+  (define (pip-ready-to-go?)
+    (and pip-major-curl pip-minor-curl))
   (define (reset-pip-selections!)
     (set! pip-major-curl #f)
     (set! pip-minor-curl #f))
-  
   (define (do-pip-major-selection!)
-    (unless pip-major-curl (set! pip-major-curl (get-current-flow-curl)))
-    (maybe-launch-pip!))
+    (unless pip-major-curl (set! pip-major-curl (get-current-flow-curl))))
   (define (do-pip-minor-selection!)
-    (unless pip-minor-curl (set! pip-minor-curl (get-current-flow-curl)))
-    (maybe-launch-pip!))
-  (define(maybe-launch-pip!)
+    (unless pip-minor-curl (set! pip-minor-curl (get-current-flow-curl))))
+  (define (maybe-launch-pip!)
     (and (and pip-major-curl pip-minor-curl)
          (cb (PIPOn/new pip-major-curl pip-minor-curl))
          (reset-pip-selections!)
