@@ -10,6 +10,10 @@
  island/address/public
  island/address/dns
  island/address/port
+ ; function versions of above
+ island/address/get-public
+ island/address/get-dns
+ island/address/get-port
  
  this/island)
 
@@ -44,6 +48,13 @@
 (define-syntax-rule (island/address/public x) (vector-ref x 1)) ; Public key (as bytes string).
 (define-syntax-rule (island/address/dns x)    (vector-ref x 2)) ; DNS name (as bytes string).
 (define-syntax-rule (island/address/port x)   (vector-ref x 3)) ; IP port number.
+
+(define (island/address/get-public x)
+  (island/address/public x))
+(define (island/address/get-dns x)
+  (island/address/dns x))
+(define (island/address/get-port x)
+  (island/address/port x))
 
 ;; Returns #t if island/address x is equal to island address y.
 (define (island/address/equal? x y)
