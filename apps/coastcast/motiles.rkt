@@ -22,26 +22,126 @@
         ([f (lambda ()
               (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
               ; spawn the proxy
-              (curl/send ,pubsub-site-public-curl@ (spawn/new (pubsubproxy me@)
-                                                              (make-metadata is/proxy (nick 'pubsub))
+              (curl/send ,pubsub-site-public-curl@ (spawn/new (encoder-side-relay me@)
+                                                              (make-metadata is/proxy (nick 'encoder-side-relay))
                                                               #f))
-              (let ([proxy@ (:remote/body (delivery/contents-sent (mailbox-get-message)))])
+              (let* ([proxys-list@ (delivery/contents-sent (mailbox-get-message))]
+                     [proxy-input@ (car proxys-list@)]
+                     [proxy-output@ (cdr proxys-list@)])
                 ; spawn the encoder with the proxy as initialization address
                 (curl/send ,encoder-site-public-curl@ (spawn/new (video-reader/encoder
-                                                                  ,video-device ,video-w ,video-h proxy@)
+                                                                  ,video-device ,video-w ,video-h proxy-input@)
                                                                  (make-metadata produces/webm (nick 'encoder))
                                                                  #f))
                 ; spawn the decoder with the proxy as initialization address
-                (curl/send ,decoder-site-public-curl@ (spawn/new (video-decoder/single proxy@)
+                (curl/send ,decoder-site-public-curl@ (spawn/new (video-decoder/single proxy-output@)
                                                                  (make-metadata accepts/webm (nick 'decoder)) 
                                                                  #f))))])
       (f))))
 
-;; pubsubproxy is a 1-to-N router with control signals forwarded backwards to the owner.
+(define (encoder-side-relay on-birth-notify@)
+  (motile/compile
+   `(letrec
+        ([make-subscribable-curl (lambda (l)
+                                   (curl/new/any l '(outbound) #f))]
+         [can-subscribe-with-curl? (lambda (c)
+                                     (member 'outbound (curl/get-path c)))]
+         [make-publishable-curl (lambda (l)
+                                  (curl/new/any l '(inbound) #f))]
+         [can-publish-with-curl? (lambda (c)
+                                   (member 'inbound (curl/get-path c)))]
+         [make-subscription-control-curl (lambda (l)
+                                           (curl/new/any l
+                                                         '(subscription-control)
+                                                         (hash/new hash/eq/null
+                                                                   'allowed 'remove
+                                                                   'for-sub id)))]
+         [can-unsubscribe? (lambda (c curls)
+                             (let ([meta (curl/get-meta c)]
+                                   [path (curl/get-path c)])
+                               (and path meta 
+                                    (member 'subscription-control path)
+                                    (eq? 'remove (metadata-ref meta 'allowed))
+                                    (hash/contains? curls (metadata-ref meta 'for-sub)))))]
+         [f (lambda ()
+              (define *me/ctrl (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t))
+              (define me/in@ (make-subscribable-curl *me/ctrl))
+              (define me/out@ (make-publishable-curl *me/ctrl))
+              ;; notify whoever I'm supposed to that I'm online now.
+              (curl/send ,on-birth-notify@ (cons me/in@ me/out@))
+              (let loop ([forward-relays hash/equal/null] ; island-address => curl
+                         [last-sender-seen@ #f])
+                ;; unpack message
+                (define m (mailbox-get-message))
+                (define contents (delivery/contents-sent m))
+                (define curl-used (delivery/curl-used m))
+                (define promise-fulfillment (delivery/promise-fulfillment m))
+                (define body (:remote/body contents))
+                ;; process message
+                (cond 
+                  ;; new publication: does it have the authority to publish?
+                  [(Frame? body)
+                   ;(can-publish-with-curl? curl-used))
+                   (let ([content/hidden-location (!:remote/reply contents me/out@)])
+                     ;; send frame to all forward relays.
+                     (hash/for-each forward-relays (lambda (id.subber@) (curl/send (cdr id.subber@) content/hidden-location))))
+                   (loop forward-relays (:remote/reply contents))]
+                  ;; new subscription request: does it have the authority to subscribe?
+                  [(AddCURL? body) 
+                        ;(can-subscribe-with-curl? curl-used))
+                   (let* ([subscriber-island-address (curl/get-island-address (:AddCURL/curl body))])
+                     ;; is there a forward relay for this flow already deployed 
+                     ;; on the island on which the new subscriber is resident?
+                     (cond [(hash/contains? forward-relays subscriber-island-address)
+                            ;; if so, forward this onto the forward relay
+                            ;; allowing it to fulfill the subscriber's promise held
+                            (curl/send (hash/ref forward-relays subscriber-island-address #f)
+                                       (remote/new body #f promise-fulfillment))
+                            (loop forward-relays last-sender-seen@)]
+                           [else
+                            ;; if not, deploy a new forward relay
+                            (let ([new-forward-relay-site@ 
+                                   (curl/get-public (island/address/get-dns subscriber-island-address)
+                                                    (island/address/get-port subscriber-island-address))]
+                                  [new-forward-relay-@-promise (promise/new 10000)])
+                              (curl/send new-forward-relay-site@
+                                         (spawn/new (forward-relay (promise/to-fulfill new-forward-relay-@-promise))
+                                                    (make-metadata is/proxy (nick 'forward-relay))
+                                                    #f))
+                              ;; get the CURL of the new forward relay
+                              (let ([new-forward-relay@ (promise/wait (promise/result new-forward-relay-@-promise) 1 'nope)])
+                                ;; let the new forward relay fulfill the subscriber's promise
+                                (cond ([(curl? new-forward-relay@)
+                                        (curl/send new-forward-relay@
+                                                   (remote/new body #f promise-fulfillment))
+                                        (loop (hash/cons forward-relays subscriber-island-address new-forward-relay@)
+                                              last-sender-seen@)]
+                                       ;; fulfill the subscriber's promise ourself notifying the subscriber
+                                       ;; of a problem on their island or the public CURL we have for their island
+                                       [else
+                                        (when promise-fulfillment
+                                          (curl/send promise-fulfillment 
+                                                     (error/new "couldn't spawn a forward relay on your island" m)))
+                                        (loop forward-relays last-sender-seen@)]))))]))]
+                  [(and (RemoveCURL? body) (can-unsubscribe? curl-used))
+                   (loop (hash/remove forward-relays (curl/get-island-address (:RemoveCURL/curl body))) last-sender-seen@)]
+                  ;; the messages that the router is hardwired to send backward to the sender using it.
+                  [(AddBehaviors? body)
+                   (when last-sender-seen@ (curl/send last-sender-seen@ contents))
+                   (loop forward-relays last-sender-seen@)]
+                  [(Quit/MV? body)
+                   (when last-sender-seen@ (curl/send last-sender-seen@ contents))
+                   (loop forward-relays last-sender-seen@)]
+                  [else 
+                   (printf "encoder relay else: ~a~n" body)
+                   (loop forward-relays last-sender-seen@)])))])
+      (f))))
+
+;; forward-relay is a 1-to-N router with control signals forwarded backwards to the owner.
 ;; this implementation doesn't encode ownership (the "1" in "1-to-N") except by convention.
 ;; whoever sent some forward message is the one that will receive a control signal directed to it
 ;; (see implementation for exact forward message types and backwards control signals) 
-(define (pubsubproxy on-birth-notify@)
+(define (forward-relay on-birth-notify@)
   (motile/compile
    `(letrec 
         ([f (lambda ()
@@ -50,7 +150,7 @@
               (define *me/ctrl (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t))
               (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
               ;; notify whoever I'm supposed to that I'm online now.
-              (curl/send ,on-birth-notify@ (remote/new me@ '() #f))
+              (curl/send ,on-birth-notify@ me@)
               (let loop ([curls hash/equal/null]
                          [last-sender-seen@ #f])
                 (define m (mailbox-get-message))
@@ -66,11 +166,12 @@
                   ;; the control messages coming from the forward direction,
                   ;; directed at the router.
                   [(AddCURL? body)
-                   (let ([id (make-uuid)])
+                   (let ([id (make-uuid)]
+                         [reply-to (:remote/reply contents)])
                      ;; upon subscription, issue a CURL that lets the holder
                      ;; interact with that subscription.
-                     (when (delivery/promise-fulfillment m)
-                       (curl/send (delivery/promise-fulfillment m)
+                     (when reply-to
+                       (curl/send reply-to
                                   (remote/new (curl/new/any *me/ctrl
                                                             null
                                                             (hash/new hash/eq/null
@@ -99,7 +200,7 @@
                    (when last-sender-seen@ (curl/send last-sender-seen@ contents))
                    (loop curls last-sender-seen@)]
                   [else 
-                   (printf "proxy else: ~a~n" body)
+                   (printf "forward relay else: ~a~n" body)
                    (loop curls last-sender-seen@)])))])
       (f))))
 
@@ -114,14 +215,14 @@
    '(lambda (sink-site-public-curl@ sinkλ sink^ source@)
       (define me@ (curl/new/any (this/locative) null #f))
       ;; spawn a proxy to sit between the ESTABLISHED source and the NEW sink.
-      (curl/send sink-site-public-curl@ (spawn/new (pubsubproxy me@)
-                                                   (make-metadata is/proxy (nick 'pubsub))
+      (curl/send sink-site-public-curl@ (spawn/new (forward-relay me@)
+                                                   (make-metadata is/proxy (nick 'forward-relay))
                                                    #f))
-      ;; get proxy curl back.
-      (let ([proxy@ (:remote/body (delivery/contents-sent (mailbox-get-message)))])
+      ;; get relay curl back.
+      (let ([relay@ (delivery/contents-sent (mailbox-get-message))])
         ;; link ESTABLISHED source and NEW sink to proxy.
-        (curl/send source@ (remote/new proxy@ '() me@))
-        (curl/send sink-site-public-curl@ (spawn/new (lambda () (sinkλ proxy@))
+        (curl/send source@ (remote/new relay@ '() me@))
+        (curl/send sink-site-public-curl@ (spawn/new (lambda () (sinkλ relay@))
                                                      sink^
                                                      me@))))))
 

@@ -29,7 +29,10 @@
  curl/sends
  curl/signing
  curl/signing!
+ ;; function versions for actors.
  curl/get-meta
+ curl/get-path
+ curl/get-island-address
  
  curl/export
  curl/new
@@ -50,6 +53,10 @@
 
 (define (curl/get-meta x)
   (curl/meta x))
+(define (curl/get-path x)
+  (curl/path x))
+(define (curl/get-island-address x)
+  (curl/island x))
 
 ; all copies of a CURL are bound to a pointer to the same locative or,
 ; in a simpler case, a list of symbols sourced from the locative.
