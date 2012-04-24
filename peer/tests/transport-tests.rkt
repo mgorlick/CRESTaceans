@@ -1,11 +1,16 @@
 #lang racket/base
-(require "../src/net/encryption.rkt"
+(require racket/unit
+         "../src/net/encryption.rkt"
          "../src/net/compression.rkt"
          "../../Motile/compile/serialize.rkt"
          "../../Motile/tests/compile-test.rkt"
          "../../Motile/compile/compile.rkt"
          "../../Motile/baseline.rkt"
          "../../Motile/generate/baseline.rkt")
+(define-values/invoke-unit nacl-encryption@
+  (import)
+  (export encryption-unit^))
+
 (define (Motile-tests)
   (define (writable->bytes t)
   (define o (open-output-bytes))

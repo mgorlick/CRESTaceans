@@ -11,25 +11,16 @@ bindings:
 
 c:
 	cd bindings/nacl/wrapper && make
-	cd apps/multimedia/bindings/vorbis/wrapper && make
-	cd apps/multimedia/bindings/vp8/wrapper && make
-	cd apps/multimedia/bindings/pulse/wrapper && make
-	cd apps/multimedia/bindings/speex/wrapper && make
+	cd apps/coastcast/bindings/vp8/wrapper && make
 
 install:
 	cd bindings/nacl/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
-	cd apps/multimedia/bindings/vorbis/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
-	cd apps/multimedia/bindings/vp8/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
-	cd apps/multimedia/bindings/pulse/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
-	cd apps/multimedia/bindings/speex/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
+	cd apps/coastcast/bindings/vp8/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
 
 clean:
 	find . -name "compiled" -type d -print0 | xargs -0 rm -rfv
 	cd bindings/nacl/wrapper && make clean
-	cd apps/multimedia/bindings/vorbis/wrapper && make clean
-	cd apps/multimedia/bindings/vp8/wrapper && make clean
-	cd apps/multimedia/bindings/pulse/wrapper && make clean
-	cd apps/multimedia/bindings/speex/wrapper && make clean
+	cd apps/coastcast/bindings/vp8/wrapper && make clean
 
 clean-junk:
 	find . -name *~ -print0 | xargs -0 rm
