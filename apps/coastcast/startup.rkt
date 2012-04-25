@@ -136,8 +136,7 @@
                         (my-root-loop)))
 
 (unless (argsassoc "--no-gui")
-  (define the-controller (gui-controller))
-  (curl/send PUBLIC-CURL (spawn/new the-controller (make-metadata is/gui (nick 'gui-controller)) #f)))
+  (curl/send PUBLIC-CURL (spawn/new gui-controller (make-metadata is/gui (nick 'gui-controller)) #f)))
 (unless (argsassoc "--no-video")
   (define device (argsassoc "--device" #:default "/dev/video0" #:no-val "/dev/video0"))
   (define w (argsassoc "--w" #:default 640 #:no-val 640 #:call (compose round string->number)))
@@ -147,9 +146,12 @@
                                                      #:no-val *LOCALPORT*
                                                      #:default *LOCALPORT*)))
   (define pubsub-where@ (if (equal? "dsite" (argsassoc "--psat")) PUBLIC-CURL encoder-where@))
-  (define the-bang (big-bang encoder-where@ device w h
-                             pubsub-where@
-                             PUBLIC-CURL))
-  (curl/send PUBLIC-CURL (spawn/new the-bang (make-metadata (nick 'big-bang)) #f)))
+  (define the-bang (motile/call make-big-bang
+                                MULTIMEDIA-BASE
+                                encoder-where@ device w h
+                                pubsub-where@
+                                PUBLIC-CURL))
+  (curl/send PUBLIC-CURL (spawn/new the-bang (make-metadata (nick 'big-bang)) #f))
+  (displayln "Spawn sent"))
 
 (semaphore-wait (make-semaphore))

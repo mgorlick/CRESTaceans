@@ -79,12 +79,10 @@
 (define-metadata-entry-maker nick)
 (define-metadata-entry-maker from)
 
-(define (eval-definition e)
-  (motile/call e BASELINE))
 (define-syntax global-motile-point-of-definition-evals
   (syntax-rules ()
     [(k id ...)
-     `((id . ,(eval-definition id))
+     `((id . ,id)
        ...)]))
 
 ;; binding environments used.
@@ -139,15 +137,15 @@
                       delivery?
                       delivery/contents-sent
                       delivery/curl-used
-                      delivery/promise-fulfillment
-                      big-bang
-                      encoder-side-relay
-                      forward-relay
-                      video-reader/encoder
-                      video-decoder/single
-                      gui-controller)
-      (global-motile-point-of-definition-evals canvas-endpoint 
+                      delivery/promise-fulfillment)
+      (global-motile-point-of-definition-evals gui-controller
+                                               make-video-reader/encoder
+                                               make-big-bang
+                                               make-encoder-side-relay
+                                               make-forward-relay
+                                               canvas-endpoint 
                                                linker-bang
+                                               make-video-decoder/single
                                                make-video-decoder/pip)
       (global-value-defines accepts/webm 
                             produces/webm 
