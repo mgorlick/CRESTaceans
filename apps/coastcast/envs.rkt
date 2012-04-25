@@ -42,23 +42,23 @@
 
 (define A-LONG-TIME 2.76e110)
 
-; current-gui-curl: enforces the constraint that a gui is a unique global resource on an island.
-(define current-gui-curl
-  (let ([c #f]
-        [writelock (make-semaphore 1)]
-        [readlock (make-semaphore 0)])
-    (case-lambda
-      [() (call-with-semaphore readlock (λ () 
-                                          c))]
-      [(f) (call-with-semaphore writelock (λ ()
-                                            (set! c f)
-                                            (semaphore-post readlock)))])))
-
-; allow an actor to get the current gui curl, set it, neither, or both, depending on binding environment.
-; `current-gui-curl' itself shouldn't be added to a binding environment.
-(define get-current-gui-curl (procedure-reduce-arity current-gui-curl 0))
-(define set-current-gui-curl! (procedure-reduce-arity current-gui-curl 1))
-
+(define current-gui-curl #f)
+(define readlock (make-semaphore 0))
+(define writelock (make-semaphore 1))
+(define (get-current-gui-curl)
+  (call-with-semaphore readlock (λ () 
+                                  (displayln "Current GUI curl discovered") 
+                                  current-gui-curl)))
+(define (set-current-gui-curl! c)
+  (printf "Current GUI curl set~n")
+  (set! current-gui-curl c)
+  (semaphore-post readlock))
+(define (reset-current-gui-curl!)
+  (printf "Current GUI curl unset~n")
+  (set! current-gui-curl #f)
+  (set! readlock (make-semaphore 0)))
+(define (with-gui-singleton-actor thunk)
+  (call-with-semaphore writelock thunk))
 ;; std metadata types used to determine call convention and binding environment allocation
 (define accepts/webm '("accepts" . "video/webm"))
 (define produces/webm '("produces" . "video/webm"))
@@ -71,19 +71,16 @@
   (pairs/hash hash/equal/null vals))
 (define (metadata-ref m k)
   (hash/ref m k #f))
-(define-syntax-rule (metadata-entry key val)
-  `(,(symbol->string 'key) . ,val))
 (define-syntax-rule (define-metadata-entry-maker n)
   (define (n v)
-    (metadata-entry n v)))
+    `(,(symbol->string 'n) . ,v)))
 (define-metadata-entry-maker nick)
 (define-metadata-entry-maker from)
 
-(define-syntax global-motile-point-of-definition-evals
+(define-syntax global-motile-points-of-definition
   (syntax-rules ()
     [(k id ...)
-     `((id . ,id)
-       ...)]))
+     `((id . ,id) ...)]))
 
 ;; binding environments used.
 (define MULTIMEDIA-BASE
@@ -138,15 +135,15 @@
                       delivery/contents-sent
                       delivery/curl-used
                       delivery/promise-fulfillment)
-      (global-motile-point-of-definition-evals gui-controller
-                                               make-video-reader/encoder
-                                               make-big-bang
-                                               make-encoder-side-relay
-                                               make-forward-relay
-                                               canvas-endpoint 
-                                               linker-bang
-                                               make-video-decoder/single
-                                               make-video-decoder/pip)
+      (global-motile-points-of-definition gui-controller
+                                          make-video-reader/encoder
+                                          make-big-bang
+                                          make-encoder-side-relay
+                                          make-forward-relay
+                                          canvas-endpoint 
+                                          linker-bang
+                                          make-video-decoder/single
+                                          make-video-decoder/pip)
       (global-value-defines accepts/webm 
                             produces/webm 
                             type/webm
@@ -164,8 +161,8 @@
       (require-spec->global-defines (matching-identifiers-in #rx"^vp8dec.*" "video.rkt"))
       (global-defines get-current-gui-curl)))
 (define GUI
-  (++ MULTIMEDIA-BASE 
-      (global-defines get-current-gui-curl set-current-gui-curl!)
+  (++ MULTIMEDIA-BASE
+      (global-defines set-current-gui-curl! reset-current-gui-curl!)
       (require-spec->global-defines "gui.rkt")))
 (define GUI-ENDPOINT
   (++ MULTIMEDIA-BASE

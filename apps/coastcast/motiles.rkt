@@ -7,11 +7,8 @@
 
 (define (eval-definition e)
   (motile/call e BASELINE))
-(define-syntax-rule (define-motile-procedure id body ...)
-  (define id
-    (eval-definition
-     (motile/compile
-      body ...))))
+(define-syntax-rule (define-motile-procedure id body)
+  (define id (eval-definition (motile/compile body))))
 
 ;; notes on syntactic conventions to follow:
 ;; flub$ - a locative named flub
@@ -319,14 +316,16 @@
            ;; probably something sent back beyond the decoder.
            [(FwdBackward? body)
             (curl/send (:FwdBackward/ref body) (delivery/contents-sent m))
-            (loop decoders)] 
+            (loop decoders)]
            ;; move decoders, then move self.
            [(Quit/MV? body)
+            (reset-current-gui-curl!)
             (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
                        (spawn/new this (make-metadata is/gui (nick 'gui-controller)) #f))
             (set/map decoders (lambda (decoder@) (curl/send decoder@ (delivery/contents-sent m))))]
            ;; pass on to decoders.
            [(Quit? body)
+            (reset-current-gui-curl!)
             (set/map decoders (lambda (decoder@) (curl/send decoder@ (delivery/contents-sent m))))]
            [else
             (printf "Not a valid request to GUI: ~a~n" body)
@@ -428,8 +427,7 @@
                             (remote/new (AddCURL/new me/sub@) (make-metadata) #f)
                             10000))
        (define (unpack-promise p); generic way to wait for a promise and look at its final-value body.
-         (define res (promise/wait p 10000 #f))
-         (:remote/body res))
+         (:remote/body (promise/wait p 10000 #f)))
        ;; 1. reserve display.
        ;; 2. add subscription.
        (define gui-endpoint@ (unpack-promise (reserve-gui/get-next-pipeline@)))
