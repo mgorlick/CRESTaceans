@@ -32,27 +32,27 @@
                                                       (make-metadata is/proxy (nick 'encoder-side-relay))
                                                       #f))
        (let* ([proxys-list@ (delivery/contents-sent (mailbox-get-message))]
-              [proxy-input@ (car proxys-list@)]
-              [proxy-output@ (cdr proxys-list@)])
+              [proxy-subscribable@ (car proxys-list@)]
+              [proxy-publishable@ (cdr proxys-list@)])
          ; spawn the encoder with the proxy as initialization address
-         (curl/send encoder-site-public-curl@ (spawn/new (make-video-reader/encoder video-device video-w video-h proxy-input@)
+         (curl/send encoder-site-public-curl@ (spawn/new (make-video-reader/encoder video-device video-w video-h proxy-publishable@)
                                                          (make-metadata produces/webm (nick 'encoder))
                                                          #f))
          ; spawn the decoder with the proxy as initialization address
-         (curl/send decoder-site-public-curl@ (spawn/new (make-video-decoder/single proxy-output@)
+         (curl/send decoder-site-public-curl@ (spawn/new (make-video-decoder/single proxy-subscribable@)
                                                          (make-metadata accepts/webm (nick 'decoder)) 
                                                          #f))))))
 
 (define-motile-procedure make-encoder-side-relay
   '(lambda (on-birth-notify@)
      (define (make-subscribable-curl l)
-       (curl/new/any l '(outbound) #f))
+       (curl/new/any l '(subscribe) #f))
      (define (can-subscribe-with-curl? c)
-       (member 'outbound (curl/get-path c)))
+       (member 'subscribe (curl/get-path c)))
      (define (make-publishable-curl l)
-       (curl/new/any l '(inbound) #f))
+       (curl/new/any l '(publish) #f))
      (define (can-publish-with-curl? c)
-       (member 'inbound (curl/get-path c)))
+       (member 'publish (curl/get-path c)))
      (define (make-subscription-control-curl l)
        (curl/new/any l '(subscription-control) (hash/new hash/eq/null 
                                                          'allowed 'remove 
@@ -66,10 +66,10 @@
               (hash/contains? curls (metadata-ref meta 'for-sub)))))
      (define (this)
        (define *me/ctrl (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t))
-       (define me/in@ (make-subscribable-curl *me/ctrl))
-       (define me/out@ (make-publishable-curl *me/ctrl))
+       (define me/subscribable@ (make-subscribable-curl *me/ctrl))
+       (define me/publishable@ (make-publishable-curl *me/ctrl))
        ;; notify whoever I'm supposed to that I'm online now.
-       (curl/send on-birth-notify@ (cons me/in@ me/out@))
+       (curl/send on-birth-notify@ (cons me/subscribable@ me/publishable@))
        (let loop ([forward-relays hash/equal/null] ; island-address => curl
                   [last-sender-seen@ #f])
          ;; unpack message
@@ -81,15 +81,15 @@
          ;; process message
          (cond 
            ;; new publication: does it have the authority to publish?
-           [(Frame? body)
-            ;(can-publish-with-curl? curl-used))
-            (let ([content/hidden-location (!:remote/reply contents me/out@)])
+           [(and (Frame? body)
+                 (can-publish-with-curl? curl-used))
+            (let ([content/hidden-location (!:remote/reply contents me/subscribable@)])
               ;; send frame to all forward relays.
               (hash/for-each forward-relays (lambda (id.subber@) (curl/send (cdr id.subber@) content/hidden-location))))
             (loop forward-relays (:remote/reply contents))]
            ;; new subscription request: does it have the authority to subscribe?
-           [(AddCURL? body) 
-            ;(can-subscribe-with-curl? curl-used))
+           [(and (AddCURL? body) 
+                 (can-subscribe-with-curl? curl-used))
             (let* ([subscriber-island-address (curl/get-island-address (:AddCURL/curl body))])
               ;; is there a forward relay for this flow already deployed 
               ;; on the island on which the new subscriber is resident?
@@ -129,7 +129,9 @@
                                               (error/new "couldn't spawn a forward relay on your island" m)))
                                  (loop forward-relays last-sender-seen@)]))))]))]
            [(and (RemoveCURL? body) (can-unsubscribe? curl-used))
-            (loop (hash/remove forward-relays (curl/get-island-address (:RemoveCURL/curl body))) last-sender-seen@)]
+            (displayln "RemoveCURL ok")
+            (loop (hash/remove forward-relays (curl/get-island-address (:RemoveCURL/curl body)))
+                  last-sender-seen@)]
            ;; the messages that the router is hardwired to send backward to the sender using it.
            [(AddBehaviors? body)
             (when last-sender-seen@ (curl/send last-sender-seen@ contents))
@@ -163,9 +165,8 @@
          (cond
            ;; the types that the router knows to send forward.
            [(Frame? body)
-            (let ([content/hidden-location (!:remote/reply contents me@)])
-              (hash/for-each curls 
-                             (lambda (id.subber@) (curl/send (cdr id.subber@) content/hidden-location))))
+            (hash/for-each curls 
+                           (lambda (id.subber@) (curl/send (cdr id.subber@) contents)))
             (loop curls (:remote/reply contents))]
            ;; the control messages coming from the forward direction,
            ;; directed at the router.
@@ -486,17 +487,17 @@
        (unpack-promise (curl/send/promise (get-current-gui-curl) (remote/new (AddCURL/new me@) '() #f) 1000)))
      (define (retrieve-proxy-from dcurl@) ; talk to an existing decoder to get its upstream contact point.
        (unpack-promise (curl/send/promise dcurl@ (remote/new (GetParent/new) null #f)
-                                          1000)))
+                                                        1000)))
      (define (add-self-subscription prox@ me@) ; subscribe to an upstream contact point.
-       (curl/send prox@ (remote/new (AddCURL/new me@) '() #f)))
-     (define (remove-self-subscription prox@ me@) ; remove subscription from an upstream contact point.
+       (unpack-promise (curl/send/promise prox@ (remote/new (AddCURL/new me@) '() #f) 1000)))
+     (define (remove-self-subscription prox@) ; remove subscription from an upstream contact point.
        (curl/send prox@ (remote/new (RemoveCURL/new) '() #f)))
      (define (spawn-single-decoder prox@) ; spawn a decoder that consumes one of the two feeds.
        (curl/send PUBLIC-CURL (spawn/new (make-video-decoder/single prox@)
                                          (make-metadata accepts/webm (nick 'decoder))
                                          #f)))
      (define cleanup-decs (lambda decs (map vp8dec-delete decs)))
-     (define cleanup-subs (lambda (me@ . proxs@) (map (lambda (p@) (remove-self-subscription p@ me@)) proxs@)))
+     (define cleanup-subs (lambda proxs@ (for-each (lambda (p@) (and p@ (remove-self-subscription p@))) proxs@)))
      
      (define majorprox@ (retrieve-proxy-from majordec@))
      (define minorprox@ (retrieve-proxy-from minordec@))
@@ -511,9 +512,9 @@
        (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t)
                                  null #f))
        (define next-pipeline-element@ (retrieve-sink me@))
-       (add-self-subscription majorprox@ me@)
-       (unless (curl/target=? majorprox@ minorprox@)
-         (add-self-subscription minorprox@ me@))
+       (define flow1/control@ (add-self-subscription majorprox@ me@))
+       (define flow2/control@ (and (not (curl/target=? majorprox@ minorprox@))
+                                   (add-self-subscription minorprox@ me@)))
        (let loop ([decoder/major (vp8dec-new)]
                   [decoder/minor (vp8dec-new)]
                   [last-decoded-frame #f]
@@ -546,7 +547,6 @@
                    
                    [frame-after-minor-check
                     (cond [(and frame-after-major-check (curl/target=? replyaddr@ minorprox@))
-                           ;; have prior frame and stream is minor. update over prior frame.
                            (vp8dec-decode-update-minor decoder/major decoder/minor 
                                                        (:Frame/data body) frame-after-major-check)]
                           ;; frame is major stream only, or some other stream. ignore
@@ -588,10 +588,10 @@
            [(Quit/MV? body)
             (respawn-self (:Quit/MV/host body) (:Quit/MV/port body) majorprox@ minorprox@)
             (cleanup-decs decoder/major decoder/minor)
-            (cleanup-subs me@ majorprox@ minorprox@)]
+            (cleanup-subs flow1/control@ flow2/control@)]
            [(Quit? body)
             (cleanup-decs decoder/major decoder/minor)
-            (cleanup-subs me@ majorprox@ minorprox@)]
+            (cleanup-subs flow1/control@ flow2/control@)]
            [else
             (printf "not a valid request to PIP decoder: ~a~n" body)
             (loop decoder/major decoder/minor last-decoded-frame 
