@@ -48,8 +48,9 @@
       ;   * The locative referenced by CURL c has expired in the meantime
       (else #f))))
 
-(define (curl/send/multiple m . cs)
-  (for-each (λ (c) (assert/type c curl? 'curl/send/all "<curl>")) cs)
+(define (curl/send/multiple m cs)
+  (assert/type cs list? curl/send/multiple "list")
+  (for-each (λ (c) (assert/type c curl? curl/send/multiple "<curl>")) cs)
   (define all-intra-island? (andmap curl/intra? cs)) ; don't pay for serialization if none are off island
   (cond [all-intra-island? (map (curryr curl/send m) cs)]
         [else
@@ -94,6 +95,3 @@
 
 (define (delivery->serialized d)
   (vector (curl/island (delivery/curl-used d)) (motile/serialize d)))
-(define (delivery->serialized/multiple message . curls)
-  (let ([message/serialized (motile/serialize message)])
-    (map (λ (c-used) (vector (curl/island c-used) message/serialized)) curls)))
