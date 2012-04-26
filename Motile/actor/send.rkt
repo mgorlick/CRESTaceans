@@ -88,9 +88,9 @@
 ;; does NOT guarantee that it actually left the island.
 (define (curl/send/inter to-deliver)
   (curl/send/inter/already-serialized (delivery->serialized to-deliver)))
-(define (curl/send/inter/already-serialized to-deliver)
-  (and (thread-send (unbox inter-island-router) (delivery->serialized to-deliver)
-                    #f)
+
+(define (curl/send/inter/already-serialized to-deliver/vector-form)
+  (and (thread-send (unbox inter-island-router) to-deliver/vector-form #f)
        #t))
 
 (define (delivery->serialized d)
