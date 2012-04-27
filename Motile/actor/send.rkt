@@ -22,6 +22,14 @@
   (when (not (type? x))
     (raise-type-error 'where expectation x)))
 
+;; only for Chieftains to forward to Actors.
+;; do NOT expose to actors themselves!
+(define (curl/forward del)
+  (assert/type del delivery? 'curl/forward "<delivery>")
+  (assert/type (curl/id (delivery/curl-used del)) locative? 'curl/forward "<locative>")
+  (locative/send (curl/id (delivery/curl-used del))
+                 del))
+
 #|;; Transmit a generic message m to the actor denoted by CURL c.
 ;; reply - an optional argument, if given, is the CURL to which a reply message is sent.
 (define (! c m . reply)
@@ -51,15 +59,16 @@
 (define (curl/send/multiple m cs)
   (assert/type cs list? curl/send/multiple "list")
   (for-each (λ (c) (assert/type c curl? curl/send/multiple "<curl>")) cs)
-  (define all-intra-island? (andmap curl/intra? cs)) ; don't pay for serialization if none are off island
+  #|(define all-intra-island? (andmap curl/intra? cs)) ; don't pay for serialization if none are off island
   (cond [all-intra-island? (map (curryr curl/send m) cs)]
         [else
          (let ([serialized-form (motile/serialize m)]) ; pay for serialization only once
            (map (λ (c)
                   (cond [(curl/intra? c) (curl/send c m)]
                         [(not c) #f] ; locative expired (see comments for curl/send)
-                        [else (curl/send/inter/already-serialized c serialized-form)]))
-                cs))]))
+                        [else (curl/send/inter (delivery->serialized (delivery c m)))]))
+                cs))]))|#
+  (map (curryr curl/send m) cs))
 
 (define (curl/send/promise c m lifespan)
   (assert/type c curl? 'curl/send "<curl>")
@@ -73,14 +82,6 @@
       [(locative? x)  (and (locative/send x (delivery c m (promise/to-fulfill p)))
                            (promise/result p))]
       [else #f])))
-
-;; only for Chieftains to forward to Actors.
-;; do NOT expose to actors themselves!
-(define (curl/forward del)
-  (assert/type del delivery? 'curl/forward "<delivery>")
-  (assert/type (curl/id (delivery/curl-used del)) locative? 'curl/forward "<locative>")
-  (locative/send (curl/id (delivery/curl-used del))
-                 del))
 
 (define inter-island-router (box #f))
 (define (set-inter-island-router! thd) (set-box! inter-island-router thd))
