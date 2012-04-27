@@ -112,6 +112,7 @@
                       curl/new
                       curl/new/any
                       curl/send
+                      curl/send/multiple
                       curl/send/promise
                       curl/pretty
                       curl/get-meta

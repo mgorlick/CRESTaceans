@@ -53,6 +53,7 @@
  hash/pairs
  hash/vector
  hash/keys
+ hash/values
  
  ; Hash table lookup.
  hash/ref

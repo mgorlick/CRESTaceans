@@ -1,6 +1,7 @@
 #lang racket/base
 
-(require "curl.rkt"
+(require racket/function
+         "curl.rkt"
          "promise.rkt"
          "locative.rkt"
          "delivery.rkt"
@@ -8,6 +9,7 @@
 
 (provide 
  curl/send
+ curl/send/multiple
  curl/send/promise
  curl/forward
  set-inter-island-router!)
@@ -36,15 +38,28 @@
   
   (let ((x (curl/id c)))
     (cond
-      ((symbol? x)   (curl/send/inter c m))         ; An off-island CURL that contains a locative id.
+      ((or (pair? x) ; An off-island "durable" CURL.
+           (symbol? x))  ; An off-island CURL that contains a locative id.
+       (curl/send/inter (delivery c m)))
       ((locative? x) (locative/send x (delivery c m)))  ; All on-island CURLs carry a locative in the id slot.
-      ((pair? x)     (curl/send/inter c m))         ; An off-island "durable" CURL.
       ; The curl/id is #f. This occurs if CURL c was:
       ;   * Issued by this island, exported to another island, and then used as the target for a message transmission
       ;     back to this island, AND
       ;   * The locative referenced by CURL c has expired in the meantime
-      ; Life is a bitch.
       (else #f))))
+
+(define (curl/send/multiple m cs)
+  (assert/type cs list? curl/send/multiple "list")
+  (for-each (λ (c) (assert/type c curl? curl/send/multiple "<curl>")) cs)
+  (define all-intra-island? (andmap curl/intra? cs)) ; don't pay for serialization if none are off island
+  (cond [all-intra-island? (map (curryr curl/send m) cs)]
+        [else
+         (let ([serialized-form (motile/serialize m)]) ; pay for serialization only once
+           (map (λ (c)
+                  (cond [(curl/intra? c) (curl/send c m)]
+                        [(not c) #f] ; locative expired (see comments for curl/send)
+                        [else (curl/send/inter/already-serialized c serialized-form)]))
+                cs))]))
 
 (define (curl/send/promise c m lifespan)
   (assert/type c curl? 'curl/send "<curl>")
@@ -53,10 +68,10 @@
         [p (promise/new lifespan)])
     (cond
       [(or (symbol? x) 
-           (pair? x)) (curl/send/inter/promise c m (promise/to-fulfill p))
-                      (promise/result p)]
-      [(locative? x)  (locative/send x (vector c m (promise/to-fulfill p)))
-                      (promise/result p)]
+           (pair? x)) (and (curl/send/inter (delivery c m (promise/to-fulfill p)))
+                           (promise/result p))]
+      [(locative? x)  (and (locative/send x (delivery c m (promise/to-fulfill p)))
+                           (promise/result p))]
       [else #f])))
 
 ;; only for Chieftains to forward to Actors.
@@ -72,13 +87,11 @@
 
 ;; return #t if thread send to the comm layer succeeds.
 ;; does NOT guarantee that it actually left the island.
-(define (curl/send/inter c m)
-  (and (thread-send (unbox inter-island-router) (delivery->serialized (delivery c m))
-                    #f)
-       #t))
-(define (curl/send/inter/promise c m r)
-  (and (thread-send (unbox inter-island-router) (delivery->serialized (delivery c m r))
-                    #f)
+(define (curl/send/inter to-deliver)
+  (curl/send/inter/already-serialized (delivery->serialized to-deliver)))
+
+(define (curl/send/inter/already-serialized to-deliver/vector-form)
+  (and (thread-send (unbox inter-island-router) to-deliver/vector-form #f)
        #t))
 
 (define (delivery->serialized d)

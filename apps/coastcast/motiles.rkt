@@ -85,7 +85,7 @@
                  (can-publish-with-curl? curl-used))
             (let ([content/hidden-location (!:remote/reply contents me/subscribable@)])
               ;; send frame to all forward relays.
-              (hash/for-each forward-relays (lambda (id.subber@) (curl/send (cdr id.subber@) content/hidden-location))))
+              (curl/send/multiple content/hidden-location (hash/values forward-relays)))
             (loop forward-relays (:remote/reply contents))]
            ;; new subscription request: does it have the authority to subscribe?
            [(and (AddCURL? body) 
@@ -165,8 +165,8 @@
          (cond
            ;; the types that the router knows to send forward.
            [(Frame? body)
-            (hash/for-each curls 
-                           (lambda (id.subber@) (curl/send (cdr id.subber@) contents)))
+            (let ([content/hidden-location (!:remote/reply contents me@)])
+              (curl/send/multiple content/hidden-location (hash/values curls)))
             (loop curls (:remote/reply contents))]
            ;; the control messages coming from the forward direction,
            ;; directed at the router.

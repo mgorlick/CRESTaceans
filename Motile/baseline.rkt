@@ -414,6 +414,7 @@
     (define/global/1     'hash/list      hash/list)
     (define/global/1     'hash/pairs     hash/pairs)
     (define/global/1     'hash/keys      hash/keys) 
+    (define/global/1     'hash/values    hash/values)
     ; Hash table lookup.
     (define/global/3     'hash/ref       hash/ref)
     (define/global/1     'hash/car       hash/car)
