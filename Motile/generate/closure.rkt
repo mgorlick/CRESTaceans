@@ -124,7 +124,7 @@
                ((decompile? k a g)
                 (bind/return! descriptor (descriptor/closure/inner 0 n e addresses body)))
                (else
-                (error/motile/internal/call 'closure/1/N/generate))))))
+                (error/motile/internal/call 'closure/0/N/generate))))))
         
         ; We are decompiling the closure at point of definition. 
         (descriptor/closure/outer 0 n addresses body))))
