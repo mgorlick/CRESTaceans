@@ -43,6 +43,8 @@
 (provide
  motile/recompile
  motile/recompile/active?)
+
+(provide closure/inner/ok?) ; Debugging.
  
 
 (define (recompile/error where e)
@@ -289,9 +291,21 @@
     (lexical/ok? (closure/inner/lexical e))
     (addresses/ok? (closure/inner/addresses e))
     (MAG? (closure/inner/body e))
-    (>
-     (stack/depth (closure/inner/lexical e))
-     (address/frame/max (closure/inner/addresses e)))) ; The stack depth must be greater than the max frame 0, 1, ... addressed.
+    ; The introduction of letrec* leads to a circularity in the reconstruction of closures where
+    ; the set of closed variables are constructed piecewise as deserialzation proceeds but the
+    ; lexical stack may still be incomplete. Here is a small example:
+    ; (let ((f (lambda (n)
+    ;           (define (that) (+ 11 n))
+    ;           that)))
+    ;   (f 9999))
+    ; that leads to the problem behavior.
+    (let ((stack (closure/inner/lexical e)))
+      (or
+       (vector/all? stack not) ; The stack looks like #(#f ... #f).
+       (>
+        (stack/depth (closure/inner/lexical e))
+        (address/frame/max (closure/inner/addresses e)))))) ; The stack depth must be greater than the max frame 0, 1, ... addressed.
+
    #t
    (recompile/error 'recompile/closure/inner e)))
 
