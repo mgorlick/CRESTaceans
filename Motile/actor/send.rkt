@@ -58,7 +58,8 @@
            (map (λ (c)
                   (cond [(curl/intra? c) (curl/send c m)]
                         [(not c) #f] ; locative expired (see comments for curl/send)
-                        [else (curl/send/inter/already-serialized c serialized-form)]))))]))
+                        [else (curl/send/inter/already-serialized c serialized-form)]))
+                cs))]))
 
 (define (curl/send/promise c m lifespan)
   (assert/type c curl? 'curl/send "<curl>")
