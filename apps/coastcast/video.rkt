@@ -11,6 +11,7 @@
          "bindings/vp8/vp8.rkt")
 (provide (matching-identifiers-out #rx"^vp8dec.*" (all-from-out "bindings/vp8/vp8.rkt"))
          vp8enc-delete
+         vp8dec-decode-greyscale
          vp8enc-quartersize-new
          dispose-FrameBuffer
          FrameBuffer->Frame
@@ -18,6 +19,15 @@
          (rename-out (vp8enc-new* vp8enc-new)
                      (vp8enc-encode* vp8enc-encode)
                      (vp8enc-encode-quarter* vp8enc-encode-quarter)))
+
+(define (vp8dec-decode-greyscale dec content width height)
+  (define raw-yuv420p-frame (vp8dec-decode-copy dec content width height))
+  ;(match-define (list p-stdout p-stdin pid p-stderr control)
+  ;  (process "ffmpeg -loglevel 0 -f yuv4mpegpipe -i - lutyuv=\"u=128:v=128\" -"))
+  ;(write-bytes raw-yuv420p-frame p-stdin)
+  ;(read-bytes (bytes-length raw-yuv420p-frame) p-stdout)
+  ;(yuv420p-to-rgb32 dec raw-yuv420p-frame width height))
+  raw-yuv420p-frame)
 
 (define (vp8enc-new* params)
   (vp8enc-new (:VideoParams/width params)

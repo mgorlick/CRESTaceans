@@ -9,23 +9,29 @@
 
 #include "misc.h"
 
+int PROCESS_FORMAT_BPP = 3;
 int DISPLAY_FORMAT_BPP = 4;
-float PIP_AXIS_PORTION = 0.5;
-float PIP_FULL_SIZE = 1.0;
+
+void vp8dec_get_sizes (int *process, int *display) {
+  *process = PROCESS_FORMAT_BPP;
+  *display = DISPLAY_FORMAT_BPP;
+}
 
 typedef struct VP8Dec {
+  // vpx data structures preserved between calls
   vpx_codec_ctx_t *codec;
+  // metadata hand managed by programmer from vpx structs
   int is_init;
-  int width;
-  int height;
   // libswscale objects for pixel format conversion
-  struct SwsContext *swsctx;
+  struct SwsContext *sws_scaler_ctx;
+  struct SwsContext *sws_color_conversion_ctx;
 } VP8Dec;
 
 void vp8dec_delete (VP8Dec *dec) {
   if (dec == NULL) return;
   if (dec->codec != NULL) free (dec->codec);
-  if (dec->swsctx != NULL) sws_freeContext (dec->swsctx);
+  if (dec->sws_scaler_ctx != NULL) sws_freeContext (dec->sws_scaler_ctx);
+  if (dec->sws_color_conversion_ctx != NULL) sws_freeContext (dec->sws_color_conversion_ctx);
   free (dec);
 }
 
@@ -41,9 +47,8 @@ VP8Dec* vp8dec_new (void) {
     return NULL;
   }
   dec->is_init = 0;
-  dec->width = 0;
-  dec->height = 0;
-  dec->swsctx = NULL;
+  dec->sws_scaler_ctx = NULL;
+  dec->sws_color_conversion_ctx = NULL;
   return dec;
 }
 
@@ -69,8 +74,6 @@ int vp8dec_init (VP8Dec *dec, const size_t size,
   status = vpx_codec_dec_init (dec->codec, &vpx_codec_vp8_dx_algo, &cfg, flags);
   if (status != VPX_CODEC_OK) goto no_init;
   
-  dec->height = si.h;
-  dec->width = si.w;
   dec->is_init = 1;
   return 1;
 
@@ -106,13 +109,13 @@ inline int conditional_init (VP8Dec *dec,
 /* private to implementation */
 int decode_and_scale (VP8Dec *dec, 
 		      const size_t input_size, const unsigned char *input,
-		      const size_t output_size, unsigned char *output,
-		      float scale_factor) {
+		      const size_t output_size, unsigned char *output) {
   vpx_image_t *img;
   vpx_codec_err_t status;
   vpx_codec_iter_t iter = NULL;
   unsigned int w = 0;
   unsigned int h = 0;
+  int dest_stride = 0;
 
     // only proceed here if we've seen at least one keyframe
   status = vpx_codec_decode (dec->codec, input, input_size, NULL, 0);
@@ -121,26 +124,35 @@ int decode_and_scale (VP8Dec *dec,
 
   /* only take first frame. vpx as a generality allows for multiple per pkt but vp8 seems to not */
   if (NULL != (img = vpx_codec_get_frame (dec->codec, &iter))) {
+    
 
    w = img->d_w;
    h = img->d_h;
-   int dest_stride = DISPLAY_FORMAT_BPP * w;
+   dest_stride = w * DISPLAY_FORMAT_BPP;
 
-    if (dec->swsctx == NULL) {
-      dec->swsctx = sws_getContext (w, h, PIX_FMT_YUV420P, // src info
-				    scale_factor * w, scale_factor * h, PIX_FMT_RGB32, // dest info
+   printf ("dimensions: %dx%d\n", w, h);
+   printf ("strides: %d, %d, %d, %d\n", img->stride[0], img->stride[1], img->stride[2], img->stride[3]);
+     
+    if (dec->sws_scaler_ctx == NULL) {
+      dec->sws_scaler_ctx = sws_getContext (w, h, PIX_FMT_YUV420P, // src info
+					    w, h, PIX_FMT_RGB32, // dest info
 				    1, NULL, NULL, NULL); // what flags to use? who knows!
     }
-    if (dec->swsctx == NULL) goto no_video;
-    
+    if (dec->sws_scaler_ctx == NULL) goto no_video;
+   
     if (output_size == w*h*DISPLAY_FORMAT_BPP) {
-      sws_scale (dec->swsctx, (const uint8_t * const *) img->planes, img->stride, 0, h,
+      sws_scale (dec->sws_scaler_ctx, 
+		 (const uint8_t * const *) img->planes, 
+		 img->stride, 0, h,
 		 &output, &dest_stride);
+      printf ("wrote decoded image into out\n");
     } else {
       goto bad_size;
     }
+  } else {
+    goto no_decode;
   }
-  
+
   return 1;
 
  bad_size:
@@ -161,45 +173,7 @@ int vp8dec_decode_copy (VP8Dec *dec,
   // this might fail if we tune into a stream in between keyframes.
   // in this case we'll just wait until we get one to move past this if block.
   if ((conditional_init (dec, input_size, input))) {
-    return decode_and_scale (dec, input_size, input, output_size, output,
-			     PIP_FULL_SIZE);
-  }
-  return 0;
-}
-
-/* public. */
-int vp8dec_decode_update_major (VP8Dec *dec_major, VP8Dec *dec_minor,
-				const size_t input_size, const unsigned char *input,
-				const size_t output_size, unsigned char *output) {
-  int stride = dec_major->width * DISPLAY_FORMAT_BPP;
-  int bytes_per_row_scaled = stride * PIP_AXIS_PORTION;
-  int rows_scaled = dec_major->height * PIP_AXIS_PORTION;
-  int row = 0;
-  unsigned char tmp[output_size];
-  unsigned char *src_row = output;
-  unsigned char *dst_row = tmp;
-
-  if (vp8dec_decode_copy (dec_major, input_size, input, output_size, tmp)) {
-    // copy the current minor picture (in *output) over the new decoded major
-    for (row = 0; row < rows_scaled; row++) {
-      memcpy (dst_row, src_row, bytes_per_row_scaled);
-      dst_row += stride;
-      src_row += stride;
-    }
-    memcpy (output, tmp, output_size);
-    return 1;
-  } else {
-    return 0;
-  }
-}
-
-/* public. */
-int vp8dec_decode_update_minor (VP8Dec *dec_major, VP8Dec *dec_minor,
-				const size_t input_size, const unsigned char *input,
-				const size_t output_size, unsigned char *output) {
-  if (conditional_init (dec_minor, input_size, input)) {
-    return decode_and_scale (dec_minor, input_size, input,
-			     output_size, output, PIP_AXIS_PORTION);
+    return decode_and_scale (dec, input_size, input, output_size, output);
   }
   return 0;
 }

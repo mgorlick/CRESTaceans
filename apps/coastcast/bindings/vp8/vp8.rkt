@@ -49,7 +49,13 @@
 
 ;; decoding
 
-(define OUTPUT-FORMAT-BPP 4)
+
+(defvp8 vp8dec-get-sizes (_fun (process-format-bpp : (_ptr o _int))
+                               (display-format-bpp : (_ptr o _int))
+                               -> _void
+                               -> (values process-format-bpp display-format-bpp)))
+
+(define-values (PROCESS-FORMAT-BPP DISPLAY-FORMAT-BPP) (vp8dec-get-sizes))
 
 (define-cpointer-type _vp8dec-pointer)
 
@@ -60,35 +66,22 @@
                                  (decoder : _vp8dec-pointer)
                                  (input-size : _size_t = (bytes-length compressed-frame))
                                  (compressed-frame : _bytes)
-                                 (output-size : _size_t = (* OUTPUT-FORMAT-BPP width height))
+                                 (output-size : _size_t = (* DISPLAY-FORMAT-BPP width height))
                                  (output-frame : _bytes = (make-bytes output-size))
                                  -> (succeeded? : _bool)
                                  -> (if succeeded?
                                         output-frame
                                         #f)))
 
-; vp8dec-pointer? bytes? exact-nonnegative-integer? exact-nonnegative-integer? bytes? -> (or/c bytes? #f))
-(defvp8 vp8dec-decode-update-minor (_fun (decoder-major decoder-minor compressed-frame old-output-frame) ::
-                                         (decoder-major : _vp8dec-pointer)
-                                         (decoder-minor : _vp8dec-pointer)
-                                         (input-size : _size_t = (bytes-length compressed-frame))
-                                         (compressed-frame : _bytes)
-                                         (output-size : _size_t = (bytes-length old-output-frame))
-                                         (output-frame : _bytes = (bytes-copy old-output-frame))
-                                         -> (succeeded? : _bool)
-                                         -> (if succeeded?
-                                                output-frame
-                                                #f)))
-
-; vp8dec-pointer? bytes? exact-nonnegative-integer? exact-nonnegative-integer? bytes? -> (or/c bytes? #f))
-(defvp8 vp8dec-decode-update-major (_fun (decoder-major decoder-minor compressed-frame old-output-frame) ::
-                                         (decoder-major : _vp8dec-pointer)
-                                         (decoder-minor : _vp8dec-pointer)
-                                         (input-size : _size_t = (bytes-length compressed-frame))
-                                         (compressed-frame : _bytes)
-                                         (output-size : _size_t = (bytes-length old-output-frame))
-                                         (output-frame : _bytes = (bytes-copy old-output-frame))
-                                         -> (succeeded? : _bool)
-                                         -> (if succeeded?
-                                                output-frame
-                                                #f)))
+#;(defvp8 yuv420p-to-rgb32 (_fun (decoder raw-frame width height) ::
+                               (decoder : _vp8dec-pointer)
+                               (input-size : _size_t = (bytes-length raw-frame))
+                               (raw-frame : _bytes)
+                               (output-size : _size_t = (* width height DISPLAY-FORMAT-BPP))
+                               (output-frame : _bytes = (make-bytes output-size))
+                               (width : _uint)
+                               (height : _uint)
+                               -> (succeeded? : _bool)
+                               -> (if succeeded?
+                                      output-frame
+                                      #f)))

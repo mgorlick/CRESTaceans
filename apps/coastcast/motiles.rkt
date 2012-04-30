@@ -441,7 +441,7 @@
          (define reply@ (:remote/reply (delivery/contents-sent m)))
          (cond [(Frame? body)
                 (let* ([params (metadata-ref desc^ "params")]
-                       [decoded-frame (vp8dec-decode-copy d 
+                       [decoded-frame (vp8dec-decode-greyscale d 
                                                           (:Frame/data body) 
                                                           (:VideoParams/width params) 
                                                           (:VideoParams/height params))])
