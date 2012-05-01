@@ -433,6 +433,7 @@
        ;; 2. add subscription.
        (define gui-endpoint@ (unpack-promise (reserve-gui/get-next-pipeline@)))
        (define my-sub/ctrl@ (unpack-promise (add-sub where-to-subscribe@)))
+       (displayln "Reserved subscriptions")
        ;; 3. start decoding loop
        (let loop ()
          (define m (mailbox-get-message))
@@ -441,10 +442,10 @@
          (define reply@ (:remote/reply (delivery/contents-sent m)))
          (cond [(Frame? body)
                 (let* ([params (metadata-ref desc^ "params")]
-                       [decoded-frame (vp8dec-decode-greyscale d 
-                                                          (:Frame/data body) 
-                                                          (:VideoParams/width params) 
-                                                          (:VideoParams/height params))])
+                       [decoded-frame (vp8dec-decode d
+                                                                (:Frame/data body) 
+                                                                (:VideoParams/width params) 
+                                                                (:VideoParams/height params))])
                   (when decoded-frame
                     (curl/send gui-endpoint@ (!:remote/body (delivery/contents-sent m)
                                                             (!:Frame/data body decoded-frame)))))
@@ -487,7 +488,7 @@
        (unpack-promise (curl/send/promise (get-current-gui-curl) (remote/new (AddCURL/new me@) '() #f) 1000)))
      (define (retrieve-proxy-from dcurl@) ; talk to an existing decoder to get its upstream contact point.
        (unpack-promise (curl/send/promise dcurl@ (remote/new (GetParent/new) null #f)
-                                                        1000)))
+                                          1000)))
      (define (add-self-subscription prox@ me@) ; subscribe to an upstream contact point.
        (unpack-promise (curl/send/promise prox@ (remote/new (AddCURL/new me@) '() #f) 1000)))
      (define (remove-self-subscription prox@) ; remove subscription from an upstream contact point.

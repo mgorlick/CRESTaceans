@@ -9,10 +9,10 @@
 
 #include "misc.h"
 
-int PROCESS_FORMAT_BPP = 3;
-int DISPLAY_FORMAT_BPP = 4;
+float PROCESS_FORMAT_BPP = 1.5;
+float DISPLAY_FORMAT_BPP = 4.0;
 
-void vp8dec_get_sizes (int *process, int *display) {
+void vp8dec_get_sizes (float *process, float *display) {
   *process = PROCESS_FORMAT_BPP;
   *display = DISPLAY_FORMAT_BPP;
 }
@@ -24,14 +24,14 @@ typedef struct VP8Dec {
   int is_init;
   // libswscale objects for pixel format conversion
   struct SwsContext *sws_scaler_ctx;
-  struct SwsContext *sws_color_conversion_ctx;
+  struct SwsContext *sws_pixel_conversion_ctx;
 } VP8Dec;
 
 void vp8dec_delete (VP8Dec *dec) {
   if (dec == NULL) return;
   if (dec->codec != NULL) free (dec->codec);
   if (dec->sws_scaler_ctx != NULL) sws_freeContext (dec->sws_scaler_ctx);
-  if (dec->sws_color_conversion_ctx != NULL) sws_freeContext (dec->sws_color_conversion_ctx);
+  if (dec->sws_pixel_conversion_ctx != NULL) sws_freeContext (dec->sws_pixel_conversion_ctx);
   free (dec);
 }
 
@@ -48,7 +48,7 @@ VP8Dec* vp8dec_new (void) {
   }
   dec->is_init = 0;
   dec->sws_scaler_ctx = NULL;
-  dec->sws_color_conversion_ctx = NULL;
+  dec->sws_pixel_conversion_ctx = NULL;
   return dec;
 }
 
@@ -106,63 +106,101 @@ inline int conditional_init (VP8Dec *dec,
   return 1;
 }
 
+int yuv420p_to_rgb32 (VP8Dec *dec,
+		      const size_t input_size, const unsigned char *input,
+		      const size_t output_size, unsigned char *output,
+		      unsigned int width, unsigned int height) { 
+  if (output_size != width * height * DISPLAY_FORMAT_BPP) 
+    goto bad_size;
+  if (input_size != width * height * PROCESS_FORMAT_BPP)
+    goto bad_size;
+  if (width == 0 || height == 0)
+    goto bad_size;
+
+  if (dec->sws_pixel_conversion_ctx == NULL)
+	  dec->sws_pixel_conversion_ctx = 
+	    sws_getContext (width, height, PIX_FMT_YUV420P,
+			    width, height, PIX_FMT_RGB32,
+			    1, NULL, NULL, NULL);
+
+  if (dec->sws_pixel_conversion_ctx == NULL) 
+    goto no_sws;
+
+  const unsigned char *y = input;
+  const unsigned char *u = y + (width * height);
+  const unsigned char *v = u + (width * height / 4);
+  const unsigned char *planes[3] = {y, u, v};
+  const int strides[3] = {width, width / 2, width / 2};
+  const int dest_stride[1] = {width * DISPLAY_FORMAT_BPP};
+  
+  sws_scale (dec->sws_pixel_conversion_ctx, planes, strides,
+	     0, height, &output, dest_stride);
+
+  return 1;
+  
+ bad_size:
+ no_sws:
+  return 0;
+}
+
+unsigned int halve_if_uv (unsigned int plane, unsigned int dimension) {
+  return plane ? (dimension + 1) / 2 : dimension;
+}
+
 /* private to implementation */
 int decode_and_scale (VP8Dec *dec, 
 		      const size_t input_size, const unsigned char *input,
 		      const size_t output_size, unsigned char *output) {
-  vpx_image_t *img;
+  vpx_image_t *img = NULL;
   vpx_codec_err_t status;
   vpx_codec_iter_t iter = NULL;
   unsigned int w = 0;
   unsigned int h = 0;
-  int dest_stride = 0;
+  unsigned int expected_size = 0;
+  unsigned int plane = 0;
+  unsigned int row = 0;
+  unsigned char *output_cursor = output;
+  unsigned char *decoded_input_cursor = NULL;
 
     // only proceed here if we've seen at least one keyframe
   status = vpx_codec_decode (dec->codec, input, input_size, NULL, 0);
-  if (status != VPX_CODEC_OK)
+  if (status != VPX_CODEC_OK) 
     goto no_decode;
 
-  /* only take first frame. vpx as a generality allows for multiple per pkt but vp8 seems to not */
-  if (NULL != (img = vpx_codec_get_frame (dec->codec, &iter))) {
-    
-
+  /* 
+     only take first frame.
+     vpx in general allows for multiple frames per pkt
+     but vp8 doesn't use this feature
+  */
+  if (NULL == (img = vpx_codec_get_frame (dec->codec, &iter)))
+    goto no_decode;
+  
    w = img->d_w;
    h = img->d_h;
-   dest_stride = w * DISPLAY_FORMAT_BPP;
+   expected_size = w * h * PROCESS_FORMAT_BPP;   
+   if (output_size != expected_size)
+     goto bad_size;
 
-   printf ("dimensions: %dx%d\n", w, h);
-   printf ("strides: %d, %d, %d, %d\n", img->stride[0], img->stride[1], img->stride[2], img->stride[3]);
-     
-    if (dec->sws_scaler_ctx == NULL) {
-      dec->sws_scaler_ctx = sws_getContext (w, h, PIX_FMT_YUV420P, // src info
-					    w, h, PIX_FMT_RGB32, // dest info
-				    1, NULL, NULL, NULL); // what flags to use? who knows!
-    }
-    if (dec->sws_scaler_ctx == NULL) goto no_video;
+   for (plane = 0; plane < 3; plane++) {
+     decoded_input_cursor = img->planes[plane];
+     for (row = 0;
+	  row < halve_if_uv (plane, img->d_h); 
+	  row++, 
+	    decoded_input_cursor += img->stride[plane],
+	    output_cursor += halve_if_uv (plane, img->d_w))
+       {
+	 memcpy (output_cursor, decoded_input_cursor, halve_if_uv (plane, img->d_w));
+       }
+   }
    
-    if (output_size == w*h*DISPLAY_FORMAT_BPP) {
-      sws_scale (dec->sws_scaler_ctx, 
-		 (const uint8_t * const *) img->planes, 
-		 img->stride, 0, h,
-		 &output, &dest_stride);
-      printf ("wrote decoded image into out\n");
-    } else {
-      goto bad_size;
-    }
-  } else {
-    goto no_decode;
-  }
-
-  return 1;
-
+   return 1;
+   
  bad_size:
-  printf ("Unexpected buffer size: %d (actual) != %d (expected)\n", output_size, w*h*DISPLAY_FORMAT_BPP);
-  return 0;
-no_decode:
+   printf ("Unexpected buffer size in decode: %d (actual) != %d (expected)\n", 
+	   output_size, expected_size);
+   return 0;
+ no_decode:
   printf ("Failed to decode frame: %s\n", vpx_codec_err_to_string (status));
-  return 0;
-no_video:
-  printf ("no video available: could not initialize libswscale\n");
   return 0;
 }
 
@@ -174,6 +212,5 @@ int vp8dec_decode_copy (VP8Dec *dec,
   // in this case we'll just wait until we get one to move past this if block.
   if ((conditional_init (dec, input_size, input))) {
     return decode_and_scale (dec, input_size, input, output_size, output);
-  }
-  return 0;
+  } else return 0;
 }

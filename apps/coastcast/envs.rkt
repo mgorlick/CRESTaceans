@@ -160,7 +160,7 @@
 (define VIDEO-DECODE
   (++ MULTIMEDIA-BASE
       (require-spec->global-defines (matching-identifiers-in #rx"^vp8dec.*" "video.rkt"))
-      (global-defines get-current-gui-curl)))
+      (global-defines get-current-gui-curl greyscale)))
 (define GUI
   (++ MULTIMEDIA-BASE
       (global-defines set-current-gui-curl! reset-current-gui-curl!)

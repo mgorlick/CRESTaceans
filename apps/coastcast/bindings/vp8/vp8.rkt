@@ -49,9 +49,8 @@
 
 ;; decoding
 
-
-(defvp8 vp8dec-get-sizes (_fun (process-format-bpp : (_ptr o _int))
-                               (display-format-bpp : (_ptr o _int))
+(defvp8 vp8dec-get-sizes (_fun (process-format-bpp : (_ptr o _float))
+                               (display-format-bpp : (_ptr o _float))
                                -> _void
                                -> (values process-format-bpp display-format-bpp)))
 
@@ -62,22 +61,24 @@
 (defvp8 vp8dec-new (_fun -> _vp8dec-pointer))
 (defvp8 vp8dec-delete (_fun _vp8dec-pointer -> _void))
 
+(define (number->integer n) (inexact->exact (round n)))
+
 (defvp8 vp8dec-decode-copy (_fun (decoder compressed-frame width height) ::
                                  (decoder : _vp8dec-pointer)
                                  (input-size : _size_t = (bytes-length compressed-frame))
                                  (compressed-frame : _bytes)
-                                 (output-size : _size_t = (* DISPLAY-FORMAT-BPP width height))
+                                 (output-size : _size_t = (number->integer (* width height PROCESS-FORMAT-BPP)))
                                  (output-frame : _bytes = (make-bytes output-size))
                                  -> (succeeded? : _bool)
                                  -> (if succeeded?
                                         output-frame
                                         #f)))
 
-#;(defvp8 yuv420p-to-rgb32 (_fun (decoder raw-frame width height) ::
+(defvp8 yuv420p-to-rgb32 (_fun (decoder raw-frame width height) ::
                                (decoder : _vp8dec-pointer)
                                (input-size : _size_t = (bytes-length raw-frame))
                                (raw-frame : _bytes)
-                               (output-size : _size_t = (* width height DISPLAY-FORMAT-BPP))
+                               (output-size : _size_t = (number->integer (* width height DISPLAY-FORMAT-BPP)))
                                (output-frame : _bytes = (make-bytes output-size))
                                (width : _uint)
                                (height : _uint)
