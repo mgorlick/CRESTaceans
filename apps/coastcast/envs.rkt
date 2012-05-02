@@ -167,6 +167,6 @@
       (require-spec->global-defines "gui.rkt")))
 (define GUI-ENDPOINT
   (++ MULTIMEDIA-BASE
-      (global-defines vp8dec-new yuv420p-to-rgb32 greyscale)
+      (global-defines vp8dec-new yuv420p-to-rgb32 greyscale vertical-flip)
       (require-spec->global-defines (matching-identifiers-in #rx"^color-converter.*" "video.rkt"))
       (require-spec->global-defines "gui.rkt")))

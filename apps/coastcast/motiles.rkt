@@ -242,9 +242,12 @@
        (curl/send on-birth-notify@ (remote/new (AddCURL/new me/subscription@) (make-metadata) #f))  
        (let* ([message1 (mailbox-get-message)])
          (define pms (metadata-ref (:remote/metadata (delivery/contents-sent message1)) "params"))
-         (define buffer# (buffer-maker! (:VideoParams/width pms) (:VideoParams/height pms)))
-         (define c (color-converter-new (:VideoParams/width pms) (:VideoParams/height pms)))
+         (define w (:VideoParams/width pms))
+         (define h (:VideoParams/height pms))
+         (define buffer# (buffer-maker! w h))
+         (define c (color-converter-new w h))
          (let loop ([m message1] [effects (list
+                                           (lambda (d) (vertical-flip d w h))
                                            greyscale
                                            (lambda (d) (yuv420p-to-rgb32 c d)))])
            (define body (:remote/body (delivery/contents-sent m)))

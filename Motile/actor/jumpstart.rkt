@@ -196,14 +196,9 @@
            (this/clan      (actor/clan/id x))
            (this/locative  locative)
            (this/chieftain (actor/chieftain x)))
-        (with-handlers
-            ([exn:fail?
-              (lambda (e)
-                (log-error (format "actor/shrinkwrap: ~s <error>: ~s\n\n" (actor/pretty (this/actor)) (exn-message e))))])
-          
-          (let ((jumpstart (thread-receive)))
+        (let ((jumpstart (thread-receive)))
             (when (procedure? jumpstart)
-              (jumpstart))))))))
+              (jumpstart)))))))
 
 (define-syntax-rule (actor/jumpstart a thunk)
   (thread-send (actor/thread a) thunk))

@@ -1,4 +1,6 @@
-#lang racket
+#lang racket/base
+
+(require (for-syntax racket/base))
 
 ;; compile-time condition checking. analogous to #ifdef.
 (define-syntax (when/compile stx)
@@ -12,6 +14,8 @@
 ;; video available on all platforms.
 
 (require racket/provide
+         (except-in racket/contract ->)
+         (rename-in racket/contract [-> ->/c])
          "message-types.rkt"
          "bindings/vp8/vp8.rkt")
 (provide (matching-identifiers-out #rx"^vp8dec.*" (all-from-out "bindings/vp8/vp8.rkt"))
@@ -27,11 +31,32 @@
                      (vp8enc-encode* vp8enc-encode)
                      (vp8enc-encode-quarter* vp8enc-encode-quarter)))
 
-(define (greyscale yuv420p-content)
+(define/contract (greyscale yuv420p-content)
+  (bytes? . ->/c . bytes?)
   (define l (bytes-length yuv420p-content))
   (define greyscaled (make-bytes l 128)) ; fill in the U and V positions with 128 (negate chroma values)
   (bytes-copy! greyscaled 0 yuv420p-content 0 (* 2 (/ l 3))) ; copy in the Y values from old content
   greyscaled)
+
+(define/contract (vertical-flip yuv420p-content w h)
+  (bytes? (and/c exact-nonnegative-integer? even?) (and/c exact-nonnegative-integer? even?) . ->/c . bytes?)
+  (define l (bytes-length yuv420p-content))
+  (define expected (/ (* 3 w h) 2))
+  (unless (= l expected)
+    (error 'vertical-flip "content length doesn't match declared dimensions (was ~a, should be ~a)"
+           l expected))
+  (define flipped (make-bytes l 128))
+  (define yl (* 2 (/ l 3)))
+  (define ul (/ l 6))
+  (define vl (/ l 6))
+  (for ([num-rows       (list h  (/ h 2)   (/ h 2))]
+        [sopr           (list w  (/ w 2)   (/ w 2))]
+        [src-offset     (list yl (+ yl ul) (+ yl ul vl))]
+        [dest-offset    (list 0  yl        (+ yl ul))])
+    (for ([i (in-range num-rows)])
+      (define row-at (- src-offset (* (add1 i) sopr)))
+      (bytes-copy! flipped (+ dest-offset (* i sopr)) yuv420p-content row-at (+ row-at sopr))))
+  flipped)
 
 (define (vp8dec-decode dec content width height)
   (define raw-yuv420p-frame (vp8dec-decode-copy dec content width height))
