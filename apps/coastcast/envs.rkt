@@ -160,11 +160,13 @@
 (define VIDEO-DECODE
   (++ MULTIMEDIA-BASE
       (require-spec->global-defines (matching-identifiers-in #rx"^vp8dec.*" "video.rkt"))
-      (global-defines get-current-gui-curl greyscale)))
+      (global-defines get-current-gui-curl)))
 (define GUI
   (++ MULTIMEDIA-BASE
       (global-defines set-current-gui-curl! reset-current-gui-curl!)
       (require-spec->global-defines "gui.rkt")))
 (define GUI-ENDPOINT
   (++ MULTIMEDIA-BASE
+      (global-defines vp8dec-new yuv420p-to-rgb32 greyscale)
+      (require-spec->global-defines (matching-identifiers-in #rx"^color-converter.*" "video.rkt"))
       (require-spec->global-defines "gui.rkt")))

@@ -17,21 +17,84 @@ void vp8dec_get_sizes (float *process, float *display) {
   *display = DISPLAY_FORMAT_BPP;
 }
 
+typedef struct ColorConverter {
+  struct SwsContext *sws_ctx;
+  unsigned int width;
+  unsigned int height;
+} ColorConverter;
+
+void color_converter_sz (ColorConverter *c, unsigned int *w, unsigned int *h) {
+  *w = c->width;
+  *h = c->height;
+}
+
+void color_converter_delete (ColorConverter *c) {
+  if (c == NULL) return;
+  if (c->sws_ctx != NULL) free (c->sws_ctx);
+}
+
+ColorConverter* color_converter_new (unsigned int width, unsigned int height) {
+  if (width == 0 || height == 0) return NULL;
+  ColorConverter *c = malloc (sizeof(*c));
+  if (c == NULL) 
+    return NULL;
+  
+  c->sws_ctx = sws_getContext (width, height, PIX_FMT_YUV420P, 
+			       width, height, PIX_FMT_RGB32,
+			       1, NULL, NULL, NULL);
+  if (c->sws_ctx == NULL) {
+    free (c);
+    return NULL;
+  }
+
+  c->width = width;
+  c->height = height;
+  
+  return c;
+}
+
+int yuv420p_to_rgb32 (ColorConverter *c,
+		      const size_t input_size, const unsigned char *input,
+		      const size_t output_size, unsigned char *output) { 
+
+  if (c == NULL) goto bad_size;
+  unsigned int width = c->width;
+  unsigned int height = c->height;
+
+  if (output_size != width * height * DISPLAY_FORMAT_BPP) 
+    goto bad_size;
+  if (input_size != width * height * PROCESS_FORMAT_BPP)
+    goto bad_size;
+  if (width == 0 || height == 0)
+    goto bad_size;
+
+  const unsigned char *y = input;
+  const unsigned char *u = y + (width * height);
+  const unsigned char *v = u + (width * height / 4);
+  const unsigned char *planes[3] = {y, u, v};
+  const int strides[3] = {width, width / 2, width / 2};
+  const int dest_stride[1] = {width * DISPLAY_FORMAT_BPP};
+  
+  sws_scale (c->sws_ctx, planes, strides,
+	     0, height, &output, dest_stride);
+
+  return 1;
+  
+ bad_size:
+  return 0;
+}
+
 typedef struct VP8Dec {
   // vpx data structures preserved between calls
   vpx_codec_ctx_t *codec;
   // metadata hand managed by programmer from vpx structs
   int is_init;
-  // libswscale objects for pixel format conversion
-  struct SwsContext *sws_scaler_ctx;
-  struct SwsContext *sws_pixel_conversion_ctx;
+
 } VP8Dec;
 
 void vp8dec_delete (VP8Dec *dec) {
   if (dec == NULL) return;
   if (dec->codec != NULL) free (dec->codec);
-  if (dec->sws_scaler_ctx != NULL) sws_freeContext (dec->sws_scaler_ctx);
-  if (dec->sws_pixel_conversion_ctx != NULL) sws_freeContext (dec->sws_pixel_conversion_ctx);
   free (dec);
 }
 
@@ -47,8 +110,6 @@ VP8Dec* vp8dec_new (void) {
     return NULL;
   }
   dec->is_init = 0;
-  dec->sws_scaler_ctx = NULL;
-  dec->sws_pixel_conversion_ctx = NULL;
   return dec;
 }
 
@@ -104,43 +165,6 @@ inline int conditional_init (VP8Dec *dec,
     if (!is_init (dec)) { return 0; }
   }
   return 1;
-}
-
-int yuv420p_to_rgb32 (VP8Dec *dec,
-		      const size_t input_size, const unsigned char *input,
-		      const size_t output_size, unsigned char *output,
-		      unsigned int width, unsigned int height) { 
-  if (output_size != width * height * DISPLAY_FORMAT_BPP) 
-    goto bad_size;
-  if (input_size != width * height * PROCESS_FORMAT_BPP)
-    goto bad_size;
-  if (width == 0 || height == 0)
-    goto bad_size;
-
-  if (dec->sws_pixel_conversion_ctx == NULL)
-	  dec->sws_pixel_conversion_ctx = 
-	    sws_getContext (width, height, PIX_FMT_YUV420P,
-			    width, height, PIX_FMT_RGB32,
-			    1, NULL, NULL, NULL);
-
-  if (dec->sws_pixel_conversion_ctx == NULL) 
-    goto no_sws;
-
-  const unsigned char *y = input;
-  const unsigned char *u = y + (width * height);
-  const unsigned char *v = u + (width * height / 4);
-  const unsigned char *planes[3] = {y, u, v};
-  const int strides[3] = {width, width / 2, width / 2};
-  const int dest_stride[1] = {width * DISPLAY_FORMAT_BPP};
-  
-  sws_scale (dec->sws_pixel_conversion_ctx, planes, strides,
-	     0, height, &output, dest_stride);
-
-  return 1;
-  
- bad_size:
- no_sws:
-  return 0;
 }
 
 unsigned int halve_if_uv (unsigned int plane, unsigned int dimension) {

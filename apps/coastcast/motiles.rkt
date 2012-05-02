@@ -243,14 +243,20 @@
        (let* ([message1 (mailbox-get-message)])
          (define pms (metadata-ref (:remote/metadata (delivery/contents-sent message1)) "params"))
          (define buffer# (buffer-maker! (:VideoParams/width pms) (:VideoParams/height pms)))
-         (let loop ([m message1])
+         (define c (color-converter-new (:VideoParams/width pms) (:VideoParams/height pms)))
+         (let loop ([m message1] [effects (list
+                                           greyscale
+                                           (lambda (d) (yuv420p-to-rgb32 c d)))])
            (define body (:remote/body (delivery/contents-sent m)))
            (cond [(and buffer# (Frame? body))
-                  (video-gui-update-buffer! buffer# (:Frame/data body))
-                  (loop (mailbox-get-message))]
+                  (video-gui-update-buffer! buffer#
+                                            (foldl (lambda (f x) (f x))
+                                                   (:Frame/data body)
+                                                   effects))
+                  (loop (mailbox-get-message) effects)]
                  [else
                   (printf "Endpoint: unknown message ~a~n" body)
-                  (loop (mailbox-get-message))]))))))
+                  (loop (mailbox-get-message) effects)]))))))
 
 (define-motile-procedure gui-controller
   '(let ()
@@ -442,10 +448,9 @@
          (define reply@ (:remote/reply (delivery/contents-sent m)))
          (cond [(Frame? body)
                 (let* ([params (metadata-ref desc^ "params")]
-                       [decoded-frame (vp8dec-decode d
-                                                                (:Frame/data body) 
-                                                                (:VideoParams/width params) 
-                                                                (:VideoParams/height params))])
+                       [w (:VideoParams/width params)]
+                       [h (:VideoParams/height params)]
+                       [decoded-frame (vp8dec-decode d (:Frame/data body) w h)])
                   (when decoded-frame
                     (curl/send gui-endpoint@ (!:remote/body (delivery/contents-sent m)
                                                             (!:Frame/data body decoded-frame)))))

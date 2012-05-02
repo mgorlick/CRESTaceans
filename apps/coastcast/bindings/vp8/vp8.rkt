@@ -74,14 +74,24 @@
                                         output-frame
                                         #f)))
 
-(defvp8 yuv420p-to-rgb32 (_fun (decoder raw-frame width height) ::
-                               (decoder : _vp8dec-pointer)
+(define-cpointer-type _color-converter-pointer)
+
+(defvp8 color-converter-new (_fun _uint _uint -> _color-converter-pointer))
+(defvp8 color-converter-delete (_fun _color-converter-pointer -> _void))
+
+(defvp8 color-converter-sz (_fun (c) ::
+                                 (c : _color-converter-pointer)
+                                 (w : (_ptr o _uint))
+                                 (h : (_ptr o _uint))
+                                 -> _void
+                                 -> (* w h)))
+
+(defvp8 yuv420p-to-rgb32 (_fun (c raw-frame) ::
+                               (c : _color-converter-pointer)
                                (input-size : _size_t = (bytes-length raw-frame))
                                (raw-frame : _bytes)
-                               (output-size : _size_t = (number->integer (* width height DISPLAY-FORMAT-BPP)))
+                               (output-size : _size_t = (number->integer (* (color-converter-sz c) DISPLAY-FORMAT-BPP)))
                                (output-frame : _bytes = (make-bytes output-size))
-                               (width : _uint)
-                               (height : _uint)
                                -> (succeeded? : _bool)
                                -> (if succeeded?
                                       output-frame

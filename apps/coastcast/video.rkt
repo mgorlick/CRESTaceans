@@ -1,8 +1,13 @@
 #lang racket
 
 ;; compile-time condition checking. analogous to #ifdef.
-
-
+(define-syntax (when/compile stx)
+  (syntax-case stx ()
+    [(_ condition yes ...)
+     (let ([result (eval #'condition (make-base-namespace))])
+       (if result
+           #'(begin yes ...)
+           #'(void)))]))
 
 ;; video available on all platforms.
 
@@ -10,9 +15,11 @@
          "message-types.rkt"
          "bindings/vp8/vp8.rkt")
 (provide (matching-identifiers-out #rx"^vp8dec.*" (all-from-out "bindings/vp8/vp8.rkt"))
+         (matching-identifiers-out #rx"^color-converter.*" (all-from-out "bindings/vp8/vp8.rkt"))
          vp8enc-delete
          vp8enc-quartersize-new
          greyscale
+         yuv420p-to-rgb32
          dispose-FrameBuffer
          FrameBuffer->Frame
          (except-out (all-defined-out) vp8enc-new* vp8enc-encode* vp8enc-encode-quarter*)
@@ -20,15 +27,15 @@
                      (vp8enc-encode* vp8enc-encode)
                      (vp8enc-encode-quarter* vp8enc-encode-quarter)))
 
-(define (greyscale content)
-(define-values (p p-stdout p-stdin p-stderr)
-    (subprocess "ffmpeg" "-loglevel 0 -f yuv4mpegpipe -i - lutyuv=\"u=128:v=128\" -"))
-  (write-bytes content p-stdin)
-  (read-bytes (bytes-length content) content))
+(define (greyscale yuv420p-content)
+  (define l (bytes-length yuv420p-content))
+  (define greyscaled (make-bytes l 128)) ; fill in the U and V positions with 128 (negate chroma values)
+  (bytes-copy! greyscaled 0 yuv420p-content 0 (* 2 (/ l 3))) ; copy in the Y values from old content
+  greyscaled)
 
 (define (vp8dec-decode dec content width height)
   (define raw-yuv420p-frame (vp8dec-decode-copy dec content width height))
-  (and raw-yuv420p-frame (yuv420p-to-rgb32 dec raw-yuv420p-frame width height)))
+  raw-yuv420p-frame)
 
 (define (vp8enc-new* params)
   (vp8enc-new (:VideoParams/width params)
@@ -66,17 +73,7 @@
                  (subbytes (:FrameBuffer/data v) 0 (:FrameBuffer/size v)))
              (:FrameBuffer/ts v)))
 
-
 ;;; Linux-specific for now: uses Video4Linux2
-
-(define-syntax (when/compile stx)
-  (syntax-case stx ()
-    [(_ condition yes ...)
-     (let ([result (eval #'condition (make-base-namespace))])
-       (if result
-           #'(begin yes ...)
-           #'(void)))]))
-
 (require "bindings/ctypes.rkt"
          ffi/unsafe)
 (when/compile (equal? 'unix (system-type 'os))
