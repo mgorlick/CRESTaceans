@@ -246,17 +246,8 @@
 ;; ===================================================================================
 ;; ===================================================================================
 ;; ===================================================================================
+(require (planet dherman/json:4:=0))
 
-(ws-serve
- #:listen-ip "localhost"
- #:port 8080
- (λ (wsc)
-   (let loop ()
-     (define m (ws-recv wsc))
-     (printf "~s~n" m)
-     (unless (eof-object? m)
-       (ws-send! wsc m)
-       (loop)))))
 (define-runtime-path files "files")
 ;(directory-list files)
 ; http://docs.racket-lang.org/web-server/run.html
@@ -269,3 +260,34 @@
                              #:extra-files-paths (list files)
                              #:servlet-path "/ui.html"
                              )))
+
+(define (run-the-program t)
+  (let loop ()
+    (displayln "sending to connection")
+    (thread-send t
+                 (jsexpr->json
+                  (hasheq 'action "newitem"
+                          'item "button"
+                          'label "foo"
+                          'callback "function() { alert(\"foo\"); }")))
+    (sleep 1)
+    (loop)))
+
+(define (maybe-string->bytes s)
+  (cond [(string? s) (string->bytes/utf-8 s)] 
+        [(bytes? s) s]
+        [else (error 'ws-serve "need string or bytes")]))
+
+(ws-serve
+ #:listen-ip "localhost"
+ #:port 8080
+ (λ (wsc)
+   (displayln "websocket connection being served")
+   (define pid (current-thread))
+   (thread (λ () (run-the-program pid)))
+   (let loop ()
+     (displayln "loop")
+     (define m (thread-receive))
+     (displayln "sending to browser")
+     (ws-send! wsc (maybe-string->bytes m))
+     (loop))))
