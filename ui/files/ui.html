@@ -46,25 +46,24 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 
 	websocket = new WebSocket("ws://localhost:8080/");
 	websocket.onopen = function (event) {  
-	  websocket.send("Here's some text that the server is urgently awaiting!");   
-	};  
-		websocket.onmessage = function (event) { 
-			var msg = JSON.parse(event.data);  
-			switch(msg.action) {  
+	  websocket.send("Texas chainsaw massacre / they took my baby away from me");   
+	};
+	websocket.onmessage = function (event) { 
+		alert('message: ' + event.data);
+		var msg = JSON.parse(event.data);  
+		/*switch(msg.action) {  
 				case "newitem":
 					switch(msg.item) {
 						case "button":
 							var response = AddButton(msg.label, eval(msg.callback));
-							var responsemsg = {  
-								id:   response  
-							  };
+							var responsemsg = { id: response };
 							websocket.send(JSON.stringify(responsemsg));  								
 							break;
-					}  					
-					break		
-			}
-		}
-         });
+					};			
+					break;		
+			};*/
+	};
+});
 
 	function ReturnOne()
         {
