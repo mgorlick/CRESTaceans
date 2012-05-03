@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <title>UI</title>
+    <link rel="stylesheet" href="style.css" >
+	  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dijit/themes/claro/claro.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dojo/dojo.js" data-dojo-config="async: true"></script>
+    <script type="text/javascript"><!--
+    var pMenuBar;
+    var websocket;
+	
+
+require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dijit/form/NumberTextBox",
+         "dijit/DropDownMenu", "dijit/MenuItem", "dijit/form/DropDownButton", "dijit/MenuBar", "dijit/Menu", "dijit/MenuBarItem",
+         "dijit/PopupMenuBarItem", "dojo/domReady!"], function(Button, BorderContainer, ContentPane, NumberTextBox,
+         DropDownMenu, MenuItem, DropDownButton, MenuBar, Menu, MenuBarItem, PopupMenuBarItem) {
+         pMenuBar = new MenuBar({});
+		       var pSubMenu = new DropDownMenu({});
+			         pSubMenu.addChild(new MenuItem({
+			             label:"File item #1"
+			         }));
+			         pSubMenu.addChild(new MenuItem({
+			             label:"File item #2"
+			         }));
+			         pMenuBar.addChild(new PopupMenuBarItem({
+			             label:"File",
+			             popup:pSubMenu
+			         }));
+
+			         var pSubMenu2 = new DropDownMenu({});
+			         pSubMenu2.addChild(new MenuItem({
+			             label:"Edit item #1"
+			         }));
+			         pSubMenu2.addChild(new MenuItem({
+			             label:"Edit item #2"
+			         }));
+			         pMenuBar.addChild(new PopupMenuBarItem({
+			             label:"Edit",
+			             popup:pSubMenu2
+			         }));
+
+			          pMenuBar.placeAt("wrapper");
+       pMenuBar.startup();
+
+	websocket = new WebSocket("ws://localhost:8080/");
+	websocket.onopen = function (event) {  
+	  websocket.send("Here's some text that the server is urgently awaiting!");   
+	};  
+		websocket.onmessage = function (event) { 
+			var msg = JSON.parse(event.data);  
+			switch(msg.action) {  
+				case "newitem":
+					switch(msg.item) {
+						case "button":
+							var response = AddButton(msg.label, eval(msg.callback));
+							var responsemsg = {  
+								id:   response  
+							  };
+							websocket.send(JSON.stringify(responsemsg));  								
+							break;
+					}  					
+					break		
+			}
+		}
+         });
+
+	function ReturnOne()
+        {
+		var num = new Number(1);
+		return num;
+        }
+
+         function AddButton(id, passedFunction)
+		     {
+		 		var row = document.getElementById('newbutton');
+		     	var column = document.createElement('td');
+		     	var button = document.createElement('button');
+		 	button.id = id;
+		     	column.appendChild(button);
+		     	row.appendChild(column);
+
+		 	document.getElementById(id).value="New Button Text";
+
+		     	var widg = new dijit.form.Button({
+		 						label: (id),
+		 						onClick: function()
+		 						{
+		 				 	    	// Do something:
+		 				  	    	passedFunction()
+		 				  		}
+		     				}, (id)); //options,elementID
+
+		 		//widg.refresh();
+		 		document.getElementById('newbutton').id = '';
+		 		var newbutton = document.createElement('div');
+		 		newbutton.id = 'newbutton';
+		 		document.body.insertBefore(newbutton, null);
+		         //dojo.parser.parse(dojo.byId(id));
+				return button.id;
+			}
+
+			function AddPopupMenu(id)
+			{
+			    var menu = new dijit.DropDownMenu({id:id});
+		     	pMenuBar.addChild(new dijit.PopupMenuBarItem({
+							             label: id,
+							             popup:menu
+						         }));
+			}
+
+			function AddMenuItem(id, menuid, passedFunction)
+			{
+				var menu = dijit.byId(menuid);
+				menu.addChild(new dijit.MenuItem({
+						 id: id,
+			             label:id,
+			             onClick: passedFunction
+			         }));
+			}
+
+			function AddCanvas(id, width, height)
+			{
+				var canvasloc = document.getElementById('canvasloc');
+				var canvas = document.createElement('canvas');
+				canvas.id = id;
+				canvas.width = width;
+				canvas.height = height;
+				canvasloc.appendChild(canvas);
+			}
+
+			window.setInterval(function () {
+				if (window.document.title == 'hi')
+				{
+					window.document.title='hello';
+				}
+				else {
+					window.document.title = 'hi';
+				}		
+			}, 1000);	
+
+			/*function AddSelectBox(id, datajsonfile)
+			{
+			var dataStore = new dojo.data.ItemFileReadStore({
+			                url: datajsonfile
+			            });
+
+			            // create Select widget, populating its options from the store
+			            var select = new dijit.form.Select({
+			                id: id,
+			                name: id,
+			                store: dataStore,
+			                maxHeight: -1 // tells _HasDropDown to fit menu within viewport
+			            }, "select");
+            select.startup();
+			}*/
+    // --></script>
+  </head>
+  <body class="claro">
+    <div id="wrapper"></div>
+    <button id="addbutton" type="button" onClick="AddButton('hi', function(){ alert('hi');})">Create new button</button>
+    <button id="addmenu" type="button" onClick="AddPopupMenu('Options')">Create new menu</button>
+    <button id="addmenuitem" type="button" onClick="AddMenuItem('Preferences', 'Options', function(){ alert('Preferences pressed!');})">Create new menu item</button>
+    <button id="addmenuitem" type="button" onClick="AddMenuItem('About', 'Options', function(){ alert('About pressed!');})">Create about</button>
+    <button id="addcanvas" type="button" onClick="AddCanvas('vid', 500, 500)">Create canvas</button>
+    <!-- button id="addselector" type="button" onClick="AddCanvas('vid', 500, 500)">Create canvas</button -->
+
+
+	<div id="newbutton"></div>
+	<div id="select"></div>
+	<div id="canvasloc"></div>
+  </body>
+</html>
