@@ -1,38 +1,43 @@
 #! /usr/bin/env racket
-#lang racket
+#lang racket/base
 
-(require web-server/servlet-env
-         racket/runtime-path web-server/http
-         web-server/private/dispatch-server-unit
-         web-server/private/dispatch-server-sig
-         web-server/private/connection-manager
-         web-server/http/response
-         web-server/http/request
-         web-server/http/request-structs
+(require racket/runtime-path
+         racket/contract
+         racket/match
+         racket/unit
          racket/async-channel
-         unstable/contract
          net/tcp-sig
+         data/queue
          (prefix-in raw: net/tcp-unit)
          file/sha1
-         net/base64
-         web-server/http/request-structs)
-
-(define framing-mode (make-parameter 'rfc))
+         net/base64 web-server/servlet-env
+         web-server/http
+         web-server/http/request
+         web-server/http/request-structs
+         web-server/private/dispatch-server-unit
+         web-server/private/dispatch-server-sig
+         web-server/private/connection-manager)
 
 (struct ws-conn ([closed? #:mutable] line headers ip op)
   #:property prop:evt (struct-field-index ip))
 (define (open-ws-conn? x)
   (and (ws-conn? x) (not (ws-conn-closed? x))))
 
-(define (write-ws-frame! t s op)
-  (define l (bytes-length s))
-  (define data (make-bytes l))
-  (define mask (bytes (random 255) (random 255) (random 255) (random 255)))
-  (for ([i (in-range l)])
-    (bytes-set! data i 
-                (bitwise-xor (bytes-ref s i)
+(define/contract (mask-or-unmask src mask)
+  (bytes? bytes? . -> . bytes?)
+  (define dest (make-bytes (bytes-length src)))
+  (for ([i (in-range (bytes-length dest))])
+    (bytes-set! dest i 
+                (bitwise-xor (bytes-ref src i)
                              (bytes-ref mask (modulo i 4)))))
+  dest)
+
+(define/contract (write-ws-frame! s op)
+  (bytes? output-port? . -> . void)
+  (define l (bytes-length s))
+  (define mask (bytes (random 255) (random 255) (random 255) (random 255)))
   (define flags 129)
+  (define data (mask-or-unmask s mask))
   (write-byte flags op)
   (cond [(< l 126)
          (write-byte (bitwise-ior l 128) op)]
@@ -47,7 +52,8 @@
   (flush-output op))
 
 ; return #t if the opcode seen permits us to CONTINUE
-; reading from the input port after dealing with the opcode
+; with the application data after returning from `handle-opcode'
+; or if we should just throw it away.
 (define/contract (handle-opcode code 
                                 mask/payload-len
                                 extra-payload-bytes
@@ -60,7 +66,7 @@
   (case code
     [(#x8) ; connection close
      (displayln "Connection close")
-     #t]
+     #f]
     [(#x9) ; ping
      (displayln "Ping")
      ; let's reply with a pong...
@@ -70,7 +76,7 @@
      (write-bytes masking-key op)
      (write-bytes payload-data-maybe-masked op)
      (flush-output op)
-     #t]
+     #f]
     [(#xA) ; pong
      (displayln "Pong")
      ;   A Pong frame sent in response to a Ping frame must have identical
@@ -87,8 +93,8 @@
      ;   not expected.
      
      ; WE DON'T CARE!
-     #t]
-    [else (printf "Unrecognized control message: ~s~n" code) #t]))
+     #f]
+    [else #t]))
 
 (define (error-if-eof v)
   (when (eof-object? v) (error 'read-ws-frame "Premature connection close")))
@@ -98,91 +104,84 @@
 (define-syntax-rule (print-with-label id)
   (printf "~s: ~s~n" 'id id))
 
-(define (read-ws-frame ip op)
-  (case (framing-mode)
-    [(rfc)
-     (define/check-eof fin/rsv/opcode (read-byte ip))
-     (define opcode (bitwise-and fin/rsv/opcode #b00001111))
-     (define/check-eof mask/payload-len (read-byte ip)) ; 8-15
-     (define payload/first (bitwise-and mask/payload-len #b01111111))
-     (define-values (payload-size extra-payload-bytes)
-       (cond [(< payload/first 126)
-              (values payload/first #"")]
-             [(= payload/first 126)
-              (define/check-eof payload/next-2 (read-bytes 2 ip))
-              (values (integer-bytes->integer payload/next-2 #f #t)
-                      payload/next-2)]
-             [(= payload/first 127)
-              (define/check-eof payload/next-8 (read-bytes 8 ip))
-              (values (integer-bytes->integer payload/next-8 #f #t)
-                      payload/next-8)]))
-     (define is-masking-on? (bitwise-and mask/payload-len #b10000000))
-     (define masking-key (cond [(= is-masking-on? #b10000000) (read-bytes 4 ip)]
-                               [else #""]))
-     (define payload-data-maybe-masked (read-bytes payload-size ip))
-     ;; assume no extension data
-     (define application-data
-       (cond
-         [(not (equal? masking-key #""))
-          (define data (make-bytes (bytes-length payload-data-maybe-masked)))
-          (for ([i (in-range (bytes-length payload-data-maybe-masked))])
-            (bytes-set! data i 
-                        (bitwise-xor (bytes-ref payload-data-maybe-masked i)
-                                     (bytes-ref masking-key (modulo i 4)))))
-          data]
-         [else payload-data-maybe-masked]))
-     (handle-opcode opcode 
-                    mask/payload-len
-                    extra-payload-bytes
-                    masking-key
-                    payload-data-maybe-masked
-                    ip
-                    op)
-     (values #xff application-data)]
-    [(old)
-     (let ()
-       (define l (read-byte ip))
-       (cond [(eof-object? l) (values #x00 #"")]
-             [(= #xff l)
-              (read-byte ip)
-              (values #x00 #"")]
-             [else
-              (values #xff (bytes->string/utf-8 (read-until-byte #xff ip)))]))]))
+(define/contract (extract-opcode fin/rsv/opcode)
+  (byte? . -> . byte?)
+  (bitwise-and fin/rsv/opcode #b00001111))
+(define/contract (extract-payload-indicator payload/mask)
+  (byte? . -> . byte?)
+  (bitwise-and payload/mask #b01111111))
+(define/contract (end-of-message? fin/rsv/opcode)
+  (byte? . -> . boolean?)
+  (bitwise-bit-set? fin/rsv/opcode 0))
+(define/contract (is-masking-on? mask/payload-len)
+  (byte? . -> . boolean?)
+  (= (bitwise-and mask/payload-len #b10000000) #b10000000))
 
-(define (read-until-byte b ip)
-  (define ob (open-output-bytes))
-  (let loop ()
-    (define n (read-byte ip))
-    (unless (or (eof-object? n) (= n b))
-      (write-byte n ob)
-      (loop)))
-  (get-output-bytes ob))
+(define/contract (read-ws-frame ip op q)
+  (input-port? output-port? queue? . -> . void)
+  (define/check-eof fin/rsv/opcode (read-byte ip))
+  (define opcode (extract-opcode fin/rsv/opcode))
+  (define/check-eof mask/payload-len (read-byte ip)) ; 8-15
+  (define payload/first (extract-payload-indicator mask/payload-len))
+  (define-values (payload-size extra-payload-bytes)
+    (cond [(< payload/first 126)
+           (values payload/first #"")]
+          [(= payload/first 126)
+           (define/check-eof payload/next-2 (read-bytes 2 ip))
+           (values (integer-bytes->integer payload/next-2 #f #t)
+                   payload/next-2)]
+          [(= payload/first 127)
+           (define/check-eof payload/next-8 (read-bytes 8 ip))
+           (values (integer-bytes->integer payload/next-8 #f #t)
+                   payload/next-8)]))
+  (define masking-key (cond [(is-masking-on? mask/payload-len) (read-bytes 4 ip)]
+                            [else #""]))
+  (define payload-data-maybe-masked (read-bytes payload-size ip))
+  ;; assume no extension data
+  (define application-data
+    (if (is-masking-on? mask/payload-len)
+        (mask-or-unmask payload-data-maybe-masked masking-key)
+        payload-data-maybe-masked))
+  (define give-value-to-user?
+    (handle-opcode opcode mask/payload-len extra-payload-bytes 
+                   masking-key payload-data-maybe-masked ip op))
+  (cond [(and give-value-to-user? (end-of-message? fin/rsv/opcode))
+         (enqueue! q application-data)
+         (get-output-bytes (foldl (λ (b o) (write-bytes b o) o) (open-output-bytes) (queue->list q)))]
+        [give-value-to-user?
+         (enqueue! q application-data)
+         (read-ws-frame ip op q)]
+        [else
+         ; we dealt with a control code.
+         ; now read the frame the user really wanted.
+         (read-ws-frame ip op (make-queue))]))
 
-(define (ws-send! wsc s)
+;; ------
+; Public WS ui.
+;; ------
+
+
+(define/contract (ws-send! wsc s)
+  (ws-conn? bytes? . -> . void)
   (match-define (ws-conn _ _ _ _ op) wsc)
-  (write-ws-frame! #xff s op))
+  (write-ws-frame! s op))
 
 (define (ws-recv wsc)
+  (ws-conn? . -> . bytes?)
   (match-define (ws-conn _ _ _ ip op) wsc)
-  (define-values (ft m) (read-ws-frame ip op))
-  (if (= #x00 ft)
-      eof
-      m))
+  (read-ws-frame ip op (make-queue)))
 
 (define (ws-close! wsc)
+  (ws-conn? . -> . void)
   (match-define (ws-conn _ _ _ ip op) wsc)
-  
-  (case (framing-mode)
-    [(new)
-     (write-ws-frame! #x00 "" op)]
-    [(old)
-     (write-byte #xff op)
-     (write-byte #x00 op)
-     (flush-output op)])
-  
+  ;; XXX FIXME @@@
   (close-input-port ip)
   (close-output-port op)
   (set-ws-conn-closed?! wsc #t))
+
+;; ----
+;; serve WS.
+;; ----
 
 (define (ws-serve conn-dispatch
                   #:tcp@ [tcp@ raw:tcp@]
@@ -191,17 +190,13 @@
                   #:max-waiting [max-waiting 4]
                   #:timeout [initial-connection-timeout (* 60 60)]
                   #:confirmation-channel [confirm-ch #f])
-  (define (read-request c p port-addresses)
-    (values #f #t))
   (define (dispatch c _)
-    (displayln (framing-mode))
     (define ip (connection-i-port c))
     (define op (connection-o-port c))
     (define cline (read-bytes-line ip 'any))
     (define headers (read-headers ip))
     (define origin (header-value (headers-assq* #"Origin" headers)))
-    (define accept-magic-suffix 
-      #"258EAFA5-E914-47DA-95CA-C5AB0DC85B11")
+    (define accept-magic-suffix #"258EAFA5-E914-47DA-95CA-C5AB0DC85B11")
     (define accept-magic-key
       (base64-encode
        (sha1-bytes
@@ -209,11 +204,9 @@
          (bytes-append
           (header-value (headers-assq* #"Sec-WebSocket-Key" headers))
           accept-magic-suffix)))))
-    
     (define (crlf op)
-      (write-char (integer->char 13) op)
-      (write-char (integer->char 10) op))
-    
+      (write-char #\return op)
+      (write-char #\newline op))
     (define conn-headers
       (list 
        (make-header #"Upgrade" #"WebSocket")
@@ -232,11 +225,12 @@
               conn-headers)
     ;(crlf op)
     (flush-output op)
-    
     (define conn (ws-conn #f cline conn-headers ip op))
-    
     (conn-dispatch conn))
   
+  
+  (define (read-request c p port-addresses)
+    (values #f #t)) ; do not delete! dynamically linked here
   (define-unit-binding a-tcp@
     tcp@ (import) (export tcp^))
   (define-compound-unit/infer dispatch-server@/tcp@
@@ -249,14 +243,10 @@
     (export dispatch-server^))
   (serve #:confirmation-channel confirm-ch))
 
-;;;;;;;;;;;; ===================================================================================
-;;;;;;;;;;;; ===================================================================================
-;;;;;;;;;;;; ===================================================================================
-;;;;;;;;;;;; ===================================================================================
-;;;;;;;;;;;; ===================================================================================
-;;;;;;;;;;;; ===================================================================================
+;; ===================================================================================
+;; ===================================================================================
+;; ===================================================================================
 
-(framing-mode 'rfc)
 (ws-serve
  #:listen-ip "localhost"
  #:port 8080
