@@ -44,7 +44,7 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 			          pMenuBar.placeAt("wrapper");
        pMenuBar.startup();
 
-	websocket = new WebSocket("ws://localhost:8080/");
+	websocket = new WebSocket("ws://128.195.59.179:8080/");
 	websocket.onopen = function (event) {  
 	  websocket.send("Here's some text that the server is urgently awaiting!");   
 	};  
@@ -130,7 +130,7 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 				canvasloc.appendChild(canvas);
 			}
 
-			window.setInterval(function () {
+			/*window.setInterval(function () {
 				if (window.document.title == 'hi')
 				{
 					window.document.title='hello';
@@ -138,7 +138,7 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 				else {
 					window.document.title = 'hi';
 				}		
-			}, 1000);	
+			}, 1000);*/	
 
 			/*function AddSelectBox(id, datajsonfile)
 			{
