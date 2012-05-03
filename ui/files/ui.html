@@ -11,7 +11,6 @@
     var pMenuBar;
     var websocket;
 	
-
 require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dijit/form/NumberTextBox",
          "dijit/DropDownMenu", "dijit/MenuItem", "dijit/form/DropDownButton", "dijit/MenuBar", "dijit/Menu", "dijit/MenuBarItem",
          "dijit/PopupMenuBarItem", "dojo/domReady!"], function(Button, BorderContainer, ContentPane, NumberTextBox,
@@ -48,13 +47,12 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 	websocket.onopen = function (event) {
 	};
 	websocket.onmessage = function (event) { 
-		alert('message: ' + event.data);
 		var msg = JSON.parse(event.data);  
 		switch(msg.action) {  
 				case "newitem":
 					switch(msg.item) {
 						case "button":
-							var response = AddButton(msg.label, eval(msg.callback));
+							var response = AddButton(msg.label, msg.callback);
 							var responsemsg = {  
 								id:   response  
 							  };
@@ -68,7 +66,7 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 							websocket.send(JSON.stringify(responsemsg));
 							break;
 						case "menuitem":
-							var response = AddMenuItem(msg.label, msg.menuid, eval(msg.callback));
+							var response = AddMenuItem(msg.label, msg.menuid, msg.callback);
 							var responsemsg = {
 								id:	response
 							};
@@ -87,13 +85,7 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 		}
          });
 
-	function ReturnOne()
-        {
-		var num = new Number(1);
-		return num;
-        }
-
-         function AddButton(id, passedFunction)
+function AddButton(id, passedFunction)
 		     {
 		 		var row = document.getElementById('newbutton');
 		     	var column = document.createElement('td');
@@ -121,6 +113,15 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 		         //dojo.parser.parse(dojo.byId(id));
 				return button.id;
 			}
+
+
+	function ReturnOne()
+        {
+		var num = new Number(1);
+		return num;
+        }
+
+         
 
 			function AddPopupMenu(id)
 			{
