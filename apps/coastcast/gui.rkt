@@ -84,22 +84,17 @@
      (define yl (* 2 (/ l 3)))
      (define ul (/ l 6))
      (define vl (/ l 6))
-     (define o (open-output-bytes))
-     (let do-planes ([num-rows*   (list h  (/ h 2)   (/ h 2))]
-                     [sopr*       (list w  (/ w 2)   (/ w 2))]
-                     [src-offset* (list yl (+ yl ul) (+ yl ul vl))])
-       (cond [(or (null? num-rows*) (null? sopr*) (null? src-offset*))
-              ; done iterating through all the planes - produce final content
-              (get-output-bytes o)]
-             [else
-              ; do a single plane
-              (let ([num-rows (car num-rows*)] [sopr (car sopr*)] [src-offset (car src-offset*)])
-                (let do-single-plane ([row 0])
-                  (cond [(= num-rows row) (void)]
-                        [else (define row-at (- src-offset (* (add1 row) sopr)))
-                              (write-bytes content o row-at (+ row-at sopr))
-                              (do-single-plane (add1 row))])))
-              (do-planes (cdr num-rows*) (cdr sopr*) (cdr src-offset*))]))))
+     (get-output-bytes
+      (foldl (lambda (num-rows sopr src-offset o)
+               (let do-single-plane ([row 0])
+                 (cond [(= num-rows row) o]
+                       [else (define row-at (- src-offset (* (add1 row) sopr)))
+                             (write-bytes content o row-at (+ row-at sopr))
+                             (do-single-plane (add1 row))])))
+             (open-output-bytes)
+             (list h (/ h 2) (/ h 2))
+             (list w (/ w 2) (/ w 2))
+             (list yl (+ yl ul) (+ yl ul vl))))))
 (define-motile-procedure greyscale
   '(lambda (content w h)
      (bytes-set-all content 128 (* 2 (/ (bytes-length content) 3)))))
