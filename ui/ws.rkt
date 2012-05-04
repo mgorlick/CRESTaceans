@@ -42,10 +42,10 @@
   (cond [(< l 126)
          (write-byte (bitwise-ior l 128) op)]
         [(< l 65536)
-         (write-byte 126 op)
+         (write-byte (bitwise-ior 126 128) op)
          (write-bytes (integer->integer-bytes l 2 #f #t) op)]
         [(< l 9.22337204e18)
-         (write-byte 127 op) 
+         (write-byte (bitwise-ior 127 128) op) 
          (write-bytes (integer->integer-bytes l 8 #f #t) op)])
   (write-bytes mask op)
   (write-bytes data op)  
