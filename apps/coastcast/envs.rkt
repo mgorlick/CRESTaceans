@@ -4,11 +4,9 @@
          "video.rkt"
          "message-types.rkt"
          "motiles.rkt"
+         "motile-imports.rkt"
          "../../Motile/persistent/environ.rkt"
          "../../Motile/persistent/hash.rkt"
-         "../../Motile/baseline.rkt"
-         "../../Motile/compile/compile.rkt"
-         "../../Motile/generate/baseline.rkt"
          "../../Motile/actor/island.rkt"
          "../../Motile/actor/curl.rkt"
          "../../Motile/actor/locative.rkt"
@@ -82,6 +80,26 @@
     [(k id ...)
      `((id . ,id) ...)]))
 
+;; bytes ops.
+(define (bytes-set offset source [src-begin 0] [src-end 0])
+  (define dest (bytes-copy source))
+  (bytes-copy! dest offset source src-begin src-end)
+  dest)
+(define (bytes-set-all source value [src-begin 0] [src-end (bytes-length source)])
+  (define dest (make-bytes (bytes-length source) value))
+  (when (positive? src-begin) (bytes-copy! dest 0 source 0 src-begin))
+  (when (< src-end (bytes-length source)) (bytes-copy! dest src-end source src-end))
+  dest)
+
+#|(bytes-set-all #"hello" 128)
+(bytes-set-all #"hello" 128 0 1) "0, 1"
+(bytes-set-all #"hello" 128 2 3) "2, 3"
+(bytes-set-all #"hello" 128 0 0) "0, 0"
+(bytes-set-all #"hello" 128 2 2) "2, 2"
+(bytes-set-all #"hello" 128 0 2) "0, 2"
+(bytes-set-all #"hello" 128 0 4) "0, 4"
+(bytes-set-all #"hello" 128 0 5) "0, 5"|#
+
 ;; binding environments used.
 (define MULTIMEDIA-BASE
   (++ BASELINE
@@ -90,7 +108,8 @@
                       mailbox-get-message mailbox-has-message?
                       current-inexact-milliseconds exact->inexact)
       (global-defines bytes? byte? bytes make-bytes bytes-ref bytes-length 
-                      bytes-copy subbytes bytes-append
+                      bytes-copy subbytes bytes-append bytes-set bytes-set-all
+                      open-output-bytes get-output-bytes write-bytes write-byte
                       bytes=? bytes<? bytes>?
                       bitwise-and bitwise-ior bitwise-xor bitwise-not
                       bitwise-bit-set? bitwise-bit-field arithmetic-shift integer-length)
@@ -167,6 +186,6 @@
       (require-spec->global-defines "gui.rkt")))
 (define GUI-ENDPOINT
   (++ MULTIMEDIA-BASE
-      (global-defines vp8dec-new yuv420p-to-rgb32 greyscale vertical-flip)
+      (global-defines vp8dec-new yuv420p-to-rgb32)
       (require-spec->global-defines (matching-identifiers-in #rx"^color-converter.*" "video.rkt"))
       (require-spec->global-defines "gui.rkt")))

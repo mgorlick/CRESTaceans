@@ -21,3 +21,5 @@
 (define-tuple-type (InitiateBehavior) [type ref])
 (define-tuple-type (AddBehaviors) [new-behaviors])
 (define-tuple-type (FwdBackward) [msg ref])
+(define-tuple-type (AddFx) [procedure label ref])
+(define-tuple-type (RemoveFx) [procedure label ref])

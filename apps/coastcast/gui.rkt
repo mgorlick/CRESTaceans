@@ -7,6 +7,7 @@
          ffi/vector
          "message-types.rkt"
          "config.rkt"
+         "motile-imports.rkt"
          "../../Motile/actor/curl.rkt"
          "../../Motile/actor/send.rkt"
          (planet "rgl.rkt" ("stephanh" "RacketGL.plt")))
@@ -28,12 +29,53 @@
     (for/hash ([(dns ports/unsorted) dns=>ports/unsorted])
       (values (bytes->string/utf-8 dns) (map number->string (sort ports/unsorted <))))))
 
+(define-motile-procedure vertical-flip
+  '(lambda (content w h)
+     (define l (bytes-length content))
+     (define expected (/ (* 3 w h) 2))
+     (define yl (* 2 (/ l 3)))
+     (define ul (/ l 6))
+     (define vl (/ l 6))
+     (define o (open-output-bytes))
+     (let do-planes ([num-rows*    (list h  (/ h 2)   (/ h 2))]
+                     [sopr*        (list w  (/ w 2)   (/ w 2))]
+                     [src-offset*  (list yl (+ yl ul) (+ yl ul vl))]
+                     [dest-offset* (list 0  yl        (+ yl ul))])
+       (cond [(or (null? num-rows*) 
+                  (null? sopr*) 
+                  (null? src-offset*) 
+                  (null? dest-offset*))
+              ; done iterating through all the planes - produce final content
+              (get-output-bytes o)]
+             [else
+              ; do a single plane
+              (let ([num-rows (car num-rows*)]
+                    [sopr (car sopr*)]
+                    [src-offset (car src-offset*)]
+                    [dest-offset (car dest-offset*)])
+                (let do-single-plane ([i 0])
+                  (define row-at (- src-offset (* (add1 i) sopr)))
+                  (cond [(= num-rows i) 
+                         (do-planes (cdr num-rows*)
+                                    (cdr sopr*)
+                                    (cdr src-offset*)
+                                    (cdr dest-offset*))]
+                        [else 
+                         ;(displayln src-offset)
+                         ;(displayln sopr)
+                         ;(displayln row-at)
+                         (write-bytes content o row-at (+ row-at sopr))
+                         (do-single-plane (add1 i))])))]))))
+(define-motile-procedure greyscale
+  '(lambda (content w h)
+     (bytes-set-all content 128 (* 2 (/ (bytes-length content) 3)))))
+
 ;;; -------
 
 (struct video-gui-client (gui controller@))
 
-(define top-width 750)
-(define top-height 750)
+(define top-width 1500)
+(define top-height 1000)
 
 (define FONT (make-object font% 12 'swiss))
 
@@ -117,6 +159,18 @@
                           [parent flow-menu] [label "Share sink"] [callback (λ _ (do-cpy))]))
   (define move-src (new menu-item%
                         [parent flow-menu] [label "Move source"] [callback (λ _ (do-flow-source-move))]))
+  (define do-greyscale (new checkable-menu-item%
+                            [parent flow-menu]
+                            [label "Greyscale"]
+                            [callback (λ (i e) (if (send i is-checked?)
+                                                   (do-fx greyscale "greyscale")
+                                                   (rmv-fx greyscale "greyscale")))]))
+  (define do-vflip (new checkable-menu-item%
+                        [parent flow-menu]
+                        [label "Vertical flip"]
+                        [callback (λ (i e) (if (send i is-checked?)
+                                               (do-fx vertical-flip "vertical-flip")
+                                               (rmv-fx vertical-flip "vertical-flip")))]))
   
   (define compose-menu (new menu% [parent menu-bar] [label "Compose..."]))
   (define set-major-pip (new menu-item%
@@ -184,6 +238,11 @@
     (send dns-choice get-string-selection))
   (define (current-selected-port)
     (send port-choice get-string-selection))
+  
+  (define (do-fx f label)
+    (cb (AddFx/new f label (get-current-flow-curl))))  
+  (define (rmv-fx f label)
+    (cb (RemoveFx/new f label (get-current-flow-curl))))
   
   (define (do-cpy)
     (cb (CopyChild/new (get-current-flow-curl) (current-selected-host) (string->number (current-selected-port)))))
