@@ -10,7 +10,7 @@
     <script type="text/javascript"><!--
     var pMenuBar;
     var websocket;
-	
+
 require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dijit/form/NumberTextBox",
          "dijit/DropDownMenu", "dijit/MenuItem", "dijit/form/DropDownButton", "dijit/MenuBar", "dijit/Menu", "dijit/MenuBarItem",
          "dijit/PopupMenuBarItem", "dojo/domReady!"], function(Button, BorderContainer, ContentPane, NumberTextBox,
@@ -46,22 +46,22 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 	websocket = new WebSocket("ws://localhost:8080/");
 	websocket.onopen = function (event) {
 	};
-	websocket.onmessage = function (event) { 
-		var msg = JSON.parse(event.data);  
-		switch(msg.action) {  
+	websocket.onmessage = function (event) {
+		var msg = JSON.parse(event.data);
+		switch(msg.action) {
 				case "newitem":
 					switch(msg.item) {
 						case "button":
 							var response = AddButton(msg.label, msg.callback);
-							var responsemsg = {  
-								id:   response  
+							var responsemsg = {
+								id:   response
 							  };
-							websocket.send(JSON.stringify(responsemsg));  								
+							websocket.send(JSON.stringify(responsemsg));
 							break;
 						case "menu":
 							var response = AddPopupMenu(msg.label);
 							var responsemsg = {
-								id: response								
+								id: response
 							};
 							websocket.send(JSON.stringify(responsemsg));
 							break;
@@ -75,12 +75,12 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 						case "canvas":
 							var response = AddCanvas(msg.label, msg.width, msg.height);
 							var responsemsg = {
-								id:	response							
+								id:	response
 							};
 							websocket.send(JSON.stringify(responsemsg));
 							break;
-					}  					
-					break		
+					}
+					break
 			}
 		}
          });
@@ -101,7 +101,7 @@ function AddButton(id, passedFunction)
 		 						onClick: function()
 		 						{
 		 				 	    	// Do something:
-		 				  	    	passedFunction()
+		 				  	    	eval(passedFunction)
 		 				  		}
 		     				}, (id)); //options,elementID
 
@@ -121,7 +121,7 @@ function AddButton(id, passedFunction)
 		return num;
         }
 
-         
+
 
 			function AddPopupMenu(id)
 			{
@@ -138,7 +138,7 @@ function AddButton(id, passedFunction)
 				menu.addChild(new dijit.MenuItem({
 						 id: id,
 			             label:id,
-			             onClick: passedFunction
+			             onClick: function() { eval(passedFunction) }
 			         }));
 			}
 
@@ -159,8 +159,8 @@ function AddButton(id, passedFunction)
 				}
 				else {
 					window.document.title = 'hi';
-				}		
-			}, 1000);*/	
+				}
+			}, 1000);*/
 
 			/*function AddSelectBox(id, datajsonfile)
 			{

@@ -262,16 +262,43 @@
                              )))
 
 (define (run-the-program t)
-  (let loop ()
     (displayln "sending to connection")
     (thread-send t
                  (jsexpr->json
                   (hasheq 'action "newitem"
                           'item "button"
                           'label "foo"
-                          'callback "function() { alert(\"foo\"); }")))
+                          'callback "alert(\"foo\");")))
+  (thread-send t
+                 (jsexpr->json
+                  (hasheq 'action "newitem"
+                          'item "menu"
+                          'label "File...")))
+  (thread-send t
+                 (jsexpr->json
+                  (hasheq 'action "newitem"
+                          'item "menu"
+                          'label "Session...")))
+    (thread-send t
+                 (jsexpr->json
+                  (hasheq 'action "newitem"
+                          'item "menu"
+                          'label "Session...")))
+  (thread-send t
+                 (jsexpr->json
+                  (hasheq 'action "newitem"
+                          'item "menuitem"
+                          'label "Unsubscribe"
+                          'menuid "File..."
+                          'callback "alert(\"llllllllllll\");")))
+  (displayln (string-length (jsexpr->json
+                  (hasheq 'action "newitem"
+                          'item "menuitem"
+                          'label "Unsubscribe"
+                          'menuid "File..."
+                          'callback "alert(\"llllllllllll\");"))))
     (sleep 1)
-    (loop)))
+    )
 
 (define (maybe-string->bytes s)
   (cond [(string? s) (string->bytes/utf-8 s)] 
