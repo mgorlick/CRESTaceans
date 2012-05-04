@@ -29,6 +29,63 @@
     (for/hash ([(dns ports/unsorted) dns=>ports/unsorted])
       (values (bytes->string/utf-8 dns) (map number->string (sort ports/unsorted <))))))
 
+#|(define-motile-procedure horizontal-flip ; do not use! slow as molasses!
+  '(lambda (content w h)
+     (define l (bytes-length content))
+     (define expected (/ (* 3 w h) 2))
+     (define yl 0)
+     (define ul (* 2 (/ l 3)))
+     (define vl (/ l 6))
+     (define o (open-output-bytes))
+     (let do-planes ([num-rows*    (list h  (/ h 2)   (/ h 2))]
+                     [sopr*        (list w  (/ w 2)   (/ w 2))] ; size of plane row
+                     [src-offset*  (list yl (+ yl ul) (+ yl ul vl))])
+       (cond [(or (null? num-rows*) (null? sopr*) (null? src-offset*))
+              ; done iterating through all the planes - produce final content
+              (get-output-bytes o)]
+             [else
+              ; do a single plane
+              (let ([num-rows (car num-rows*)] [sopr (car sopr*)] [src-offset (car src-offset*)])
+                (let do-single-plane ([row 0])
+                  (define row-at (+ src-offset (* row sopr)))
+                  (cond [(= num-rows row) (void)]
+                        [else 
+                         (let write-a-row ([row-byte-offset (sub1 sopr)])
+                           (cond [(= row-byte-offset -1)
+                                  (do-single-plane (add1 row))]
+                                 [else 
+                                  (write-bytes content o 
+                                               (+ row-at row-byte-offset)
+                                               (+ row-at row-byte-offset 1))
+                                  (write-a-row (sub1 row-byte-offset))]))])))
+              (do-planes (cdr num-rows*) (cdr sopr*) (cdr src-offset*))]))))|#
+(define-motile-procedure noise
+  '(lambda (content w h)
+     (define l (bytes-length content))
+     (define expected (/ (* 3 w h) 2))
+     (define yl 0)
+     (define ul (* 2 (/ l 3)))
+     (define vl (/ l 6))
+     (define o (open-output-bytes))
+     (let do-planes ([num-rows*    (list h  (/ h 2)   (/ h 2))]
+                     [sopr*        (list w  (/ w 2)   (/ w 2))] ; size of plane row
+                     [src-offset*  (list yl (+ yl ul) (+ yl ul vl))])
+       (cond [(or (null? num-rows*) (null? sopr*) (null? src-offset*))
+              ; done iterating through all the planes - produce final content
+              (get-output-bytes o)]
+             [else
+              ; do a single plane
+              (let ([num-rows (car num-rows*)] [sopr (car sopr*)] [src-offset (car src-offset*)])
+                (let do-single-plane ([row 0])
+                  (cond [(= num-rows row) (void)]
+                        [else
+                         (define row-at (+ src-offset (* row sopr)))
+                         (define the-posn (random sopr))
+                         (write-bytes (bytes-set content the-posn (random 256) row-at (+ row-at sopr)) o)
+                         (do-single-plane (add1 row))]
+                        )))
+              (do-planes (cdr num-rows*) (cdr sopr*) (cdr src-offset*))
+              ]))))
 (define-motile-procedure vertical-flip
   '(lambda (content w h)
      (define l (bytes-length content))
@@ -37,35 +94,21 @@
      (define ul (/ l 6))
      (define vl (/ l 6))
      (define o (open-output-bytes))
-     (let do-planes ([num-rows*    (list h  (/ h 2)   (/ h 2))]
-                     [sopr*        (list w  (/ w 2)   (/ w 2))]
-                     [src-offset*  (list yl (+ yl ul) (+ yl ul vl))]
-                     [dest-offset* (list 0  yl        (+ yl ul))])
-       (cond [(or (null? num-rows*) 
-                  (null? sopr*) 
-                  (null? src-offset*) 
-                  (null? dest-offset*))
+     (let do-planes ([num-rows*   (list h  (/ h 2)   (/ h 2))]
+                     [sopr*       (list w  (/ w 2)   (/ w 2))]
+                     [src-offset* (list yl (+ yl ul) (+ yl ul vl))])
+       (cond [(or (null? num-rows*) (null? sopr*) (null? src-offset*))
               ; done iterating through all the planes - produce final content
               (get-output-bytes o)]
              [else
               ; do a single plane
-              (let ([num-rows (car num-rows*)]
-                    [sopr (car sopr*)]
-                    [src-offset (car src-offset*)]
-                    [dest-offset (car dest-offset*)])
-                (let do-single-plane ([i 0])
-                  (define row-at (- src-offset (* (add1 i) sopr)))
-                  (cond [(= num-rows i) 
-                         (do-planes (cdr num-rows*)
-                                    (cdr sopr*)
-                                    (cdr src-offset*)
-                                    (cdr dest-offset*))]
-                        [else 
-                         ;(displayln src-offset)
-                         ;(displayln sopr)
-                         ;(displayln row-at)
-                         (write-bytes content o row-at (+ row-at sopr))
-                         (do-single-plane (add1 i))])))]))))
+              (let ([num-rows (car num-rows*)] [sopr (car sopr*)] [src-offset (car src-offset*)])
+                (let do-single-plane ([row 0])
+                  (cond [(= num-rows row) (void)]
+                        [else (define row-at (- src-offset (* (add1 row) sopr)))
+                              (write-bytes content o row-at (+ row-at sopr))
+                              (do-single-plane (add1 row))])))
+              (do-planes (cdr num-rows*) (cdr sopr*) (cdr src-offset*))]))))
 (define-motile-procedure greyscale
   '(lambda (content w h)
      (bytes-set-all content 128 (* 2 (/ (bytes-length content) 3)))))
@@ -79,6 +122,40 @@
 
 (define FONT (make-object font% 12 'swiss))
 
+;;;;;;;; ---------------------------
+
+(define BYTES-PER-PIXEL 4)
+
+; video-playback: used to track the metadata and state of an individual in-play, displayed video.
+(struct video-playback (buffer name w h [fx #:mutable])) ; bytes? curl integer? integer? (listof string?)
+
+(define (video-playback-buffersize v)
+  (bytes-length (video-playback-buffer v)))
+
+(define (make-video-playback width height name fx)
+  (define buffer (make-bytes (* BYTES-PER-PIXEL width height)))
+  (video-playback buffer name width height fx))
+
+(struct video-gui (frame top-panel address-bar
+                         small-video-panel) #:transparent #:mutable)
+
+(define/contract (video-gui-add-video! g w h name fx evt-cb)
+  (video-gui? number? number? curl? (listof string?) procedure? . -> . video-playback?)
+  (define nv (make-video-playback w h name fx))
+  (define address-bar (video-gui-address-bar g))
+  (define small-panel (video-gui-small-video-panel g))
+  (send small-panel add-video-canvas nv address-bar)
+  nv)
+
+(define (video-gui-clear-buffer! v)
+  (bytes-fill! (video-playback-buffer v) 0))
+
+(define (video-gui-update-buffer! v frame fx)
+  (bytes-copy! (video-playback-buffer v) 0 frame)
+  (set-video-playback-fx! v fx))
+
+; ---------------------------------------------------
+
 (define (make-notify-controller-callback controller@)
   (λ (m)
     (curl/send controller@ (remote/new m null #f))))
@@ -89,42 +166,13 @@
     (video-gui-client (new-video-gui top-width top-height (make-notify-controller-callback controller@))
                       controller@)))
 
-(define/contract (client/video-gui-add-video! client w h name)
-  (video-gui-client? number? number? curl? . -> . bytes?)
-  (video-playback-buffer
-   (parameterize ([current-eventspace (make-eventspace)])
-     (video-gui-add-video! (video-gui-client-gui client)
-                           w h name (make-notify-controller-callback (video-gui-client-controller@ client))))))
+(define/contract (client/video-gui-add-video! client w h fx name)
+  (video-gui-client? number? number? (listof string?) curl? . -> . video-playback?)
+  (parameterize ([current-eventspace (make-eventspace)])
+    (video-gui-add-video! (video-gui-client-gui client)
+                          w h name fx 
+                          (make-notify-controller-callback (video-gui-client-controller@ client)))))
 
-;;;;;;;; ---------------------------
-
-(define BYTES-PER-PIXEL 4)
-
-; video-playback: used to track the metadata and state of an individual in-play, displayed video.
-(struct video-playback (buffer name w h)) ; bytes? curl integer? integer?
-
-(define (video-playback-buffersize v)
-  (bytes-length (video-playback-buffer v)))
-
-(define (make-video-playback width height name)
-  (define buffer (make-bytes (* BYTES-PER-PIXEL width height)))
-  (video-playback buffer name width height))
-
-(struct video-gui (frame top-panel address-bar
-                         small-video-panel) #:transparent #:mutable)
-
-(define (video-gui-add-video! g w h name evt-cb)
-  (define nv (make-video-playback w h name))
-  (define address-bar (video-gui-address-bar g))
-  (define small-panel (video-gui-small-video-panel g))
-  (send small-panel add-video-canvas nv address-bar)
-  nv)
-
-(define (video-gui-clear-buffer! b)
-  (bytes-fill! b 0))
-
-(define (video-gui-update-buffer! b frame)
-  (bytes-copy! b 0 frame))
 
 ; ---------------------------------
 
@@ -165,12 +213,24 @@
                             [callback (λ (i e) (if (send i is-checked?)
                                                    (do-fx greyscale "greyscale")
                                                    (rmv-fx greyscale "greyscale")))]))
-  (define do-vflip (new checkable-menu-item%
+  (define do-noise (new checkable-menu-item%
+                        [parent flow-menu]
+                        [label "Noise"]
+                        [callback (λ (i e) (if (send i is-checked?)
+                                               (do-fx noise "noise")
+                                               (rmv-fx noise "noise")))]))
+  (define do-vertical-flip (new checkable-menu-item%
                         [parent flow-menu]
                         [label "Vertical flip"]
                         [callback (λ (i e) (if (send i is-checked?)
                                                (do-fx vertical-flip "vertical-flip")
                                                (rmv-fx vertical-flip "vertical-flip")))]))
+  #|(define do-hflip (new checkable-menu-item%
+                        [parent flow-menu]
+                        [label "Horizontal flip"]
+                        [callback (λ (i e) (if (send i is-checked?)
+                                               (do-fx horizontal-flip "horizontal-flip")
+                                               (rmv-fx horizontal-flip "horizontal-flip")))]))|#
   
   (define compose-menu (new menu% [parent menu-bar] [label "Compose..."]))
   (define set-major-pip (new menu-item%
@@ -290,9 +350,55 @@
   
   (define top-panel (new vertical-panel% [parent the-window]))
   
+  (define all-fx `(("greyscale" . ,do-greyscale)
+                   ("vertical-flip" . ,do-vertical-flip)
+                   ("noise" . ,do-noise)))
+  
+  (define video-top-panel%
+    (class vertical-panel%
+      (super-new)
+      (inherit add-child delete-child get-parent)
+      (define current-canvas #f)
+      (define current-canvas-sema (make-semaphore 1))
+      (define current-video #f)
+      (define (clear-current-canvas)
+        (when current-canvas 
+          (delete-child current-canvas)
+          (send current-canvas show #f)
+          (send current-canvas enable #f) 
+          (send current-canvas stop)))
+      (define/public (tell-unsubbed target)
+        (send target unsubbed current-video))
+      (define/public (get-current-canvas-curl)
+        (call-with-semaphore current-canvas-sema
+                             (λ () (and current-canvas (send current-canvas get-curl)))))
+      (define/public (showing? v)
+        (eq? current-video v))
+      (define/public (no-videos)
+        (call-with-semaphore current-canvas-sema clear-current-canvas))
+      (define/public (swap-focused-video v)
+        (call-with-semaphore 
+         current-canvas-sema 
+         (λ () 
+           (set! current-video v)
+           (for-each (λ (fxr)
+                       (send (cdr fxr) check 
+                             (if (member (car fxr) (video-playback-fx v))
+                                 #t #f)))
+                     all-fx)
+           (send do-vertical-flip check (if (member "vertical-flip" (video-playback-fx v)) #t #f))
+           (send address-bar set-label (format "~a" (curl/pretty (video-playback-name v))))
+           (send (get-parent) min-width (video-playback-w v))
+           (send (get-parent) min-height (video-playback-h v))
+           (clear-current-canvas)
+           (set! current-canvas
+                 (new video-canvas% 
+                      [parent this] [cv v] [vert-margin 10]  [horiz-margin 10] [enabled #f]
+                      [min-width (video-playback-w v)] [min-height (video-playback-h v)]))
+           (send current-canvas enable #t))))))
+  
   (define big-video-panel (new video-top-panel%
                                [parent top-panel]
-                               [addressbar address-bar]
                                [alignment '(left top)]
                                [stretchable-width #f]
                                [stretchable-height #f]
@@ -324,60 +430,6 @@
       (on-close-callback))))
 
 ; ---------------------------
-
-(define video-top-panel%
-  (class vertical-panel% [init addressbar]
-    (super-new)
-    
-    (inherit add-child delete-child get-parent)
-    (define current-canvas #f)
-    (define current-canvas-sema (make-semaphore 1))
-    (define current-video #f)
-    (define address-bar addressbar)
-    
-    (define (clear-current-canvas)
-      (when current-canvas
-        (delete-child current-canvas)
-        (send current-canvas show #f)
-        (send current-canvas enable #f) 
-        (send current-canvas stop)
-        (set! current-canvas #f)))
-    
-    (define/public (tell-unsubbed target)
-      (send target unsubbed current-video))
-    
-    (define (replace-current-canvas v)
-      (clear-current-canvas)
-      (set! current-video v)
-      (send address-bar set-label (format "~a" (curl/pretty (video-playback-name v))))
-      (send (get-parent) min-width (video-playback-w v))
-      (send (get-parent) min-height (video-playback-h v))
-      
-      (set! current-canvas
-            (new video-canvas% 
-                 [parent this]
-                 [cv v]
-                 [vert-margin 10]
-                 [horiz-margin 10]
-                 [min-width (video-playback-w v)]
-                 [min-height (video-playback-h v)]
-                 [enabled #f]))
-      (send current-canvas enable #t))
-    
-    (define/public (get-current-canvas-curl)
-      (call-with-semaphore current-canvas-sema
-                           (λ ()
-                             (and current-canvas
-                                  (send current-canvas get-curl)))))
-    
-    (define/public (showing? v)
-      (eq? current-video v))
-    
-    (define/public (no-videos)
-      (call-with-semaphore current-canvas-sema clear-current-canvas))
-    
-    (define/public (swap-focused-video v)
-      (call-with-semaphore current-canvas-sema (λ () (replace-current-canvas v))))))
 
 ; small-video-panel: holds small-video-canvas%es as they are created.
 (define small-video-panel%

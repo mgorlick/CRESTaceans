@@ -234,21 +234,22 @@
                                            null #f)])
        (curl/send on-birth-notify@ (remote/new (AddCURL/new me/subscription@) (make-metadata) #f))  
        (let* ([message1 (mailbox-get-message)])
-         (define pms (metadata-ref (:remote/metadata (delivery/contents-sent message1)) "params"))
+         (define meta (:remote/metadata (delivery/contents-sent message1)))
+         (define pms (metadata-ref meta "params"))
+         (define fx (metadata-ref meta "fx"))
          (define w (:VideoParams/width pms))
          (define h (:VideoParams/height pms))
-         (define buffer# (buffer-maker! w h))
+         (define buffer# (buffer-maker! w h fx))
          (define c (color-converter-new w h))
-         (let loop ([m message1] [effects (list
-                                           ;(lambda (d) (vertical-flip d w h))
-                                           ;greyscale
-                                           (lambda (d) (yuv420p-to-rgb32 c d)))])
+         (let loop ([m message1] [effects (list (lambda (d) (yuv420p-to-rgb32 c d)))])
            (define body (:remote/body (delivery/contents-sent m)))
+           (define fx (metadata-ref (:remote/metadata (delivery/contents-sent m)) "fx"))
            (cond [(and buffer# (Frame? body))
                   (video-gui-update-buffer! buffer#
                                             (foldl (lambda (f x) (f x))
                                                    (:Frame/data body)
-                                                   effects))
+                                                   effects)
+                                            fx)
                   (loop (mailbox-get-message) effects)]
                  [else
                   (printf "Endpoint: unknown message ~a~n" body)
@@ -265,7 +266,7 @@
          ;; !!! NO SERIALIZATION WARNING !!!
          ;; (we lifted `g' and `add-video!' out of the lambda)
          (define av! video-gui-add-video!)
-         (define (buffer-maker! w h) (av! g w h to-ctrl@))
+         (define (buffer-maker! w h fx) (av! g w h fx to-ctrl@))
          (define (the-canvas-fun on-birth-notify@) (canvas-endpoint buffer-maker! on-birth-notify@))
          (and (curl/intra? to-notify@)
               ;; launch the linker to start up our wrapped endpoint
@@ -432,7 +433,7 @@
            (curl/send/promise (get-current-gui-curl) 
                               (remote/new (AddCURL/new me/ctrl@) (make-metadata) #f)
                               10000))
-         (define (add-sub upstream@)
+         (define (add-sub/get-ctrl@ upstream@)
            (curl/send/promise upstream@ 
                               (remote/new (AddCURL/new me/sub@) (make-metadata) #f)
                               10000))
@@ -441,8 +442,7 @@
          ;; 1. reserve display.
          ;; 2. add subscription.
          (define gui-endpoint@ (unpack-promise (reserve-gui/get-next-pipeline@)))
-         (define my-sub/ctrl@ (unpack-promise (add-sub where-to-subscribe@)))
-         (displayln "Reserved subscriptions")
+         (define my-sub/ctrl@ (unpack-promise (add-sub/get-ctrl@ where-to-subscribe@)))
          ;; 3. start decoding loop
          (let loop ([fx fx])
            (define m (mailbox-get-message))
@@ -453,13 +453,14 @@
                   (let* ([params (metadata-ref desc^ "params")]
                          [w (:VideoParams/width params)]
                          [h (:VideoParams/height params)])
-                    (define decoded-frame 
-                      (foldl (lambda (f d) (f d w h))
-                             (vp8dec-decode d (:Frame/data body) w h)
-                             (hash/values fx)))
+                    (define decoded-frame (vp8dec-decode d (:Frame/data body) w h))
                     (when decoded-frame
-                      (curl/send gui-endpoint@ (!:remote/body (delivery/contents-sent m)
-                                                              (!:Frame/data body decoded-frame)))))
+                      (define processed-frame (foldl (lambda (f bs) (f bs w h))
+                                                     decoded-frame
+                                                     (hash/values fx)))
+                      (when processed-frame
+                        (curl/send gui-endpoint@ (remote/new (Frame/new processed-frame (current-inexact-milliseconds)) 
+                                                             (hash/cons desc^ "fx" (hash/keys fx)) #f)))))
                   (loop fx)]
                  [(AddFx? body)
                   (loop (hash/cons fx (:AddFx/label body) (:AddFx/procedure body)))]

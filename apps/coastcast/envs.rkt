@@ -81,9 +81,9 @@
      `((id . ,id) ...)]))
 
 ;; bytes ops.
-(define (bytes-set offset source [src-begin 0] [src-end 0])
-  (define dest (bytes-copy source))
-  (bytes-copy! dest offset source src-begin src-end)
+(define (bytes-set source k b [start 0] [end (bytes-length source)])
+  (define dest (subbytes source start end))
+  (bytes-set! dest k b)
   dest)
 (define (bytes-set-all source value [src-begin 0] [src-end (bytes-length source)])
   (define dest (make-bytes (bytes-length source) value))
@@ -103,7 +103,7 @@
 ;; binding environments used.
 (define MULTIMEDIA-BASE
   (++ BASELINE
-      (global-defines bin* bin- bin+ bin/ bin>= min* sleep* max* halve
+      (global-defines bin* bin- bin+ bin/ bin>= min* sleep* max* halve random
                       display displayln void printf vector-ref
                       mailbox-get-message mailbox-has-message?
                       current-inexact-milliseconds exact->inexact)
