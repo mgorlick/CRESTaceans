@@ -1050,9 +1050,13 @@
    (scheme/compile (unless/test e) lexical)
    (scheme/compile (unless/elses e) lexical)))
           
-(define (begin/compile e lexical)
+(define-syntax-rule (begin/first e) (cadr e))
+(define (begin/compile e lexical) ; Accomodates R7RS where (begin <definition> ...) is legal.
   (shape e 2)
-  (sequence/compile (cdr e) lexical))
+  (let ((e_1 (begin/first e))) ; Expression e_1 of (begin e_1 ... e_n).
+    (if (and (pair? e_1) (definition? e_1))
+        (scheme/compile `(let () ,@(cdr e)) lexical)
+        (sequence/compile (cdr e) lexical)))) 
 
 ;; Map f over a list of elements in list order return the map as a vector.
 (define (map/vector f elements)
