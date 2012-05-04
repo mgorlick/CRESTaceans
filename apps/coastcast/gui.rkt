@@ -67,25 +67,16 @@
      (define ul (* 2 (/ l 3)))
      (define vl (/ l 6))
      (define o (open-output-bytes))
-     (let do-planes ([num-rows*    (list h  (/ h 2)   (/ h 2))]
-                     [sopr*        (list w  (/ w 2)   (/ w 2))] ; size of plane row
-                     [src-offset*  (list yl (+ yl ul) (+ yl ul vl))])
-       (cond [(or (null? num-rows*) (null? sopr*) (null? src-offset*))
-              ; done iterating through all the planes - produce final content
-              (get-output-bytes o)]
-             [else
-              ; do a single plane
-              (let ([num-rows (car num-rows*)] [sopr (car sopr*)] [src-offset (car src-offset*)])
-                (let do-single-plane ([row 0])
-                  (cond [(= num-rows row) (void)]
-                        [else
-                         (define row-at (+ src-offset (* row sopr)))
-                         (define the-posn (random sopr))
-                         (write-bytes (bytes-set content the-posn (random 256) row-at (+ row-at sopr)) o)
-                         (do-single-plane (add1 row))]
-                        )))
-              (do-planes (cdr num-rows*) (cdr sopr*) (cdr src-offset*))
-              ]))))
+     (define num-rows h)
+     (define sopr w)
+     (let do-single-plane ([row 0])
+       (cond [(> num-rows row)
+              (define row-at (* row sopr))
+              (define the-posn (random (* 2 sopr)))
+              (write-bytes (bytes-set content the-posn (random 256) row-at (+ row-at (* 2 sopr))) o)
+              (do-single-plane (+ 2 row))]))
+     (write-bytes content o ul)
+     (get-output-bytes o)))
 (define-motile-procedure vertical-flip
   '(lambda (content w h)
      (define l (bytes-length content))
@@ -117,8 +108,8 @@
 
 (struct video-gui-client (gui controller@))
 
-(define top-width 1500)
-(define top-height 1000)
+(define top-width 750)
+(define top-height 750)
 
 (define FONT (make-object font% 12 'swiss))
 
@@ -220,11 +211,11 @@
                                                (do-fx noise "noise")
                                                (rmv-fx noise "noise")))]))
   (define do-vertical-flip (new checkable-menu-item%
-                        [parent flow-menu]
-                        [label "Vertical flip"]
-                        [callback (λ (i e) (if (send i is-checked?)
-                                               (do-fx vertical-flip "vertical-flip")
-                                               (rmv-fx vertical-flip "vertical-flip")))]))
+                                [parent flow-menu]
+                                [label "Vertical flip"]
+                                [callback (λ (i e) (if (send i is-checked?)
+                                                       (do-fx vertical-flip "vertical-flip")
+                                                       (rmv-fx vertical-flip "vertical-flip")))]))
   #|(define do-hflip (new checkable-menu-item%
                         [parent flow-menu]
                         [label "Horizontal flip"]

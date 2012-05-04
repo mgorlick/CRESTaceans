@@ -455,17 +455,19 @@
                          [h (:VideoParams/height params)])
                     (define decoded-frame (vp8dec-decode d (:Frame/data body) w h))
                     (when decoded-frame
-                      (define processed-frame (foldl (lambda (f bs) (f bs w h))
+                      (define processed-frame (foldl (lambda (one-fx bs) ((cdr one-fx) bs w h))
                                                      decoded-frame
-                                                     (hash/values fx)))
+                                                     fx))
                       (when processed-frame
                         (curl/send gui-endpoint@ (remote/new (Frame/new processed-frame (current-inexact-milliseconds)) 
-                                                             (hash/cons desc^ "fx" (hash/keys fx)) #f)))))
+                                                             (hash/cons desc^ "fx" (map car fx)) #f)))))
                   (loop fx)]
                  [(AddFx? body)
-                  (loop (hash/cons fx (:AddFx/label body) (:AddFx/procedure body)))]
+                  (loop (append fx (list (cons (:AddFx/label body) (:AddFx/procedure body)))))]
                  [(RemoveFx? body)
-                  (loop (hash/remove fx (:RemoveFx/label body)))]
+                  (loop (filter (lambda (one-fx)
+                                  (not (equal? (:RemoveFx/label body) (car one-fx))))
+                                fx))]
                  ;; following are messages send backwards across control flow path from controller.
                  [(GetParent? body)
                   (curl/send (delivery/promise-fulfillment m)
@@ -496,7 +498,7 @@
                  [else
                   (displayln "Decoder throwing away a message")
                   (loop fx)]))))
-     (make-decoder hash/equal/null)))
+     (make-decoder '())))
 
 (define-motile-procedure make-video-decoder/pip
   '(lambda (majordec@ minordec@)
