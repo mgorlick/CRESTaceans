@@ -22,7 +22,6 @@
          (matching-identifiers-out #rx"^color-converter.*" (all-from-out "bindings/vp8/vp8.rkt"))
          vp8enc-delete
          vp8enc-quartersize-new
-         greyscale
          yuv420p-to-rgb32
          dispose-FrameBuffer
          FrameBuffer->Frame
@@ -30,13 +29,6 @@
          (rename-out (vp8enc-new* vp8enc-new)
                      (vp8enc-encode* vp8enc-encode)
                      (vp8enc-encode-quarter* vp8enc-encode-quarter)))
-
-(define/contract (greyscale yuv420p-content)
-  (bytes? . ->/c . bytes?)
-  (define l (bytes-length yuv420p-content))
-  (define greyscaled (make-bytes l 128)) ; fill in the U and V positions with 128 (negate chroma values)
-  (bytes-copy! greyscaled 0 yuv420p-content 0 (* 2 (/ l 3))) ; copy in the Y values from old content
-  greyscaled)
 
 (define/contract (vertical-flip yuv420p-content w h)
   (bytes? (and/c exact-nonnegative-integer? even?) (and/c exact-nonnegative-integer? even?) . ->/c . bytes?)

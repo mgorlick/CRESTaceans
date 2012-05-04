@@ -1,14 +1,7 @@
 #lang racket/base
 
-(require "../../Motile/compile/compile.rkt"
-         "../../Motile/generate/baseline.rkt"
-         "../../Motile/baseline.rkt")
+(require "motile-imports.rkt")
 (provide (all-defined-out))
-
-(define (eval-definition e)
-  (motile/call e BASELINE))
-(define-syntax-rule (define-motile-procedure id body)
-  (define id (eval-definition (motile/compile body))))
 
 ;; notes on syntactic conventions to follow:
 ;; flub$ - a locative named flub
@@ -233,7 +226,7 @@
 ;; a canvas endpoint is an actor that is responsible for video display and ONLY video display.
 ;; each decoding pipeline is allocated one or more gui endpoints.
 (define-motile-procedure canvas-endpoint
-  '(lambda (on-birth-notify@ buffer-maker!)
+  '(lambda (buffer-maker! on-birth-notify@)
      ;; curl used for receiving feed data should be pretty much unrestricted.
      ;; no need for serializability: publisher should be on-island anyway.
      ;; send the curl backwards along the pipeline to subscribe self to decoded feed.
@@ -247,8 +240,8 @@
          (define buffer# (buffer-maker! w h))
          (define c (color-converter-new w h))
          (let loop ([m message1] [effects (list
-                                           (lambda (d) (vertical-flip d w h))
-                                           greyscale
+                                           ;(lambda (d) (vertical-flip d w h))
+                                           ;greyscale
                                            (lambda (d) (yuv420p-to-rgb32 c d)))])
            (define body (:remote/body (delivery/contents-sent m)))
            (cond [(and buffer# (Frame? body))
@@ -273,7 +266,7 @@
          ;; (we lifted `g' and `add-video!' out of the lambda)
          (define av! video-gui-add-video!)
          (define (buffer-maker! w h) (av! g w h to-ctrl@))
-         (define (the-canvas-fun on-birth-notify@) (canvas-endpoint on-birth-notify@ buffer-maker!))
+         (define (the-canvas-fun on-birth-notify@) (canvas-endpoint buffer-maker! on-birth-notify@))
          (and (curl/intra? to-notify@)
               ;; launch the linker to start up our wrapped endpoint
               (curl/send PUBLIC-CURL 
@@ -326,6 +319,12 @@
            ;; probably something sent back beyond the decoder.
            [(FwdBackward? body)
             (curl/send (:FwdBackward/ref body) (delivery/contents-sent m))
+            (loop decoders)]
+           [(AddFx? body)
+            (curl/send (:AddFx/ref body) (delivery/contents-sent m))
+            (loop decoders)]
+           [(RemoveFx? body)
+            (curl/send (:RemoveFx/ref body) (delivery/contents-sent m))
             (loop decoders)]
            ;; move decoders, then move self.
            [(Quit/MV? body)
@@ -422,71 +421,81 @@
 
 (define-motile-procedure make-video-decoder/single
   '(lambda (where-to-subscribe@)
-     (define (this)
-       (define me/sub@ (curl/new/any 
-                        (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
-       (define me/ctrl@ (curl/new/any 
-                         (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
-       (define d (vp8dec-new))
-       (define (reserve-gui/get-next-pipeline@)
-         (curl/send/promise (get-current-gui-curl) 
-                            (remote/new (AddCURL/new me/ctrl@) (make-metadata) #f)
-                            10000))
-       (define (add-sub upstream@)
-         (curl/send/promise upstream@ 
-                            (remote/new (AddCURL/new me/sub@) (make-metadata) #f)
-                            10000))
-       (define (unpack-promise p); generic way to wait for a promise and look at its final-value body.
-         (:remote/body (promise/wait p 10000 #f)))
-       ;; 1. reserve display.
-       ;; 2. add subscription.
-       (define gui-endpoint@ (unpack-promise (reserve-gui/get-next-pipeline@)))
-       (define my-sub/ctrl@ (unpack-promise (add-sub where-to-subscribe@)))
-       (displayln "Reserved subscriptions")
-       ;; 3. start decoding loop
-       (let loop ()
-         (define m (mailbox-get-message))
-         (define body (:remote/body (delivery/contents-sent m)))
-         (define desc^ (:remote/metadata (delivery/contents-sent m)))
-         (define reply@ (:remote/reply (delivery/contents-sent m)))
-         (cond [(Frame? body)
-                (let* ([params (metadata-ref desc^ "params")]
-                       [w (:VideoParams/width params)]
-                       [h (:VideoParams/height params)]
-                       [decoded-frame (vp8dec-decode d (:Frame/data body) w h)])
-                  (when decoded-frame
-                    (curl/send gui-endpoint@ (!:remote/body (delivery/contents-sent m)
-                                                            (!:Frame/data body decoded-frame)))))
-                (loop)]
-               ;; following are messages send backwards across control flow path from controller.
-               [(GetParent? body)
-                (curl/send (delivery/promise-fulfillment m)
-                           (remote/new where-to-subscribe@ (make-metadata) #f))
-                (loop)]
-               ;;!!! FIXME !!!: this is doing connector work when it is a component.
-               [(FwdBackward? body)
-                (curl/send where-to-subscribe@ 
-                           (!:remote/body (delivery/contents-sent m) (:FwdBackward/msg body)))
-                (loop)]
-               [(CopyActor? body)
-                (curl/send (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
-                           (spawn/new this (make-metadata accepts/webm (nick 'decoder)) #f))
-                (loop)]
-               [(Quit/MV? body)
-                (curl/send my-sub/ctrl@
-                           (remote/new (RemoveCURL/new) (make-metadata) #f))
-                
-                (vp8dec-delete d)
-                (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
-                           (spawn/new this (make-metadata accepts/webm (nick 'decoder)) #f))]
-               [(Quit? body)
-                (curl/send my-sub/ctrl@
-                           (remote/new (RemoveCURL/new) (make-metadata) #f))
-                (vp8dec-delete d)]
-               [else
-                (displayln "Decoder throwing away a message")
-                (loop)])))
-     this))
+     (define (make-decoder fx)
+       (lambda ()
+         (define me/sub@ (curl/new/any 
+                          (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
+         (define me/ctrl@ (curl/new/any 
+                           (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
+         (define d (vp8dec-new))
+         (define (reserve-gui/get-next-pipeline@)
+           (curl/send/promise (get-current-gui-curl) 
+                              (remote/new (AddCURL/new me/ctrl@) (make-metadata) #f)
+                              10000))
+         (define (add-sub upstream@)
+           (curl/send/promise upstream@ 
+                              (remote/new (AddCURL/new me/sub@) (make-metadata) #f)
+                              10000))
+         (define (unpack-promise p); generic way to wait for a promise and look at its final-value body.
+           (:remote/body (promise/wait p 10000 #f)))
+         ;; 1. reserve display.
+         ;; 2. add subscription.
+         (define gui-endpoint@ (unpack-promise (reserve-gui/get-next-pipeline@)))
+         (define my-sub/ctrl@ (unpack-promise (add-sub where-to-subscribe@)))
+         (displayln "Reserved subscriptions")
+         ;; 3. start decoding loop
+         (let loop ([fx fx])
+           (define m (mailbox-get-message))
+           (define body (:remote/body (delivery/contents-sent m)))
+           (define desc^ (:remote/metadata (delivery/contents-sent m)))
+           (define reply@ (:remote/reply (delivery/contents-sent m)))
+           (cond [(Frame? body)
+                  (let* ([params (metadata-ref desc^ "params")]
+                         [w (:VideoParams/width params)]
+                         [h (:VideoParams/height params)])
+                    (define decoded-frame 
+                      (foldl (lambda (f d) (f d w h))
+                             (vp8dec-decode d (:Frame/data body) w h)
+                             (hash/values fx)))
+                    (when decoded-frame
+                      (curl/send gui-endpoint@ (!:remote/body (delivery/contents-sent m)
+                                                              (!:Frame/data body decoded-frame)))))
+                  (loop fx)]
+                 [(AddFx? body)
+                  (loop (hash/cons fx (:AddFx/label body) (:AddFx/procedure body)))]
+                 [(RemoveFx? body)
+                  (loop (hash/remove fx (:RemoveFx/label body)))]
+                 ;; following are messages send backwards across control flow path from controller.
+                 [(GetParent? body)
+                  (curl/send (delivery/promise-fulfillment m)
+                             (remote/new where-to-subscribe@ (make-metadata) #f))
+                  (loop fx)]
+                 ;;!!! FIXME !!!: this is doing connector work when it is a component.
+                 [(FwdBackward? body)
+                  (curl/send where-to-subscribe@ 
+                             (!:remote/body (delivery/contents-sent m) (:FwdBackward/msg body)))
+                  (loop fx)]
+                 [(CopyActor? body)
+                  (curl/send (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
+                             (spawn/new (make-decoder fx)
+                                        (make-metadata accepts/webm (nick 'decoder)) #f))
+                  (loop fx)]
+                 [(Quit/MV? body)
+                  (curl/send my-sub/ctrl@
+                             (remote/new (RemoveCURL/new) (make-metadata) #f))
+                  
+                  (vp8dec-delete d)
+                  (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
+                             (spawn/new (make-decoder fx)
+                                        (make-metadata accepts/webm (nick 'decoder)) #f))]
+                 [(Quit? body)
+                  (curl/send my-sub/ctrl@
+                             (remote/new (RemoveCURL/new) (make-metadata) #f))
+                  (vp8dec-delete d)]
+                 [else
+                  (displayln "Decoder throwing away a message")
+                  (loop fx)]))))
+     (make-decoder hash/equal/null)))
 
 (define-motile-procedure make-video-decoder/pip
   '(lambda (majordec@ minordec@)
