@@ -62,35 +62,26 @@
 (define-motile-procedure noise
   '(lambda (content w h)
      (define l (bytes-length content))
-     (define expected (/ (* 3 w h) 2))
-     (define yl 0)
-     (define ul (* 2 (/ l 3)))
-     (define vl (/ l 6))
      (define o (open-output-bytes))
      (define num-rows h)
      (define sopr w)
-     (let do-single-plane ([row 0])
-       (cond [(> num-rows row)
-              (define row-at (* row sopr))
-              (define the-posn (random (* 2 sopr)))
-              (write-bytes (bytes-set content the-posn (random 256) row-at (+ row-at (* 2 sopr))) o)
-              (do-single-plane (+ 2 row))]))
-     (write-bytes content o ul)
+     (do ([row 0 (+ 2 row)]) [(<= num-rows row)]
+       (define row-at (* row sopr))
+       (define the-posn (random (* 2 sopr)))
+       (write-bytes (bytes-set content the-posn (random 256) row-at (+ row-at (* 2 sopr))) o))
+     (write-bytes content o (* 2 (/ l 3))) ; copy U and V
      (get-output-bytes o)))
 (define-motile-procedure vertical-flip
   '(lambda (content w h)
      (define l (bytes-length content))
-     (define expected (/ (* 3 w h) 2))
      (define yl (* 2 (/ l 3)))
      (define ul (/ l 6))
      (define vl (/ l 6))
      (get-output-bytes
       (foldl (lambda (num-rows sopr src-offset o)
-               (let do-single-plane ([row 0])
-                 (cond [(= num-rows row) o]
-                       [else (define row-at (- src-offset (* (add1 row) sopr)))
-                             (write-bytes content o row-at (+ row-at sopr))
-                             (do-single-plane (add1 row))])))
+               (do ([row 0 (add1 row)]) [(= num-rows row) o]
+                 (define row-at (- src-offset (* (add1 row) sopr)))
+                 (write-bytes content o row-at (+ row-at sopr))))
              (open-output-bytes)
              (list h (/ h 2) (/ h 2))
              (list w (/ w 2) (/ w 2))
