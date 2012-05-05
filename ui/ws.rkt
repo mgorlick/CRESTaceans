@@ -263,12 +263,6 @@
 
 (define (run-the-program t)
     (displayln "sending to connection")
-    (thread-send t
-                 (jsexpr->json
-                  (hasheq 'action "newitem"
-                          'item "button"
-                          'label "foo"
-                          'callback "alert(\"foo\");")))
   (thread-send t
                  (jsexpr->json
                   (hasheq 'action "newitem"
@@ -279,24 +273,68 @@
                   (hasheq 'action "newitem"
                           'item "menu"
                           'label "Session...")))
-    (thread-send t
-                 (jsexpr->json
-                  (hasheq 'action "newitem"
-                          'item "menu"
-                          'label "Session...")))
   (thread-send t
                  (jsexpr->json
                   (hasheq 'action "newitem"
                           'item "menuitem"
                           'label "Unsubscribe"
                           'menuid "File..."
-                          'callback "alert(\"llllllllllll\");")))
-  (displayln (string-length (jsexpr->json
+                          'callback "alert(\"Unsubscribe pressed\");")))
+  (thread-send t
+                 (jsexpr->json
                   (hasheq 'action "newitem"
                           'item "menuitem"
-                          'label "Unsubscribe"
+                          'label "Share Sink"
                           'menuid "File..."
-                          'callback "alert(\"llllllllllll\");"))))
+                          'callback "alert(\"Share Sink pressed\");")))
+    (thread-send t
+                 (jsexpr->json
+                  (hasheq 'action "newitem"
+                          'item "menuitem"
+                          'label "Move Source"
+                          'menuid "File..."
+                          'callback "alert(\"Move Source pressed\");")))
+    (thread-send t
+                 (jsexpr->json
+                  (hasheq 'action "newitem"
+                          'item "menuitem"
+                          'label "Greyscale"
+                          'menuid "File..."
+                          'callback "alert(\"Greyscale pressed\");")))
+    (thread-send t
+                 (jsexpr->json
+                  (hasheq 'action "newitem"
+                          'item "menuitem"
+                          'label "Vertical Flip"
+                          'menuid "File..."
+                          'callback "alert(\"Vertical Flip pressed\");")))
+  (thread-send t
+                 (jsexpr->json
+                  (hasheq 'action "newitem"
+                          'item "menuitem"
+                          'label "Share"
+                          'menuid "Session..."
+                          'callback "alert(\"Share pressed\");")))
+  (thread-send t
+                 (jsexpr->json
+                  (hasheq 'action "newitem"
+                          'item "menuitem"
+                          'label "Move"
+                          'menuid "Session..."
+                          'callback "alert(\"Move pressed\");")))
+  (thread-send t
+                 (jsexpr->json
+                  (hasheq 'action "newitem"
+                          'item "dropdown"
+                          'label "ips"
+                          'data "ips.json")))
+  (thread-send t
+                 (jsexpr->json
+                  (hasheq 'action "newitem"
+                          'item "canvas"
+                          'label "mainvideo"
+                          'width 500
+                          'height 500)))
     (sleep 1)
     )
 
@@ -313,8 +351,7 @@
    (define pid (current-thread))
    (thread (λ () (run-the-program pid)))
    (let loop ()
-     (displayln "loop")
      (define m (thread-receive))
-     (displayln "sending to browser")
+     (displayln "Received a message")
      (ws-send! wsc (maybe-string->bytes m))
      (loop))))
