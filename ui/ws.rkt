@@ -261,6 +261,14 @@
                              #:servlet-path "/ui.html"
                              )))
 
+(define (listener t wsc)
+  (let loop ()
+  (displayln "waiting for callback")
+       (displayln (ws-recv wsc))
+
+  (loop))
+)
+
 (define (run-the-program t)
     (displayln "sending to connection")
   (thread-send t
@@ -350,6 +358,8 @@
    (displayln "websocket connection being served")
    (define pid (current-thread))
    (thread (λ () (run-the-program pid)))
+   (thread (λ () (listener pid wsc)))
+
    (let loop ()
      (define m (thread-receive))
      (displayln "Received a message")
