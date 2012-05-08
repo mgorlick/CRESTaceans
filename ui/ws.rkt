@@ -330,20 +330,12 @@
 (define (new-canvas label w h)
   (jsexpr->json (hasheq 'action "newitem" 'item "canvas" 'label label 'width w 'height h)))
 
-(define (run-the-program s)
-  (ui-send! s (new-button "Foo"))
-  (ui-send! s (new-menu "File..."))
-  (ui-send! s (new-menu "Session..."))
-  (ui-send! s (new-menu-item "Unsubscribe" "File..." "alert(\"Unsubscribe pressed\");"))
-  (ui-send! s (new-menu-item "Share sink" "File..." "alert(\"Share Sink pressed\");"))
-  (ui-send! s (new-menu-item "Move source" "File..." "alert(\"Move Source pressed\");"))
-  (ui-send! s (new-menu-item "Greyscale" "File..." "alert(\"Greyscale pressed\");"))
-  (ui-send! s (new-menu-item "Vertical flip" "File..." "alert(\"Vertical Flip pressed\");"))
-  (ui-send! s (new-menu-item "Share" "Session..."  "alert(\"Share pressed\");"))
-  (ui-send! s (new-menu-item "Move" "Session..." "alert(\"Move pressed\");"));
-  (ui-send! s (new-dropdown "ips" "ips.json"))
-  (ui-send! s (new-canvas "mainvideo" 500 500)))
-
-(define s (open-a-tab (λ (json) (displayln json))))
-(ui-wait-for-readiness s)
-(run-the-program s)
+(provide new-button
+         new-menu
+         new-menu-item
+         new-dropdown
+         new-canvas
+         ui-ready-to-send?
+         ui-wait-for-readiness
+         ui-send!
+         open-a-tab)
