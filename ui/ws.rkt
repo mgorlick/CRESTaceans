@@ -6,19 +6,15 @@
          racket/match
          racket/unit
          racket/async-channel
-         net/tcp-sig
          data/queue
          (prefix-in raw: net/tcp-unit)
          file/sha1
-         net/base64 web-server/servlet-env
-         web-server/http
-         web-server/http/request
-         web-server/http/request-structs
+         net/base64
+         net/tcp-sig
          web-server/private/dispatch-server-unit
-         web-server/private/dispatch-server-sig
-         web-server/private/connection-manager)
+         web-server/private/dispatch-server-sig)
 
-(struct ws-conn ([closed? #:mutable] line headers ip op)
+(struct ws-conn ([closed? #:mutable] line headers session-id ip op)
   #:property prop:evt (struct-field-index ip))
 (define (open-ws-conn? x)
   (and (ws-conn? x) (not (ws-conn-closed? x))))
@@ -163,17 +159,17 @@
 
 (define/contract (ws-send! wsc s)
   (ws-conn? bytes? . -> . void)
-  (match-define (ws-conn _ _ _ _ op) wsc)
+  (match-define (ws-conn _ _ _ _ _ op) wsc)
   (write-ws-frame! s op))
 
 (define (ws-recv wsc)
   (ws-conn? . -> . bytes?)
-  (match-define (ws-conn _ _ _ ip op) wsc)
+  (match-define (ws-conn _ _ _ _ ip op) wsc)
   (read-ws-frame ip op (make-queue)))
 
 (define (ws-close! wsc)
   (ws-conn? . -> . void)
-  (match-define (ws-conn _ _ _ ip op) wsc)
+  (match-define (ws-conn _ _ _ _ ip op) wsc)
   ;; XXX FIXME @@@
   (close-input-port ip)
   (close-output-port op)
@@ -194,6 +190,12 @@
     (define ip (connection-i-port c))
     (define op (connection-o-port c))
     (define cline (read-bytes-line ip 'any))
+    (define session-id
+      (match (regexp-split #rx" " cline)
+        [(list #"GET" path #"HTTP/1.1")
+         (match (regexp-split #rx"session=" path)
+           [(list #"/?" sid)
+            sid])]))
     (define headers (read-headers ip))
     (define origin (header-value (headers-assq* #"Origin" headers)))
     (define accept-magic-suffix #"258EAFA5-E914-47DA-95CA-C5AB0DC85B11")
@@ -225,9 +227,8 @@
               conn-headers)
     ;(crlf op)
     (flush-output op)
-    (define conn (ws-conn #f cline conn-headers ip op))
+    (define conn (ws-conn #f cline conn-headers session-id ip op))
     (conn-dispatch conn))
-  
   
   (define (read-request c p port-addresses)
     (values #f #t)) ; do not delete! dynamically linked here
@@ -246,7 +247,18 @@
 ;; ===================================================================================
 ;; ===================================================================================
 ;; ===================================================================================
-(require (planet dherman/json:4:=0))
+(require web-server/servlet-env
+         web-server/http
+         web-server/http/request
+         web-server/http/request-structs
+         web-server/private/connection-manager
+         (planet dherman/json:4:=0)
+         net/sendurl
+         "../bindings/nacl/libnacl/libnacl.rkt"
+         "../peer/src/net/base64-url-typed.rkt")
+
+(define BROWSER-PORT 8000)
+(define BROWSER-PATH "/ui.html")
 
 (define-runtime-path files "files")
 ;(directory-list files)
@@ -255,101 +267,30 @@
   (response/xexpr
    `(html (body "Hello world!"))))
 (thread (λ () (serve/servlet start
-                             #:port 8000
+                             #:port BROWSER-PORT
                              #:servlet-regexp #rx"/foo"
                              #:extra-files-paths (list files)
-                             #:servlet-path "/ui.html"
+                             #:servlet-path BROWSER-PATH
+                             #:launch-browser? #f
                              )))
-
-(define (listener t wsc)
-  (let loop ()
-  (displayln "waiting for callback")
-       (displayln (ws-recv wsc))
-
-  (loop))
-)
-
-(define (run-the-program t)
-    (displayln "sending to connection")
-  (thread-send t
-                 (jsexpr->json
-                  (hasheq 'action "newitem"
-                          'item "menu"
-                          'label "File...")))
-  (thread-send t
-                 (jsexpr->json
-                  (hasheq 'action "newitem"
-                          'item "menu"
-                          'label "Session...")))
-  (thread-send t
-                 (jsexpr->json
-                  (hasheq 'action "newitem"
-                          'item "menuitem"
-                          'label "Unsubscribe"
-                          'menuid "File..."
-                          'callback "alert(\"Unsubscribe pressed\");")))
-  (thread-send t
-                 (jsexpr->json
-                  (hasheq 'action "newitem"
-                          'item "menuitem"
-                          'label "Share Sink"
-                          'menuid "File..."
-                          'callback "alert(\"Share Sink pressed\");")))
-    (thread-send t
-                 (jsexpr->json
-                  (hasheq 'action "newitem"
-                          'item "menuitem"
-                          'label "Move Source"
-                          'menuid "File..."
-                          'callback "alert(\"Move Source pressed\");")))
-    (thread-send t
-                 (jsexpr->json
-                  (hasheq 'action "newitem"
-                          'item "menuitem"
-                          'label "Greyscale"
-                          'menuid "File..."
-                          'callback "alert(\"Greyscale pressed\");")))
-    (thread-send t
-                 (jsexpr->json
-                  (hasheq 'action "newitem"
-                          'item "menuitem"
-                          'label "Vertical Flip"
-                          'menuid "File..."
-                          'callback "alert(\"Vertical Flip pressed\");")))
-  (thread-send t
-                 (jsexpr->json
-                  (hasheq 'action "newitem"
-                          'item "menuitem"
-                          'label "Share"
-                          'menuid "Session..."
-                          'callback "alert(\"Share pressed\");")))
-  (thread-send t
-                 (jsexpr->json
-                  (hasheq 'action "newitem"
-                          'item "menuitem"
-                          'label "Move"
-                          'menuid "Session..."
-                          'callback "alert(\"Move pressed\");")))
-  (thread-send t
-                 (jsexpr->json
-                  (hasheq 'action "newitem"
-                          'item "dropdown"
-                          'label "ips"
-                          'data "ips.json")))
-  (thread-send t
-                 (jsexpr->json
-                  (hasheq 'action "newitem"
-                          'item "canvas"
-                          'label "mainvideo"
-                          'width 500
-                          'height 500)))
-    (sleep 1)
-    )
 
 (define (maybe-string->bytes s)
   (cond [(string? s) (string->bytes/utf-8 s)] 
         [(bytes? s) s]
         [else (error 'ws-serve "need string or bytes")]))
+
+(struct session (id ; bytes? the session ID 
+                 cb ; procedure? the callback fired when a message is recieved on the server
+                 [out-thd #:mutable] ; the thread that queues up outgoing messages for sending
+                 ready-sema ; semaphore? posted once to indicate connection openness
+                 )
+  #:property prop:evt (struct-field-index ready-sema))
+(define/contract sessions (hash/c bytes? session?) (make-hash))
+
+(define (listener s wsc)
+  (let loop ()
+    ((session-cb s) (json->jsexpr (bytes->string/utf-8 (ws-recv wsc))))
+    (loop)))
 
 (ws-serve
  #:listen-ip "localhost"
@@ -357,11 +298,110 @@
  (λ (wsc)
    (displayln "websocket connection being served")
    (define pid (current-thread))
-   (thread (λ () (run-the-program pid)))
-   (thread (λ () (listener pid wsc)))
-
+   (define s (hash-ref sessions (ws-conn-session-id wsc)))
+   (when (not (session-out-thd s))
+     (define it (thread (λ () (listener s wsc))))
+     (set-session-out-thd! s pid)
+     (semaphore-post (session-ready-sema s)))
    (let loop ()
      (define m (thread-receive))
-     (displayln "Received a message")
      (ws-send! wsc (maybe-string->bytes m))
      (loop))))
+
+(define (open-a-tab cb)
+  (define-values (pk _) (nacl:crypto-box-keypair))
+  (define id (base64-url-encode pk))
+  (define s (session id cb #f (make-semaphore 0))) ; fill in the output thread when it is created upon websocket connection creation
+  (hash-set! sessions id s)
+  (send-url (string-append "http://localhost:" (number->string BROWSER-PORT) BROWSER-PATH "?session=" (bytes->string/utf-8 id)))
+  s)
+
+(define (ui-ready-to-send? s)
+  (thread? (session-out-thd s)))
+(define (ui-wait-for-readiness s)
+  (semaphore-wait (session-ready-sema s)))
+(define (ui-send! s v)
+  (thread-send (session-out-thd s) v))
+
+;; -------
+;; example
+;; -------
+
+(define (new-button label)
+  (jsexpr->json (hasheq 'action "newitem" 'item "button" 'label label)))
+(define (new-menu label)
+  (jsexpr->json (hasheq 'action "newitem" 'item "menu" 'label label)))
+(define (new-menu-item label callback)
+  (jsexpr->json (hasheq 'action "newitem" 'item "menuitem" 'label label 'callback callback)))
+(define (new-dropdown label data)
+  (jsexpr->json (hasheq 'action "newitem" 'item "dropdown" 'label label 'data data)))
+(define (new-canvas label w h)
+  (jsexpr->json (hasheq 'action "newitem" 'item "canvas" 'label label 'width w 'height h)))
+
+(define (run-the-program s)
+  (ui-send! s (new-button "Foo"))
+  (ui-send! s (jsexpr->json
+               (hasheq 'action "newitem"
+                       'item "menu"
+                       'label "File...")))
+  (ui-send! s (jsexpr->json
+               (hasheq 'action "newitem"
+                       'item "menu"
+                       'label "Session...")))
+  (ui-send! s (jsexpr->json
+               (hasheq 'action "newitem"
+                       'item "menuitem"
+                       'label "Unsubscribe"
+                       'menuid "File..."
+                       'callback "alert(\"Unsubscribe pressed\");")))
+  (ui-send! s (jsexpr->json
+               (hasheq 'action "newitem"
+                       'item "menuitem"
+                       'label "Share Sink"
+                       'menuid "File..."
+                       'callback "alert(\"Share Sink pressed\");")))
+  (ui-send! s (jsexpr->json
+               (hasheq 'action "newitem"
+                       'item "menuitem"
+                       'label "Move Source"
+                       'menuid "File..."
+                       'callback "alert(\"Move Source pressed\");")))
+  (ui-send! s (jsexpr->json
+               (hasheq 'action "newitem"
+                       'item "menuitem"
+                       'label "Greyscale"
+                       'menuid "File..."
+                       'callback "alert(\"Greyscale pressed\");")))
+  (ui-send! s (jsexpr->json
+               (hasheq 'action "newitem"
+                       'item "menuitem"
+                       'label "Vertical Flip"
+                       'menuid "File..."
+                       'callback "alert(\"Vertical Flip pressed\");")))
+  (ui-send! s (jsexpr->json
+               (hasheq 'action "newitem"
+                       'item "menuitem"
+                       'label "Share"
+                       'menuid "Session..."
+                       'callback "alert(\"Share pressed\");")))
+  (ui-send! s (jsexpr->json
+               (hasheq 'action "newitem"
+                       'item "menuitem"
+                       'label "Move"
+                       'menuid "Session..."
+                       'callback "alert(\"Move pressed\");")))
+  (ui-send! s (jsexpr->json
+               (hasheq 'action "newitem"
+                       'item "dropdown"
+                       'label "ips"
+                       'data "ips.json")))
+  (ui-send! s (jsexpr->json
+               (hasheq 'action "newitem"
+                       'item "canvas"
+                       'label "mainvideo"
+                       'width 500
+                       'height 500))))
+
+(define s (open-a-tab (λ (json) (displayln json))))
+(ui-wait-for-readiness s)
+(run-the-program s)

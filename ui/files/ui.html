@@ -43,7 +43,7 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 			          pMenuBar.placeAt("wrapper");
        pMenuBar.startup();
 
-	websocket = new WebSocket("ws://localhost:8080/");
+	websocket = new WebSocket("ws://localhost:8080/" + window.location.search);
 	websocket.onopen = function (event) {
 	};
 	websocket.onmessage = function (event) {
