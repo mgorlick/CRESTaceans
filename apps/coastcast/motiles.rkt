@@ -20,10 +20,9 @@
                                       decoder-site-public-curl@) ; where to put decoder
      (lambda ()
        (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
+       (define my-relay (make-encoder-side-relay me@))
        ; spawn the proxy
-       (curl/send pubsub-site-public-curl@ (spawn/new (make-encoder-side-relay me@)
-                                                      (make-metadata is/proxy (nick 'encoder-side-relay))
-                                                      #f))
+       (curl/send pubsub-site-public-curl@ (spawn/new my-relay (make-metadata is/proxy (nick 'encoder-side-relay)) #f))
        (let* ([proxys-list@ (delivery/contents-sent (mailbox-get-message))]
               [proxy-subscribable@ (car proxys-list@)]
               [proxy-publishable@ (cdr proxys-list@)])
@@ -38,26 +37,26 @@
 
 (define-motile-procedure make-encoder-side-relay
   '(lambda (on-birth-notify@)
-     (define (make-subscribable-curl l)
-       (curl/new/any l '(subscribe) #f))
-     (define (can-subscribe-with-curl? c)
-       (member 'subscribe (curl/get-path c)))
-     (define (make-publishable-curl l)
-       (curl/new/any l '(publish) #f))
-     (define (can-publish-with-curl? c)
-       (member 'publish (curl/get-path c)))
-     (define (make-subscription-control-curl l)
-       (curl/new/any l '(subscription-control) (hash/new hash/eq/null 
-                                                         'allowed 'remove 
-                                                         'for-sub id)))
-     (define (can-unsubscribe? c curls)
-       (let ([meta (curl/get-meta c)]
-             [path (curl/get-path c)])
-         (and path meta 
-              (member 'subscription-control path)
-              (eq? 'remove (metadata-ref meta 'allowed))
-              (hash/contains? curls (metadata-ref meta 'for-sub)))))
      (define (this)
+       (define (can-publish-with-curl? c)
+         (member 'publish (curl/get-path c)))
+       (define (make-subscribable-curl l)
+         (curl/new/any l '(subscribe) #f))
+       (define (can-subscribe-with-curl? c)
+         (member 'subscribe (curl/get-path c)))
+       (define (make-publishable-curl l)
+         (curl/new/any l '(publish) #f))
+       (define (make-subscription-control-curl l)
+         (curl/new/any l '(subscription-control) (hash/new hash/eq/null 
+                                                           'allowed 'remove 
+                                                           'for-sub id)))
+       (define (can-unsubscribe? c curls)
+         (let ([meta (curl/get-meta c)]
+               [path (curl/get-path c)])
+           (and path meta 
+                (member 'subscription-control path)
+                (eq? 'remove (metadata-ref meta 'allowed))
+                (hash/contains? curls (metadata-ref meta 'for-sub)))))
        (define *me/ctrl (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t))
        (define me/subscribable@ (make-subscribable-curl *me/ctrl))
        (define me/publishable@ (make-publishable-curl *me/ctrl))
@@ -135,6 +134,7 @@
            [else 
             (printf "encoder relay else: ~a~n" body)
             (loop forward-relays last-sender-seen@)])))
+     (displayln "returning a new encoder side relay")
      this))
 
 ;; forward-relay is a 1-to-N router with control signals forwarded backwards to the owner.
@@ -239,21 +239,17 @@
          (define fx (metadata-ref meta "fx"))
          (define w (:VideoParams/width pms))
          (define h (:VideoParams/height pms))
-         (define buffer# (buffer-maker! w h fx))
+         (define buffobj (buffer-maker! w h fx))
          (define c (color-converter-new w h))
-         (let loop ([m message1] [effects (list (lambda (d) (yuv420p-to-rgb32 c d)))])
+         (let loop ([m message1])
            (define body (:remote/body (delivery/contents-sent m)))
-           (define fx (metadata-ref (:remote/metadata (delivery/contents-sent m)) "fx"))
-           (cond [(and buffer# (Frame? body))
-                  (video-gui-update-buffer! buffer#
-                                            (foldl (lambda (f x) (f x))
-                                                   (:Frame/data body)
-                                                   effects)
-                                            fx)
-                  (loop (mailbox-get-message) effects)]
+           ;(define fx (metadata-ref (:remote/metadata (delivery/contents-sent m)) "fx"))
+           (cond [(and buffobj (Frame? body))
+                  (video-gui-update-buffer! buffobj (yuv420p-to-rgb32 c (:Frame/data body)) fx)
+                  (loop (mailbox-get-message))]
                  [else
                   (printf "Endpoint: unknown message ~a~n" body)
-                  (loop (mailbox-get-message) effects)]))))))
+                  (loop (mailbox-get-message))]))))))
 
 (define-motile-procedure gui-controller
   '(let ()
@@ -411,6 +407,7 @@
                [else 
                 ;; unknown message
                 (k fudge on-frame-callbacks)]))
+       (displayln "video encoder starting")
        ;; main loop.
        (let loop ([fudge default-fudge]
                   [on-frame-callbacks (set/cons set/equal/null 
@@ -423,81 +420,85 @@
 (define-motile-procedure make-video-decoder/single
   '(lambda (where-to-subscribe@)
      (define (make-decoder fx)
+       (define (make-publish@ l)
+         (curl/new/any l '(publish) #f))
+       (define (make-ctrl@ l)
+         (curl/new/any l '(ctrl) #f))
+       (define (can-publish? c)
+         (member 'publish (curl/get-path c)))
+       (define (can-ctrl? c)
+         (member 'ctrl (curl/get-path c)))
+       (define (reserve-gui/get-next-pipeline@ gui@ me@)
+         (curl/send/promise gui@ (remote/new (AddCURL/new me@) (make-metadata) #f) 10000))
+       (define (add-sub/get-ctrl@ upstream@ me@)
+         (curl/send/promise upstream@ (remote/new (AddCURL/new me@) (make-metadata) #f) 10000))
+       (define (unpack-promise p); generic way to wait for a promise and look at its final-value body.
+         (:remote/body (promise/wait p 10000 #f)))
        (lambda ()
-         (define me/sub@ (curl/new/any 
-                          (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
-         (define me/ctrl@ (curl/new/any 
-                           (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
+         (define me/sub@ (make-publish@ (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t)))
+         (define me/ctrl@ (make-ctrl@ (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t)))
          (define d (vp8dec-new))
-         (define (reserve-gui/get-next-pipeline@)
-           (curl/send/promise (get-current-gui-curl) 
-                              (remote/new (AddCURL/new me/ctrl@) (make-metadata) #f)
-                              10000))
-         (define (add-sub/get-ctrl@ upstream@)
-           (curl/send/promise upstream@ 
-                              (remote/new (AddCURL/new me/sub@) (make-metadata) #f)
-                              10000))
-         (define (unpack-promise p); generic way to wait for a promise and look at its final-value body.
-           (:remote/body (promise/wait p 10000 #f)))
          ;; 1. reserve display.
-         ;; 2. add subscription.
-         (define gui-endpoint@ (unpack-promise (reserve-gui/get-next-pipeline@)))
-         (define my-sub/ctrl@ (unpack-promise (add-sub/get-ctrl@ where-to-subscribe@)))
+         (define gui-endpoint@ (unpack-promise (reserve-gui/get-next-pipeline@ (get-current-gui-curl) me/ctrl@)))
+         ;; 2. add subscription to upstream flow.
+         (define my-sub/ctrl@ (unpack-promise (add-sub/get-ctrl@ where-to-subscribe@ me/sub@)))
          ;; 3. start decoding loop
          (let loop ([fx fx])
            (define m (mailbox-get-message))
            (define body (:remote/body (delivery/contents-sent m)))
            (define desc^ (:remote/metadata (delivery/contents-sent m)))
            (define reply@ (:remote/reply (delivery/contents-sent m)))
-           (cond [(Frame? body)
-                  (let* ([params (metadata-ref desc^ "params")]
-                         [w (:VideoParams/width params)]
-                         [h (:VideoParams/height params)])
-                    (define decoded-frame (vp8dec-decode d (:Frame/data body) w h))
-                    (when decoded-frame
-                      (define processed-frame (foldl (lambda (one-fx bs) ((cdr one-fx) bs w h))
-                                                     decoded-frame
-                                                     fx))
-                      (when processed-frame
-                        (curl/send gui-endpoint@ (remote/new (Frame/new processed-frame (current-inexact-milliseconds)) 
-                                                             (hash/cons desc^ "fx" (map car fx)) #f)))))
+           (define c@ (delivery/curl-used m))
+           (cond [(and (Frame? body) (can-publish? c@))
+                  (define params (metadata-ref desc^ "params"))
+                  (define w (:VideoParams/width params))
+                  (define h (:VideoParams/height params))
+                  (define decoded-frame (vp8dec-decode d (:Frame/data body) w h))
+                  (when decoded-frame
+                    (define processed-frame (foldl (lambda (one-fx bs) ((cdr one-fx) bs w h))
+                                                   decoded-frame
+                                                   fx))
+                    (when processed-frame
+                      (curl/send gui-endpoint@ (remote/new (Frame/new processed-frame (current-inexact-milliseconds)) 
+                                                           (hash/cons desc^ "fx" (map car fx)) #f))))
                   (loop fx)]
-                 [(AddFx? body)
-                  (loop (append fx (list (cons (:AddFx/label body) (:AddFx/procedure body)))))]
-                 [(RemoveFx? body)
-                  (loop (filter (lambda (one-fx)
-                                  (not (equal? (:RemoveFx/label body) (car one-fx))))
-                                fx))]
-                 ;; following are messages send backwards across control flow path from controller.
-                 [(GetParent? body)
-                  (curl/send (delivery/promise-fulfillment m)
-                             (remote/new where-to-subscribe@ (make-metadata) #f))
-                  (loop fx)]
-                 ;;!!! FIXME !!!: this is doing connector work when it is a component.
-                 [(FwdBackward? body)
-                  (curl/send where-to-subscribe@ 
-                             (!:remote/body (delivery/contents-sent m) (:FwdBackward/msg body)))
-                  (loop fx)]
-                 [(CopyActor? body)
-                  (curl/send (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
-                             (spawn/new (make-decoder fx)
-                                        (make-metadata accepts/webm (nick 'decoder)) #f))
-                  (loop fx)]
-                 [(Quit/MV? body)
-                  (curl/send my-sub/ctrl@
-                             (remote/new (RemoveCURL/new) (make-metadata) #f))
-                  
-                  (vp8dec-delete d)
-                  (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
-                             (spawn/new (make-decoder fx)
-                                        (make-metadata accepts/webm (nick 'decoder)) #f))]
-                 [(Quit? body)
-                  (curl/send my-sub/ctrl@
-                             (remote/new (RemoveCURL/new) (make-metadata) #f))
-                  (vp8dec-delete d)]
-                 [else
-                  (displayln "Decoder throwing away a message")
-                  (loop fx)]))))
+                 [(can-ctrl? c@)
+                  (cond [(AddFx? body)
+                         (loop (append fx (list (cons (:AddFx/label body) (:AddFx/procedure body)))))]
+                        [(RemoveFx? body)
+                         (loop (filter (lambda (one-fx)
+                                         (not (equal? (:RemoveFx/label body) (car one-fx))))
+                                       fx))]
+                        ;; following are messages send backwards across control flow path from controller.
+                        [(GetParent? body)
+                         (curl/send (delivery/promise-fulfillment m)
+                                    (remote/new where-to-subscribe@ (make-metadata) #f))
+                         (loop fx)]
+                        ;;!!! FIXME !!!: this is doing connector work when it is a component.
+                        [(FwdBackward? body)
+                         (curl/send where-to-subscribe@ 
+                                    (!:remote/body (delivery/contents-sent m) (:FwdBackward/msg body)))
+                         (loop fx)]
+                        [(CopyActor? body)
+                         (curl/send (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
+                                    (spawn/new (make-decoder fx)
+                                               (make-metadata accepts/webm (nick 'decoder)) #f))
+                         (loop fx)]
+                        [(Quit/MV? body)
+                         (curl/send my-sub/ctrl@
+                                    (remote/new (RemoveCURL/new) (make-metadata) #f))
+                         
+                         (vp8dec-delete d)
+                         (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
+                                    (spawn/new (make-decoder fx)
+                                               (make-metadata accepts/webm (nick 'decoder)) #f))]
+                        [(Quit? body)
+                         (curl/send my-sub/ctrl@
+                                    (remote/new (RemoveCURL/new) (make-metadata) #f))
+                         (vp8dec-delete d)]
+                        [else
+                         (displayln "Decoder throwing away a message")
+                         (loop fx)])]))))
      (make-decoder '())))
 
 (define-motile-procedure make-video-decoder/pip
