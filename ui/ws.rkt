@@ -193,19 +193,14 @@
     (define session-id
       (match (regexp-split #rx" " cline)
         [(list #"GET" path #"HTTP/1.1")
-         (match (regexp-split #rx"session=" path)
-           [(list #"/?" sid)
-            sid])]))
+         (match (regexp-split #rx"session=" path) [(list #"/?" sid) sid])]))
     (define headers (read-headers ip))
     (define origin (header-value (headers-assq* #"Origin" headers)))
     (define accept-magic-suffix #"258EAFA5-E914-47DA-95CA-C5AB0DC85B11")
-    (define accept-magic-key
-      (base64-encode
-       (sha1-bytes
-        (open-input-bytes
-         (bytes-append
-          (header-value (headers-assq* #"Sec-WebSocket-Key" headers))
-          accept-magic-suffix)))))
+    (define accept-magic-key 
+      (base64-encode (sha1-bytes (open-input-bytes (bytes-append
+                                                    (header-value (headers-assq* #"Sec-WebSocket-Key" headers))
+                                                    accept-magic-suffix)))))
     (define (crlf op)
       (write-char #\return op)
       (write-char #\newline op))
@@ -217,21 +212,18 @@
        (make-header #"Sec-WebSocket-Location"
                     #"ws://localhost:8080/a-websocket-location")
        (make-header #"Sec-WebSocket-Accept" accept-magic-key)))
-    
     (fprintf op "HTTP/1.1 101 WebSocket Protocol Handshake")
     (crlf op)
-    (for-each (match-lambda
-                [(struct header (field value))
-                 (fprintf op "~a: ~a" field value)
-                 (crlf op)])
+    (for-each (match-lambda [(struct header (field value))
+                             (fprintf op "~a: ~a" field value)
+                             (crlf op)])
               conn-headers)
     ;(crlf op)
     (flush-output op)
     (define conn (ws-conn #f cline conn-headers session-id ip op))
     (conn-dispatch conn))
-  
   (define (read-request c p port-addresses)
-    (values #f #t)) ; do not delete! dynamically linked here
+    (values #f #t)) ; do not delete! dynamically linked here, though it's not clear from drracket tool output.
   (define-unit-binding a-tcp@
     tcp@ (import) (export tcp^))
   (define-compound-unit/infer dispatch-server@/tcp@
@@ -331,8 +323,8 @@
   (jsexpr->json (hasheq 'action "newitem" 'item "button" 'label label)))
 (define (new-menu label)
   (jsexpr->json (hasheq 'action "newitem" 'item "menu" 'label label)))
-(define (new-menu-item label callback)
-  (jsexpr->json (hasheq 'action "newitem" 'item "menuitem" 'label label 'callback callback)))
+(define (new-menu-item label parent callback)
+  (jsexpr->json (hasheq 'action "newitem" 'item "menuitem" 'menuid parent 'label label 'callback callback)))
 (define (new-dropdown label data)
   (jsexpr->json (hasheq 'action "newitem" 'item "dropdown" 'label label 'data data)))
 (define (new-canvas label w h)
@@ -340,67 +332,17 @@
 
 (define (run-the-program s)
   (ui-send! s (new-button "Foo"))
-  (ui-send! s (jsexpr->json
-               (hasheq 'action "newitem"
-                       'item "menu"
-                       'label "File...")))
-  (ui-send! s (jsexpr->json
-               (hasheq 'action "newitem"
-                       'item "menu"
-                       'label "Session...")))
-  (ui-send! s (jsexpr->json
-               (hasheq 'action "newitem"
-                       'item "menuitem"
-                       'label "Unsubscribe"
-                       'menuid "File..."
-                       'callback "alert(\"Unsubscribe pressed\");")))
-  (ui-send! s (jsexpr->json
-               (hasheq 'action "newitem"
-                       'item "menuitem"
-                       'label "Share Sink"
-                       'menuid "File..."
-                       'callback "alert(\"Share Sink pressed\");")))
-  (ui-send! s (jsexpr->json
-               (hasheq 'action "newitem"
-                       'item "menuitem"
-                       'label "Move Source"
-                       'menuid "File..."
-                       'callback "alert(\"Move Source pressed\");")))
-  (ui-send! s (jsexpr->json
-               (hasheq 'action "newitem"
-                       'item "menuitem"
-                       'label "Greyscale"
-                       'menuid "File..."
-                       'callback "alert(\"Greyscale pressed\");")))
-  (ui-send! s (jsexpr->json
-               (hasheq 'action "newitem"
-                       'item "menuitem"
-                       'label "Vertical Flip"
-                       'menuid "File..."
-                       'callback "alert(\"Vertical Flip pressed\");")))
-  (ui-send! s (jsexpr->json
-               (hasheq 'action "newitem"
-                       'item "menuitem"
-                       'label "Share"
-                       'menuid "Session..."
-                       'callback "alert(\"Share pressed\");")))
-  (ui-send! s (jsexpr->json
-               (hasheq 'action "newitem"
-                       'item "menuitem"
-                       'label "Move"
-                       'menuid "Session..."
-                       'callback "alert(\"Move pressed\");")))
-  (ui-send! s (jsexpr->json
-               (hasheq 'action "newitem"
-                       'item "dropdown"
-                       'label "ips"
-                       'data "ips.json")))
-  (ui-send! s (jsexpr->json
-               (hasheq 'action "newitem"
-                       'item "canvas"
-                       'label "mainvideo"
-                       'width 500
-                       'height 500))))
+  (ui-send! s (new-menu "File..."))
+  (ui-send! s (new-menu "Session..."))
+  (ui-send! s (new-menu-item "Unsubscribe" "File..." "alert(\"Unsubscribe pressed\");"))
+  (ui-send! s (new-menu-item "Share sink" "File..." "alert(\"Share Sink pressed\");"))
+  (ui-send! s (new-menu-item "Move source" "File..." "alert(\"Move Source pressed\");"))
+  (ui-send! s (new-menu-item "Greyscale" "File..." "alert(\"Greyscale pressed\");"))
+  (ui-send! s (new-menu-item "Vertical flip" "File..." "alert(\"Vertical Flip pressed\");"))
+  (ui-send! s (new-menu-item "Share" "Session..."  "alert(\"Share pressed\");"))
+  (ui-send! s (new-menu-item "Move" "Session..." "alert(\"Move pressed\");"));
+  (ui-send! s (new-dropdown "ips" "ips.json"))
+  (ui-send! s (new-canvas "mainvideo" 500 500)))
 
 (define s (open-a-tab (λ (json) (displayln json))))
 (ui-wait-for-readiness s)
