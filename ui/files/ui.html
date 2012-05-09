@@ -53,35 +53,35 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 				case "newitem":
 					switch(msg.item) {
 						case "button":
-							var response = AddButton(msg.label, msg.callback);
+							var response = AddButton(msg.id, msg.label, msg.callback);
 							var responsemsg = {
 								id:   response
 							  };
 							websocket.send(JSON.stringify(responsemsg));
 							break;
 						case "menu":
-							var response = AddPopupMenu(msg.label);
+							var response = AddPopupMenu(msg.id, msg.label);
 							var responsemsg = {
 								id: response
 							};
 							websocket.send(JSON.stringify(responsemsg));
 							break;
 						case "menuitem":
-							var response = AddMenuItem(msg.label, msg.menuid, msg.callback);
+							var response = AddMenuItem(msg.id, msg.label, msg.menuid, msg.callback);
 							var responsemsg = {
 								id:	response
 							};
 							websocket.send(JSON.stringify(responsemsg));
 							break;
 						case "canvas":
-							var response = AddCanvas(msg.label, msg.width, msg.height);
+							var response = AddCanvas(msg.id, msg.label, msg.width, msg.height);
 							var responsemsg = {
 								id:	response
 							};
 							websocket.send(JSON.stringify(responsemsg));
 							break;
 						case "dropdown":
-							var response = AddSelectBox(msg.label, msg.data);
+							var response = AddSelectBox(msg.id, msg.label, msg.data);
 							var responsemsg = {
 								id:	response
 							};
@@ -93,7 +93,7 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 		}
          });
 
-function AddButton(id, passedFunction)
+function AddButton(id, label, passedFunction)
 		     {
 		 		var row = document.getElementById('newbutton');
 		     	var column = document.createElement('td');
@@ -105,7 +105,7 @@ function AddButton(id, passedFunction)
 		 	document.getElementById(id).value="New Button Text";
 
 		     	var widg = new dijit.form.Button({
-		 						label: (id),
+		 						label: (label),
 		 						onClick: function()
 		 						{
 		 				 	    	// Do something:
@@ -131,21 +131,21 @@ function AddButton(id, passedFunction)
 
 
 
-			function AddPopupMenu(id)
+			function AddPopupMenu(id, label)
 			{
 			    var menu = new dijit.DropDownMenu({id:id});
 		     	pMenuBar.addChild(new dijit.PopupMenuBarItem({
-							             label: id,
+							             label: label,
 							             popup:menu
 						         }));
 			}
 
-			function AddMenuItem(id, menuid, passedFunction)
+			function AddMenuItem(id, label, menuid, passedFunction)
 			{
 				var menu = dijit.byId(menuid);
 				menu.addChild(new dijit.MenuItem({
 						 id: id,
-			             label:id,
+			             label:label,
 			             onClick: function() { eval(passedFunction) }
 			         }));
 			}
@@ -170,7 +170,7 @@ function AddButton(id, passedFunction)
 				}
 			}, 1000);*/
 
-			function AddSelectBox(id, datajsonfile)
+			function AddSelectBox(id, label, datajsonfile)
 			{
 			var dataStore = new dojo.data.ItemFileReadStore({
 			                url: datajsonfile
