@@ -325,8 +325,8 @@
 
 (define (new-menu-item label parent callback)
   (define id (make-interface-action-id label))
-  (printf "attaching ~a to ~a~n" id (interface-action-identifier parent))
-  (interface-action id (jsexpr->json (hasheq 'action "newitem" 'id id 'item "menuitem" 'menuid (interface-action-identifier parent) 'label label 'callback callback))))
+  (interface-action id (jsexpr->json (hasheq 'action "newitem" 'id id 'item "menuitem" 'menuid (interface-action-identifier parent)
+                                             'label label 'callback callback))))
 
 (define (new-dropdown label data)
   (define id (make-interface-action-id label))
