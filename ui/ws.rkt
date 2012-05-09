@@ -308,27 +308,43 @@
   (send-url (string-append "http://localhost:" (number->string BROWSER-PORT) BROWSER-PATH "?session=" (bytes->string/utf-8 id)))
   s)
 
+(struct interface-action (identifier jsexpr))
+
+(define (make-interface-action-id label)
+  (define-values (pk _) (nacl:crypto-box-keypair))
+  (define id (base64-url-encode pk))
+  (string-append label (bytes->string/utf-8 id) ":" (symbol->string (gensym))))
+
+(define (new-button label)
+  (define id (make-interface-action-id label))
+  (interface-action label (jsexpr->json (hasheq 'action "newitem" 'id id 'item "button" 'label label))))
+
+(define (new-menu label)
+  (define id (make-interface-action-id label))
+  (interface-action label (jsexpr->json (hasheq 'action "newitem" 'id id 'item "menu" 'label label))))
+
+(define (new-menu-item label parent callback)
+  (define id (make-interface-action-id label))
+  (interface-action label (jsexpr->json (hasheq 'action "newitem" 'id id 'item "menuitem" 'menuid (interface-action-identifier parent) 'label label 'callback callback))))
+
+(define (new-dropdown label data)
+  (define id (make-interface-action-id label))
+  (interface-action label (jsexpr->json (hasheq 'action "newitem" 'id id 'item "dropdown" 'label label 'data data))))
+
+(define (new-canvas label w h)
+  (define id (make-interface-action-id label))
+  (interface-action label (jsexpr->json (hasheq 'action "newitem" 'id id 'item "canvas" 'label label 'width w 'height h))))
+
+;; actions
+
 (define (ui-ready-to-send? s)
   (thread? (session-out-thd s)))
 (define (ui-wait-for-readiness s)
   (semaphore-wait (session-ready-sema s)))
 (define (ui-send! s v)
-  (thread-send (session-out-thd s) v))
-
-;; -------
-;; example
-;; -------
-
-(define (new-button label)
-  (jsexpr->json (hasheq 'action "newitem" 'item "button" 'label label)))
-(define (new-menu label)
-  (jsexpr->json (hasheq 'action "newitem" 'item "menu" 'label label)))
-(define (new-menu-item label parent callback)
-  (jsexpr->json (hasheq 'action "newitem" 'item "menuitem" 'menuid parent 'label label 'callback callback)))
-(define (new-dropdown label data)
-  (jsexpr->json (hasheq 'action "newitem" 'item "dropdown" 'label label 'data data)))
-(define (new-canvas label w h)
-  (jsexpr->json (hasheq 'action "newitem" 'item "canvas" 'label label 'width w 'height h)))
+  (cond [(interface-action? v)
+         (thread-send (session-out-thd s) (interface-action-jsexpr v))]
+        [else (error "tried to send a value that wasn't an interface-action across a websocket connection")]))
 
 (provide new-button
          new-menu
