@@ -325,7 +325,7 @@
 
 (define (new-menu-item label parent callback)
   (define id (make-interface-action-id label))
-  (interface-action label (jsexpr->json (hasheq 'action "newitem" 'id id 'item "menuitem" 'menuid parent 'label label 'callback callback))))
+  (interface-action label (jsexpr->json (hasheq 'action "newitem" 'id id 'item "menuitem" 'menuid (interface-action-identifier parent) 'label label 'callback callback))))
 
 (define (new-dropdown label data)
   (define id (make-interface-action-id label))
