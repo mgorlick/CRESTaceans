@@ -7,9 +7,200 @@
     <link rel="stylesheet" href="style.css" >
 	  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dijit/themes/claro/claro.css">
   <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dojo/dojo.js" data-dojo-config="async: true"></script>
+  <script src="http://glmatrix.googlecode.com/files/glMatrix-0.9.5.min.js"></script>
+  <script src="https://cvs.khronos.org/svn/repos/registry/trunk/public/webgl/sdk/demos/common/webgl-utils.js"></script>
+
+    <script id="shader-fs" type="x-shader/x-fragment">
+	    precision mediump float;
+
+	    void main(void) {
+	        gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+	    }
+	</script>
+
+	<script id="shader-vs" type="x-shader/x-vertex">
+	    attribute vec3 aVertexPosition;
+
+	    uniform mat4 uMVMatrix;
+	    uniform mat4 uPMatrix;
+
+	    void main(void) {
+	        gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+	    }
+	</script>
+
     <script type="text/javascript"><!--
     var pMenuBar;
     var websocket;
+
+    var gl;
+	    function initGL(canvas) {
+	        try {
+	            gl = canvas.getContext("experimental-webgl");
+	            gl.viewportWidth = canvas.width;
+	            gl.viewportHeight = canvas.height;
+	        } catch (e) {
+	        }
+	        if (!gl) {
+	            alert("Could not initialise WebGL, sorry :-(");
+	        }
+    }
+
+var videoBuffer;
+    function initBuffers() {
+	        videoBuffer = gl.createBuffer();
+	        gl.bindBuffer(gl.ARRAY_BUFFER, videoBuffer);
+	        var vertices = [
+	             0.0,  1.0,  0.0,
+	            -1.0, -1.0,  0.0,
+	             1.0, -1.0,  0.0
+	        ];
+	        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+	        videoBuffer.itemSize = 3;
+	        videoBuffer.numItems = 3;
+    }
+
+    function getShader(gl, id) {
+	        var shaderScript = document.getElementById(id);
+	        if (!shaderScript) {
+	            return null;
+	        }
+
+	        var str = "";
+	        var k = shaderScript.firstChild;
+	        while (k) {
+	            if (k.nodeType == 3) {
+	                str += k.textContent;
+	            }
+	            k = k.nextSibling;
+	        }
+
+	        var shader;
+	        if (shaderScript.type == "x-shader/x-fragment") {
+	            shader = gl.createShader(gl.FRAGMENT_SHADER);
+	        } else if (shaderScript.type == "x-shader/x-vertex") {
+	            shader = gl.createShader(gl.VERTEX_SHADER);
+	        } else {
+	            return null;
+	        }
+
+	        gl.shaderSource(shader, str);
+	        gl.compileShader(shader);
+
+	        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+	            alert(gl.getShaderInfoLog(shader));
+	            return null;
+	        }
+
+	        return shader;
+	    }
+
+
+	    var shaderProgram;
+
+	    function initShaders() {
+	        var fragmentShader = getShader(gl, "shader-fs");
+	        var vertexShader = getShader(gl, "shader-vs");
+
+	        shaderProgram = gl.createProgram();
+	        gl.attachShader(shaderProgram, vertexShader);
+	        gl.attachShader(shaderProgram, fragmentShader);
+	        gl.linkProgram(shaderProgram);
+
+	        if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+	            alert("Could not initialise shaders");
+	        }
+
+	        gl.useProgram(shaderProgram);
+
+	        shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
+	        gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
+
+	        shaderProgram.pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
+	        shaderProgram.mvMatrixUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
+	    }
+
+
+	    var mvMatrix = mat4.create();
+	    var pMatrix = mat4.create();
+
+	    function setMatrixUniforms() {
+	        gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, pMatrix);
+	        gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mvMatrix);
+    }
+
+    var mvMatrix = mat4.create();
+	    var mvMatrixStack = [];
+	    var pMatrix = mat4.create();
+
+	    function mvPushMatrix() {
+	        var copy = mat4.create();
+	        mat4.set(mvMatrix, copy);
+	        mvMatrixStack.push(copy);
+	    }
+
+	    function mvPopMatrix() {
+	        if (mvMatrixStack.length == 0) {
+	            throw "Invalid popMatrix!";
+	        }
+	        mvMatrix = mvMatrixStack.pop();
+	    }
+
+
+	    function setMatrixUniforms() {
+	        gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, pMatrix);
+	        gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mvMatrix);
+	    }
+
+
+	    function degToRad(degrees) {
+	        return degrees * Math.PI / 180;
+    }
+
+    var rTri = 0;
+
+	    function drawScene() {
+	        gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+	        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+	        mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+
+	        mat4.identity(mvMatrix);
+
+	        mat4.translate(mvMatrix, [-1.5, 0.0, -7.0]);
+
+	        mvPushMatrix();
+	        mat4.rotate(mvMatrix, degToRad(rTri), [0, 1, 0]);
+
+	        gl.bindBuffer(gl.ARRAY_BUFFER, videoBuffer);
+	        gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, videoBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+	        gl.bindBuffer(gl.ARRAY_BUFFER, videoBuffer);
+	        gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, videoBuffer.itemSize, gl.FLOAT, false, 0, 0);
+
+	        setMatrixUniforms();
+	        gl.drawArrays(gl.TRIANGLES, 0, videoBuffer.numItems);
+	        mvPopMatrix();
+    }
+
+    var lastTime = 0;
+
+	    function animate() {
+	        var timeNow = new Date().getTime();
+	        if (lastTime != 0) {
+	            var elapsed = timeNow - lastTime;
+
+	            rTri += (90 * elapsed) / 1000.0;
+	            rSquare += (75 * elapsed) / 1000.0;
+	        }
+	        lastTime = timeNow;
+    }
+
+    function tick() {
+	        requestAnimFrame(tick);
+	        drawScene();
+	        animate();
+    }
 
 require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dijit/form/NumberTextBox",
          "dijit/DropDownMenu", "dijit/MenuItem", "dijit/form/DropDownButton", "dijit/MenuBar", "dijit/Menu", "dijit/MenuBarItem",
@@ -42,6 +233,7 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 
 			          pMenuBar.placeAt("wrapper");
        pMenuBar.startup();
+       //webGLStart();
 
 	websocket = new WebSocket("ws://localhost:8080/" + window.location.search);
 	websocket.onopen = function (event) {
@@ -184,8 +376,19 @@ function AddButton(id, label, passedFunction)
 			                maxHeight: -1 // tells _HasDropDown to fit menu within viewport
 			            }, "select");
             			select.startup();
-						
+
 			}
+
+			function webGLStart() {
+			    var canvas = document.getElementById("vid");
+			    initGL(canvas);
+			    initBuffers();
+				initShaders();
+			    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+			    gl.enable(gl.DEPTH_TEST);
+
+			    tick();
+  			}
     // --></script>
   </head>
   <body class="claro">
@@ -194,7 +397,7 @@ function AddButton(id, label, passedFunction)
     <button id="addmenu" type="button" onClick="AddPopupMenu('Options')">Create new menu</button>
     <button id="addmenuitem" type="button" onClick="AddMenuItem('Preferences', 'Options', function(){ alert('Preferences pressed!');})">Create new menu item</button>
     <button id="addmenuitem" type="button" onClick="AddMenuItem('About', 'Options', function(){ alert('About pressed!');})">Create about</button>
-    <button id="addcanvas" type="button" onClick="AddCanvas('vid', 500, 500)">Create canvas</button>
+    <button id="addcanvas" type="button" onClick="AddCanvas('vid', 500, 500); webGLStart();">Create canvas</button>
     <button id="addselect" type="button" onClick="AddSelectBox('sel', 'ips.json')">Create Select</button>
     <!-- button id="addselector" type="button" onClick="AddCanvas('vid', 500, 500)">Create canvas</button -->
 
