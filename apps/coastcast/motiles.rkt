@@ -170,11 +170,7 @@
               ;; interact with that subscription.
               (when reply-to
                 (curl/send reply-to
-                           (remote/new (curl/new/any *me/ctrl
-                                                     null
-                                                     (hash/new hash/eq/null
-                                                               'allowed 'remove
-                                                               'for-sub id))
+                           (remote/new (curl/new/any *me/ctrl null (hash/new hash/eq/null 'allowed 'remove 'for-sub id))
                                        null #f)))
               ;(printf "Adding ~a ~n => ~a~n" id (:AddCURL/curl body))
               ;(displayln "to")
@@ -236,7 +232,7 @@
        (let* ([message1 (mailbox-get-message)])
          (define meta (:remote/metadata (delivery/contents-sent message1)))
          (define pms (metadata-ref meta "params"))
-         (define fx (metadata-ref meta "fx"))
+         (define fx (hash/ref meta "fx" '()))
          (define w (:VideoParams/width pms))
          (define h (:VideoParams/height pms))
          (define buffobj (buffer-maker! w h fx))
