@@ -21,6 +21,30 @@
 
 (provide (all-defined-out))
 
+(define-motile-procedure curry>
+  '(lambda f.rightmost
+     (define f (car f.rightmost)) (define rightmost (cdr f.rightmost))
+     (lambda args
+       (apply f (append args rightmost)))))
+(define-motile-procedure curry<
+  '(lambda f.leftmost
+     (define f (car f.leftmost)) (define leftmost (cdr f.leftmost))
+     (lambda args
+       (apply f (append leftmost args)))))
+(define-motile-procedure $
+  '(letrec ([compose (lambda fs
+                       (cond [(null? (cdr fs))
+                              (car fs)]
+                             [else
+                              (lambda xs
+                                ((car fs) (apply (apply compose (cdr fs)) xs)))]))])
+     compose))
+(define-motile-procedure flip
+  '(lambda (f)
+     (lambda (b a)
+       (f a b))))
+(define-motile-procedure id
+  '(lambda (x) x))
 
 ;; extra stuff to put in baseline. this should eventually be moved to Motile/baseline.rkt
 (define-syntax-rule (global-value-defines id ...)
@@ -163,7 +187,12 @@
                                           canvas-endpoint 
                                           linker-bang
                                           make-video-decoder/single
-                                          make-video-decoder/pip)
+                                          ;make-video-decoder/pip
+                                          curry<
+                                          curry>
+                                          $
+                                          id
+                                          flip)
       (global-value-defines accepts/webm 
                             produces/webm 
                             type/webm

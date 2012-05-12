@@ -451,9 +451,7 @@
                   (define h (:VideoParams/height params))
                   (define decoded-frame (vp8dec-decode d (:Frame/data body) w h))
                   (when decoded-frame
-                    (define processed-frame (foldl (lambda (one-fx bs) ((cdr one-fx) bs w h))
-                                                   decoded-frame
-                                                   fx))
+                    (define processed-frame (foldl (curry> apply (list w h)) decoded-frame (map cdr fx)))
                     (when processed-frame
                       (curl/send gui-endpoint@ (remote/new (Frame/new processed-frame (current-inexact-milliseconds)) 
                                                            (hash/cons desc^ "fx" (map car fx)) #f))))
@@ -462,8 +460,7 @@
                   (cond [(AddFx? body)
                          (loop (append fx (list (cons (:AddFx/label body) (:AddFx/procedure body)))))]
                         [(RemoveFx? body)
-                         (loop (filter (lambda (one-fx)
-                                         (not (equal? (:RemoveFx/label body) (car one-fx))))
+                         (loop (filter (lambda (one-fx) (not (equal? (:RemoveFx/label body) (car one-fx))))
                                        fx))]
                         ;; following are messages send backwards across control flow path from controller.
                         [(GetParent? body)
