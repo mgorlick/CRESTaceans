@@ -9,7 +9,6 @@
          "../../Motile/baseline.rkt"
          "../../Motile/compile/compile.rkt"
          "../../Motile/generate/baseline.rkt"
-         "../../Motile/actor/island.rkt"
          "../../Motile/actor/curl.rkt"
          "../../Motile/actor/locative.rkt"
          "../../Motile/actor/promise.rkt"
@@ -108,9 +107,6 @@
                       A-LONG-TIME
                       sleep*
                       make-uuid
-                      island/address/get-dns
-                      island/address/get-port
-                      island/address/get-public
                       curl?
                       curl/ok?
                       curl/intra?
@@ -120,8 +116,6 @@
                       curl/send/promise
                       curl/pretty
                       curl/get-meta
-                      curl/get-path
-                      curl/get-island-address
                       curl/target=?
                       locative?
                       locative/revoked?
@@ -133,16 +127,12 @@
                       promise/kept?
                       promise/ruined?
                       promise/wait
-                      promise/new
-                      promise/to-fulfill
-                      promise/result
                       delivery?
                       delivery/contents-sent
                       delivery/curl-used
                       delivery/promise-fulfillment
                       big-bang
-                      encoder-side-relay
-                      forward-relay
+                      pubsubproxy
                       video-reader/encoder
                       video-decoder/single
                       gui-controller)
