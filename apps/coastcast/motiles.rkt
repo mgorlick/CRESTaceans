@@ -88,7 +88,7 @@
                    (loop forward-relays (:remote/reply contents))]
                   ;; new subscription request: does it have the authority to subscribe?
                   [(AddCURL? body) 
-                        ;(can-subscribe-with-curl? curl-used))
+                   ;(can-subscribe-with-curl? curl-used))
                    (let* ([subscriber-island-address (curl/get-island-address (:AddCURL/curl body))])
                      ;; is there a forward relay for this flow already deployed 
                      ;; on the island on which the new subscriber is resident?
@@ -159,9 +159,7 @@
                 (cond
                   ;; the types that the router knows to send forward.
                   [(Frame? body)
-                   (let ([content/hidden-location (!:remote/reply contents me@)])
-                     (hash/for-each curls 
-                                    (lambda (id.subber@) (curl/send (cdr id.subber@) content/hidden-location))))
+                   (hash/for-each curls (lambda (id.subber@) (curl/send (cdr id.subber@) contents)))
                    (loop curls (:remote/reply contents))]
                   ;; the control messages coming from the forward direction,
                   ;; directed at the router.
@@ -495,7 +493,8 @@
                                     1000)))]
              [add-self-subscription ; subscribe to an upstream contact point.
               (lambda (prox@ me@)
-                (printf "~s~n" (curl/send prox@ (remote/new (AddCURL/new me@) '() #f))))]
+                (unpack-promise
+                 (curl/send/promise prox@ (remote/new (AddCURL/new me@) '() #f) 1000)))]
              [remove-self-subscription ; remove subscription from an upstream contact point.
               (lambda (prox@ me@)
                 (curl/send prox@ (remote/new (RemoveCURL/new) '() #f)))]
