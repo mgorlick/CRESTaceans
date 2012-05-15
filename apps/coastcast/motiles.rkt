@@ -123,8 +123,11 @@
                                           (curl/send promise-fulfillment 
                                                      (error/new "couldn't spawn a forward relay on your island" m)))
                                         (loop forward-relays last-sender-seen@)]))))]))]
-                  [(and (RemoveCURL? body) (can-unsubscribe? curl-used))
-                   (loop (hash/remove forward-relays (curl/get-island-address (:RemoveCURL/curl body))) last-sender-seen@)]
+                  [(and (RemoveCURL? body) (can-unsubscribe? curl-used forward-relays))
+                   (displayln "Removing")
+                   (let ([fwds(hash/remove forward-relays (curl/get-island-address (:RemoveCURL/curl body)))])
+                     (displayln "Removed")
+                     (loop fwds last-sender-seen@))]
                   ;; the messages that the router is hardwired to send backward to the sender using it.
                   [(AddBehaviors? body)
                    (when last-sender-seen@ (curl/send last-sender-seen@ contents))
