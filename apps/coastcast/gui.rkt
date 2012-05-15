@@ -141,10 +141,10 @@
       item))
   (define swap-pip-order (new menu-item%
                               [parent compose-menu] [label "Swap PIP ordering"]
-                              [callback (λ _(cb (InitiateBehavior/new 'split (get-current-flow-curl))))]))
+                              [callback (λ _(cb (InitiateBehavior/new 'toggle-major/minor (get-current-flow-curl))))]))
   (define split-pip-into-components (new menu-item%
                                          [parent compose-menu] [label "Split PIP into component flows"]
-                                         [callback (λ _ (cb (InitiateBehavior/new 'toggle-major/minor (get-current-flow-curl))))]))
+                                         [callback (λ _ (cb (InitiateBehavior/new 'split (get-current-flow-curl))))]))
   
   (define session-menu (new menu% [parent menu-bar] [label "Session..."]))
   (define share-session (new menu-item%
@@ -495,7 +495,7 @@
     (define refresher
       (new timer% 
            [notify-callback (λ () (refresh))]
-           [interval 250] 
+           [interval 1000] 
            [just-once? #f]))
     (resume-flush)))
 
