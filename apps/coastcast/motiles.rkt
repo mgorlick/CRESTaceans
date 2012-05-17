@@ -401,7 +401,7 @@
                          ; wait for a response to the promise so that we know it's safe to quit
                          (let ([r (promise/wait (promise/result p) 1 #f)])
                            (unless r
-                             (alert "The new encoder service never started. Resuming service here instead.")
+                             (alert "The new encoder service never started. Perhaps the island you requested is offline, or maybe the camera there is already being used. Resuming service here instead.")
                              ; we cleaned up already, but the new one didn't start apparently.
                              ; let's restart this actor instead.
                              (f))))]
