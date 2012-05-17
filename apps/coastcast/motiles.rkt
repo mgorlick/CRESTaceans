@@ -333,7 +333,11 @@
 (define (video-reader/encoder devname w h where-to-publish@)
   (motile/compile
    `(letrec 
-        ([f (lambda extra-notifies
+        ([make-self-copy-with-notify
+          (lambda (c)
+            (lambda ()
+              (f c)))]
+         [f (lambda extra-notifies
               (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
               (define default-fudge 0.5) ; used as a FACTOR of the overall framerate.
               ;; i.e., a default-fudge of 0.5 at a camera-specified framerate of 20 fps results in a
@@ -390,15 +394,17 @@
                        ;; clean up all the resources associated with a behavior (f #f)
                        (set/map on-frame-callbacks (lambda (f) (f #f)))
                        (let ([p (promise/new 10000)])
+                         (displayln body)
                          (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
-                                    (spawn/new (f (promise/to-fulfill p))
+                                    (spawn/new (make-self-copy-with-notify (promise/to-fulfill p))
                                                (make-metadata produces/webm (nick 'encoder)) #f))
                          ; wait for a response to the promise so that we know it's safe to quit
-                         (unless (promise/wait (promise/result p) 5 #f)
-                           (alert (format "The new encoder service never started.~nResuming service here instead."))
-                           ; we cleaned up already, but the new one didn't start apparently.
-                           ; let's restart this actor instead.
-                           (f)))]
+                         (let ([r (promise/wait (promise/result p) 1 #f)])
+                           (unless r
+                             (alert "The new encoder service never started. Resuming service here instead.")
+                             ; we cleaned up already, but the new one didn't start apparently.
+                             ; let's restart this actor instead.
+                             (f))))]
                       [else 
                        ;; unknown message
                        (k fudge on-frame-callbacks)]))
