@@ -4,7 +4,7 @@
 (require "motiles.rkt"
          "envs.rkt"
          "message-types.rkt"
-         "config.rkt"
+         "config-for-irf.rkt"
          "../../peer/src/net/tcp-peer.rkt"         
          "../../Motile/persistent/hash.rkt"
          "../../Motile/compile/serialize.rkt"

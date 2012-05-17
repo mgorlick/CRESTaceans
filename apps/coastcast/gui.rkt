@@ -6,7 +6,7 @@
          racket/contract
          ffi/vector
          "message-types.rkt"
-         "config.rkt"
+         "config-for-irf.rkt"
          "../../Motile/actor/curl.rkt"
          "../../Motile/actor/send.rkt"
          (planet "rgl.rkt" ("stephanh" "RacketGL.plt")))
