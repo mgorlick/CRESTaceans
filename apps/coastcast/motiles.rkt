@@ -333,7 +333,7 @@
 (define (video-reader/encoder devname w h where-to-publish@)
   (motile/compile
    `(letrec 
-        ([f (lambda ()
+        ([f (lambda extra-notifies
               (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
               (define default-fudge 0.5) ; used as a FACTOR of the overall framerate.
               ;; i.e., a default-fudge of 0.5 at a camera-specified framerate of 20 fps results in a
@@ -385,21 +385,28 @@
               ;; do a control message check when the encoder receives any message.
               (define (do-control-message! k fudge on-frame-callbacks)
                 (define body (:remote/body (delivery/contents-sent (mailbox-get-message))))
-                (cond [(AddBehaviors? body)
-                       ;; add new behaviors to the set of behaviors.
-                       (k fudge (foldl (lambda (behavior-ctor cbs)
-                                         (set/cons cbs (behavior-ctor params make-callback)))
-                                       on-frame-callbacks
-                                       (AddBehaviors.new-behaviors body)))]
-                      [(Quit/MV? body)
+                (cond [(Quit/MV? body)
                        (video-reader-delete vreader)
                        ;; clean up all the resources associated with a behavior (f #f)
                        (set/map on-frame-callbacks (lambda (f) (f #f)))
-                       (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
-                                  (spawn/new f (make-metadata produces/webm (nick 'encoder)) #f))]
+                       (let ([p (promise/new 10000)])
+                         (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
+                                    (spawn/new (f (promise/to-fulfill p))
+                                               (make-metadata produces/webm (nick 'encoder)) #f))
+                         ; wait for a response to the promise so that we know it's safe to quit
+                         (unless (promise/wait (promise/result p) 5 #f)
+                           (alert (format "The new encoder service never started.~nResuming service here instead."))
+                           ; we cleaned up already, but the new one didn't start apparently.
+                           ; let's restart this actor instead.
+                           (f)))]
                       [else 
                        ;; unknown message
                        (k fudge on-frame-callbacks)]))
+              
+              ;; if there are any extra-notifies specified then notify them that we're about to start - i.e. camera already reserved
+              (when (not (null? extra-notifies))
+                (map (lambda (c) (curl/send c #t)) extra-notifies))
+              
               ;; main loop.
               (let loop ([fudge default-fudge]
                          [on-frame-callbacks (set/cons set/equal/null 

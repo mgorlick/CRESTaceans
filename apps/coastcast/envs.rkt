@@ -15,6 +15,7 @@
          "../../Motile/actor/promise.rkt"
          "../../Motile/actor/delivery.rkt"
          "../../Motile/actor/send.rkt"
+         racket/gui/base
          racket/require
          racket/function
          racket/list
@@ -87,6 +88,12 @@
      `((id . ,(eval-definition id))
        ...)]))
 
+(define (alert s)
+  (thread 
+   (λ ()
+     (parameterize ([current-eventspace (make-eventspace)]) 
+       (message-box "Alert" s #f '(ok))))))
+
 ;; binding environments used.
 (define MULTIMEDIA-BASE
   (++ BASELINE
@@ -107,6 +114,7 @@
                       from
                       A-LONG-TIME
                       sleep*
+                      alert
                       make-uuid
                       island/address/get-dns
                       island/address/get-port
