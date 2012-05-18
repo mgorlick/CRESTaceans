@@ -146,11 +146,11 @@
                                          [parent compose-menu] [label "Split PIP into component flows"]
                                          [callback (λ _ (cb (InitiateBehavior/new 'split (get-current-flow-curl))))]))
   
-  (define session-menu (new menu% [parent menu-bar] [label "Session..."]))
+  #|(define session-menu (new menu% [parent #f] [label "Session..."] ))
   (define share-session (new menu-item%
                              [parent session-menu] [label "Share"] [callback (λ _ (do-share-session))]))
   (define move-session (new menu-item%
-                            [parent session-menu] [label "Move"] [callback (λ _ (do-move-session))]))
+                            [parent session-menu] [label "Move"] [callback (λ _ (do-move-session))]))|#
   
   ;; context for menu operations: dns/port combinations naming islands to send computations to.
   
