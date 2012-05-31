@@ -8,7 +8,8 @@
 	  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dijit/themes/claro/claro.css">
   <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dojo/dojo.js" data-dojo-config="async: true"></script>
   <script src="http://glmatrix.googlecode.com/files/glMatrix-0.9.5.min.js"></script>
-  <script src="https://cvs.khronos.org/svn/repos/registry/trunk/public/webgl/sdk/demos/common/webgl-utils.js"></script>
+  <!-- script src="https://cvs.khronos.org/svn/repos/registry/trunk/public/webgl/sdk/demos/common/webgl-utils.js"></script-->
+	<script src="webgl-utils.js"></script>
 
    <!-- vertex shader -->
 <script id="2d-vertex-shader" type="x-shader/x-vertex">
@@ -54,216 +55,6 @@ void main() {
     <script type="text/javascript"><!--
     var pMenuBar;
     var websocket;
-
-    var gl;
-	    function initGL(canvas) {
-	        try {
-	            gl = canvas.getContext("experimental-webgl");
-	            gl.viewportWidth = canvas.width;
-	            gl.viewportHeight = canvas.height;
-	        } catch (e) {
-	        }
-	        if (!gl) {
-	            alert("Could not initialise WebGL, sorry :-(");
-	        }
-    }
-
-var videoBuffer;
-    function initBuffers() {
-			var texCoordLocation = gl.getAttribLocation(shaderProgram, "a_texCoord");
-	        videoBuffer = gl.createBuffer();
-	        gl.bindBuffer(gl.ARRAY_BUFFER, videoBuffer);
-	        var vertices = [
-				 1.0,  1.0,  0.0,
-	            -1.0,  1.0,  0.0,
-	             1.0, -1.0,  0.0,
-	            -1.0, -1.0,  0.0
-	        ];
-	        gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
-	        videoBuffer.itemSize = 3;
-	        videoBuffer.numItems = 4;
-			gl.enableVertexAttribArray(texCoordLocation);
-			gl.vertexAttribPointer(texCoordLocation, 2, gl.FLOAT, false, 0, 0);
-
-    }
-
-    function getShader(gl, id) {
-	        var shaderScript = document.getElementById(id);
-	        if (!shaderScript) {
-	            return null;
-	        }
-
-	        var str = "";
-	        var k = shaderScript.firstChild;
-	        while (k) {
-	            if (k.nodeType == 3) {
-	                str += k.textContent;
-	            }
-	            k = k.nextSibling;
-	        }
-
-	        var shader;
-	        if (shaderScript.type == "x-shader/x-fragment") {
-	            shader = gl.createShader(gl.FRAGMENT_SHADER);
-	        } else if (shaderScript.type == "x-shader/x-vertex") {
-	            shader = gl.createShader(gl.VERTEX_SHADER);
-	        } else {
-	            return null;
-	        }
-
-	        gl.shaderSource(shader, str);
-	        gl.compileShader(shader);
-
-	        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-	            alert(gl.getShaderInfoLog(shader));
-	            return null;
-	        }
-
-	        return shader;
-	    }
-
-
-	    var shaderProgram;
-
-	    function initShaders() {
-	        var fragmentShader = getShader(gl, "shader-fs");
-	        var vertexShader = getShader(gl, "shader-vs");
-
-	        shaderProgram = gl.createProgram();
-	        gl.attachShader(shaderProgram, vertexShader);
-	        gl.attachShader(shaderProgram, fragmentShader);
-	        gl.linkProgram(shaderProgram);
-
-	        if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-	            alert("Could not initialise shaders");
-	        }
-
-	        gl.useProgram(shaderProgram);
-
-	        shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
-	        gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
-
-	        //shaderProgram.pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
-	        //shaderProgram.mvMatrixUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
-			var resolutionLocation = gl.getUniformLocation(shaderProgram, "u_resolution");
-			gl.uniform2f(resolutionLocation, gl.viewportWidth, gl.viewportHeight);
-	    }
-
-
-	    var mvMatrix = mat4.create();
-	    var pMatrix = mat4.create();
-
-	    function setMatrixUniforms() {
-	        gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, pMatrix);
-	        gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mvMatrix);
-    }
-
-    var mvMatrix = mat4.create();
-	    var mvMatrixStack = [];
-	    var pMatrix = mat4.create();
-
-	    function mvPushMatrix() {
-	        var copy = mat4.create();
-	        mat4.set(mvMatrix, copy);
-	        mvMatrixStack.push(copy);
-	    }
-
-	    function mvPopMatrix() {
-	        if (mvMatrixStack.length == 0) {
-	            throw "Invalid popMatrix!";
-	        }
-	        mvMatrix = mvMatrixStack.pop();
-	    }
-
-
-	    function setMatrixUniforms() {
-	        gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, pMatrix);
-	        gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, mvMatrix);
-	    }
-
-
-	    function degToRad(degrees) {
-	        return degrees * Math.PI / 180;
-    }
-
-    var rTri = 0;
-
-	    function drawScene() {
-	        //gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-			
-textureFromPixelArray(gl, [0,0,0,0,
-0,0,0,0,
-0,0,0,0,
-0,0,0,0,
-0,0,0,0,
-0,0,0,0,
-0,0,0,0,
-0,0,0,0,
-0,0,0,0,
-0,0,0,0,
-0,0,0,0,
-0,0,0,0,
-0,0,0,0,
-0,0,0,0,
-0,0,0,0], gl.RGBA, 5, 3);
-			gl.viewport(0,0,5,3);	        
-			gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-	        //mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
-
-	        //mat4.identity(mvMatrix);
-
-	       // mat4.translate(mvMatrix, [0, 0, 0]);
-
-	       // mvPushMatrix();
-	        //mat4.rotate(mvMatrix, degToRad(rTri), [0, 1, 0]);
-
-	        gl.bindBuffer(gl.ARRAY_BUFFER, videoBuffer);
-	        gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, videoBuffer.itemSize, gl.FLOAT, false, 0, 0);
-
-	        //gl.bindBuffer(gl.ARRAY_BUFFER, videoBuffer);
-	        //gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, videoBuffer.itemSize, gl.FLOAT, false, 0, 0);
-
-			gl.activeTexture(gl.TEXTURE0);
-			gl.bindTexture(gl.TEXTURE_2D, texture);
-			//gl.uniform1i(shaderProgram.samplerUniform, 0);
-
-			//setMatrixUniforms();
-	        gl.drawArrays(gl.TRIANGLE_STRIP, 0, videoBuffer.numItems);
-	        //mvPopMatrix();
-    }
-
-    var lastTime = 0;
-
-	    function animate() {
-	        var timeNow = new Date().getTime();
-	        if (lastTime != 0) {
-	            var elapsed = timeNow - lastTime;
-
-	            rTri += (90 * elapsed) / 1000.0;
-	            rSquare += (75 * elapsed) / 1000.0;
-	        }
-	        lastTime = timeNow;
-    }
-
-    function tick() {
-	       // requestAnimFrame(tick);
-		alert('drawing!');
-	        drawScene();
-	        //animate();
-    }
-
-	var texture;
-	//from Stack Overflow webgl-create-texture: http://www.stackoverflow.com/questions/9046643/webgl-create-texture
-	function textureFromPixelArray(gl, dataArray, type, width, height) {
-		if (texture == null) {
-			texture = gl.createTexture();
-		}		
-		var dataTypedArray = new Uint8Array(dataArray);
-		gl.bindTexture(gl.TEXTURE_2D, texture);
-		gl.texImage2D(gl.TEXTURE_2D, 0, type, width, height, 0, type, gl.UNSIGNED_BYTE, dataTypedArray);
-		gl.bindTexture(gl.TEXTURE_2D, null); //clean up
-	}
 
 require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dijit/form/NumberTextBox",
          "dijit/DropDownMenu", "dijit/MenuItem", "dijit/form/DropDownButton", "dijit/MenuBar", "dijit/Menu", "dijit/MenuBarItem",
@@ -344,6 +135,12 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 							break;
 					}
 					break;
+				case "updateitem":
+					switch(msg.item) {
+						case "canvas":
+							updateCanvas(msg.id, msg.data);
+							break;
+					}
 			}
 		}
          });
@@ -405,15 +202,35 @@ function AddButton(id, label, passedFunction)
 			         }));
 			}
 
+			//keep track of all canvases
+			var canvases = {}
+
 			function AddCanvas(id, width, height)
 			{
-				var canvasloc = document.getElementById('canvasloc');
-				var canvas = document.createElement('canvas');
-				canvas.id = id;
-				canvas.width = width;
-				canvas.height = height;
-				canvasloc.appendChild(canvas);
+				c = make_new_canvas(id + randomInt(65536),width,height,1.0);
+	 			canvases[c.id] = c;
+	 			//c.rescale(0.5);
+				//c.rescale(0.5);
+				//c.rescale(4.0);
+				var d = 0.5;
+window.setInterval(function () {
+		c.rescale(d);
+	if (d == 0.5) {
+
+		d = 2.0
+	}
+	else {
+
+		d = 0.5;
+	}
+
+}, 3000);
+			return c.id;
 			}
+
+function randomInt(range) {
+		return Math.floor(Math.random() * range);
+	}
 
 			/*window.setInterval(function () {
 				if (window.document.title == 'hi')
@@ -442,1024 +259,188 @@ function AddButton(id, label, passedFunction)
 
 			}
 
-			var texture;
-			//from Stack Overflow webgl-create-texture: http://www.stackoverflow.com/questions/9046643/webgl-create-texture
-			function textureFromPixelArray(gl, dataArray, type, width, height) {
-				if (texture == null) {
-					texture = gl.createTexture();
-				}		
-				var dataTypedArray = new Uint8Array(dataArray);
-				gl.bindTexture(gl.TEXTURE_2D, texture);
-				gl.texImage2D(gl.TEXTURE_2D, 0, type, width, height, 0, type, gl.UNSIGNED_BYTE, dataTypedArray);
-				gl.bindTexture(gl.TEXTURE_2D, null); //clean up
+			function setRectangle(gl, x, y, width, height) {
+	  var x1 = x;
+	  var x2 = x + width;
+	  var y1 = y;
+	  var y2 = y + height;
+	  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+		 x1, y1,
+		 x2, y1,
+		 x1, y2,
+		 x1, y2,
+		 x2, y1,
+		 x2, y2]), gl.STATIC_DRAW);
+	};
+
+	function updateCanvas(id, data) {
+		var canvas = document.getElementById(canvases[id].id);
+		var w = canvas.width / canvases[id].scale;
+		var h = canvas.height / canvases[id].scale;
+		//hack for now, will be replaced by actual data
+		var data = new Uint8Array(new ArrayBuffer(w*h*4));
+		for (i = 0; i < w*h*4; data[i++] = randomInt(256));
+
+		canvases[id].update(data);
+	}
+
+	function make_new_canvas(id,w,h,scale) {
+
+		var my_c = {};
+
+		var going = false;
+		var canvasloc = document.getElementById('canvasloc');
+		var canvas = document.createElement('canvas');
+		canvas.id = id;
+		canvas.width = w*scale;
+		canvas.height = h*scale;
+		canvasloc.appendChild(canvas);
+
+		var arr = new ArrayBuffer(w*h*4);
+		var view = new Uint8Array(arr);
+		// initial setup of texture data
+		// !!! IMPORTANT !!! modify 'view', NOT 'arr'
+		for (i = 0; i < arr.length; view[i++] = randomInt(256));
+
+		var gl;
+		try {
+			gl = canvas.getContext("experimental-webgl");
+			gl.viewport(0,0,canvas.width,canvas.height);
+		} catch (e) {
+			alert(e);
+		}
+		if (!gl) {
+			alert("Could not initialise WebGL");
+			return my_c;
+		}
+
+		vertexShader = createShaderFromScriptElement(gl, "2d-vertex-shader");
+		fragmentShader = createShaderFromScriptElement(gl, "2d-fragment-shader");
+		program = createProgram(gl, [vertexShader, fragmentShader]);
+		gl.useProgram(program);
+
+ 		var positionLocation;
+		var texCoordLocation;
+		var texCoordBuffer;
+
+		function set_locations() {
+			positionLocation = gl.getAttribLocation(program, "a_position");
+			texCoordLocation = gl.getAttribLocation(program, "a_texCoord");
+			var coords = [
+				0.0,  0.0,
+				1.0,  0.0,
+				0.0,  1.0,
+				0.0,  1.0,
+				1.0,  0.0,
+				1.0,  1.0
+			];
+			texCoordBuffer = gl.createBuffer();
+			gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
+			gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(coords), gl.STATIC_DRAW);
+			gl.enableVertexAttribArray(texCoordLocation);
+			gl.vertexAttribPointer(texCoordLocation, 2, gl.FLOAT, false, 0, 0);
+		}
+		set_locations();
+
+		var texture;
+		function make_texture() {
+			texture = gl.createTexture();
+			gl.bindTexture(gl.TEXTURE_2D,texture);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+
+			// Upload the image into the texture.
+			gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,canvas.width,canvas.height,
+							0,gl.RGBA,gl.UNSIGNED_BYTE,view);
+		}
+		make_texture();
+
+		var resolutionLocation;
+		var buffer;
+		function set_uniforms() {
+			// lookup uniforms
+			resolutionLocation = gl.getUniformLocation(program, "u_resolution");
+			// set the resolution
+			gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+			// Create a buffer for the position of the rectangle corners.
+			buffer = gl.createBuffer();
+			gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+			gl.enableVertexAttribArray(positionLocation);
+			gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+			// Set a rectangle the same size as the image.
+			setRectangle(gl, 0, 0, canvas.width, canvas.height);
+		}
+		set_uniforms();
+
+		var pending_data = null;
+		var transitive_rescale = 1.0;
+
+		function cleanup() {
+			gl.bindBuffer(gl.ARRAY_BUFFER,null);
+			gl.bindTexture(gl.TEXTURE_2D,null);
+			gl.deleteBuffer(buffer);
+			gl.deleteBuffer(texCoordBuffer);
+			gl.deleteTexture(texture);
+		}
+
+		function tick() {
+			if(going) {
+				if (transitive_rescale != 1.0) {
+					rescale(transitive_rescale);
+					transitive_rescale = 1.0;
+				}
+				if (pending_data != null) {
+					view.set(pending_data);
+					gl.texSubImage2D(gl.TEXTURE_2D,0,0,0,canvas.width,canvas.height,
+														gl.RGBA,gl.UNSIGNED_BYTE,view);
+					gl.drawArrays(gl.TRIANGLES,0,6);
+					pending_data = null;
+				}
+				// let's pretend the image data got modified when something
+				// else called my_c.update() in the mean time
+				//for (i = 0; i < w*h*4; view[i++] = randomInt(256));
+				// update the texture from the new image data
+				//gl.texSubImage2D(gl.TEXTURE_2D,0,0,0,canvas.width,canvas.height,
+				//					gl.RGBA,gl.UNSIGNED_BYTE,view);
+				//gl.drawArrays(gl.TRIANGLES,0,6);
+						requestAnimFrame(tick);
+			} else {
+				cleanup();
 			}
+		}
 
-var shaderProgram;
-			function init(image, dataArray, type, width, height) {
-				// setup GLSL program
-	        var fragmentShader = getShader(gl, "2d-fragment-shader");
-	        var vertexShader = getShader(gl, "2d-vertex-shader");
+		function rescale(factor) {
+			cleanup();
+			canvas.width = canvas.width * factor;
+			canvas.height = canvas.height * factor;
+			set_locations();
+			make_texture();
+			set_uniforms();
+		}
 
-	        shaderProgram = gl.createProgram();
-	        gl.attachShader(shaderProgram, vertexShader);
-	        gl.attachShader(shaderProgram, fragmentShader);
-	        gl.linkProgram(shaderProgram);
+		function queue_rescale(factor) {
+			transitive_rescale *= factor;
+		}
 
-	        if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-	            alert("Could not initialise shaders");
-	        }
+		function queue_stop() {
+			going = false;
+		}
 
-	        gl.useProgram(shaderProgram);				  
+		function queue_update(data) {
+			pending_data = data;
+		}
 
-
-/*vertexShader = createShaderFromScriptElement(gl, "2d-vertex-shader");
-				  fragmentShader = createShaderFromScriptElement(gl, "2d-fragment-shader");
-				  program = createProgram(gl, [vertexShader, fragmentShader]);
-				  gl.useProgram(program);*/
-
-				  // look up where the vertex data needs to go.
-				  var positionLocation = gl.getAttribLocation(shaderProgram, "a_position");
-				  var texCoordLocation = gl.getAttribLocation(shaderProgram, "a_texCoord");
-
-				  // provide texture coordinates for the rectangle.
-				  var texCoordBuffer = gl.createBuffer();
-				  gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);
-				  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-					  0.0,  0.0,
-					  1.0,  0.0,
-					  0.0,  1.0,
-					  0.0,  1.0,
-					  1.0,  0.0,
-					  1.0,  1.0]), gl.STATIC_DRAW);
-				  gl.enableVertexAttribArray(texCoordLocation);
-				  gl.vertexAttribPointer(texCoordLocation, 2, gl.FLOAT, false, 0, 0);
-
-				  // Create a texture.
-				  if (texture == null) {
-					texture = gl.createTexture();
-				  }		
-				  var dataTypedArray = new Uint8Array(dataArray);
-				  gl.bindTexture(gl.TEXTURE_2D, texture);
-
-				  // Set the parameters so we can render any size image.
-				  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-				  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-				  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-				  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-
-				  // Upload the image into the texture.
-				  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image);
-				  //gl.texImage2D(gl.TEXTURE_2D, 0, type, width, height, 0, type, gl.UNSIGNED_BYTE, dataTypedArray);
-
-				  // lookup uniforms
-				  var resolutionLocation = gl.getUniformLocation(shaderProgram, "u_resolution");
-
-				  // set the resolution
-				  gl.uniform2f(resolutionLocation, gl.viewportWidth, gl.viewportHeight);
-
-				  // Create a buffer for the position of the rectangle corners.
-				  var buffer = gl.createBuffer();
-				  gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-				  gl.enableVertexAttribArray(positionLocation);
-				  gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
-
-				  // Set a rectangle the same size as the image.
-				  setRectangle(gl, 0, 0, image.width, image.height);
-
-				  // Draw the rectangle.
-				  gl.drawArrays(gl.TRIANGLES, 0, 6);
-			}
-
-function setRectangle(gl, x, y, width, height) {
-  var x1 = x;
-  var x2 = x + width;
-  var y1 = y;
-  var y2 = y + height;
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-     x1, y1,
-     x2, y1,
-     x1, y2,
-     x1, y2,
-     x2, y1,
-     x2, y2]), gl.STATIC_DRAW);
-}
-
-			function webGLStart() {
-			    var canvas = document.getElementById("vid");
-			    initGL(canvas);
-var image = new Image();
-  image.src = "leaves.jpg";  // MUST BE SAME DOMAIN!!!
-  image.onload = function() {
-    init(image, [128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128,
-128,128,128,128], gl.RGBA, 30, 30);
-  }
-			    
-				//initBuffers();
-				//initShaders();
-				
-			    //gl.clearColor(0.0, 0.0, 0.0, 1.0);
-			    //gl.enable(gl.DEPTH_TEST);
-
-			    //tick();
-  			}
+		going = true;
+		requestAnimFrame(tick);
+		my_c.id = id;
+		my_c.update = queue_update;
+		my_c.stop = queue_stop;
+		my_c.rescale = queue_rescale;
+		my_c.scale = scale;
+		return my_c;
+	};
     // --></script>
   </head>
   <body class="claro">
@@ -1468,8 +449,9 @@ var image = new Image();
     <button id="addmenu" type="button" onClick="AddPopupMenu('Options')">Create new menu</button>
     <button id="addmenuitem" type="button" onClick="AddMenuItem('Preferences', 'Options', function(){ alert('Preferences pressed!');})">Create new menu item</button>
     <button id="addmenuitem" type="button" onClick="AddMenuItem('About', 'Options', function(){ alert('About pressed!');})">Create about</button>
-    <button id="addcanvas" type="button" onClick="AddCanvas('vid', 500, 500); webGLStart();">Create canvas</button>
+    <button id="addcanvas" type="button" onClick="AddCanvas('vid', 500, 500);">Create canvas</button>
     <button id="addselect" type="button" onClick="AddSelectBox('sel', 'ips.json')">Create Select</button>
+    <button id="updatecanvas" type="button" onClick="updateCanvas('vid', {})">Update canvas</button>
     <!-- button id="addselector" type="button" onClick="AddCanvas('vid', 500, 500)">Create canvas</button -->
 
 
