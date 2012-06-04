@@ -31,20 +31,28 @@
 (define/contract (write-ws-frame! s op)
   (bytes? output-port? . -> . void)
   (define l (bytes-length s))
-  (define mask (bytes (random 255) (random 255) (random 255) (random 255)))
   (define flags 129)
-  (define data (mask-or-unmask s mask))
   (write-byte flags op)
   (cond [(< l 126)
-         (write-byte (bitwise-ior l 128) op)]
+         ; masking version
+         ; (write-byte (bitwise-ior l 128) op)
+         (write-byte l op)]
         [(< l 65536)
-         (write-byte (bitwise-ior 126 128) op)
+         ; masking version
+         ;(write-byte (bitwise-ior 126 128) op)
+         (write-byte 126 op)
          (write-bytes (integer->integer-bytes l 2 #f #t) op)]
         [(< l 9.22337204e18)
-         (write-byte (bitwise-ior 127 128) op) 
+         ; masking version
+         ;(write-byte (bitwise-ior 127 128) op)
+         (write-byte 127 op)
          (write-bytes (integer->integer-bytes l 8 #f #t) op)])
-  (write-bytes mask op)
-  (write-bytes data op)  
+  ;; mask or don't mask data
+  ;(define mask (bytes (random 255) (random 255) (random 255) (random 255)))
+  ;(define data (mask-or-unmask s mask))
+  ;(write-bytes mask op)
+  ;(write-bytes data op)  
+  (write-bytes s op)
   (flush-output op))
 
 ; return #t if the opcode seen permits us to CONTINUE
@@ -250,7 +258,7 @@
          "../peer/src/net/base64-url-typed.rkt")
 
 (define BROWSER-PORT 8000)
-(define BROWSER-PATH "/ui.html")
+(define BROWSER-PATH "/interface.html")
 
 (define-runtime-path files "files")
 ;(directory-list files)
@@ -308,12 +316,12 @@
   (send-url (string-append "http://localhost:" (number->string BROWSER-PORT) BROWSER-PATH "?session=" (bytes->string/utf-8 id)))
   s)
 
-(struct interface-action (identifier jsexpr))
+(struct interface-action (identifier json-spec))
 
 (define (make-interface-action-id label)
   (define-values (pk _) (nacl:crypto-box-keypair))
   (define id (base64-url-encode pk))
-  (string-append label (bytes->string/utf-8 id) ":" (symbol->string (gensym))))
+  (bytes->string/utf-8 id))
 
 (define (new-button label)
   (define id (make-interface-action-id label))
@@ -344,7 +352,7 @@
   (semaphore-wait (session-ready-sema s)))
 (define (ui-send! s v)
   (cond [(interface-action? v)
-         (thread-send (session-out-thd s) (interface-action-jsexpr v))]
+         (thread-send (session-out-thd s) (interface-action-json-spec v))]
         [else (error "tried to send a value that wasn't an interface-action across a websocket connection")]))
 
 (provide new-button
