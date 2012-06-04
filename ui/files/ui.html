@@ -8,6 +8,8 @@
 	  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dijit/themes/claro/claro.css">
   <script src="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dojo/dojo.js" data-dojo-config="async: true"></script>
   <script src="http://glmatrix.googlecode.com/files/glMatrix-0.9.5.min.js"></script>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
   <!-- script src="https://cvs.khronos.org/svn/repos/registry/trunk/public/webgl/sdk/demos/common/webgl-utils.js"></script-->
 	<script src="webgl-utils.js"></script>
 
@@ -53,6 +55,7 @@ void main() {
 </script>
 
     <script type="text/javascript"><!--
+    var chart;
     var pMenuBar;
     var websocket;
 
@@ -227,6 +230,77 @@ window.setInterval(function () {
 }, 3000);
 			return c.id;
 			}
+
+function AddChart(id) {
+var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: 'chart',
+                type: 'line',
+                margin: [70, 50, 60, 80],
+                events: {
+                    click: function(e) {
+                        // find the clicked values and the series
+                        var x = e.xAxis[0].value,
+                            y = e.yAxis[0].value,
+                            series = this.series[0];
+
+                        // Add it
+                        series.addPoint([x, y]);
+
+                    }
+                }
+            },
+            title: {
+                text: 'Add Data Here'
+            },
+            subtitle: {
+                text: 'Click the plot area to add a point. Click a point to remove it.'
+            },
+            xAxis: {
+                minPadding: 0.2,
+                maxPadding: 0.2,
+                maxZoom: 60
+            },
+            yAxis: {
+                title: {
+                    text: 'Value'
+                },
+                minPadding: 0.2,
+                maxPadding: 0.2,
+                maxZoom: 60,
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            legend: {
+                enabled: false
+            },
+            exporting: {
+                enabled: false
+            },
+            plotOptions: {
+                series: {
+                    lineWidth: 1,
+                    point: {
+                        events: {
+                            'click': function() {
+                                if (this.series.data.length > 1) this.remove();
+                            }
+                        }
+                    }
+                }
+            },
+            series: [{
+                data: [[20, 20], [80, 80]]
+            }]
+        });
+    });
+
+}
 
 function randomInt(range) {
 		return Math.floor(Math.random() * range);
@@ -444,6 +518,8 @@ function randomInt(range) {
     // --></script>
   </head>
   <body class="claro">
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
     <div id="wrapper"></div>
     <button id="addbutton" type="button" onClick="AddButton('hi', function(){ alert('hi');})">Create new button</button>
     <button id="addmenu" type="button" onClick="AddPopupMenu('Options')">Create new menu</button>
@@ -452,11 +528,13 @@ function randomInt(range) {
     <button id="addcanvas" type="button" onClick="AddCanvas('vid', 500, 500);">Create canvas</button>
     <button id="addselect" type="button" onClick="AddSelectBox('sel', 'ips.json')">Create Select</button>
     <button id="updatecanvas" type="button" onClick="updateCanvas('vid', {})">Update canvas</button>
+    <button id="addchart" type="button" onClick="AddChart('chart')">Create Chart</button>
     <!-- button id="addselector" type="button" onClick="AddCanvas('vid', 500, 500)">Create canvas</button -->
 
 
 	<div id="newbutton"></div>
 	<div id="select"></div>
 	<div id="canvasloc"></div>
+	<div id="chart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
   </body>
 </html>
