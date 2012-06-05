@@ -46,7 +46,9 @@
          ; masking version
          ;(write-byte (bitwise-ior 127 128) op)
          (write-byte 127 op)
-         (write-bytes (integer->integer-bytes l 8 #f #t) op)])
+         (write-bytes (integer->integer-bytes l 8 #f #t) op)
+         (displayln "big send")]
+        [else (displayln "no send")])
   ;; mask or don't mask data
   ;(define mask (bytes (random 255) (random 255) (random 255) (random 255)))
   ;(define data (mask-or-unmask s mask))
@@ -289,19 +291,24 @@
 
 (define (listener s wsc)
   (let loop ()
-    ((session-cb s) (json->jsexpr (bytes->string/utf-8 (ws-recv wsc))))
+    ((session-cb s) 
+     (json->jsexpr 
+      (bytes->string/utf-8 
+       (ws-recv wsc))))
     (loop)))
 
 (ws-serve
  #:listen-ip "localhost"
  #:port 8080
  (λ (wsc)
-   (displayln "websocket connection being served")
    (define pid (current-thread))
    (define s (hash-ref sessions (ws-conn-session-id wsc)))
    (when (not (session-out-thd s))
-     (define it (thread (λ () (listener s wsc))))
      (set-session-out-thd! s pid)
+     (displayln "websocket connection being served")
+     (displayln (ws-recv wsc))
+     (define it (thread (λ () (listener s wsc))))
+     (displayln "making ready")
      (semaphore-post (session-ready-sema s)))
    (let loop ()
      (define m (thread-receive))
@@ -318,6 +325,9 @@
 
 (struct interface-action (identifier json-spec))
 
+(define-syntax-rule (json k v ...)
+  (jsexpr->json (hasheq k v ...)))
+
 (define (make-interface-action-id label)
   (define-values (pk _) (nacl:crypto-box-keypair))
   (define id (base64-url-encode pk))
@@ -325,41 +335,48 @@
 
 (define (new-button label)
   (define id (make-interface-action-id label))
-  (interface-action id (jsexpr->json (hasheq 'action "newitem" 'id id 'item "button" 'label label))))
+  (interface-action id (json 'action "newitem" 'id id 'item "button" 'label label)))
 
 (define (new-menu label)
   (define id (make-interface-action-id label))
-  (interface-action id (jsexpr->json (hasheq 'action "newitem" 'id id 'item "menu" 'label label))))
+  (interface-action id (json 'action "newitem" 'id id 'item "menu" 'label label)))
 
 (define (new-menu-item label parent callback)
   (define id (make-interface-action-id label))
-  (interface-action id (jsexpr->json (hasheq 'action "newitem" 'id id 'item "menuitem" 'menuid (interface-action-identifier parent)
-                                             'label label 'callback callback))))
+  (interface-action id (json 'action "newitem" 'id id 'item "menuitem" 'menuid (interface-action-identifier parent)
+                                             'label label 'callback callback)))
 
 (define (new-dropdown label data)
   (define id (make-interface-action-id label))
-  (interface-action id (jsexpr->json (hasheq 'action "newitem" 'id id 'item "dropdown" 'label label 'data data))))
+  (interface-action id (json 'action "newitem" 'id id 'item "dropdown" 'label label 'data data)))
 
 (define (new-canvas label w h)
   (define id (make-interface-action-id label))
-  (interface-action id (jsexpr->json (hasheq 'action "newitem" 'id id 'item "canvas" 'label label 'width w 'height h))))
+  (interface-action id (json 'action "newitem" 'id id 'item "canvas" 'label label 'width w 'height h)))
+
+(define/contract (update-canvas-contents c data)
+  (interface-action? bytes? . -> . interface-action?)
+  (define id (interface-action-identifier c))
+  (interface-action #"" (json 'action "updateitem" 'id id 'item "canvas" 'data (bytes->list data))))
 
 ;; actions
 
-(define (ui-ready-to-send? s)
+(define/contract (ui-ready-to-send? s)
+  (session? . -> . boolean?)
   (thread? (session-out-thd s)))
-(define (ui-wait-for-readiness s)
+(define/contract (ui-wait-for-readiness s)
+  (session? . -> . void)
   (semaphore-wait (session-ready-sema s)))
-(define (ui-send! s v)
-  (cond [(interface-action? v)
-         (thread-send (session-out-thd s) (interface-action-json-spec v))]
-        [else (error "tried to send a value that wasn't an interface-action across a websocket connection")]))
+(define/contract (ui-send! s v)
+  (session? interface-action? . -> . void)
+  (thread-send (session-out-thd s) (interface-action-json-spec v)))
 
 (provide new-button
          new-menu
          new-menu-item
          new-dropdown
          new-canvas
+         update-canvas-contents
          ui-ready-to-send?
          ui-wait-for-readiness
          ui-send!
