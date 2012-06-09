@@ -16,6 +16,17 @@ websocket.onmessage = function (temp) {
 							break;			
 			}
 			break;
+		case "updateitem":
+			switch(msg.item) {
+				case "chart":
+					var response = AddData(msg.id, msg.data);
+					var responsemsg = {
+						id: response
+					};
+					websocket.send(JSON.stringify(responsemsg));
+					break;
+			}
+			break;
 	}
 }
 
