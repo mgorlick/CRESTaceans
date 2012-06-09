@@ -470,7 +470,8 @@ function randomInt(range) {
     <button id="addselect" type="button" onClick="AddSelectBox('sel', 'ips.json')">Create Select</button>
     <button id="updatecanvas" type="button" onClick="updateCanvas('vid', {})">Update canvas</button>
 	<button id="loadmonitoring" type="button" onClick="loadJsFile('monitoring.js')">Load Monitoring</button>
-    <button id="addchart" type="button" onClick="AddChart('chart')">Create Chart</button>
+    <button id="addchart" type="button" onClick="AddChart('chart', 'spline', 'Here data', 'Here is my subtitle')">Create Chart</button>
+	<button id="addrandomdata" type="button" onClick="AddData('chart', [new Date()*1000, Math.random()*1000])">Add Data</button>
     <!-- button id="addselector" type="button" onClick="AddCanvas('vid', 500, 500)">Create canvas</button -->
 
 

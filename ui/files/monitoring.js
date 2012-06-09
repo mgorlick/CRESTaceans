@@ -1,4 +1,4 @@
-alert("IM LOADED");
+
 var monitoroverride = websocket.onmessage;
 
 
@@ -19,16 +19,36 @@ websocket.onmessage = function (temp) {
 	}
 }
 
-function AddChart(id) {
+function AddData(chartid, datapoint) {
+	var chart = charts[chartid];
+	var series = chart.series[0];	
+	shift = series.data.length > 20;	
+	chart.series[0].addPoint(datapoint, true, shift);
+}
+
+var charts = [];
+
+function AddChart(id, ctype, title, subtitle) {
 var chart;
+
     $(document).ready(function() {
         chart = new Highcharts.Chart({
-            chart: {
-                renderTo: 'chart',
-                type: 'line',
-                margin: [70, 50, 60, 80],
+            chart: {             
+				renderTo: 'chart',
+                type: ctype,
+                //margin: [70, 50, 60, 80],
                 events: {
-                    click: function(e) {
+			
+						/*load: function() {
+							
+							setInterval(function() {
+                            var x = (new Date()).getTime(), //current time
+                                y = Math.random();
+                            series.addPoint([x, y], true, true);
+                        }, interval * 1000);
+						}*/
+				
+					/*click: function(e) {
                         // find the clicked values and the series
                         var x = e.xAxis[0].value,
                             y = e.yAxis[0].value,
@@ -37,19 +57,21 @@ var chart;
                         // Add it
                         series.addPoint([x, y]);
 
-                    }
+                    }*/
                 }
             },
             title: {
-                text: 'Add Data Here'
+                text: title
             },
             subtitle: {
-                text: 'Click the plot area to add a point. Click a point to remove it.'
+                text: subtitle
             },
             xAxis: {
+				type: 'datetime',
+				tickPixelInterval: 150,
                 minPadding: 0.2,
                 maxPadding: 0.2,
-                maxZoom: 60
+                maxZoom: 20 * 1000
             },
             yAxis: {
                 title: {
@@ -57,7 +79,6 @@ var chart;
                 },
                 minPadding: 0.2,
                 maxPadding: 0.2,
-                maxZoom: 60,
                 plotLines: [{
                     value: 0,
                     width: 1,
@@ -75,19 +96,19 @@ var chart;
                     lineWidth: 1,
                     point: {
                         events: {
-                            'click': function() {
+                          /*  'click': function() {
                                 if (this.series.data.length > 1) this.remove();
-                            }
+                            }*/
                         }
                     }
                 }
             },
             series: [{
-                data: [[20, 20], [80, 80]]
+                data: []
             }]
         });
     });
-
+	charts[id] = chart;
 }
 
 
