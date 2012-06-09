@@ -90,6 +90,7 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 
 			          pMenuBar.placeAt("wrapper");
        pMenuBar.startup();
+		loadJsFile('monitoring.js'); //manually load for now
        //webGLStart();
 
 	websocket = new WebSocket("ws://localhost:8080/" + window.location.search);
