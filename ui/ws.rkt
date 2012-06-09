@@ -260,7 +260,7 @@
          "../peer/src/net/base64-url-typed.rkt")
 
 (define BROWSER-PORT 8000)
-(define BROWSER-PATH "/interface.html")
+(define BROWSER-PATH "/ui.html")
 
 (define-runtime-path files "files")
 ;(directory-list files)
@@ -354,10 +354,20 @@
   (define id (make-interface-action-id label))
   (interface-action id (json 'action "newitem" 'id id 'item "canvas" 'label label 'width w 'height h)))
 
+(define/contract (new-chart type title subtitle)
+  ((one-of/c 'spline 'line 'pie 'bar) string? string?  . -> . interface-action?) 
+  (define id (make-interface-action-id title))
+  (interface-action id (json 'action "newitem" 'id id 'item "chart" 'type (symbol->string type) 'title title 'subtitle subtitle)))
+
 (define/contract (update-canvas-contents c data)
   (interface-action? bytes? . -> . interface-action?)
   (define id (interface-action-identifier c))
   (interface-action #"" (json 'action "updateitem" 'id id 'item "canvas" 'data (bytes->list data))))
+
+(define/contract (plot-a-point c x y)
+  (interface-action? number? number? . -> . interface-action?)
+  (define id (interface-action-identifier c))
+  (interface-action #"" (json 'action "updateitem" 'id id 'item "chart" 'data (list x y))))
 
 ;; actions
 
@@ -376,7 +386,9 @@
          new-menu-item
          new-dropdown
          new-canvas
+         new-chart
          update-canvas-contents
+         plot-a-point
          ui-ready-to-send?
          ui-wait-for-readiness
          ui-send!

@@ -5,6 +5,7 @@
          "envs.rkt"
          "message-types.rkt"
          "config.rkt"
+         "../../ui/ws.rkt"
          "../../peer/src/net/tcp-peer.rkt"         
          "../../Motile/persistent/hash.rkt"
          "../../Motile/compile/serialize.rkt"
@@ -22,7 +23,8 @@
          racket/list
          racket/match
          racket/contract
-         racket/dict)
+         racket/dict
+         racket/async-channel)
 
 (provide (all-defined-out))
 
@@ -104,21 +106,44 @@
 (define COMM-thd (run-tcp-peer *LISTENING-ON* *LOCALPORT* (actor/thread ROOT) #:encrypt? #f))
 (set-inter-island-router! COMM-thd)
 
-(define (my-root-loop)
+(define-syntax-rule (define-wrapper-for f g precall)
+  (define (g . xs)
+    (apply precall xs)
+    (apply f xs)))
+
+(define-syntax-rule (define-wrapper-for* f g postcall)
+  (define (g . xs)
+    (apply f xs)
+    (apply postcall xs)))
+
+(define (my-root-loop ui)
   (define amsg (thread-receive))
   (match amsg
     ;; spawn format, to be solely directed at the public curl.
     [(vector (? (curry equal? PUBLIC-CURL) pcurl) (match:spawn body metadata reply))
-     (define the-nickname  (gensym (or (metadata-ref metadata "nick") 'nonamegiven)))
-     (define-values (actor actor/loc) 
-       (actor/new ROOT the-nickname))
+     (define the-nickname (gensym (or (metadata-ref metadata "nick") 'nonamegiven)))
+     (define-values (actor actor/loc) (actor/new ROOT the-nickname))
+     (define this-chart        
+       (if (eq? (metadata-ref metadata "nick") 'encoder)
+           (new-chart 'pie (format "sending count of ~a" the-nickname) "total messages")
+           #f))
+     (when this-chart (displayln "made a chart") (ui-send! ui this-chart))
+     (define count 0)
+     (define (count-me . whatever)
+       (set! count (add1 count))
+       (when (zero? (modulo count 10))
+         (when (equal? (metadata-ref metadata "nick") 'encoder)
+           (ui-send! ui (plot-a-point this-chart (current-inexact-milliseconds) count)))))
+     (define-wrapper-for curl/send curl/send* count-me)
+     (define benv (++ (metadata->benv metadata)
+                      (global-value-defines the-nickname PUBLIC-CURL)
+                      (global-defines this/locative
+                                      curl/get-public
+                                      curl/send*)))
      (actor/jumpstart actor 
                       (λ ()
                         (printf "Actor starting: ~s~n" the-nickname)
-                        (let ([ret (motile/call body (++ (metadata->benv metadata)
-                                                         (global-value-defines the-nickname PUBLIC-CURL)
-                                                         (global-defines this/locative
-                                                                         curl/get-public)))])
+                        (let ([ret (motile/call body benv)])
                           (printf "Actor ending: ~s~n" the-nickname)
                           ret)))]
     [(? delivery? m)
@@ -128,12 +153,20 @@
     [else
      (displayln "Root: discarding a message:")
      (displayln amsg)])
-  (my-root-loop))
+  (my-root-loop ui))
 
 ;;; start the root chieftain up.
-(actor/jumpstart ROOT (λ ()
+(actor/jumpstart ROOT (λ ()                        
+                        (define (open-a-tab/synch)
+                          (define ac (make-async-channel))
+                          (define (wait-for-response)
+                            (async-channel-get ac))  
+                          (define s (open-a-tab (λ (json) (async-channel-put ac json))))
+                          (values s wait-for-response))
+                        (define-values (s get-last-response) (open-a-tab/synch)) 
+                        (ui-wait-for-readiness s)
                         (PROMISSARY ROOT)
-                        (my-root-loop)))
+                        (my-root-loop s)))
 
 (unless (argsassoc "--no-gui")
   (curl/send PUBLIC-CURL (spawn/new gui-controller (make-metadata is/gui (nick 'gui-controller)) #f)))

@@ -1,6 +1,8 @@
 
-var monitoroverride = websocket.onmessage;
 
+/*
+ * 
+var monitoroverride = websocket.onmessage;
 
 websocket.onmessage = function (temp) {
 	monitoroverride();	
@@ -29,6 +31,7 @@ websocket.onmessage = function (temp) {
 			break;
 	}
 }
+*/
 
 function AddData(chartid, datapoint) {
 	var chart = charts[chartid];

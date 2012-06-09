@@ -22,16 +22,16 @@
        (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
        (define my-relay (make-encoder-side-relay me@))
        ; spawn the proxy
-       (curl/send pubsub-site-public-curl@ (spawn/new my-relay (make-metadata is/proxy (nick 'encoder-side-relay)) #f))
+       (curl/send* pubsub-site-public-curl@ (spawn/new my-relay (make-metadata is/proxy (nick 'encoder-side-relay)) #f))
        (let* ([proxys-list@ (delivery/contents-sent (mailbox-get-message))]
               [proxy-subscribable@ (car proxys-list@)]
               [proxy-publishable@ (cdr proxys-list@)])
          ; spawn the encoder with the proxy as initialization address
-         (curl/send encoder-site-public-curl@ (spawn/new (make-video-reader/encoder video-device video-w video-h proxy-publishable@)
+         (curl/send* encoder-site-public-curl@ (spawn/new (make-video-reader/encoder video-device video-w video-h proxy-publishable@)
                                                          (make-metadata produces/webm (nick 'encoder))
                                                          #f))
          ; spawn the decoder with the proxy as initialization address
-         (curl/send decoder-site-public-curl@ (spawn/new (make-video-decoder/single proxy-subscribable@)
+         (curl/send* decoder-site-public-curl@ (spawn/new (make-video-decoder/single proxy-subscribable@)
                                                          (make-metadata accepts/webm (nick 'decoder)) 
                                                          #f))))))
 
@@ -61,7 +61,7 @@
        (define me/subscribable@ (make-subscribable-curl *me/ctrl))
        (define me/publishable@ (make-publishable-curl *me/ctrl))
        ;; notify whoever I'm supposed to that I'm online now.
-       (curl/send on-birth-notify@ (cons me/subscribable@ me/publishable@))
+       (curl/send* on-birth-notify@ (cons me/subscribable@ me/publishable@))
        (let loop ([forward-relays hash/equal/null] ; island-address => curl
                   [last-sender-seen@ #f])
          ;; unpack message
@@ -88,7 +88,7 @@
               (cond [(hash/contains? forward-relays subscriber-island-address)
                      ;; if so, forward this onto the forward relay
                      ;; allowing it to fulfill the subscriber's promise held
-                     (curl/send (hash/ref forward-relays subscriber-island-address #f)
+                     (curl/send* (hash/ref forward-relays subscriber-island-address #f)
                                 (remote/new body #f promise-fulfillment))
                      (loop forward-relays last-sender-seen@)]
                     [else
@@ -97,7 +97,7 @@
                             (curl/get-public (island/address/get-dns subscriber-island-address)
                                              (island/address/get-port subscriber-island-address))]
                            [new-forward-relay-@-promise (promise/new 10000)])
-                       (curl/send new-forward-relay-site@
+                       (curl/send* new-forward-relay-site@
                                   (spawn/new 
                                    ;; tell the new-forward relay to report its CURL back here
                                    (make-forward-relay (promise/to-fulfill new-forward-relay-@-promise))
@@ -109,7 +109,7 @@
                          (cond ([(curl? new-forward-relay@)
                                  ;; now forward the subscription request onto the new forward relay.
                                  ;; allow the new forward relay to fulfill the original subscriber promise.
-                                 (curl/send new-forward-relay@ (remote/new body #f promise-fulfillment))
+                                 (curl/send* new-forward-relay@ (remote/new body #f promise-fulfillment))
                                  ;; add the new forward relay CURL to the list of forward relays
                                  (loop (hash/cons forward-relays subscriber-island-address new-forward-relay@)
                                        last-sender-seen@)]
@@ -117,7 +117,7 @@
                                 ;; of a problem on their island or the public CURL we have for their island
                                 [else
                                  (when promise-fulfillment
-                                   (curl/send promise-fulfillment 
+                                   (curl/send* promise-fulfillment 
                                               (error/new "couldn't spawn a forward relay on your island" m)))
                                  (loop forward-relays last-sender-seen@)]))))]))]
            [(and (RemoveCURL? body) (can-unsubscribe? curl-used))
@@ -126,10 +126,10 @@
                   last-sender-seen@)]
            ;; the messages that the router is hardwired to send backward to the sender using it.
            [(AddBehaviors? body)
-            (when last-sender-seen@ (curl/send last-sender-seen@ contents))
+            (when last-sender-seen@ (curl/send* last-sender-seen@ contents))
             (loop forward-relays last-sender-seen@)]
            [(Quit/MV? body)
-            (when last-sender-seen@ (curl/send last-sender-seen@ contents))
+            (when last-sender-seen@ (curl/send* last-sender-seen@ contents))
             (loop forward-relays last-sender-seen@)]
            [else 
             (printf "encoder relay else: ~a~n" body)
@@ -149,7 +149,7 @@
        (define *me/ctrl (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t))
        (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t) null #f))
        ;; notify whoever I'm supposed to that I'm online now.
-       (curl/send on-birth-notify@ me@)
+       (curl/send* on-birth-notify@ me@)
        (let loop ([curls hash/equal/null]
                   [last-sender-seen@ #f])
          (define m (mailbox-get-message))
@@ -169,7 +169,7 @@
               ;; upon subscription, issue a CURL that lets the holder
               ;; interact with that subscription.
               (when reply-to
-                (curl/send reply-to
+                (curl/send* reply-to
                            (remote/new (curl/new/any *me/ctrl null (hash/new hash/eq/null 'allowed 'remove 'for-sub id))
                                        null #f)))
               ;(printf "Adding ~a ~n => ~a~n" id (:AddCURL/curl body))
@@ -188,10 +188,10 @@
                      (loop curls last-sender-seen@)]))]
            ;; the messages that the router is hardwired to send backward to the sender using it.
            [(AddBehaviors? body)
-            (when last-sender-seen@ (curl/send last-sender-seen@ contents))
+            (when last-sender-seen@ (curl/send* last-sender-seen@ contents))
             (loop curls last-sender-seen@)]
            [(Quit/MV? body)
-            (when last-sender-seen@ (curl/send last-sender-seen@ contents))
+            (when last-sender-seen@ (curl/send* last-sender-seen@ contents))
             (loop curls last-sender-seen@)]
            [else 
             (printf "forward relay else: ~a~n" body)
@@ -208,14 +208,14 @@
   '(lambda (sink-site-public-curl@ sinkλ sink^ source@)
      (define me@ (curl/new/any (this/locative) null #f))
      ;; spawn a proxy to sit between the ESTABLISHED source and the NEW sink.
-     (curl/send sink-site-public-curl@ (spawn/new (make-forward-relay me@)
+     (curl/send* sink-site-public-curl@ (spawn/new (make-forward-relay me@)
                                                   (make-metadata is/proxy (nick 'forward-relay))
                                                   #f))
      ;; get relay curl back.
      (let ([relay@ (delivery/contents-sent (mailbox-get-message))])
        ;; link ESTABLISHED source and NEW sink to proxy.
-       (curl/send source@ (remote/new relay@ '() me@))
-       (curl/send sink-site-public-curl@ (spawn/new (lambda () (sinkλ relay@))
+       (curl/send* source@ (remote/new relay@ '() me@))
+       (curl/send* sink-site-public-curl@ (spawn/new (lambda () (sinkλ relay@))
                                                     sink^
                                                     me@)))))
 
@@ -228,7 +228,7 @@
      ;; send the curl backwards along the pipeline to subscribe self to decoded feed.
      (let ([me/subscription@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t)
                                            null #f)])
-       (curl/send on-birth-notify@ (remote/new (AddCURL/new me/subscription@) (make-metadata) #f))  
+       (curl/send* on-birth-notify@ (remote/new (AddCURL/new me/subscription@) (make-metadata) #f))  
        (let* ([message1 (mailbox-get-message)])
          (define meta (:remote/metadata (delivery/contents-sent message1)))
          (define pms (metadata-ref meta "params"))
@@ -262,7 +262,7 @@
          (define (the-canvas-fun on-birth-notify@) (canvas-endpoint buffer-maker! on-birth-notify@))
          (and (curl/intra? to-notify@)
               ;; launch the linker to start up our wrapped endpoint
-              (curl/send PUBLIC-CURL 
+              (curl/send* PUBLIC-CURL 
                          (spawn/new (lambda ()
                                       (linker-bang PUBLIC-CURL
                                                    the-canvas-fun
@@ -279,56 +279,56 @@
            ;; sent from new decoders.
            [(AddCURL? body)
             (unless (spawn-gui-endpoint (delivery/promise-fulfillment m) (:AddCURL/curl body))
-              (curl/send (:AddCURL/curl body)
+              (curl/send* (:AddCURL/curl body)
                          (error/new 'not-on-same-island (delivery/contents-sent m))))
             (loop (set/cons decoders (:AddCURL/curl body)))]
            ;; forwarded from the actual GUI.
            [(RemoveCURL? body)
-            (curl/send (:RemoveCURL/curl body) (remote/new (Quit/new) (make-metadata) #f))
+            (curl/send* (:RemoveCURL/curl body) (remote/new (Quit/new) (make-metadata) #f))
             (loop (set/remove decoders (:RemoveCURL/curl body)))]
            [(PIPOn? body)
-            (curl/send PUBLIC-CURL
+            (curl/send* PUBLIC-CURL
                        (spawn/new (make-video-decoder/pip (:PIPOn/major body) (:PIPOn/minor body))
                                   (make-metadata accepts/webm (nick 'pipdec))
                                   #f))
             (loop decoders)]
            ; copy all children then copy self.
            [(CopyActor? body)
-            (curl/send (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
+            (curl/send* (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
                        (spawn/new this (make-metadata is/gui (nick 'gui-controller)) #f))
             (set/map decoders (lambda (decoder@)
-                                (curl/send decoder@ (delivery/contents-sent m))))
+                                (curl/send* decoder@ (delivery/contents-sent m))))
             (loop decoders)]
            ;; only copy one child.
            [(CopyChild? body)
-            (curl/send (:CopyChild/curl body) 
+            (curl/send* (:CopyChild/curl body) 
                        (remote/new (CopyActor/new (:CopyChild/host body) (:CopyChild/port body)) 
                                    (make-metadata) #f))
             (loop decoders)]
            ;; just pass backwards.
            [(InitiateBehavior? body)
-            (curl/send (:InitiateBehavior/ref body) (delivery/contents-sent m))
+            (curl/send* (:InitiateBehavior/ref body) (delivery/contents-sent m))
             (loop decoders)]
            ;; probably something sent back beyond the decoder.
            [(FwdBackward? body)
-            (curl/send (:FwdBackward/ref body) (delivery/contents-sent m))
+            (curl/send* (:FwdBackward/ref body) (delivery/contents-sent m))
             (loop decoders)]
            [(AddFx? body)
-            (curl/send (:AddFx/ref body) (delivery/contents-sent m))
+            (curl/send* (:AddFx/ref body) (delivery/contents-sent m))
             (loop decoders)]
            [(RemoveFx? body)
-            (curl/send (:RemoveFx/ref body) (delivery/contents-sent m))
+            (curl/send* (:RemoveFx/ref body) (delivery/contents-sent m))
             (loop decoders)]
            ;; move decoders, then move self.
            [(Quit/MV? body)
             (reset-current-gui-curl!)
-            (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
+            (curl/send* (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
                        (spawn/new this (make-metadata is/gui (nick 'gui-controller)) #f))
-            (set/map decoders (lambda (decoder@) (curl/send decoder@ (delivery/contents-sent m))))]
+            (set/map decoders (lambda (decoder@) (curl/send* decoder@ (delivery/contents-sent m))))]
            ;; pass on to decoders.
            [(Quit? body)
             (reset-current-gui-curl!)
-            (set/map decoders (lambda (decoder@) (curl/send decoder@ (delivery/contents-sent m))))]
+            (set/map decoders (lambda (decoder@) (curl/send* decoder@ (delivery/contents-sent m))))]
            [else
             (printf "Not a valid request to GUI: ~a~n" body)
             (loop decoders)])))
@@ -361,7 +361,7 @@
          (define (compress-full-frame e outbuff# fb)
            (define encoded# (vp8enc-encode e fb outbuff#))
            (when encoded#
-             (curl/send target@ (remote/new (FrameBuffer->Frame encoded#) webm+params^ me@))))
+             (curl/send* target@ (remote/new (FrameBuffer->Frame encoded#) webm+params^ me@))))
          (make-callback 'full compress-full-frame))
        ; do-one-frame!: featuring AIMD waiting for camera frames.
        ; 1. try to read the next frame.
@@ -398,7 +398,7 @@
                 (video-reader-delete vreader)
                 ;; clean up all the resources associated with a behavior (f #f)
                 (set/map on-frame-callbacks (lambda (f) (f #f)))
-                (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
+                (curl/send* (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
                            (spawn/new this (make-metadata produces/webm (nick 'encoder)) #f))]
                [else 
                 ;; unknown message
@@ -453,7 +453,7 @@
                   (when decoded-frame
                     (define processed-frame (foldl (curry> apply (list w h)) decoded-frame (map cdr fx)))
                     (when processed-frame
-                      (curl/send gui-endpoint@ (remote/new (Frame/new processed-frame (current-inexact-milliseconds)) 
+                      (curl/send* gui-endpoint@ (remote/new (Frame/new processed-frame (current-inexact-milliseconds)) 
                                                            (hash/cons desc^ "fx" (map car fx)) #f))))
                   (loop fx)]
                  [(can-ctrl? c@)
@@ -464,29 +464,29 @@
                                        fx))]
                         ;; following are messages send backwards across control flow path from controller.
                         [(GetParent? body)
-                         (curl/send (delivery/promise-fulfillment m)
+                         (curl/send* (delivery/promise-fulfillment m)
                                     (remote/new where-to-subscribe@ (make-metadata) #f))
                          (loop fx)]
                         ;;!!! FIXME !!!: this is doing connector work when it is a component.
                         [(FwdBackward? body)
-                         (curl/send where-to-subscribe@ 
+                         (curl/send* where-to-subscribe@ 
                                     (!:remote/body (delivery/contents-sent m) (:FwdBackward/msg body)))
                          (loop fx)]
                         [(CopyActor? body)
-                         (curl/send (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
+                         (curl/send* (curl/get-public (:CopyActor/host body) (:CopyActor/port body))
                                     (spawn/new (make-decoder fx)
                                                (make-metadata accepts/webm (nick 'decoder)) #f))
                          (loop fx)]
                         [(Quit/MV? body)
-                         (curl/send my-sub/ctrl@
+                         (curl/send* my-sub/ctrl@
                                     (remote/new (RemoveCURL/new) (make-metadata) #f))
                          
                          (vp8dec-delete d)
-                         (curl/send (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
+                         (curl/send* (curl/get-public (:Quit/MV/host body) (:Quit/MV/port body))
                                     (spawn/new (make-decoder fx)
                                                (make-metadata accepts/webm (nick 'decoder)) #f))]
                         [(Quit? body)
-                         (curl/send my-sub/ctrl@
+                         (curl/send* my-sub/ctrl@
                                     (remote/new (RemoveCURL/new) (make-metadata) #f))
                          (vp8dec-delete d)]
                         [else
@@ -506,9 +506,9 @@
      (define (add-self-subscription prox@ me@) ; subscribe to an upstream contact point.
        (unpack-promise (curl/send/promise prox@ (remote/new (AddCURL/new me@) '() #f) 1000)))
      (define (remove-self-subscription prox@) ; remove subscription from an upstream contact point.
-       (curl/send prox@ (remote/new (RemoveCURL/new) '() #f)))
+       (curl/send* prox@ (remote/new (RemoveCURL/new) '() #f)))
      (define (spawn-single-decoder prox@) ; spawn a decoder that consumes one of the two feeds.
-       (curl/send PUBLIC-CURL (spawn/new (make-video-decoder/single prox@)
+       (curl/send* PUBLIC-CURL (spawn/new (make-video-decoder/single prox@)
                                          (make-metadata accepts/webm (nick 'decoder))
                                          #f)))
      (define cleanup-decs (lambda decs (map vp8dec-delete decs)))
@@ -521,7 +521,7 @@
        (define (respawn-self where/p where/h major@ minor@) ; spawn a copy of self assuming the liveness of the
          ; designated island and of the two upstream contact points.
          (define where@ (curl/get-public where/p where/h))
-         (curl/send where@ (spawn/new 
+         (curl/send* where@ (spawn/new 
                             this
                             (make-metadata accepts/webm (nick 'pipdec)) #f)))
        (define me@ (curl/new/any (locative/cons/any (this/locative) A-LONG-TIME A-LONG-TIME #t #t)
@@ -569,7 +569,7 @@
                            frame-after-major-check])])
               ;; if there is a frame to send out, send it down the pipeline
               (when frame-after-minor-check
-                (curl/send next-pipeline-element@ 
+                (curl/send* next-pipeline-element@ 
                            (!:remote/body (delivery/contents-sent m)
                                           (!:Frame/data body frame-after-minor-check))))
               ;; finished with this frame.
@@ -590,7 +590,7 @@
                   majorprox@ minorprox@ (mailbox-get-message))]
            [(GetParent? body)
             ; assumes parents are proxies. PIP can send this to itself/other PIP
-            (curl/send (delivery/promise-fulfillment m)
+            (curl/send* (delivery/promise-fulfillment m)
                        (remote/new (cons majorprox@ minorprox@) null #f))
             (loop decoder/major decoder/minor last-decoded-frame 
                   majorprox@ minorprox@ (mailbox-get-message))]

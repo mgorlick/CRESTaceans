@@ -12,6 +12,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
   <!-- script src="https://cvs.khronos.org/svn/repos/registry/trunk/public/webgl/sdk/demos/common/webgl-utils.js"></script-->
 	<script src="webgl-utils.js"></script>
+	<script src="monitoring.js"></script>
 
    <!-- vertex shader -->
 <script id="2d-vertex-shader" type="x-shader/x-vertex">
@@ -90,18 +91,27 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 
 			          pMenuBar.placeAt("wrapper");
        pMenuBar.startup();
-		loadJsFile('monitoring.js'); //manually load for now
        //webGLStart();
 
 	websocket = new WebSocket("ws://localhost:8080/" + window.location.search);
-	websocket.onopen = function (event) {
-	};
+
+	websocket.onopen = function(event) {
+		websocket.send(JSON.stringify({go : ""}));
+	}
+
 	websocket.onmessage = function (event) {
 		//console.log(msg);
 		var msg = JSON.parse(event.data);
 		switch(msg.action) {
 				case "newitem":
 					switch(msg.item) {
+					case "chart":	
+						var response = AddChart(msg.id, msg.type, msg.title, msg.subtitle);
+							var responsemsg = {
+								id:   response
+							  };
+							websocket.send(JSON.stringify(responsemsg));
+							break;		
 						case "button":
 							var response = AddButton(msg.id, msg.label, msg.callback);
 							var responsemsg = {
@@ -141,13 +151,23 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 					break;
 				case "updateitem":
 					switch(msg.item) {
+					case "chart":
+						var response = AddData(msg.id, msg.data);
+						var responsemsg = {
+							id: response
+						};
+						websocket.send(JSON.stringify(responsemsg));
+						break;
 						case "canvas":
 							updateCanvas(msg.id, msg.data);
 							break;
 					}
 			}
 		}
-         });
+		
+		        //  loadJsFile('monitoring.js'); //manually load for now
+		
+    });
 
 function AddButton(id, label, passedFunction)
 		     {
