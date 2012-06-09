@@ -7,8 +7,8 @@ websocket.onmessage = function (temp) {
 	switch(msg.action) {
 		case "newitem":
 			switch(msg.item) {	
-				case "linegraph":	
-						var response = AddChart(msg.id);
+				case "chart":	
+						var response = AddChart(msg.id, msg.type, msg.title, msg.subtitle);
 							var responsemsg = {
 								id:   response
 							  };
