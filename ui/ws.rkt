@@ -257,7 +257,9 @@
          (planet dherman/json:4:=0)
          net/sendurl
          "../bindings/nacl/libnacl/libnacl.rkt"
-         "../peer/src/net/base64-url-typed.rkt")
+         "../peer/src/net/base64-url-typed.rkt"
+         "../Motile/compile/serialize.rkt"
+         "../Motile/actor/curl.rkt")
 
 (define BROWSER-PORT 8000)
 (define BROWSER-PATH "/ui.html")
@@ -324,6 +326,7 @@
   s)
 
 (struct interface-action (identifier json-spec))
+(struct callback (curl-to-notify source))
 
 (define-syntax-rule (json k v ...)
   (jsexpr->json (hasheq k v ...)))
@@ -333,9 +336,10 @@
   (define id (base64-url-encode pk))
   (bytes->string/utf-8 id))
 
-(define (new-button label)
+(define/contract (new-button label cb)
+  (string? callback? . -> . interface-action?)
   (define id (make-interface-action-id label))
-  (interface-action id (json 'action "newitem" 'id id 'item "button" 'label label)))
+  (interface-action id (json 'action "newitem" 'id id 'item "button" 'label label 'callback (callback-source cb))))
 
 (define (new-menu label)
   (define id (make-interface-action-id label))
@@ -344,7 +348,7 @@
 (define (new-menu-item label parent callback)
   (define id (make-interface-action-id label))
   (interface-action id (json 'action "newitem" 'id id 'item "menuitem" 'menuid (interface-action-identifier parent)
-                                             'label label 'callback callback)))
+                             'label label 'callback callback)))
 
 (define (new-dropdown label data)
   (define id (make-interface-action-id label))
@@ -369,6 +373,23 @@
   (define id (interface-action-identifier c))
   (interface-action #"" (json 'action "updateitem" 'id id 'item "chart" 'data (list x y))))
 
+; make a callback for e.g. a button.
+; deliver the results of evaluating the javascript expression EXPR to 
+; the curl C.
+;;;; XXX BIG SECURITY HOLE NEED TO FIX XXX
+; ensure that only side effect free computations occur during the evaluation of EXPR
+(define/contract (make-callback c expr)
+  ((or/c curl? #f) string? . -> . callback?)
+  (define c/serialized/str (let ([o (open-output-string)]) (write (motile/serialize c) o) (get-output-string o)))
+  (callback c
+            (string-append "function() {"
+                           "    alert(\"sending something\");"
+                           "    websocket.send(JSON.stringify("
+                           "        function() { return [" c/serialized/str "," expr "]}()"
+                           "    ));"
+                           "}"
+                           )))
+
 ;; actions
 
 (define/contract (ui-ready-to-send? s)
@@ -379,6 +400,7 @@
   (semaphore-wait (session-ready-sema s)))
 (define/contract (ui-send! s v)
   (session? interface-action? . -> . void)
+  (displayln (interface-action-json-spec v))
   (thread-send (session-out-thd s) (interface-action-json-spec v)))
 
 (provide new-button
@@ -389,6 +411,7 @@
          new-chart
          update-canvas-contents
          plot-a-point
+         make-callback
          ui-ready-to-send?
          ui-wait-for-readiness
          ui-send!

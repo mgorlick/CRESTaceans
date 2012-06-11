@@ -13,16 +13,7 @@
 (define-values (s get-last-response) (open-a-tab/synch)) 
 (ui-wait-for-readiness s)
 
-(define w 320)
-(define h 240)
-
-(define (new-data)
-  (define b# (make-bytes (* w h 4)))
-  (for ([i (in-range (* w h 4))])
-    (bytes-set! b# i (random 256)))
-  b#)
-
-(ui-send! s (new-button "Foo"))
+(ui-send! s (new-button "Foo" (make-callback #f "foo")))
 (define session-menu (new-menu "Session..."))
 (define file-menu (new-menu "File..."))
 (ui-send! s file-menu)
@@ -35,12 +26,4 @@
 (ui-send! s (new-menu-item "Share" session-menu "alert(\"Share pressed\");"))
 (ui-send! s (new-menu-item "Move" session-menu "alert(\"Move pressed\");"))
 (ui-send! s (new-dropdown "ips" "ips.json"))
-(define c (new-canvas "mainvideo" w h))
-(ui-send! s c)
-(let loop ()
-  ;(sleep 1/20)
-  (ui-send! s (update-canvas-contents c (new-data)))
-  (loop))
-#| 
-(ui-send! s (update-canvas-contents c (make-bytes (* 4 500) 255)))
-|#
+(let loop () (printf "~s~n" (get-last-response)) (loop))
