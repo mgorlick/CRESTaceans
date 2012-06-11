@@ -182,12 +182,12 @@ function AddButton(id, label, passedFunction)
 
 		     	var widg = new dijit.form.Button({
 		 						label: (label),
-		 						onClick: function()
+		 						onClick: passedFunction /*function()
 		 						{
 								alert('running the callback');
 		 				 	    	// Do something:
 		 				  	    	eval(passedFunction);
-		 				  		}
+		 				  		}*/
 		     				}, (id)); //options,elementID
 
 		 		//widg.refresh();
@@ -484,7 +484,7 @@ function randomInt(range) {
     <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
     <div id="wrapper"></div>
-    <button id="addbutton" type="button" onClick="AddButton('hi', function(){ alert('hi');})">Create new button</button>
+    <button id="addbutton" type="button" onClick="AddButton('hi', 'hi', function(){ alert('hi');})">Create new button</button>
     <button id="addmenu" type="button" onClick="AddPopupMenu('Options')">Create new menu</button>
     <button id="addmenuitem" type="button" onClick="AddMenuItem('Preferences', 'Options', function(){ alert('Preferences pressed!');})">Create new menu item</button>
     <button id="addmenuitem" type="button" onClick="AddMenuItem('About', 'Options', function(){ alert('About pressed!');})">Create about</button>
