@@ -113,7 +113,7 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 						websocket.send(JSON.stringify(responsemsg));
 						break;		
 					case "button":
-						var response = AddButton(msg.id, msg.label, msg.callback);
+						var response = AddButton(msg.id, msg.label, function() { eval(msg.callback) });
 						var responsemsg = {
 							id:   response
 						  };
@@ -127,7 +127,7 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 						websocket.send(JSON.stringify(responsemsg));
 						break;
 					case "menuitem":
-						var response = AddMenuItem(msg.id, msg.label, msg.menuid, msg.callback);
+						var response = AddMenuItem(msg.id, msg.label, msg.menuid, (msg.callback));
 						var responsemsg = {
 							id:	response
 						};

@@ -259,7 +259,8 @@
          "../bindings/nacl/libnacl/libnacl.rkt"
          "../peer/src/net/base64-url-typed.rkt"
          "../Motile/compile/serialize.rkt"
-         "../Motile/actor/curl.rkt")
+         "../Motile/actor/curl.rkt"
+         "../Motile/actor/delivery.rkt")
 
 (define BROWSER-PORT 8000)
 (define BROWSER-PATH "/ui.html")
@@ -293,10 +294,12 @@
 
 (define (listener s wsc)
   (let loop ()
-    ((session-cb s) 
-     (json->jsexpr 
-      (bytes->string/utf-8 
-       (ws-recv wsc))))
+    (define retval (json->jsexpr 
+                    (bytes->string/utf-8 
+                     (ws-recv wsc))))
+    ((session-cb s)
+     (delivery (car retval)
+               (cdr retval)))
     (loop)))
 
 (ws-serve
@@ -345,10 +348,11 @@
   (define id (make-interface-action-id label))
   (interface-action id (json 'action "newitem" 'id id 'item "menu" 'label label)))
 
-(define (new-menu-item label parent callback)
+(define/contract (new-menu-item label parent cb)
+  (string? interface-action? callback? . -> . interface-action?)
   (define id (make-interface-action-id label))
   (interface-action id (json 'action "newitem" 'id id 'item "menuitem" 'menuid (interface-action-identifier parent)
-                             'label label 'callback callback)))
+                             'label label 'callback (callback-source cb))))
 
 (define (new-dropdown label data)
   (define id (make-interface-action-id label))
@@ -382,13 +386,13 @@
   ((or/c curl? #f) string? . -> . callback?)
   (define c/serialized/str (let ([o (open-output-string)]) (write (motile/serialize c) o) (get-output-string o)))
   (callback c
-            (string-append "function() {"
-                           "    alert(\"sending something\");"
-                           "    websocket.send(JSON.stringify("
-                           "        function() { return [" c/serialized/str "," expr "]}()"
-                           "    ));"
-                           "}"
-                           )))
+            (string-append ;"function() {"
+             "    alert(\'sending something\');"
+             "    websocket.send(JSON.stringify("
+             "        function() { return [\"" c/serialized/str "\"," expr "]}()"
+             "    ));"
+             ;"}"
+             )))
 
 ;; actions
 
