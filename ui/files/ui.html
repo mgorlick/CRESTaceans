@@ -105,47 +105,47 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 		switch(msg.action) {
 				case "newitem":
 					switch(msg.item) {
-					case "chart":	
+					case "chart":
 						var response = AddChart(msg.id, msg.type, msg.title, msg.subtitle);
 						var responsemsg = {
 							id:   response
 						  };
-						websocket.send(JSON.stringify(responsemsg));
-						break;		
+						//websocket.send(JSON.stringify(responsemsg));
+						break;
 					case "button":
 						var response = AddButton(msg.id, msg.label, function() { eval(msg.callback) });
 						var responsemsg = {
 							id:   response
 						  };
-						websocket.send(JSON.stringify(responsemsg));
+						//websocket.send(JSON.stringify(responsemsg));
 						break;
 					case "menu":
 						var response = AddPopupMenu(msg.id, msg.label);
 						var responsemsg = {
 							id: response
 						};
-						websocket.send(JSON.stringify(responsemsg));
+						//websocket.send(JSON.stringify(responsemsg));
 						break;
 					case "menuitem":
-						var response = AddMenuItem(msg.id, msg.label, msg.menuid, (msg.callback));
+						var response = AddMenuItem(msg.id, msg.label, msg.menuid, function() { eval(msg.callback) });
 						var responsemsg = {
 							id:	response
 						};
-						websocket.send(JSON.stringify(responsemsg));
+						//websocket.send(JSON.stringify(responsemsg));
 						break;
 					case "canvas":
 						var response = AddCanvas(msg.id, msg.label, msg.width, msg.height);
 						var responsemsg = {
 							id:	response
 						};
-						websocket.send(JSON.stringify(responsemsg));
+						//websocket.send(JSON.stringify(responsemsg));
 						break;
 					case "dropdown":
 						var response = AddSelectBox(msg.id, msg.label, msg.data);
 						var responsemsg = {
 							id:	response
 						};
-						websocket.send(JSON.stringify(responsemsg));
+						//websocket.send(JSON.stringify(responsemsg));
 						break;
 					}
 					break;
@@ -156,7 +156,7 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 						var responsemsg = {
 							id: response
 						};
-						websocket.send(JSON.stringify(responsemsg));
+						//websocket.send(JSON.stringify(responsemsg));
 						break;
 						case "canvas":
 							updateCanvas(msg.id, msg.data);
@@ -164,9 +164,9 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 					}
 			}
 		}
-		
+
 		        //  loadJsFile('monitoring.js'); //manually load for now
-		
+
     });
 
 function AddButton(id, label, passedFunction)
@@ -492,7 +492,7 @@ function randomInt(range) {
     <button id="addselect" type="button" onClick="AddSelectBox('sel', 'ips.json')">Create Select</button>
     <button id="updatecanvas" type="button" onClick="updateCanvas('vid', {})">Update canvas</button>
 	<button id="loadmonitoring" type="button" onClick="loadJsFile('monitoring.js')">Load Monitoring</button>
-    <button id="addchart" type="button" onClick="AddChart('chart', 'spline', 'Here data', 'Here is my subtitle')">Create Chart</button>
+    <button id="addchart" type="button" onClick="AddChart('mychart', 'line', 'Add Data Here', 'Subtitle', 400, 400)">Create Chart</button>
 	<button id="addrandomdata" type="button" onClick="AddData('chart', [new Date()*1000, Math.random()*1000])">Add Data</button>
     <!-- button id="addselector" type="button" onClick="AddCanvas('vid', 500, 500)">Create canvas</button -->
 
@@ -500,6 +500,8 @@ function randomInt(range) {
 	<div id="newbutton"></div>
 	<div id="select"></div>
 	<div id="canvasloc"></div>
-	<div id="chart" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+	<div id="chartloc"></div>
+
+	<!-- div id="chart" style="min-width: 400px; height: 400px; margin: 0 auto"></div -->
   </body>
 </html>
