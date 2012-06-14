@@ -14,7 +14,7 @@ websocket.onmessage = function (temp) {
 							var responsemsg = {
 								id:   response
 							  };
-							websocket.send(JSON.stringify(responsemsg));
+							//websocket.send(JSON.stringify(responsemsg));
 							break;			
 			}
 			break;
@@ -25,13 +25,39 @@ websocket.onmessage = function (temp) {
 					var responsemsg = {
 						id: response
 					};
-					websocket.send(JSON.stringify(responsemsg));
+					//websocket.send(JSON.stringify(responsemsg));
 					break;
 			}
 			break;
 	}
 }
 */
+
+var diagrams = [];
+var layouters = [];
+var renderers = [];
+
+function AddDiagram(id, width, height) {
+	var newdiv = document.createElement('div'); 
+	newdiv.setAttribute('id', id);
+	var pos = document.getElementById("diagramloc");
+	pos.appendChild(newdiv);
+	var g = new Graph();
+	var layouter = new Graph.Layout.Spring(g);
+	var renderer = new Graph.Renderer.Raphael(id, g, width, height);
+	diagrams[id] = g;
+	layouters[id] = layouter;
+	renderers[id] = renderer;
+
+}
+
+
+function AddDiagramNode(diagramid, nodeid, label) {
+	var graph = diagrams[diagramid];
+	graph.addNode(nodeid, { label : label });
+	layouters[diagramid].layout();
+        renderers[diagramid].draw();
+}
 
 function AddData(chartid, datapoint) {
 	var chart = charts[chartid];
@@ -42,13 +68,24 @@ function AddData(chartid, datapoint) {
 
 var charts = [];
 
-function AddChart(id, ctype, title, subtitle) {
+function AddChart(id, ctype, title, subtitle, width, height) {
+
+//let's create a new div for the chart
+var newdiv = document.createElement('div'); 
+newdiv.setAttribute('id', id);
+newdiv.style.height = height;
+newdiv.setAttribute("style", "min-width: " + width.toString() + "px");
+newdiv.setAttribute("style", "margin: 0 auto");
+
+var pos = document.getElementById("chartloc");
+pos.appendChild(newdiv);
+
 var chart;
 
     $(document).ready(function() {
         chart = new Highcharts.Chart({
             chart: {             
-				renderTo: 'chart',
+				renderTo: id,
                 type: ctype,
                 //margin: [70, 50, 60, 80],
                 events: {

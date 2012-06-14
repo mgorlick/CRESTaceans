@@ -12,6 +12,12 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
   <!-- script src="https://cvs.khronos.org/svn/repos/registry/trunk/public/webgl/sdk/demos/common/webgl-utils.js"></script-->
 	<script src="webgl-utils.js"></script>
+	<script type="text/javascript" src="raphael-min.js"></script>
+	    <script type="text/javascript" src="dracula_graffle.js"></script>
+    <script type="text/javascript" src="dracula_graph.js"></script>
+        <script type="text/javascript" src="example.js"></script>
+
+
 	<script src="monitoring.js"></script>
 
    <!-- vertex shader -->
@@ -494,13 +500,17 @@ function randomInt(range) {
 	<button id="loadmonitoring" type="button" onClick="loadJsFile('monitoring.js')">Load Monitoring</button>
     <button id="addchart" type="button" onClick="AddChart('mychart', 'line', 'Add Data Here', 'Subtitle', 400, 400)">Create Chart</button>
 	<button id="addrandomdata" type="button" onClick="AddData('chart', [new Date()*1000, Math.random()*1000])">Add Data</button>
-    <!-- button id="addselector" type="button" onClick="AddCanvas('vid', 500, 500)">Create canvas</button -->
+       <button id="adddiagram" type="button" onClick="AddDiagram('mydiagram', 400, 400)">Create Diagram</button>
+       <button id="addnode" type="button" onClick="AddDiagramNode('mydiagram', 'node', 'My Node')">Create Node</button>
+
+   <!-- button id="addselector" type="button" onClick="AddCanvas('vid', 500, 500)">Create canvas</button -->
 
 
 	<div id="newbutton"></div>
 	<div id="select"></div>
 	<div id="canvasloc"></div>
 	<div id="chartloc"></div>
+	<div id="diagramloc"></div>
 
 	<!-- div id="chart" style="min-width: 400px; height: 400px; margin: 0 auto"></div -->
   </body>

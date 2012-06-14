@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <title>UI</title>
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/dojo/1.7.2/dijit/themes/claro/claro.css">
+	<script src="webgl-utils.js"></script>
+  <script src="http://glmatrix.googlecode.com/files/glMatrix-0.9.5.min.js"></script>
+
+	<script type="text/javascript">
+	function randomInt(range) {
+		return Math.floor(Math.random() * range);
+	}
+	
+	function setRectangle(gl, x, y, width, height) {
+	  var x1 = x;
+	  var x2 = x + width;
+	  var y1 = y;
+	  var y2 = y + height;
+	  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+		 x1, y1,
+		 x2, y1,
+		 x1, y2,
+		 x1, y2,
+		 x2, y1,
+		 x2, y2]), gl.STATIC_DRAW);
+	};
+	
+	function make_new_canvas(id,w,h,scale) {
+		
+		var my_c = {};
+		
+		var going = false;
+		var canvasloc = document.getElementById('canvasloc');
+		var canvas = document.createElement('canvas');
+		canvas.id = id;
+		canvas.width = w*scale;
+		canvas.height = h*scale;
+		canvasloc.appendChild(canvas);
+		
+		var arr = new ArrayBuffer(w*h*4);
+		var view = new Uint8Array(arr);
+		// initial setup of texture data
+		// !!! IMPORTANT !!! modify 'view', NOT 'arr'
+		for (i = 0; i < arr.length; view[i++] = randomInt(256));
+		
+		var gl;
+		try {
+			gl = canvas.getContext("experimental-webgl");
+			gl.viewport(0,0,canvas.width,canvas.height);
+		} catch (e) {
+			alert(e);
+		}
+		if (!gl) {
+			alert("Could not initialise WebGL");
+			return my_c;
+		}
+		
+		vertexShader = createShaderFromScriptElement(gl, "2d-vertex-shader");
+		fragmentShader = createShaderFromScriptElement(gl, "2d-fragment-shader");
+		program = createProgram(gl, [vertexShader, fragmentShader]);
+		gl.useProgram(program);
+		
+ 		var positionLocation;
+		var texCoordLocation;
+		var texCoordBuffer;
+
+		function set_locations() {
+			positionLocation = gl.getAttribLocation(program, "a_position");
+			texCoordLocation = gl.getAttribLocation(program, "a_texCoord");
+			var coords = [
+				0.0,  0.0,
+				1.0,  0.0,
+				0.0,  1.0,
+				0.0,  1.0,
+				1.0,  0.0,
+				1.0,  1.0
+			];
+			texCoordBuffer = gl.createBuffer();
+			gl.bindBuffer(gl.ARRAY_BUFFER, texCoordBuffer);	
+			gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(coords), gl.STATIC_DRAW);
+			gl.enableVertexAttribArray(texCoordLocation);
+			gl.vertexAttribPointer(texCoordLocation, 2, gl.FLOAT, false, 0, 0);
+		}
+		set_locations();
+		
+		var texture;	
+		function make_texture() {
+			texture = gl.createTexture();
+			gl.bindTexture(gl.TEXTURE_2D,texture);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+			gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+			
+			// Upload the image into the texture.
+			gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,canvas.width,canvas.height,
+							0,gl.RGBA,gl.UNSIGNED_BYTE,view);
+		}
+		make_texture();
+		
+		var resolutionLocation;
+		var buffer;
+		function set_uniforms() {
+			// lookup uniforms
+			resolutionLocation = gl.getUniformLocation(program, "u_resolution");
+			// set the resolution
+			gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+			// Create a buffer for the position of the rectangle corners.
+			buffer = gl.createBuffer();
+			gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+			gl.enableVertexAttribArray(positionLocation);
+			gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+			// Set a rectangle the same size as the image.
+			setRectangle(gl, 0, 0, canvas.width, canvas.height);
+		}
+		set_uniforms();
+		
+		var pending_data = null;
+		var transitive_rescale = 1.0;
+		
+		function cleanup() {
+			gl.bindBuffer(gl.ARRAY_BUFFER,null);
+			gl.bindTexture(gl.TEXTURE_2D,null);
+			gl.deleteBuffer(buffer);
+			gl.deleteBuffer(texCoordBuffer);
+			gl.deleteTexture(texture);
+		}
+				
+		function tick() {
+			if(going) {
+				if (transitive_rescale != 1.0) {
+					rescale(transitive_rescale);
+					transitive_rescale = 1.0;
+				}
+				if (pending_data != null) {
+					view.set(pending_data);
+					pending_data = null;
+				}
+				// let's pretend the image data got modified when something
+				// else called my_c.update() in the mean time
+				for (i = 0; i < w*h*4; view[i++] = randomInt(256));
+				// update the texture from the new image data
+				gl.texSubImage2D(gl.TEXTURE_2D,0,0,0,canvas.width,canvas.height,
+									gl.RGBA,gl.UNSIGNED_BYTE,view);
+				gl.drawArrays(gl.TRIANGLES,0,6);
+				requestAnimFrame(tick);
+			} else {
+				cleanup();
+			}
+		}
+		
+		function rescale(factor) {
+			cleanup();
+			canvas.width = canvas.width * factor;
+			canvas.height = canvas.height * factor;
+			set_locations();
+			make_texture();
+			set_uniforms();
+		}
+		
+		function queue_rescale(factor) {
+			transitive_rescale *= factor;
+		}
+		
+		function queue_stop() {
+			going = false;
+		}
+		
+		function queue_update(data) {
+			pending_data = data;
+		}
+		
+		going = true;		
+		requestAnimFrame(tick);
+		my_c.id = id;
+		my_c.update = queue_update;
+		my_c.stop = queue_stop;
+		my_c.rescale = queue_rescale;
+		return my_c;
+	};
+
+	</script>
+<script type="text/javascript">
+window.onload = test_scaling;
+
+var c;
+var count = 0; 
+
+function test_scaling() {
+	c = make_new_canvas('vid',640,480,1.0);
+	window.setInterval(scale,3000);
+}
+
+function scale() {
+	if (count % 2 === 0) {
+		c.rescale(0.5);
+		count++;
+	} else if (count % 2 === 1) {
+		c.rescale (2.0);
+		count++;
+	}
+}
+</script>
+<!-- vertex shader -->
+<script id="2d-vertex-shader" type="x-shader/x-vertex">
+attribute vec2 a_position;
+attribute vec2 a_texCoord;
+
+uniform vec2 u_resolution;
+
+varying vec2 v_texCoord;
+
+void main() {
+   // convert the rectangle from pixels to 0.0 to 1.0
+   vec2 zeroToOne = a_position / u_resolution;
+
+   // convert from 0->1 to 0->2
+   vec2 zeroToTwo = zeroToOne * 2.0;
+
+   // convert from 0->2 to -1->+1 (clipspace)
+   vec2 clipSpace = zeroToTwo - 1.0;
+
+   gl_Position = vec4(clipSpace * vec2(1, -1), 0, 1);
+
+   // pass the texCoord to the fragment shader
+   // The GPU will interpolate this value between points.
+   v_texCoord = a_texCoord;
+}
+</script></script>
+<!-- fragment shader -->
+<script id="2d-fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+
+// our texture
+uniform sampler2D u_image;
+
+// the texCoords passed in from the vertex shader.
+varying vec2 v_texCoord;
+
+void main() {
+   gl_FragColor = texture2D(u_image, v_texCoord);
+}
+</script>
+
+  </head>
+  <body class="claro">
+	<div id="canvasloc"></div>
+  </body>
+</html>
