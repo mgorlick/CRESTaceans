@@ -59,6 +59,19 @@ function AddDiagramNode(diagramid, nodeid, label) {
         renderers[diagramid].draw();
 }
 
+function AddDiagramEdge(diagramid, nodeid1, nodeid2, directed) {
+	var graph = diagrams[diagramid];
+	if (directed) {
+	    graph.addEdge(nodeid1, nodeid2, { directed : directed } );
+	
+	}
+	else {
+	    graph.addEdge(nodeid1, nodeid2);
+	}
+	layouters[diagramid].layout();
+        renderers[diagramid].draw();
+}
+
 function AddData(chartid, datapoint) {
 	var chart = charts[chartid];
 	var series = chart.series[0];	
