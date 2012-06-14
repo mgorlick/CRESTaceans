@@ -404,8 +404,9 @@
   (semaphore-wait (session-ready-sema s)))
 (define/contract (ui-send! s v)
   (session? interface-action? . -> . void)
-  (displayln (interface-action-json-spec v))
-  (thread-send (session-out-thd s) (interface-action-json-spec v)))
+  ;(displayln (interface-action-json-spec v))
+  (thread-send (session-out-thd s) (interface-action-json-spec v) 
+               (λ () (displayln "Error: no connection to browser UI!"))))
 
 (provide new-button
          new-menu

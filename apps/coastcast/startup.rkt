@@ -108,18 +108,17 @@
 
 (define-syntax-rule (define-wrapper-for f g precall)
   (define (g . xs)
-    (apply precall xs)
+    (apply precall (cons f xs))
     (apply f xs)))
 
 (define-syntax-rule (define-wrapper-for* f g postcall)
   (define (g . xs)
     (apply f xs)
-    (apply postcall xs)))
+    (apply postcall (cons f xs))))
 
 (define (my-root-loop ui ui-notification-channel)
   (define tre (thread-receive-evt))
   (define e (sync tre ui-notification-channel))
-  (displayln "Synced")
   (define amsg (cond [(equal? tre e) (thread-receive)]
                      [else e]))
   ;(define amsg (thread-receive))
@@ -128,27 +127,32 @@
     [(vector (? (curry equal? PUBLIC-CURL) pcurl) (match:spawn body metadata reply))
      (define the-nickname (gensym (or (metadata-ref metadata "nick") 'nonamegiven)))
      (define-values (actor actor/loc) (actor/new ROOT the-nickname))
-     ; make a chart to track the encoder send counts.
-     (define this-chart        
-       (if (eq? (metadata-ref metadata "nick") 'encoder)
-           (new-chart 'line (format "sending count of ~a" the-nickname) "total messages")
-           #f))
-     (when this-chart (ui-send! ui this-chart))
-     ; a producer of functions that count and send a data point every 10 invocations.
-     (define (make-counter)
-       (let ([count 0])
-         (lambda _
-           (set! count (add1 count))
-           (when (and this-chart (zero? (modulo count 10)))
-             (ui-send! ui (plot-a-point this-chart (current-inexact-milliseconds) count))))))
-     ; make a counter for curl/send.
-     (define counter (make-counter))
-     (define-wrapper-for base:curl/send curl/send counter)
+     ; a producer of functions that count and send a data point every N invocations.
+     (define (make-counter thing-counted)
+       (define N 10)
+       (define count 0)
+       (define this-chart #f)
+       (lambda _
+         (set! count (add1 count))
+         (when (zero? (modulo count N))
+           (unless this-chart 
+             (set! this-chart 
+                   (new-chart 'line (format "~a count of ~a" thing-counted the-nickname) "total"))
+             (ui-send! ui this-chart))
+           (ui-send! ui (plot-a-point this-chart (current-inexact-milliseconds) count)))))
+     ; make a counter for curl/send and friends.
+     ; counter is shared between all the curl/send* functions
+     (define counter-for-sends (make-counter "sending"))
+     (define-wrapper-for base:curl/send curl/send counter-for-sends)
+     (define-wrapper-for base:curl/send/multiple curl/send/multiple counter-for-sends)
+     (define-wrapper-for base:curl/send/promise curl/send/promise counter-for-sends)
      (define benv (++ (metadata->benv metadata)
                       (global-value-defines the-nickname PUBLIC-CURL)
-                      (global-defines this/locative
-                                      curl/get-public
-                                      curl/send)))
+                      (global-defines this/locative curl/get-public 
+                                      ; overwrite old versions with wrapped versions.
+                                      curl/send 
+                                      curl/send/promise
+                                      curl/send/multiple)))
      ; todo: use `curl/send` instead of `curl/send*` (fix name shadowing problem in macro definition)
      (actor/jumpstart actor 
                       (λ ()

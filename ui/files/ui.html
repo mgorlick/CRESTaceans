@@ -113,8 +113,8 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 					switch(msg.item) {
 					case "chart":
 						var response = AddChart(msg.id, msg.type, msg.title, msg.subtitle,
-									msg.width ? msg.width : 500,
-									msg.height ? msg.height : 500 );
+									msg.width ? msg.width : 400,
+									msg.height ? msg.height : 400 );
 						var responsemsg = {
 							id:   response
 						  };
