@@ -153,6 +153,9 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 						};
 						//websocket.send(JSON.stringify(responsemsg));
 						break;
+					case "diagram":
+						var response = AddDiagram(msg.id, msg.width, msg.height);
+						break;
 					}
 					break;
 				case "updateitem":
@@ -164,10 +167,16 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
 						};
 						//websocket.send(JSON.stringify(responsemsg));
 						break;
-						case "canvas":
-							updateCanvas(msg.id, msg.data);
-							break;
-					}
+					case "canvas":
+						updateCanvas(msg.id, msg.data);
+						break;
+					case "diagramnode":
+						var response = AddDiagramNode(msg.diagramid, msg.nodeid, msg.label);
+						break;
+					case "diagramedge":
+						var response = AddDiagramEdge(msg.diagramid, msg.nodeid1, msg.nodeid2, msg.directed);
+						break;					
+				}
 			}
 		}
 
