@@ -87,6 +87,7 @@ function AddChart(id, ctype, title, subtitle, width, height) {
 var newdiv = document.createElement('div'); 
 newdiv.setAttribute('id', id);
 newdiv.style.height = height;
+newdiv.style.width = width;
 newdiv.setAttribute("style", "min-width: " + width.toString() + "px");
 newdiv.setAttribute("style", "margin: 0 auto");
 
