@@ -99,7 +99,7 @@ require(["dijit/form/Button", "dijit/layout/BorderContainer", "dijit/layout/Cont
        pMenuBar.startup();
        //webGLStart();
 
-	websocket = new WebSocket("ws://localhost:8080/" + window.location.search);
+	websocket = new WebSocket("ws://" + window.location.hostname + ":" + (new Number(window.location.port) + 80) + "/" + window.location.search);
 
 	websocket.onopen = function(event) {
 		websocket.send(JSON.stringify({go : ""}));
@@ -522,8 +522,8 @@ function randomInt(range) {
 	<div id="newbutton"></div>
 	<div id="select"></div>
 	<div id="canvasloc"></div>
-	<div id="chartloc"></div>
 	<div id="diagramloc"></div>
+	<div id="chartloc"></div>
 
 	<!-- div id="chart" style="min-width: 400px; height: 400px; margin: 0 auto"></div -->
   </body>

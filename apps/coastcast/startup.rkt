@@ -116,6 +116,21 @@
     (apply f xs)
     (apply postcall (cons f xs))))
 
+(define sending-diagram-nodes (make-hash)) ; nickname -> node
+(define sending-diagram-edges (make-hash)) ; (nickname . (nickname or island-address)) -> node
+(define sending-diagram #f)
+
+(define (add-new-edge ui origin target)
+  (unless (hash-has-key? sending-diagram-edges (cons origin target))
+    (when (and (hash-ref sending-diagram-nodes origin #f)
+               (hash-ref sending-diagram-nodes target #f))
+      (define edge (new-edge sending-diagram
+                             (hash-ref sending-diagram-nodes origin)
+                             (hash-ref sending-diagram-nodes target)
+                             #t))
+      (hash-set! sending-diagram-edges (cons origin target) edge)
+      (ui-send! ui edge))))
+
 (define (my-root-loop ui ui-notification-channel)
   (define tre (thread-receive-evt))
   (define e (sync tre ui-notification-channel))
@@ -127,6 +142,12 @@
     [(vector (? (curry equal? PUBLIC-CURL) pcurl) (match:spawn body metadata reply))
      (define the-nickname (gensym (or (metadata-ref metadata "nick") 'nonamegiven)))
      (define-values (actor actor/loc) (actor/new ROOT the-nickname))
+     ; put a new node to represent the new computation.
+     (define this-node (new-node sending-diagram (symbol->string the-nickname)))
+     ; place in the map above
+     (hash-set! sending-diagram-nodes the-nickname this-node)
+     ; send to ui itself.
+     (ui-send! ui this-node)
      ; a producer of functions that count and send a data point every N invocations.
      (define (make-counter thing-counted)
        (define N 10)
@@ -140,12 +161,48 @@
                    (new-chart 'line (format "~a count of ~a" thing-counted the-nickname) "total"))
              (ui-send! ui this-chart))
            (ui-send! ui (plot-a-point this-chart (current-inexact-milliseconds) count)))))
+     ; a producer of functions that create edges between `this-node' and other nodes
+     ; when this computation sends messages to other computations.
+     (define (make-edge-for target-curl)
+       (cond [(curl/intra? target-curl)
+              ; the receiver is also here.
+              ; we should have another node for it on the diagram already (since it was already created)
+              ; find it.
+              (define target-actor (actor/nickname (locative/actor (curl/id target-curl))))
+              ; now that we have both nodes draw the edge
+              ; (if the edge doesn't exist.)
+              (add-new-edge ui the-nickname target-actor)]
+             [else ; off island.
+              (define target-island-address (curl/island target-curl))
+              ;(displayln target-island-address)
+              ; make sure we have a node for the other island on the diagram
+              (unless (hash-has-key? sending-diagram-nodes target-island-address)
+                (define other-island-node (new-node sending-diagram
+                                                    (string-append
+                                                     (bytes->string/utf-8 (island/address/dns target-island-address))
+                                                     ":"
+                                                     (number->string (island/address/port target-island-address)))))
+                (hash-set! sending-diagram-nodes target-island-address other-island-node)
+                (ui-send! ui other-island-node))
+              (add-new-edge ui the-nickname target-island-address)]))
+     (define (draw-edge p c m . whatever)
+       (cond
+         [(eq? p base:curl/send/multiple)
+          ; curl/send/multiple's arguments are backwards.
+          ; `m' is actually a list of curls; `c' is actually the message.
+          (map make-edge-for m)]
+         [else 
+          (make-edge-for c)]))
      ; make a counter for curl/send and friends.
      ; counter is shared between all the curl/send* functions
      (define counter-for-sends (make-counter "sending"))
-     (define-wrapper-for base:curl/send curl/send counter-for-sends)
-     (define-wrapper-for base:curl/send/multiple curl/send/multiple counter-for-sends)
-     (define-wrapper-for base:curl/send/promise curl/send/promise counter-for-sends)
+     ; glue both of the curl/send instrumentations together.
+     (define sending-instrumentation (λ xs 
+                                       (apply counter-for-sends xs)
+                                       (apply draw-edge xs)))
+     (define-wrapper-for base:curl/send curl/send sending-instrumentation)
+     (define-wrapper-for base:curl/send/multiple curl/send/multiple sending-instrumentation)
+     (define-wrapper-for base:curl/send/promise curl/send/promise sending-instrumentation)
      (define benv (++ (metadata->benv metadata)
                       (global-value-defines the-nickname PUBLIC-CURL)
                       (global-defines this/locative curl/get-public 
@@ -171,16 +228,26 @@
   (my-root-loop ui ui-notification-channel))
 
 
+(serve-browser-ui (argsassoc "--ui" #:default 8000 #:no-val 8000 #:call string->number))
+
 ;;; start the root chieftain up.
 (actor/jumpstart ROOT (λ ()                        
                         (define (open-a-tab/synch)
                           (define ac (make-async-channel))
                           (define s (open-a-tab (λ (json) (async-channel-put ac json))))
                           (values s ac))
-                        (define-values (s ui-notification-channel) (open-a-tab/synch)) 
-                        (ui-wait-for-readiness s)
+                        (define-values (ui ui-notification-channel) (open-a-tab/synch)) 
+                        (ui-wait-for-readiness ui)
                         (PROMISSARY ROOT)
-                        (my-root-loop s ui-notification-channel)))
+                        (set! sending-diagram (new-diagram 1200 900))
+                        (ui-send! ui sending-diagram)
+                        ; put a new node to represent the new computation.
+                        (define this-node (new-node sending-diagram "root"))
+                        ; place in the map above
+                        (hash-set! sending-diagram-nodes 'root this-node)
+                        ; send to ui itself.
+                        (ui-send! ui this-node)
+                        (my-root-loop ui ui-notification-channel)))
 
 (unless (argsassoc "--no-gui")
   (base:curl/send PUBLIC-CURL (spawn/new gui-controller (make-metadata is/gui (nick 'gui-controller)) #f)))

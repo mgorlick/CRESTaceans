@@ -220,7 +220,10 @@
        (make-header #"Connection" #"Upgrade")
        (make-header #"Sec-WebSocket-Origin" origin)
        (make-header #"Sec-WebSocket-Location"
-                    #"ws://localhost:8080/a-websocket-location")
+                    (bytes-append 
+                     #"ws://localhost:"
+                     (string->bytes/utf-8 (number->string WS-PORT))
+                     #"/a-websocket-location"))
        (make-header #"Sec-WebSocket-Accept" accept-magic-key)))
     (fprintf op "HTTP/1.1 101 WebSocket Protocol Handshake")
     (crlf op)
@@ -264,6 +267,7 @@
 
 (define BROWSER-PORT 8000)
 (define BROWSER-PATH "/ui.html")
+(define WS-PORT (+ BROWSER-PORT 80))
 
 (define-runtime-path files "files")
 ;(directory-list files)
@@ -271,13 +275,37 @@
 (define (start req)
   (response/xexpr
    `(html (body "Hello world!"))))
-(thread (λ () (serve/servlet start
-                             #:port BROWSER-PORT
-                             #:servlet-regexp #rx"/foo"
-                             #:extra-files-paths (list files)
-                             #:servlet-path BROWSER-PATH
-                             #:launch-browser? #f
-                             )))
+
+(define/contract (serve-browser-ui p)
+  (exact-nonnegative-integer? . -> . void)
+  (set! BROWSER-PORT p)
+  (set! WS-PORT (+ 80 p))
+  (thread (λ () (serve/servlet start
+                               #:port BROWSER-PORT
+                               #:servlet-regexp #rx"/foo"
+                               #:extra-files-paths (list files)
+                               #:servlet-path BROWSER-PATH
+                               #:launch-browser? #f
+                               )))
+  
+  (ws-serve
+   #:listen-ip "localhost"
+   #:port WS-PORT
+   (λ (wsc)
+     (printf "connected on ~a~N" WS-PORT)
+     (define pid (current-thread))
+     (define s (hash-ref sessions (ws-conn-session-id wsc)))
+     (when (not (session-out-thd s))
+       (set-session-out-thd! s pid)
+       (displayln "websocket connection being served")
+       (displayln (ws-recv wsc))
+       (define it (thread (λ () (listener s wsc))))
+       (displayln "making ready")
+       (semaphore-post (session-ready-sema s)))
+     (let loop ()
+       (define m (thread-receive))
+       (ws-send! wsc (maybe-string->bytes m))
+       (loop)))))
 
 (define (maybe-string->bytes s)
   (cond [(string? s) (string->bytes/utf-8 s)] 
@@ -301,24 +329,6 @@
      (delivery (car retval)
                (cdr retval)))
     (loop)))
-
-(ws-serve
- #:listen-ip "localhost"
- #:port 8080
- (λ (wsc)
-   (define pid (current-thread))
-   (define s (hash-ref sessions (ws-conn-session-id wsc)))
-   (when (not (session-out-thd s))
-     (set-session-out-thd! s pid)
-     (displayln "websocket connection being served")
-     (displayln (ws-recv wsc))
-     (define it (thread (λ () (listener s wsc))))
-     (displayln "making ready")
-     (semaphore-post (session-ready-sema s)))
-   (let loop ()
-     (define m (thread-receive))
-     (ws-send! wsc (maybe-string->bytes m))
-     (loop))))
 
 (define (open-a-tab cb)
   (define-values (pk _) (nacl:crypto-box-keypair))
@@ -367,6 +377,26 @@
   (define id (make-interface-action-id title))
   (interface-action id (json 'action "newitem" 'id id 'item "chart" 'type (symbol->string type) 'title title 'subtitle subtitle)))
 
+(define/contract (new-diagram w h)
+  (exact-nonnegative-integer? exact-nonnegative-integer? . -> . interface-action?)
+  (define id (make-interface-action-id ""))
+  (interface-action id (json 'action "newitem" 'id id 'item "diagram" 'width w 'height h)))
+
+(define/contract (new-node d label)
+  (interface-action? string? . -> . interface-action?)
+  (define id (make-interface-action-id label))
+  (interface-action id (json 'action "updateitem" 'item "diagramnode" 
+                             'nodeid id 'diagramid (interface-action-identifier d) 'label label)))
+
+(define/contract (new-edge d n1 n2 directed?)
+  (interface-action? interface-action? interface-action? boolean? . -> . interface-action?)
+  (define id (make-interface-action-id ""))
+  (interface-action id (json 'action "updateitem" 'item "diagramedge"
+                             'id id 'diagramid (interface-action-identifier d)
+                             'nodeid1 (interface-action-identifier n1)
+                             'nodeid2 (interface-action-identifier n2)
+                             'directed directed?)))
+
 (define/contract (update-canvas-contents c data)
   (interface-action? bytes? . -> . interface-action?)
   (define id (interface-action-identifier c))
@@ -414,9 +444,13 @@
          new-dropdown
          new-canvas
          new-chart
+         new-diagram
+         new-node
+         new-edge
          update-canvas-contents
          plot-a-point
          make-callback
+         serve-browser-ui
          ui-ready-to-send?
          ui-wait-for-readiness
          ui-send!
