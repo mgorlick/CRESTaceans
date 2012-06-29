@@ -10,4 +10,7 @@ WIDTH and HEIGHT specify a width and height to try to use in setting up the came
 and --no-gui/--no-video tell the startup script to NOT start the local GUI service or the camera reading/video encoding service.
 
 
-
+Once a COASTcast stream instance is started, the user may move/share a stream
+with other COASTcast users, move the camera reading/video encoding service
+to a new host, compose a picture-in-picture stream out of two others
+or move/share the user's application state to another user.
