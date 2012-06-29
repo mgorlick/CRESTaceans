@@ -1,0 +1,63 @@
+;; Adapted from: 
+
+;; Copyright 2011-2012 Ryan Culpepper
+;; Released under the terms of the LGPL version 3 or later.
+;; http://planet.racket-lang.org/package-source/ryanc/webapi.plt/1/1/private/net.rkt
+;; See the file COPYRIGHT for details.
+;; http://planet.racket-lang.org/package-source/ryanc/webapi.plt/1/1/COPYRIGHT
+
+;; Changed to aggregated all code required to make http post calls
+;; Removed check for https urls
+
+#lang racket
+(require racket/match       
+         net/url
+         net/url-connect
+         net/uri-codec
+         racket/port
+         
+         )
+
+(define (do-method who url method data?
+                   handle fail headers data ok-rx)
+  (let* ([url (if (string? url) (string->url url) url)]
+         [data (if (string? data) (string->bytes/utf-8 data) data)])
+    (call/input-url url
+      (lambda (url)
+          (if data?
+              (method url data headers)
+              (method url headers)))
+      (lambda (in)
+        (let ([response-header (purify-port in)])
+          (cond [(regexp-match? ok-rx response-header)
+                 (handle in)]
+                [else
+                 (if (string? fail)
+                     (error who "~a: ~e" fail
+                            (read-line (open-input-string response-header) 'any))
+                     (fail response-header in))]))))))
+
+(define std-ok-rx #rx"^HTTP/1\\.. 20.")
+
+(define (mk-data-method method)
+  (lambda (url
+           #:headers [headers null]
+           #:data [data #f]
+           #:handle [handle void]
+           #:who [who 'get-url]
+           #:fail [fail "failed"]
+           #:ok-rx [ok-rx std-ok-rx])
+    (do-method who url method #t
+               handle fail headers data ok-rx)))
+
+(define post/url (mk-data-method post-impure-port))
+
+
+(define (create-event archid sensorid timestamp eventtype json-event-data 
+                                 #:who [who 'coast-arch-sensor:curl-event])      
+      (post/url (string->url (format "http://192.168.159.1:8080/curl?archid=~a&sensorid=~a&timestamp=~a&eventtype=~a" archid sensorid timestamp eventtype))
+                #:headers (list "Content-Type: application/json")
+                #:data (string->bytes/utf-8 json-event-data)
+                #:handle (lambda (in) ( display "Event confirmed" ))
+                #:who who))
+
