@@ -14,6 +14,13 @@
          web-server/private/dispatch-server-unit
          web-server/private/dispatch-server-sig)
 
+;; CREDIT:
+;; Code in this file based on code from the net/websocket/conn package.
+;; The implementation of the WebSocket server protocol was
+;; rewritten to comply with the behavior of Google Chrome circa May/June 2012 as 
+;; Chrome's behavior did not match any of the published standards
+;; as far as we could tell.
+
 (struct ws-conn ([closed? #:mutable] line headers session-id ip op)
   #:property prop:evt (struct-field-index ip))
 (define (open-ws-conn? x)
