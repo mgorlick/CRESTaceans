@@ -4,12 +4,11 @@
 (require "motiles.rkt"
          "envs.rkt"
          "message-types.rkt"
-         "config.rkt"
          "../../ui/ws.rkt"
-         "../../peer/src/net/tcp-peer.rkt"         
-         "../../Motile/persistent/hash.rkt"
-         "../../Motile/compile/serialize.rkt"
+         "../../peer/src/api/framework.rkt" 
          "../../Motile/generate/baseline.rkt"
+         "../../Motile/persistent/environ.rkt"
+         "../../Motile/persistent/hash.rkt"
          "../../Motile/actor/actor.rkt"
          "../../Motile/actor/curl.rkt"
          (prefix-in base: "../../Motile/actor/send.rkt")
@@ -18,103 +17,31 @@
          "../../Motile/actor/jumpstart.rkt"
          "../../Motile/actor/island.rkt"
          "../../Motile/actor/locative.rkt"
-         "../../Motile/actor/logger.rkt"
          racket/function
-         racket/list
          racket/match
          racket/contract
-         racket/dict
          racket/async-channel)
 
 (provide (all-defined-out))
 
-; argsassoc: string [call: string -> any] [no-val: any] [default: any] -> any
-; separates the provided command line arguments of the form:
-;             key1=val1 key2=val2 key3
-; if the provided key name is present and has a value, returns `call' applied to that value.
-; if the provided key name is present but has no value, returns `default'.
-; if the provided key name is not present, returns `no-val'.
-(define CLargs (map (curry regexp-split #rx"=") (vector->list (current-command-line-arguments))))
-(define (argsassoc key 
-                   #:call [call values] 
-                   #:no-val [no-val #f] 
-                   #:default [default #t])
-  (let ([entry (assoc key CLargs)])
-    (if entry
-        (if (> (length entry) 1)
-            (call (second entry))
-            default)
-        no-val)))
-
-(define (meta-has-any? meta . vs)
-  (ormap (λ (k.v) (equal? (cdr k.v) (hash/ref meta (car k.v) #f)))
-         vs))
-
-(define (metadata->benv metadata)
+(define/contract (metadata->benv metadata)
+  (hash/persist? . -> . environ?)
   (cond [(meta-has-any? metadata accepts/webm) VIDEO-DECODE]
         [(meta-has-any? metadata produces/webm) VIDEO-ENCODE]
         [(meta-has-any? metadata is/gui) GUI]
         [(meta-has-any? metadata is/endpoint) GUI-ENDPOINT]
         [else MULTIMEDIA-BASE]))
 
-(define-syntax-rule (->boolean expr)
-  (if expr
-      #t
-      #f))
-
-(define/contract (curl/known-public? host port)
-  ((or/c string? bytes?) exact-nonnegative-integer? . -> . boolean?)
-  (->boolean (dict-ref PUBLICS (cons (if (string? host) (string->bytes/utf-8 host) host) port) #f)))
-
-(define/contract (curl/get-public host port)
-  ((or/c string? bytes?) exact-nonnegative-integer? . -> . curl?)
-  (motile/deserialize (dict-ref PUBLICS (cons (if (string? host) (string->bytes/utf-8 host) host)
-                                              port))
-                      #f))
-
-(define (make-root/get-public/register-public)
-  (define-values (root root-locative) (actor/root/new))
-  (define public-locative (locative/cons/any root-locative A-LONG-TIME A-LONG-TIME #t #t))
-  (locative/id! public-locative '(public))
-  (define public-curl (curl/new/any public-locative null #f))
-  (motile/serialize public-curl) ; put in exports table.
-  (values root root-locative 
-          public-locative 
-          (if (curl/known-public? (island/address/dns (this/island)) (island/address/port (this/island)))
-              (curl/get-public (island/address/dns (this/island)) (island/address/port (this/island)))
-              public-curl)
-          ))
-
-#|(for/list ([i (in-range 5000 5020)])
-  (this/island (island/address/new #"abcdefghijklmnopqrstuvwxyz" #"128.195.59.227" i))
-  (define-values (root rootl publicl publicc) (make-root/get-public/register-public))
- `((,(island/address/dns (this/island)) . ,i) . (,(motile/serialize (curl/new/any publicl null #f)))))|#
-
 ;; host and port to listen on. use to start the comm layer below, designating root to receive incoming.
-(define *LISTENING-ON* (argsassoc "--host" #:no-val *LOCALHOST*))
-(define *LOCALPORT* (argsassoc "--port" #:no-val 5000 #:call string->number))
+(define DNS (argsassoc "--host" #:no-val "127.0.0.1"))
+(define PORT (argsassoc "--port" #:no-val 5000 #:call string->number))
 
-(define ADDRESS-HERE (island/address/new 
-                      #"abcdefghijklmnopqrstuvwxyz" 
-                      (string->bytes/utf-8 *LISTENING-ON*) *LOCALPORT*))
+(define ADDRESS-HERE 
+  (island/address/new #"abcdefghijklmnopqrstuvwxyz" (string->bytes/utf-8 DNS) PORT))
 
-(this/island ADDRESS-HERE)
+(define-values (ROOT ROOT-LOCATIVE PUBLIC-LOCATIVE PUBLIC-CURL COMM-thd)
+  (listen-on/make-root ADDRESS-HERE))
 (printf "Island starting: ~s~n" (this/island))
-; make root actor
-(define-values (ROOT ROOT-LOCATIVE PUBLIC-LOCATIVE PUBLIC-CURL) (make-root/get-public/register-public))
-; deliver incoming messages to ROOT
-(define COMM-thd (run-tcp-peer *LISTENING-ON* *LOCALPORT* (actor/thread ROOT) #:encrypt? #f))
-(base:set-inter-island-router! COMM-thd)
-
-(define-syntax-rule (define-wrapper-for f g precall)
-  (define (g . xs)
-    (apply precall (cons f xs))
-    (apply f xs)))
-
-(define-syntax-rule (define-wrapper-for* f g postcall)
-  (define (g . xs)
-    (apply f xs)
-    (apply postcall (cons f xs))))
 
 (define sending-diagram-nodes (make-hash)) ; nickname -> node
 (define sending-diagram-edges (make-hash)) ; (nickname . (nickname or island-address)) -> node
@@ -210,13 +137,9 @@
                                       curl/send 
                                       curl/send/promise
                                       curl/send/multiple)))
-     ; todo: use `curl/send` instead of `curl/send*` (fix name shadowing problem in macro definition)
-     (actor/jumpstart actor 
-                      (λ ()
-                        (printf "Actor starting: ~s~n" the-nickname)
-                        (let ([ret (motile/call body benv)])
-                          (printf "Actor ending: ~s~n" the-nickname)
-                          ret)))]
+     (printf "Actor starting: ~s~n" the-nickname)
+     (eval-actor actor body benv)
+     (printf "Actor ending: ~s~n" the-nickname)]
     ;; a delivery from off-island into one of the actors here.
     [(? delivery? m)
      ; send count deprecation happens here.
@@ -226,7 +149,6 @@
      (displayln "Root: discarding a message:")
      (displayln amsg)])
   (my-root-loop ui ui-notification-channel))
-
 
 (serve-browser-ui (argsassoc "--ui" #:default 8000 #:no-val 8000 #:call string->number))
 
@@ -255,10 +177,9 @@
   (define device (argsassoc "--device" #:default "/dev/video0" #:no-val "/dev/video0"))
   (define w (argsassoc "--w" #:default 640 #:no-val 640 #:call (compose round string->number)))
   (define h (argsassoc "--h" #:default 480 #:no-val 480 #:call (compose round string->number)))
-  (define encoder-where@ (curl/get-public (argsassoc "--vhost" #:no-val *LISTENING-ON* #:default *LISTENING-ON*)
-                                          (argsassoc "--vport" #:call string->number 
-                                                     #:no-val *LOCALPORT*
-                                                     #:default *LOCALPORT*)))
+  (define encoder-where@ 
+    (curl/get-public (argsassoc "--vhost" #:no-val DNS #:default DNS)
+                     (argsassoc "--vport" #:no-val PORT #:default PORT #:call string->number)))
   (define pubsub-where@ (if (equal? "dsite" (argsassoc "--psat")) PUBLIC-CURL encoder-where@))
   (define the-bang (motile/call make-big-bang
                                 MULTIMEDIA-BASE
@@ -268,4 +189,4 @@
   (base:curl/send PUBLIC-CURL (spawn/new the-bang (make-metadata (nick 'big-bang)) #f))
   (displayln "Spawn sent"))
 
-(semaphore-wait (make-semaphore))
+(wait-forever)
