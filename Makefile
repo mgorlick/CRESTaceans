@@ -13,7 +13,7 @@ c:
 	cd bindings/nacl/wrapper && make
 	cd apps/coastcast/bindings/vp8/wrapper && make
 
-install:
+install: check-env
 	cd bindings/nacl/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
 	cd apps/coastcast/bindings/vp8/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
 
@@ -25,4 +25,21 @@ clean:
 clean-junk:
 	find . -name *~ -print0 | xargs -0 rm
 
-.PHONY: apps peer bindings c install clean clean-junk
+check-env:
+ifndef RACKET_LIBS
+	@echo 1>&2 "RACKET_LIBS environment variable must be set! e.g., ~/racket/lib"
+	exit 1
+endif
+
+setup: check-env
+	@/bin/bash -c "pushd .;\
+	cd libs; \
+	./install-fastlz.sh;\
+	./install-nacl.sh;\
+	find `pwd` -path '*build/*/include*' -name '*.h' -type f -print0 | xargs -0 cp -t '../bindings/nacl/wrapper';\
+	find `pwd` -path '*build/*/lib*' -name '*.[o|a]' -type f -print0 | xargs -0 cp -t '../bindings/nacl/wrapper';\
+	popd;\
+	make;\
+	make install;"
+
+.PHONY: apps peer bindings c install clean clean-junk setup check-env
