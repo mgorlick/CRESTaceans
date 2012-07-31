@@ -6,7 +6,7 @@
          racket/contract
          ffi/vector
          "message-types.rkt"
-         "config.rkt"
+         "../../peer/src/api/config.rkt"
          "motile-imports.rkt"
          "../../Motile/actor/curl.rkt"
          "../../Motile/actor/send.rkt"

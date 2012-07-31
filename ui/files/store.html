@@ -1,0 +1,63 @@
+<HTML>
+<HEAD>
+<script type="text/javascript">
+    var websocket;
+	websocket = new WebSocket("ws://" + window.location.hostname + ":" + (new Number(window.location.port) + 80) + "/" + window.location.search);
+
+	websocket.onopen = function(event) {
+		websocket.send(JSON.stringify({go : ""}));
+	}
+
+	websocket.onmessage = function (event) {
+		var msg = JSON.parse(event.data);
+		switch(msg.action) {
+				case "newdiv":
+					AddDiv(msg.id);
+					break;
+				case "newitem":
+					switch(msg.item) {
+						case "chart":
+							var response = AddChart(msg.id, msg.type, msg.title, msg.subtitle);
+							var responsemsg = {
+								id:   response
+							  };
+							//websocket.send(JSON.stringify(responsemsg));
+						break;
+					}
+					break;
+		}
+	}
+
+	function AddDiv(id) {
+		var newdiv = document.createElement('div');
+		newdiv.setAttribute('id', id);
+
+		var container = document.getElementById('container');
+		container.appendChild(newdiv);
+	}
+
+	function AddItem(id, name, price, pic) {
+		var newdiv = document.createElement('div');
+		newdiv.setAttribute('id', id);
+		newdiv.innerText = name + " - $" + price;
+
+		var button = document.createElement('button');
+		button.setAttribute('onClick', 'alert("hi")');
+		button.innerText = "Buy!";
+
+		newdiv.appendChild(button);
+
+		var container = document.getElementById('container');
+		container.appendChild(newdiv);
+	}
+
+
+</script>
+</HEAD>
+<BODY>
+	<div id="container"></div>
+    <button id="additem" type="button" onClick="AddItem('hi', 'hi', 34.45, null)">Create new item</button>
+	<button id="adddiv" type="button" onClick="AddDiv('hello!')">Create div</button>
+
+</BODY>
+</HTML>
