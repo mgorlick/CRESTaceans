@@ -125,7 +125,7 @@
      (define counter-for-sends (make-counter "sending"))
      ; glue both of the curl/send instrumentations together.
      (define sending-instrumentation (λ xs 
-                                       (apply counter-for-sends xs)
+                                       ;(apply counter-for-sends xs)
                                        (apply draw-edge xs)))
      (define-wrapper-for base:curl/send curl/send sending-instrumentation)
      (define-wrapper-for base:curl/send/multiple curl/send/multiple sending-instrumentation)
