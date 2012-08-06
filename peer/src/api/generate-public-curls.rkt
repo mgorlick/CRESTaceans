@@ -2,19 +2,19 @@
 #lang racket/base
 
 (require "config.rkt"
-         "../../peer/src/net/tcp-peer.rkt"         
-         "../../Motile/persistent/hash.rkt"
-         "../../Motile/compile/serialize.rkt"
-         "../../Motile/generate/baseline.rkt"
-         "../../Motile/actor/actor.rkt"
-         "../../Motile/actor/curl.rkt"
-         "../../Motile/actor/send.rkt"
-         "../../Motile/actor/delivery.rkt"
-         "../../Motile/actor/promise.rkt"
-         "../../Motile/actor/jumpstart.rkt"
-         "../../Motile/actor/island.rkt"
-         "../../Motile/actor/locative.rkt"
-         "../../Motile/actor/logger.rkt"
+         "../../../peer/src/net/tcp-peer.rkt"         
+         "../../../Motile/persistent/hash.rkt"
+         "../../../Motile/compile/serialize.rkt"
+         "../../../Motile/generate/baseline.rkt"
+         "../../../Motile/actor/actor.rkt"
+         "../../../Motile/actor/curl.rkt"
+         "../../../Motile/actor/send.rkt"
+         "../../../Motile/actor/delivery.rkt"
+         "../../../Motile/actor/promise.rkt"
+         "../../../Motile/actor/jumpstart.rkt"
+         "../../../Motile/actor/island.rkt"
+         "../../../Motile/actor/locative.rkt"
+         "../../../Motile/actor/logger.rkt"
          racket/function
          racket/list
          racket/match
@@ -54,6 +54,6 @@
 ;; put these serialized curls into config.rkt
 
 (for/list ([i (in-range 5000 5020)])
-  (this/island (island/address/new #"abcdefghijklmnopqrstuvwxyz" #"128.195.59.199" i))
+  (this/island (island/address/new #"abcdefghijklmnopqrstuvwxyz" #"128.195.59.160" i))
   (define-values (root rootl publicl publicc) (make-root/get-public/register-public))
  `((,(island/address/dns (this/island)) . ,i) . (,(motile/serialize (curl/new/any publicl null #f)))))
