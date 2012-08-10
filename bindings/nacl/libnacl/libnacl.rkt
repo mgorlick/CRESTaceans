@@ -16,7 +16,7 @@
 ;;; Bindings to C NaCl wrapper
 
 (define-syntax-rule (defnacl+ binding obj typ)
-  (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) lib typ)))
+  (define binding (get-ffi-obj (regexp-replaces (symbol->string 'obj) '((#rx"-" "_"))) lib typ)))
 (define-syntax-rule (defnacl obj typ)
   (defnacl+ obj obj typ))
 (define-syntax-rule (defnacl* typ obj ...)
