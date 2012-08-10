@@ -11,7 +11,7 @@
 
 (define vp8lib (ffi-lib "libracket-vp8-wrapper"))
 (define-syntax-rule (defvp8+ binding obj typ)
-  (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) vp8lib typ)))
+  (define binding (get-ffi-obj (regexp-replaces (symbol->string 'obj) '((#rx"-" "_"))) vp8lib typ)))
 (define-syntax-rule (defvp8 obj typ)
   (defvp8+ obj obj typ))
 (define-syntax-rule (defvp8* typ obj ...)

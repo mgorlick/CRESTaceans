@@ -96,7 +96,7 @@
 (when/compile (equal? 'unix (system-type 'os))
               (define v4l2lib (ffi-lib "libracket-v4l2-wrapper"))
               (define-syntax-rule (defv4l2+ binding obj typ)
-                (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) v4l2lib typ)))
+                (define binding (get-ffi-obj (regexp-replaces (symbol->string 'obj) '((#rx"-" "_"))) v4l2lib typ)))
               (define-syntax-rule (defv4l2 obj typ)
                 (defv4l2+ obj obj typ))
               (define-syntax-rule (defv4l2* typ obj ...)
