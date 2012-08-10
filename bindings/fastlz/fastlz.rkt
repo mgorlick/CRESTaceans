@@ -6,7 +6,7 @@
 
 (define lib (ffi-lib "fastlz"))
 (define-syntax-rule (deflz+ binding obj typ)
-  (define binding (get-ffi-obj (regexp-replaces 'obj '((#rx"-" "_"))) lib typ)))
+  (define binding (get-ffi-obj (regexp-replaces (symbol->string 'obj) '((#rx"-" "_"))) lib typ)))
 (define-syntax-rule (deflz obj typ)
   (deflz+ obj obj typ))
 
