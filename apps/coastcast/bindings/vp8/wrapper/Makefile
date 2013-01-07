@@ -15,7 +15,7 @@ endif
 
 all: $(TARGETS)
 
-vid: v4l2.o
+vid: v4l2.o misc.o
 	cc -shared -o $(VIDWRAPPER) $^
 
 vp8: misc.o enc.o dec.o
