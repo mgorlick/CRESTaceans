@@ -161,11 +161,14 @@
   (when (not (locative/cons/authority x))
     (vector-set! x 9 (list->vector actors))))
 
+
 ;; Returns #t if actor a is a member of the locative/cons whitelist of locative x and #f otherwise.
 (define (locative/cons/authority? x a)
   (assert/type x locative? locative/cons/authority? "locative")
   (assert/type a actor?    locative/cons/authority? "actor")
-  (and (vector-memq a (locative/cons/authority x)) #t))
+  (and (vector? (locative/cons/authority x)) (vector-memq a (locative/cons/authority x)) #t))
+
+
 
 ;; Set the whitelist of actors permitted to execute a curl/new against locative x.
 (define (locative/curl/authority! x actors)
@@ -178,7 +181,7 @@
 (define (locative/curl/authority? x a)
   (assert/type x locative? locative/curl/authority "locative")
   (assert/type a actor?    locative/curl/authority "actor")
-  (and (vector-memq a (locative/curl/authority x)) #t))
+  (and (vector? (locative/curl/authority x)) (vector-memq a (locative/curl/authority x)) #t))
 
 ;; Type test for locatives.
 (define (locative? x)
@@ -466,9 +469,9 @@
     outcome))
 
 (define (locative/cons x expires sends senders/intra senders/inter)
-  (and 
-   (locative/cons/authority? x (this/actor))
-   (locative/cons/any x expires sends senders/intra senders/inter)))
+  (and
+       (locative/cons/authority? x (this/actor))
+       (locative/cons/any x expires sends senders/intra senders/inter)))
 
 ;; OBSOLETE: Returns #t if the actor calling locoative/cons has sufficient authority to cons a new locative to
 ;; a locative referencing actor a.
