@@ -1,7 +1,7 @@
 #lang scribble/manual
 
 
-@title{CREST Library}
+@title{COAST Library}
 
 @author["Michael Gorlick"]
   
@@ -23,6 +23,15 @@ Welcome to the CREST infrastructure documentation.
 @include-section["scribblings/byte-strings.scrbl"]
 @include-section["scribblings/persistent-vectors.scrbl"]
 @include-section["scribblings/persistent-hash-tables.scrbl"]
+@include-section["scribblings/persistent-records.scrbl"]
+@include-section["scribblings/persistent-sets.scrbl"]
+@include-section["scribblings/persistent-trie.scrbl"]
+@include-section["scribblings/persistent-tuple.scrbl"]
+@include-section["scribblings/persistent-binding-environments.scrbl"]
+@include-section["scribblings/islands.scrbl"]
+@include-section["scribblings/actors.scrbl"]
+@include-section["scribblings/locatives.scrbl"]
+@include-section["scribblings/curls.scrbl"]
 
 
 @;{index-section[]}

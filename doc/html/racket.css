@@ -6,11 +6,17 @@
 .RktMod, .RktKw, .RktVar, .RktSym,
 .RktRes, .RktOut, .RktCmt, .RktVal {
   font-family: monospace;
+  white-space: inherit;
 }
 
 /* Serif: */
 .inheritedlbl {
   font-family: serif;
+}
+
+/* Sans-serif: */
+.RBackgroundLabelInner {
+  font-family: sans-serif;
 }
 
 /* ---------------------------------------- */
@@ -123,6 +129,10 @@
   width: 100%;
 }
 
+.prototype, .argcontract, .RBoxed {
+  white-space: nowrap;
+}
+
 .prototype td {
   vertical-align: text-top;
 }
@@ -130,8 +140,18 @@
   vertical-align: bottom;
 }
 
+.RktBlk {
+  white-space: inherit;
+  text-align: left;
+}
+
+.RktBlk tr {
+  white-space: inherit;
+}
+
 .RktBlk td {
   vertical-align: baseline;
+  white-space: inherit;
 }
 
 .argcontract td {
@@ -166,8 +186,6 @@
 }
 
 .Rfilebox {
-  margin-left: 1em;
-  margin-right: 1em;
 }
 
 .Rfiletitle {
@@ -185,4 +203,31 @@
 
 .Rfilecontent {
   margin: 0em 0em 0em 0em;
+}
+
+/* ---------------------------------------- */
+/* For background labels */
+
+.RBackgroundLabel {
+   float: right;
+   width: 0px;
+   height: 0px;
+}
+
+.RBackgroundLabelInner {
+   position: relative;
+   width: 25em;
+   left: -25.5em;
+   top: 0px;
+   text-align: right;
+   color: white;
+   z-index: 0;
+   font-weight: bold;
+}
+
+.RForeground {
+   position: relative;
+   left: 0px;
+   top: 0px;
+   z-index: 1;
 }

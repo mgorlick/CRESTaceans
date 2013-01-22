@@ -1,6 +1,7 @@
 #lang scribble/doc
 @(require scribble/manual)
- 
+
+
 @title[#:tag "persistent-vectors"]{Persistent functional vectors}
 
 @defidform[vector/null]{Produces a new persistent vector for which @racket[(vector/length _vec)] is equal to @racket[0], therefore and empty vector.}

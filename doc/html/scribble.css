@@ -38,6 +38,11 @@ h3, h4, h5, h6, h7, h8 {
   margin-bottom: 0.5em;
 }
 
+.SSubSubSubSection {
+  font-weight: bold;
+  font-size: 0.83em; /* should match h5; from HTML 4 reference */
+}
+
 /* Needed for browsers like Opera, and eventually for HTML 4 conformance.
    This means that multiple paragraphs in a table element do not have a space
    between them. */
@@ -363,6 +368,15 @@ i {
   display: block;
   margin-left: 1em;
   margin-bottom: 0em;
+  margin-right: 1em;
+  margin-top: 0em;
+  white-space: nowrap;  
+}
+
+.SVInsetFlow {
+  display: block;
+  margin-left: 0em;
+  margin-bottom: 0em;
   margin-right: 0em;
   margin-top: 0em;
 }
@@ -454,4 +468,16 @@ i {
 .author {
   display: inline;
   white-space: nowrap;
+}
+
+/* print styles : hide the navigation elements */
+@media print {
+  .tocset,
+  .navsettop,
+  .navsetbottom { display: none; }
+  .maincolumn {
+    width: auto;
+    margin-right: 13em;
+    margin-left: 0;
+  }
 }
