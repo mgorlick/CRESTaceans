@@ -6,7 +6,7 @@
 
 @defproc[(locative/unrestricted/new [a actor?]) locative?]{Returns a new unrestricted locative @racket[l] assigned to actor @racket[a], which by default never expires, has infinite amount of sends (messages that can be sent to this actor), has no restrictions on inter- and intra-island sends, it is not revoked nor derived.}
 
- @defproc[(locative? [v any/c]) boolean?]{Returns @racket[#t] if @racket[v] is a locative, @racket[#f] otherwise.}
+@defproc[(locative? [v any/c]) boolean?]{Returns @racket[#t] if @racket[v] is a locative, @racket[#f] otherwise.}
  
  @defproc[(locative/id [l locative?]) symbol?]{Returns the UUID as island-unique locative @racket[l] identifier.}
  
@@ -30,7 +30,9 @@
  
 @defproc[(locative/curl/authority! [l locative?] [al (listof actor?)]) void?]{Sets the whitelist of actors @racket[al] permited to execute a curl/new against locative @racket[l].} 
  
- @defproc[(locative/send [l locative?] [msg any/c]) boolean?]{Returns @racket[#t] if the message @racket[msg] was delivered to the actor given by locative @racket[l]. Returns @racket[#f] if locative @racket[l] is invalid or revoked and no message is delivered in these cases.}
+  @;{
+     @defproc[(locative/send [l locative?] [msg any/c]) boolean?]{Returns @racket[#t] if the message @racket[msg] was delivered to the actor given by locative @racket[l]. Returns @racket[#f] if locative @racket[l] is invalid or revoked and no message is delivered in these cases.}
+      }
  
  @defproc[(locative/sends/positive? [l locative?]) (or/c boolean? integer?)]{Returns @racket[n = sends count > 0] for locative @racket[l], @racket[#f] if sends count is exhausted.}
  

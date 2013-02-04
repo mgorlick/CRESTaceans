@@ -32,7 +32,11 @@ Welcome to the CREST infrastructure documentation.
 @include-section["scribblings/actors.scrbl"]
 @include-section["scribblings/locatives.scrbl"]
 @include-section["scribblings/curls.scrbl"]
+@include-section["scribblings/delivery.scrbl"]
+@include-section["scribblings/promise.scrbl"]
 
+@include-section["scribblings/framework.scrbl"]
+@include-section["scribblings/generate-baseline.scrbl"]
 
 @;{index-section[]}
   

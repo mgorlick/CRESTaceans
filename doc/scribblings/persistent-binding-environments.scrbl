@@ -6,6 +6,8 @@
 
 @defidform[environ/null]{Produces a canonical empty binding environment, namely a two element vector @racket[vec], where the first element is the symbol 'environ/persist and the second element is a persistent hash table whose keys are the names of lexical variables (given as symbols) and arbirary Motile values.}
 
+@defidform[BASELINE]{The binding environment containing set of primitive procedures available to all Motile mobile code.}
+
 @defproc[(environ? [v any/c]) boolean?]{Returns @racket[#t] if @racket[v] is a binding environment, @racket[#f] otherwise.}
 
 @defproc[(environ/cons [env environ?] [key symbol?] [v symbol?]) environ?]{Produces a new persistent binding environment by merging the given key/value pair with the given environment @racket[env].}
