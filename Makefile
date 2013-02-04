@@ -16,6 +16,7 @@ c:
 install: check-env
 	cd bindings/nacl/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
 	cd apps/coastcast/bindings/vp8/wrapper && make install RACKET_LIBS=$(RACKET_LIBS)
+	raco link -n COAST ~/CRESTaceans/
 
 clean:
 	find . -name "compiled" -type d -print0 | xargs -0 rm -rfv
