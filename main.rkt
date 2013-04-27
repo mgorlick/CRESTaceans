@@ -38,8 +38,7 @@
                     locative/send)
          "./Motile/actor/island.rkt"
          (except-in "./Motile/actor/curl.rkt"
-                    curl/export
-                    curl/ok?)
+                    curl/export)
          (except-in "./Motile/actor/delivery.rkt"
                     delivery)
          (except-in "./Motile/actor/send.rkt"
@@ -47,7 +46,8 @@
          (except-in "./Motile/actor/promise.rkt"
                     PROMISSARY)
          "./Motile/generate/baseline.rkt"
-         "./Motile/compile/compile.rkt" ;;;may be removed
+         "./Motile/compile/compile.rkt";;;may be removed
+         "./Motile/compile/serialize.rkt"
          "./peer/src/api/framework.rkt")
 
 (provide (all-from-out "./Motile/baseline.rkt"
@@ -68,4 +68,5 @@
                        "./Motile/actor/promise.rkt"
                        "./Motile/generate/baseline.rkt"
                        "./Motile/compile/compile.rkt" ;;;may be removed
+                       "./Motile/compile/serialize.rkt"
                        "./peer/src/api/framework.rkt"))
