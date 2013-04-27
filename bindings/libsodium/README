@@ -19,5 +19,5 @@ install it elsewhere change line 11 of sodium.rkt:
 
 to reflect your choice.
 
-To use the bindings just include the path ".../sodium.rkt" in the (require ...) declaration
+To use the bindings just include the path ".../bindings/libsodium/crypto.rkt" in the (require ...) declaration
 of your module.
