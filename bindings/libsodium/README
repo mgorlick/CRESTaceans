@@ -1,9 +1,9 @@
 Version 0.1 2013-04-27
 
-A Racket Scheme binding for libsodium-0.4 (available at http://download.dnscrypt.org/libsodium/releases/).
+A Racket Scheme binding for libsodium-0.4.1 (available at http://download.dnscrypt.org/libsodium/releases/).
 libsodium is a machine-independent version of NaCL (Networking and Cryptography Library - http://nacl.cr.yp.to/).
 
-To construct libsodium-0.4 simply unpack the *.tar.gz file and incant:
+To construct libsodium-0.4.1 simply unpack the *.tar.gz file and incant:
 
 ./configure
 make
