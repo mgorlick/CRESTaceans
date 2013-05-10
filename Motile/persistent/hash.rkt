@@ -21,7 +21,8 @@
 ;;  http://suneido.svn.sourceforge.net/viewvc/suneido/jsuneido/src/suneido/util/PersistentMap.java?view=markup ).
 
 (require
- "trie.rkt")
+ ;"trie.rkt")
+ "counted_trie.rkt")
 
 (require "tuple.rkt") ; TEMPORARY! For tracking down weird tuple problem ONLY!
 
@@ -49,9 +50,9 @@
  hash/merge
  
  ; Hash table deconstructors.
- hash/list
- hash/pairs
- hash/vector
+ hash=>list
+ hash=>pairs
+ hash=>vector
  hash/keys
  hash/values
  
@@ -178,36 +179,36 @@
   
 
 ;; Fold function f with seed over all pairs appearing in hash table h.
+;; f accepts three arguments: key, value, and the most recently computed seed.
 (define (hash/fold h f seed)
-  (pairs/fold f seed (hash/root h)))
+  (trie/flat/fold f seed (hash/root h)))
 
 ;; Return the total number of key/value pairs in hash table h. 
 (define (hash/length h)
-  (pairs/count (hash/root h)))
+  (trie/pairs/total (hash/root h)))
 
 (define (hash/empty? h)
   (eq? (hash/root h) trie/empty))
 
 ;; Return all key/value pairs in h as an association list ((k_0 . v_0) ...)
-(define (hash/pairs h)
-  (hash/fold h (lambda (pair seed) (cons pair seed)) null))
+(define (hash=>pairs h)
+  (hash/fold h (lambda (key value seed) (cons (cons key value) seed)) null))
 
 ;; Given the hash contents of h as k_0/v_0, ..., k_N/v_N return a flat list
 ;; (k_0 v_0 ... k_N v_N).
-(define (hash/list h)
-  (hash/fold h (lambda (pair seed) (cons (car pair) (cons (cdr pair) seed))) null))
-
+(define (hash=>list h)
+  (hash/fold h (lambda (key value seed) (cons key (cons value seed))) null))
 
 ;; Given the hash contents of h as k_0/v_0, ..., k_N/v_N return
 ;; #(k_0 v_0 ... k_N v_N).
-(define (hash/vector h)
+(define (hash=>vector h)
   (let* ((n (hash/length h))
          (v (make-vector (* 2 n) #f)))
     (hash/fold
      h
-     (lambda (pair seed)
-       (vector-set! v seed        (car pair))
-       (vector-set! v (add1 seed) (cdr pair))
+     (lambda (key value seed)
+       (vector-set! v seed        key)
+       (vector-set! v (add1 seed) value)
        (+ seed 2))
      0)
     v))
@@ -252,7 +253,7 @@
 (define (hash/ref h key failure)
   (let ((pair (trie/get (hash/equality h) (hash/root h) key ((hash/hash h) key) 0)))
     (if pair
-        (cdr pair)
+        (trie/pair-value pair)
         failure)))
 
 ;; Return the set of keys in hash table h as a list.
@@ -280,12 +281,13 @@
         (error 'hash/cdr "cdr of empty hash")
         (hash/construct (hash/equality h) (hash/hash h) (trie/cdr t)))))
 
-;; Apply function f to each key/value pair in h and return a hash trie containing the results.
+;; Apply function f to each key/value pair in h and return a hash table containing the results.
+;; f accepts two arguments, a key and a value.
 (define (hash/map h f)
   (let ((equality? (hash/equality h))
         (hasher    (hash/hash h)))
-    (define (map pair seed)
-      (let ((x (f pair)))
+    (define (map key value seed)
+      (let ((x (f key value)))
         (if (pair? x) ; (key . value)
             (trie/with equality? hasher seed (car x) (cdr x) (hasher (car x)) 0)
             (error 'hash/map "pair required from function: ~s" x))))          
@@ -293,7 +295,7 @@
     (hash/construct
      equality?
      hasher
-     (pairs/fold map trie/empty (hash/root h)))))
+     (trie/flat/fold map trie/empty (hash/root h)))))
 
 ;; Apply function f to each key/value pair in h and discard all results.
 (define (hash/for-each h f)
@@ -301,36 +303,37 @@
         [else (f (hash/car h))
               (hash/for-each (hash/cdr h) f)]))
 
-;; Return a hash table containing only those key/value pairs in h for which (p pair) is true.
+;; Return a hash table containing only those key/value pairs in h for which (p key value) is true.
 (define (hash/filter h p)
   (let ((equality? (hash/equality h))
         (hasher    (hash/hash h)))
-    (define (filter pair seed)
-      (if (p pair)
-          (trie/with equality? hasher seed (car pair) (cdr pair) (hasher (car pair)) 0)
+    (define (filter key value seed)
+      (if (p key value)
+          (trie/with equality? hasher seed key value (hasher key) 0)
           seed)) ; Return the seed trie unchanged.
     
     (hash/construct
      (hash/equality h)
      (hash/hash h)
-   (pairs/fold filter trie/empty (hash/root h)))))
+     (trie/flat/fold filter trie/empty (hash/root h)))))
 
 ;; Return a pair of hash tables (true . false) in which hash table true contains only those pairs of
 ;; hash table h for which predicate p returns #t and hash table false contains only those pairs of
 ;; h for which predicate p returns #f.
+;; p is a predicate of two arguments (p key value)
 (define (hash/partition h p)
   (let ((equality? (hash/equality h))
         (hasher    (hash/hash h)))
     ; The trick here is that seed is a two element vector for which element 0 is the root trie for the
     ; "true" partition and element 1 is the root trie for the "false" partition.
-    (define (action pair seed)
-      (let ((i (if (p pair) 0 1)))
+    (define (action key value seed)
+      (let ((i (if (p key value) 0 1)))
         (vector-set!
          seed i
-         (trie/with equality? hasher (vector-ref seed i) (car pair) (cdr pair) (hasher (car pair)) 0))
+         (trie/with equality? hasher (vector-ref seed i) key value (hasher key) 0))
         seed))
     
-    (let ((partition (pairs/fold action (vector trie/empty trie/empty) (hash/root h))))
+    (let ((partition (trie/flat/fold action (vector trie/empty trie/empty) (hash/root h))))
       (cons
        (hash/construct equality? hasher (vector-ref partition 0))
        (hash/construct equality? hasher (vector-ref partition 1))))))
@@ -341,13 +344,13 @@
 ;; Consequently the length of the resulting hash table will be at most (+ (hash/length alpha) (hash/length beta)).
 (define (hash/merge alpha beta)
   (let ((equality? (hash/equality alpha))
-        (hasher    (hash/hash alpha)))
+        (hasher    (hash/hash     alpha)))
   (hash/construct
    equality?
    hasher
-   (pairs/fold
-    (lambda (pair seed)
-      (trie/with equality? hasher seed (car pair) (cdr pair) (hasher (car pair)) 0))
+   (trie/flat/fold
+    (lambda (key value seed)
+      (trie/with equality? hasher seed key value (hasher key) 0))
     (hash/root alpha)    ; Seed.
     (hash/root beta))))) ; Source of pairs.
 
@@ -443,7 +446,7 @@
 (define (hash/vector/test)
   (let ((less? (lambda (alpha beta)
                  (string<? (symbol->string (car alpha)) (symbol->string (car beta)))))
-        (v (hash/vector h/26)))
+        (v (hash=>vector h/26)))
     
     (sort (vector/pairs v) less?)))
 ;    '((a . 1) (b . 2) (c . 3) (d . 4) (e . 5) (f . 6) (g . 7) (h . 8) (i . 9) (j . 10)
