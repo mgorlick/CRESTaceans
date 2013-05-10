@@ -1,14 +1,10 @@
 #lang racket/base
 
 (require
- "random.rkt"
- "crypto_authenticate.rkt"
- "crypto_box.rkt"
- "crypto_hash.rkt"
- "crypto_nonce.rkt"
- "crypto_secret.rkt"
- "crypto_short_hash.rkt"
- "crypto_sign.rkt")
+ ;(only-in net/base64 base64-encode base64-decode)
+ "../../Island/net/base64.rkt"
+ net/url
+ "crypto.rkt")
 
 
 ;; A snippet of the Gettysburg Address (Abraham Lincoln, November 19, 1863) for test plaintext.
@@ -21,55 +17,71 @@ as a final resting place for those who here gave their lives that that nation mi
 It is altogether fitting and proper that we should do this.")
 
 
-(define (test/crypto/box)
-  (let-values ([(pk/sender sk/sender)     (crypto/box/keys)]
-               [(pk/receiver sk/receiver) (crypto/box/keys)])
+(define (test/crypto/box/encrypt)
+  (let-values ([(pk/alice sk/alice) (crypto/box/keys)]
+               [(pk/bob   sk/bob)   (crypto/box/keys)])
     (let ((nonce (crypto/nonce/random)))
-      (crypto/box PLAINTEXT nonce pk/receiver sk/sender))))
+      (crypto/box/encrypt PLAINTEXT nonce pk/bob sk/alice))))
     
-(define (test/crypto/unbox)
-  (let-values ([(pk/sender sk/sender)     (crypto/box/keys)]
-               [(pk/receiver sk/receiver) (crypto/box/keys)])
+(define (test/crypto/box/decrypt)
+  (let-values ([(pk/alice sk/alice) (crypto/box/keys)]
+               [(pk/bob   sk/bob)   (crypto/box/keys)])
     (let* ((nonce (crypto/nonce/random))
-           (ciphertext (crypto/box PLAINTEXT nonce pk/receiver sk/sender)))
-      (crypto/unbox ciphertext nonce pk/sender sk/receiver))))
+           (cipher (crypto/box/encrypt PLAINTEXT nonce pk/bob sk/alice)))
+      (crypto/box/decrypt cipher nonce pk/alice sk/bob))))
 
 (define (test/crypto/box/precompute)
-  (let-values ([(pk/sender sk/sender) (crypto/box/keys)]
-               [(pk/receiver sk/receiver) (crypto/box/keys)])
-    (crypto/box/precompute pk/receiver sk/sender)))
+  (let-values ([(pk/alice sk/alice) (crypto/box/keys)]
+               [(pk/bob   sk/bob)   (crypto/box/keys)])
+    (crypto/box/precompute pk/bob sk/alice)))
 
 (define (test/crypto/box/pre)
-    (let-values ([(pk/a sk/a)     (crypto/box/keys)]
+    (let-values ([(pk/a sk/a) (crypto/box/keys)]
                  [(pk/b sk/b) (crypto/box/keys)])
       (let* ((pre/a (crypto/box/precompute pk/b sk/a)) ; For encrypting messages sent from a to b.
              (pre/b (crypto/box/precompute pk/a sk/b)) ; For decrypting messages sent to b from a.
              (nonce (crypto/nonce/random))
-             (gold  (crypto/box PLAINTEXT nonce pk/b sk/a)) ; GOLD ciphertext for a message from a to b.
-             (ciphertext (crypto/box/pre PLAINTEXT nonce pre/a)))
-        (write gold)       (newline) (newline)
-        (write ciphertext) (newline) (newline)
-        (write (if (bytes=? gold ciphertext) "same ciphertext" "different ciphertext"))
+             (gold  (crypto/box/encrypt PLAINTEXT nonce pk/b sk/a)) ; GOLD ciphertext for a message from a to b.
+             (cipher (crypto/box/pre/encrypt PLAINTEXT nonce pre/a)))
+        (write (if (bytes=? pre/a pre/b) "same session key" "different session key"))
         (newline) (newline)
-        (write (crypto/unbox     ciphertext nonce pk/a sk/b))
+
+        (write gold)   (newline) (newline)
+        (write cipher) (newline) (newline)
+        (write (if (bytes=? gold cipher) "same cipher" "different cipher"))
         (newline) (newline)
-        (write (crypto/unbox/pre ciphertext nonce pre/b))
+
+        (write (crypto/box/decrypt cipher nonce pk/a sk/b))
+        (newline) (newline)
+        (write (crypto/box/pre/decrypt cipher nonce pre/b))
+        (newline) (newline)
+        (write (crypto/box/pre/decrypt cipher nonce pre/a))
         (newline))))
 
 (define (test/crypto/sign)
-  (let-values ([(vk sk) (crypto/sign/keys)])
+  (let-values ([(pk sk) (crypto/sign/keys)])
     (let* ((signature (crypto/sign PLAINTEXT sk))
-           (message   (crypto/unsign signature vk)))
+           (message   (crypto/sign/verify signature pk)))
+      (write signature)
+      (newline) (newline)
+      (write message)
+      (newline))))
+
+(define (test/crypto/sign.1)
+  (let-values ([(pk sk) (crypto/box/keys)])
+    (let* ((key/signing (bytes-append sk pk))
+           (signature (crypto/sign PLAINTEXT key/signing))
+           (message  (crypto/sign/verify signature pk)))
       (write signature)
       (newline) (newline)
       (write message)
       (newline))))
  
-(define (test/crypto/secret/box)
-  (let* ((k (crypto/secret/key))
-         (nonce (crypto/nonce/random))
-         (ciphertext (crypto/secret/box PLAINTEXT nonce k)))
-    (crypto/secret/unbox ciphertext nonce k)))
+(define (test/crypto/secret/)
+  (let* ((k      (crypto/secret/key))
+         (nonce  (crypto/nonce/random))
+         (cipher (crypto/secret/encrypt PLAINTEXT nonce k)))
+    (crypto/secret/decrypt cipher nonce k)))
 
 (define (test/crypto/authenticate)
   (let* ((m PLAINTEXT)
@@ -87,3 +99,15 @@ It is altogether fitting and proper that we should do this.")
 (define (test/crypto/hash/short)
   (let ((k (crypto/hash/short/key)))
     (crypto/hash/short PLAINTEXT k)))
+;
+;(define (test/base64)
+;  (let-values ([(pk sk) (crypto/box/keys)])
+;    (let ((pk/base64 (base64/url/encode pk)))
+;      (write pk) (newline)
+;      (display (bytes-length pk/base64)) (newline)
+;      (display pk/base64) (newline)
+;      (write (base64/url/decode pk/base64)) (newline))))
+;
+(define yurl "httpsy://*cl7h3f7jwyj3fvmw7jpnjfvf2xlcmayi@yurl.net:80,www.example.com:5000/")
+(define byurl #"httpsy://*cl7h3f7jwyj3fvmw7jpnjfvf2xlcmayi@yurl.net:80,www.example.com:5000/")
+(define curl "coast://cl7h3f7jwyj3fvmw7jpnjfvf2xlcmayi:lkafafaf134ladfa@yurl.net:80/")

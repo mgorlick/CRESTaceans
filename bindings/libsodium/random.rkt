@@ -5,22 +5,22 @@
  (only-in "sodium.rkt" sodium define-sodium-function))
 
 (provide
- random/bytes/implementation
- random/bytes/4
+ random/bytes/primitive
+ random/uint32
  random/bytes/stir
- random/bytes/uniform
+ random/uint32/uniform
  random/bytes/fill
- random/bytes/16 random/bytes/24 random/bytes/32 random/bytes/n)
+ random/bytes/4 random/bytes/8 random/bytes/16 random/bytes/24 random/bytes/32 random/bytes/n)
 
 ;; Generate random byte strings.
 
 ;; Return the name of the random bytes implementation used here as a bytes string, for example, #"sysrandom".
 ;; const char * randombytes_implementation_name(void)
-(define-sodium-function random/bytes/implementation "randombytes_implementation_name" (_fun -> _bytes))
+(define-sodium-function random/bytes/primitive "randombytes_implementation_name" (_fun -> _bytes))
 
 ;; Return a random 32 bit unsigned integer.
 ;; uint32_t randombytes_random(void)
-(define-sodium-function random/bytes/4 "randombytes_random" (_fun -> _uint32))
+(define-sodium-function random/uint32 "randombytes_random" (_fun -> _uint32))
 
 ;; Synthesize a new key for the pseudorandom number generator.
 ;;void randombytes_stir(void)
@@ -28,7 +28,7 @@
 
 ;; Return an integer value between 0 and upper using a uniform distribution.
 ;; uint32_t randombytes_uniform(const uint32_t upper)
-(define-sodium-function random/bytes/uniform "randombytes_uniform" (_fun _uint32 -> _uint32))
+(define-sodium-function random/uint32/uniform "randombytes_uniform" (_fun _uint32 -> _uint32))
 
 ;; Fill the give buffer with n random bytes.
 ;; void randombytes_buf(void* const buf, const size_t n)
@@ -49,6 +49,8 @@
     b))
 
 ;; Common fixed-length random byte strings.
+(define (random/bytes/4)  (random/bytes/n 4))
+(define (random/bytes/8)  (random/bytes/n 8))
 (define (random/bytes/16) (random/bytes/n 16))
 (define (random/bytes/24) (random/bytes/n 24))
 (define (random/bytes/32) (random/bytes/n 32))

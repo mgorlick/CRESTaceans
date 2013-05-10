@@ -8,7 +8,7 @@
 
 ;; Hashing.
 
-(define CRYPTO-HASH/BYTES 64) ; Length in bytes of computed hash.
+(define CRYPTO/HASH/SIZE 64) ; Length in bytes of computed hash.
 
 ;; int crypto_hash(unsigned char*       h,        // Hash (output).
 ;;                 const unsigned char* m,        // Message.
@@ -16,7 +16,7 @@
 (define-sodium-function crypto-hash "crypto_hash" (_fun _bytes _bytes _ullong -> _int))
 
 (define (crypto/hash m)
-  (let ((hash (make-bytes CRYPTO-HASH/BYTES 0)))
+  (let ((hash (make-bytes CRYPTO/HASH/SIZE 0)))
     (crypto-hash hash m (bytes-length m))
     hash))
   
