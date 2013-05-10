@@ -22,7 +22,7 @@
 
 (require
  ;"trie.rkt")
- "counted_trie.rkt")
+ "ordered_trie.rkt")
 
 (require "tuple.rkt") ; TEMPORARY! For tracking down weird tuple problem ONLY!
 
