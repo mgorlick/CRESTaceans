@@ -1,5 +1,17 @@
 #lang racket/base
 
+;; Copyright 2011 Michael M. Gorlick
+
+;; Licensed under the Apache License, Version 2.0 (the "License");
+;; you may not use this file except in compliance with the License.
+;; You may obtain a copy of the License at
+;;       http://www.apache.org/licenses/LICENSE-2.0
+;; Unless required by applicable law or agreed to in writing, software
+;; distributed under the License is distributed on an "AS IS" BASIS,
+;; WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+;; See the License for the specific language governing permissions and
+;; limitations under the License.
+
 (require
  racket/vector
  racket/function
@@ -1266,7 +1278,7 @@
 
 ; -----------------------------
 
-;; Helper function used in hash/vector test case below.
+;; Helper function used in hash=>vector test case below.
 (define (vector/pairs v)
   (let loop ((pairs null)
              (i 0)
@@ -1281,7 +1293,7 @@
 ;; A suite of tests for motile persistent hash tables.
 (define-test-suite hash-tests
   (test-case
-   "hash/pairs"
+   "hash=>pairs"
    (check-equal? 
     
     ((compile/start)
@@ -1293,14 +1305,14 @@
                   u 21 v 22 w 23 x 24 y 25 z 26)))
             (less? (lambda (alpha beta)
                      (string<? (symbol->string (car alpha)) (symbol->string (car beta))))))
-        (sort (hash/pairs h/26) less?)))
+        (sort (hash=>pairs h/26) less?)))
     
     '((a . 1) (b . 2) (c . 3) (d . 4) (e . 5) (f . 6) (g . 7) (h . 8) (i . 9) (j . 10)
       (k . 11) (l . 12) (m . 13) (n . 14) (o . 15) (p . 16) (q . 17) (r . 18) (s . 19) (t . 20)
       (u . 21) (v . 22) (w . 23) (x . 24) (y . 25) (z . 26))))
 
   (test-case
-   "hash/vector"
+   "hash=>vector"
    (check-equal? 
     
     (let* ((h/26
@@ -1312,7 +1324,7 @@
                           u 21 v 22 w 23 x 24 y 25 z 26)))))
            (less? (lambda (alpha beta)
                     (string<? (symbol->string (car alpha)) (symbol->string (car beta)))))
-           (v (hash/vector h/26)))
+           (v (hash=>vector h/26)))
       (sort (vector/pairs v) less?))
     
     '((a . 1) (b . 2) (c . 3) (d . 4) (e . 5) (f . 6) (g . 7) (h . 8) (i . 9) (j . 10)
@@ -1322,45 +1334,52 @@
   (test-case
    "hash (de)serialize #1"
    (check-equal?
-   
+    
     (let ((h ((compile/start)
-               '(begin (list/hash
-                        hash/eq/null
-                        '(a 1 b 2 c 3 d 4 e 5 f 6 g 7 h 8 i 9 j 10
-                            k 11 l 12 m 13 n 14 o 15 p 16 q 17 r 18 s 19 t 20
-                            u 21 v 22 w 23 x 24 y 25 z 26)))))
+              '(begin (list/hash
+                       hash/eq/null
+                       '(a 1 b 2 c 3 d 4 e 5 f 6 g 7 h 8 i 9 j 10
+                           k 11 l 12 m 13 n 14 o 15 p 16 q 17 r 18 s 19 t 20
+                           u 21 v 22 w 23 x 24 y 25 z 26)))))
           (less? (lambda (alpha beta)
-                    (string<? (symbol->string (car alpha)) (symbol->string (car beta))))))
+                   (string<? (symbol->string (car alpha)) (symbol->string (car beta))))))
       (pretty-display (motile/serialize h))
-      (sort
-       (hash/pairs (motile/deserialize (motile/serialize h) #f))
-       less?))
-
-    '((a . 1) (b . 2) (c . 3) (d . 4) (e . 5) (f . 6) (g . 7) (h . 8) (i . 9) (j . 10)
-      (k . 11) (l . 12) (m . 13) (n . 14) (o . 15) (p . 16) (q . 17) (r . 18) (s . 19) (t . 20)
-      (u . 21) (v . 22) (w . 23) (x . 24) (y . 25) (z . 26))))
+      (pretty-display (motile/deserialize (motile/serialize h) #f))
+      
+      (pretty-display (hash=>pairs h))
+      (pretty-display (hash=>pairs (motile/deserialize (motile/serialize h) #f)))
+      
+      (hash=>vector (motile/deserialize (motile/serialize h) #f)))
+    
+    (hash=>vector
+     (pairs/hash
+      hash/eq/null
+      '((a . 1) (b . 2)  (c . 3)  (d . 4)  (e . 5)  (f . 6)  (g . 7)  (h . 8)  (i . 9)  (j . 10)
+                (k . 11) (l . 12) (m . 13) (n . 14) (o . 15) (p . 16) (q . 17) (r . 18) (s . 19) (t . 20)
+                (u . 21) (v . 22) (w . 23) (x . 24) (y . 25) (z . 26))))))
 
   (test-case
    "hash (de)serialize #2"
    (check-equal?
-   
+    
     (let ((code ((compile/start)
                  '(let ((h (list/hash
-                             hash/eq/null
-                             '(a 1 b 2 c 3 d 4 e 5 f 6 g 7 h 8 i 9 j 10
-                                 k 11 l 12 m 13 n 14 o 15 p 16 q 17 r 18 s 19 t 20
-                                 u 21 v 22 w 23 x 24 y 25 z 26))))
+                            hash/eq/null
+                            '(a 1 b 2 c 3 d 4 e 5 f 6 g 7 h 8 i 9 j 10
+                                k 11 l 12 m 13 n 14 o 15 p 16 q 17 r 18 s 19 t 20
+                                u 21 v 22 w 23 x 24 y 25 z 26))))
                     (lambda () h))))
           (less? (lambda (alpha beta)
-                    (string<? (symbol->string (car alpha)) (symbol->string (car beta))))))
+                   (string<? (symbol->string (car alpha)) (symbol->string (car beta))))))
       (pretty-display (motile/serialize code))
-      (sort
-       (hash/pairs (motile/call (motile/deserialize (motile/serialize code) #f) ENVIRON/TEST))
-       less?))
+      (hash=>vector (motile/call (motile/deserialize (motile/serialize code) #f) ENVIRON/TEST)))
     
-    '((a . 1) (b . 2) (c . 3) (d . 4) (e . 5) (f . 6) (g . 7) (h . 8) (i . 9) (j . 10)
-      (k . 11) (l . 12) (m . 13) (n . 14) (o . 15) (p . 16) (q . 17) (r . 18) (s . 19) (t . 20)
-      (u . 21) (v . 22) (w . 23) (x . 24) (y . 25) (z . 26))))
+    (hash=>vector
+     (pairs/hash
+      hash/eq/null
+      '((a . 1) (b . 2) (c . 3) (d . 4) (e . 5) (f . 6) (g . 7) (h . 8) (i . 9) (j . 10)
+                (k . 11) (l . 12) (m . 13) (n . 14) (o . 15) (p . 16) (q . 17) (r . 18) (s . 19) (t . 20)
+                (u . 21) (v . 22) (w . 23) (x . 24) (y . 25) (z . 26))))))
 
   (test-case
    "hash/remove"
@@ -1378,7 +1397,7 @@
         ; Remove the vowels.
         (let loop ((h h/26) (vowels '(a e i o u)))
           (if (null? vowels)
-              (sort (hash/pairs h) less?) ; Sorted pairs but without the vowels.
+              (sort (hash=>pairs h) less?) ; Sorted pairs but without the vowels.
               (loop (hash/remove h (car vowels)) (cdr vowels))))))
 
     '((b . 2) (c . 3) (d . 4) (f . 6) (g . 7) (h . 8) (j . 10)
@@ -1386,7 +1405,7 @@
       (v . 22) (w . 23) (x . 24) (y . 25) (z . 26))))
   
 (test-case
-   "Hash/cons"
+   "hash/cons"
    (check-equal?
     
     ((compile/start)
@@ -1401,7 +1420,7 @@
         ; Add the vowels.
         (let loop ((h h/21) (vowels '(a e i o u)))
           (if (null? vowels)
-              (sort (hash/pairs h) less?)
+              (sort (hash=>pairs h) less?)
               (loop (hash/cons h (car vowels) #t) (cdr vowels))))))
 
     '((a . #t) (b . 2) (c . 3) (d . 4) (e . #t) (f . 6) (g . 7) (h . 8) (i . #t) (j . 10)
@@ -1422,7 +1441,7 @@
             (h/vowels (hash/new hash/eq/null 'a #t 'e #t 'i #t 'o #t 'u #t))
             (less? (lambda (alpha beta)
                      (string<? (symbol->string (car alpha)) (symbol->string (car beta))))))
-        (sort (hash/pairs (hash/merge h/21 h/vowels)) less?)))
+        (sort (hash=>pairs (hash/merge h/21 h/vowels)) less?)))
 
     '((a . #t) (b . 2) (c . 3) (d . 4) (e . #t) (f . 6) (g . 7) (h . 8) (i . #t) (j . 10)
       (k . 11) (l . 12) (m . 13) (n . 14) (o . #t) (p . 16) (q . 17) (r . 18) (s . 19) (t . 20)
@@ -1548,10 +1567,7 @@
                     u 21 v 22 w 23 x 24 y 25 z 26))))
           (hash/fold
            h/26
-           (lambda (pair seed)
-             (if (< (cdr pair) seed)
-                 (cdr pair)
-                 seed))
+           (lambda (_key value seed) (if (< value seed) value seed))
            9999)))
       1)) ; The least value among all key/value pairs.
 
@@ -1570,9 +1586,9 @@
                ; in the alphabet and where each value is just #t.
                (map (hash/map
                      h/26
-                     (lambda (pair)
+                     (lambda (key value)
                        (cons
-                        (string-append (symbol->string (car pair)) "." (number->string (cdr pair)))
+                        (string-append (symbol->string key) "." (number->string value))
                         #t)))))
           (sort (hash/keys map) string<?)))
       
@@ -1584,19 +1600,20 @@
    "hash/filter"
    (check-equal?
     
-    ((compile/start) '(let* ((h/26
-                            (list/hash
-                             hash/eq/null
-                             '(a 1 b 2 c 3 d 4 e 5 f 6 g 7 h 8 i 9 j 10
-                                 k 11 l 12 m 13 n 14 o 15 p 16 q 17 r 18 s 19 t 20
-                                 u 21 v 22 w 23 x 24 y 25 z 26)))
-                           (h/odd (hash/filter h/26 (lambda (pair) (odd? (cdr pair)))))
-                           (less? (lambda (alpha beta) (< (cdr alpha) (cdr beta)))))
-                      (sort (hash/pairs h/odd) less?)))
-
-    '((a . 1) (c . 3) (e . 5)  (g . 7) (i . 9)
-      (k . 11) (m . 13) (o . 15) (q . 17) (s . 19)
-      (u . 21) (w . 23) (y . 25))))
+    ((compile/start)
+     '(let* ((h/26
+              (list/hash
+               hash/eq/null
+               '(a 1 b 2 c 3 d 4 e 5 f 6 g 7 h 8 i 9 j 10
+                   k 11 l 12 m 13 n 14 o 15 p 16 q 17 r 18 s 19 t 20
+                   u 21 v 22 w 23 x 24 y 25 z 26)))
+             (h/odd (hash/filter h/26 (lambda (_key value) (odd? value))))
+             (less? (lambda (alpha beta) (< (cdr alpha) (cdr beta)))))
+        (sort (hash=>pairs h/odd) less?)))
+    
+    '((a . 1) (c . 3)  (e . 5)  (g . 7)  (i . 9)
+              (k . 11) (m . 13) (o . 15) (q . 17) (s . 19)
+              (u . 21) (w . 23) (y . 25))))
 
   (test-case
    "hash/partition"
@@ -1608,10 +1625,10 @@
                              '(a 1 b 2 c 3 d 4 e 5 f 6 g 7 h 8 i 9 j 10
                                  k 11 l 12 m 13 n 14 o 15 p 16 q 17 r 18 s 19 t 20
                                  u 21 v 22 w 23 x 24 y 25 z 26)))
-                           (partition (hash/partition h/26 (lambda (pair) (odd? (cdr pair)))))
+                           (partition (hash/partition h/26 (lambda (key value) (odd? value))))
                            (less? (lambda (alpha beta) (< (cdr alpha) (cdr beta))))
-                           (odd  (sort (hash/pairs (car partition)) less?))
-                           (even (sort (hash/pairs (cdr partition)) less?)))
+                           (odd  (sort (hash=>pairs (car partition)) less?))
+                           (even (sort (hash=>pairs (cdr partition)) less?)))
                       (list odd even)))
    
     '(((a . 1) (c . 3) (e . 5)  (g . 7) (i . 9)

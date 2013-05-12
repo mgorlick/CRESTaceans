@@ -53,6 +53,7 @@
  hash=>list
  hash=>pairs
  hash=>vector
+ hash/insertion=>vector
  hash/keys
  hash/values
  
@@ -213,6 +214,13 @@
      0)
     v))
 
+;; Return the contents of h as #(k_1 v_1 ... k_n v_n) but respect the insertion order
+;; of the key/value pairs k_i/v_i, that is, k_i v_i precedes k_j v_j if k_i/v_i were
+;; added to the hash table before k_j/v_j.
+;; This routine is here for the sake of the serializer.
+(define (hash/insertion=>vector h)
+  (trie/sort/insertion=>vector (hash/root h)))
+
 ;; Given hash table h return a successor hash table whose contents is the merge of h and the key/value pair.
 ;; If h contains key then that pair is replaced by the arguments in the successor.
 (define (hash/cons h key value)
@@ -258,11 +266,11 @@
 
 ;; Return the set of keys in hash table h as a list.
 (define (hash/keys h)
-  (hash/fold h (lambda (pair seed) (cons (car pair) seed)) null))
+  (hash/fold h (lambda (key _value seed) (cons key seed)) null))
 
 ;; Return the set of values in hash table h as a list.
 (define (hash/values h)
-  (hash/fold h (lambda (pair seed) (cons (cdr pair) seed)) null))
+  (hash/fold h (lambda (_key value seed) (cons value seed)) null))
 
 ;; Return the "first" key/value pair of hash table h.
 ;; hash/car is the hash table equivalent of car for lists.
@@ -452,3 +460,5 @@
 ;    '((a . 1) (b . 2) (c . 3) (d . 4) (e . 5) (f . 6) (g . 7) (h . 8) (i . 9) (j . 10)
 ;      (k . 11) (l . 12) (m . 13) (n . 14) (o . 15) (p . 16) (q . 17) (r . 18) (s . 19) (t . 20)
 ;      (u . 21) (v . 22) (w . 23) (x . 24) (y . 25) (z . 26))))
+
+

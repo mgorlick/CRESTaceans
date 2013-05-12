@@ -35,7 +35,9 @@
   define/global/3
   define/global/N
   define/combinator/2
+  define/combinator/2-2
   define/combinator/3
+  define/combinator/3-3
   descriptor/global
   motile/call)
  
@@ -64,7 +66,8 @@
  define/global/0
  define/global/N
  define/combinator/2
- define/combinator/3)
+ define/combinator/3
+ define/combinator/3-3)
 
 ;; Motile-specific reworkings of map, apply, and for-each.
 
@@ -411,8 +414,8 @@
     (define/global/2    'hash/remove     hash/remove)
     (define/global/2    'hash/merge      hash/merge)
     ; Hash table deconstructors.
-    (define/global/1     'hash/list      hash/list)
-    (define/global/1     'hash/pairs     hash/pairs)
+    (define/global/1     'hash=>list     hash=>list)
+    (define/global/1     'hash=>pairs    hash=>pairs)
     (define/global/1     'hash/keys      hash/keys) 
     (define/global/1     'hash/values    hash/values)
     ; Hash table lookup.
@@ -424,11 +427,11 @@
     (define/global/1     'hash/empty?    hash/empty?)
     (define/global/2     'hash/contains? hash/contains?)
     ; Hash table combinators.
-    (define/combinator/3 'hash/fold      hash/fold)
-    (define/combinator/2 'hash/map       hash/map)
+    (define/combinator/3-3 'hash/fold      hash/fold)
+    (define/combinator/2-2 'hash/map       hash/map)
     (define/combinator/2 'hash/for-each  hash/for-each)
-    (define/combinator/2 'hash/filter    hash/filter)
-    (define/combinator/2 'hash/partition hash/partition)
+    (define/combinator/2-2 'hash/filter    hash/filter)
+    (define/combinator/2-2 'hash/partition hash/partition)
     
     ; Persistent functional unordered sets.
     (define/global/1     'set/persist?     set/persist?)
@@ -531,7 +534,7 @@
     (define/global/3 'vector-set!   vector-set!)
     
     ; Testing serialization of hosh tables.
-    (define/global/1 'hash/vector   hash/vector) ; Converts persistent hash table to flat Racket vector.
+    (define/global/1 'hash=>vector   hash=>vector) ; Converts persistent hash table to flat Racket vector.
     
     ; For simple test output.
     (define/global/N 'sleep          sleep)

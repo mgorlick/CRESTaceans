@@ -29,6 +29,8 @@
  (only-in "../generate/baseline.rkt" motile/decompile)
  (only-in "recompile.rkt" motile/recompile motile/recompile/active?)
 
+ (only-in "../persistent/ordered_trie.rkt" trie/pair? trie/flat/fold trie/pair-key trie/pair-value trie/pair-order)
+
  (only-in
   "../persistent/hash.rkt"
   ; Required for deconstruction and reconstruction.
@@ -43,7 +45,8 @@
   hash/hash
   hash/root
   ;hash/construct
-  hash/vector
+  ;hash=>vector
+  hash/insertion=>vector
   vector/hash)
  
  (only-in
@@ -307,6 +310,7 @@
          (hash-set! share/candidates v #t)
          (hash-set! cycle/candidates v #t)
          (set! cycle/stack (cons v cycle/stack))
+         ; Now deconstruct v and account for sharing (if any) of its substructures.
          (cond
            [(or (string? v) (bytes? v))
             (void)] ; No sub-structure.
@@ -315,7 +319,10 @@
            ; contains two Racket (not Motile!) procedures, <equality> and <hash>, the key equality test and the key hash code
            ; generator respectively. We don't want the serializer to see either of those as it has no idea of what to do with them.
            ; The only element that requires deep inspection is the trie representing the contents of the persistent hash table.
-           [(hash/persist? v) (loop (hash/root v))]
+           ;[(hash/persist? v) (loop (hash/root v))]
+           [(hash/persist? v)
+            (trie/flat/fold
+             (lambda (k v _seed) (loop k) (loop v)) #f (hash/root v))]
 
            ; Persistent sets require equal care as the Mischief representation is, with the exception of the
            ; tag in element 0, identical to that for persistent hash tables.
@@ -431,7 +438,7 @@
           ((hash/eqv? v) 'eqv)
           (else          'equal))
         ;(serial (hash/root v) #t))]
-        (serial (hash/vector v) #t))]
+        (serial (hash/insertion=>vector v) #t))]
 
       [(set/persist? v)
        ; A persistent set v has the form #('<set/persist> <equality> <hash> <root>) where:

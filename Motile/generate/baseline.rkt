@@ -1,5 +1,17 @@
 #lang racket/base
 
+;; Copyright 2011 Michael M. Gorlick
+
+;; Licensed under the Apache License, Version 2.0 (the "License");
+;; you may not use this file except in compliance with the License.
+;; You may obtain a copy of the License at
+;;       http://www.apache.org/licenses/LICENSE-2.0
+;; Unless required by applicable law or agreed to in writing, software
+;; distributed under the License is distributed on an "AS IS" BASIS,
+;; WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+;; See the License for the specific language governing permissions and
+;; limitations under the License.
+
 ; Utility routines used to construct the BASELINE and other principal island environs.
 
 (require
@@ -25,7 +37,9 @@
 
 (provide
  define/combinator/2
+ define/combinator/2-2
  define/combinator/3
+ define/combinator/3-3
  define/global/0
  define/global/1
  define/global/2
@@ -66,6 +80,24 @@
         ((decompile? k a g) descriptor)
         (else (error/motile/internal/call symbol))))))
 
+;; Wrapper for combinator that takes two arguments:
+;; a data structure instance and a two-argument Motile function.
+;;
+;; symbol     - Motile name for the combinator being wrapped
+;; combinator - Racket implementation of the combinator
+(define (motile/combinator/2-2 symbol combinator)
+  (let ((descriptor (descriptor/global symbol)))
+    (lambda (k a g)
+      (cond
+        ((procedure? k)
+         (arity/verify a 2 symbol)
+         (let* ((instance (a/1 a)) ; Data structure instance.
+                (f        (a/2 a)) ; Motile function to be applied by combinator.
+                (h (lambda (x y) (f k/RETURN (arguments/pack x y) g))))
+           (k (combinator instance h))))
+        ((decompile? k a g) descriptor)
+        (else (error/motile/internal/call symbol))))))
+
 ;; Wrapper for combinator that takes three arguments:
 ;; a data structure instance, a two-argument Motile function, and a seed value.
 ;; symbol - Motile name for the combinator being wrapped
@@ -80,6 +112,25 @@
                 (f        (a/2 a))
                 (seed     (a/3  a))
                 (h (lambda (x y) (f k/RETURN (arguments/pack x y) g))))
+           (k (combinator instance h seed))))
+        ((decompile? k a g) descriptor)
+        (else (error/motile/internal/call symbol))))))
+
+;; Wrapper for combinator that takes three arguments:
+;; a data structure instance, a three-argument Motile function, and a seed value
+;;
+;; symbol     - Motile name for the combinator being wrapped
+;; combinator - Racket implementation of the combinator
+(define (motile/combinator/3-3 symbol combinator) ; 3-3 reflects 3-argument combinator + 3-argument function
+  (let ((descriptor (descriptor/global symbol)))
+    (lambda (k a g)
+      (cond
+        ((procedure? k)
+         (arity/verify a 3 symbol)
+         (let* ((instance (a/1 a))
+                (f        (a/2 a))
+                (seed     (a/3 a))
+                (h (lambda (x y z) (f k/RETURN (arguments/pack x y z) g))))
            (k (combinator instance h seed))))
         ((decompile? k a g) descriptor)
         (else (error/motile/internal/call symbol))))))
@@ -213,8 +264,14 @@
 (define-syntax-rule (define/combinator/2 symbol combinator)
   (cons symbol (motile/combinator/2 symbol combinator)))
 
+(define-syntax-rule (define/combinator/2-2 symbol combinator)
+  (cons symbol (motile/combinator/2-2 symbol combinator)))
+
 (define-syntax-rule (define/combinator/3 symbol combinator)
   (cons symbol (motile/combinator/3 symbol combinator)))
+
+(define-syntax-rule (define/combinator/3-3 symbol combinator)
+  (cons symbol (motile/combinator/3-3 symbol combinator)))
 
 ; global-defines: for each function P in the arguments list:
 ; - if P has arity K and only K, produce a call to the arity-correct define/global/K function to wrap P.

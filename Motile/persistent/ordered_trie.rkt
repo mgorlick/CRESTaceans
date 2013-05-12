@@ -40,7 +40,9 @@
  trie/pairs/total
  trie/fold      ; Fold over the trie/pair representation as (f trie/pair seed).
  trie/flat/fold ; Fold over a key/value as in (f key value seed).
- trie/sort/insertion ; Return a list of trie/pairs sorted in insertion order (from first to last).
+ trie/for-each
+ trie/sort/insertion         ; Return a list of trie/pairs sorted in insertion order (from first to last).
+ trie/sort/insertion=>vector ; Return #(k_1 v_1 ... k_n v_n) in insertion order for the sake of the serializer.
  
  trie/pair?
  trie/pair-order
@@ -627,6 +629,29 @@
       (else
        (error 'pairs/fold "unknown node type: ~s" entry)))))
 
+;; Apply function f, as (f key value), to each key/value in the trie.
+(define (trie/for-each x f)
+  (let loop ((item x))
+    (cond
+      ((trie/pair? item) (f (trie/pair-key item) (trie/pair-value)))
+
+      ((trie? item)
+       ; Visit each slot of the trie.
+       (let loop/trie ((i 0) (n (trie/length item)))
+         (when (< i n)
+           (loop (trie/slot item i))
+           (loop/trie (add1 i) n))))
+      
+      ((overflow? item)
+       ; Visit each overflow slot.
+       (let loop/overflow ((i 0) (n (vector-length item)))
+         (when (< i n)
+           (loop (vector-ref item i))
+           (loop/overflow (add1 i) n))))
+      
+      (else
+       (error 'trie/for-each "unknown node type: ~s" item)))))
+
 ;; Similar to trie/pairs/fold above except that f is given three arguments:
 ;; key, value, and the most recent folded value.
 ;; This function helps to insulate higher-level structures such as hash maps and binding environments
@@ -640,6 +665,21 @@
 (define (trie/sort/insertion x)
   (let ((all (trie/fold (lambda (pair seed) (cons pair seed)) null x))) ; Generate a list of all trie/pairs in the the trie.
     (sort all < #:key trie/pair-order)))
+
+;; Like trie/sort/insertion but returns the contents in insertion order as a flat vector #(k_1 v_1 ... k_n v_n)
+;; where pair k_i/v_i was added to the trie before pair k_{i+1}/v_{i+1}.
+(define (trie/sort/insertion=>vector x)
+  (let* ((all (trie/sort/insertion x))
+         (v   (make-vector (* 2 (length all)) #f)))
+    (let loop ((all all) (i 0))
+      (cond
+        ((null? all) v)
+        (else
+         (vector-set! v i (trie/pair-key (car all)))
+         (vector-set! v (add1 i) (trie/pair-value (car all)))
+         (loop (cdr all) (+ i 2)))))))
+          
+                         
 
 ;; Return the total number of trie pairs in the trie rooted at x.
 (define (trie/pairs/total x)
