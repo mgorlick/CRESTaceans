@@ -103,7 +103,8 @@
  motile/serialize motile/deserialize
  ; Equality test for serializations.
  motile/serialized/equal?
- 
+ ; Version of serialization format/implementation.
+ motile/serialize/version
  export/statistics)
 
 (define (ahead duration) (+ (current-inexact-milliseconds) duration))
@@ -112,6 +113,8 @@
 (define DURABLES (make-hash))  ; Map of durable ids to locatives for durable CURLs.
 (define EXPIRATIONS (make-heap (lambda (x y) (<= (locative/expires x) (locative/expires y))))) ; Priority queue ordered by locative expiration time.
 (define REAPINGS 0) ; Total number of reapings to date.
+
+(define (motile/serialize/version) '(1 0 0)) ; major/minor/patch
 
 (define (export/statistics)
   (vector-immutable
@@ -431,7 +434,7 @@
        ; A persistent hash table v has the form #('<hash/persist> <equality> <hash> <root>) where:
        ;    <equality> and <hash> are Racket procedures for testing key equality and generating key hash codes respectively and
        ;    <root> is the root of the trie representing the hash table.
-       (list
+       (vector ;(list
         'H
         (cond
           ((hash/eq?  v) 'eq)
@@ -568,16 +571,36 @@
               (lambda (v n) (cons n (serialize-one v share #f))))]
             
             [final (serialize-one v share #t)])
+        
+        (vector
+         (motile/serialize/version) ; Version of serialization format.
+         (length serializeds)       ; Total number of shared objects.
+         serializeds                ; Serialized objects in order of depth-first tour.
+         fixups
+         final)))))
 
-        (list '(2) ;; serialization-format version
-              0    ; Number of distinct structure types. Unused in Motile and just temporary.
-              null ; List of distinct structure types. Unused in Motile and just temporary.
-              (length serializeds)
-              serializeds ; The graph structure of the value.
-              fixups
-              final)))))
+;        (list '(2) ;; serialization-format version
+;              0    ; Number of distinct structure types. Unused in Motile and just temporary.
+;              null ; List of distinct structure types. Unused in Motile and just temporary.
+;              (length serializeds)
+;              serializeds ; The graph structure of the value.
+;              fixups
+;              final)))))
 
-(define (extract-version l)
+(define (flat/version x) (vector-ref x 0)) ; Version number of serialization format.
+(define (flat/total   x) (vector-ref x 1)) ; Total number of serialized objects.
+(define (flat/objects x) (vector-ref x 2)) ; The serialized objects.
+(define (flat/fixups  x) (vector-ref x 3)) ; Patches to account for shared objects.
+(define (flat/final   x) (vector-ref x 4)) ; The "final" object, that is, the object that was handed to motile/serialize.
+
+(define (flat/ok? x)
+  (and
+   (vector? x)
+   (= (vector-length x) 5)
+   (list? (flat/version x))
+   (exact-nonnegative-integer? (flat/total x))))
+
+        (define (extract-version l)
   (if (pair? (car l))
       (values (caar l) (cdr l)) ; Values are <version> and (<unused_1> null <serializeds/length> <serializeds> <fixups> <final>) respectively.
       (values 0 l)))
@@ -633,7 +656,7 @@
        (bytes->immutable-bytes v)]
 
       [else
-       (case (car v)
+       (case (if (vector? v) (vector-ref v 0) (car v))
          [(?) (lookup-shared! share (cdr v) procedures)] ; (? . i) where i is index into share
 
          [(void) (void)]                      ; (void)
@@ -660,9 +683,9 @@
 ;                   ((eqv)   (values eqv?   eqv-hash-code))
 ;                   ((equal) (values equal? equal-hash-code)))])
 ;            (hash/construct equality hasher (loop (caddr v))))]
-         [(H) ; (H <equality> <key/value vector>)
-          (let ((contents (caddr v))
-                (equality (cadr v)))
+         [(H) ; #(H <equality> <key/value vector>).  (H <equality> <key/value vector>)
+          (let ((contents (vector-ref v 2)) ;(caddr v))
+                (equality (vector-ref v 1))) ;(cadr v)))
             (vector/hash
              (case equality
                ((eq)    hash/eq/null)
@@ -793,11 +816,15 @@
           (vector-set! fixup n (lambda (b) (set-box! reconstruction (unbox b))))
           reconstruction)])]))
 
-(define (deserialize-with-map version l procedures)
-  (let ([share/n (list-ref l 2)]  ; <serializeds/length>
-        [shares  (list-ref l 3)]  ; <serializeds>
-        [fixups  (list-ref l 4)]  ; The fixups, an association list of ((<id> . <serial>) ...) in ascending order of the share-id.
-        [final   (list-ref l 5)])
+(define (deserialize-with-map version flat procedures)
+  (let ([share/n (flat/total flat)]
+        [shares  (flat/objects flat)]
+        [fixups  (flat/fixups flat)]
+        [final   (flat/final flat)])
+;  (let ([share/n (list-ref l 2)]  ; <serializeds/length>
+;        [shares  (list-ref l 3)]  ; <serializeds>
+;        [fixups  (list-ref l 4)]  ; The fixups, an association list of ((<id> . <serial>) ...) in ascending order of the share-id.
+;        [final   (list-ref l 5)])
     ; Create vector for sharing:
     (let* ([fixup (make-vector share/n #f)]
            [unready (make-not-ready (list->vector shares) fixup)]
@@ -831,15 +858,27 @@
 ;;   structure and whose values are the reconstituted closure descriptors embedded in the flat representation.
 ;;   The keys are effectively an enumeration of every closure contained in the live structure and the descriptors contain
 ;;   both the abstract assembly code for each closure as well as the the closed variables bindings for each closure.
+;(define (motile/deserialize flat procedures?)
+;  (let-values ([(version flat) (extract-version flat)])
+;    ; At this point version is a small positive integer and flat = (<unused> null <serializeds/length> <serializeds> <fixups> <final>).
+;    ; The first two elements of flat are historical artifacts and will be removed in a future version of serialize/deserialize.
+;    (let* ((procedures (make-hasheq))
+;           (outcome    (deserialize-with-map version flat procedures)))
+;      (if procedures?
+;          (cons outcome procedures)
+;          outcome))))
+
 (define (motile/deserialize flat procedures?)
-  (let-values ([(version flat) (extract-version flat)])
-    ; At this point version is a small positive integer and flat = (<unused> null <serializeds/length> <serializeds> <fixups> <final>).
-    ; The first two elements of flat are historical artifacts and will be removed in a future version of serialize/deserialize.
-    (let* ((procedures (make-hasheq))
-           (outcome    (deserialize-with-map version flat procedures)))
-      (if procedures?
-          (cons outcome procedures)
-          outcome))))
+  (if (flat/ok? flat)
+      (let ((version (flat/version flat)))
+        (if (equal? version (motile/serialize/version))
+            (let* ((procedures (make-hasheq))
+                   (outcome (deserialize-with-map version flat procedures)))
+              (if procedures?
+                  (cons outcome procedures)
+                  outcome))
+            (error 'motile/deserialize "unknown version")))
+      (error 'motile/deserialize "unknown format")))
 
 ;(define (deserialize flat globals procedures?)
 ;  (let-values ([(version flat) (extract-version flat)])
@@ -870,12 +909,18 @@
 
 ;; ----------------------------------------
 
-(define (motile/serialized/equal? v l1 l2)
-  (let-values ([(version1 l1) (extract-version l1)]
-               [(version2 l2) (extract-version l2)])
-    (let ([v1 (deserialize-with-map version1 l1)]
-          [v2 (deserialize-with-map version2 l2)])
-      (equal? v1 v2))))
+;(define (motile/serialized/equal? v l1 l2)
+;  (let-values ([(version1 l1) (extract-version l1)]
+;               [(version2 l2) (extract-version l2)])
+;    (let ([v1 (deserialize-with-map version1 l1)]
+;          [v2 (deserialize-with-map version2 l2)])
+;      (equal? v1 v2))))
+
+;; Test two serializations flat_1 and flat_2 for equality.
+(define (motile/serialized/equal? flat_1 flat_2)
+  (let ([v_1 (motile/deserialize flat_1 #f)]
+        [v_2 (motile/deserialize flat_2 #f)])
+    (equal? v_1 v_2)))
 
 
 
