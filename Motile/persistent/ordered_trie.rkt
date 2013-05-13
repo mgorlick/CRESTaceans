@@ -117,7 +117,7 @@
 ;; pairs for serialization in exactly in the same order. To do this we associate an order = 0, 1, ... with each key/value
 ;; pair and then present the key/value pairs to the serializer in insertion order. The insertion order may contain
 ;; holes (as a consequence of deletions) but all we care is that the order is monotonically increasing.
-(struct trie/pair (order key value)) ; A key/value pair.
+(struct trie/pair (order key value) #:transparent) ; A key/value pair.
 
 (define (trie/pair/new key value) (trie/pair (counter/shared) key value))
 
