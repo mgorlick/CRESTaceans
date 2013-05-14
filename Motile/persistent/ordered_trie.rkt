@@ -633,7 +633,7 @@
 (define (trie/for-each x f)
   (let loop ((item x))
     (cond
-      ((trie/pair? item) (f (trie/pair-key item) (trie/pair-value)))
+      ((trie/pair? item) (f (trie/pair-key item) (trie/pair-value item)))
 
       ((trie? item)
        ; Visit each slot of the trie.

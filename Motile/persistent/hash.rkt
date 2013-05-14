@@ -305,11 +305,15 @@
      hasher
      (trie/flat/fold map trie/empty (hash/root h)))))
 
-;; Apply function f to each key/value pair in h and discard all results.
+;; Apply function f, as (f key value) to each key/value pair in h and discard all results.
+;(define (hash/for-each h f)
+;  (cond [(hash/empty? h) (void)]
+;        [else (f (hash/car h))
+;              (hash/for-each (hash/cdr h) f)]))
+
+;; Apply function f, as (f key value) to each key/value pair in h and discard all results.
 (define (hash/for-each h f)
-  (cond [(hash/empty? h) (void)]
-        [else (f (hash/car h))
-              (hash/for-each (hash/cdr h) f)]))
+  (trie/for-each (hash/root h) f))
 
 ;; Return a hash table containing only those key/value pairs in h for which (p key value) is true.
 (define (hash/filter h p)
@@ -461,4 +465,5 @@
 ;      (k . 11) (l . 12) (m . 13) (n . 14) (o . 15) (p . 16) (q . 17) (r . 18) (s . 19) (t . 20)
 ;      (u . 21) (v . 22) (w . 23) (x . 24) (y . 25) (z . 26))))
 
-
+(define (hash/for-each/test)
+  (hash/for-each h/26 (lambda (k v) (write (cons k v)) (newline))))
