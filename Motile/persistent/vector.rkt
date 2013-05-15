@@ -22,7 +22,8 @@
  vector/map
  vector/ref
  vector/subvector
- vector/update)
+ vector/update
+ vector=>vector/racket)
 
 ;; Copyright 2010 Michael M. Gorlick
 
@@ -390,6 +391,11 @@
 (define (vector/list v)
   (vector/fold/right v (lambda (x tail) (cons x tail)) null))
 
+(define (vector=>vector/racket v)
+  (let ((r (make-vector (vector/length v) #f)))
+    (vector/fold/left v (lambda (x i) (vector-set! r i x) (add1 i)) 0)
+    r))
+
 (define vector/subvector
   (case-lambda
     ((v from)
@@ -438,11 +444,11 @@
 ;              (loop (- shift 5) (vector-ref root i) 0 (vector-length (vector-ref root i)))
 ;              (loop shift root (add1 i) n))))))
 ;  
-;(define x (list/vector 
+;(define x (list/vector vector/null
 ;           '(0 1 2 3 4 5 6 7 8 9
 ;               10 11 12 13 14 15 16 17 18 19
 ;               20 21 22 23 24 25 26 27 28 29
-;               30 31)))
+;               30 31 32 33 34 35 36 37 38 39)))
 ;  
 ;  (define y (list/vector (build-list 1080 (lambda (i) i))))
 ;  (define vepersist/10000 (vector/build 10000 (lambda (i) i)))
