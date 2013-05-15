@@ -52,7 +52,7 @@
  ; Hash table deconstructors.
  hash=>list
  hash=>pairs
- hash=>vector
+ hash=>vector/racket
  hash/insertion=>vector
  hash/keys
  hash/values
@@ -202,7 +202,7 @@
 
 ;; Given the hash contents of h as k_0/v_0, ..., k_N/v_N return
 ;; #(k_0 v_0 ... k_N v_N).
-(define (hash=>vector h)
+(define (hash=>vector/racket h)
   (let* ((n (hash/length h))
          (v (make-vector (* 2 n) #f)))
     (hash/fold
@@ -458,7 +458,7 @@
 (define (hash/vector/test)
   (let ((less? (lambda (alpha beta)
                  (string<? (symbol->string (car alpha)) (symbol->string (car beta)))))
-        (v (hash=>vector h/26)))
+        (v (hash=>vector/racket h/26)))
     
     (sort (vector/pairs v) less?)))
 ;    '((a . 1) (b . 2) (c . 3) (d . 4) (e . 5) (f . 6) (g . 7) (h . 8) (i . 9) (j . 10)

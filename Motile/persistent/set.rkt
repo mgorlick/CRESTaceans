@@ -43,7 +43,7 @@
  set/difference
  set/filter
  set/partition
- set/vector
+ set=>vector/racket
  vector/set
  
  ; Exported for the sake of serialize/deserialize.
@@ -132,7 +132,7 @@
   ;(pairs/fold (lambda (pair seed) (cons (car pair) seed)) null (set/root s)))
 
 ;; Convert set s to a Racket vector with one set element per slot.
-(define (set/vector s)
+(define (set=>vector/racket s)
   (let* ((n (set/length s))
          (v (make-vector n #f)))
     (set/fold

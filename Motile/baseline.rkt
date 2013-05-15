@@ -534,7 +534,7 @@
     (define/global/3 'vector-set!   vector-set!)
     
     ; Testing serialization of hosh tables.
-    (define/global/1 'hash=>vector   hash=>vector) ; Converts persistent hash table to flat Racket vector.
+    (define/global/1 'hash=>vector/racket   hash=>vector/racket) ; Converts persistent hash table to flat Racket vector.
     
     ; For simple test output.
     (define/global/N 'sleep          sleep)
