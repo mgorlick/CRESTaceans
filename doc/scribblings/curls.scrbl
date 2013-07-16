@@ -8,7 +8,7 @@
 @title[#:tag "curls"]{Capability URL (CURL)}
          
 
-@defproc[(curl/new/any [l locative?] [path (listof symbol?)] [meta (or/c #f (and/c hash/persist? hash/eq?))] [lifespan list? null]) (or/c #f curl?)]{Creates a new unsigend CURL derived from locative @racket[l] on the following conditions: locative @racket[l] must not be expired nor revoked; the @racket[lifespan] of the new CURL (expressed in seconds and included as the first element of list @racket[lifespan]) must be equal to or smaller that the expiration of locative @racket[l]; and @racket[locative/sends/positive?] must not be @racket[#f], meaning that there are still sends allowed to this locative. Otherwise it returns @racket[#f].
+@defproc[(curl/new/any [l locative?] [path (listof symbol?)] [meta (or/c #f (and/c hash/persist? hash/eq?))] [lifespan list? null]) (or/c #f curl?)]{Creates a new unsigned CURL derived from locative @racket[l] on the following conditions: locative @racket[l] must not be expired nor revoked; the @racket[lifespan] of the new CURL (expressed in seconds and included as the first element of list @racket[lifespan]) must be equal to or smaller that the expiration of locative @racket[l]; and @racket[locative/sends/positive?] must not be @racket[#f], meaning that there are still sends allowed to this locative. Otherwise it returns @racket[#f].
                                                                        
 The null @racket[path] is equivalent the path name @racket[/]. The path @racket[(s_1 s_2 ... s_n)] is equivalent to the path name @racket[/s_1/s_2/.../s_n].} 
                                                               

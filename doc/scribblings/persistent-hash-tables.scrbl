@@ -49,7 +49,7 @@
                                                   but without the key/value pair indexed by @racket[key].}
 
 
-@defproc[(hash/vector/remove [hash hash/persist?][keys vector?]) hash/persist?]{Produces a new persistent hash table @racket[hash\'] whose contents are identlical to @racket[hash] but without the key/value pairs indexed by the contents of vector @racket[keys].}
+@defproc[(hash=>vector/remove [hash hash/persist?][keys vector?]) hash/persist?]{Produces a new persistent hash table @racket[hash\'] whose contents are identlical to @racket[hash] but without the key/value pairs indexed by the contents of vector @racket[keys].}
 
 
 @defproc[(hash/merge [hash1 hash/persist?]
@@ -58,11 +58,13 @@
                                              @racket[hash1] will replace the corresponding key/value pair in @racket[hash1]. The length of the 
                                              resulting hash table will be at most @racket[(+ (hash/length hash1) (hash/length hash2))].}
                      
-@defproc[(hash/list [hash hash/persist?]) list?]{Returns a list of the values of @racket[hash] in an unspecified order.}
+@defproc[(hash=>list [hash hash/persist?]) list?]{Returns a list of the values of @racket[hash] in an unspecified order.}
 
-@defproc[(hash/pairs [hash hash/persist?]) list?]{Returns an association list ((k_0 . v_0) ...) of key/value pairs within @racket[hash].}
+@defproc[(hash=>pairs [hash hash/persist?]) list?]{Returns an association list ((k_0 . v_0) ...) of key/value pairs within @racket[hash].}
 
-@defproc[(hash/vector [hash hash/persist?]) vector?]{Returns a vector #(k_0 v_0 ... k_{n-1} v_{n-1}) of key/value pairs within @racket[hash].}
+@defproc[(hash=>vector [hash hash/persist?]) vector?]{Returns a vector #(k_0 v_0 ... k_{n-1} v_{n-1}) of key/value pairs within @racket[hash].}
+
+@defproc[(hash/insertion=>vector [hash hash/persist?]) vector?]{Return the contents of @racket[hash] as @racket[#(k_1 v_1 ... k_n v_n)] but respect the insertion order of the key/value pairs @racket[k_i/v_i], that is, @racket[k_i v_i] precedes @racket[k_j v_j if k_i/v_i] were added to the hash table before @racket[k_j/v_j].}
 
 @defproc[(hash/keys [hash hash/persist?]) list?]{Returns the set of keys in @racket[hash] as a list.}
 
@@ -97,11 +99,11 @@
                                                
 @defproc[(hash/fold [hash hash/persist?]
                     [proc procedure?]
-                    [seed any/c]) any/c]{Fold function @racket[proc] with @racket[seed] over all pairs in persistent hash table @racket[hash].}
+                    [seed any/c]) any/c]{Fold function @racket[proc] with @racket[seed] over all pairs in persistent hash table @racket[hash].@racket[f] accepts three arguments: key, value, and the most recently computed seed.}
   
                                         
 @defproc[(hash/map [hash hash/persist?] 
-                   [proc procedure?]) hash/persist?]{Applies @racket[proc] to each key/value pair in @racket[hash]. The @racket[proc] function takes a single argument. The result is a persistent hash map containing the results.}
+                   [proc procedure?]) hash/persist?]{Apply function @racket[f] to each key/value pair in @racket[h] and return a hash table containing the results. @racket[f] accepts two arguments, a key and a value.}
 
 
 @defproc[(hash/for-each [hash hash/persist?] 
@@ -109,11 +111,11 @@
 
 @defproc[(hash/filter [hash hash/persist?] 
                    [proc procedure?]) hash/persist?]{Returns a persistent hash table containing only those key/value pairs in @racket[hash] for 
-                                                     which @racket[(proc pair)] is @racket[#t].}
+                                                     which @racket[(proc key value)] is @racket[#t].}
                                                   
 @defproc[(hash/partition [hash hash/persist?] 
                    [proc procedure?]) hash/persist?]{Returns a pair of hash tables (hash-true . hash-false) in which hash table hash-true contains only 
                                                      those pairs of @racket[hash] for which predicate @racket[proc] returns @racket[#t] 
-                                                     and hash table hash-false contains only those pairs of @racket[hash]for which predicate @racket[proc] returns @racket[#f].}
+                                                     and hash table hash-false contains only those pairs of @racket[hash]for which predicate @racket[proc] returns @racket[#f]. @racket[proc] is a predicate of two arguments @racket[(proc key value)].}
                                                     
                                                    

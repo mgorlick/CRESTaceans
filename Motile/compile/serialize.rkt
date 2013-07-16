@@ -63,7 +63,7 @@
   set/hash
   set/root
   ;set/construct
-  set/vector
+  set=>vector/racket
   vector/set)
  
  (only-in "../persistent/vector.rkt" vector/persist?)
@@ -455,7 +455,7 @@
           ((set/eqv? v) 'eqv)
           (else         'equal))
         ;(serial (set/root v) #t))]
-        (serial (set/vector v) #t))]
+        (serial (set=>vector/racket v) #t))]
 
       [(curl? v)
        ;(log-info (format "motile/serialize: saw curl: ~a\n\n" (curl/pretty v)))

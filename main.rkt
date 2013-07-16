@@ -18,7 +18,7 @@
                     set/hash
                     set/root
                     set/construct)
-         (except-in "./Motile/persistent/trie.rkt"
+         (except-in "./Motile/persistent/ordered_trie.rkt"
                     define-inline
                     define-accessor)
          "./Motile/persistent/tuple.rkt"
@@ -46,14 +46,14 @@
          (except-in "./Motile/actor/promise.rkt"
                     PROMISSARY)
          "./Motile/generate/baseline.rkt"
-         "./Motile/compile/compile.rkt";;;may be removed
+         "./Motile/compile/compile.rkt"
          "./Motile/compile/serialize.rkt"
          "./peer/src/api/framework.rkt")
 
 (provide (all-from-out "./Motile/baseline.rkt"
                        "./Motile/persistent/hash.rkt"
                        "./Motile/persistent/set.rkt"
-                       "./Motile/persistent/trie.rkt"
+                       "./Motile/persistent/ordered_trie.rkt"
                        "./Motile/persistent/tuple.rkt"
                        "./Motile/persistent/vector.rkt"
                        "./Motile/persistent/environ.rkt"
@@ -67,6 +67,6 @@
                        "./Motile/actor/send.rkt"
                        "./Motile/actor/promise.rkt"
                        "./Motile/generate/baseline.rkt"
-                       "./Motile/compile/compile.rkt" ;;;may be removed
+                       "./Motile/compile/compile.rkt"
                        "./Motile/compile/serialize.rkt"
                        "./peer/src/api/framework.rkt"))

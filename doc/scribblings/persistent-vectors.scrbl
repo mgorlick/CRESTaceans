@@ -79,3 +79,6 @@ Returns a fresh persisntent vector with the elements of @racket[vec] for which @
                         [i natural/exact?] 
                         [v any/c]) vector/persist?]{Sets the value at index @racket[i] of vector @racket[vec] to @racket[v].}
           
+
+@defproc[(vector=>vector/racket [vec vector/persist?]) vector?]{Converts a Motile persistent vector @racket[vec] into a Racket vector.}
+   
