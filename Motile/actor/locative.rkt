@@ -173,7 +173,7 @@
 ;; Set the whitelist of actors permitted to execute a curl/new against locative x.
 (define (locative/curl/authority! x actors)
   (assert/type x locative? locative/curl/authority! "locative")
-  (assert/type x (lambda (y) (andmap actor? y)) locative/curl/authority! "list[actor]")
+  (assert/type actors (lambda (a) (andmap actor? a)) locative/curl/authority! "list[actor]")
   (when (not (locative/curl/authority x))
     (vector-set! x 10 (list->vector actors))))
 
